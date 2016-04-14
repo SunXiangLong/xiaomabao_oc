@@ -1,0 +1,86 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++4784",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++7883" : {
+
+    },
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++7317" : {
+
+    },
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++516" : {
+
+    },
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++5475" : {
+
+    },
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++4784" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++7883" : 0,
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++7317" : 0,
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++516" : 0,
+    "F52F2092D484FB4C0846925691967D1B24A2ACAB" : 0,
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++5475" : 0,
+    "C591FB2FCA337E85FF621873FDA392F985525B29" : 0,
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++4784" : 0,
+    "B5A0AC63F586F9370D68B087415DD842E029FA3B" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "CED9067E-06D8-46F6-96D1-F95C9907C3E2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++7883" : "xioamabao_ios\/",
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++7317" : "iOS_xiaomabao_app\/",
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++516" : "xioamabao_ios_%202015-12%EF%BC%8D18\/",
+    "F52F2092D484FB4C0846925691967D1B24A2ACAB" : "XiaoMaBao",
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++5475" : "xiamabao_ios\/",
+    "C591FB2FCA337E85FF621873FDA392F985525B29" : "XiaoMaBao2",
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++4784" : "xioamabao_ios_2.17\/",
+    "B5A0AC63F586F9370D68B087415DD842E029FA3B" : "XiaoMaBao_v2"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "XiaoMaBao",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "XiaoMaBao.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/172.16.1.4",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++4784"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/172.16.1.4",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++516"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/172.16.1.4",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++5475"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/172.16.1.4",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++7317"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/172.16.1.4",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++7883"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/git.oschina.net\/hcrazy\/XiaoMaBao_v2.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B5A0AC63F586F9370D68B087415DD842E029FA3B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/code.jd.com\/13220168837_p\/XiaoMaBao2.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C591FB2FCA337E85FF621873FDA392F985525B29"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/git.oschina.net\/withkoney\/XiaoMaBao.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F52F2092D484FB4C0846925691967D1B24A2ACAB"
+    }
+  ]
+}

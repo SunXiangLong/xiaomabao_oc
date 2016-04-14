@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MBClubFollowerTableViewCell" rowHeight="53" id="KGk-i7-Jjw" customClass="MBClubFollowerTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="52.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MP7-1I-GYr">
+                        <rect key="frame" x="24" y="8" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="2cp-UA-Kvx"/>
+                            <constraint firstAttribute="width" constant="40" id="vYJ-FX-9te"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="string" keyPath="borderHexRgb" value="63a3c6"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="麻包的辣辣妈^-^" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gll-Nr-fVk">
+                        <rect key="frame" x="78" y="0.0" width="100" height="53"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textHexColor" value="63a3c6"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RPr-tH-JVu">
+                        <rect key="frame" x="185" y="19" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="MFH-yv-XHS"/>
+                            <constraint firstAttribute="height" constant="15" id="P4y-gt-rhO"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="snV-qb-DBv">
+                        <rect key="frame" x="252" y="16" width="60" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="5T0-yg-OrT"/>
+                            <constraint firstAttribute="height" constant="20" id="o4A-vc-3AP"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <state key="normal" title="+关注">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="hexRgbColor" value="63a3c6"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="MP7-1I-GYr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="3Uc-dh-ne1"/>
+                    <constraint firstItem="RPr-tH-JVu" firstAttribute="leading" secondItem="gll-Nr-fVk" secondAttribute="trailing" constant="7.5" id="3p2-uO-Fpm"/>
+                    <constraint firstAttribute="bottom" secondItem="gll-Nr-fVk" secondAttribute="bottom" id="4S3-5I-fPp"/>
+                    <constraint firstItem="gll-Nr-fVk" firstAttribute="leading" secondItem="MP7-1I-GYr" secondAttribute="trailing" constant="14" id="DCY-kp-qwk"/>
+                    <constraint firstAttribute="centerY" secondItem="MP7-1I-GYr" secondAttribute="centerY" constant="-1.75" id="EMe-ru-DGB"/>
+                    <constraint firstAttribute="centerY" secondItem="RPr-tH-JVu" secondAttribute="centerY" constant="-0.75" id="UP4-mm-0q2"/>
+                    <constraint firstAttribute="centerY" secondItem="snV-qb-DBv" secondAttribute="centerY" id="Voa-z2-alP"/>
+                    <constraint firstItem="gll-Nr-fVk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fq8-9N-gUI"/>
+                    <constraint firstAttribute="trailing" secondItem="snV-qb-DBv" secondAttribute="trailing" constant="8" id="yXt-Go-Rib"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="startBtn" destination="snV-qb-DBv" id="bPq-Qe-Zav"/>
+            </connections>
+            <point key="canvasLocation" x="209" y="308.5"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MBPayResultsHeadView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NUc-zZ-VRA">
+                    <rect key="frame" x="8" y="49" width="312" height="1"/>
+                    <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Nti-US-ChX"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="XQY-0l-Yfw"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="b8X-cC-aVs">
+                    <rect key="frame" x="8" y="5" width="39" height="39"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="b8X-cC-aVs" secondAttribute="height" multiplier="1:1" id="BKo-fo-EIr"/>
+                        <constraint firstAttribute="width" constant="39" id="r8O-mQ-g16"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="奶牛妈妈产后修复店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoQ-x6-ahR">
+                    <rect key="frame" x="61" y="15.5" width="144" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="b8X-cC-aVs" firstAttribute="width" secondItem="b8X-cC-aVs" secondAttribute="height" multiplier="1:1" id="0oM-On-H9U"/>
+                <constraint firstItem="NUc-zZ-VRA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="CiP-aQ-q0z"/>
+                <constraint firstItem="CoQ-x6-ahR" firstAttribute="leading" secondItem="b8X-cC-aVs" secondAttribute="trailing" constant="14" id="NVg-UG-GjS"/>
+                <constraint firstItem="b8X-cC-aVs" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="UdA-tD-L7b"/>
+                <constraint firstItem="b8X-cC-aVs" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="YIW-j8-Hky"/>
+                <constraint firstItem="CoQ-x6-ahR" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="f02-gv-NiG"/>
+                <constraint firstAttribute="trailing" secondItem="NUc-zZ-VRA" secondAttribute="trailing" id="hVR-QN-2dl"/>
+                <constraint firstAttribute="bottom" secondItem="NUc-zZ-VRA" secondAttribute="bottom" id="wNU-gm-J9X"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="shop_image" destination="b8X-cC-aVs" id="oGF-EF-i75"/>
+                <outlet property="shop_name" destination="CoQ-x6-ahR" id="nzx-fK-gIy"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="placeholder_num2" width="66" height="66"/>
+    </resources>
+</document>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Jwm-cT-RsZ" customClass="headView1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="158"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_image" translatesAutoresizingMaskIntoConstraints="NO" id="vKi-o8-Bed">
+                    <rect key="frame" x="0.0" y="8" width="320" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="YDD-ob-6dI"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XmZ-Oj-OgX">
+                    <rect key="frame" x="0.0" y="108" width="320" height="50"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="来自 北京 Angel's 3岁6个月2周 小萌男" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kaz-9H-dTY">
+                            <rect key="frame" x="93" y="8" width="219" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.64705882349999999" green="0.2470588235" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Kaz-9H-dTY" secondAttribute="trailing" constant="8" id="Als-mi-olW"/>
+                        <constraint firstAttribute="height" constant="50" id="a9F-Tx-3cb"/>
+                        <constraint firstItem="Kaz-9H-dTY" firstAttribute="top" secondItem="XmZ-Oj-OgX" secondAttribute="top" constant="8" id="dD3-jg-prM"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xy0-TN-GNQ">
+                    <rect key="frame" x="10" y="70" width="75" height="75"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="UfP-md-ukX">
+                            <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="crame_image" translatesAutoresizingMaskIntoConstraints="NO" id="TJv-32-H2f">
+                            <rect key="frame" x="5" y="55" width="15" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="15" id="kXb-ab-uhM"/>
+                                <constraint firstAttribute="width" constant="15" id="oaW-dP-glk"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="TJv-32-H2f" secondAttribute="bottom" constant="5" id="Fka-0W-p2l"/>
+                        <constraint firstAttribute="height" constant="75" id="I6t-jm-xZF"/>
+                        <constraint firstAttribute="bottom" secondItem="UfP-md-ukX" secondAttribute="bottom" id="L9X-im-FUt"/>
+                        <constraint firstAttribute="width" constant="75" id="avd-46-0RI"/>
+                        <constraint firstItem="TJv-32-H2f" firstAttribute="leading" secondItem="xy0-TN-GNQ" secondAttribute="leading" constant="5" id="m5R-4d-2jQ"/>
+                        <constraint firstItem="UfP-md-ukX" firstAttribute="top" secondItem="xy0-TN-GNQ" secondAttribute="top" id="qlo-i4-z5c"/>
+                        <constraint firstAttribute="trailing" secondItem="UfP-md-ukX" secondAttribute="trailing" id="xfp-tD-jec"/>
+                        <constraint firstItem="UfP-md-ukX" firstAttribute="leading" secondItem="xy0-TN-GNQ" secondAttribute="leading" id="zrT-EW-Gjp"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="芝麻：Allen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUc-eH-QHk">
+                    <rect key="frame" x="93" y="83" width="74" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="XmZ-Oj-OgX" firstAttribute="leading" secondItem="Jwm-cT-RsZ" secondAttribute="leading" id="28N-2Z-fVe"/>
+                <constraint firstItem="vKi-o8-Bed" firstAttribute="leading" secondItem="Jwm-cT-RsZ" secondAttribute="leading" id="3vs-JP-sIF"/>
+                <constraint firstItem="Kaz-9H-dTY" firstAttribute="leading" secondItem="UfP-md-ukX" secondAttribute="trailing" constant="8" id="4MB-Sm-GKw"/>
+                <constraint firstAttribute="trailing" secondItem="vKi-o8-Bed" secondAttribute="trailing" id="DJV-Na-lUN"/>
+                <constraint firstItem="XmZ-Oj-OgX" firstAttribute="top" secondItem="KUc-eH-QHk" secondAttribute="bottom" constant="8" id="DrX-mo-hPZ"/>
+                <constraint firstItem="vKi-o8-Bed" firstAttribute="top" secondItem="Jwm-cT-RsZ" secondAttribute="top" constant="8" id="Fc1-pU-RoY"/>
+                <constraint firstItem="XmZ-Oj-OgX" firstAttribute="top" secondItem="vKi-o8-Bed" secondAttribute="bottom" id="VZO-Ig-onw"/>
+                <constraint firstAttribute="bottom" secondItem="xy0-TN-GNQ" secondAttribute="bottom" constant="15" id="Zau-7J-ruf"/>
+                <constraint firstAttribute="trailing" secondItem="XmZ-Oj-OgX" secondAttribute="trailing" id="duI-fL-yHA"/>
+                <constraint firstItem="xy0-TN-GNQ" firstAttribute="leading" secondItem="Jwm-cT-RsZ" secondAttribute="leading" constant="10" id="uLU-qz-QVI"/>
+                <constraint firstItem="KUc-eH-QHk" firstAttribute="leading" secondItem="UfP-md-ukX" secondAttribute="trailing" constant="8" id="zhH-e4-FZr"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="namelable" destination="KUc-eH-QHk" id="TsA-tr-hu7"/>
+                <outlet property="shuoming" destination="Kaz-9H-dTY" id="cyK-wF-r8X"/>
+                <outlet property="touxiang" destination="UfP-md-ukX" id="Lsr-Nd-45l"/>
+            </connections>
+            <point key="canvasLocation" x="321" y="177"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="background_image" width="320" height="89"/>
+        <image name="crame_image" width="21" height="21"/>
+        <image name="placeholder_num2" width="66" height="66"/>
+    </resources>
+</document>

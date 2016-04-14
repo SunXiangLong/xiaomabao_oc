@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MBMyTableViewCell" id="KGk-i7-Jjw" customClass="MBMyTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SG1-EV-937">
+                        <rect key="frame" x="49" y="0.0" width="35.5" height="43.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="next" translatesAutoresizingMaskIntoConstraints="NO" id="t8M-9W-4Ch">
+                        <rect key="frame" x="294" y="17" width="10" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="10" id="STK-Yj-ucr"/>
+                            <constraint firstAttribute="height" constant="10" id="mKO-Dw-STz"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mIM-Q4-jvz">
+                        <rect key="frame" x="16" y="15" width="13" height="13"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="13" id="ED5-1D-sBH"/>
+                            <constraint firstAttribute="width" constant="13" id="Pea-gG-Zvd"/>
+                        </constraints>
+                    </imageView>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="400-000-0000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z86-NR-Xgv">
+                        <rect key="frame" x="183.5" y="0.0" width="85" height="43.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textHexColor" value="e8465e"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="z86-NR-Xgv" firstAttribute="bottom" secondItem="SG1-EV-937" secondAttribute="bottom" id="9pd-ae-me1"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="t8M-9W-4Ch" secondAttribute="trailing" constant="8" id="Ge6-aN-WIA"/>
+                    <constraint firstItem="t8M-9W-4Ch" firstAttribute="leading" secondItem="z86-NR-Xgv" secondAttribute="trailing" constant="25" id="Vxn-od-xEU"/>
+                    <constraint firstItem="SG1-EV-937" firstAttribute="leading" secondItem="mIM-Q4-jvz" secondAttribute="trailing" constant="20" id="YhY-Gd-Z06"/>
+                    <constraint firstAttribute="bottom" secondItem="SG1-EV-937" secondAttribute="bottom" id="deN-Hr-Tdg"/>
+                    <constraint firstAttribute="centerY" secondItem="t8M-9W-4Ch" secondAttribute="centerY" id="e0J-IG-9r4"/>
+                    <constraint firstItem="z86-NR-Xgv" firstAttribute="top" secondItem="SG1-EV-937" secondAttribute="top" id="iRp-ZQ-EP4"/>
+                    <constraint firstItem="mIM-Q4-jvz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="mDO-bg-SFd"/>
+                    <constraint firstItem="SG1-EV-937" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="nlF-od-16H"/>
+                    <constraint firstAttribute="centerY" secondItem="mIM-Q4-jvz" secondAttribute="centerY" id="xB1-Fi-6cv"/>
+                    <constraint firstAttribute="centerX" secondItem="mIM-Q4-jvz" secondAttribute="centerX" constant="126" id="yrg-rM-1Sy"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="yrg-rM-1Sy"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="iconImageView" destination="mIM-Q4-jvz" id="xMi-MI-u36"/>
+                <outlet property="phoneLbl" destination="z86-NR-Xgv" id="otn-Xc-pmh"/>
+                <outlet property="titleLbl" destination="SG1-EV-937" id="HC2-mR-VfP"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="next" width="13" height="13"/>
+    </resources>
+</document>

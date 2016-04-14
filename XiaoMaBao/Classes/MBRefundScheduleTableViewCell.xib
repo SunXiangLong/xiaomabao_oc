@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MBRefundScheduleTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015-05-05" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8O-en-iHM">
+                        <rect key="frame" x="18" y="15" width="69.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16:32:03" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cG3-No-9DP">
+                        <rect key="frame" x="25" y="32.5" width="50.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gta-Di-0yh">
+                        <rect key="frame" x="107.5" y="2" width="1" height="75.5"/>
+                        <color key="backgroundColor" red="0.70588235294117652" green="0.70588235294117652" blue="0.70588235294117652" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="feY-Mz-THZ"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="hexRgbColor" value="d7d7d7"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="你的已订单申请成功，待售后审核中。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXb-bj-ldW">
+                        <rect key="frame" x="128.5" y="18" width="173.5" height="33.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="cG3-No-9DP" firstAttribute="top" secondItem="z8O-en-iHM" secondAttribute="bottom" constant="3" id="5Dd-5D-bDu"/>
+                    <constraint firstItem="rXb-bj-ldW" firstAttribute="leading" secondItem="gta-Di-0yh" secondAttribute="trailing" constant="20" id="bK1-BA-E8c"/>
+                    <constraint firstItem="rXb-bj-ldW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="hlU-i5-YBL"/>
+                    <constraint firstItem="z8O-en-iHM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="k6J-CY-6co"/>
+                    <constraint firstItem="gta-Di-0yh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="l17-pr-gHf"/>
+                    <constraint firstItem="z8O-en-iHM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="lPY-1U-D2E"/>
+                    <constraint firstItem="cG3-No-9DP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="17" id="mXC-r3-VWr"/>
+                    <constraint firstItem="gta-Di-0yh" firstAttribute="leading" secondItem="z8O-en-iHM" secondAttribute="trailing" constant="20" id="obg-kw-ssd"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="rXb-bj-ldW" secondAttribute="trailing" constant="10" id="rHu-tQ-la9"/>
+                    <constraint firstAttribute="bottom" secondItem="gta-Di-0yh" secondAttribute="bottom" constant="2" id="ydZ-pb-GJN"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="log_content" destination="rXb-bj-ldW" id="1Ow-mL-c8I"/>
+                <outlet property="log_time1" destination="z8O-en-iHM" id="Z37-CR-P6G"/>
+                <outlet property="log_time2" destination="cG3-No-9DP" id="03o-1f-N6N"/>
+            </connections>
+            <point key="canvasLocation" x="9" y="159"/>
+        </tableViewCell>
+    </objects>
+</document>

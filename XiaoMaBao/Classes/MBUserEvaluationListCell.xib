@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Jdg-Np-Uib" customClass="MBUserEvaluationListCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jdg-Np-Uib" id="TQu-va-Tdg">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="eJz-Gd-gx0">
+                        <rect key="frame" x="8" y="15" width="36" height="36"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="36" id="450-v2-wY0"/>
+                            <constraint firstAttribute="width" constant="36" id="xDT-n1-6fE"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="18"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Gfb-61-ouu" appends="YES" id="Xha-Sa-gyg"/>
+                        </connections>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="鸟语花香" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wp4-Y1-4SB">
+                        <rect key="frame" x="57" y="15" width="60" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016-03-24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSk-QP-aZT">
+                        <rect key="frame" x="242" y="18" width="69.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.66274509800000003" green="0.66274509800000003" blue="0.66274509800000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bUu-6O-dho">
+                        <rect key="frame" x="0.0" y="64" width="320" height="22.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hkt-Ep-l6d">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="奶牛妈妈们是一家很好的修复修复" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Duf-Wq-T3P">
+                        <rect key="frame" x="54" y="43" width="258" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.66274509800000003" green="0.66274509800000003" blue="0.66274509800000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XPe-pR-6aD">
+                        <rect key="frame" x="0.0" y="90.5" width="320" height="10"/>
+                        <color key="backgroundColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="9aa-08-nJM"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Duf-Wq-T3P" secondAttribute="trailing" constant="8" id="Iqb-qa-lxi"/>
+                    <constraint firstAttribute="bottom" secondItem="XPe-pR-6aD" secondAttribute="bottom" constant="-1" id="JIe-3G-AtX"/>
+                    <constraint firstItem="XPe-pR-6aD" firstAttribute="leading" secondItem="TQu-va-Tdg" secondAttribute="leading" id="LOK-YW-2ef"/>
+                    <constraint firstItem="wp4-Y1-4SB" firstAttribute="top" secondItem="TQu-va-Tdg" secondAttribute="top" constant="15" id="M9E-lK-mBa"/>
+                    <constraint firstItem="bUu-6O-dho" firstAttribute="leading" secondItem="TQu-va-Tdg" secondAttribute="leading" id="OCQ-V7-bU2"/>
+                    <constraint firstAttribute="trailing" secondItem="XPe-pR-6aD" secondAttribute="trailing" id="RAT-oE-P8B"/>
+                    <constraint firstAttribute="trailing" secondItem="tSk-QP-aZT" secondAttribute="trailing" constant="8" id="RBE-q7-C5c"/>
+                    <constraint firstItem="Duf-Wq-T3P" firstAttribute="top" secondItem="wp4-Y1-4SB" secondAttribute="bottom" constant="10" id="U3B-a6-3R5"/>
+                    <constraint firstAttribute="bottom" secondItem="bUu-6O-dho" secondAttribute="bottom" constant="13" id="Zle-qb-buJ"/>
+                    <constraint firstItem="bUu-6O-dho" firstAttribute="top" secondItem="Duf-Wq-T3P" secondAttribute="bottom" constant="4" id="jUj-pO-mgJ"/>
+                    <constraint firstItem="Duf-Wq-T3P" firstAttribute="leading" secondItem="eJz-Gd-gx0" secondAttribute="trailing" constant="10" id="nYa-KE-OWq"/>
+                    <constraint firstItem="tSk-QP-aZT" firstAttribute="bottom" secondItem="wp4-Y1-4SB" secondAttribute="bottom" id="o8z-41-1du"/>
+                    <constraint firstItem="eJz-Gd-gx0" firstAttribute="leading" secondItem="TQu-va-Tdg" secondAttribute="leading" constant="8" id="tG4-ME-amd"/>
+                    <constraint firstItem="wp4-Y1-4SB" firstAttribute="leading" secondItem="eJz-Gd-gx0" secondAttribute="trailing" constant="13" id="tnl-HD-XeT"/>
+                    <constraint firstItem="eJz-Gd-gx0" firstAttribute="top" secondItem="TQu-va-Tdg" secondAttribute="top" constant="15" id="uxz-zy-ERE"/>
+                    <constraint firstAttribute="trailing" secondItem="bUu-6O-dho" secondAttribute="trailing" id="xPy-dq-JVj"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="collectionView" destination="bUu-6O-dho" id="axh-cz-wM3"/>
+                <outlet property="showImageView" destination="eJz-Gd-gx0" id="0Ak-dE-W8r"/>
+                <outlet property="user_center" destination="Duf-Wq-T3P" id="eJh-cL-DRC"/>
+                <outlet property="user_name" destination="wp4-Y1-4SB" id="Zpj-qC-9mc"/>
+                <outlet property="user_time" destination="tSk-QP-aZT" id="QPk-7f-kAU"/>
+            </connections>
+            <point key="canvasLocation" x="257" y="156"/>
+        </tableViewCell>
+        <tapGestureRecognizer id="Gfb-61-ouu">
+            <connections>
+                <action selector="touxiangdianji:" destination="Jdg-Np-Uib" id="Q7T-u5-XA1"/>
+                <outlet property="delegate" destination="-1" id="YAb-bI-aMx"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="placeholder_num2" width="66" height="66"/>
+    </resources>
+</document>

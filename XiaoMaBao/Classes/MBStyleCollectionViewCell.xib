@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MBStyleCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="150" height="220"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="150" height="220"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tempShow_01" translatesAutoresizingMaskIntoConstraints="NO" id="F7E-F3-tKi">
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="F7E-F3-tKi" secondAttribute="height" multiplier="1:1" id="nhu-cJ-h9f"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="318.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpD-iN-4Xj">
+                        <rect key="frame" x="10" y="184" width="44.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.83921568627450982" green="0.0" blue="0.074509803921568626" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7.7折" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHJ-dS-8Bw">
+                        <rect key="frame" x="56" y="189" width="23.5" height="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="1" green="0.16463001460000001" blue="0.26893784059999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥318.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNg-ms-l8g">
+                        <rect key="frame" x="10" y="202" width="36" height="11"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y7o-EE-S9a">
+                        <rect key="frame" x="10" y="207" width="36" height="1"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="ASc-Ng-qTQ"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="荷兰没素（HeroBaby）婴幼儿奶粉 白金版1段（适合0-6个月）800克（跨境购）" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="syA-uj-xwh">
+                        <rect key="frame" x="10" y="155" width="130" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.57999999999999996" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="syA-uj-xwh" secondAttribute="trailing" constant="10" id="3TQ-l1-8Gx"/>
+                <constraint firstItem="Y7o-EE-S9a" firstAttribute="leading" secondItem="UNg-ms-l8g" secondAttribute="leading" id="3sh-mh-YW0"/>
+                <constraint firstItem="vpD-iN-4Xj" firstAttribute="top" secondItem="syA-uj-xwh" secondAttribute="bottom" constant="5" id="8q9-zv-Tci"/>
+                <constraint firstItem="vpD-iN-4Xj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="8to-3q-OII"/>
+                <constraint firstItem="AHJ-dS-8Bw" firstAttribute="leading" secondItem="vpD-iN-4Xj" secondAttribute="trailing" constant="2" id="92h-Nb-nE7"/>
+                <constraint firstItem="AHJ-dS-8Bw" firstAttribute="bottom" secondItem="vpD-iN-4Xj" secondAttribute="bottom" id="Bvr-K7-rh1"/>
+                <constraint firstItem="Y7o-EE-S9a" firstAttribute="width" secondItem="UNg-ms-l8g" secondAttribute="width" id="GHD-wz-163"/>
+                <constraint firstAttribute="bottom" secondItem="UNg-ms-l8g" secondAttribute="bottom" constant="7" id="Izu-la-2N7"/>
+                <constraint firstItem="Y7o-EE-S9a" firstAttribute="centerY" secondItem="UNg-ms-l8g" secondAttribute="centerY" id="b9N-T2-Ht1"/>
+                <constraint firstAttribute="trailing" secondItem="F7E-F3-tKi" secondAttribute="trailing" id="ldp-Jn-yfV"/>
+                <constraint firstItem="syA-uj-xwh" firstAttribute="top" secondItem="F7E-F3-tKi" secondAttribute="bottom" constant="5" id="pnY-Hv-9BN"/>
+                <constraint firstItem="UNg-ms-l8g" firstAttribute="top" secondItem="vpD-iN-4Xj" secondAttribute="bottom" constant="1" id="pom-Z0-8Aj"/>
+                <constraint firstItem="F7E-F3-tKi" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="qkd-eH-ATw"/>
+                <constraint firstItem="UNg-ms-l8g" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="unf-K9-d1c"/>
+                <constraint firstItem="F7E-F3-tKi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="w44-R9-ZKu"/>
+                <constraint firstItem="syA-uj-xwh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="zGc-jh-2ur"/>
+            </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                    <integer key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="string" keyPath="borderHexRgb" value="d7d7d7"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="discount" destination="AHJ-dS-8Bw" id="8cm-SX-U1b"/>
+                <outlet property="market_price" destination="UNg-ms-l8g" id="T5b-on-oGb"/>
+                <outlet property="org_price" destination="vpD-iN-4Xj" id="aSN-u9-kff"/>
+                <outlet property="shopNameLable" destination="syA-uj-xwh" id="iKH-lC-GOf"/>
+                <outlet property="showImageView" destination="F7E-F3-tKi" id="bgR-Ld-Fpb"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="tempShow_01" width="490" height="372"/>
+    </resources>
+</document>

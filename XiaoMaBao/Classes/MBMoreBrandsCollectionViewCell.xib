@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MBMoreBrandsCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N4n-R5-jCZ">
+                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="N4n-R5-jCZ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="dhO-2A-WhY"/>
+                <constraint firstAttribute="bottom" secondItem="N4n-R5-jCZ" secondAttribute="bottom" id="fHa-Lp-x1P"/>
+                <constraint firstItem="N4n-R5-jCZ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="hBg-kS-fmd"/>
+                <constraint firstAttribute="trailing" secondItem="N4n-R5-jCZ" secondAttribute="trailing" id="jPn-eT-cmE"/>
+            </constraints>
+            <connections>
+                <outlet property="showImageView" destination="N4n-R5-jCZ" id="thp-IS-ebo"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>

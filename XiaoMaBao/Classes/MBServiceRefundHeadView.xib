@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MBServiceRefundHeadView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单号：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b64-f8-vNt">
+                    <rect key="frame" x="8" y="10" width="64" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123456789" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9X7-k4-7n4">
+                    <rect key="frame" x="75" y="11" width="79.5" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.80392156859999997" green="0.80392156859999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h6X-pt-G6K">
+                    <rect key="frame" x="8" y="39" width="312" height="1"/>
+                    <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Xad-7S-rzf"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="h6X-pt-G6K" secondAttribute="trailing" id="B7d-fQ-L9F"/>
+                <constraint firstItem="9X7-k4-7n4" firstAttribute="leading" secondItem="b64-f8-vNt" secondAttribute="trailing" constant="3" id="XYy-bw-enx"/>
+                <constraint firstItem="h6X-pt-G6K" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="YDn-PZ-bBT"/>
+                <constraint firstAttribute="bottom" secondItem="h6X-pt-G6K" secondAttribute="bottom" id="ayt-AF-y8H"/>
+                <constraint firstItem="9X7-k4-7n4" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="bYg-6c-HU8"/>
+                <constraint firstItem="b64-f8-vNt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="i8W-ik-igG"/>
+                <constraint firstItem="b64-f8-vNt" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ivr-Y0-p2v"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="code" destination="9X7-k4-7n4" id="ak7-to-gLt"/>
+            </connections>
+            <point key="canvasLocation" x="247" y="-75"/>
+        </view>
+    </objects>
+</document>

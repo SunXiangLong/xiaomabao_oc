@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MBWeatherMoodCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="106" height="155"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="106" height="155"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="G1Z-FY-xSf">
+                        <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="G1Z-FY-xSf" secondAttribute="height" multiplier="1:1" id="iej-hv-LYK"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天气" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pzs-sV-AgB">
+                        <rect key="frame" x="37" y="116" width="32" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.45490196078431372" green="0.45882352941176469" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="pzs-sV-AgB" firstAttribute="top" secondItem="G1Z-FY-xSf" secondAttribute="bottom" constant="10" id="GWT-mp-a6I"/>
+                <constraint firstItem="G1Z-FY-xSf" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="OmP-He-HDs"/>
+                <constraint firstItem="pzs-sV-AgB" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="ZHw-KB-0nK"/>
+                <constraint firstItem="G1Z-FY-xSf" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="eoW-0P-Axo"/>
+                <constraint firstAttribute="trailing" secondItem="G1Z-FY-xSf" secondAttribute="trailing" id="yS3-lm-7NV"/>
+            </constraints>
+            <size key="customSize" width="106" height="155"/>
+            <connections>
+                <outlet property="lableText" destination="pzs-sV-AgB" id="QPZ-hA-2P3"/>
+                <outlet property="showImageView" destination="G1Z-FY-xSf" id="AAp-mZ-5Qm"/>
+            </connections>
+            <point key="canvasLocation" x="423" y="247.5"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="placeholder_num2" width="66" height="66"/>
+    </resources>
+</document>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="wKS-qc-KVO" customClass="MBPayResultsCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wKS-qc-KVO" id="c4i-gx-vUi">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="麻包券：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kvY-Yp-SVG">
+                        <rect key="frame" x="8" y="13" width="64" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.37647058820000001" green="0.37647058820000001" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123456789" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27z-hO-s7l">
+                        <rect key="frame" x="232.5" y="13" width="79.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.80392156859999997" green="0.80392156859999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ktG-fx-f2z">
+                        <rect key="frame" x="8" y="42.5" width="312" height="1"/>
+                        <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Z0w-Sd-hyO"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="kvY-Yp-SVG" firstAttribute="leading" secondItem="c4i-gx-vUi" secondAttribute="leading" constant="8" id="2fE-Db-ebi"/>
+                    <constraint firstAttribute="trailing" secondItem="ktG-fx-f2z" secondAttribute="trailing" id="5Vg-54-xGO"/>
+                    <constraint firstItem="kvY-Yp-SVG" firstAttribute="top" secondItem="c4i-gx-vUi" secondAttribute="top" constant="13" id="9ZV-FB-iT8"/>
+                    <constraint firstAttribute="trailing" secondItem="27z-hO-s7l" secondAttribute="trailing" constant="8" id="9bo-vX-2oA"/>
+                    <constraint firstItem="27z-hO-s7l" firstAttribute="centerY" secondItem="c4i-gx-vUi" secondAttribute="centerY" id="R5c-Wc-8E3"/>
+                    <constraint firstItem="ktG-fx-f2z" firstAttribute="leading" secondItem="c4i-gx-vUi" secondAttribute="leading" constant="8" id="msW-W2-nVD"/>
+                    <constraint firstAttribute="bottom" secondItem="ktG-fx-f2z" secondAttribute="bottom" id="uKd-NH-9aq"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="mabaoquan" destination="27z-hO-s7l" id="hYy-c7-pTa"/>
+            </connections>
+            <point key="canvasLocation" x="253" y="221"/>
+        </tableViewCell>
+    </objects>
+</document>

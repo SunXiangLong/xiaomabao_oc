@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MBSmallCategoryCollectionViewCell" id="hbf-MZ-kXj" customClass="MBSmallCategoryCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="192" height="246"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="192" height="246"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="哈罗闪婴儿洗护用品二合一套装宝宝润肤乳面霜" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuR-We-cul">
+                        <rect key="frame" x="5" y="197" width="182" height="31"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥135" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NfD-FU-ro9">
+                        <rect key="frame" x="47" y="231" width="27.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textHexColor" value="b2b2b2"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总销量:1357件" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Tg-dA-imo">
+                        <rect key="frame" x="121.5" y="231" width="60.5" height="11"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textHexColor" value="b2b2b2"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iTo-PA-m0D">
+                        <rect key="frame" x="0.0" y="0.0" width="192" height="192"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="iTo-PA-m0D" secondAttribute="height" multiplier="1:1" id="Lqq-6v-8bB"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥59.9" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0I0-jD-puM">
+                        <rect key="frame" x="5" y="229" width="40.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textHexColor" value="e8465e"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="NfD-FU-ro9" firstAttribute="height" secondItem="0I0-jD-puM" secondAttribute="height" id="0Lo-Zv-Ehr"/>
+                <constraint firstItem="NfD-FU-ro9" firstAttribute="leading" secondItem="0I0-jD-puM" secondAttribute="trailing" constant="2" id="4in-4Q-Irl"/>
+                <constraint firstItem="iTo-PA-m0D" firstAttribute="top" secondItem="hbf-MZ-kXj" secondAttribute="top" id="64L-PN-Hqp"/>
+                <constraint firstItem="tuR-We-cul" firstAttribute="leading" secondItem="hbf-MZ-kXj" secondAttribute="leading" constant="5" id="8Bm-v8-NvF"/>
+                <constraint firstAttribute="trailing" secondItem="8Tg-dA-imo" secondAttribute="trailing" constant="10" id="BQX-ww-0Rg"/>
+                <constraint firstItem="8Tg-dA-imo" firstAttribute="top" secondItem="NfD-FU-ro9" secondAttribute="top" id="Ca7-YF-wua"/>
+                <constraint firstAttribute="bottom" secondItem="0I0-jD-puM" secondAttribute="bottom" constant="1" id="Stm-Rf-8dQ"/>
+                <constraint firstItem="tuR-We-cul" firstAttribute="top" secondItem="iTo-PA-m0D" secondAttribute="bottom" constant="5" id="bRu-Hz-YLX"/>
+                <constraint firstItem="NfD-FU-ro9" firstAttribute="top" secondItem="0I0-jD-puM" secondAttribute="top" id="bfS-N7-UIB"/>
+                <constraint firstAttribute="trailing" secondItem="tuR-We-cul" secondAttribute="trailing" constant="5" id="bvg-3j-q5v"/>
+                <constraint firstAttribute="trailing" secondItem="iTo-PA-m0D" secondAttribute="trailing" id="kJH-pY-6Ui"/>
+                <constraint firstItem="iTo-PA-m0D" firstAttribute="leading" secondItem="hbf-MZ-kXj" secondAttribute="leading" id="o0N-Mm-xDp"/>
+                <constraint firstItem="0I0-jD-puM" firstAttribute="top" secondItem="tuR-We-cul" secondAttribute="bottom" constant="1" id="qJW-MH-Om3"/>
+                <constraint firstItem="NfD-FU-ro9" firstAttribute="top" secondItem="tuR-We-cul" secondAttribute="bottom" constant="3" id="tvn-Dj-3XJ"/>
+                <constraint firstItem="0I0-jD-puM" firstAttribute="leading" secondItem="tuR-We-cul" secondAttribute="leading" id="zXJ-89-FSd"/>
+            </constraints>
+            <size key="customSize" width="184" height="212"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="bfS-N7-UIB"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="SaleNumber" destination="8Tg-dA-imo" id="neD-ja-CBW"/>
+                <outlet property="describeLabel" destination="tuR-We-cul" id="Awj-qK-JMj"/>
+                <outlet property="market_price" destination="NfD-FU-ro9" id="D7T-Il-LZD"/>
+                <outlet property="shop_price" destination="0I0-jD-puM" id="y64-R9-Smz"/>
+                <outlet property="showImageVIew" destination="iTo-PA-m0D" id="WbU-jk-FFV"/>
+            </connections>
+            <point key="canvasLocation" x="321" y="278"/>
+        </collectionViewCell>
+    </objects>
+</document>

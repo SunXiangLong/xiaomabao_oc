@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MBServiceShopsTableFootView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="查看其它是个服务" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eS5-et-D1k">
+                    <rect key="frame" x="96" y="11" width="128" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.83921568627450982" green="0.38431372549019605" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G5H-IB-KFB">
+                    <rect key="frame" x="228" y="19" width="7" height="4"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="7" id="Y9H-0l-aT5"/>
+                        <constraint firstAttribute="height" constant="4" id="fdI-wJ-tHC"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="eS5-et-D1k" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="GeI-lJ-cfZ"/>
+                <constraint firstItem="G5H-IB-KFB" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Twb-4X-rDy"/>
+                <constraint firstItem="eS5-et-D1k" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="WCd-Os-xsI"/>
+                <constraint firstItem="G5H-IB-KFB" firstAttribute="leading" secondItem="eS5-et-D1k" secondAttribute="trailing" constant="4" id="pvC-4D-qSX"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="image" destination="G5H-IB-KFB" id="tpM-ID-mGQ"/>
+                <outlet property="name" destination="eS5-et-D1k" id="CkC-6I-057"/>
+            </connections>
+            <point key="canvasLocation" x="344" y="-76.5"/>
+        </view>
+    </objects>
+</document>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="MBAttentionOrFansTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="3AR-f3-OSr">
+                        <rect key="frame" x="15" y="10" width="69.5" height="69.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="3AR-f3-OSr" secondAttribute="height" multiplier="1:1" id="Y8n-sV-ZyU"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="35"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="麻包的辣妈^_^" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdg-gu-7we">
+                        <rect key="frame" x="99" y="36" width="87.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.25882352941176473" green="0.27843137254901962" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lzD-Cj-d7U">
+                        <rect key="frame" x="240" y="29" width="60" height="30"/>
+                        <color key="backgroundColor" red="0.83921568627450982" green="0.49019607843137253" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="9Hi-Xw-YdM"/>
+                            <constraint firstAttribute="height" constant="30" id="WAl-2x-Iad"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" title="已关注">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="guanzhuButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Xjh-kU-V7H"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="lzD-Cj-d7U" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="98f-Re-imQ"/>
+                    <constraint firstAttribute="bottom" secondItem="3AR-f3-OSr" secondAttribute="bottom" constant="10" id="NgT-QM-xQw"/>
+                    <constraint firstItem="3AR-f3-OSr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="RbS-Eb-V0a"/>
+                    <constraint firstItem="3AR-f3-OSr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="ecc-lW-k6Z"/>
+                    <constraint firstItem="pdg-gu-7we" firstAttribute="leading" secondItem="3AR-f3-OSr" secondAttribute="trailing" constant="15" id="efL-u7-twG"/>
+                    <constraint firstAttribute="trailing" secondItem="lzD-Cj-d7U" secondAttribute="trailing" constant="20" id="fhG-MD-rPJ"/>
+                    <constraint firstItem="pdg-gu-7we" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="k2A-SU-HkG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="attentionButton" destination="lzD-Cj-d7U" id="Hle-ee-bDN"/>
+                <outlet property="nameLable" destination="pdg-gu-7we" id="bdQ-FB-O69"/>
+                <outlet property="showImageView" destination="3AR-f3-OSr" id="5Zo-re-sAX"/>
+            </connections>
+            <point key="canvasLocation" x="292" y="264"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="placeholder_num2" width="66" height="66"/>
+    </resources>
+</document>

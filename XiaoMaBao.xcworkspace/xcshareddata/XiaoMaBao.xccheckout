@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>CED9067E-06D8-46F6-96D1-F95C9907C3E2</string>
+	<key>IDESourceControlProjectName</key>
+	<string>XiaoMaBao</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B5A0AC63F586F9370D68B087415DD842E029FA3B</key>
+		<string>https://git.oschina.net/hcrazy/XiaoMaBao_v2.git</string>
+		<key>C591FB2FCA337E85FF621873FDA392F985525B29</key>
+		<string>https://code.jd.com/13220168837_p/XiaoMaBao2.git</string>
+		<key>F52F2092D484FB4C0846925691967D1B24A2ACAB</key>
+		<string>https://git.oschina.net/withkoney/XiaoMaBao.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>XiaoMaBao.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B5A0AC63F586F9370D68B087415DD842E029FA3B</key>
+		<string>..</string>
+		<key>C591FB2FCA337E85FF621873FDA392F985525B29</key>
+		<string>../../XiaoMaBao2</string>
+		<key>F52F2092D484FB4C0846925691967D1B24A2ACAB</key>
+		<string>../../XiaoMaBao</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://git.oschina.net/hcrazy/XiaoMaBao_v2.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B5A0AC63F586F9370D68B087415DD842E029FA3B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F52F2092D484FB4C0846925691967D1B24A2ACAB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>XiaoMaBao</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B5A0AC63F586F9370D68B087415DD842E029FA3B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>XiaoMaBao_v2</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C591FB2FCA337E85FF621873FDA392F985525B29</string>
+			<key>IDESourceControlWCCName</key>
+			<string>XiaoMaBao2</string>
+		</dict>
+	</array>
+</dict>
+</plist>

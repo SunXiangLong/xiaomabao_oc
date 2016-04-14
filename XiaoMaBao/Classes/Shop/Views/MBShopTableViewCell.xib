@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="178" id="KGk-i7-Jjw" customClass="MBShopTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="316" height="178"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="316" height="177.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OgS-cc-7KA">
+                        <rect key="frame" x="18" y="10" width="0.0" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oae-le-Loe">
+                        <rect key="frame" x="18" y="10" width="288" height="21"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Z8t-n7-5z6"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="mi2-xX-dNE">
+                        <rect key="frame" x="18" y="40" width="280" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.51000000000000001" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXF-Fc-ccV">
+                        <rect key="frame" x="0.0" y="176.5" width="316" height="1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="8Sf-If-Ehd"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="hexRgbColor" value="d7d7d7"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="K4L-O0-FAa">
+                        <rect key="frame" x="10" y="109" width="296" height="59"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="K4L-O0-FAa" secondAttribute="height" multiplier="5:1" id="3k9-bd-gr9"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nMv-nC-eLe">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="WXF-Fc-ccV" secondAttribute="bottom" id="0lB-Yt-cih"/>
+                    <constraint firstAttribute="trailing" secondItem="WXF-Fc-ccV" secondAttribute="trailing" id="1fu-0v-tR2"/>
+                    <constraint firstItem="oae-le-Loe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="5Zh-IB-JHm"/>
+                    <constraint firstItem="mi2-xX-dNE" firstAttribute="top" secondItem="OgS-cc-7KA" secondAttribute="bottom" constant="9" id="DWU-Y8-wFG"/>
+                    <constraint firstAttribute="trailing" secondItem="oae-le-Loe" secondAttribute="trailing" constant="10" id="ELa-eE-3Ot"/>
+                    <constraint firstAttribute="bottom" secondItem="K4L-O0-FAa" secondAttribute="bottom" constant="10" id="Gte-4q-IBc"/>
+                    <constraint firstItem="WXF-Fc-ccV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="OKJ-b5-l1I"/>
+                    <constraint firstItem="OgS-cc-7KA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="SUT-ZV-UXt"/>
+                    <constraint firstItem="K4L-O0-FAa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="V2a-ll-h9c"/>
+                    <constraint firstItem="OgS-cc-7KA" firstAttribute="top" secondItem="oae-le-Loe" secondAttribute="top" id="cbQ-CP-W4c"/>
+                    <constraint firstItem="oae-le-Loe" firstAttribute="leading" secondItem="OgS-cc-7KA" secondAttribute="trailing" id="hvM-LB-I0c"/>
+                    <constraint firstItem="mi2-xX-dNE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="tSX-3H-6wv"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="mi2-xX-dNE" secondAttribute="trailing" constant="10" id="wms-A8-lG4"/>
+                    <constraint firstAttribute="trailing" secondItem="K4L-O0-FAa" secondAttribute="trailing" constant="10" id="xxz-ba-f0d"/>
+                    <constraint firstItem="OgS-cc-7KA" firstAttribute="bottom" secondItem="oae-le-Loe" secondAttribute="bottom" id="zFg-gY-2ZJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="evaluationPhoto" destination="K4L-O0-FAa" id="Gh3-v3-Ngp"/>
+                <outlet property="evaluationText" destination="mi2-xX-dNE" id="yST-dm-kSW"/>
+                <outlet property="evaluationView" destination="oae-le-Loe" id="hPh-40-8oo"/>
+                <outlet property="name" destination="OgS-cc-7KA" id="Hcz-V3-8YN"/>
+            </connections>
+            <point key="canvasLocation" x="166" y="271"/>
+        </tableViewCell>
+    </objects>
+</document>

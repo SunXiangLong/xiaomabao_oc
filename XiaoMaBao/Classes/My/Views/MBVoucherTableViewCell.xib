@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9058" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MBVoucherTableViewCell" id="KGk-i7-Jjw" customClass="MBVoucherTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="64.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4XY-Uj-DGP">
+                        <rect key="frame" x="0.0" y="44" width="320" height="20"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="使用范围：全场无限制" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tff-DK-jjz">
+                                <rect key="frame" x="8" y="0.0" width="100" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有效期：2015.03.08~2015.04.21" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqL-Ty-Edt">
+                                <rect key="frame" x="159" y="0.0" width="153" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="3nf-gp-7Wq"/>
+                            <constraint firstAttribute="bottom" secondItem="tff-DK-jjz" secondAttribute="bottom" id="KGB-kW-XqI"/>
+                            <constraint firstItem="tff-DK-jjz" firstAttribute="top" secondItem="4XY-Uj-DGP" secondAttribute="top" id="XGr-ec-mwG"/>
+                            <constraint firstAttribute="height" secondItem="tff-DK-jjz" secondAttribute="height" id="bYn-Kw-nRW"/>
+                            <constraint firstItem="tff-DK-jjz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4XY-Uj-DGP" secondAttribute="leading" constant="19" id="cNH-u1-N1I"/>
+                            <constraint firstAttribute="trailing" secondItem="UqL-Ty-Edt" secondAttribute="trailing" constant="8" id="g3B-Yu-Jkd"/>
+                            <constraint firstItem="UqL-Ty-Edt" firstAttribute="top" secondItem="tff-DK-jjz" secondAttribute="top" id="kZb-3g-syF"/>
+                            <constraint firstItem="UqL-Ty-Edt" firstAttribute="bottom" secondItem="tff-DK-jjz" secondAttribute="bottom" id="peZ-4L-Xnf"/>
+                            <constraint firstItem="tff-DK-jjz" firstAttribute="leading" secondItem="4XY-Uj-DGP" secondAttribute="leading" constant="8" id="w0c-Yy-g0r"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="KGB-kW-XqI"/>
+                                <exclude reference="cNH-u1-N1I"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qpf-jF-15P">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                        <color key="backgroundColor" red="0.85882359743118286" green="0.38823533058166504" blue="0.43137258291244507" alpha="1" colorSpace="deviceRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="4XY-Uj-DGP" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottom" id="Qtt-ka-dTB"/>
+                    <constraint firstAttribute="trailing" secondItem="4XY-Uj-DGP" secondAttribute="trailing" id="ZHZ-RH-GhY"/>
+                    <constraint firstItem="4XY-Uj-DGP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="dTM-TX-mFp"/>
+                    <constraint firstItem="Qpf-jF-15P" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fQa-no-6qC"/>
+                    <constraint firstAttribute="trailing" secondItem="Qpf-jF-15P" secondAttribute="trailing" id="psz-KD-H07"/>
+                    <constraint firstItem="4XY-Uj-DGP" firstAttribute="top" secondItem="Qpf-jF-15P" secondAttribute="bottom" constant="4" id="sUx-z7-Zjw"/>
+                    <constraint firstItem="Qpf-jF-15P" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="uv5-56-n8q"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="coupon_name" destination="Qpf-jF-15P" id="UTY-5K-OBL"/>
+                <outlet property="useRange" destination="tff-DK-jjz" id="NxM-c6-E2o"/>
+                <outlet property="use_valide_date" destination="UqL-Ty-Edt" id="TbG-l1-18F"/>
+            </connections>
+            <point key="canvasLocation" x="209" y="303.5"/>
+        </tableViewCell>
+    </objects>
+</document>
