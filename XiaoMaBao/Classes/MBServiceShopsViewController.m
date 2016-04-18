@@ -83,7 +83,7 @@
            NSLog(@"%@",responseObject);
             _dataDic = responseObject;
               self.tableView.tableHeaderView = [self setTableHeadView];
-            _dataArr = @[_dataDic[@"comment"],_dataDic[@"other_shop"],_dataDic[@"products"]];
+            _dataArr = @[_dataDic[@"products"],_dataDic[@"comment"],_dataDic[@"other_shop"]];
             [self.tableView reloadData];
             // 拿到当前的上拉刷新控件，结束刷新状态
             [self.tableView .mj_footer endRefreshing];
@@ -124,14 +124,9 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    NSInteger num = 0 ;
-    for (NSArray *arr in _dataArr ) {
-        if (arr.count>0){
-        
-            num++;
-        }
-    }
-    return num;
+   
+ 
+    return _dataArr.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSArray *arr = _dataDic[@"products"];
@@ -169,7 +164,7 @@
                 }
             }
             
-            return 61+strHeight+imageHeight;
+            return 71+strHeight+imageHeight;
         }
         default:{
             NSDictionary    *dic = _dataDic[@"other_shop"][indexPath.row];
@@ -181,59 +176,71 @@
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-   
-    
-    return 51;
+    NSArray *arr = _dataArr[section];
+    if (arr.count>0) {
+        return 51;
+    }
+      return 0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    switch (section) {
-        case 0:  {
-            NSArray *arr = _dataDic[@"products"];
-            NSInteger num = arr.count - 2;
-            if (num>0) {
-                return 41;
-            }else{
-                return 1;
-            }
-        }
-        case 1:  return 41;
-        default:  return 0;
-    }
     
+    if (section ==0) {
+//        NSArray *arr = _dataArr[section];
+//        NSInteger num = arr.count - 2;
+//        if (num>0) {
+//            return 41;
+//        }else{
+//            return 0;
+//        }
+        return 41;
+    }else if (section == 3) {
+        return 0;
+    }else{
+        NSArray *arr = _dataArr[section];
+        
+        if (arr.count>0) {
+            return 41;
+        }
+        return 0;
+    
+    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] init];
    
     if (section == 0) {
         
-        NSArray *arr = _dataDic[@"products"];
+        NSArray *arr = _dataArr[section];
         NSInteger num = arr.count - 2;
-        
-        if (num>0) {
-            MBServiceShopsTableFootView *footView = [MBServiceShopsTableFootView instanceView];
-            footView.frame = view.bounds;
-            footView.name.text = [NSString stringWithFormat:@"查看其它%ld个服务",num];
-            if (_iSmoreService) {
-                footView.image.image = [UIImage imageNamed:@"dupward_image"];
-            }else{
-                footView.image.image = [UIImage imageNamed:@"down_image"];
-            }
-            [footView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moreService)]];
-              [view addSubview:footView];
-            return view;
-        }
-        return nil;
-    }else  if  (section == 1){
         MBServiceShopsTableFootView *footView = [MBServiceShopsTableFootView instanceView];
         footView.frame = view.bounds;
-        [view addSubview:footView];
-        footView.name.text = @"查看其它评价";
-        footView.image.hidden = YES;
-         [footView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(otherEvaluation)]];
+        footView.name.text = [NSString stringWithFormat:@"查看其它%ld个服务",num>0?num:0];
+        if (_iSmoreService) {
+            footView.image.image = [UIImage imageNamed:@"dupward_image"];
+        }else{
+            footView.image.image = [UIImage imageNamed:@"down_image"];
+        }
+        [footView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moreService)]];
+          [view addSubview:footView];
+        
+        return view;
+
+
+    }else  if  (section == 1){
+        if ([_dataArr[section] count]>0) {
+            MBServiceShopsTableFootView *footView = [MBServiceShopsTableFootView instanceView];
+            footView.frame = view.bounds;
+            [view addSubview:footView];
+            footView.name.text = @"查看其它评价";
+            footView.image.hidden = YES;
+            [footView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(otherEvaluation)]];
+            return view;
+        }
+       
         return view;
     }
     
-    return nil;
+    return view;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] init];
@@ -251,7 +258,10 @@
         default:{headView.number.text = @"";
             headView.name.text = @"更多商家";} break;
     }
-    return view;
+    if ([_dataArr[section] count]>0) {
+          return view;
+    }
+    return nil;
 
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -281,6 +291,7 @@
         cell.user_id =  _dataDic[@"comment"][indexPath.row][@"user_id"];
         cell.imageUrl   = _dataDic[@"comment"][indexPath.row][@"header_img"];
         cell.VC = self;
+        cell.backImage.hidden = YES;
         [cell.showImageView sd_setImageWithURL:[NSURL URLWithString:cell.imageUrl ] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
         return cell;
         

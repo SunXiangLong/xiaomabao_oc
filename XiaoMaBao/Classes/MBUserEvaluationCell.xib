@@ -87,6 +87,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="backImage" destination="feN-dZ-Cmu" id="ygM-eY-9mr"/>
                 <outlet property="collectionView" destination="PrF-py-YM4" id="xaa-pd-g0g"/>
                 <outlet property="showImageView" destination="2u3-I9-fCT" id="4uQ-ho-wes"/>
                 <outlet property="user_center" destination="QIp-yG-6DF" id="uZO-bT-pyv"/>

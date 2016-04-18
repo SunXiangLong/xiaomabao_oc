@@ -701,7 +701,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 
-    NSLog(@"%ld",(long)indexPath.row);
+  
 }
 #pragma mark -- 在滑动手势删除某一行的时候，显示出更多的按钮
 

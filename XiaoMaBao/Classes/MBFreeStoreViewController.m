@@ -27,7 +27,6 @@
 @implementation MBFreeStoreViewController
 -(void)viewWillDisappear:(BOOL)animated
 {
-    
     [super viewWillDisappear:animated];
     [MobClick beginLogPageView:@"MBFreeStoreViewController"];
 }

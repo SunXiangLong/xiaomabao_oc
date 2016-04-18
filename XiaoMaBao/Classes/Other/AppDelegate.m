@@ -89,7 +89,7 @@
      [WXApi registerApp:@"wxfb1286f7ab6a18f3" withDescription:@"demo 2.0"];
     
     //友盟移动推广效果统计
-    [self AuMobilePromotion];
+//    [self AuMobilePromotion];
     
     //极光推送（通知）
     [self Required:launchOptions];
@@ -98,9 +98,6 @@
     [self Obtain];
     //更新
     [self update];
-    //网络监控
-    [self configureReachability];
-
     //小能客服注册
     //**********H5集成才用******************//
     //【重要】  必须在初始化前首先调用  用于获得规定的设备id从而供H5页面所用。
@@ -113,9 +110,6 @@
      */
     
     [[XNSDKCore sharedInstance] initSDKWithSiteid:@"kf_9761" andSDKKey:@"4AE38950-F352-47F3-94EA-97C189F48B0F"];
-    
-//    [NTalkerInstance initSDKWithSiteid:@"kf_9761" andSdkKey:@"4AE38950-F352-47F3-94EA-97C189F48B0F"];
-    
     
     //极光推送（消息）
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
@@ -144,9 +138,13 @@
 - (void)umengTrack {
 
     [MobClick setAppVersion:XcodeAppVersion]; //参数为NSString * 类型,自定义app版本信息，如果不设置，默认从CFBundleVersion里取
-
+//    [MobClick setLogEnabled:YES];//开始调试模式
+    
     [MobClick startWithAppkey:UMENG_APPKEY reportPolicy:(ReportPolicy) REALTIME channelId:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onlineConfigCallBack:) name:UMOnlineConfigDidFinishedNotification object:nil];
+    
+    
+    
     
 }
 
@@ -273,7 +271,7 @@
                        
                        NSDictionary *sessionDict = [userData valueForKeyPath:@"session"];
                        MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-                    NSLog(@"%@",userData);
+//                    NSLog(@"%@",userData);
                        
                        userInfo.sid = [sessionDict valueForKeyPath:@"sid"];
                        userInfo.uid = [sessionDict valueForKeyPath:@"uid"];
@@ -304,18 +302,7 @@
 
 
 }
-#pragma mark -- 友盟移动推广效果统计
--(void)AuMobilePromotion{
-    NSString * appKey = @"561f3d13e0f55ae1c60026cf";
-    NSString * deviceName = [[[UIDevice currentDevice] name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString * mac = [self macString];
-    NSString * idfa = [self idfaString];
-    NSString * idfv = [self idfvString];
-    NSString * urlString = [NSString stringWithFormat:@"http://log.umtrack.com/ping/%@/?devicename=%@&mac=%@&idfa=%@&idfv=%@", appKey, deviceName, mac, idfa, idfv];
-    [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL: [NSURL URLWithString:urlString]] delegate:nil];
 
-
-}
 #pragma mark - 是否需要显示新特性
 -(BOOL)showNewFeature{
     BOOL flag = [[[NSUserDefaults standardUserDefaults] objectForKey:@"firstLaunch"] boolValue];
@@ -422,98 +409,106 @@
     UIAlertView *alter = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
     [alter show];
 }
-
-- (NSString * )macString{
-    int mib[6];
-    size_t len;
-    char *buf;
-    unsigned char *ptr;
-    struct if_msghdr *ifm;
-    struct sockaddr_dl *sdl;
-    
-    mib[0] = CTL_NET;
-    mib[1] = AF_ROUTE;
-    mib[2] = 0;
-    mib[3] = AF_LINK;
-    mib[4] = NET_RT_IFLIST;
-    
-    if ((mib[5] = if_nametoindex("en0")) == 0) {
-        printf("Error: if_nametoindex error\n");
-        return NULL;
-    }
-    
-    if (sysctl(mib, 6, NULL, &len, NULL, 0) < 0) {
-        printf("Error: sysctl, take 1\n");
-        return NULL;
-    }
-    
-    if ((buf = malloc(len)) == NULL) {
-        printf("Could not allocate memory. error!\n");
-        return NULL;
-    }
-    
-    if (sysctl(mib, 6, buf, &len, NULL, 0) < 0) {
-        printf("Error: sysctl, take 2");
-        free(buf);
-        return NULL;
-    }
-    
-    ifm = (struct if_msghdr *)buf;
-    sdl = (struct sockaddr_dl *)(ifm + 1);
-    ptr = (unsigned char *)LLADDR(sdl);
-    NSString *macString = [NSString stringWithFormat:@"%02X:%02X:%02X:%02X:%02X:%02X",
-                           *ptr, *(ptr+1), *(ptr+2), *(ptr+3), *(ptr+4), *(ptr+5)];
-    free(buf);
-    
-    return macString;
-}
-
-- (NSString *)idfaString {
-    
-    NSBundle *adSupportBundle = [NSBundle bundleWithPath:@"/System/Library/Frameworks/AdSupport.framework"];
-    [adSupportBundle load];
-    
-    if (adSupportBundle == nil) {
-        return @"";
-    }
-    else{
-        
-        Class asIdentifierMClass = NSClassFromString(@"ASIdentifierManager");
-        
-        if(asIdentifierMClass == nil){
-            return @"";
-        }
-        else{
-            
-            //for no arc
-            //ASIdentifierManager *asIM = [[[asIdentifierMClass alloc] init] autorelease];
-            //for arc
-            ASIdentifierManager *asIM = [[asIdentifierMClass alloc] init];
-            
-            if (asIM == nil) {
-                return @"";
-            }
-            else{
-                
-                if(asIM.advertisingTrackingEnabled){
-                    return [asIM.advertisingIdentifier UUIDString];
-                }
-                else{
-                    return [asIM.advertisingIdentifier UUIDString];
-                }
-            }
-        }
-    }
-}
-
-- (NSString *)idfvString
-{
-    if([[UIDevice currentDevice] respondsToSelector:@selector( identifierForVendor)]) {
-        return [[UIDevice currentDevice].identifierForVendor UUIDString];
-    }
-    
-    return @"";
-}
+#pragma mark -- 友盟移动推广效果统计（更新版本可能不需要这些，测试中）
+//-(void)AuMobilePromotion{
+//    NSString * appKey = @"561f3d13e0f55ae1c60026cf";
+//    NSString * deviceName = [[[UIDevice currentDevice] name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    NSString * mac = [self macString];
+//    NSString * idfa = [self idfaString];
+//    NSString * idfv = [self idfvString];
+//    NSString * urlString = [NSString stringWithFormat:@"http://log.umtrack.com/ping/%@/?devicename=%@&mac=%@&idfa=%@&idfv=%@", appKey, deviceName, mac, idfa, idfv];
+//    [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL: [NSURL URLWithString:urlString]] delegate:nil];
+//    
+//    
+//}
+//- (NSString * )macString{
+//    int mib[6];
+//    size_t len;
+//    char *buf;
+//    unsigned char *ptr;
+//    struct if_msghdr *ifm;
+//    struct sockaddr_dl *sdl;
+//    
+//    mib[0] = CTL_NET;
+//    mib[1] = AF_ROUTE;
+//    mib[2] = 0;
+//    mib[3] = AF_LINK;
+//    mib[4] = NET_RT_IFLIST;
+//    
+//    if ((mib[5] = if_nametoindex("en0")) == 0) {
+//        printf("Error: if_nametoindex error\n");
+//        return NULL;
+//    }
+//    
+//    if (sysctl(mib, 6, NULL, &len, NULL, 0) < 0) {
+//        printf("Error: sysctl, take 1\n");
+//        return NULL;
+//    }
+//    
+//    if ((buf = malloc(len)) == NULL) {
+//        printf("Could not allocate memory. error!\n");
+//        return NULL;
+//    }
+//    
+//    if (sysctl(mib, 6, buf, &len, NULL, 0) < 0) {
+//        printf("Error: sysctl, take 2");
+//        free(buf);
+//        return NULL;
+//    }
+//    
+//    ifm = (struct if_msghdr *)buf;
+//    sdl = (struct sockaddr_dl *)(ifm + 1);
+//    ptr = (unsigned char *)LLADDR(sdl);
+//    NSString *macString = [NSString stringWithFormat:@"%02X:%02X:%02X:%02X:%02X:%02X",
+//                           *ptr, *(ptr+1), *(ptr+2), *(ptr+3), *(ptr+4), *(ptr+5)];
+//    free(buf);
+//    
+//    return macString;
+//}
+//
+//- (NSString *)idfaString {
+//    
+//    NSBundle *adSupportBundle = [NSBundle bundleWithPath:@"/System/Library/Frameworks/AdSupport.framework"];
+//    [adSupportBundle load];
+//    
+//    if (adSupportBundle == nil) {
+//        return @"";
+//    }
+//    else{
+//        
+//        Class asIdentifierMClass = NSClassFromString(@"ASIdentifierManager");
+//        
+//        if(asIdentifierMClass == nil){
+//            return @"";
+//        }
+//        else{
+//            
+//            ASIdentifierManager *asIM = [[asIdentifierMClass alloc] init];
+//            
+//            if (asIM == nil) {
+//                return @"";
+//            }
+//            else{
+//                
+//                if(asIM.advertisingTrackingEnabled){
+//                    return [asIM.advertisingIdentifier UUIDString];
+//                }
+//                else{
+//                    return [asIM.advertisingIdentifier UUIDString];
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//- (NSString *)idfvString
+//{
+//    if([[UIDevice currentDevice] respondsToSelector:@selector( identifierForVendor)]) {
+//        return [[UIDevice currentDevice].identifierForVendor UUIDString];
+//    }
+//    
+//    return @"";
+//}
 #pragma mark --  获取keychina中存放的用户名和密码
 - (void)Obtain{
     
@@ -661,62 +656,6 @@
     CFRelease(uuidString);
     return result;
 }
-#pragma mark - 网络监测
 
-- (void)configureReachability {
-    
-//    AFHTTPRequestOperationManager *mmmm = [AFHTTPRequestOperationManager manager];
-////      mmmm.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    [mmmm POST:[NSString stringWithFormat:@"%@",@"http://sunas.cn/mobile/?act=shop_login&op=login"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"%@",responseObject);
-//        
-//        
-//        
-//        
-//        NSLog(@"%@",responseObject);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"%@",error);
-//        NSLog(@"%@",operation);
-//        
-//    }];
-//
-    /*
-    AFNetworkActivityIndicatorManager.sharedManager.enabled = YES;
-    
-    self.reachability = Reachability.reachabilityForInternetConnection;
-    self.networkStatus = self.reachability.currentReachabilityStatus;
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self.reachability startNotifier];
-    });
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reachabilityChanged)
-                                                 name:kReachabilityChangedNotification
-                                               object:nil];*/
-}
 
-//- (void)reachabilityChanged {
-//    
-//    self.networkStatus = self.reachability.currentReachabilityStatus;
-//    if (self.networkStatus == ReachableViaWiFi) {
-//        [self Obtain];
-//      
-//        UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"正在使用WIFI"delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//        //[alerView show];
-//    } else if (self.networkStatus == ReachableViaWWAN) {
-//        [self Obtain];
-//
-//        UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"正在使用蜂窝移动网络"delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//       // [alerView show];
-//       
-//    } else if (self.networkStatus == NotReachable) {
-//        
-//        UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"无网络连接，请检查网络设置"delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//        [alerView show];
-// 
-//    }
-//    
-//   
-//}
 @end

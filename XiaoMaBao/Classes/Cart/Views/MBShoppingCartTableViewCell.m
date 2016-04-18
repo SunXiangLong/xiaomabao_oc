@@ -31,15 +31,6 @@
 }
 -(void)tap:(UITapGestureRecognizer *)gesture{
     
-//    NSString *row = [NSString stringWithFormat:@"%ld",(long)self.row];
-//    
-//    
-//    NSDictionary *reduceNumber = [NSDictionary dictionaryWithObjectsAndKeys:row,@"indexPath", nil];
-//    
-//    NSNotification *notification = [NSNotification notificationWithName:@"click" object:nil userInfo:reduceNumber];
-//    
-//    
-//    
 //    //通过通知中心发送通知
 //    [[NSNotificationCenter defaultCenter] postNotification:notification];
     if (self.delegate&&[self.delegate respondsToSelector:@selector(click:)]) {
@@ -49,64 +40,7 @@
     
     
 }
-////选择购物车
-//- (IBAction)GoogSelect:(UIButton *)button {
-//    if (button.selected) {
-//        self.selectImageview.image = [UIImage imageNamed:@"pitch_no"];
-//        button.selected = !button.selected;
-//
-//        //创建通知
-//        NSString * goods_number = self.goods_number.text;
-//        NSString * rec_id = self.rec_id;
-//        
-//        NSDictionary *reduceNumber = [NSDictionary dictionaryWithObjectsAndKeys:goods_number,@"goods_number",rec_id,@"rec_id", nil];
-//        
-//        NSNotification *notification = [NSNotification notificationWithName:@"deselect" object:nil userInfo:reduceNumber];
-//        
-//        //通过通知中心发送通知
-//        [[NSNotificationCenter defaultCenter] postNotification:notification];
-//        
-//    }else if(!button.selected){
-//        self.selectImageview.image = [UIImage imageNamed:@"icon_true"];
-//        button.selected = !button.selected;
-//        
-//        //创建通知
-//        NSString * goods_number = self.goods_number.text;
-//        NSString * rec_id = self.rec_id;
-//        
-//        NSDictionary *reduceNumber = [NSDictionary dictionaryWithObjectsAndKeys:goods_number,@"goods_number",rec_id,@"rec_id", nil];
-//        
-//        NSNotification *notification =[NSNotification notificationWithName:@"select" object:nil userInfo:reduceNumber];
-//        
-//        //通过通知中心发送通知
-//        [[NSNotificationCenter defaultCenter] postNotification:notification];
-//    }
-//}
 
-////删除购物车
-//- (IBAction)DelteCart:(id)sender {
-//    
-//    
-//    [self deleteOrSaveTocollecionWithstr:@"是否删除"];
-//     self.deleteOrSaveTag = 0;
-//}
-//
-//#pragma -mark 加入收藏
-////收藏购物车物品
-//- (IBAction)Savecollect:(id)sender {
-//
-//   
-//    [self deleteOrSaveTocollecionWithstr:@"是否加入收藏"];
-//    self.deleteOrSaveTag = 1;
-//
-//}
-
-//-(void)deleteOrSaveTocollecionWithstr:(NSString *)string
-//{
-//    UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"提示" message:string delegate:self
-//                                           cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil ];
-//    [alert show];
-//}
 
 //数量减1
 - (IBAction)reduce:(id)sender {

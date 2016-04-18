@@ -11,7 +11,7 @@
 #import "MBFreeStoreViewController.h"
 #import "MBSearchViewController.h"
 #import "MBShopDetailsViewController.h"
-
+#import "MBTopCargoController.h"
 @interface MBNewHomeViewController ()<UIScrollViewDelegate>
 {
     UIButton *_lastButton;
@@ -52,6 +52,11 @@
     [self setupScrollView];
 }
 - (void)setupChildVcs{
+    
+    MBTopCargoController *VC3 = [[MBTopCargoController alloc] init];
+    VC3.title = @"尖儿货";
+    [self addChildViewController:VC3];
+    
     MBAffordablePlanetViewController *VC1 = [[MBAffordablePlanetViewController alloc] init];
     VC1.title = @"实惠星球";
     [self addChildViewController:VC1];
@@ -59,6 +64,9 @@
     MBFreeStoreViewController *VC2 = [[MBFreeStoreViewController alloc] init];
     VC2.title = @"免税店";
     [self addChildViewController:VC2];
+    
+    
+   
 }
 - (void)setupTitlesView
 {
@@ -97,17 +105,17 @@
     
     UIScrollView *scrollView = [[UIScrollView alloc] init];
     scrollView.frame = CGRectMake(0, 31+TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-31-TOP_Y -49);
-    scrollView.backgroundColor = [UIColor grayColor];
+    scrollView.backgroundColor = [UIColor colorWithHexString:@"ececef"];
     scrollView.delegate = self;
     scrollView.pagingEnabled = YES;
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.contentSize = CGSizeMake(self.childViewControllers.count * UISCREEN_WIDTH, 0);
     [self.view addSubview:scrollView];
     self.scrollView                   = scrollView;
-    UIViewController *willShowChildVc = self.childViewControllers[1];
-    willShowChildVc.view.frame        = scrollView.bounds;
-    willShowChildVc.view.ml_x         = self.view.ml_width;
-    [scrollView addSubview:willShowChildVc.view];
+//    UIViewController *willShowChildVc = self.childViewControllers[1];
+//    willShowChildVc.view.frame        = scrollView.bounds;
+//    willShowChildVc.view.ml_x         = self.view.ml_width;
+//    [scrollView addSubview:willShowChildVc.view];
     // 默认显示第0个控制器
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }

@@ -213,6 +213,14 @@
 		94050E941CBC87D500F0E64B /* MBLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94050E931CBC87D500F0E64B /* MBLoginView.m */; };
 		9408C8B51CA28A7400A1B5E0 /* MBTableViewRmbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9408C8B31CA28A7400A1B5E0 /* MBTableViewRmbCell.m */; };
 		9408C8B61CA28A7400A1B5E0 /* MBTableViewRmbCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9408C8B41CA28A7400A1B5E0 /* MBTableViewRmbCell.xib */; };
+		94095B4F1CC4BF1500859D03 /* MBTopCargoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94095B4D1CC4BF1500859D03 /* MBTopCargoController.m */; };
+		94095B501CC4BF1500859D03 /* MBTopCargoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94095B4E1CC4BF1500859D03 /* MBTopCargoController.xib */; };
+		94095B591CC4CC8700859D03 /* MBTopCargoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94095B571CC4CC8700859D03 /* MBTopCargoCell.m */; };
+		94095B5A1CC4CC8700859D03 /* MBTopCargoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94095B581CC4CC8700859D03 /* MBTopCargoCell.xib */; };
+		94095B5E1CC4ECF600859D03 /* MBTopCargoOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94095B5C1CC4ECF600859D03 /* MBTopCargoOneCell.m */; };
+		94095B5F1CC4ECF600859D03 /* MBTopCargoOneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94095B5D1CC4ECF600859D03 /* MBTopCargoOneCell.xib */; };
+		94095B631CC4F18000859D03 /* MBTopCargoTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94095B611CC4F18000859D03 /* MBTopCargoTwoCell.m */; };
+		94095B641CC4F18000859D03 /* MBTopCargoTwoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94095B621CC4F18000859D03 /* MBTopCargoTwoCell.xib */; };
 		941161951C46560500EE8B9A /* MBMoreBrandsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 941161931C46560500EE8B9A /* MBMoreBrandsCollectionViewCell.m */; };
 		941161961C46560500EE8B9A /* MBMoreBrandsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 941161941C46560500EE8B9A /* MBMoreBrandsCollectionViewCell.xib */; };
 		9411619A1C46618200EE8B9A /* MBStyleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 941161981C46618200EE8B9A /* MBStyleCollectionViewCell.m */; };
@@ -1055,6 +1063,18 @@
 		9408C8B21CA28A7400A1B5E0 /* MBTableViewRmbCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTableViewRmbCell.h; sourceTree = "<group>"; };
 		9408C8B31CA28A7400A1B5E0 /* MBTableViewRmbCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTableViewRmbCell.m; sourceTree = "<group>"; };
 		9408C8B41CA28A7400A1B5E0 /* MBTableViewRmbCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBTableViewRmbCell.xib; sourceTree = "<group>"; };
+		94095B4C1CC4BF1500859D03 /* MBTopCargoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTopCargoController.h; sourceTree = "<group>"; };
+		94095B4D1CC4BF1500859D03 /* MBTopCargoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTopCargoController.m; sourceTree = "<group>"; };
+		94095B4E1CC4BF1500859D03 /* MBTopCargoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBTopCargoController.xib; sourceTree = "<group>"; };
+		94095B561CC4CC8700859D03 /* MBTopCargoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTopCargoCell.h; sourceTree = "<group>"; };
+		94095B571CC4CC8700859D03 /* MBTopCargoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTopCargoCell.m; sourceTree = "<group>"; };
+		94095B581CC4CC8700859D03 /* MBTopCargoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBTopCargoCell.xib; sourceTree = "<group>"; };
+		94095B5B1CC4ECF600859D03 /* MBTopCargoOneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTopCargoOneCell.h; sourceTree = "<group>"; };
+		94095B5C1CC4ECF600859D03 /* MBTopCargoOneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTopCargoOneCell.m; sourceTree = "<group>"; };
+		94095B5D1CC4ECF600859D03 /* MBTopCargoOneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBTopCargoOneCell.xib; sourceTree = "<group>"; };
+		94095B601CC4F18000859D03 /* MBTopCargoTwoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTopCargoTwoCell.h; sourceTree = "<group>"; };
+		94095B611CC4F18000859D03 /* MBTopCargoTwoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTopCargoTwoCell.m; sourceTree = "<group>"; };
+		94095B621CC4F18000859D03 /* MBTopCargoTwoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBTopCargoTwoCell.xib; sourceTree = "<group>"; };
 		941161921C46560500EE8B9A /* MBMoreBrandsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMoreBrandsCollectionViewCell.h; sourceTree = "<group>"; };
 		941161931C46560500EE8B9A /* MBMoreBrandsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMoreBrandsCollectionViewCell.m; sourceTree = "<group>"; };
 		941161941C46560500EE8B9A /* MBMoreBrandsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBMoreBrandsCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -3848,6 +3868,9 @@
 				94D77CA51C994AC000748227 /* MBFreeStoreViewController.h */,
 				94D77CA61C994AC000748227 /* MBFreeStoreViewController.m */,
 				94D77CA71C994AC000748227 /* MBFreeStoreViewController.xib */,
+				94095B4C1CC4BF1500859D03 /* MBTopCargoController.h */,
+				94095B4D1CC4BF1500859D03 /* MBTopCargoController.m */,
+				94095B4E1CC4BF1500859D03 /* MBTopCargoController.xib */,
 				944DCD0F1C9B996F003B5CC2 /* MBCategoryViewController.h */,
 				944DCD101C9B996F003B5CC2 /* MBCategoryViewController.m */,
 				944DCD111C9B996F003B5CC2 /* MBCategoryViewController.xib */,
@@ -3898,6 +3921,15 @@
 				944DCD191C9B9D13003B5CC2 /* MBCategoryViewTwoCell.h */,
 				944DCD1A1C9B9D13003B5CC2 /* MBCategoryViewTwoCell.m */,
 				944DCD1B1C9B9D13003B5CC2 /* MBCategoryViewTwoCell.xib */,
+				94095B561CC4CC8700859D03 /* MBTopCargoCell.h */,
+				94095B571CC4CC8700859D03 /* MBTopCargoCell.m */,
+				94095B581CC4CC8700859D03 /* MBTopCargoCell.xib */,
+				94095B5B1CC4ECF600859D03 /* MBTopCargoOneCell.h */,
+				94095B5C1CC4ECF600859D03 /* MBTopCargoOneCell.m */,
+				94095B5D1CC4ECF600859D03 /* MBTopCargoOneCell.xib */,
+				94095B601CC4F18000859D03 /* MBTopCargoTwoCell.h */,
+				94095B611CC4F18000859D03 /* MBTopCargoTwoCell.m */,
+				94095B621CC4F18000859D03 /* MBTopCargoTwoCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -4323,6 +4355,7 @@
 				94B131BC1C89A88400204CD9 /* thumbUp_iamge.png in Resources */,
 				9461D6C91C50D5E000AA1B3F /* MBMyCollectionCollectionViewCell.xib in Resources */,
 				948E1B961C3B8FFE00D19097 /* btn_close_selected@2x.png in Resources */,
+				94095B5A1CC4CC8700859D03 /* MBTopCargoCell.xib in Resources */,
 				486D435B1AF23F240025A043 /* Main.storyboard in Resources */,
 				944364F31CBCE0D30085E006 /* MBPaySuccessView.xib in Resources */,
 				486D43601AF23F240025A043 /* LaunchScreen.xib in Resources */,
@@ -4348,6 +4381,7 @@
 				949D8FF01BF1E49F009060E6 /* iTunesArtwork.png in Resources */,
 				94ACE3731C5742BD0095E50F /* MBTDetailableViewCell.xib in Resources */,
 				4868C70E1B1C0CDF00777D4B /* MBShoppingCartTableViewCell.xib in Resources */,
+				94095B5F1CC4ECF600859D03 /* MBTopCargoOneCell.xib in Resources */,
 				9432272E1C9A53C900E352AB /* MBAffordablePlanetTwoChildOneCell.xib in Resources */,
 				947468E71C7701A900F10FD2 /* MBHealthViewController.xib in Resources */,
 				940488551C9FA469008C7938 /* MBSearchShowViewController.xib in Resources */,
@@ -4455,6 +4489,7 @@
 				94A3AEDB1C0EC4B800084AF1 /* RefundWayTableViewCell.xib in Resources */,
 				94D77CA41C994A9900748227 /* MBAffordablePlanetViewController.xib in Resources */,
 				94892D641CB49F5A00668A98 /* MBServiceOrderController.xib in Resources */,
+				94095B501CC4BF1500859D03 /* MBTopCargoController.xib in Resources */,
 				48F9F4F61B02063C00ED4A5D /* MBHomeAdCollectionViewCell.xib in Resources */,
 				943E81331CAE186600DDD09C /* MBUserEvaluationController.xib in Resources */,
 				94FDD0A91C57529C007B2A42 /* mengcheng_image.png in Resources */,
@@ -4539,6 +4574,7 @@
 				94050E911CBC87B600F0E64B /* MBLoginView.xib in Resources */,
 				941531DD1CBF414500B2AB1E /* icon_pic_break@2x.png in Resources */,
 				9450025E1C22C18700820F5F /* MBOrderCell.xib in Resources */,
+				94095B641CC4F18000859D03 /* MBTopCargoTwoCell.xib in Resources */,
 				94B131AC1C89950500204CD9 /* comment_image.png in Resources */,
 				941531D81CBF414500B2AB1E /* btn_back_imagePicker@2x.png in Resources */,
 				424097E11BB3D429002DB272 /* tempShow_03.png in Resources */,
@@ -4689,6 +4725,7 @@
 				487602BC1AF30DB000A2B1F0 /* MBRegisterPhoneVerifyViewController.m in Sources */,
 				4824ED671B57EE2F00E4B9E2 /* MBAdvert.m in Sources */,
 				482846921B22D07E0069FB28 /* MBShopCommonTableViewCell.m in Sources */,
+				94095B591CC4CC8700859D03 /* MBTopCargoCell.m in Sources */,
 				94B1319F1C89681700204CD9 /* MBCanulaCircleDetailsViewController.m in Sources */,
 				9438495F1C29421000DC93E5 /* MBSpecificationsCell.m in Sources */,
 				9432E4791C7D9AF800A64668 /* TTTAttributedLabel.m in Sources */,
@@ -4768,6 +4805,7 @@
 				420BF6851BB53D1900C89C3C /* MBCheckBox.m in Sources */,
 				480F7B791B09B00600913727 /* MBCheckInViewController.m in Sources */,
 				945F441B1C05B9FB00A31CBC /* MBAfterSalesServiceViewController.m in Sources */,
+				94095B631CC4F18000859D03 /* MBTopCargoTwoCell.m in Sources */,
 				9461D6C81C50D5E000AA1B3F /* MBMyCollectionCollectionViewCell.m in Sources */,
 				947392381BF738BB007EE9E3 /* CameraController.m in Sources */,
 				94E294411C8AB47A0063E678 /* MBFocusTwoCollectionViewCell.m in Sources */,
@@ -4899,6 +4937,7 @@
 				945D4DFF1C3E9A110096FBBF /* ImageUtil.m in Sources */,
 				94E3DE111CA11E6B00A94317 /* MBShopDetailsViewController.m in Sources */,
 				48742C3A1B2AE0C2000F188F /* MBVoucherTableViewCell.m in Sources */,
+				94095B4F1CC4BF1500859D03 /* MBTopCargoController.m in Sources */,
 				420BF6641BB537BB00C89C3C /* MJMember.m in Sources */,
 				94E9A45D1C8FB4280002E15E /* XWCatergoryView.m in Sources */,
 				94B131951C89253500204CD9 /* MBCanulPublishedViewController.m in Sources */,
@@ -4933,6 +4972,7 @@
 				48042CAF1B30141800C6B32D /* MBClubUserViewController.m in Sources */,
 				48162F3F1AF2866900E61D5C /* UIColor+Extension.m in Sources */,
 				949997D21C44E05500EB80A1 /* MBGroupShopController.m in Sources */,
+				94095B5E1CC4ECF600859D03 /* MBTopCargoOneCell.m in Sources */,
 				480386081B58A08C0052FA20 /* Foundation+Log.m in Sources */,
 				94B6F47C1BD5DD2200B352B9 /* ApiXml.mm in Sources */,
 				48E6E49B1B26A3A100B3556E /* MBAfterServiceViewController.m in Sources */,

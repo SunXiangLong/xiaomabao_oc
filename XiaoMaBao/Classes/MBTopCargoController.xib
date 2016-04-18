@@ -5,9 +5,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MBAffordablePlanetViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MBTopCargoController">
             <connections>
-                <outlet property="collectionView" destination="Gv2-u3-X4L" id="RA4-Ka-Q5q"/>
+                <outlet property="collectionView" destination="tjT-Kd-qEg" id="il5-OY-Sgu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,25 +16,30 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Gv2-u3-X4L">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="tjT-Kd-qEg">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XU3-6I-0YC">
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="iGT-hF-iDj">
                         <size key="itemSize" width="50" height="50"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="cIA-se-CIn"/>
+                        <outlet property="delegate" destination="-1" id="C9G-3H-Fbu"/>
+                    </connections>
                 </collectionView>
             </subviews>
             <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="Gv2-u3-X4L" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5jx-Zr-CfY"/>
-                <constraint firstAttribute="trailing" secondItem="Gv2-u3-X4L" secondAttribute="trailing" id="WH8-ib-znr"/>
-                <constraint firstItem="Gv2-u3-X4L" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="s7U-HO-1Ql"/>
-                <constraint firstAttribute="bottom" secondItem="Gv2-u3-X4L" secondAttribute="bottom" id="tbK-TG-EAP"/>
+                <constraint firstAttribute="trailing" secondItem="tjT-Kd-qEg" secondAttribute="trailing" id="axm-yP-Iyj"/>
+                <constraint firstItem="tjT-Kd-qEg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="pXb-IO-VDT"/>
+                <constraint firstItem="tjT-Kd-qEg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qMO-3k-ZXH"/>
+                <constraint firstAttribute="bottom" secondItem="tjT-Kd-qEg" secondAttribute="bottom" id="yeg-AJ-gD0"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="223" y="122"/>
         </view>
     </objects>
 </document>

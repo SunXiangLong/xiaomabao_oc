@@ -42,8 +42,17 @@
 // 是否触发手势
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
+   
     // 根控制器下不要触发手势,让手势不起作用
     return self.childViewControllers.count > 1 ;
+}
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer{
+    //  向左边(反方向)拖动，手势不执行。
+    CGPoint translation = [gestureRecognizer translationInView:gestureRecognizer.view];
+    if (translation.x <= 0) {
+        return NO;
+    }
+    return YES;
 }
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     [viewController.navigationController.navigationBar removeFromSuperview];

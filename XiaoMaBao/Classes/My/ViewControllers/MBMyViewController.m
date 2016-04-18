@@ -69,7 +69,6 @@
             self.collerctonView = nil;
             [self.view addSubview:self.collerctonView];
             
-            
         }
     }
     
@@ -237,6 +236,7 @@
     
 }
 - (void)onClick:(UIButton *)button{
+    _isbool = YES;
     switch (button.tag) {
         case 0: {
             MBOrderListViewController *VC = [[MBOrderListViewController alloc] init];
@@ -260,11 +260,6 @@
     
 }
 
-
-
-//-(NSString *)leftImage{
-//return @"message_image";
-//}
 -(void)leftTitleClick{
 
 
