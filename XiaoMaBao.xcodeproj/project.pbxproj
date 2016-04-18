@@ -418,7 +418,6 @@
 		9474D8DE1C3FC16D0071DACE /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9474D8DD1C3FC16D0071DACE /* Photos.framework */; };
 		9476300F1C3E8143006BB840 /* MBEditPicturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476300D1C3E8143006BB840 /* MBEditPicturesViewController.m */; };
 		947630101C3E8143006BB840 /* MBEditPicturesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9476300E1C3E8143006BB840 /* MBEditPicturesViewController.xib */; };
-		94799F0F1BCF582300201EFD /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94799F0D1BCF582300201EFD /* libMobClickLibrary.a */; };
 		947BD6131C069492001347B9 /* TopTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 947BD6111C069492001347B9 /* TopTableViewCell.m */; };
 		947BD6141C069492001347B9 /* TopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947BD6121C069492001347B9 /* TopTableViewCell.xib */; };
 		947BD6181C06991B001347B9 /* GoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 947BD6161C06991B001347B9 /* GoodsTableViewCell.m */; };
@@ -1389,8 +1388,6 @@
 		9476300C1C3E8143006BB840 /* MBEditPicturesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEditPicturesViewController.h; sourceTree = "<group>"; };
 		9476300D1C3E8143006BB840 /* MBEditPicturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBEditPicturesViewController.m; sourceTree = "<group>"; };
 		9476300E1C3E8143006BB840 /* MBEditPicturesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBEditPicturesViewController.xib; sourceTree = "<group>"; };
-		94799F0D1BCF582300201EFD /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
-		94799F0E1BCF582300201EFD /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		947BD6101C069492001347B9 /* TopTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopTableViewCell.h; sourceTree = "<group>"; };
 		947BD6111C069492001347B9 /* TopTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopTableViewCell.m; sourceTree = "<group>"; };
 		947BD6121C069492001347B9 /* TopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopTableViewCell.xib; sourceTree = "<group>"; };
@@ -1901,7 +1898,6 @@
 				42B455D91BB9671E003E555F /* ImageIO.framework in Frameworks */,
 				948CAA6F1BFEECF400318EAE /* AlipaySDK.framework in Frameworks */,
 				42B455D71BB9670C003E555F /* JavaScriptCore.framework in Frameworks */,
-				94799F0F1BCF582300201EFD /* libMobClickLibrary.a in Frameworks */,
 				94B6F4741BD5DCE900B352B9 /* libWeChatSDK.a in Frameworks */,
 				42B455D51BB96701003E555F /* libstdc++.dylib in Frameworks */,
 				42B455D31BB966F4003E555F /* libz.dylib in Frameworks */,
@@ -1976,7 +1972,6 @@
 				9432E4121C7D9AF800A64668 /* NtalkerSDK */,
 				940507CB1BF9D86800CA02F5 /* 极光推送 */,
 				94C7089A1BD5D5600070138B /* WechatPay */,
-				94799F0C1BCF57F200201EFD /* 友盟统计 */,
 				420BF6031BB537BA00C89C3C /* AppDelegate.h */,
 				420BF6041BB537BA00C89C3C /* AppDelegate.m */,
 				420BF6051BB537BA00C89C3C /* CustomerBadge */,
@@ -2203,7 +2198,7 @@
 				94E2942F1C8AA6D80063E678 /* Tool(公用) */,
 				420BF6011BB537BA00C89C3C /* Other(第三方) */,
 				48162F311AF2866900E61D5C /* Home(首页) */,
-				4838DA9A1B1DD43B00E6E4D2 /* My(我的) */,
+				4838DA9A1B1DD43B00E6E4D2 /* My(个人中心) */,
 				485486301B19AAFF008C68C0 /* Cart(购物车) */,
 				480D75E91B157F6C00D2A3F5 /* Shop(商品) */,
 				944BB0461CAD0E7900D16E19 /* Service( 服务) */,
@@ -2410,7 +2405,7 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		4838DA9A1B1DD43B00E6E4D2 /* My(我的) */ = {
+		4838DA9A1B1DD43B00E6E4D2 /* My(个人中心) */ = {
 			isa = PBXGroup;
 			children = (
 				4838DA9B1B1DD43B00E6E4D2 /* Models */,
@@ -2418,7 +2413,7 @@
 				42891E401BB0EB14008CF062 /* SubViewControllers */,
 				4838DA9C1B1DD43B00E6E4D2 /* ViewControllers */,
 			);
-			name = "My(我的)";
+			name = "My(个人中心)";
 			path = My;
 			sourceTree = "<group>";
 		};
@@ -3332,16 +3327,6 @@
 				946846891C7168F500D6881B /* DXLocationManager.m */,
 			);
 			name = "获取定位位置";
-			sourceTree = "<group>";
-		};
-		94799F0C1BCF57F200201EFD /* 友盟统计 */ = {
-			isa = PBXGroup;
-			children = (
-				94799F0D1BCF582300201EFD /* libMobClickLibrary.a */,
-				94799F0E1BCF582300201EFD /* MobClick.h */,
-			);
-			name = "友盟统计";
-			path = ../..;
 			sourceTree = "<group>";
 		};
 		94895EEF1C84287E0092356C /* 麻包圈 */ = {

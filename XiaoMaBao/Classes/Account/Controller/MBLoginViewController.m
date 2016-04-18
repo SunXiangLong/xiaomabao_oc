@@ -247,6 +247,7 @@
                         userInfo.collection_num   =userData[@"user"][@"collection_num"];
                         userInfo.is_baby_add = [NSString stringWithFormat:@"%@", userData[@"user"][@"is_baby_add"]];
                        userInfo.user_baby_info = userData[@"user"][@"user_baby_info"];
+                        [MobClick profileSignInWithPUID:userInfo.uid];
                        [self show:@"登录成功!" time:1];
 #pragma mark --登陆成功默认把密码账号保存到keychina里
                        if (password == nil) {

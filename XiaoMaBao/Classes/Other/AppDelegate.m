@@ -144,16 +144,8 @@
 - (void)umengTrack {
 
     [MobClick setAppVersion:XcodeAppVersion]; //参数为NSString * 类型,自定义app版本信息，如果不设置，默认从CFBundleVersion里取
-    
-    
-    //   reportPolicy为枚举类型,可以为 REALTIME, BATCH,SENDDAILY,SENDWIFIONLY几种
-    //   channelId 为NSString * 类型，channelId 为nil或@""时,默认会被被当作@"App Store"渠道
+
     [MobClick startWithAppkey:UMENG_APPKEY reportPolicy:(ReportPolicy) REALTIME channelId:nil];
-   
-    
-    [MobClick updateOnlineConfig];  //在线参数配置
-    
-  
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onlineConfigCallBack:) name:UMOnlineConfigDidFinishedNotification object:nil];
     
 }
@@ -167,16 +159,9 @@
 - (void)networkDidReceiveMessage:(NSNotification *)notification {
     NSDictionary * userInfo = [notification userInfo];
      NSLog(@"%@",userInfo);
-    //自定义参数，key是自己定义的
-
-//    NSString *messageNumber = [User_Defaults objectForKey:@"messageNumber"];
     NSString *strNum = [NSString stringWithFormat:@"%@",userInfo[@"extras"][@"new_message"]];
    [User_Defaults setObject:strNum forKey:@"messageNumber"];
-   
     [_messageAarray addObject:userInfo];
-//    NSArray *arr = [NSArray arrayWithArray:_messageAarray];
-//    _messageUserDefaults = [NSUserDefaults standardUserDefaults];
-//    [User_Defaults setObject:arr forKey:@"messageContent"];
     [User_Defaults synchronize];
     
     NSNotification *messageBadge =[NSNotification notificationWithName:@"messageBadge" object:nil userInfo:nil];
@@ -192,20 +177,6 @@
 //    
 //}
 
-#pragma mark - 获取item菜单
--(void)getMenuItem:(NSString *)menu_type
-{
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getFavourableMenu"] parameters:@{@"menu_type":menu_type} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
-        titleandIds = [responseObject valueForKeyPath:@"data"];
-        
-        
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"失败");
-    }];
-}
 #pragma markshare第三方登陆分享
 - (void)share{
     /**
@@ -302,7 +273,7 @@
                        
                        NSDictionary *sessionDict = [userData valueForKeyPath:@"session"];
                        MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-//                    NSLog(@"%@",userData);
+                    NSLog(@"%@",userData);
                        
                        userInfo.sid = [sessionDict valueForKeyPath:@"sid"];
                        userInfo.uid = [sessionDict valueForKeyPath:@"uid"];
@@ -316,6 +287,7 @@
                        userInfo.collection_num = userData[@"user"][@"collection_num"];
                        userInfo.is_baby_add = [NSString stringWithFormat:@"%@", userData[@"user"][@"is_baby_add"]];
                        userInfo.user_baby_info = userData[@"user"][@"user_baby_info"];
+                       [MobClick profileSignInWithPUID:userInfo.uid];
                    }else{
                        
                        NSString *errStr =[[responseObject valueForKey:@"status"] valueForKey:@"error_desc"];
@@ -648,8 +620,8 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
      NSLog(@"%@",userInfo);
-     NSString *str = userInfo[@"aps"][@"badge"];
-     NSInteger num = [str integerValue];
+//     NSString *str = userInfo[@"aps"][@"badge"];
+//     NSInteger num = [str integerValue];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     [APService handleRemoteNotification:userInfo];
 }

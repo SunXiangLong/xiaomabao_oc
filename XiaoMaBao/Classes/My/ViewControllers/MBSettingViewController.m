@@ -193,6 +193,7 @@
     
     [user clearUserInfo];
     [self deletePasswordAndUserName];
+    [MobClick profileSignOff];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -218,7 +219,6 @@
             NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
             folderSize +=[self fileSizeAtPath:absolutePath];
         }
-        　　　　　
         //SDWebImage框架自身计算缓存的实现
         folderSize += [[SDImageCache sharedImageCache] getSize]/1024.0/1024.0;
         return folderSize;
@@ -253,14 +253,10 @@
     
     
 }
+/**
+ *  退出登录时，删除存在keychain里面的登录信息
+ */
 - (void)deletePasswordAndUserName{
-//    NSString *sign_type = [SFHFKeychainUtils getPasswordForUsername:@"sign_type" andServiceName:@"com.xiaomabao.sign_type" error:nil];
-//    
-//    NSString *name = [SFHFKeychainUtils getPasswordForUsername:@"name" andServiceName:@"com.xiaomabao.name" error:nil];
-//    
-//    NSString *header_img = [SFHFKeychainUtils getPasswordForUsername:@"header_img" andServiceName:@"com.xiaomabao.header_img" error:nil];
-//    
-//    NSString *nick_name = [SFHFKeychainUtils getPasswordForUsername:@"nick_name" andServiceName:@"com.xiaomabao.nick_nick_name" error:nil];
     NSError *error;
     BOOL UserNameDeleted;
     BOOL Password;

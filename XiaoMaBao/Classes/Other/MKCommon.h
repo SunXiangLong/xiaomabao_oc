@@ -51,6 +51,8 @@
 #define MKLOG(fmt, ...)
 #endif
 
+/*****  友盟ios－－APPKEY */
+#define UMENG_APPKEY @"561f3d13e0f55ae1c60026cf"
 /** 所有的Font */
 /** 首页Cell的Font*/
 #define MKFontHomeContent [UIFont systemFontOfSize:14]

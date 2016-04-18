@@ -381,17 +381,18 @@
     titleLbl.numberOfLines = 0;
     titleLbl.text = self.goods_name;
     titleLbl.font = [UIFont boldSystemFontOfSize:13];
-    CGFloat hhh = [self calculateTextHeight:titleLbl.font givenText:titleLbl.text givenWidth:UISCREEN_WIDTH-16];
-    titleLbl.frame = CGRectMake(8, 0, UISCREEN_WIDTH-16,hhh );
+
+    NSInteger height = [titleLbl.text sizeWithFont:titleLbl.font  withMaxSize:CGSizeMake(UISCREEN_WIDTH-16, MAXFLOAT)].height;
+    titleLbl.frame = CGRectMake(8, 0, UISCREEN_WIDTH-16,height );
     [shopTitleView addSubview:titleLbl];
-      shopTitleView.frame = CGRectMake(0, CGRectGetMaxY(self.headerScrollview.frame) + 35, self.view.ml_width, 35+hhh);
+      shopTitleView.frame = CGRectMake(0, CGRectGetMaxY(self.headerScrollview.frame) + 35, self.view.ml_width, 35+height);
     // 原价
     UILabel *originalPriceLbl = [[UILabel alloc] init];
     originalPriceLbl.textColor = [UIColor colorWithHexString:@"b2b2b2"];
     originalPriceLbl.text = self.market_price_formatted;
     originalPriceLbl.font = [UIFont systemFontOfSize:13];
     CGSize originalPriceTextSize = [originalPriceLbl.text boundingRectWithSize:CGSizeMake(self.view.ml_width, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:originalPriceLbl.font} context:nil].size;
-    originalPriceLbl.frame = CGRectMake(self.view.ml_width - 8 - originalPriceTextSize.width, hhh, self.view.ml_width, 35);
+    originalPriceLbl.frame = CGRectMake(self.view.ml_width - 8 - originalPriceTextSize.width, height, self.view.ml_width, 35);
     [shopTitleView addSubview:originalPriceLbl];
     
     // 现价
@@ -400,7 +401,7 @@
     currentPriceLbl.text = self.shop_price_formatted;
     currentPriceLbl.font = [UIFont boldSystemFontOfSize:22];
     CGSize currentPriceTextSize = [currentPriceLbl.text boundingRectWithSize:CGSizeMake(self.view.ml_width, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:currentPriceLbl.font} context:nil].size;
-    currentPriceLbl.frame = CGRectMake(self.view.ml_width - 8 - currentPriceTextSize.width - originalPriceTextSize.width, hhh, self.view.ml_width, 35);
+    currentPriceLbl.frame = CGRectMake(self.view.ml_width - 8 - currentPriceTextSize.width - originalPriceTextSize.width, height, self.view.ml_width, 35);
     [shopTitleView addSubview:currentPriceLbl];
     
 }
@@ -911,7 +912,10 @@
         NSInteger num = 0;
         for (NSDictionary *dic in _evaluationArray) {
             NSArray *arr = dic[@"img_path"];
-            NSInteger height = [self calculateTextHeight:[UIFont systemFontOfSize:12] givenText:dic[@"content"] givenWidth:UISCREEN_WIDTH-20];
+            NSString *str = dic[@"content"];
+            NSInteger height = [str sizeWithFont:[UIFont systemFontOfSize:12] withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
+            
+           
                 if (arr.count>0){
                     num+=(50+height+(UISCREEN_WIDTH-40)/5+20);
               }else{
@@ -1229,7 +1233,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dic =_evaluationArray[indexPath.row];
-    NSInteger height = [self calculateTextHeight:[UIFont systemFontOfSize:12] givenText:dic[@"content"] givenWidth:UISCREEN_WIDTH-20];
+    NSString *str = dic[@"content"];
+    NSInteger height = [str sizeWithFont:[UIFont systemFontOfSize:12] withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
+    
        NSArray *arr = dic[@"img_path"];
 
         if (arr.count>0) {
@@ -1240,25 +1246,5 @@
     return 50+height;
 }
 
-- (CGFloat) calculateTextHeight:(UIFont *)font givenText:(NSString *)text givenWidth:(NSInteger)width{
-    
-    CGSize size = CGSizeZero;
-    if(text == nil || text.length == 0)
-    {
-        return size.height;
-    }
-    if([self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)] == YES)
-    {
-        size = [text boundingRectWithSize:CGSizeMake(width, 9999) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil].size;
-    }
-    else
-    {
-        size = [text sizeWithFont:font constrainedToSize:CGSizeMake(width, 9999)lineBreakMode:UILineBreakModeWordWrap];
-        
-    }
-    
-    
-    return size.height;
-    
-}
+
 @end
