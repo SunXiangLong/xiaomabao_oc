@@ -21,6 +21,17 @@
 @end
 
 @implementation MBServiceOrderController
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"MBServiceOrderController"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MBServiceOrderController"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

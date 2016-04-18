@@ -15,6 +15,17 @@
 @end
 
 @implementation MBServiceDetailsViewController
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"MBServiceDetailsViewController"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MBServiceDetailsViewController"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

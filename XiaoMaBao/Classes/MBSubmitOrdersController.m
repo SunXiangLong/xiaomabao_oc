@@ -29,6 +29,17 @@
 @end
 
 @implementation MBSubmitOrdersController
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"MBSubmitOrdersController"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MBSubmitOrdersController"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

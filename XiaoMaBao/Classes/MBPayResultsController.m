@@ -21,6 +21,17 @@
 @end
 
 @implementation MBPayResultsController
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"MBPayResultsController"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MBPayResultsController"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

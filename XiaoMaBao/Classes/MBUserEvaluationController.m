@@ -18,6 +18,17 @@
 @end
 
 @implementation MBUserEvaluationController
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"MBUserEvaluationController"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MBUserEvaluationController"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

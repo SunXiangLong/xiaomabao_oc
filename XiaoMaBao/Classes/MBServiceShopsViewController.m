@@ -26,6 +26,17 @@
 @end
 
 @implementation MBServiceShopsViewController
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"MBServiceShopsViewController"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MBServiceShopsViewController"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

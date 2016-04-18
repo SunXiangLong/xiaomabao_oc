@@ -16,6 +16,17 @@
 @end
 
 @implementation MBDetailsRefundController
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"MBDetailsRefundController"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MBDetailsRefundController"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

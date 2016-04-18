@@ -18,6 +18,17 @@
 @end
 
 @implementation MBMaBaoVolumeController
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"MBMaBaoVolumeController"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MBMaBaoVolumeController"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

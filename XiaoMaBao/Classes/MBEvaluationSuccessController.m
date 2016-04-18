@@ -22,6 +22,17 @@
 @end
 
 @implementation MBEvaluationSuccessController
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"MBEvaluationSuccessController"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MBEvaluationSuccessController"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
