@@ -1023,9 +1023,6 @@
 }
 #pragma mark --小能客服
 - (void)service{
-    
-
-    
     XNGoodsInfoModel *info = [[XNGoodsInfoModel alloc] init];
     info.appGoods_type = @"3";
     info.clientGoods_Type = @"1";

@@ -560,6 +560,7 @@
 		94C41A531C92CB770011C016 /* UIImage+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C41A521C92CB770011C016 /* UIImage+Size.m */; };
 		94CD1D1F1C45E8B70034083F /* MBLogisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CD1D1D1C45E8B70034083F /* MBLogisticsViewController.m */; };
 		94CD1D201C45E8B70034083F /* MBLogisticsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CD1D1E1C45E8B70034083F /* MBLogisticsViewController.xib */; };
+		94CD32A31CC5E97A00D1D763 /* succes_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94CD32A21CC5E97A00D1D763 /* succes_image@2x.png */; };
 		94CDC7431C321434001534A3 /* MBShopTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDC7411C321434001534A3 /* MBShopTableViewCell.m */; };
 		94CDC7441C321434001534A3 /* MBShopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CDC7421C321434001534A3 /* MBShopTableViewCell.xib */; };
 		94D0BB251C3A114E000B8943 /* MBImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D0BB231C3A114E000B8943 /* MBImageTableViewCell.m */; };
@@ -1683,6 +1684,7 @@
 		94CD1D1C1C45E8B70034083F /* MBLogisticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBLogisticsViewController.h; sourceTree = "<group>"; };
 		94CD1D1D1C45E8B70034083F /* MBLogisticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBLogisticsViewController.m; sourceTree = "<group>"; };
 		94CD1D1E1C45E8B70034083F /* MBLogisticsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBLogisticsViewController.xib; sourceTree = "<group>"; };
+		94CD32A21CC5E97A00D1D763 /* succes_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "succes_image@2x.png"; sourceTree = "<group>"; };
 		94CDC7401C321434001534A3 /* MBShopTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBShopTableViewCell.h; sourceTree = "<group>"; };
 		94CDC7411C321434001534A3 /* MBShopTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBShopTableViewCell.m; sourceTree = "<group>"; };
 		94CDC7421C321434001534A3 /* MBShopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBShopTableViewCell.xib; sourceTree = "<group>"; };
@@ -3761,6 +3763,7 @@
 		94A783681C0BF4B4007D18A0 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				94CD32A21CC5E97A00D1D763 /* succes_image@2x.png */,
 				94DC653B1CBC9D8E00AF3782 /* login_image@2x.png */,
 				946AE54B1CA50B3E00F3F66C /* address_add_icon@2x.png */,
 				946AE5471CA50A1D00F3F66C /* MyAddressManager_edit@2x.png */,
@@ -4544,6 +4547,7 @@
 				943227421C9A738E00E352AB /* MBFreeStoreViewOnechildCell.xib in Resources */,
 				94FDD0AE1C5752EA007B2A42 /* MBDefaultTableViewCell.xib in Resources */,
 				944BB0521CAD0FCE00D16E19 /* MBServiceHomeCell.xib in Resources */,
+				94CD32A31CC5E97A00D1D763 /* succes_image@2x.png in Resources */,
 				9428A48C1CB778DE002D2A53 /* MBPayResultsHeadView.xib in Resources */,
 				941CCD2C1CB3CC7B0056890C /* MBMyServiceChilderViewController.xib in Resources */,
 				941BA9511CB3493E00421BF6 /* MBSubmitOrdersController.xib in Resources */,

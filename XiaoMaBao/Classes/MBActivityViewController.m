@@ -256,6 +256,7 @@
             NSInteger hour = (_lettTimes-leftdays*24*3600)/3600;
             NSInteger minute = (_lettTimes - hour*3600-leftdays*24*3600)/60;
             NSInteger second = (_lettTimes - hour *3600 - 60*minute-leftdays*24*3600);
+            
             if (!_timeView) {
                 timeView *View = [timeView instanceView];
                 View.day.text = leftdays>10?[NSString stringWithFormat:@"%ld",leftdays]:[NSString stringWithFormat:@"0%ld",leftdays];
@@ -267,6 +268,7 @@
                     make.bottom.left.mas_equalTo(0);
                     make.top.equalTo(imageView.mas_bottom).offset(0);
                     make.right.mas_equalTo(-5);
+                    make.left.mas_equalTo(5);
                     
                 }];
             }

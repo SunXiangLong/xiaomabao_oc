@@ -583,7 +583,7 @@
     NSLog(@"%ld",buttonIndex);
     
      if ([_success isEqualToString:@"1"]) {
-         if(!self.service_data){
+         if(self.service_data){
              MBPayResultsController *VC = [[MBPayResultsController alloc] init];
              VC.order_id = self.service_data[@"order_id"];
              [self pushViewController:VC Animated:YES];

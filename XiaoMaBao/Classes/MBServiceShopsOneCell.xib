@@ -21,8 +21,8 @@
                             <constraint firstAttribute="width" secondItem="MP9-dK-Zh6" secondAttribute="height" multiplier="1:1" id="Gau-fJ-K8l"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="产后束身" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4AX-DU-C4O">
-                        <rect key="frame" x="94" y="13" width="56" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="产后束身" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4AX-DU-C4O">
+                        <rect key="frame" x="94" y="13" width="218" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.66274509800000003" green="0.66274509800000003" blue="0.66274509800000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -52,6 +52,7 @@
                     <constraint firstItem="bwU-qd-5DI" firstAttribute="leading" secondItem="MP9-dK-Zh6" secondAttribute="trailing" constant="12" id="NZ3-ot-7LK"/>
                     <constraint firstItem="bwU-qd-5DI" firstAttribute="top" secondItem="r9j-B3-zuW" secondAttribute="bottom" constant="6" id="QSZ-ve-AgK"/>
                     <constraint firstItem="bwU-qd-5DI" firstAttribute="top" secondItem="6Ej-7Q-ARe" secondAttribute="bottom" constant="8" id="ZQh-0i-nzK"/>
+                    <constraint firstAttribute="trailing" secondItem="4AX-DU-C4O" secondAttribute="trailing" constant="8" id="dkk-6a-6ra"/>
                     <constraint firstAttribute="bottom" secondItem="MP9-dK-Zh6" secondAttribute="bottom" id="dsM-N9-IpB"/>
                     <constraint firstItem="6Ej-7Q-ARe" firstAttribute="leading" secondItem="MP9-dK-Zh6" secondAttribute="trailing" constant="12" id="j1Q-Rm-Lr0"/>
                     <constraint firstAttribute="trailing" secondItem="bwU-qd-5DI" secondAttribute="trailing" id="mhb-9y-1TL"/>

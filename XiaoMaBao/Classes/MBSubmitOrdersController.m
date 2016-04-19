@@ -65,10 +65,17 @@
             MBUserDataSingalTon *userInf = [MBSignaltonTool getCurrentUserInfo];
             _number = [[responseObject valueForKeyPath:@"product_shop_price"] doubleValue];
             self.price.text = [NSString stringWithFormat:@"¥ %.2f",_number*self.choosedCount];
-            self.shop_price.text = [NSString stringWithFormat:@"¥ %.2f",_number*self.choosedCount];
-            NSString *photo = [userInf.mobile_phone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+              NSString * MOBILE = @"^1(3[0-9]|5[0-35-9]|8[025-9]|70|77)\\d{8}$";
+               NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
+             BOOL res = [regextestmobile evaluateWithObject:userInf.mobile_phone];
+             self.shop_price.text = [NSString stringWithFormat:@"¥ %.2f",_number*self.choosedCount];
+            if (res) {
+                NSString *photo = [userInf.mobile_phone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+                
+                self.user_photo.text = photo;
+            }
+           
             
-            self.user_photo.text = photo;
         }else{
             [self show:@"数据错误" time:1];
             [self popViewControllerAnimated:YES];
@@ -97,8 +104,18 @@
             _number = [[responseObject valueForKeyPath:@"product_shop_price"] doubleValue];
             self.price.text = [NSString stringWithFormat:@"¥ %.2f",_number*self.choosedCount];
             self.shop_price.text = [NSString stringWithFormat:@"¥ %.2f",_number*self.choosedCount];
-            NSString *photo = [userInf.mobile_phone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
-            self.user_photo.text = photo;
+            
+            NSString * MOBILE = @"^1(3[0-9]|5[0-35-9]|8[025-9]|70|77)\\d{8}$";
+            NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
+            BOOL res = [regextestmobile evaluateWithObject:userInf.mobile_phone];
+            self.shop_price.text = [NSString stringWithFormat:@"¥ %.2f",_number*self.choosedCount];
+            if (res) {
+                NSString *photo = [userInf.mobile_phone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+                self.user_photo.text = photo;
+            }else{
+                self.user_photo.text = @"";
+            }
+           
             [self submitOrders];
         }else{
             [self show:@"数据错误" time:1];

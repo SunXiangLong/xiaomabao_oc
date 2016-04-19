@@ -26,12 +26,13 @@
     
     [_collectionView registerNib:[UINib nibWithNibName:@"MBTopCargoCell" bundle:nil] forCellWithReuseIdentifier:@"MBTopCargoCell"];
     _collectionView.scrollEnabled = NO;
+    [_collectionView reloadData];
 
 }
 #pragma mark --UICollectionViewdelegate
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (_type) {
-        return 10;
+        return 8;
     }
     return 25;
 }
@@ -44,7 +45,7 @@
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     if (_type) {
-         return UIEdgeInsetsMake(10, 8, 10,8);
+         return UIEdgeInsetsMake(0, 0, 0,0);
     }
     return UIEdgeInsetsMake(8, 8, 8,8);
 }
@@ -75,7 +76,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     if (_type) {
-        return CGSizeMake(((UISCREEN_WIDTH-16-12)/2 -30)/2, ((UISCREEN_WIDTH-16-12)/2 -30)/2);
+        return CGSizeMake(((UISCREEN_WIDTH-16-12)/2 -8)/2, ((UISCREEN_WIDTH-16-12)/2 -8)/2);
     }
     
     if (indexPath.row == 0) {

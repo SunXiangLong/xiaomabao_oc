@@ -41,7 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setheadData];
-       
+    
     
 }
 - (UIView *)setTableHeadView{
@@ -53,12 +53,12 @@
     tableHead.photo.text = _dataDic[@"shop_info"][@"shop_phone"];
     tableHead.adress_detailed.text = _dataDic[@"shop_info"][@"shop_address"];
     tableHead.frame = view.bounds;
-   
+    
     [tableHead.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(callPhone:)]];
-
+    
     [view addSubview:tableHead];
     return view;
-
+    
 }
 - (void)callPhone:(id)sender {
     
@@ -66,7 +66,7 @@
     if (_dataDic) {
         NSString * telStr = [NSString stringWithFormat:@"telprompt://%@",_dataDic[@"shop_info"][@"shop_phone"]];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
-
+        
     }
     
 }
@@ -80,9 +80,9 @@
         
         if ([responseObject count]>0) {
             
-           NSLog(@"%@",responseObject);
+            NSLog(@"%@",responseObject);
             _dataDic = responseObject;
-              self.tableView.tableHeaderView = [self setTableHeadView];
+            self.tableView.tableHeaderView = [self setTableHeadView];
             _dataArr = @[_dataDic[@"products"],_dataDic[@"comment"],_dataDic[@"other_shop"]];
             [self.tableView reloadData];
             // 拿到当前的上拉刷新控件，结束刷新状态
@@ -101,7 +101,7 @@
     
 }
 - (NSString *)titleStr{
-
+    
     return self.title?:@"";
 }
 #pragma mark -- 更多服务
@@ -124,34 +124,34 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-   
- 
+    
+    
     return _dataArr.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSArray *arr = _dataDic[@"products"];
     NSArray *arr2 = _dataDic[@"other_shop"];
     NSArray *arr3 = _dataDic[@"comment"];
-        switch (section) {
-            case 0:
-            {
-                if (arr.count>2) {
-                    return _iSmoreService?arr.count:2;
-                }else if(arr.count==0){
-                    return 0;
-                }
-                 return arr.count;
+    switch (section) {
+        case 0:
+        {
+            if (arr.count>2) {
+                return _iSmoreService?arr.count:2;
+            }else if(arr.count==0){
+                return 0;
             }
-            case 1: return arr3.count;
-            default: return arr2.count;
+            return arr.count;
         }
+        case 1: return arr3.count;
+        default: return arr2.count;
+    }
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.section) {
         case 0: return 85;
         case 1:{
-           
+            
             NSString *str = _dataDic[@"comment"][indexPath.row][@"comment_content"];
             NSArray *arr =  _dataDic[@"comment"][indexPath.row][@"comment_imgs"];
             CGFloat strHeight = [str sizeWithFont:[UIFont systemFontOfSize:14] withMaxSize:CGSizeMake(UISCREEN_WIDTH-62, MAXFLOAT)].height;
@@ -176,68 +176,54 @@
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    NSArray *arr = _dataArr[section];
-    if (arr.count>0) {
-        return 51;
-    }
-      return 0;
+    return 51;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    if (section ==0) {
-//        NSArray *arr = _dataArr[section];
-//        NSInteger num = arr.count - 2;
-//        if (num>0) {
-//            return 41;
-//        }else{
-//            return 0;
-//        }
-        return 41;
-    }else if (section == 3) {
-        return 0;
-    }else{
-        NSArray *arr = _dataArr[section];
-        
-        if (arr.count>0) {
-            return 41;
-        }
-        return 0;
-    
-    }
+    return 41;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] init];
-   
+    
     if (section == 0) {
         
         NSArray *arr = _dataArr[section];
         NSInteger num = arr.count - 2;
         MBServiceShopsTableFootView *footView = [MBServiceShopsTableFootView instanceView];
         footView.frame = view.bounds;
-        footView.name.text = [NSString stringWithFormat:@"查看其它%ld个服务",num>0?num:0];
-        if (_iSmoreService) {
-            footView.image.image = [UIImage imageNamed:@"dupward_image"];
+        [view addSubview:footView];
+        if (num>0) {
+          
+            if (_iSmoreService) {
+                num = 0;
+                footView.name.text = [NSString stringWithFormat:@"查看其它%ld个服务",num];
+                footView.image.image = [UIImage imageNamed:@"dupward_image"];
+            }else{
+                footView.name.text = [NSString stringWithFormat:@"查看其它%ld个服务",num];
+                footView.image.image = [UIImage imageNamed:@"down_image"];
+            }
+            [footView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moreService)]];
+          
+            
         }else{
-            footView.image.image = [UIImage imageNamed:@"down_image"];
+            footView.name.text = @"暂无更多服务";
+            
         }
-        [footView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moreService)]];
-          [view addSubview:footView];
         
         return view;
-
-
+        
     }else  if  (section == 1){
+        MBServiceShopsTableFootView *footView = [MBServiceShopsTableFootView instanceView];
+        footView.frame = view.bounds;
+        [view addSubview:footView];
         if ([_dataArr[section] count]>0) {
-            MBServiceShopsTableFootView *footView = [MBServiceShopsTableFootView instanceView];
-            footView.frame = view.bounds;
-            [view addSubview:footView];
             footView.name.text = @"查看其它评价";
             footView.image.hidden = YES;
             [footView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(otherEvaluation)]];
             return view;
         }
-       
-        return view;
+        footView.name.text = @"暂无评价数据";
+        
     }
     
     return view;
@@ -252,17 +238,16 @@
         case 0: {
             NSArray *arr = _dataDic[@"products"];
             headView.number.text =  [NSString stringWithFormat:@"服务%lu",(unsigned long)arr.count];
-                 headView.name.text = @"特色服务";} break;
+            headView.name.text = @"特色服务";} break;
         case 1:{headView.number.text = @"";
             headView.name.text = @"用户评价";}  break;
         default:{headView.number.text = @"";
             headView.name.text = @"更多商家";} break;
     }
-    if ([_dataArr[section] count]>0) {
-          return view;
-    }
-    return nil;
-
+    
+    return view;
+    
+    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -297,9 +282,9 @@
         
     }
     NSDictionary    *dic = _dataDic[@"other_shop"][indexPath.row];
-     MBServiceHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceHomeCell"];
+    MBServiceHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceHomeCell"];
     if (!cell) {
-       cell = [[[NSBundle mainBundle]loadNibNamed:@"MBServiceHomeCell" owner:nil options:nil]firstObject];
+        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBServiceHomeCell" owner:nil options:nil]firstObject];
     }
     [cell.user_image sd_setImageWithURL:[NSURL URLWithString:dic[@"shop_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
     cell.name.text = dic[@"shop_name"];
@@ -320,15 +305,15 @@
             MBUserEvaluationController *VC = [[MBUserEvaluationController alloc] init];
             VC.shop_id = _dataDic[@"comment"][indexPath.row][@"comment_id"];
             [self pushViewController:VC Animated:YES];
-        
+            
         }break;
         default:{
-        
+            
             NSDictionary    *dic = _dataDic[@"other_shop"][indexPath.row];
             MBServiceShopsViewController *VC = [[MBServiceShopsViewController alloc] init];
             VC.shop_id = dic[@"shop_id"];
             [self pushViewController:VC Animated:YES];
-
+            
         }break;
     }
 }
