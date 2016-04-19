@@ -12,6 +12,7 @@
 #import "MBSearchViewController.h"
 #import "MBShopDetailsViewController.h"
 #import "MBTopCargoController.h"
+
 @interface MBNewHomeViewController ()<UIScrollViewDelegate>
 {
     UIButton *_lastButton;
