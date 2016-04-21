@@ -45,7 +45,7 @@ static AFHTTPRequestOperationManager *mgr = nil;
     requestParams = dict;
     [self logURL];
     
-  
+
                              
     return [self.mgr POST:URLString parameters:requestParams constructingBodyWithBlock:block success:^(AFHTTPRequestOperation *operation, id responseObject) {
         

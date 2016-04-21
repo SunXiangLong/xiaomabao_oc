@@ -263,6 +263,8 @@
                 View.hours.text = hour>10?[NSString stringWithFormat:@"%ld",hour]:[NSString stringWithFormat:@"0%ld",hour];
                 View.points.text =  minute>10?[NSString stringWithFormat:@"%ld",minute]:[NSString stringWithFormat:@"0%ld",minute];
                 View.second.text = second>10?[NSString stringWithFormat:@"%ld",second]:[NSString stringWithFormat:@"0%ld",second];
+                
+                
                 [reusableview   addSubview:_timeView = View];
                 [View mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.bottom.left.mas_equalTo(0);

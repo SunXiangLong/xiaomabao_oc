@@ -32,7 +32,7 @@ PODS:
   - iCarousel (1.8.2)
   - KVNProgress (2.2.1)
   - Masonry (0.6.3)
-  - MBProgressHUD (0.9.1)
+  - MBProgressHUD (0.9.2)
   - MJPhotoBrowser (1.0.2):
     - SDWebImage
     - SVProgressHUD
@@ -71,7 +71,7 @@ DEPENDENCIES:
   - iCarousel
   - KVNProgress
   - Masonry
-  - MBProgressHUD (~> 0.9.1)
+  - MBProgressHUD (~> 0.9.2)
   - MJPhotoBrowser (~> 1.0.2)
   - MJRefresh (~> 3.0.7)
   - MOBFoundation
@@ -99,7 +99,7 @@ SPEC CHECKSUMS:
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
   KVNProgress: 7001d2d16a2755cee5599e8e485befe056f2197b
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
-  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJPhotoBrowser: f55e8490231f44a78ca6455105a1c798a142c95f
   MJRefresh: f3e1228ec3d38c7ba5208d58032631a52f39f495
   MOBFoundation: 79efc94db961fe5a08cf32de69166f6a29a3b2b5

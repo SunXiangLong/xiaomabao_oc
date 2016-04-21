@@ -59,7 +59,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/post_comment"]
+ [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/post_comment"]
             parameters:@{@"session":sessiondict,@"content":_textView.text,@"order_id":self.order_id}
             constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
              UIImage *image = [[UIImage alloc] init];
@@ -100,7 +100,7 @@
                    [self show:@"请求失败！" time:1];
                }
      ];
-    
+      
 }
 #pragma mark --相册多选
 /**

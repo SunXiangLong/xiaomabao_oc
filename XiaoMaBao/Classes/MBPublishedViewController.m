@@ -149,12 +149,12 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [self show];
+    [self showProgress];
     
     NSLog(@"%@,%@",_mood,_weather);
     
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/diaryadd"]
+   AFHTTPRequestOperation *fileUploadOp =   [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/diaryadd"]
             parameters:@{@"session":sessiondict,@"content":_textView.text,@"longitude":self.longitude,@"latitude":self.latitude,@"weather":_weather,@"mood":_mood}
      
 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -181,9 +181,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                success:^(AFHTTPRequestOperation *operation, id responseObject) {
                    NSLog(@"success:%@",[responseObject valueForKeyPath:@"status"]);
                    if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
-                       [self show:@"发表成功" time:1];
-                      
-                       
+
+                       [self dismiss];
                        self.block();
                        [self popViewControllerAnimated:YES];
                    }else{
@@ -197,6 +196,19 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                    [self show:@"请求失败！" time:1];
                }
      ];
+    
+    [fileUploadOp setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        CGFloat progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
+        NSLog(@"上传进度:%f",progress);
+        self.progress = progress;
+      
+    }];
+    
+
+    
+    
+//    [fileUploadOp pause];
+
     
 }
 

@@ -11,7 +11,6 @@
 @interface timeView : UIView
 + (instancetype)instanceView;
 @property (weak, nonatomic) IBOutlet UILabel *second;
-
 @property (weak, nonatomic) IBOutlet UILabel *points;
 @property (weak, nonatomic) IBOutlet UILabel *hours;
 @property (weak, nonatomic) IBOutlet UILabel *day;

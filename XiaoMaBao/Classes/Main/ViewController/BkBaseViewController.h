@@ -81,7 +81,12 @@
 - (BOOL)isSearch;
 //HUD提示
 -(void)show;
+-(void)showProgress;
 -(void)show:(NSString *)str;
 -(void)show:(NSString *)str time:(NSInteger)timer;
 -(void)dismiss;
+/**
+ *  进度值
+ */
+@property (nonatomic,assign) float progress;;
 @end

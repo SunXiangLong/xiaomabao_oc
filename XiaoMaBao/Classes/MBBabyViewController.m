@@ -84,7 +84,7 @@
                 if (!_isBool) {
                     
                     
-                    NSLog(@"!111111");
+                
                     __unsafe_unretained __typeof(self) weakSelf = self;
                     [DXLocationManager getlocationWithBlock:^(double longitude, double latitude) {
                         
@@ -100,7 +100,7 @@
                     }];
                 }
                 
-                NSLog(@"!22222");
+              
                 
             }else{
                    __unsafe_unretained __typeof(self) weakSelf = self;
@@ -304,7 +304,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     
 }
                success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   NSLog(@"success:%@",[responseObject valueForKeyPath:@"status"]);
+//                   NSLog(@"success:%@",[responseObject valueForKeyPath:@"status"]);
                    if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
                        
                      
@@ -338,7 +338,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/info"] parameters:@{@"session":sessiondict}
                success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    
                    [self show:@"保存成功" time:1];
                    
@@ -472,7 +472,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    NSLog(@"%@ %@",self.longitude,self.latitude);
     
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/tips"];
     if (! sid) {
@@ -482,11 +481,11 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     [MBNetworking POST:url parameters:@{@"session":sessiondict,@"device":@"ios",@"longitude":self.longitude,@"latitude":self.latitude}
                success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
                    
-                   NSLog(@"%@",[responseObject valueForKey:@"status"]);
+                 
                    if(1 == [[responseObject valueForKey:@"status"]  intValue]){
                        [self dismiss];
                        NSArray *arr = [responseObject valueForKeyPath:@"data"];
-                      NSLog(@"%@",arr);
+//                      NSLog(@"%@",arr);
                        
                        
                        for (NSDictionary *dic in arr) {
@@ -542,7 +541,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                        [self dismiss];
                        NSDictionary *userData = [responseObject valueForKeyPath:@"data"];
                        NSArray *arr = userData[@"result"];
-                       NSLog(@"%@",arr);
+//                       NSLog(@"%@",arr);
                        
                        
                        if (_page==1) {
@@ -581,7 +580,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                                    
                                    [[self tableView] scrollToRowAtIndexPath:indexPath
                                                            atScrollPosition:UITableViewScrollPositionTop animated:YES];
-                                   NSLog(@"_logarray.coun === %ld %ld %ld",_logArray.count,indexPath.section,indexPath.row);
+                                  
                                    
                                    
 //                                   [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -608,7 +607,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                            }
                            if([arr.firstObject[@"max_page"] integerValue]<_page) {
                                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-                               NSLog(@"--------");
+                              
                            }else{
                                [_logArray addObjectsFromArray:arr];
                                [self.tableView reloadData];
@@ -702,7 +701,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     
     headView1 *view1 = [headView1 instanceView];
     
-    NSLog(@"%@",self.photo);
+  
     
     
     if ([self.photo isKindOfClass:[NSString class]]) {
@@ -1074,8 +1073,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             
             __unsafe_unretained __typeof(self) weakSelf = self;
             VC.block = ^(NSIndexPath *indexPath){
-                NSLog(@"%ld",(long)indexPath.section);
-                NSLog(@"%ld",(long)indexPath.row);
+                
                 
                 
                 [_logArray[indexPath.section][@"data"] removeObjectAtIndex:indexPath.row];

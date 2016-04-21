@@ -306,6 +306,8 @@
         case 0:{
             MBServiceDetailsViewController *VC = [[MBServiceDetailsViewController alloc] init];
             VC.product_id = _dataDic[@"products"][indexPath.row][@"product_id"];
+          
+            
             [self pushViewController:VC Animated:YES];
         }break;
         case 1:{
@@ -319,6 +321,7 @@
             NSDictionary    *dic = _dataDic[@"other_shop"][indexPath.row];
             MBServiceShopsViewController *VC = [[MBServiceShopsViewController alloc] init];
             VC.shop_id = dic[@"shop_id"];
+            VC.title = dic[@"shop_name"];
             [self pushViewController:VC Animated:YES];
             
         }break;
