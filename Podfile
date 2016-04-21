@@ -1,4 +1,4 @@
-platform :ios, '7.0'
+platform :ios, '8.0'
 pod 'PureLayout', '~> 2.0.6'
 pod 'KVNProgress'
 pod 'AFNetworking', '~> 2.5.4'

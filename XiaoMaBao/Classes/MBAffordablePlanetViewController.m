@@ -77,7 +77,8 @@
     
     [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self dismiss];
-//     NSLog(@"%@ ",responseObject);
+     NSLog(@"%@ ",responseObject);
+        
         if (responseObject) {
             _bandImageArray = [responseObject valueForKey:@"today_recommend_top"];
             [_today_recommend addObject:@[@{@"ad_img":[responseObject valueForKey:@"group_buy_img"]}]];

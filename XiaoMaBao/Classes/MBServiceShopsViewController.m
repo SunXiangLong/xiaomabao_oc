@@ -63,8 +63,15 @@
 - (void)callPhone:(id)sender {
     
     
+   
     if (_dataDic) {
-        NSString * telStr = [NSString stringWithFormat:@"telprompt://%@",_dataDic[@"shop_info"][@"shop_phone"]];
+    
+        NSString *str = _dataDic[@"shop_info"][@"shop_phone"];
+        NSString *str1 = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+       
+        NSString * telStr = [NSString stringWithFormat:@"telprompt://%@",str1];
+        
+        
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
         
     }

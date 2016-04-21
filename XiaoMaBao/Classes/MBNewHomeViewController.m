@@ -12,7 +12,6 @@
 #import "MBSearchViewController.h"
 #import "MBShopDetailsViewController.h"
 #import "MBTopCargoController.h"
-
 @interface MBNewHomeViewController ()<UIScrollViewDelegate>
 {
     UIButton *_lastButton;
@@ -66,8 +65,6 @@
     VC2.title = @"免税店";
     [self addChildViewController:VC2];
     
-    
-   
 }
 - (void)setupTitlesView
 {
@@ -80,7 +77,6 @@
     CGFloat titleButtonH = 30;
     CGFloat titleButtonW = (UISCREEN_WIDTH-1) / count;
     for (int  i = 0; i<count; i++) {
-        
         UIButton *titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [titleButton addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
         titleButton.backgroundColor = NavBar_Color;

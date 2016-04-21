@@ -39,9 +39,6 @@
     [self.view insertSubview:_webView atIndex:0];
 
 }
-
-
-
 - (IBAction)buy:(id)sender {
     MBSubmitOrdersController *VC = [[MBSubmitOrdersController alloc] init];
     VC.product_id = self.product_id;

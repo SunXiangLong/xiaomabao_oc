@@ -148,9 +148,9 @@
     NSInteger minute = (lettTimes - hour*3600-leftdays*24*3600)/60;
     NSInteger second = (lettTimes - hour *3600 - 60*minute-leftdays*24*3600);
     self.daylable.text = [NSString stringWithFormat:@"%ld",leftdays];
-    self.hourLable.text = [NSString stringWithFormat:@"%ld",hour];
-    self.minuteLable.text = [NSString stringWithFormat:@"%ld",minute];
-    self.secondlable.text = [NSString stringWithFormat:@"%ld",second];
+    self.secondlable.text = [NSString stringWithFormat:@"%ld",hour];
+    self.hourLable.text = [NSString stringWithFormat:@"%ld",minute];
+    self.minuteLable.text = [NSString stringWithFormat:@"%ld",second];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -333,6 +333,7 @@
 		9432E48D1C7D9AF800A64668 /* XNShowBigView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9432E4711C7D9AF800A64668 /* XNShowBigView.m */; };
 		9438495F1C29421000DC93E5 /* MBSpecificationsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9438495D1C29421000DC93E5 /* MBSpecificationsCell.m */; };
 		943849601C29421000DC93E5 /* MBSpecificationsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9438495E1C29421000DC93E5 /* MBSpecificationsCell.xib */; };
+		943A95051CC70FB1001E0579 /* RFQuiltLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 943A95041CC70FB1001E0579 /* RFQuiltLayout.m */; };
 		943E81321CAE186600DDD09C /* MBUserEvaluationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 943E81301CAE186600DDD09C /* MBUserEvaluationController.m */; };
 		943E81331CAE186600DDD09C /* MBUserEvaluationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943E81311CAE186600DDD09C /* MBUserEvaluationController.xib */; };
 		943E81371CAE266E00DDD09C /* MBUserEvaluationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 943E81351CAE266E00DDD09C /* MBUserEvaluationCell.m */; };
@@ -1270,6 +1271,8 @@
 		9438495C1C29421000DC93E5 /* MBSpecificationsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSpecificationsCell.h; sourceTree = "<group>"; };
 		9438495D1C29421000DC93E5 /* MBSpecificationsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSpecificationsCell.m; sourceTree = "<group>"; };
 		9438495E1C29421000DC93E5 /* MBSpecificationsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBSpecificationsCell.xib; sourceTree = "<group>"; };
+		943A95031CC70FB1001E0579 /* RFQuiltLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFQuiltLayout.h; sourceTree = "<group>"; };
+		943A95041CC70FB1001E0579 /* RFQuiltLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFQuiltLayout.m; sourceTree = "<group>"; };
 		943E812F1CAE186600DDD09C /* MBUserEvaluationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBUserEvaluationController.h; sourceTree = "<group>"; };
 		943E81301CAE186600DDD09C /* MBUserEvaluationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBUserEvaluationController.m; sourceTree = "<group>"; };
 		943E81311CAE186600DDD09C /* MBUserEvaluationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBUserEvaluationController.xib; sourceTree = "<group>"; };
@@ -3855,6 +3858,8 @@
 				94510EBB1C8577C0005DF311 /* JCCollectionViewWaterfallLayout.m */,
 				48042CB01B30291800C6B32D /* HMWaterflowLayout.h */,
 				48042CB11B30291800C6B32D /* HMWaterflowLayout.m */,
+				943A95031CC70FB1001E0579 /* RFQuiltLayout.h */,
+				943A95041CC70FB1001E0579 /* RFQuiltLayout.m */,
 				94CD32B41CC6241200D1D763 /* FBLikeLayout.h */,
 				94CD32B51CC6241200D1D763 /* FBLikeLayout.m */,
 			);
@@ -4902,6 +4907,7 @@
 				94DD62AD1C33A87F00060C35 /* MBEvaluationTableViewCell.m in Sources */,
 				94FE504C1C3E031200B5516D /* YBImgPickerViewCell.m in Sources */,
 				94E9A4741C9047340002E15E /* SDWaitingView.m in Sources */,
+				943A95051CC70FB1001E0579 /* RFQuiltLayout.m in Sources */,
 				AA3A9FA91B90BDA8009E0378 /* TaxExemController.m in Sources */,
 				944DCD171C9B9CFB003B5CC2 /* MBCategoryViewOneCell.m in Sources */,
 				941161951C46560500EE8B9A /* MBMoreBrandsCollectionViewCell.m in Sources */,
@@ -5267,7 +5273,7 @@
 					"\"$(SRCROOT)/XiaoMaBao/alipay\"",
 				);
 				INFOPLIST_FILE = XiaoMaBao/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_QUOTE_LINKER_ARGUMENTS_FOR_COMPILER_DRIVER = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -5351,7 +5357,7 @@
 					"\"$(SRCROOT)/XiaoMaBao/alipay\"",
 				);
 				INFOPLIST_FILE = XiaoMaBao/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_QUOTE_LINKER_ARGUMENTS_FOR_COMPILER_DRIVER = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
