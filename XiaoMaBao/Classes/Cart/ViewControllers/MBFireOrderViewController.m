@@ -549,7 +549,7 @@
         UILabel *rateLbl = [[UILabel alloc] init];
         rateLbl.font = [UIFont systemFontOfSize:14];
         rateLbl.text =   [NSString stringWithFormat:@"税       费：%@",self.cross_border_tax];
-        rateLbl.frame = CGRectMake(8, CGRectGetMaxY(vouchersLbl.frame) + MARGIN_5, self.view.ml_width, 15);
+        rateLbl.frame = CGRectMake(8, CGRectGetMaxY(vouchersLbl.frame) + MARGIN_5, self.view.ml_width, 0);
         
         
         UILabel *remarkLbl = [[UILabel alloc] init];
@@ -625,7 +625,7 @@
         UILabel *rateLbl = [[UILabel alloc] init];
         rateLbl.font = [UIFont systemFontOfSize:14];
         rateLbl.text =   [NSString stringWithFormat:@"税       费：%@",self.cross_border_tax];
-        rateLbl.frame = CGRectMake(8, CGRectGetMaxY(vouchersLbl.frame) + MARGIN_5, self.view.ml_width, 15);
+        rateLbl.frame = CGRectMake(8, CGRectGetMaxY(vouchersLbl.frame) + MARGIN_5, self.view.ml_width, 0);
 
         
         UILabel *remarkLbl = [[UILabel alloc] init];

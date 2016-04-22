@@ -282,11 +282,16 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    NSString *str = _recommend_goods[indexPath.item][@"goods_name"];
+    CGFloat height = [str sizeWithFont:[UIFont systemFontOfSize:10] withMaxSize:CGSizeMake((UISCREEN_WIDTH-27)/2-15, MAXFLOAT)].height;
     if (indexPath.section == 0) {
         return CGSizeMake(UISCREEN_WIDTH, 40+(UISCREEN_WIDTH-28)/3*232/195+(UISCREEN_WIDTH-23)/2*160/299*2+UISCREEN_WIDTH*231/642);
     }else if(indexPath.section == 1){
         return  CGSizeMake(UISCREEN_WIDTH , ((UISCREEN_WIDTH-18)/4+21)*2);
     }else{
+        if (height>12) {
+             return  CGSizeMake((UISCREEN_WIDTH-27)/2,(UISCREEN_WIDTH-47)/2+74);
+        }
         
         return  CGSizeMake((UISCREEN_WIDTH-27)/2,(UISCREEN_WIDTH-47)/2+62);
     }
