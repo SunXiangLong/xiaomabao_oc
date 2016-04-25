@@ -21,7 +21,11 @@ typedef enum {
  *  @return 长度
  */
 - (CGSize)sizeWithFont:(UIFont *)font withMaxSize:(CGSize)size;
-
+/**
+ *  md5加密
+ *
+ *  @return 返回加密后的字符串
+ */
 - (NSString *)md5;
-- (NSString *)isNSString;
+
 @end

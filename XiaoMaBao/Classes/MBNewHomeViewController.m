@@ -62,7 +62,7 @@
     [self addChildViewController:VC1];
     
     MBFreeStoreViewController *VC2 = [[MBFreeStoreViewController alloc] init];
-    VC2.title = @"免税店";
+    VC2.title = @"全球闪购";
     [self addChildViewController:VC2];
     
 }

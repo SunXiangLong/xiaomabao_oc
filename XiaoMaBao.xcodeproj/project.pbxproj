@@ -133,7 +133,6 @@
 		487602BC1AF30DB000A2B1F0 /* MBRegisterPhoneVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 487602BB1AF30DB000A2B1F0 /* MBRegisterPhoneVerifyViewController.m */; };
 		487602BF1AF3139B00A2B1F0 /* MBSettingPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 487602BE1AF3139B00A2B1F0 /* MBSettingPwdViewController.m */; };
 		487602C21AF3162F00A2B1F0 /* MBRegisterPhoneDoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 487602C11AF3162F00A2B1F0 /* MBRegisterPhoneDoneViewController.m */; };
-		487602C51AF31B2900A2B1F0 /* UILabel+MBIBnsepectable.m in Sources */ = {isa = PBXBuildFile; fileRef = 487602C41AF31B2900A2B1F0 /* UILabel+MBIBnsepectable.m */; };
 		487F4B6F1B14A0D700FD5137 /* MBMallItemCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 487F4B6D1B14A0D700FD5137 /* MBMallItemCategoryTableViewCell.m */; };
 		487F4B701B14A0D700FD5137 /* MBMallItemCategoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487F4B6E1B14A0D700FD5137 /* MBMallItemCategoryTableViewCell.xib */; };
 		487FDAE81B805EB8004198A2 /* MBSwing.m in Sources */ = {isa = PBXBuildFile; fileRef = 487FDAE71B805EB8004198A2 /* MBSwing.m */; };
@@ -189,7 +188,6 @@
 		940488501C9F8D38008C7938 /* MBActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9404884E1C9F8D38008C7938 /* MBActivityViewController.xib */; };
 		940488541C9FA469008C7938 /* MBSearchShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940488521C9FA469008C7938 /* MBSearchShowViewController.m */; };
 		940488551C9FA469008C7938 /* MBSearchShowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 940488531C9FA469008C7938 /* MBSearchShowViewController.xib */; };
-		940488581C9FC106008C7938 /* UILabel+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 940488571C9FC106008C7938 /* UILabel+extension.m */; };
 		9404885A1C9FCE4F008C7938 /* timeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 940488591C9FCE4F008C7938 /* timeView.xib */; };
 		9404885D1C9FCE6D008C7938 /* timeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9404885C1C9FCE6D008C7938 /* timeView.m */; };
 		940507CF1BF9D87500CA02F5 /* libPushSDK-1.8.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 940507CE1BF9D87500CA02F5 /* libPushSDK-1.8.8.a */; };
@@ -564,6 +562,7 @@
 		94D2CE5F1C8EA34B0013BA5D /* time_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94D2CE5E1C8EA34B0013BA5D /* time_image@2x.png */; };
 		94D2CE621C8EA4100013BA5D /* guanzhuxiao_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94D2CE601C8EA4100013BA5D /* guanzhuxiao_image@2x.png */; };
 		94D2CE631C8EA4100013BA5D /* loveXiao_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94D2CE611C8EA4100013BA5D /* loveXiao_image@2x.png */; };
+		94D456CC1CCDAFFB00752DDA /* UILabel+MBIBInspectable.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D456CB1CCDAFFB00752DDA /* UILabel+MBIBInspectable.m */; };
 		94D6F7D01C4F9EC700F3023C /* MBMyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D6F7CE1C4F9EC700F3023C /* MBMyCollectionViewCell.m */; };
 		94D6F7D11C4F9EC700F3023C /* MBMyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D6F7CF1C4F9EC700F3023C /* MBMyCollectionViewCell.xib */; };
 		94D77C991C99462C00748227 /* MBNewHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D77C981C99462C00748227 /* MBNewHomeViewController.m */; };
@@ -908,8 +907,6 @@
 		487602BE1AF3139B00A2B1F0 /* MBSettingPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSettingPwdViewController.m; sourceTree = "<group>"; };
 		487602C01AF3162F00A2B1F0 /* MBRegisterPhoneDoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBRegisterPhoneDoneViewController.h; sourceTree = "<group>"; };
 		487602C11AF3162F00A2B1F0 /* MBRegisterPhoneDoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBRegisterPhoneDoneViewController.m; sourceTree = "<group>"; };
-		487602C31AF31B2900A2B1F0 /* UILabel+MBIBnsepectable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+MBIBnsepectable.h"; sourceTree = "<group>"; };
-		487602C41AF31B2900A2B1F0 /* UILabel+MBIBnsepectable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+MBIBnsepectable.m"; sourceTree = "<group>"; };
 		487F4B6C1B14A0D700FD5137 /* MBMallItemCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMallItemCategoryTableViewCell.h; sourceTree = "<group>"; };
 		487F4B6D1B14A0D700FD5137 /* MBMallItemCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMallItemCategoryTableViewCell.m; sourceTree = "<group>"; };
 		487F4B6E1B14A0D700FD5137 /* MBMallItemCategoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBMallItemCategoryTableViewCell.xib; sourceTree = "<group>"; };
@@ -1012,8 +1009,6 @@
 		940488511C9FA469008C7938 /* MBSearchShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSearchShowViewController.h; sourceTree = "<group>"; };
 		940488521C9FA469008C7938 /* MBSearchShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSearchShowViewController.m; sourceTree = "<group>"; };
 		940488531C9FA469008C7938 /* MBSearchShowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBSearchShowViewController.xib; sourceTree = "<group>"; };
-		940488561C9FC106008C7938 /* UILabel+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+extension.h"; sourceTree = "<group>"; };
-		940488571C9FC106008C7938 /* UILabel+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+extension.m"; sourceTree = "<group>"; };
 		940488591C9FCE4F008C7938 /* timeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = timeView.xib; sourceTree = "<group>"; };
 		9404885B1C9FCE6D008C7938 /* timeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timeView.h; sourceTree = "<group>"; };
 		9404885C1C9FCE6D008C7938 /* timeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = timeView.m; sourceTree = "<group>"; };
@@ -1669,6 +1664,8 @@
 		94D2CE5E1C8EA34B0013BA5D /* time_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time_image@2x.png"; sourceTree = "<group>"; };
 		94D2CE601C8EA4100013BA5D /* guanzhuxiao_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guanzhuxiao_image@2x.png"; sourceTree = "<group>"; };
 		94D2CE611C8EA4100013BA5D /* loveXiao_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loveXiao_image@2x.png"; sourceTree = "<group>"; };
+		94D456CA1CCDAFFB00752DDA /* UILabel+MBIBInspectable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+MBIBInspectable.h"; sourceTree = "<group>"; };
+		94D456CB1CCDAFFB00752DDA /* UILabel+MBIBInspectable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+MBIBInspectable.m"; sourceTree = "<group>"; };
 		94D6F7CD1C4F9EC700F3023C /* MBMyCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMyCollectionViewCell.h; sourceTree = "<group>"; };
 		94D6F7CE1C4F9EC700F3023C /* MBMyCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMyCollectionViewCell.m; sourceTree = "<group>"; };
 		94D6F7CF1C4F9EC700F3023C /* MBMyCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBMyCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -2217,13 +2214,11 @@
 				48162F2D1AF2866900E61D5C /* UIView+MBIBnspectable.h */,
 				48162F2E1AF2866900E61D5C /* UIView+MBIBnspectable.m */,
 				48162F2F1AF2866900E61D5C /* UIView+MLExtension.h */,
-				940488561C9FC106008C7938 /* UILabel+extension.h */,
-				940488571C9FC106008C7938 /* UILabel+extension.m */,
 				48162F301AF2866900E61D5C /* UIView+MLExtension.m */,
-				487602C31AF31B2900A2B1F0 /* UILabel+MBIBnsepectable.h */,
-				487602C41AF31B2900A2B1F0 /* UILabel+MBIBnsepectable.m */,
 				48ED9FBC1AF74A250076A4CD /* UIButton+MBIBnspectable.h */,
 				48ED9FBD1AF74A250076A4CD /* UIButton+MBIBnspectable.m */,
+				94D456CA1CCDAFFB00752DDA /* UILabel+MBIBInspectable.h */,
+				94D456CB1CCDAFFB00752DDA /* UILabel+MBIBInspectable.m */,
 			);
 			name = "Category(分类)";
 			path = Category;
@@ -4704,7 +4699,6 @@
 				9428A4981CB77B6F002D2A53 /* MBPayResultsCell.m in Sources */,
 				944364F11CBCE0C60085E006 /* MBPaySuccessView.m in Sources */,
 				94A3AEDA1C0EC4B800084AF1 /* RefundWayTableViewCell.m in Sources */,
-				940488581C9FC106008C7938 /* UILabel+extension.m in Sources */,
 				94F4192C1C5761EB000592DE /* MBPublishedViewController.m in Sources */,
 				420BF6621BB537BB00C89C3C /* MJFoundation.m in Sources */,
 				94A7438E1C3E117600E6B296 /* MBPickerViewController.m in Sources */,
@@ -4917,7 +4911,6 @@
 				420BF66A1BB537BB00C89C3C /* NSObject+MJMember.m in Sources */,
 				9432E4761C7D9AF800A64668 /* HPTextViewInternal.m in Sources */,
 				48162F3C1AF2866900E61D5C /* MBLoginViewController.m in Sources */,
-				487602C51AF31B2900A2B1F0 /* UILabel+MBIBnsepectable.m in Sources */,
 				94050E941CBC87D500F0E64B /* MBLoginView.m in Sources */,
 				942E66191C8D1454005B07AE /* MBAttentionOrFansTableViewCell.m in Sources */,
 				11B0F0161B5BA23F00653309 /* MBUserDataSingalTon.m in Sources */,
@@ -4929,6 +4922,7 @@
 				94A743931C3E49A100E6B296 /* MBTailoringViewController.m in Sources */,
 				4868C70C1B1C0C8000777D4B /* MBShoppingCartTableViewCell.m in Sources */,
 				947CBE551C4E26E00011BD77 /* MBTimeModel.m in Sources */,
+				94D456CC1CCDAFFB00752DDA /* UILabel+MBIBInspectable.m in Sources */,
 				9496D3B21CA3BD6C00743586 /* MBShopAddresViewController.m in Sources */,
 				948CA9F81BFECBB400318EAE /* MD5DataSigner.m in Sources */,
 				948CA9F61BFECBB400318EAE /* DataSigner.m in Sources */,
