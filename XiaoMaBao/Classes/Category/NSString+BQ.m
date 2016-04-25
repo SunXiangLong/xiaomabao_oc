@@ -31,5 +31,20 @@
             result[12], result[13], result[14], result[15]
             ];
 }
+-(NSString *)isNSString{
+    NSString *str = @"";
+    if (self) {
+      
+        if ([self isKindOfClass:[NSString class]]) {
+            
+            return self;
+        }
+        
+        str = [NSString stringWithFormat:@"%@",self];
+    }
+    
+    return str;
+    
 
+}
 @end

@@ -28,4 +28,5 @@ typedef enum {
  */
 - (NSString *)md5;
 
+- (NSString *)isNSString;
 @end

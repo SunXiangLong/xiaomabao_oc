@@ -35,7 +35,7 @@
     #import "MBLevelDisplayImagesView.h"
     #import "MBRefreshGifFooter.h"
      #import "MBNavigationViewController.h"
-#import "UILabel+extension.h"
+#import "UILabel+MBIBInspectable.h"
 #import "UIImage+Size.h"
 #import "DXLocationManager.h"
 #import <ActionSheetStringPicker.h>

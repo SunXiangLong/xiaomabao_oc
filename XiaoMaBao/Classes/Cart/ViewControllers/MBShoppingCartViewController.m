@@ -219,7 +219,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/update"] parameters:@{@"session":dict,@"rec_id":rec_id,@"new_number":new_number,@"flow_order":flow_number} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/update_cart"] parameters:@{@"session":dict,@"rec_id":rec_id,@"new_number":new_number,@"flow_order":flow_number} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self dismiss];
 //        NSLog(@"更新购物车成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
         NSDictionary * dict = [responseObject valueForKeyPath:@"status"];
@@ -279,7 +279,7 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/list"] parameters:@{@"session":dict} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/cart"] parameters:@{@"session":dict} success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        [self dismiss];
         NSLog(@"%@",[responseObject valueForKeyPath:@"data"]);
         
@@ -576,7 +576,7 @@
     NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self dismiss];
     if (num == 0) {//删除
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/delete"] parameters:@{@"session":session,@"rec_id":rec_id}
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/del_cart"] parameters:@{@"session":session,@"rec_id":rec_id}
                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
                        
                        NSLog(@"删除成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
@@ -589,11 +589,18 @@
         
     }else {//收藏
         
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/collect/create"] parameters:@{@"session":session,@"goods_id":rec_id}
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/collect_goods"] parameters:@{@"session":session,@"goods_id":rec_id}
                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
                        
-                       NSLog(@"收藏成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
-                       [self show:@"收藏成功" time:1];
+                       if ([[responseObject valueForKeyPath:@"status"][@"succeed"]isEqualToString:@"1"]) {
+                           [self show:@"收藏成功" time:1];
+                           
+                       }else{
+                       
+                          [self show:[responseObject valueForKeyPath:@"status"][@"error_desc"] time:1];
+                       
+                       }
+                    
                        NSIndexPath *indexpath = [NSIndexPath indexPathForRow:row inSection:0];
                        [_mytableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -659,7 +666,7 @@
         }
         NSMutableArray *array = [NSMutableArray array];
         NSDictionary *dic = self.CartinfoDict[indexPath.row];
-        if ([dic[@"is_third"] isEqualToNumber:@1]) {
+        if ([dic[@"is_third"] isEqualToString:@"1"]) {
             [array addObject:[UIImage imageNamed:@"thrid_goods_icon.ipg"]];
         }
         if ([dic[@"coupon_disable"]isEqualToString:@"1"]) {

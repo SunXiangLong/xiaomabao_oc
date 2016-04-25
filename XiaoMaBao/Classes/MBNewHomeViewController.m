@@ -53,9 +53,9 @@
 }
 - (void)setupChildVcs{
     
-    MBTopCargoController *VC3 = [[MBTopCargoController alloc] init];
-    VC3.title = @"尖儿货";
-    [self addChildViewController:VC3];
+//    MBTopCargoController *VC3 = [[MBTopCargoController alloc] init];
+//    VC3.title = @"尖儿货";
+//    [self addChildViewController:VC3];
     
     MBAffordablePlanetViewController *VC1 = [[MBAffordablePlanetViewController alloc] init];
     VC1.title = @"实惠星球";

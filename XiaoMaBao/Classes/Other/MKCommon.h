@@ -74,7 +74,7 @@
  *  默认占为图
  */
 #define PLACEHOLDER_DEFAULT_IMG [UIImage imageNamed:@"placeholder_num2"]
-#define VERSION @"2.2"
+#define VERSION @"2.3"
 /**
  *  宽度与高度
  */
@@ -115,7 +115,14 @@
 #define XWCatergoryViewHeight 40
 //随机色
 #define MBColor [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1]
-
+/**
+ *  把当前视图控制器的self在block回调里的强饮用变成弱引用（避免循环引用）
+ *
+ *  @param weakSelf 当前视图控制器
+ *
+ *  @return 弱应用的视图控制器
+ */
+#define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 #ifdef DEBUG
 #define XBLog(...) NSLog(__VA_ARGS__)
 #else

@@ -19,6 +19,7 @@
 @interface MBMyCollectionViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate, UIAlertViewDelegate>{
 
     BOOL _isbool;
+   
 
 }
 @property (weak,nonatomic) UIView *menuView;
@@ -86,8 +87,17 @@
     self.page = 1;
     self.view.backgroundColor = [UIColor colorWithHexString:@"d7d7d7"];
     [self getMycollection];
-
-
+    _CartinfoDict = [NSMutableArray array];
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    // 上拉刷新
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        [self getMycollection];
+        [weakSelf.tableView.mj_footer endRefreshing];
+        
+    }];
+    // 默认先隐藏footer
+    self.tableView.mj_footer.hidden = YES;
 }
 //获取购物车数据
 -(void)getMycollection
@@ -95,15 +105,20 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    NSDictionary *pagination = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"page",@"100",@"count",nil];
+    NSString *page = [NSString stringWithFormat:@"%ld",_page];
+  
     
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/collect/list"] parameters:@{@"session":session,@"pagination":pagination} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/goods_list"] parameters:@{@"session":session,@"page":page} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self dismiss];
-        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
-        self.CartinfoDict = [NSMutableArray arrayWithArray:[responseObject valueForKeyPath:@"data"]];
-        self.total = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"total"];
- 
+        
+        if ([[responseObject valueForKeyPath:@"data"] count]>0) {
+            [_CartinfoDict addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
+            _page ++;
+        }else{
+          [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        
+        }
         
         [self loadItemViewWithTag:0];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -243,13 +258,18 @@
         NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
         NSString *rec_id =  [[self.CartinfoDict objectAtIndex:self.selIndexPath.row] valueForKeyPath:@"rec_id"];
         NSDictionary *paramDict = @{@"session":sessiondict,@"rec_id":rec_id};
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/collect/delete"] parameters:paramDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"删除---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/del_goods"] parameters:paramDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+          
+            
             MBModel *model = responseObject;
             NSDictionary *staus = model.status;
+            
+            
             if ([staus[@"succeed"] integerValue] == 1) {
+                [self show:@"已从收藏中移除" time:1];
                 [self.CartinfoDict removeObject:[self.CartinfoDict objectAtIndex:self.selIndexPath.row]];
-                [_tableView reloadData];
+           [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:self.selIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+               
             }            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"失败");

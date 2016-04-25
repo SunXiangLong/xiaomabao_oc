@@ -88,7 +88,7 @@
                        [self.tableView reloadData];
                         _page++;
                        
-                       if (!_dataArray.count > 0) {
+                       if (!(_dataArray.count > 0)) {
                            UILabel *label = [[UILabel alloc] init];
                            label.textAlignment = 1;
                            label.font = [UIFont systemFontOfSize:14];
@@ -153,7 +153,9 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBAttentionOrFansTableViewCell" owner:nil options:nil]firstObject];
     }
+    
     cell.nameLable.text = dic[@"username"];
+    
     [cell.showImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"avatar"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
     cell.user_id = dic[@"user_id"];
     cell.indexPath = indexPath;
@@ -167,10 +169,6 @@
         if ([dic[@"is_attention"]isEqualToString:@"0"]) {
             [cell.attentionButton setBackgroundColor:[UIColor colorR:192 colorG:88 colorB:89]];
             [cell.attentionButton setTitle:@"+关注" forState:UIControlStateNormal];
-        }else{
-//            [cell.attentionButton setBackgroundColor:[UIColor colorWithHexString:@"e09206"]];
-//            [cell.attentionButton setTitle:@"已关注" forState:UIControlStateNormal];
-        
         }
     
     return cell;

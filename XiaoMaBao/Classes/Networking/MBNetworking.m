@@ -19,18 +19,13 @@ static AFHTTPRequestOperationManager *mgr = nil;
 + (AFHTTPRequestOperationManager *)mgr{
     if (!mgr) {
         mgr = [AFHTTPRequestOperationManager manager];
+        AFJSONResponseSerializer *response = [[AFJSONResponseSerializer alloc] init];
+        response.removesKeysWithNullValues = YES;
+        mgr.responseSerializer = response;
+
     }
     return mgr;
 }
-//+ (AFHTTPRequestOperation *)POST:(NSString *)URLString
-//                      parameters:(id)parameters
-//       constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
-//                         success:(void (^)(AFHTTPRequestOperation *operation, MBModel *responseObject))success
-//                         progress:(void(^)(NSProgress * _Nonnull uploadProgress)Progress
-//                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
-//
-//
-//}
 + (AFHTTPRequestOperation *)POST:(NSString *)URLString
                       parameters:(id)parameters
        constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
@@ -93,7 +88,8 @@ static AFHTTPRequestOperationManager *mgr = nil;
     
     return [self.mgr POST:URLString parameters:requestParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-//   NSLog(@"%@",responseObject);
+        
+        NSLog(@"%@",responseObject);
         
         
         MBModel *model = [MBModel objectWithKeyValues:responseObject];
