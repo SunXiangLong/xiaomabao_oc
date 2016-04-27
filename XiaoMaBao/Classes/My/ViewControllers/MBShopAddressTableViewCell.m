@@ -21,11 +21,11 @@
         NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
         NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/setDefault"] parameters:@{@"session":dict,@"address_id":self.addressDic[@"id"]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/set_default_address"] parameters:@{@"session":dict,@"address_id":self.addressDic[@"address_id"]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
             if( [[responseObject valueForKey:@"status"][@"succeed"]isEqualToNumber:@1]){
             
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateDefaultAddress" object:nil];
+
+                [self.delagate MBShopAddressTableView];
             }
           
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -65,12 +65,13 @@
     
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/delete"] parameters:@{@"session":sessiondict,@"address_id":self.addressDic[@"id"]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_delete"] parameters:@{@"session":sessiondict,@"address_id":self.addressDic[@"address_id"]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         if( [[responseObject valueForKey:@"status"][@"succeed"]isEqualToNumber:@1]){
             
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateDefaultAddress" object:nil];
+            [self.delagate MBShopAddressTableView];
+
+
         }
         
         

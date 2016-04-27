@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MBIDCardCell">
+            <rect key="frame" x="0.0" y="0.0" width="70" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="70" height="100"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6k3-Sg-kZW">
+                        <rect key="frame" x="0.0" y="10" width="70" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70" id="ccP-Of-Xqf"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="删除" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjj-sq-iFv">
+                        <rect key="frame" x="48" y="85" width="22" height="13.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="6k3-Sg-kZW" secondAttribute="trailing" id="0sx-CZ-U94"/>
+                <constraint firstItem="6k3-Sg-kZW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="3zT-3z-f9t"/>
+                <constraint firstItem="6k3-Sg-kZW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="WFh-aW-PgG"/>
+                <constraint firstItem="pjj-sq-iFv" firstAttribute="top" secondItem="6k3-Sg-kZW" secondAttribute="bottom" constant="5" id="ZGD-b1-Rvz"/>
+                <constraint firstAttribute="trailing" secondItem="pjj-sq-iFv" secondAttribute="trailing" id="hVS-mx-1kP"/>
+                <constraint firstItem="6k3-Sg-kZW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="onm-bI-LFh"/>
+            </constraints>
+            <connections>
+                <outlet property="cardImage" destination="6k3-Sg-kZW" id="HNX-7P-zNk"/>
+                <outlet property="deleLabel" destination="pjj-sq-iFv" id="PFp-t8-8tV"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>

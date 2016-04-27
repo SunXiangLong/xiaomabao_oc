@@ -53,7 +53,7 @@
 - (void)setheadData{
     
     [self show];
-    _product_id = @"1";
+ 
     NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_SHERVICE,@"service/product_price/",_product_id];
     [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self dismiss];
@@ -93,9 +93,11 @@
 #pragma mark -- 提交订单前确保价格和服务器统一（长时间不提交，服务端价格呗修改）
 - (void)upData{
     [self show];
-    _product_id = @"1";
+   
     NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_SHERVICE,@"service/product_price/",_product_id];
     [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        
         if (responseObject) {
             self.shop_name.text = [responseObject valueForKeyPath:@"product_name"];
             self.service_price.text = [NSString stringWithFormat:@"%@元",[responseObject valueForKeyPath:@"product_shop_price"]];

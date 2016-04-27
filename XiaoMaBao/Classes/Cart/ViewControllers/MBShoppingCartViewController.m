@@ -507,11 +507,13 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"flow/checkOrder_mobile"] parameters:@{@"session":sessiondict}success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/checkout"] parameters:@{@"session":sessiondict}success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
-//        NSLog(@"订单确认状态---responseObject%@",[responseObject valueForKeyPath:@"status"]);
+        NSLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
+
         NSMutableArray * infoDict = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_list"];
+        
+        
         
         self.total = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"total"];
         MBFireOrderViewController *fireOrderVc = [[MBFireOrderViewController alloc] init];
@@ -527,15 +529,18 @@
         
         fireOrderVc.goodnumber = self.goodnumberArray;
         fireOrderVc.goodselectArray = self.goodSelectArray;
-        
+        fireOrderVc.consignee = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"consignee"] ;
         
         NSString *str  = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"real_name"]];
-        
+        NSString *str1 = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"is_over_see"]];
         
         fireOrderVc.is_cross_border = str;
+        fireOrderVc.is_over_see = str1;
         fireOrderVc.CartDict =  [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"s_goods_list"];
         [self dismiss];
-        [self.navigationController pushViewController:fireOrderVc animated:YES];
+        
+        
+        [self pushViewController:fireOrderVc Animated:YES];
     }
      
      

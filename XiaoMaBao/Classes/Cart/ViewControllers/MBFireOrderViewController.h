@@ -14,8 +14,8 @@
 @property(nonatomic,copy)NSString *totalPrice;
 @property(nonatomic,strong)NSArray *goodnumber;
 @property(nonatomic,strong)NSArray *goodselectArray;
-@property (strong,nonatomic)NSDictionary *defaultAddressdict;
-@property (strong,nonatomic)NSDictionary *addressdict;
+//@property (strong,nonatomic)NSDictionary *defaultAddressdict;
+//@property (strong,nonatomic)NSDictionary *addressdict;
 
 @property(nonatomic,copy)NSString *order_amount_formatted;
 @property(nonatomic,copy)NSString *order_amount;
@@ -25,9 +25,10 @@
 @property(nonatomic,copy)NSString *goods_amount_formatted;
 @property(nonatomic,copy)NSString *cross_border_tax;
 @property(nonatomic,copy)NSString *is_cross_border;
-
+@property(nonatomic,copy)NSString *is_over_see;
 
 @property(strong,nonatomic)NSMutableDictionary *CartDict;
+@property(strong,nonatomic)NSDictionary *consignee;
 @property(nonatomic,strong) NSArray *cartinfoArray;
 
 @end

@@ -110,6 +110,8 @@
                success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"status---responseObject%@",[responseObject valueForKeyPath:@"status"]);
         NSLog(@"生成订单成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+                   
+                   
         _orderInfo = [responseObject valueForKeyPath:@"data"];
         _is_cross_border = _orderInfo[@"order_info"][@"is_cross_border"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCart" object:nil];

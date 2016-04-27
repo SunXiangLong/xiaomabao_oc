@@ -6,13 +6,13 @@
 //  Copyright © 2016年 HuiBei. All rights reserved.
 //
 
-#import "MBNewHomeViewController.h"
+#import "MBNewCanulcircleController.h"
 #import "MBAffordablePlanetViewController.h"
 #import "MBFreeStoreViewController.h"
 #import "MBSearchViewController.h"
 #import "MBShopDetailsViewController.h"
-#import "MBTopCargoController.h"
-@interface MBNewHomeViewController ()<UIScrollViewDelegate>
+#import "MBMyCircleController.h"
+@interface MBNewCanulcircleController ()<UIScrollViewDelegate>
 {
     UIButton *_lastButton;
 }
@@ -23,7 +23,7 @@
 @property (nonatomic, strong) NSMutableArray *titleButtons;
 @end
 
-@implementation MBNewHomeViewController
+@implementation MBNewCanulcircleController
 #pragma mark - lazy
 - (NSMutableArray *)titleButtons
 {
@@ -36,13 +36,13 @@
 {
     
     [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBNewHomeViewController"];
+    [MobClick beginLogPageView:@"MBNewCanulcircleController"];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     
     [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBNewHomeViewController"];
+    [MobClick endLogPageView:@"MBNewCanulcircleController"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -53,7 +53,9 @@
 }
 - (void)setupChildVcs{
     
-    
+    MBMyCircleController *VC3 = [[MBMyCircleController alloc] init];
+    VC3.title = @"我的圈";
+    [self addChildViewController:VC3];
     
     MBAffordablePlanetViewController *VC1 = [[MBAffordablePlanetViewController alloc] init];
     VC1.title = @"实惠星球";
@@ -63,10 +65,6 @@
     VC2.title = @"全球闪购";
     [self addChildViewController:VC2];
     
-    
-    MBTopCargoController *VC3 = [[MBTopCargoController alloc] init];
-    VC3.title = @"尖儿货";
-    [self addChildViewController:VC3];
 }
 - (void)setupTitlesView
 {
@@ -87,14 +85,14 @@
         titleButton.titleLabel.font = [UIFont systemFontOfSize:12];
         [titleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         titleButton.frame = CGRectMake(i*(titleButtonW+1),1, titleButtonW, titleButtonH);
-         [self.titleButtons addObject:titleButton];
+        [self.titleButtons addObject:titleButton];
         if (i==0) {
             _lastButton = titleButton;
             _lastButton.backgroundColor = [UIColor colorWithHexString:@"dd9682"];
         }
         [_titlesView addSubview:titleButton];
     }
-
+    
 }
 
 - (void)setupScrollView
@@ -111,27 +109,23 @@
     scrollView.contentSize = CGSizeMake(self.childViewControllers.count * UISCREEN_WIDTH, 0);
     [self.view addSubview:scrollView];
     self.scrollView                   = scrollView;
-//    UIViewController *willShowChildVc = self.childViewControllers[1];
-//    willShowChildVc.view.frame        = scrollView.bounds;
-//    willShowChildVc.view.ml_x         = self.view.ml_width;
-//    [scrollView addSubview:willShowChildVc.view];
-    // 默认显示第0个控制器
+    
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 - (NSString *)rightImage{
-return @"search_image";
+    return @"search_image";
 }
 - (void)rightTitleClick{
     MBSearchViewController *searchVc = [[MBSearchViewController alloc] init];
     [self pushViewController:searchVc Animated:YES];
 }
 -(NSString *)titleStr{
-return @"小麻包";
+    return @"麻包圈";
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-   
+    
 }
 - (void)titleClick:(UIButton *)titleButton
 {

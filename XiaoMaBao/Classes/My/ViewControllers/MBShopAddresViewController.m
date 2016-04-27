@@ -9,11 +9,11 @@
 #import "MBShopAddresViewController.h"
 #import "MBShopAddressTableViewCell.h"
 #import "MBNewAddressViewController.h"
-@interface MBShopAddresViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MBShopAddresViewController ()<UITableViewDelegate,UITableViewDataSource,MBShopAddressTableViewDelgate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong,nonatomic)NSMutableArray *addressListArr;
-@property (strong,nonatomic)NSDictionary *defaultDict;
+@property (strong,nonatomic)NSArray *addressListArr;
+
 
 @end
 
@@ -22,7 +22,7 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"MBShopAddresViewController"];
-    [self getaddressListWithtag:0];
+    [self getaddressListWithtag];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -38,13 +38,13 @@
    
     _tableView.delegate   = self;
     _tableView.dataSource = self;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(UpdateReloadData:) name:@"updateDefaultAddress" object:nil];
+  
    
 }
--(void)UpdateReloadData:(NSNotification*)notif
+-(void)updateReloadData
 {
 
-    [self getaddressListWithtag:0];
+    [self getaddressListWithtag];
     
 }
 - (IBAction)newaddress:(id)sender {
@@ -54,29 +54,30 @@
 - (NSString *)titleStr{
 return @"收货地址";
 }
--(void)getaddressListWithtag:(int) tag
+-(void)getaddressListWithtag
 {
+    [self show];
     // 海淀区
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/list"] parameters:@{@"session":dict} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        _addressListArr = [responseObject valueForKeyPath:@"data"];
-        _defaultDict = [NSDictionary dictionary];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_list"] parameters:@{@"session":dict} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        for (NSDictionary *dict in _addressListArr) {
-            if ([[dict valueForKeyPath:@"default_address"] intValue] == 1) {
-                _defaultDict = dict;
-                break;
-            }
-        }
-      
+        [self dismiss];
+        _addressListArr = [responseObject valueForKeyPath:@"data"];
+     
+        
+       NSLog(@"%@",_addressListArr);
+        
+
+     
         [_tableView reloadData];
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"失败");
+        NSLog(@"%@",error);
+        [self show:@"请求失败" time:1];
     }];
     
 }
@@ -106,7 +107,8 @@ return @"收货地址";
     cell.address.text = [NSString stringWithFormat:@"%@-%@-%@-%@",dic[@"province_name"],dic[@"city_name"],dic[@"district_name"],dic[@"address"]];
     cell.addressDic = dic;
     cell.VC =self;
-    if ([dic[@"default_address"] intValue] == 1) {
+    cell.delagate =self;
+    if ([dic[@"is_default"] intValue] == 1) {
         cell.isDefault = YES;
         [cell.is_default setImage:[UIImage imageNamed:@"pitch_on"] forState:UIControlStateNormal];
     }
@@ -117,18 +119,23 @@ return @"收货地址";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    
     if (!self.PersonalCenter) {
+        
+        [self popViewControllerAnimated:YES];
         NSDictionary *dict = [_addressListArr objectAtIndex:indexPath.row];
         //创建通知
         NSNotification *notification =[NSNotification notificationWithName:@"AddressNOtifition" object:nil userInfo:dict];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
-        [self popViewControllerAnimated:YES];
+       
+       
     }
     
 }
--(void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateDefaultAddress" object:nil];
+#pragma mark --MBShopAddressTableViewDelegate
+-(void)MBShopAddressTableView{
+[self getaddressListWithtag];
 }
+
 
 
 @end

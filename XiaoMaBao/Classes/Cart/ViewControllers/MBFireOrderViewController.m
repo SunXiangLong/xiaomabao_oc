@@ -18,9 +18,10 @@
 #import "MBRealNameAuthViewController.h"
 #import "orderFootView.h"
 #import "orderHeadView.h"
+#import "MBAddIDCardView.h"
 @interface MBFireOrderViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
-    UIView *voucherView;
+   
     UITextField *_beizhu;
     UILabel *_name;
     UILabel*_address;
@@ -29,6 +30,7 @@
     UIView *_view1;
     UIView *_view2;
     BOOL *_isyanzhen;
+
     
     NSString *_is_black;
     NSString *_real_name;
@@ -42,6 +44,7 @@
     
     
     NSArray *_array;
+    NSString *_address_id;
 
 }
 @property (weak,nonatomic) UIButton *addVouchersBtn;
@@ -51,6 +54,8 @@
 @property (strong,nonatomic) UILabel *bonusLbl;
 @property (strong,nonatomic) UILabel *totalLabel;
 @property (strong,nonatomic) NSString *couponId;
+@property (strong,nonatomic) NSArray *photoArr;
+@property (assign,nonatomic) BOOL isCard;
 @end
 
 @implementation MBFireOrderViewController
@@ -67,7 +72,10 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    
+    
+    
+    
     //选择地址
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selsectaddress:) name:@"AddressNOtifition" object:nil];
     
@@ -95,7 +103,7 @@
 
     [self.view addSubview:_tableView = tableView];
     
-    [self getaddressList:tableView];
+    [self getAddressList];
   
   
     [self setupTabbarView];
@@ -103,8 +111,12 @@
 }
 -(void)selsectaddress:(NSNotification *)notif
 {
-    _defaultAddressdict = [notif userInfo];
-    NSDictionary *cardDic = _defaultAddressdict[@"idcard"];
+  
+    
+    
+    _address_id = [notif userInfo][@"address_id"];
+    
+    NSDictionary *cardDic = [notif userInfo][@"idcard"];
     NSString *str1 = cardDic[@"real_name"];
     NSString *str2 = cardDic[@"identity_card"];
     if (cardDic) {
@@ -122,6 +134,7 @@
         }
         
     }
+    
     [self BeforeCreateOrder];
     
   
@@ -152,11 +165,13 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"flow/checkOrder_mobile"] parameters:@{@"session":sessiondict,@"address_id":_defaultAddressdict[@"id"]}success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/checkout"] parameters:@{@"session":sessiondict,@"address_id":_address_id}success:^(AFHTTPRequestOperation *operation, id responseObject) {
+           NSLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
         
+        [self dismiss];
         if ([[responseObject valueForKeyPath:@"status"][@"succeed"] isEqualToNumber:@1]) {
             
-            [self dismiss];
+            
             NSMutableArray * infoDict = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_list"];
             self.total = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"total"];
             self.CartinfoDict = infoDict;
@@ -176,8 +191,10 @@
             [_tableView.tableFooterView removeFromSuperview];
             _tableView.tableFooterView   = [self tableViewFooterView];
             _totalLabel.text = [NSString stringWithFormat:@"应付金额：%@",self.order_amount_formatted];
+            self.consignee = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"consignee"] ;
             
-            [_tableView reloadData];
+
+            [self getAddressList];
 
         }else{
         
@@ -192,76 +209,54 @@
      ];
     
 }
-//获取地址
-
--(void)getaddressList:(UITableView *)tableView
+#pragma mark -- 收货地址的处理；
+-(void)getAddressList
 {
-  
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/list"] parameters:@{@"session":dict} success:^(AFHTTPRequestOperation *operation, id responseObject) {
- 
-        _addressdict = [responseObject valueForKeyPath:@"data"];
+    if (self.consignee[@"address_id"]) {
+        _address_id = self.consignee[@"address_id"];
+    }
+    if (self.consignee[@"idcard"]) {
         
+        if (![self.consignee[@"idcard"][@"identity_card_front_thumb"] isEqualToString:@""]  &&![self.consignee[@"idcard"][@"identity_card_backend_thumb"] isEqualToString:@""]) {
+            _photoArr = @[self.consignee[@"idcard"][@"identity_card_front_thumb"],self.consignee[@"idcard"][@"identity_card_backend_thumb"]];
+            _isCard = YES;
+        }else{
+            UIImage *image  = [UIImage imageNamed:@"addPhoto_image"];
+            _photoArr = @[image,image];
+        }
         
-        NSLog(@"%@",_addressdict);
-    
-        if (_addressdict.count > 0) {
-            for (NSDictionary *dict  in [responseObject valueForKeyPath:@"data"]) {
-                if ([[dict valueForKeyPath:@"default_address"] intValue] == 1) {
-                    _defaultAddressdict = dict;
-                    
-                    NSLog(@"%@",dict);
-                    
-                    
-                    
-                    break;
-                }
+        NSDictionary *cardDic = self.consignee[@"idcard"];
+        NSString *str1 = cardDic[@"real_name"];
+        NSString *str2 = cardDic[@"identity_card"];
+        if (cardDic) {
+            _is_black =  [NSString stringWithFormat:@"%@",cardDic[@"is_black"]];
+            
+            if (str1 &&![str1 isEqualToString:@""]) {
+                _real_name = str1;
             }
-            
-            if (!(_defaultAddressdict.count > 0)) {
-                _defaultAddressdict = [[responseObject valueForKeyPath:@"data"] objectAtIndex:0];
+            if (str2 &&![str2 isEqualToString:@""]) {
+                _identity_card = str2;
             }
-            NSDictionary *cardDic = _defaultAddressdict[@"idcard"];
-            
-            
-            NSString *str1 = cardDic[@"real_name"];
-            NSString *str2 = cardDic[@"identity_card"];
-            
-            
-            if (cardDic) {
-                _is_black =  [NSString stringWithFormat:@"%@",cardDic[@"is_black"]];
-                
-                if (str1 &&![str1 isEqualToString:@""]) {
-                    _real_name = str1;
-                }
-                if (str2 &&![str2 isEqualToString:@""]) {
-                    _identity_card = str2;
-                }
-                
-            }
-            
-            
-            tableView.tableHeaderView = [self tableViewHeaderView];
-            tableView.tableFooterView = [self tableViewFooterView];
-            
-        }else
-        {
-             _is_black = @"0";
-            tableView.tableHeaderView = [self tableViewHeaderView];
-            tableView.tableFooterView = [self tableViewFooterView];
-            
             
         }
-        [tableView reloadData];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        tableView.tableHeaderView = [self tableViewHeaderView];
-        tableView.tableFooterView = [self tableViewFooterView];
-        NSLog(@"%@",error);
-    }];
+        
+        _tableView.tableHeaderView = [self tableViewHeaderView];
+        _tableView.tableFooterView = [self tableViewFooterView];
+    }else{
+        UIImage *image  = [UIImage imageNamed:@"addPhoto_image"];
+        _photoArr = @[image,image];
+        _is_black = @"0";
+        _tableView.tableHeaderView = [self tableViewHeaderView];
+        _tableView.tableFooterView = [self tableViewFooterView];
+    }
+    
+    [_tableView reloadData];
+    
+    
+    
+  
     
 }
 
@@ -283,7 +278,7 @@
     UITapGestureRecognizer *ger = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addressClick:)];
     [headerView addGestureRecognizer:ger];
     
-    if (self.defaultAddressdict.count > 0) {
+    if (self.consignee) {
         UILabel *consigneeLabel = [[UILabel alloc] init];
         consigneeLabel.frame = CGRectMake(MARGIN_8, 10, self.view.ml_width * 0.5, 18);
         consigneeLabel.font = [UIFont systemFontOfSize:15];
@@ -296,12 +291,12 @@
         addressLabel.font = [UIFont systemFontOfSize:13];
         addressLabel.frame = CGRectMake(MARGIN_8, CGRectGetMaxY(consigneeLabel.frame) + MARGIN_5, self.view.ml_width - MARGIN_20, 15);
         
-        NSString *name = [_defaultAddressdict valueForKeyPath:@"consignee"];
+        NSString *name = [_consignee valueForKeyPath:@"consignee"];
         consigneeLabel.text = [NSString stringWithFormat:@"收货人：%@" ,name];
-        phoneLabel.text = [_defaultAddressdict valueForKeyPath:@"mobile"];
-        NSString *province_name = [_defaultAddressdict valueForKeyPath:@"province_name"];
-        NSString *district_name = [_defaultAddressdict valueForKeyPath:@"district_name"];
-        NSString *address = [_defaultAddressdict valueForKeyPath:@"address"];
+        phoneLabel.text = [_consignee valueForKeyPath:@"mobile"];
+        NSString *province_name = [_consignee valueForKeyPath:@"province_name"];
+        NSString *district_name = [_consignee valueForKeyPath:@"district_name"];
+        NSString *address = [_consignee valueForKeyPath:@"address"];
         addressLabel.text = [NSString stringWithFormat:@"收货地址：%@%@%@",province_name,district_name,address];
         _address.text = addressLabel.text;
         [headerBoxView addSubview: _name =consigneeLabel];
@@ -329,37 +324,34 @@
     return headerView;
 }
 
--(void)addressClick:(UITapGestureRecognizer *)ger
-{
-    MBShopAddresViewController *addressVc = [[MBShopAddresViewController alloc] init];
-    [self pushViewController:addressVc Animated:YES];
-}
-
-
 - (UIView *)tableViewFooterView{
     if (![self.is_cross_border isEqualToString:@"0"]) {
-        
-        
         UIView *footerView = [[UIView alloc] init];
         footerView.backgroundColor = [UIColor whiteColor];
-        footerView.frame = CGRectMake(0, 0, self.view.ml_width, 347);
+        footerView.frame = CGRectMake(0, 0, self.view.ml_width, 330);
         
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 110)];
         if (![_is_black isEqualToString:@"0"]) {
+            
             view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 140);
+        }
+        if(![_is_over_see isEqualToString:@"0"]){
+        
+            view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 290);
+            footerView.frame = CGRectMake(0, 0, self.view.ml_width, 330+180);
+            
+         
         }
          view.backgroundColor = [UIColor whiteColor];
         [footerView addSubview:view];
-        UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 0)];
-        view1.backgroundColor  = BG_COLOR;
-        [view addSubview:view1];
+        
         UIView *view2 = [[UIView alloc] initWithFrame:CGRectMake(0, view.ml_height -10, UISCREEN_WIDTH, 10)];
         view2.backgroundColor = BG_COLOR;
         [view addSubview:view2];
         
         UILabel *lable2 = [[UILabel alloc]init];
         
-        NSString *name = [_defaultAddressdict valueForKeyPath:@"consignee"];
+        NSString *name = [_consignee valueForKeyPath:@"consignee"];
         if (name) {
                lable2.text = [NSString stringWithFormat:@"收货人姓名：%@",name] ;
         }
@@ -520,6 +512,33 @@
                     make.height.mas_equalTo(25);
                 }];
 
+       if(![_is_over_see isEqualToString:@"0"]){
+            NSString *name = [_consignee valueForKeyPath:@"consignee"];
+            MBAddIDCardView *idCardView = [MBAddIDCardView instanceView];
+            [view addSubview:idCardView];
+           __unsafe_unretained __typeof(self) weakSelf = self;
+            [idCardView mas_makeConstraints:^(MASConstraintMaker *make) {
+                 make.top.equalTo(button1.mas_bottom).offset(0);
+                 make.left.mas_equalTo(0);
+                 make.right.mas_equalTo(0);
+                 make.height.mas_equalTo(180);
+                
+                
+                
+            }];
+           
+           
+           idCardView.VC = self;
+           idCardView.name = name;
+           idCardView.idCard = _identity_card;
+           idCardView.photoArray = [NSMutableArray arrayWithArray:_photoArr];
+           idCardView.block = ^(BOOL isbool ){
+               weakSelf.isCard = isbool;
+           
+           };
+           
+        }
+        
         
         UILabel *totalLbl = [[UILabel alloc] init];
         totalLbl.font = [UIFont systemFontOfSize:14];
@@ -596,7 +615,7 @@
     }else{
         UIView *footerView = [[UIView alloc] init];
         footerView.backgroundColor = [UIColor whiteColor];
-        footerView.frame = CGRectMake(0, 0, self.view.ml_width, 235);
+        footerView.frame = CGRectMake(0, 0, self.view.ml_width, 220);
         UILabel *totalLbl = [[UILabel alloc] init];
         totalLbl.font = [UIFont systemFontOfSize:14];
         
@@ -674,6 +693,13 @@
     
     }
     
+}
+#pragma mark --选取收货地址
+-(void)addressClick:(UITapGestureRecognizer *)ger
+{
+    MBShopAddresViewController *addressVc = [[MBShopAddresViewController alloc] init];
+    
+    [self pushViewController:addressVc Animated:YES];
 }
 #pragma mark--身份证验证按钮
 - (void)validation:(UIButton *)button{
@@ -871,7 +897,7 @@
 /**
  *  红包单击事件
  *
- *  @param ger <#ger description#>
+ *  @param ger 点击手势
  */
 -(void)bonusClick:(UITapGestureRecognizer *)ger{
     if (self.couponId) {
@@ -887,7 +913,7 @@
 /**
  *  优惠券单击事件
  *
- *  @param ger <#ger description#>
+ *  @param ger 点击手势
  */
 -(void)couponClick:(UITapGestureRecognizer *)ger{
     if (_bonus_id) {
@@ -903,46 +929,8 @@
    
 }
 
-- (void)showVouchersBtn{
-    
-    CGRect rect = [self.tableView convertRect:self.addVouchersBtn.frame fromView:self.addVouchersBtn];
-    
-    voucherView = [[UIView alloc] init];
-    voucherView.backgroundColor = [UIColor whiteColor];
-    voucherView.frame = CGRectMake(self.addVouchersBtn.ml_x + self.addVouchersBtn.ml_width * 0.5, rect.origin.y + self.addVouchersBtn.ml_height, 123, 108);
-    [self.view addSubview:voucherView];
-    
-    for (NSInteger i = 0; i < 6; i++) {
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setTitleColor:[UIColor colorWithHexString:@"da465a"] forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont systemFontOfSize:12];
-        [btn setTitle:@"38元纸尿裤代金券" forState:UIControlStateNormal];
-        btn.frame = CGRectMake(0, CGRectGetMaxY([[[voucherView subviews] lastObject] frame]), voucherView.ml_width, 15);
-        [voucherView addSubview:btn];
-        
-        [btn addTarget:self action:@selector(useVouchers:) forControlEvents:UIControlEventTouchUpInside];
-    }
-}
 
-- (void)useVouchers:(UIButton *)btn{
-    [voucherView removeFromSuperview];
-    NSLog(@"%@",btn);
-}
-//更新购物车数据
--(void)UpdateCart:(NSString *)rec_id googNum:(NSString *)goodNum
-{
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/update"] parameters:@{@"session":dict,@"rec_id":rec_id,@"new_number":goodNum} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"失败");
-    }];
-    
-}
-
+#pragma mark --底部提交按钮
 - (void)setupTabbarView{
     CGFloat tabbarHeight = 35;
     UIView *bottomView = [[UIView alloc] init];
@@ -967,6 +955,7 @@
     //点击确认订单
     [submitButton addTarget:self action:@selector(goPaymentVc) forControlEvents:UIControlEventTouchUpInside];
 }
+#pragma mark ---提交订单数据
 - (void)getDingdanINfo:(MBPaymentViewController *)VC
 {
     
@@ -984,22 +973,17 @@
     if (!_bonus_id) {
         _bonus_id = @"";
     }
-    NSString *addressId = [_defaultAddressdict valueForKeyPath:@"id"];
+  
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    
-    
     NSArray *arr = [_name.text componentsSeparatedByString:@"："];
     NSString *name = arr[1];
     
-    
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"flow/doneMobile"]parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":addressId,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":@"0",@"inv_content":@"",@"inv_payee" :@"",@"real_name":name,@"identity_card":_identity_card}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"flow/doneMobile"]parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":@"0",@"inv_content":@"",@"inv_payee" :@"",@"real_name":name,@"identity_card":_identity_card}
                success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  
                    [self dismiss];
                    
                    NSDictionary *dict = [responseObject valueForKeyPath:@"status"];
-                   NSLog(@"status---responseObject%@",dict);
-                   NSLog(@"生成订单成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    
                    if ([responseObject valueForKeyPath:@"data"]) {
                        VC.orderInfo = [responseObject valueForKeyPath:@"data"];
@@ -1009,13 +993,9 @@
                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCart" object:nil];
                        
                    }else{
-                       
                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"error_desc"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                        [alert show];
-                       
                    }
-                   
-                   
                    
                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                    NSLog(@"----%@",error);
@@ -1025,34 +1005,27 @@
                }];
     
 }
-
+/***  一堆判断逻辑－先的有收获地址 -跨境购的需要实名认证－ 海外直邮的需要上传身份证 */
 - (void)goPaymentVc{
-    
-    
-    
-    
-    if (self.defaultAddressdict.count > 0) {
-        
-       
+    /***  是否存在收货地址*/
+    if (self.consignee) {
         MBPaymentViewController *payVc = [[MBPaymentViewController alloc] init];
-        
-        
-        
+        /***  是否跨境购*/
         if (![self.is_cross_border isEqualToString:@"0"]) {
-            
-            
-            NSLog(@"%@",_is_black);
-            
-            
-            
+            /***  是否被海关拉黑*/
             if ([_is_black isEqualToString:@"0"]) {
+                /***  是否实名认证*/
                 if (_identity_card) {
+                    /***  是否是海外直邮*/
+                    if (![_is_over_see isEqualToString:@"0"]) {
+                        if (_isCard) {
+                            [self getDingdanINfo:payVc];
+                        }
+                    }else{
+                        [self getDingdanINfo:payVc];
+                    }
                     
-
-                      [self getDingdanINfo:payVc];
-
                     
-                  
                 }else{
                     UIAlertView *alerView1 = [[UIAlertView alloc] initWithTitle:@"提示" message:@"跨境购商品需要先实名认证。" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
                     ;
@@ -1083,7 +1056,7 @@
 - (NSString *)titleStr{
     return @"确认订单";
 }
-//获取红包弹出框
+#pragma mark --- 获取红包弹出框
 - (void)showOkayCancelAlert {
     NSString *title = NSLocalizedString(@"使用兑换券或红包", nil);
     NSString *cancelButtonTitle = NSLocalizedString(@"取消", nil);
@@ -1129,12 +1102,13 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
 
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/bonus/getByBonusSn"]
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/discount/get_bonus_info"]
             parameters:@{@"session":sessiondict,@"bonus_sn":bonus_sn,@"order_money":order_money}
                success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
-                   NSLog(@"%@",[responseObject valueForKeyPath:@"status"]);
+                  
                    NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
+                   
+                 
                    
                    if (dic) {
                        _bonus_id = dic[@"bonus_id"];
@@ -1147,10 +1121,12 @@
                            type_money = self.order_amount.floatValue -totalMoney;
                        }
                         _hongbaoMoney = dic[@"type_money"];
+                        _strHongbao = dic[@"type_name"];
+                        self.totalLabel.text = [NSString stringWithFormat:@"应付金额：￥%.2lf",type_money];
                         _tableView.tableFooterView = [self tableViewFooterView];
+        
+             
                       
-                       self.totalLabel.text = [NSString stringWithFormat:@"应付金额：￥%.2lf",type_money];
-                       _strHongbao = dic[@"type_name"];
                    }else{
                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:[responseObject valueForKeyPath:@"status"][@"error_desc"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                        [view show];
@@ -1159,6 +1135,7 @@
                    }
                    
                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                   [self show:@"使用失败" time:1];
                    NSLog(@"%@",error);
                    
                }];
@@ -1190,26 +1167,8 @@
 
 }
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//    static NSString *ID = @"MBFireOrderTableViewCell";
-//    
-//    MBFireOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-//    int index = [[[_numarr objectAtIndex:indexPath.row] valueForKeyPath:@"celltag"]intValue];
-//    if(index < [self.CartinfoDict count]){
-//        NSString *goods_number = [self.goodnumber objectAtIndex:index];
-//        cell.countNumber.text = [NSString stringWithFormat:@"X %@",goods_number];
-//        cell.countprice.text = [[self.CartinfoDict objectAtIndex:index]  valueForKeyPath:@"subtotal"];
-//        cell.desribe.text = [[self.CartinfoDict objectAtIndex:index]  valueForKeyPath:@"goods_name"];
-//        NSString *urlstr = [[self.CartinfoDict objectAtIndex:index] valueForKeyPath:@"goods_thumb"];
-//        NSURL *url = [NSURL URLWithString:urlstr];
-//        [cell.showimageview sd_setImageWithURL:url];
-//        //NSString *rec_id = [[self.CartinfoDict objectAtIndex:index]  valueForKeyPath:@"rec_id"];
-//    }
-   
-    
     
 
-    
     MBFireOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBFireOrderTableViewCell"];
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBFireOrderTableViewCell" owner:nil options:nil]firstObject];
@@ -1248,17 +1207,18 @@
      [_cardTextField resignFirstResponder];
     return YES;
 }
+#pragma mark -- 验证身份证
 - (void)authentication{
-    NSString *url = [NSString stringWithFormat:@"%@/user/validIdCard",BASE_URL ];
+    NSString *url = [NSString stringWithFormat:@"%@/idcard/add",BASE_URL_root];
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSString *name = [_defaultAddressdict valueForKeyPath:@"consignee"];
+    NSString *name = [_consignee valueForKeyPath:@"consignee"];
     NSDictionary * params = @{};
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     params = @{@"real_name":name, @"identity_card":_cardTextField.text,@"uid":uid,@"sid":sid,@"session":sessiondict};
         [MBNetworking POST:url parameters:params success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
         
-        NSLog(@"%@",responseObject);
+     
             
             
             NSString *str = [responseObject valueForKeyPath:@"msg"];
@@ -1286,29 +1246,6 @@
      ];
     
 }
-#pragma mark ---让tabview的headview跟随cell一起滑动
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder)to:nil from:nil forEvent:nil];
-//    if (scrollView == self.tableView)
-//    {
-//        UITableView *tableview = (UITableView *)scrollView;
-//        CGFloat sectionHeaderHeight = 30;
-//        CGFloat sectionFooterHeight = 61;
-//        CGFloat offsetY = tableview.contentOffset.y;
-//        if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
-//        {
-//            tableview.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
-//        }else if (offsetY >= sectionHeaderHeight && offsetY <= tableview.contentSize.height - tableview.frame.size.height - sectionFooterHeight)
-//        {
-//            tableview.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
-//        }else if (offsetY >= tableview.contentSize.height - tableview.frame.size.height - sectionFooterHeight && offsetY <= tableview.contentSize.height - tableview.frame.size.height)
-//        {
-//            tableview.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(tableview.contentSize.height - tableview.frame.size.height - sectionFooterHeight), 0);
-//        }
-//        
-//    }
-//    _tableView.editing = NO;
-    
-}
+
 
 @end

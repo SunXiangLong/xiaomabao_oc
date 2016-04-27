@@ -448,7 +448,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     
   
         
-        MBWeatherAndMoodViewController *VC = [[MBWeatherAndMoodViewController alloc] init];
+    MBWeatherAndMoodViewController *VC = [[MBWeatherAndMoodViewController alloc] init];
     
     VC.block= ^(UIImage *image,MBType type ,NSString *row){
         if (type==0) {

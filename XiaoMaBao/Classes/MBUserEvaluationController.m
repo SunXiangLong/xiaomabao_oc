@@ -55,7 +55,7 @@
 - (void)setheadData{
     
     [self show];
-    _shop_id = @"1";
+    
     
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
     NSString *url =[NSString stringWithFormat:@"%@%@%@/%@",BASE_URL_SHERVICE,@"service/shop_comments/",_shop_id,page];

@@ -292,10 +292,10 @@
 - (void)save:(BOOL)isDefault{
     if ([self.title isEqualToString:@"编辑收货地址"]) {
         
+        [self addaddressOrupdateAddressWithUrl:@"/address/address_edit" isDefault:isDefault];
         
-        [self addaddressOrupdateAddressWithUrl:@"address/update" isDefault:isDefault];
     }else{
-        [self addaddressOrupdateAddressWithUrl:@"address/add"  isDefault:isDefault];
+        [self addaddressOrupdateAddressWithUrl:@"/address/address_add"  isDefault:isDefault];
     }
 }
 
@@ -335,7 +335,6 @@
                                  [NSString stringWithFormat:@"%@",_provinceID],@"province",
                                  [NSString stringWithFormat:@"%@",_cityID ],@"city",
                                  [NSString stringWithFormat:@"%@",_districtID ],@"district",
-                                 self.address.text,@"district_name",
                                  self.xiangxiAddress.text,@"address",
                                  self.photo.text,@"mobile",
                                  (isDefault?@"1":@"0"),@"default_address",nil];
@@ -344,9 +343,9 @@
     
     
     //更新收货地址
-    if ([url isEqualToString:@"address/update"]) {
+    if ([url isEqualToString:@"/address/address_edit"]) {
         [self show:@"正在更新..."];
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/update"] parameters:@{@"session":sessiondict,@"address_id":self.address_dic[@"id"],@"address":addressDict}
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_edit"] parameters:@{@"session":sessiondict,@"address_id":self.address_dic[@"address_id"],@"address":addressDict}
          
                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
                        
@@ -365,16 +364,16 @@
                        
                    }
                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                       NSLog(@"失败");
+                       NSLog(@"%@",error);
                        [self show:@"请求失败" time:1];
                    }
          ];
         
     }
     //添加收货地址
-    else if ([url isEqualToString:@"address/add"]){
+    else if ([url isEqualToString:@"/address/address_add"]){
 //        [self show:@"正在添加..." time:1];
-        [MBNetworking  POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/add"] parameters:@{@"session":sessiondict,@"address":addressDict}
+        [MBNetworking  POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_add"] parameters:@{@"session":sessiondict,@"address":addressDict}
          
                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         
@@ -421,20 +420,25 @@
 -(void)setDefault{
     
     //设置默认
+    
+    
+    //设置默认
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/setDefault"] parameters:@{@"session":dict,@"address_id":self.address_dic[@"id"]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //刷新数据
-        [self show:@"修改成功" time:1];
-        [self popViewControllerAnimated:YES];
-        
-        
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/set_default_address"] parameters:@{@"session":dict,@"address_id":self.address_dic[@"address_id"]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if( [[responseObject valueForKey:@"status"][@"succeed"]isEqualToNumber:@1]){
+            
+            
+            //刷新数据
+            [self show:@"修改成功" time:1];
+            [self popViewControllerAnimated:YES];
+        }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"失败");
-        [self show:@"请求失败" time:1];
+        NSLog(@"%@",error);
     }];
+
     
 }
 - (void)didReceiveMemoryWarning {

@@ -324,6 +324,10 @@
 		943E81331CAE186600DDD09C /* MBUserEvaluationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943E81311CAE186600DDD09C /* MBUserEvaluationController.xib */; };
 		943E81371CAE266E00DDD09C /* MBUserEvaluationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 943E81351CAE266E00DDD09C /* MBUserEvaluationCell.m */; };
 		943E81381CAE266E00DDD09C /* MBUserEvaluationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943E81361CAE266E00DDD09C /* MBUserEvaluationCell.xib */; };
+		943ED8091CCF6B24005AF4D9 /* MBAddIDCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 943ED8081CCF6B24005AF4D9 /* MBAddIDCardView.m */; };
+		943ED80B1CCF6B30005AF4D9 /* MBAddIDCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943ED80A1CCF6B30005AF4D9 /* MBAddIDCardView.xib */; };
+		943ED80F1CCF7655005AF4D9 /* MBIDCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 943ED80D1CCF7655005AF4D9 /* MBIDCardCell.m */; };
+		943ED8101CCF7655005AF4D9 /* MBIDCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943ED80E1CCF7655005AF4D9 /* MBIDCardCell.xib */; };
 		944364F11CBCE0C60085E006 /* MBPaySuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944364F01CBCE0C60085E006 /* MBPaySuccessView.m */; };
 		944364F31CBCE0D30085E006 /* MBPaySuccessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944364F21CBCE0D30085E006 /* MBPaySuccessView.xib */; };
 		944441FD1C321AE6008B55AC /* RatingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 944441FC1C321AE6008B55AC /* RatingBar.m */; };
@@ -372,6 +376,11 @@
 		9453A1DF1C55BFCB009CB36B /* MBBabyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9453A1DE1C55BFCB009CB36B /* MBBabyViewController.m */; };
 		9453A1E31C56058D009CB36B /* MBBabyManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9453A1E11C56058D009CB36B /* MBBabyManagementViewController.m */; };
 		9453A1E41C56058D009CB36B /* MBBabyManagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9453A1E21C56058D009CB36B /* MBBabyManagementViewController.xib */; };
+		945430841CCF179400B45392 /* MBNewCanulcircleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945430831CCF179400B45392 /* MBNewCanulcircleController.m */; };
+		945430891CCF1F6100B45392 /* MBMyCircleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945430871CCF1F6100B45392 /* MBMyCircleController.m */; };
+		9454308A1CCF1F6100B45392 /* MBMyCircleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 945430881CCF1F6100B45392 /* MBMyCircleController.xib */; };
+		9454308D1CCF32EC00B45392 /* MBMyCircleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9454308C1CCF32EC00B45392 /* MBMyCircleView.xib */; };
+		945430901CCF330600B45392 /* MBMyCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9454308F1CCF330600B45392 /* MBMyCircleView.m */; };
 		945B98031C0EDD7C009D6B15 /* MBDeliveryInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945B98011C0EDD7C009D6B15 /* MBDeliveryInformationViewController.m */; };
 		945B98041C0EDD7C009D6B15 /* MBDeliveryInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 945B98021C0EDD7C009D6B15 /* MBDeliveryInformationViewController.xib */; };
 		945D4DFA1C3E99E00096FBBF /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945D4DF91C3E99E00096FBBF /* OpenGLES.framework */; };
@@ -1237,6 +1246,12 @@
 		943E81341CAE266E00DDD09C /* MBUserEvaluationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBUserEvaluationCell.h; sourceTree = "<group>"; };
 		943E81351CAE266E00DDD09C /* MBUserEvaluationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBUserEvaluationCell.m; sourceTree = "<group>"; };
 		943E81361CAE266E00DDD09C /* MBUserEvaluationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBUserEvaluationCell.xib; sourceTree = "<group>"; };
+		943ED8071CCF6B24005AF4D9 /* MBAddIDCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAddIDCardView.h; sourceTree = "<group>"; };
+		943ED8081CCF6B24005AF4D9 /* MBAddIDCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAddIDCardView.m; sourceTree = "<group>"; };
+		943ED80A1CCF6B30005AF4D9 /* MBAddIDCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBAddIDCardView.xib; sourceTree = "<group>"; };
+		943ED80C1CCF7655005AF4D9 /* MBIDCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBIDCardCell.h; sourceTree = "<group>"; };
+		943ED80D1CCF7655005AF4D9 /* MBIDCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBIDCardCell.m; sourceTree = "<group>"; };
+		943ED80E1CCF7655005AF4D9 /* MBIDCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBIDCardCell.xib; sourceTree = "<group>"; };
 		944364EF1CBCE0C60085E006 /* MBPaySuccessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPaySuccessView.h; sourceTree = "<group>"; };
 		944364F01CBCE0C60085E006 /* MBPaySuccessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPaySuccessView.m; sourceTree = "<group>"; };
 		944364F21CBCE0D30085E006 /* MBPaySuccessView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBPaySuccessView.xib; sourceTree = "<group>"; };
@@ -1314,6 +1329,14 @@
 		9453A1E01C56058D009CB36B /* MBBabyManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBabyManagementViewController.h; sourceTree = "<group>"; };
 		9453A1E11C56058D009CB36B /* MBBabyManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabyManagementViewController.m; sourceTree = "<group>"; };
 		9453A1E21C56058D009CB36B /* MBBabyManagementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBBabyManagementViewController.xib; sourceTree = "<group>"; };
+		945430821CCF179400B45392 /* MBNewCanulcircleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBNewCanulcircleController.h; sourceTree = "<group>"; };
+		945430831CCF179400B45392 /* MBNewCanulcircleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBNewCanulcircleController.m; sourceTree = "<group>"; };
+		945430861CCF1F6100B45392 /* MBMyCircleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMyCircleController.h; sourceTree = "<group>"; };
+		945430871CCF1F6100B45392 /* MBMyCircleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMyCircleController.m; sourceTree = "<group>"; };
+		945430881CCF1F6100B45392 /* MBMyCircleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBMyCircleController.xib; sourceTree = "<group>"; };
+		9454308C1CCF32EC00B45392 /* MBMyCircleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBMyCircleView.xib; sourceTree = "<group>"; };
+		9454308E1CCF330600B45392 /* MBMyCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMyCircleView.h; sourceTree = "<group>"; };
+		9454308F1CCF330600B45392 /* MBMyCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMyCircleView.m; sourceTree = "<group>"; };
 		945B98001C0EDD7C009D6B15 /* MBDeliveryInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBDeliveryInformationViewController.h; sourceTree = "<group>"; };
 		945B98011C0EDD7C009D6B15 /* MBDeliveryInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBDeliveryInformationViewController.m; sourceTree = "<group>"; };
 		945B98021C0EDD7C009D6B15 /* MBDeliveryInformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBDeliveryInformationViewController.xib; sourceTree = "<group>"; };
@@ -2471,6 +2494,12 @@
 				48C7E2FB1B1D516500853117 /* MBPaymentViewController.m */,
 				48FAFD5C1B1FFAD6002D8DEC /* MBJoinCartViewController.h */,
 				48FAFD5D1B1FFAD6002D8DEC /* MBJoinCartViewController.m */,
+				943ED8071CCF6B24005AF4D9 /* MBAddIDCardView.h */,
+				943ED8081CCF6B24005AF4D9 /* MBAddIDCardView.m */,
+				943ED80A1CCF6B30005AF4D9 /* MBAddIDCardView.xib */,
+				943ED80C1CCF7655005AF4D9 /* MBIDCardCell.h */,
+				943ED80D1CCF7655005AF4D9 /* MBIDCardCell.m */,
+				943ED80E1CCF7655005AF4D9 /* MBIDCardCell.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -2570,6 +2599,7 @@
 		48742C3C1B2BDF13000F188F /* Club(麻包圈子) */ = {
 			isa = PBXGroup;
 			children = (
+				945430811CCF15A600B45392 /* 麻包圈子 */,
 				94E9A4491C8FB4280002E15E /* XWCatergoryView */,
 				94895EEF1C84287E0092356C /* 麻包圈 */,
 				945D4DFB1C3E99FA0096FBBF /* 图片滤镜 */,
@@ -3217,6 +3247,37 @@
 				94F1E7241C561A3300B00A32 /* VC */,
 			);
 			name = "lovelyBaby（萌宝）";
+			sourceTree = "<group>";
+		};
+		945430811CCF15A600B45392 /* 麻包圈子 */ = {
+			isa = PBXGroup;
+			children = (
+				9454308B1CCF1F6F00B45392 /* View */,
+				945430851CCF1B0F00B45392 /* VC */,
+			);
+			name = "麻包圈子";
+			sourceTree = "<group>";
+		};
+		945430851CCF1B0F00B45392 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				945430821CCF179400B45392 /* MBNewCanulcircleController.h */,
+				945430831CCF179400B45392 /* MBNewCanulcircleController.m */,
+				945430861CCF1F6100B45392 /* MBMyCircleController.h */,
+				945430871CCF1F6100B45392 /* MBMyCircleController.m */,
+				945430881CCF1F6100B45392 /* MBMyCircleController.xib */,
+			);
+			name = VC;
+			sourceTree = "<group>";
+		};
+		9454308B1CCF1F6F00B45392 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9454308E1CCF330600B45392 /* MBMyCircleView.h */,
+				9454308F1CCF330600B45392 /* MBMyCircleView.m */,
+				9454308C1CCF32EC00B45392 /* MBMyCircleView.xib */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		945D4DFB1C3E99FA0096FBBF /* 图片滤镜 */ = {
@@ -4262,6 +4323,7 @@
 				948E1B961C3B8FFE00D19097 /* btn_close_selected@2x.png in Resources */,
 				94095B5A1CC4CC8700859D03 /* MBTopCargoCell.xib in Resources */,
 				486D435B1AF23F240025A043 /* Main.storyboard in Resources */,
+				9454308A1CCF1F6100B45392 /* MBMyCircleController.xib in Resources */,
 				944364F31CBCE0D30085E006 /* MBPaySuccessView.xib in Resources */,
 				486D43601AF23F240025A043 /* LaunchScreen.xib in Resources */,
 				94141E091C12BB8A007DD202 /* MBRefundScheduleViewController.xib in Resources */,
@@ -4310,6 +4372,7 @@
 				943227141C9A436200E352AB /* MBAffordablePlanetThreeCell.xib in Resources */,
 				9480D6191C47A0FA00C4A891 /* thrid_goods_icon.jpg in Resources */,
 				9411619B1C46618200EE8B9A /* MBStyleCollectionViewCell.xib in Resources */,
+				943ED80B1CCF6B30005AF4D9 /* MBAddIDCardView.xib in Resources */,
 				94C41A4D1C9254640011C016 /* MBWebViewController.xib in Resources */,
 				94BDB0F31C8AE58D00926620 /* MBPersonalCollectionViewCell.xib in Resources */,
 				424097D61BB3D385002DB272 /* homepage_02.jpg in Resources */,
@@ -4415,6 +4478,7 @@
 				949D8FEF1BF1E49F009060E6 /* flashlightOn.png in Resources */,
 				941CCD311CB3D1CC0056890C /* MBMBMyServiceChilderCell.xib in Resources */,
 				94DD62AE1C33A87F00060C35 /* MBEvaluationTableViewCell.xib in Resources */,
+				943ED8101CCF7655005AF4D9 /* MBIDCardCell.xib in Resources */,
 				941BA95E1CB370B800421BF6 /* MBEvaluationSuccessController.xib in Resources */,
 				9496D3BF1CA3E0C400743586 /* MBNewAddressViewController.xib in Resources */,
 				94E12F891C50E019001CE4E4 /* sunxinglong.png in Resources */,
@@ -4424,6 +4488,7 @@
 				94B131B21C899CFF00204CD9 /* MBCommentTableViewCell.xib in Resources */,
 				9469DC4F1C7594F400C2E3E2 /* MBWeatherAndMoodViewController.xib in Resources */,
 				943227331C9A612300E352AB /* MBFreeStoreViewOneCell.xib in Resources */,
+				9454308D1CCF32EC00B45392 /* MBMyCircleView.xib in Resources */,
 				9463A2D81C7C2DEE00B30892 /* orderFootView.xib in Resources */,
 				9428A4941CB77A79002D2A53 /* MBPayResultsFootView.xib in Resources */,
 				9474D8DB1C3F768D0071DACE /* textTagAnti@2x.png in Resources */,
@@ -4801,6 +4866,7 @@
 				9453A1E31C56058D009CB36B /* MBBabyManagementViewController.m in Sources */,
 				48178F771B4D27EF00F93A9E /* FSCalendar.m in Sources */,
 				4838DAA81B1DDC2E00E6E4D2 /* MBSmallCategoryViewController.m in Sources */,
+				945430891CCF1F6100B45392 /* MBMyCircleController.m in Sources */,
 				94B131C21C89AB5500204CD9 /* MBcanulaCirclesViewController.m in Sources */,
 				48ED9FAF1AF6FE810076A4CD /* MBMessageCheckViewController.m in Sources */,
 				94990AFD1C058339003979E7 /* MBRefundHomeController.m in Sources */,
@@ -4829,6 +4895,7 @@
 				941577921CB65E5300523A67 /* MBPayResultsController.m in Sources */,
 				94D7B01F1C03216800AC5291 /* SearchTableViewCell.m in Sources */,
 				941BA9501CB3493E00421BF6 /* MBSubmitOrdersController.m in Sources */,
+				945430841CCF179400B45392 /* MBNewCanulcircleController.m in Sources */,
 				48B97A8E1B28A01000F4B641 /* MBReceiptAddressViewController.m in Sources */,
 				94F216191CB5EDA5008852E1 /* MBMaBaoVolumeHeaderView.m in Sources */,
 				944804431C58714400A61B9C /* MBBabySearchViewController.m in Sources */,
@@ -4855,6 +4922,7 @@
 				941BA9711CB3AB7600421BF6 /* MBUserEvaluationListCell.m in Sources */,
 				94E9A4601C8FB4280002E15E /* XWCatergoryViewLayout.m in Sources */,
 				94C41A4C1C9254640011C016 /* MBWebViewController.m in Sources */,
+				943ED8091CCF6B24005AF4D9 /* MBAddIDCardView.m in Sources */,
 				9469DC531C759A9800C2E3E2 /* MBWeatherMoodCollectionViewCell.m in Sources */,
 				48162F441AF2866900E61D5C /* MBNavigationViewController.m in Sources */,
 				485006771B084815002520CB /* MBHomeMenuButton.m in Sources */,
@@ -4895,6 +4963,7 @@
 				944DCD211C9BF6C0003B5CC2 /* MBDetailedViewController.m in Sources */,
 				949725C31CB60A5A00804098 /* MBMBServiceRefundTwoCell.m in Sources */,
 				94EBB00D1C32878700466E92 /* MBEvaluationController.m in Sources */,
+				943ED80F1CCF7655005AF4D9 /* MBIDCardCell.m in Sources */,
 				941BA9621CB3843900421BF6 /* MBEvaluationSuccessCell.m in Sources */,
 				94892D6D1CB4FA4000668A98 /* MBServiceOrderOneCell.m in Sources */,
 				48E6E4741B2546C200B3556E /* MBServiceListViewController.m in Sources */,
@@ -4928,6 +4997,7 @@
 				948CA9F61BFECBB400318EAE /* DataSigner.m in Sources */,
 				486D43521AF23F240025A043 /* main.m in Sources */,
 				48042CA21B2FB3BE00C6B32D /* MBActivityTableViewCell.m in Sources */,
+				945430901CCF330600B45392 /* MBMyCircleView.m in Sources */,
 				48178F781B4D27EF00F93A9E /* FSCalendarCell.m in Sources */,
 				9486A1471C06B4410047DC42 /* ProblemTableViewCell.m in Sources */,
 				48162F3E1AF2866900E61D5C /* MBRegisterTabButton.m in Sources */,

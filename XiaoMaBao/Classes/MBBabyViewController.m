@@ -82,9 +82,6 @@
                 
                 
                 if (!_isBool) {
-                    
-                    
-                
                     __unsafe_unretained __typeof(self) weakSelf = self;
                     [DXLocationManager getlocationWithBlock:^(double longitude, double latitude) {
                         

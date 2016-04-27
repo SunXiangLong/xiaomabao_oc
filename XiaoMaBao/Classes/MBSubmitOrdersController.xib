@@ -36,7 +36,7 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yek-XS-wE6">
-                                    <rect key="frame" x="8" y="24" width="0.0" height="0.0"/>
+                                    <rect key="frame" x="8" y="24" width="212" height="0.0"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <color key="textColor" red="0.37647058823529411" green="0.37647058823529411" blue="0.37647058823529411" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -57,6 +57,7 @@
                                 <constraint firstItem="KqE-rJ-oKr" firstAttribute="leading" secondItem="xg5-4I-Awp" secondAttribute="leading" constant="8" id="gv4-FO-BJS"/>
                                 <constraint firstAttribute="bottom" secondItem="KqE-rJ-oKr" secondAttribute="bottom" id="jcI-L9-41Q"/>
                                 <constraint firstItem="yek-XS-wE6" firstAttribute="centerY" secondItem="xg5-4I-Awp" secondAttribute="centerY" id="l2E-7r-VzC"/>
+                                <constraint firstAttribute="trailing" secondItem="yek-XS-wE6" secondAttribute="trailing" constant="100" id="rVr-RB-TdN"/>
                                 <constraint firstAttribute="trailing" secondItem="KqE-rJ-oKr" secondAttribute="trailing" id="yyY-xZ-k0S"/>
                             </constraints>
                         </view>

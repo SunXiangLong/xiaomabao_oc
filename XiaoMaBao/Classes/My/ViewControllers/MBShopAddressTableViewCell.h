@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BkBaseViewController.h"
+@protocol MBShopAddressTableViewDelgate <NSObject>
+- (void)MBShopAddressTableView;
+@end
 @interface MBShopAddressTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *photo;
@@ -16,5 +19,5 @@
 @property (nonatomic,strong) BkBaseViewController *VC;
 @property (nonatomic,assign) BOOL isDefault;
 @property(strong,nonatomic)NSDictionary *addressDic;
-
+@property (nonatomic, weak) id<MBShopAddressTableViewDelgate> delagate;
 @end

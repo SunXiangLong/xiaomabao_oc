@@ -21,7 +21,7 @@ static AFHTTPRequestOperationManager *mgr = nil;
         mgr = [AFHTTPRequestOperationManager manager];
         AFJSONResponseSerializer *response = [[AFJSONResponseSerializer alloc] init];
         response.removesKeysWithNullValues = YES;
-        mgr.responseSerializer = response;
+
 
     }
     return mgr;
@@ -89,7 +89,7 @@ static AFHTTPRequestOperationManager *mgr = nil;
     return [self.mgr POST:URLString parameters:requestParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         
-        NSLog(@"%@",responseObject);
+//        NSLog(@"%@",responseObject);
         
         
         MBModel *model = [MBModel objectWithKeyValues:responseObject];
