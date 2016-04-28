@@ -7,7 +7,7 @@
 //
 
 //#import <AFNetworking/AFNetworking.h>
-#import <AFNetworking.h>
+#import "AFNetworking.h"
 
 //成功回调
 typedef void (^successFBlock)(NSString *status);

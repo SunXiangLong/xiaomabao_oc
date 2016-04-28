@@ -22,7 +22,7 @@
 #import "UIImageView+WebCache.h"
 #import "NSString+BQ.h"
 
-#import <KVNProgress.h>
+
 #import "UIButton+WebCache.h"
 #import "MBNetworking.h"
 #import "MJExtension.h"

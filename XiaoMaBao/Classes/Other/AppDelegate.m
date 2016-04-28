@@ -55,7 +55,7 @@
 #include <net/if_dl.h>
 //for idfa
 #import <AdSupport/AdSupport.h>
-#import <AFNetworkActivityIndicatorManager.h>
+#import "AFNetworkActivityIndicatorManager.h"
 //#import "NTalkerInstance.h"
 #import "DXAlertView.h"
 @interface AppDelegate ()<WXApiDelegate>

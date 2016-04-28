@@ -679,7 +679,7 @@
 		AA3EA14E1B8F5E7200B41FE9 /* TaxExemptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3EA14D1B8F5E7200B41FE9 /* TaxExemptionController.m */; };
 		AA9F03CF1B8EEA110072D39A /* MBSignRoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9F03CE1B8EEA110072D39A /* MBSignRoleView.m */; };
 		AA9F03D21B8F0A3E0072D39A /* MBNewFeatrueView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9F03D11B8F0A3E0072D39A /* MBNewFeatrueView.m */; };
-		B4D326F7331C2C7EE1D1B513 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51B7C7DD5F0C7BCCFD6C2ADE /* libPods.a */; };
+		FDB88942073E43DC1ECAC32B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA11FFBABF11F8B824D3E822 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1010,7 +1010,6 @@
 		48FAFD5C1B1FFAD6002D8DEC /* MBJoinCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBJoinCartViewController.h; sourceTree = "<group>"; };
 		48FAFD5D1B1FFAD6002D8DEC /* MBJoinCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBJoinCartViewController.m; sourceTree = "<group>"; };
 		4CE49EF90CD83F9EB54DB2F3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		51B7C7DD5F0C7BCCFD6C2ADE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		940258BD1C97C39C0066329F /* ccguanzhu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ccguanzhu@2x.png"; sourceTree = "<group>"; };
 		9404884C1C9F8D38008C7938 /* MBActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBActivityViewController.h; sourceTree = "<group>"; };
 		9404884D1C9F8D38008C7938 /* MBActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBActivityViewController.m; sourceTree = "<group>"; };
@@ -1874,6 +1873,7 @@
 		AA9F03CE1B8EEA110072D39A /* MBSignRoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSignRoleView.m; sourceTree = "<group>"; };
 		AA9F03D01B8F0A3E0072D39A /* MBNewFeatrueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBNewFeatrueView.h; sourceTree = "<group>"; };
 		AA9F03D11B8F0A3E0072D39A /* MBNewFeatrueView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBNewFeatrueView.m; sourceTree = "<group>"; };
+		BA11FFBABF11F8B824D3E822 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6E616ABF17DCA8CBCD47473 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1915,10 +1915,10 @@
 				42B455D11BB966EB003E555F /* libicucore.dylib in Frameworks */,
 				948CAA701BFEECF400318EAE /* libcrypto.a in Frameworks */,
 				42ED8D861BAE987A00F458DE /* libssl.a in Frameworks */,
-				B4D326F7331C2C7EE1D1B513 /* libPods.a in Frameworks */,
 				42ED8D1C1BAE6B4600F458DE /* AlipaySDK.framework in Frameworks */,
 				948CAA711BFEECF400318EAE /* libssl.a in Frameworks */,
 				42ED8D851BAE987A00F458DE /* libcrypto.a in Frameworks */,
+				FDB88942073E43DC1ECAC32B /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1963,7 +1963,7 @@
 				42ED8D831BAE987A00F458DE /* libcrypto.a */,
 				42ED8D841BAE987A00F458DE /* libssl.a */,
 				42ED8D1A1BAE6B4600F458DE /* AlipaySDK.framework */,
-				51B7C7DD5F0C7BCCFD6C2ADE /* libPods.a */,
+				BA11FFBABF11F8B824D3E822 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

@@ -335,7 +335,7 @@
             
             view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 140);
         }
-        if(![_is_over_see isEqualToString:@"0"]){
+        if(![_is_over_sea isEqualToString:@"0"]){
         
             view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 290);
             footerView.frame = CGRectMake(0, 0, self.view.ml_width, 330+180);
@@ -512,7 +512,7 @@
                     make.height.mas_equalTo(25);
                 }];
 
-       if(![_is_over_see isEqualToString:@"0"]){
+       if( ![_is_over_sea isEqualToString:@"0"]){
             NSString *name = [_consignee valueForKeyPath:@"consignee"];
             MBAddIDCardView *idCardView = [MBAddIDCardView instanceView];
             [view addSubview:idCardView];
@@ -978,7 +978,7 @@
     NSArray *arr = [_name.text componentsSeparatedByString:@"："];
     NSString *name = arr[1];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"flow/doneMobile"]parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":@"0",@"inv_content":@"",@"inv_payee" :@"",@"real_name":name,@"identity_card":_identity_card}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/done"]parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":@"0",@"inv_content":@"",@"inv_payee" :@"",@"real_name":name,@"identity_card":_identity_card}
                success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  
                    [self dismiss];
@@ -986,9 +986,12 @@
                    NSDictionary *dict = [responseObject valueForKeyPath:@"status"];
                    
                    if ([responseObject valueForKeyPath:@"data"]) {
-                       VC.orderInfo = [responseObject valueForKeyPath:@"data"];
+                       VC.orderInfo = [responseObject valueForKeyPath:@"data"][@"order_info"];
+                   
+                       
+                       
                        VC.type = @"1";
-                       VC.is_cross_border = VC.orderInfo[@"order_info"][@"is_cross_border"];
+//                       VC.is_cross_border = VC.orderInfo[@"order_info"][@"is_cross_border"];
                        [self.navigationController pushViewController:VC animated:YES];
                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCart" object:nil];
                        
@@ -1017,7 +1020,7 @@
                 /***  是否实名认证*/
                 if (_identity_card) {
                     /***  是否是海外直邮*/
-                    if (![_is_over_see isEqualToString:@"0"]) {
+                    if (![_is_over_sea isEqualToString:@"0"]) {
                         if (_isCard) {
                             [self getDingdanINfo:payVc];
                         }
@@ -1067,14 +1070,14 @@
     
     // Create the actions.
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        NSLog(@"The \"Okay/Cancel\" alert's cancel action occured.");
+      
         
     }];
     
     UIAlertAction *otherAction = [UIAlertAction actionWithTitle:otherButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        NSLog(@"The \"Okay/Cancel\" alert's other action occured.");
+       
         
-        UITextField *textField = alertController.textFields.firstObject;
+        UITextField*textField=alertController.textFields.firstObject;
             NSString * bonus_sn = textField.text;
        
         [self getBonusBySn:bonus_sn order_money:self.order_amount];

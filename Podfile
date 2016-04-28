@@ -1,3 +1,4 @@
+
 platform :ios, '8.0'
 pod 'PureLayout', '~> 2.0.6'
 pod 'KVNProgress'
@@ -19,6 +20,7 @@ pod 'SDCycleScrollView','~> 1.6'
 pod 'Appirater'
 pod 'Masonry'
 pod 'UMengAnalytics'
+#pod 'ReactiveCocoa', '~> 4.1.0'
 
 # 主模块(必须)
 pod 'ShareSDK3'

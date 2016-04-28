@@ -12,7 +12,7 @@
 #import "MBEmailRegisterView.h"
 #import "MBRegisterFieldRightViewButton.h"
 #import "MBRegisterField.h"
-#import <PureLayout.h>
+#import "PureLayout.h"
 #import "MBSignaltonTool.h"
 #import "MBNetworking.h"
 #import "MobClick.h"

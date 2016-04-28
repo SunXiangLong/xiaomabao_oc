@@ -7,7 +7,7 @@
 //
 
 #import "MBRegisterTabButton.h"
-#import <PureLayout.h>
+#import "PureLayout.h"
 
 @interface MBRegisterTabButton ()
 @property (weak,nonatomic) UIView *selectedStatusLineView;

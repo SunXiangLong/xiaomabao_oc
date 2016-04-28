@@ -112,6 +112,11 @@
                                               if ([_photoArray[i]isKindOfClass:[LGPhotoAssets class]]) {
                                                   LGPhotoAssets *photo = _photoArray [i];
                                                   image = photo.thumbImage;
+                                              }else{
+                                                
+                                                  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                                                  MBIDCardCell *cell = (MBIDCardCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+                                                  image = cell.cardImage.image;
                                               }
                                               NSData * data = [UIImage reSizeImageData:image maxImageSize:800 maxSizeWithKB:800];
                                               if(data != nil){
@@ -254,9 +259,7 @@
             [_photoArray removeObjectAtIndex:2];
         }
         _photoArray[indexPath.item] = _image;
-//        self.block();
-        
-        
+        self.block(YES);
         [_collectionView reloadData];
         
     }];

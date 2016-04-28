@@ -248,12 +248,15 @@
     paymentLbl.frame = CGRectMake(MARGIN_8, 0, self.view.ml_width-submitButtonWidth, bottomView.ml_height);
     paymentLbl.textColor = [UIColor colorWithHexString:@"323232"];
     paymentLbl.font = [UIFont systemFontOfSize:14];
+    
     if(self.order_id && self.isOrderDetail){
+        NSLog(@"%@",_order_id);
+        paymentLbl.text = [NSString stringWithFormat:@"应付金额：%@",_orderInfo[@"order_amount_formatted"]];
         
-        paymentLbl.text = [NSString stringWithFormat:@"应付金额：%@",[_orderInfo valueForKeyPath:@"order_amount_formatted"]];
+        
     }else{
         
-        paymentLbl.text = [NSString stringWithFormat:@"应付金额：%@",[[_orderInfo valueForKeyPath:@"order_info"] valueForKeyPath:@"order_amount" ]];
+        paymentLbl.text = [NSString stringWithFormat:@"应付金额：%@",[_orderInfo valueForKeyPath:@"order_amount"]];
     }
     
     
@@ -320,9 +323,9 @@
         order.productDescription = @"小麻包购买商品"; //商品描述
         order.amount = [[self.orderInfo valueForKeyPath:@"order_amount_formatted"] substringFromIndex:1]; //商品价格
     }else{
-        order.productName = [[self.orderInfo valueForKeyPath:@"order_info"] valueForKeyPath:@"subject"];//商品标题
-        order.productDescription = [[self.orderInfo valueForKeyPath:@"order_info"] valueForKeyPath:@"desc"]; //商品描述
-        order.amount = [[self.orderInfo valueForKeyPath:@"order_info"] valueForKeyPath:@"order_amount"]; //商品价格
+        order.productName = [self.orderInfo  valueForKeyPath:@"subject"];//商品标题
+        order.productDescription = [self.orderInfo valueForKeyPath:@"desc"]; //商品描述
+        order.amount = [self.orderInfo  valueForKeyPath:@"order_amount"]; //商品价格
     }
     
 
@@ -474,7 +477,7 @@
         price = [[self.orderInfo valueForKeyPath:@"order_amount_formatted"] substringFromIndex:1]; //商品价格
     }else{
         
-       price = [[self.orderInfo valueForKeyPath:@"order_info"] valueForKeyPath:@"order_amount"]; //商品价格
+       price = [self.orderInfo  valueForKeyPath:@"order_amount"]; //商品价格
     }
   
     order_price = [NSString stringWithFormat:@"%.0f",[price doubleValue]*100];

@@ -235,8 +235,8 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"失败");
+        [self show:@"请求失败" time:1];
+        NSLog(@"%@",error);
     }];
     
 }
@@ -262,7 +262,7 @@
         }
     }
                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                   NSLog(@"%@",error);
+                   NSLog(@"%@",error.localizedDescription);
                    [self show:@"请求失败！" time:1];
                }
      ];
@@ -535,7 +535,7 @@
         NSString *str1 = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"is_over_see"]];
         
         fireOrderVc.is_cross_border = str;
-        fireOrderVc.is_over_see = str1;
+        fireOrderVc.is_over_sea = str1;
         fireOrderVc.CartDict =  [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"s_goods_list"];
         [self dismiss];
         

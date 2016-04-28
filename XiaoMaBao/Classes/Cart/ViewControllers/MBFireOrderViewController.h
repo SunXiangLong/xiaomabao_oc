@@ -25,7 +25,7 @@
 @property(nonatomic,copy)NSString *goods_amount_formatted;
 @property(nonatomic,copy)NSString *cross_border_tax;
 @property(nonatomic,copy)NSString *is_cross_border;
-@property(nonatomic,copy)NSString *is_over_see;
+@property(nonatomic,copy)NSString *is_over_sea;
 
 @property(strong,nonatomic)NSMutableDictionary *CartDict;
 @property(strong,nonatomic)NSDictionary *consignee;

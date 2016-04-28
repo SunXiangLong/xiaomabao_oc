@@ -11,7 +11,7 @@
 #import "MBSettingPwdViewController.h"
 #import "MBRegisterField.h"
 #import "MBSignaltonTool.h"
-#import <KVNProgress.h>
+#import "KVNProgress.h"
 #import "MBNetworking.h"
 #import "NSString+BQ.h"
 #import "MBRegisterPhoneDoneViewController.h"
