@@ -9,13 +9,24 @@
 #import "MBMyCircleView.h"
 
 @implementation MBMyCircleView
+-(void)awakeFromNib{
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+
 }
-*/
++ (instancetype)instanceView{
+    return [[[NSBundle mainBundle] loadNibNamed:@"MBMyCircleView" owner:nil options:nil] lastObject];
+}
 
+- (IBAction)touch:(UIButton *)sender {
+    [self.myCircleViewSubject  sendNext:@(sender.tag)];
+}
+- (RACSubject *)myCircleViewSubject {
+    
+    if (!_myCircleViewSubject) {
+        
+       _myCircleViewSubject = [RACSubject subject];
+    }
+    
+    return _myCircleViewSubject;
+}
 @end

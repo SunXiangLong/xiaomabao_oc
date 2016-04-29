@@ -1503,10 +1503,10 @@
             </objects>
             <point key="canvasLocation" x="-2474" y="-2548"/>
         </scene>
-        <!--Canulcircle Home View Controller-->
+        <!--New Canulcircle Controller-->
         <scene sceneID="nYg-tp-JMk">
             <objects>
-                <viewController id="Qrv-yv-HdI" customClass="MBCanulcircleHomeViewController" sceneMemberID="viewController">
+                <viewController id="Qrv-yv-HdI" customClass="MBNewCanulcircleController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eyq-Rc-XEC"/>
                         <viewControllerLayoutGuide type="bottom" id="iJJ-zA-aNL"/>

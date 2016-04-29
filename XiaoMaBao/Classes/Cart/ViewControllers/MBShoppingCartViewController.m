@@ -532,7 +532,7 @@
         fireOrderVc.consignee = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"consignee"] ;
         
         NSString *str  = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"real_name"]];
-        NSString *str1 = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"is_over_see"]];
+        NSString *str1 = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"is_over_sea"]];
         
         fireOrderVc.is_cross_border = str;
         fireOrderVc.is_over_sea = str1;

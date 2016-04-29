@@ -512,7 +512,7 @@
                     make.height.mas_equalTo(25);
                 }];
 
-       if( ![_is_over_sea isEqualToString:@"0"]){
+       if(![_is_over_sea isEqualToString:@"0"]){
             NSString *name = [_consignee valueForKeyPath:@"consignee"];
             MBAddIDCardView *idCardView = [MBAddIDCardView instanceView];
             [view addSubview:idCardView];
@@ -1008,6 +1008,7 @@
                }];
     
 }
+#pragma mark --提交订单前的一堆判断逻辑
 /***  一堆判断逻辑－先的有收获地址 -跨境购的需要实名认证－ 海外直邮的需要上传身份证 */
 - (void)goPaymentVc{
     /***  是否存在收货地址*/
@@ -1021,8 +1022,11 @@
                 if (_identity_card) {
                     /***  是否是海外直邮*/
                     if (![_is_over_sea isEqualToString:@"0"]) {
+                        /***海外直邮身份证是否上场、传*/
                         if (_isCard) {
                             [self getDingdanINfo:payVc];
+                        }else{
+                            [self show:@"请上传身份证照片" time:1];
                         }
                     }else{
                         [self getDingdanINfo:payVc];

@@ -21,6 +21,7 @@
 #import "MBCanulcircleHomeViewController.h"
 #import "MBServiceHomeViewController.h"
 #import "MBNewHomeViewController.h"
+#import "MBNewCanulcircleController.h"
 @interface MBTabBarViewController () <BkTabBarViewDelegate>{
     NSArray* _TeMaiArarry;
     NSMutableArray* menuIds ;
@@ -113,7 +114,7 @@
     MBServiceHomeViewController *serviceVc = [[MBServiceHomeViewController alloc] init];
     [self setupChildVC:serviceVc title:@"服务" imageName:@"ser_image" selectedImageName:@"serSelect_image"];
     
-    MBCanulcircleHomeViewController *shoppingCartVc = [[MBCanulcircleHomeViewController alloc] init];
+    MBNewCanulcircleController *shoppingCartVc = [[MBNewCanulcircleController alloc] init];
     [self setupChildVC:shoppingCartVc title:@"麻包圈" imageName:@"icon_nav03" selectedImageName:@"icon_nav03_press"];
 
 

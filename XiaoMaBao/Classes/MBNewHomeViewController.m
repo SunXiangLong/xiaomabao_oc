@@ -64,9 +64,9 @@
     [self addChildViewController:VC2];
     
     
-    MBTopCargoController *VC3 = [[MBTopCargoController alloc] init];
-    VC3.title = @"尖儿货";
-    [self addChildViewController:VC3];
+//    MBTopCargoController *VC3 = [[MBTopCargoController alloc] init];
+//    VC3.title = @"尖儿货";
+//    [self addChildViewController:VC3];
 }
 - (void)setupTitlesView
 {

@@ -8,7 +8,7 @@
 
 #import "MBNewCanulcircleController.h"
 #import "MBAffordablePlanetViewController.h"
-#import "MBFreeStoreViewController.h"
+#import "MBMoreCirclesController.h"
 #import "MBSearchViewController.h"
 #import "MBShopDetailsViewController.h"
 #import "MBMyCircleController.h"
@@ -58,11 +58,11 @@
     [self addChildViewController:VC3];
     
     MBAffordablePlanetViewController *VC1 = [[MBAffordablePlanetViewController alloc] init];
-    VC1.title = @"实惠星球";
+    VC1.title = @"热帖";
     [self addChildViewController:VC1];
     
-    MBFreeStoreViewController *VC2 = [[MBFreeStoreViewController alloc] init];
-    VC2.title = @"全球闪购";
+    MBMoreCirclesController *VC2 = [[MBMoreCirclesController alloc] init];
+    VC2.title = @"更多圈";
     [self addChildViewController:VC2];
     
 }
@@ -152,10 +152,26 @@
     UIViewController *willShowChildVc = self.childViewControllers[index];
     
     // 如果控制器的view已经被创建过，就直接返回
-    if (willShowChildVc.isViewLoaded) return;
+    if (willShowChildVc.isViewLoaded){
+         MBMoreCirclesController *view = self.childViewControllers[2];
+        [view.SearchBar resignFirstResponder];
+        if (index!=2) {
+           
+            view.SearchBar.hidden = YES;
+            
+        }else{
+            view.SearchBar.hidden = NO;
+        }
+     return;
+    }
     
     // 添加子控制器的view到scrollView身上
-    willShowChildVc.view.frame = scrollView.bounds;
+    if (index ==2) {
+        MBMoreCirclesController *view = (MBMoreCirclesController *)willShowChildVc;
+        view.MinView = self.view;
+    }
+     willShowChildVc.view.frame = scrollView.bounds;
+    
     [scrollView addSubview:willShowChildVc.view];
 }
 

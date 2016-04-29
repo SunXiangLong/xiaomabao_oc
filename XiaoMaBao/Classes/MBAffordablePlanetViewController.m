@@ -13,7 +13,8 @@
 #import "MBAffordablePlanetTwoCell.h"
 #import "MBShopingViewController.h"
 #import "MBActivityViewController.h"
-
+#import "MBWebViewController.h"
+#import "MBGroupShopController.h"
 @interface MBAffordablePlanetViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate>
 
 {
@@ -135,24 +136,47 @@
 }
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    NSLog(@"%ld",index);
-    NSInteger ad_type =[ _bandImageArray[index][@"ad_type"] integerValue];
-    switch (ad_type) {
-        case 1:
-        {
-            MBActivityViewController *categoryVc = [[MBActivityViewController alloc] init];
-            
  
-            categoryVc.title = _bandImageArray[index][@"act_name"];
-            categoryVc.act_id = _bandImageArray[index][@"act_id"];
-            [self pushViewController:categoryVc Animated:YES];
-        
-        }
-            break;
+    
+    
+    NSInteger ad_type = [_bandImageArray[index][@"ad_type"] integerValue];
+    
+    
+    switch (ad_type) {
+        case 1: {
+            MBActivityViewController *VC = [[MBActivityViewController alloc] init];
+            VC.act_id = _bandImageArray[index][@"act_id"];
+            VC.title = _bandImageArray[index][@"ad_name"];
+            [self pushViewController:VC Animated:YES];
+        }break;
+        case 2: {
             
-        default:
-            break;
+            MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+            VC.GoodsId = _bandImageArray[index][@"ad_con"];
+            VC.title = _bandImageArray[index][@"ad_name"];
+            [self pushViewController:VC Animated:YES];
+        }break;
+        case 3: {
+            MBWebViewController *VC = [[MBWebViewController alloc] init];
+            VC.url =  [NSURL URLWithString:_bandImageArray[index][@"ad_con"]];
+            VC.title = _bandImageArray[index][@"ad_name"];
+            [self pushViewController:VC Animated:YES];
+            
+        }break;
+        case 4: {
+            
+            MBGroupShopController *VC = [[MBGroupShopController alloc] init];
+            VC.title = _bandImageArray[index][@"ad_name"];
+            
+            [self pushViewController:VC Animated:YES];
+            
+        }break;
+        case 5: {
+            
+        }break;
+        default: break;
     }
+
 }
 
 #pragma mark --UICollectionViewdelegate

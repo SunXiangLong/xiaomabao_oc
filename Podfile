@@ -20,7 +20,7 @@ pod 'SDCycleScrollView','~> 1.6'
 pod 'Appirater'
 pod 'Masonry'
 pod 'UMengAnalytics'
-#pod 'ReactiveCocoa', '~> 4.1.0'
+pod 'ReactiveCocoa', '~> 2.5'
 
 # 主模块(必须)
 pod 'ShareSDK3'
@@ -37,3 +37,4 @@ pod 'ShareSDK3/ShareSDKPlatforms/WeChat'
 #pod 'ShareSDK3/ShareSDKPlatforms/RenRen'
 #pod 'ShareSDK3/ShareSDKPlatforms/AliPaySocial'
 #pod 'ShareSDK3/ShareSDKPlatforms/Kakao'
+

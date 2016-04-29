@@ -35,7 +35,7 @@
     #import "MBLevelDisplayImagesView.h"
     #import "MBRefreshGifFooter.h"
     #import "MBNavigationViewController.h"
-  
+    
 #import "UILabel+MBIBInspectable.h"
 #import "UIImage+Size.h"
 #import "DXLocationManager.h"
@@ -44,5 +44,9 @@
 #import "NSString+BQ.h"
 #import "SDPhotoBrowser.h"
 #import "UIImageView+WebCache.h"
+
+#define MAS_SHORTHAND_GLOBALS
+#import <ReactiveCocoa/ReactiveCocoa.h>
+
 
 #endif

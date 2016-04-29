@@ -247,6 +247,8 @@
 		941BA96D1CB390B700421BF6 /* MBUserEvaluationListTableHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 941BA96C1CB390B700421BF6 /* MBUserEvaluationListTableHeadView.m */; };
 		941BA9711CB3AB7600421BF6 /* MBUserEvaluationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 941BA96F1CB3AB7600421BF6 /* MBUserEvaluationListCell.m */; };
 		941BA9721CB3AB7600421BF6 /* MBUserEvaluationListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 941BA9701CB3AB7600421BF6 /* MBUserEvaluationListCell.xib */; };
+		941BBCC31CD308640090E42D /* MBMoreCirclesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941BBCC11CD308640090E42D /* MBMoreCirclesController.m */; };
+		941BBCC41CD308640090E42D /* MBMoreCirclesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 941BBCC21CD308640090E42D /* MBMoreCirclesController.xib */; };
 		941CCD261CB3B5D50056890C /* MBMyServiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941CCD241CB3B5D50056890C /* MBMyServiceController.m */; };
 		941CCD271CB3B5D50056890C /* MBMyServiceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 941CCD251CB3B5D50056890C /* MBMyServiceController.xib */; };
 		941CCD2B1CB3CC7B0056890C /* MBMyServiceChilderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941CCD291CB3CC7B0056890C /* MBMyServiceChilderViewController.m */; };
@@ -581,10 +583,13 @@
 		94D77CA91C994AC000748227 /* MBFreeStoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D77CA71C994AC000748227 /* MBFreeStoreViewController.xib */; };
 		94D7B01F1C03216800AC5291 /* SearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7B01D1C03216800AC5291 /* SearchTableViewCell.m */; };
 		94D7B0201C03216800AC5291 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D7B01E1C03216800AC5291 /* SearchTableViewCell.xib */; };
+		94D9C7531CD1FF0A00FAB058 /* MBBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D9C7521CD1FF0A00FAB058 /* MBBaseView.m */; };
 		94DAFDF41C4505690009C91C /* MBBrandTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DAFDF21C4505690009C91C /* MBBrandTableViewCell.m */; };
 		94DAFDF51C4505690009C91C /* MBBrandTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94DAFDF31C4505690009C91C /* MBBrandTableViewCell.xib */; };
 		94DB179B1C520E9500D1F482 /* MBVaccineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DB17991C520E9500D1F482 /* MBVaccineViewController.m */; };
 		94DB179C1C520E9500D1F482 /* MBVaccineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94DB179A1C520E9500D1F482 /* MBVaccineViewController.xib */; };
+		94DB24781CD21B4300B1F153 /* MBMycircleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DB24761CD21B4300B1F153 /* MBMycircleTableViewCell.m */; };
+		94DB24791CD21B4300B1F153 /* MBMycircleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94DB24771CD21B4300B1F153 /* MBMycircleTableViewCell.xib */; };
 		94DC653C1CBC9D8E00AF3782 /* login_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DC653B1CBC9D8E00AF3782 /* login_image@2x.png */; };
 		94DD62AD1C33A87F00060C35 /* MBEvaluationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DD62AB1C33A87F00060C35 /* MBEvaluationTableViewCell.m */; };
 		94DD62AE1C33A87F00060C35 /* MBEvaluationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94DD62AC1C33A87F00060C35 /* MBEvaluationTableViewCell.xib */; };
@@ -673,13 +678,13 @@
 		94FE50491C3E030A00B5516D /* YBImgPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FE50481C3E030A00B5516D /* YBImgPickerTableViewCell.m */; };
 		94FE504C1C3E031200B5516D /* YBImgPickerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FE504B1C3E031200B5516D /* YBImgPickerViewCell.m */; };
 		9F2546D01BC8B75C00BA0076 /* MBHomeCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F2546CF1BC8B75C00BA0076 /* MBHomeCategoryCell.xib */; };
+		A49925AE8DDCDC9FB1E4C58F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B611C1737A8AC7818B488F53 /* libPods.a */; };
 		AA3A9F701B909A53009E0378 /* TaxController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3A9F6F1B909A53009E0378 /* TaxController.m */; };
 		AA3A9FA91B90BDA8009E0378 /* TaxExemController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3A9FA81B90BDA8009E0378 /* TaxExemController.m */; };
 		AA3A9FAC1B91A2FA009E0378 /* MBAddressListController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3A9FAB1B91A2FA009E0378 /* MBAddressListController.m */; };
 		AA3EA14E1B8F5E7200B41FE9 /* TaxExemptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3EA14D1B8F5E7200B41FE9 /* TaxExemptionController.m */; };
 		AA9F03CF1B8EEA110072D39A /* MBSignRoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9F03CE1B8EEA110072D39A /* MBSignRoleView.m */; };
 		AA9F03D21B8F0A3E0072D39A /* MBNewFeatrueView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9F03D11B8F0A3E0072D39A /* MBNewFeatrueView.m */; };
-		FDB88942073E43DC1ECAC32B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA11FFBABF11F8B824D3E822 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1097,6 +1102,9 @@
 		941BA96E1CB3AB7600421BF6 /* MBUserEvaluationListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBUserEvaluationListCell.h; sourceTree = "<group>"; };
 		941BA96F1CB3AB7600421BF6 /* MBUserEvaluationListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBUserEvaluationListCell.m; sourceTree = "<group>"; };
 		941BA9701CB3AB7600421BF6 /* MBUserEvaluationListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBUserEvaluationListCell.xib; sourceTree = "<group>"; };
+		941BBCC01CD308640090E42D /* MBMoreCirclesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMoreCirclesController.h; sourceTree = "<group>"; };
+		941BBCC11CD308640090E42D /* MBMoreCirclesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMoreCirclesController.m; sourceTree = "<group>"; };
+		941BBCC21CD308640090E42D /* MBMoreCirclesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBMoreCirclesController.xib; sourceTree = "<group>"; };
 		941CCD231CB3B5D50056890C /* MBMyServiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMyServiceController.h; sourceTree = "<group>"; };
 		941CCD241CB3B5D50056890C /* MBMyServiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMyServiceController.m; sourceTree = "<group>"; };
 		941CCD251CB3B5D50056890C /* MBMyServiceController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBMyServiceController.xib; sourceTree = "<group>"; };
@@ -1702,12 +1710,17 @@
 		94D7B01C1C03216800AC5291 /* SearchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableViewCell.h; sourceTree = "<group>"; };
 		94D7B01D1C03216800AC5291 /* SearchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewCell.m; sourceTree = "<group>"; };
 		94D7B01E1C03216800AC5291 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
+		94D9C7511CD1FF0A00FAB058 /* MBBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBaseView.h; sourceTree = "<group>"; };
+		94D9C7521CD1FF0A00FAB058 /* MBBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBaseView.m; sourceTree = "<group>"; };
 		94DAFDF11C4505690009C91C /* MBBrandTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBrandTableViewCell.h; sourceTree = "<group>"; };
 		94DAFDF21C4505690009C91C /* MBBrandTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBrandTableViewCell.m; sourceTree = "<group>"; };
 		94DAFDF31C4505690009C91C /* MBBrandTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBBrandTableViewCell.xib; sourceTree = "<group>"; };
 		94DB17981C520E9500D1F482 /* MBVaccineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBVaccineViewController.h; sourceTree = "<group>"; };
 		94DB17991C520E9500D1F482 /* MBVaccineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBVaccineViewController.m; sourceTree = "<group>"; };
 		94DB179A1C520E9500D1F482 /* MBVaccineViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBVaccineViewController.xib; sourceTree = "<group>"; };
+		94DB24751CD21B4300B1F153 /* MBMycircleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMycircleTableViewCell.h; sourceTree = "<group>"; };
+		94DB24761CD21B4300B1F153 /* MBMycircleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMycircleTableViewCell.m; sourceTree = "<group>"; };
+		94DB24771CD21B4300B1F153 /* MBMycircleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBMycircleTableViewCell.xib; sourceTree = "<group>"; };
 		94DC653B1CBC9D8E00AF3782 /* login_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_image@2x.png"; sourceTree = "<group>"; };
 		94DD62AA1C33A87F00060C35 /* MBEvaluationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEvaluationTableViewCell.h; sourceTree = "<group>"; };
 		94DD62AB1C33A87F00060C35 /* MBEvaluationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBEvaluationTableViewCell.m; sourceTree = "<group>"; };
@@ -1873,7 +1886,7 @@
 		AA9F03CE1B8EEA110072D39A /* MBSignRoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSignRoleView.m; sourceTree = "<group>"; };
 		AA9F03D01B8F0A3E0072D39A /* MBNewFeatrueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBNewFeatrueView.h; sourceTree = "<group>"; };
 		AA9F03D11B8F0A3E0072D39A /* MBNewFeatrueView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBNewFeatrueView.m; sourceTree = "<group>"; };
-		BA11FFBABF11F8B824D3E822 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B611C1737A8AC7818B488F53 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6E616ABF17DCA8CBCD47473 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1918,7 +1931,7 @@
 				42ED8D1C1BAE6B4600F458DE /* AlipaySDK.framework in Frameworks */,
 				948CAA711BFEECF400318EAE /* libssl.a in Frameworks */,
 				42ED8D851BAE987A00F458DE /* libcrypto.a in Frameworks */,
-				FDB88942073E43DC1ECAC32B /* libPods.a in Frameworks */,
+				A49925AE8DDCDC9FB1E4C58F /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1963,7 +1976,7 @@
 				42ED8D831BAE987A00F458DE /* libcrypto.a */,
 				42ED8D841BAE987A00F458DE /* libssl.a */,
 				42ED8D1A1BAE6B4600F458DE /* AlipaySDK.framework */,
-				BA11FFBABF11F8B824D3E822 /* libPods.a */,
+				B611C1737A8AC7818B488F53 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2269,6 +2282,8 @@
 				4824ED691B57EE5200E4B9E2 /* MBModel.m */,
 				421D99121BAFA3F300AA841A /* MKNumberBadgeView.h */,
 				421D99131BAFA43A00AA841A /* MKNumberBadgeView.m */,
+				94D9C7511CD1FF0A00FAB058 /* MBBaseView.h */,
+				94D9C7521CD1FF0A00FAB058 /* MBBaseView.m */,
 			);
 			name = "Main(基类)";
 			path = Main;
@@ -3266,6 +3281,9 @@
 				945430861CCF1F6100B45392 /* MBMyCircleController.h */,
 				945430871CCF1F6100B45392 /* MBMyCircleController.m */,
 				945430881CCF1F6100B45392 /* MBMyCircleController.xib */,
+				941BBCC01CD308640090E42D /* MBMoreCirclesController.h */,
+				941BBCC11CD308640090E42D /* MBMoreCirclesController.m */,
+				941BBCC21CD308640090E42D /* MBMoreCirclesController.xib */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -3276,6 +3294,9 @@
 				9454308E1CCF330600B45392 /* MBMyCircleView.h */,
 				9454308F1CCF330600B45392 /* MBMyCircleView.m */,
 				9454308C1CCF32EC00B45392 /* MBMyCircleView.xib */,
+				94DB24751CD21B4300B1F153 /* MBMycircleTableViewCell.h */,
+				94DB24761CD21B4300B1F153 /* MBMycircleTableViewCell.m */,
+				94DB24771CD21B4300B1F153 /* MBMycircleTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -4315,6 +4336,7 @@
 				94DB179C1C520E9500D1F482 /* MBVaccineViewController.xib in Resources */,
 				94B1319B1C89576D00204CD9 /* MBPersonalCanulaCircleViewController.xib in Resources */,
 				94892D6E1CB4FA4000668A98 /* MBServiceOrderOneCell.xib in Resources */,
+				94DB24791CD21B4300B1F153 /* MBMycircleTableViewCell.xib in Resources */,
 				94892D7D1CB50AFC00668A98 /* MBServiceOrderFootView.xib in Resources */,
 				94C3C5CF1C9171C10010D96B /* MBMessageTableViewCell.xib in Resources */,
 				94F216201CB5FFC9008852E1 /* MBServiceRefundController.xib in Resources */,
@@ -4491,6 +4513,7 @@
 				9454308D1CCF32EC00B45392 /* MBMyCircleView.xib in Resources */,
 				9463A2D81C7C2DEE00B30892 /* orderFootView.xib in Resources */,
 				9428A4941CB77A79002D2A53 /* MBPayResultsFootView.xib in Resources */,
+				941BBCC41CD308640090E42D /* MBMoreCirclesController.xib in Resources */,
 				9474D8DB1C3F768D0071DACE /* textTagAnti@2x.png in Resources */,
 				48E6E4851B25676A00B3556E /* MBMyCollectionTableViewCell.xib in Resources */,
 				94B131961C89253500204CD9 /* MBCanulPublishedViewController.xib in Resources */,
@@ -4801,6 +4824,7 @@
 				48042C9E1B2F03DF00C6B32D /* MBClubStartsViewController.m in Sources */,
 				94E9A4641C8FB9AD0002E15E /* UICollectionViewFlowLayout+XWFullItem.m in Sources */,
 				944DC7531C3F62960005C647 /* MiYiTagSearchBarVC.m in Sources */,
+				94DB24781CD21B4300B1F153 /* MBMycircleTableViewCell.m in Sources */,
 				48F9F4F11B01F71200ED4A5D /* BkTabBarView.m in Sources */,
 				94510EBC1C8577C0005DF311 /* JCCollectionViewWaterfallLayout.m in Sources */,
 				9432E48D1C7D9AF800A64668 /* XNShowBigView.m in Sources */,
@@ -4900,6 +4924,7 @@
 				94F216191CB5EDA5008852E1 /* MBMaBaoVolumeHeaderView.m in Sources */,
 				944804431C58714400A61B9C /* MBBabySearchViewController.m in Sources */,
 				94D77CA81C994AC000748227 /* MBFreeStoreViewController.m in Sources */,
+				94D9C7531CD1FF0A00FAB058 /* MBBaseView.m in Sources */,
 				48042C901B2E7F2C00C6B32D /* MBClubCommon.m in Sources */,
 				421D99141BAFA43A00AA841A /* MKNumberBadgeView.m in Sources */,
 				944BB06A1CAD3BF400D16E19 /* MBServiceShopsOneCell.m in Sources */,
@@ -4961,6 +4986,7 @@
 				943227411C9A738E00E352AB /* MBFreeStoreViewOnechildCell.m in Sources */,
 				948CA9F71BFECBB400318EAE /* DataVerifier.m in Sources */,
 				944DCD211C9BF6C0003B5CC2 /* MBDetailedViewController.m in Sources */,
+				941BBCC31CD308640090E42D /* MBMoreCirclesController.m in Sources */,
 				949725C31CB60A5A00804098 /* MBMBServiceRefundTwoCell.m in Sources */,
 				94EBB00D1C32878700466E92 /* MBEvaluationController.m in Sources */,
 				943ED80F1CCF7655005AF4D9 /* MBIDCardCell.m in Sources */,
@@ -5198,9 +5224,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4CE49EF90CD83F9EB54DB2F3 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Xiaomabao Information Technology Co.,Ltd. (6Q52DP5P8X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Xiaomabao Information Technology Co.,Ltd. (6Q52DP5P8X)";
 				ENABLE_BITCODE = NO;
@@ -5282,9 +5309,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D6E616ABF17DCA8CBCD47473 /* Pods.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Xiaomabao Information Technology Co.,Ltd. (6Q52DP5P8X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Xiaomabao Information Technology Co.,Ltd. (6Q52DP5P8X)";
 				ENABLE_BITCODE = NO;

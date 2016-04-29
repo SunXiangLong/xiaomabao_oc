@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIImage (Size)
-
++ (instancetype)saImageWithSingleColor:(UIColor *)color;
 //修改image的大小
 
 - (UIImage *)imageByScalingToSize:(CGSize)targetSize;

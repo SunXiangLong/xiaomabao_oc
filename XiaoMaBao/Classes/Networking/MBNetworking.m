@@ -88,10 +88,6 @@ static AFHTTPRequestOperationManager *mgr = nil;
     
     return [self.mgr POST:URLString parameters:requestParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        
-//        NSLog(@"%@",responseObject);
-        
-        
         MBModel *model = [MBModel objectWithKeyValues:responseObject];
         
         

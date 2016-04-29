@@ -29,7 +29,6 @@
 }
 @property (nonatomic,weak) UITextField *searchField;
 @property (strong,nonatomic) NSString *searchString;
-@property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) NSArray *colorPool;
 @property (strong, nonatomic) SKTagView *tagView;
 @end
@@ -38,7 +37,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBSearch"];
+    [MobClick beginLogPageView:@"MBSearchViewController"];
  
     NSArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"shuju"];
     _HotSearchArray = [NSMutableArray arrayWithArray:arr];
@@ -50,9 +49,14 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBSearch"];
+    [MobClick endLogPageView:@"MBSearchViewController"];
     
     [[NSUserDefaults standardUserDefaults] setObject:_HotSearchArray forKey:@"shuju"];
+}
+- (void)viewDidLoad{
+    [super viewDidLoad];
+
+    [self setHeacView];
 }
 - (UIView *)headView{
     UIView  *view = [[UIView alloc] init];
@@ -105,70 +109,76 @@
     UIButton *button = [[UIButton alloc] init];
     
     [button addTarget:self action:@selector(HistoryRemove) forControlEvents:UIControlEventTouchUpInside];
-   
+    
     [view addSubview:_button = button];
     
-   
+    
     return view;
 }
-- (void)viewDidLoad{
-    [super viewDidLoad];
 
-    [self setHeacView];
-}
-- (void)kaishide{
-        UITextField *searchField = [[UITextField alloc] init];
-        searchField.frame = CGRectMake(MARGIN_10,TOP_Y+10, self.view.frame.size.width - 60, 30);
-        searchField.delegate = self;
-        searchField.layer.cornerRadius = 15;
-        searchField.backgroundColor = [UIColor whiteColor];
-        searchField.font = [UIFont systemFontOfSize:15];
-        searchField.textColor = [UIColor grayColor];
-        searchField.placeholder = @"搜索商品";
-        searchField.returnKeyType = UIReturnKeySearch;
-        [self.view addSubview:searchField];
-    
-    
-    
-        UIView *searchLeftView = [[UIView alloc] init];
-        searchLeftView.frame = CGRectMake(0, 0, 35, searchField.frame.size.height);
-    
-        UIImageView *searchImageView = [[UIImageView alloc] init];
-        searchImageView.image = [UIImage imageNamed:@"search_icon"];
-    
-    
-    
-        searchImageView.contentMode = UIViewContentModeScaleAspectFit;
-        searchImageView.frame = CGRectMake(10, (searchField.frame.size.height - 20) * 0.5, 20, 20);
-        [searchLeftView addSubview:searchImageView];
-    
-        searchField.leftView = searchLeftView;
-        searchField.leftViewMode = UITextFieldViewModeAlways;
-        _searchField = searchField;
-        UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        searchButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [searchButton addTarget:self action:@selector(clickSearch) forControlEvents:UIControlEventTouchUpInside];
-        searchButton.frame = CGRectMake(CGRectGetMaxX(searchField.frame) + MARGIN_8, TOP_Y + MARGIN_10, 60, 30);
-        [searchButton setTitle:@"搜索" forState:UIControlStateNormal];
-        [self.view addSubview:searchButton];
-    
-
-}
+//- (void)kaishide{
+//        UITextField *searchField = [[UITextField alloc] init];
+//        searchField.frame = CGRectMake(MARGIN_10,TOP_Y+10, self.view.frame.size.width - 60, 30);
+//        searchField.delegate = self;
+//        searchField.layer.cornerRadius = 15;
+//        searchField.backgroundColor = [UIColor whiteColor];
+//        searchField.font = [UIFont systemFontOfSize:15];
+//        searchField.textColor = [UIColor grayColor];
+//        searchField.placeholder = @"搜索商品";
+//        searchField.returnKeyType = UIReturnKeySearch;
+//        [self.view addSubview:searchField];
+//    
+//    
+//    
+//        UIView *searchLeftView = [[UIView alloc] init];
+//        searchLeftView.frame = CGRectMake(0, 0, 35, searchField.frame.size.height);
+//    
+//        UIImageView *searchImageView = [[UIImageView alloc] init];
+//        searchImageView.image = [UIImage imageNamed:@"search_icon"];
+//    
+//    
+//    
+//        searchImageView.contentMode = UIViewContentModeScaleAspectFit;
+//        searchImageView.frame = CGRectMake(10, (searchField.frame.size.height - 20) * 0.5, 20, 20);
+//        [searchLeftView addSubview:searchImageView];
+//    
+//        searchField.leftView = searchLeftView;
+//        searchField.leftViewMode = UITextFieldViewModeAlways;
+//        _searchField = searchField;
+//        UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        searchButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//        [searchButton addTarget:self action:@selector(clickSearch) forControlEvents:UIControlEventTouchUpInside];
+//        searchButton.frame = CGRectMake(CGRectGetMaxX(searchField.frame) + MARGIN_8, TOP_Y + MARGIN_10, 60, 30);
+//        [searchButton setTitle:@"搜索" forState:UIControlStateNormal];
+//        [self.view addSubview:searchButton];
+//    
+//
+//}
 
 #pragma mark --headView布局
 - (void)setHeacView{
 
     self.colorPool = @[@"07ecef4", @"084ccc9", @"88abda",@"7dc1dd",@"b6b8de"];
-    
     _SearchHistoryArray = @[@"美德乐", @"花王", @"跨境购", @"婴儿车", @"玩具",@"围巾", @"尿不湿",@"诺优能",@"特福芬",@"麦婴",@"奶瓶",@"行李箱",@"智高chicco"];
   
     _SearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, TOP_Y, self.view.frame.size.width , 55)];
+    _SearchBar.backgroundImage =  [UIImage saImageWithSingleColor:[UIColor whiteColor]];
     _SearchBar.translucent = YES;
-    _SearchBar.backgroundColor = [UIColor grayColor];
+    _SearchBar.tintColor = UIcolor(@"a8a8b0");
     _SearchBar.delegate = self;
     _SearchBar.translucent = YES;
     _SearchBar.placeholder = @"请输入商品名";
     [self.view addSubview:_SearchBar];
+    
+    UITextField *searchField = [_SearchBar valueForKey:@"searchField"];
+    if (searchField) {
+     
+        [searchField setBackgroundColor:[UIColor whiteColor]];
+        searchField.layer.cornerRadius = 14.0f;
+        searchField.layer.borderColor = UIcolor(@"a8a8b0").CGColor;
+        searchField.layer.borderWidth = 1;
+        searchField.layer.masksToBounds = YES;
+    }
     
   
     _tabView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_SearchBar.frame), self.view.ml_width, self.view.ml_height-TOP_Y-55)];

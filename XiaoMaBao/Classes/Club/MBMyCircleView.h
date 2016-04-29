@@ -9,5 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface MBMyCircleView : UIView
+/**
+ *  返回xib的view
+ *
+ *  @return view
+ */
++ (instancetype)instanceView;
 
+@property (nonatomic, strong) RACSubject *myCircleViewSubject;
 @end

@@ -179,7 +179,7 @@
     }
     
     if (isAddPhoto) {
-        [_photoArray addObject:_image];
+        [_photoArray addObject:[UIImage imageNamed:@"submit_image"]];
     }
     [_collectionView reloadData];
     
@@ -215,9 +215,8 @@
     }else if([_photoArray[indexPath.item] isKindOfClass:[UIImage class]]){
         
          cell.cardImage.image = _photoArray[indexPath.item];
-
-            cell.deleLabel.hidden = YES;
-
+         cell.deleLabel.hidden = YES;
+        
        }else{
     
            LGPhotoAssets *photo = [_photoArray objectAtIndex:indexPath.item];
@@ -259,7 +258,7 @@
             [_photoArray removeObjectAtIndex:2];
         }
         _photoArray[indexPath.item] = _image;
-        self.block(YES);
+        self.block(NO);
         [_collectionView reloadData];
         
     }];

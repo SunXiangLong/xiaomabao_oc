@@ -12,6 +12,9 @@
 #import "MBFreeStoreViewTwoCell.h"
 #import "MBFreeStoreViewThreeCell.h"
 #import "MBActivityViewController.h"
+#import "MBShopingViewController.h"
+#import "MBWebViewController.h"
+#import "MBGroupShopController.h"
 @interface MBFreeStoreViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
 {
     NSArray *_brandAarray;
@@ -94,24 +97,66 @@
 #pragma mark --SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     
-    NSLog(@"%ld",index);
-    NSInteger ad_type =  [ _brandAarray[index][@"ad_type"] integerValue];
+    
+    
+    
+    NSInteger ad_type = [_brandAarray[index][@"ad_type"] integerValue];
+    
+    
     switch (ad_type) {
-        case 1:
-        {
-            MBActivityViewController *categoryVc = [[MBActivityViewController alloc] init];
+        case 1: {
+            MBActivityViewController *VC = [[MBActivityViewController alloc] init];
+            VC.act_id = _brandAarray[index][@"act_id"];
+            VC.title = _brandAarray[index][@"ad_name"];
+            [self pushViewController:VC Animated:YES];
+        }break;
+        case 2: {
             
-
-            categoryVc.title = _brandAarray[index][@"act_name"];
-            categoryVc.act_id = _brandAarray[index][@"act_id"];
-            [self pushViewController:categoryVc Animated:YES];
+            MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+            VC.GoodsId = _brandAarray[index][@"ad_con"];
+            VC.title = _brandAarray[index][@"ad_name"];
+            [self pushViewController:VC Animated:YES];
+        }break;
+        case 3: {
+            MBWebViewController *VC = [[MBWebViewController alloc] init];
+            VC.url =  [NSURL URLWithString:_brandAarray[index][@"ad_con"]];
+            VC.title = _brandAarray[index][@"ad_name"];
+            [self pushViewController:VC Animated:YES];
             
-        }
-            break;
+        }break;
+        case 4: {
             
-        default:
-            break;
+            MBGroupShopController *VC = [[MBGroupShopController alloc] init];
+            VC.title = _brandAarray[index][@"ad_name"];
+            
+            [self pushViewController:VC Animated:YES];
+            
+        }break;
+        case 5: {
+            
+        }break;
+        default: break;
     }
+    
+
+//    NSLog(@"%ld",index);
+//    NSInteger ad_type =  [ _brandAarray[index][@"ad_type"] integerValue];
+//    switch (ad_type) {
+//        case 1:
+//        {
+//            MBActivityViewController *categoryVc = [[MBActivityViewController alloc] init];
+//            
+//
+//            categoryVc.title = _brandAarray[index][@"act_name"];
+//            categoryVc.act_id = _brandAarray[index][@"act_id"];
+//            [self pushViewController:categoryVc Animated:YES];
+//            
+//        }
+//            break;
+//            
+//        default:
+//            break;
+//    }
 
 }
 #pragma mark --UITableViewDataSource
