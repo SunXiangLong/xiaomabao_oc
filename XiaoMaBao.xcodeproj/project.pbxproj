@@ -661,6 +661,18 @@
 		94F4192D1C5761EB000592DE /* MBPublishedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94F4192B1C5761EB000592DE /* MBPublishedViewController.xib */; };
 		94F7EBCD1C589F6200A8E9A5 /* headView1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94F7EBCC1C589F6200A8E9A5 /* headView1.xib */; };
 		94F7EBD01C589FA500A8E9A5 /* headView1.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F7EBCF1C589FA500A8E9A5 /* headView1.m */; };
+		94FA70611CE0272200BCC364 /* MBTopPostsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA705F1CE0272200BCC364 /* MBTopPostsController.m */; };
+		94FA70621CE0272200BCC364 /* MBTopPostsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FA70601CE0272200BCC364 /* MBTopPostsController.xib */; };
+		94FA70661CE027D900BCC364 /* MBTopPostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA70641CE027D900BCC364 /* MBTopPostCell.m */; };
+		94FA70671CE027D900BCC364 /* MBTopPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FA70651CE027D900BCC364 /* MBTopPostCell.xib */; };
+		94FA706B1CE0314A00BCC364 /* MBDetailsCircleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA70691CE0314A00BCC364 /* MBDetailsCircleController.m */; };
+		94FA706C1CE0314A00BCC364 /* MBDetailsCircleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FA706A1CE0314A00BCC364 /* MBDetailsCircleController.xib */; };
+		94FA70751CE03FA900BCC364 /* MBDetailsCircleTbaleViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA70731CE03FA900BCC364 /* MBDetailsCircleTbaleViewCell.m */; };
+		94FA70761CE03FA900BCC364 /* MBDetailsCircleTbaleViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FA70741CE03FA900BCC364 /* MBDetailsCircleTbaleViewCell.xib */; };
+		94FA70791CE054B600BCC364 /* MBDetailsCircleTableHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA70781CE054B600BCC364 /* MBDetailsCircleTableHeadView.m */; };
+		94FA707B1CE054C600BCC364 /* MBDetailsCircleTableHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FA707A1CE054C600BCC364 /* MBDetailsCircleTableHeadView.xib */; };
+		94FA707F1CE066D500BCC364 /* MBReleaseTopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA707D1CE066D500BCC364 /* MBReleaseTopicViewController.m */; };
+		94FA70801CE066D500BCC364 /* MBReleaseTopicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FA707E1CE066D500BCC364 /* MBReleaseTopicViewController.xib */; };
 		94FDD09A1C5745AF007B2A42 /* MBSecurityTipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDD0981C5745AF007B2A42 /* MBSecurityTipTableViewCell.m */; };
 		94FDD09B1C5745AF007B2A42 /* MBSecurityTipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FDD0991C5745AF007B2A42 /* MBSecurityTipTableViewCell.xib */; };
 		94FDD09F1C574789007B2A42 /* MBGrowingTipsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDD09D1C574789007B2A42 /* MBGrowingTipsTableViewCell.m */; };
@@ -1850,6 +1862,24 @@
 		94F7EBCC1C589F6200A8E9A5 /* headView1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = headView1.xib; sourceTree = "<group>"; };
 		94F7EBCE1C589FA500A8E9A5 /* headView1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = headView1.h; sourceTree = "<group>"; };
 		94F7EBCF1C589FA500A8E9A5 /* headView1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = headView1.m; sourceTree = "<group>"; };
+		94FA705E1CE0272200BCC364 /* MBTopPostsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTopPostsController.h; sourceTree = "<group>"; };
+		94FA705F1CE0272200BCC364 /* MBTopPostsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTopPostsController.m; sourceTree = "<group>"; };
+		94FA70601CE0272200BCC364 /* MBTopPostsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBTopPostsController.xib; sourceTree = "<group>"; };
+		94FA70631CE027D900BCC364 /* MBTopPostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTopPostCell.h; sourceTree = "<group>"; };
+		94FA70641CE027D900BCC364 /* MBTopPostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTopPostCell.m; sourceTree = "<group>"; };
+		94FA70651CE027D900BCC364 /* MBTopPostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBTopPostCell.xib; sourceTree = "<group>"; };
+		94FA70681CE0314A00BCC364 /* MBDetailsCircleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBDetailsCircleController.h; sourceTree = "<group>"; };
+		94FA70691CE0314A00BCC364 /* MBDetailsCircleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBDetailsCircleController.m; sourceTree = "<group>"; };
+		94FA706A1CE0314A00BCC364 /* MBDetailsCircleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBDetailsCircleController.xib; sourceTree = "<group>"; };
+		94FA70721CE03FA900BCC364 /* MBDetailsCircleTbaleViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBDetailsCircleTbaleViewCell.h; sourceTree = "<group>"; };
+		94FA70731CE03FA900BCC364 /* MBDetailsCircleTbaleViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBDetailsCircleTbaleViewCell.m; sourceTree = "<group>"; };
+		94FA70741CE03FA900BCC364 /* MBDetailsCircleTbaleViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBDetailsCircleTbaleViewCell.xib; sourceTree = "<group>"; };
+		94FA70771CE054B600BCC364 /* MBDetailsCircleTableHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBDetailsCircleTableHeadView.h; sourceTree = "<group>"; };
+		94FA70781CE054B600BCC364 /* MBDetailsCircleTableHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBDetailsCircleTableHeadView.m; sourceTree = "<group>"; };
+		94FA707A1CE054C600BCC364 /* MBDetailsCircleTableHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBDetailsCircleTableHeadView.xib; sourceTree = "<group>"; };
+		94FA707C1CE066D500BCC364 /* MBReleaseTopicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBReleaseTopicViewController.h; sourceTree = "<group>"; };
+		94FA707D1CE066D500BCC364 /* MBReleaseTopicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBReleaseTopicViewController.m; sourceTree = "<group>"; };
+		94FA707E1CE066D500BCC364 /* MBReleaseTopicViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBReleaseTopicViewController.xib; sourceTree = "<group>"; };
 		94FDD0971C5745AF007B2A42 /* MBSecurityTipTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSecurityTipTableViewCell.h; sourceTree = "<group>"; };
 		94FDD0981C5745AF007B2A42 /* MBSecurityTipTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSecurityTipTableViewCell.m; sourceTree = "<group>"; };
 		94FDD0991C5745AF007B2A42 /* MBSecurityTipTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBSecurityTipTableViewCell.xib; sourceTree = "<group>"; };
@@ -3284,6 +3314,15 @@
 				941BBCC01CD308640090E42D /* MBMoreCirclesController.h */,
 				941BBCC11CD308640090E42D /* MBMoreCirclesController.m */,
 				941BBCC21CD308640090E42D /* MBMoreCirclesController.xib */,
+				94FA705E1CE0272200BCC364 /* MBTopPostsController.h */,
+				94FA705F1CE0272200BCC364 /* MBTopPostsController.m */,
+				94FA70601CE0272200BCC364 /* MBTopPostsController.xib */,
+				94FA70681CE0314A00BCC364 /* MBDetailsCircleController.h */,
+				94FA70691CE0314A00BCC364 /* MBDetailsCircleController.m */,
+				94FA706A1CE0314A00BCC364 /* MBDetailsCircleController.xib */,
+				94FA707C1CE066D500BCC364 /* MBReleaseTopicViewController.h */,
+				94FA707D1CE066D500BCC364 /* MBReleaseTopicViewController.m */,
+				94FA707E1CE066D500BCC364 /* MBReleaseTopicViewController.xib */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -3297,6 +3336,15 @@
 				94DB24751CD21B4300B1F153 /* MBMycircleTableViewCell.h */,
 				94DB24761CD21B4300B1F153 /* MBMycircleTableViewCell.m */,
 				94DB24771CD21B4300B1F153 /* MBMycircleTableViewCell.xib */,
+				94FA70631CE027D900BCC364 /* MBTopPostCell.h */,
+				94FA70641CE027D900BCC364 /* MBTopPostCell.m */,
+				94FA70651CE027D900BCC364 /* MBTopPostCell.xib */,
+				94FA70721CE03FA900BCC364 /* MBDetailsCircleTbaleViewCell.h */,
+				94FA70731CE03FA900BCC364 /* MBDetailsCircleTbaleViewCell.m */,
+				94FA70741CE03FA900BCC364 /* MBDetailsCircleTbaleViewCell.xib */,
+				94FA70771CE054B600BCC364 /* MBDetailsCircleTableHeadView.h */,
+				94FA70781CE054B600BCC364 /* MBDetailsCircleTableHeadView.m */,
+				94FA707A1CE054C600BCC364 /* MBDetailsCircleTableHeadView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -4400,6 +4448,7 @@
 				424097D61BB3D385002DB272 /* homepage_02.jpg in Resources */,
 				944DCD181C9B9CFB003B5CC2 /* MBCategoryViewOneCell.xib in Resources */,
 				94D2CE5F1C8EA34B0013BA5D /* time_image@2x.png in Resources */,
+				94FA707B1CE054C600BCC364 /* MBDetailsCircleTableHeadView.xib in Resources */,
 				94CDC7441C321434001534A3 /* MBShopTableViewCell.xib in Resources */,
 				944AFCC01CBBA2D800E66535 /* MBServiceRefundFootCell.xib in Resources */,
 				94FE50451C3E02FF00B5516D /* YBImgPickerViewCell.xib in Resources */,
@@ -4444,6 +4493,7 @@
 				941531E61CBF414500B2AB1E /* xiang@2x.png in Resources */,
 				941531DC1CBF414500B2AB1E /* checkbox_pic_non@2x.png in Resources */,
 				94FDD0B51C57565C007B2A42 /* MBBabyImageCollectionViewCell.xib in Resources */,
+				94FA70761CE03FA900BCC364 /* MBDetailsCircleTbaleViewCell.xib in Resources */,
 				9474D8DC1C3F768D0071DACE /* textTagAnti@3x.png in Resources */,
 				94D6F7D11C4F9EC700F3023C /* MBMyCollectionViewCell.xib in Resources */,
 				94EBB00E1C32878700466E92 /* MBEvaluationController.xib in Resources */,
@@ -4482,6 +4532,7 @@
 				94FDD0A91C57529C007B2A42 /* mengcheng_image.png in Resources */,
 				94D2CE621C8EA4100013BA5D /* guanzhuxiao_image@2x.png in Resources */,
 				948CA9F11BFECBB400318EAE /* AlipaySDK.bundle in Resources */,
+				94FA706C1CE0314A00BCC364 /* MBDetailsCircleController.xib in Resources */,
 				94B131BE1C89A8A300204CD9 /* thumbUps_image.png in Resources */,
 				944BB0611CAD2AE100D16E19 /* MBServiceShopsHeadView.xib in Resources */,
 				944BB06B1CAD3BF400D16E19 /* MBServiceShopsOneCell.xib in Resources */,
@@ -4504,6 +4555,7 @@
 				941BA95E1CB370B800421BF6 /* MBEvaluationSuccessController.xib in Resources */,
 				9496D3BF1CA3E0C400743586 /* MBNewAddressViewController.xib in Resources */,
 				94E12F891C50E019001CE4E4 /* sunxinglong.png in Resources */,
+				94FA70671CE027D900BCC364 /* MBTopPostCell.xib in Resources */,
 				94D2CE581C8E99FC0013BA5D /* focus_image@2x.png in Resources */,
 				9474D8D71C3F768D0071DACE /* tagTapIcon@2x.png in Resources */,
 				94EBB0101C328D7600466E92 /* MBEvaluationViewView.xib in Resources */,
@@ -4522,6 +4574,7 @@
 				942A5C641C12D5980083C382 /* MBRefundScheduleTableViewCell.xib in Resources */,
 				941531E01CBF414500B2AB1E /* paizhao@2x.png in Resources */,
 				9469DC471C756A7E00C2E3E2 /* MBWeatherTableViewCell.xib in Resources */,
+				94FA70801CE066D500BCC364 /* MBReleaseTopicViewController.xib in Resources */,
 				9453A1E41C56058D009CB36B /* MBBabyManagementViewController.xib in Resources */,
 				941531E51CBF414500B2AB1E /* xiang.png in Resources */,
 				9432271A1C9A4E4700E352AB /* MBMBAffordablePlanetOneChildeOneCell.xib in Resources */,
@@ -4567,6 +4620,7 @@
 				9450025E1C22C18700820F5F /* MBOrderCell.xib in Resources */,
 				94095B641CC4F18000859D03 /* MBTopCargoTwoCell.xib in Resources */,
 				94B131AC1C89950500204CD9 /* comment_image.png in Resources */,
+				94FA70621CE0272200BCC364 /* MBTopPostsController.xib in Resources */,
 				941531D81CBF414500B2AB1E /* btn_back_imagePicker@2x.png in Resources */,
 				424097E11BB3D429002DB272 /* tempShow_03.png in Resources */,
 				481D080E1AF4746400BE1994 /* MBEmailRegisterView.xib in Resources */,
@@ -4670,6 +4724,7 @@
 				480BFCC81B0C8BFC0051BF03 /* MBHomeCategoryCell.m in Sources */,
 				94E9A45C1C8FB4280002E15E /* UIView+ FrameChange.m in Sources */,
 				94E24FB71CBD16C200C8D6B6 /* LGPhotoRect.m in Sources */,
+				94FA706B1CE0314A00BCC364 /* MBDetailsCircleController.m in Sources */,
 				94E9A45A1C8FB4280002E15E /* NSString+SizeToFit.m in Sources */,
 				948CA9FB1BFECBB400318EAE /* RSADataSigner.m in Sources */,
 				48178F7B1B4D27EF00F93A9E /* NSDate+FSExtension.m in Sources */,
@@ -4677,6 +4732,7 @@
 				9432E4881C7D9AF800A64668 /* NTalkerVoiceLeftTableViewCell.m in Sources */,
 				949D8FE31BF1D9B3009060E6 /* CameraViewController.m in Sources */,
 				481FC0D81B23046E000E6864 /* MBMyTableViewCell.m in Sources */,
+				94FA707F1CE066D500BCC364 /* MBReleaseTopicViewController.m in Sources */,
 				94E361741C3A5C960026F832 /* MBShopingViewController.m in Sources */,
 				947468E61C7701A900F10FD2 /* MBHealthViewController.m in Sources */,
 				943227321C9A612300E352AB /* MBFreeStoreViewOneCell.m in Sources */,
@@ -4761,6 +4817,7 @@
 				481D08151AF4DD1200BE1994 /* MBRetrievePwdViewController.m in Sources */,
 				487602BF1AF3139B00A2B1F0 /* MBSettingPwdViewController.m in Sources */,
 				48BB3FEB1B01EEDA00ADF5E7 /* MBHomeViewController.m in Sources */,
+				94FA70751CE03FA900BCC364 /* MBDetailsCircleTbaleViewCell.m in Sources */,
 				48F9F4EB1B01F70C00ED4A5D /* MBTabBarViewController.m in Sources */,
 				944DC75C1C3F62C30005C647 /* YXLTagView.m in Sources */,
 				948CA9FA1BFECBB400318EAE /* openssl_wrapper.m in Sources */,
@@ -4823,6 +4880,7 @@
 				94E24FBF1CBD16C200C8D6B6 /* LGPhotoPickerDatas.m in Sources */,
 				48042C9E1B2F03DF00C6B32D /* MBClubStartsViewController.m in Sources */,
 				94E9A4641C8FB9AD0002E15E /* UICollectionViewFlowLayout+XWFullItem.m in Sources */,
+				94FA70661CE027D900BCC364 /* MBTopPostCell.m in Sources */,
 				944DC7531C3F62960005C647 /* MiYiTagSearchBarVC.m in Sources */,
 				94DB24781CD21B4300B1F153 /* MBMycircleTableViewCell.m in Sources */,
 				48F9F4F11B01F71200ED4A5D /* BkTabBarView.m in Sources */,
@@ -4866,6 +4924,7 @@
 				9432E4801C7D9AF800A64668 /* NTalkerChatViewController.m in Sources */,
 				420BF6681BB537BB00C89C3C /* NSObject+MJCoding.m in Sources */,
 				48E6E4841B25676A00B3556E /* MBMyCollectionTableViewCell.m in Sources */,
+				94FA70611CE0272200BCC364 /* MBTopPostsController.m in Sources */,
 				94E24FC11CBD16C200C8D6B6 /* LGPhotoPickerAssetsViewController.m in Sources */,
 				94C3C5C91C9170D80010D96B /* MBMessageViewController.m in Sources */,
 				48042C931B2E92A200C6B32D /* MBClubFollowerViewController.m in Sources */,
@@ -4969,6 +5028,7 @@
 				48042CAF1B30141800C6B32D /* MBClubUserViewController.m in Sources */,
 				48162F3F1AF2866900E61D5C /* UIColor+Extension.m in Sources */,
 				949997D21C44E05500EB80A1 /* MBGroupShopController.m in Sources */,
+				94FA70791CE054B600BCC364 /* MBDetailsCircleTableHeadView.m in Sources */,
 				94095B5E1CC4ECF600859D03 /* MBTopCargoOneCell.m in Sources */,
 				480386081B58A08C0052FA20 /* Foundation+Log.m in Sources */,
 				94B6F47C1BD5DD2200B352B9 /* ApiXml.mm in Sources */,

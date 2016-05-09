@@ -7,7 +7,7 @@
 //
 
 #import "MBNewCanulcircleController.h"
-#import "MBAffordablePlanetViewController.h"
+#import "MBTopPostsController.h"
 #import "MBMoreCirclesController.h"
 #import "MBSearchViewController.h"
 #import "MBShopDetailsViewController.h"
@@ -57,7 +57,7 @@
     VC3.title = @"我的圈";
     [self addChildViewController:VC3];
     
-    MBAffordablePlanetViewController *VC1 = [[MBAffordablePlanetViewController alloc] init];
+    MBTopPostsController *VC1 = [[MBTopPostsController alloc] init];
     VC1.title = @"热帖";
     [self addChildViewController:VC1];
     
