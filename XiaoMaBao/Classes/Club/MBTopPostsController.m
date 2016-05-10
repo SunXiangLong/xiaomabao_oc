@@ -8,6 +8,7 @@
 
 #import "MBTopPostsController.h"
 #import "MBTopPostCell.h"
+#import "MBPostDetailsViewController.h"
 @interface MBTopPostsController ()
 {
     NSInteger _page;
@@ -50,9 +51,9 @@
     self.tableView.mj_footer = footer;
     
 }
-#pragma mark -- 我的圈轮播图数据
+#pragma mark -- 热帖数据数据
 - (void)setData{
-    
+    [self show];
     NSString *page = s_Integer(_page);
     NSString *url = [NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/circle/get_circle_hot/",page];
     
@@ -60,22 +61,24 @@
         
         NSLog(@"%@",responseObject);
         
-         [self.tableView .mj_footer endRefreshing];
+        [self dismiss];
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                 [self.dataArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
                 _page++;
                 [_tableView reloadData];
-             
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                 [self.tableView .mj_footer endRefreshing];
+            
             }else{
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
                 return ;
             }
-            return ;
+           
+        }else{
+         [self show:@"没有相关数据" time:1];
         }
         
-        [self show:@"没有相关数据" time:1];
+       
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@",error);
@@ -127,7 +130,10 @@
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+     NSDictionary *dic = _dataArray[indexPath.row];
+    MBPostDetailsViewController *VC = [[MBPostDetailsViewController   alloc] init];
+    VC.post_id = dic[@"post_id"];
+    [self pushViewController:VC Animated:YES];
 }
 
 

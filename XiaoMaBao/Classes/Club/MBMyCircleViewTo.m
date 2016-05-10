@@ -1,20 +1,21 @@
 //
-//  MBMyCircleView.m
+//  MBMyCircleViewTo.m
 //  XiaoMaBao
 //
-//  Created by liulianqi on 16/4/26.
+//  Created by liulianqi on 16/5/10.
 //  Copyright © 2016年 HuiBei. All rights reserved.
 //
 
-#import "MBMyCircleView.h"
+#import "MBMyCircleViewTo.h"
 
-@implementation MBMyCircleView
+@implementation MBMyCircleViewTo
+
 -(void)awakeFromNib{
-
-
+    
+    
 }
 + (instancetype)instanceView{
-    return [[[NSBundle mainBundle] loadNibNamed:@"MBMyCircleView" owner:nil options:nil] lastObject];
+    return [[[NSBundle mainBundle] loadNibNamed:@"MBMyCircleViewTo" owner:nil options:nil] lastObject];
 }
 
 - (IBAction)touch:(UIButton *)sender {
@@ -24,9 +25,10 @@
     
     if (!_myCircleViewSubject) {
         
-       _myCircleViewSubject = [RACSubject subject];
+        _myCircleViewSubject = [RACSubject subject];
     }
     
     return _myCircleViewSubject;
 }
+
 @end

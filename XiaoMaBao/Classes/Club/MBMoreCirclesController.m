@@ -9,6 +9,7 @@
 #import "MBMoreCirclesController.h"
 #import "MBMycircleTableViewCell.h"
 #import "MBLoginViewController.h"
+#import "MBDetailsCircleController.h"
 @interface MBMoreCirclesController ()<UITextFieldDelegate,UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource>
 
 {
@@ -31,10 +32,19 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableViewTwo;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOne;
 @property (strong, nonatomic) UITableView *searchTableView;
+@property (nonatomic ,strong) UISearchBar *SearchBar;
 @end
 
 @implementation MBMoreCirclesController
-
+- (RACSubject *)myCircleViewSubject {
+    
+    if (!_myCircleViewSubject) {
+        
+        _myCircleViewSubject = [RACSubject subject];
+    }
+    
+    return _myCircleViewSubject;
+}
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -60,6 +70,19 @@
     [self.MinView addSubview:self.SearchBar];
     [self.MinView addSubview:self.searchTableView];
     [self setCircleData];
+    
+    
+    @weakify(self);
+    [[self.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *num) {
+        @strongify(self);
+    
+        if ([num integerValue] == 0) {
+            self.SearchBar.hidden = YES;
+        }else{
+            self.SearchBar.hidden = NO;
+            
+        }
+    }];
 }
 #pragma mark -- 请求圈子数据
 - (void)setCircleData{
@@ -264,7 +287,7 @@
         
        
     }
-
+//    _SearchBar.hidden = NO;
     return _SearchBar;
 }
 - (void)didReceiveMemoryWarning {
@@ -453,15 +476,37 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([_tableViewOne isEqual:tableView]) {
+        
         if (_number !=indexPath.row) {
             _number = indexPath.row;
             [_tableViewOne reloadData];
             [_tableViewTwo reloadData];
         }
-        
-    }else if([tableView isEqual:_tableViewTwo]){
-        
+        return;
     }
+    NSDictionary *dic = _OneLevel[_number][@"child_cats"][indexPath.row];
+    NSNumber *number = _is_joinArray[_number][indexPath.row];
+    if (_isSearchTableView) {
+        dic = _searchArray[indexPath.row];
+        number = _is_joinArray[_number][indexPath.row];
+    }
+    
+    NSString *str ;
+    if ([number isEqualToNumber:@1]) {
+        str = @"1";
+    }else{
+        str = @"0";
+    }
+    
+    MBDetailsCircleController * VC = [[MBDetailsCircleController alloc]init];
+    VC.circle_id = dic[@"circle_id"];
+    VC.circle_user_cnt = dic[@"circle_user_cnt"];
+    VC.circle_name = dic[@"circle_name"];
+    VC.circle_logo = dic[@"circle_logo"];
+    VC.is_join = str;
+    [self pushViewController:VC Animated:YES];
+        
+    
 }
 -(void)show:(NSString *)str1 and:(NSString *)str2 time:(NSInteger)timer{
     

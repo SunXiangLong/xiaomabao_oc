@@ -51,25 +51,16 @@
                         <constraint firstAttribute="height" constant="10" id="OcO-pV-4Vf"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UVk-1a-eJJ">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVk-1a-eJJ">
                     <rect key="frame" x="272" y="7" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="40" id="d6m-gh-INR"/>
                         <constraint firstAttribute="height" constant="40" id="dJA-80-0zr"/>
                     </constraints>
-                    <state key="normal">
-                        <attributedString key="attributedTitle">
-                            <fragment content="+">
-                                <attributes>
-                                    <color key="NSColor" red="0.91372549020000005" green="0.090196078430000007" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
-                                    <font key="NSFont" size="28" name="STHeitiSC-Light"/>
-                                </attributes>
-                            </fragment>
-                        </attributedString>
+                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="28"/>
+                    <state key="normal" title="+">
+                        <color key="titleColor" red="0.91372549020000005" green="0.090196078430000007" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <connections>
-                        <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="wVI-gg-KKo"/>
-                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -90,6 +81,9 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="button" destination="UVk-1a-eJJ" id="lGq-cg-Iy8"/>
+                <outlet property="circle_logo" destination="rKv-Um-Rsw" id="ZCy-D6-Veb"/>
+                <outlet property="circle_name" destination="x7K-e8-NHi" id="Iz8-NG-3ze"/>
+                <outlet property="circle_user_cnt" destination="1Kh-ah-LKw" id="6CM-g9-rjw"/>
             </connections>
             <point key="canvasLocation" x="424" y="-20"/>
         </view>

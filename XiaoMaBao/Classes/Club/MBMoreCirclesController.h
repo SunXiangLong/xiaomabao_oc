@@ -10,6 +10,6 @@
 
 @interface MBMoreCirclesController : BkBaseViewController
 @property (nonatomic ,strong) UIView *MinView;
-@property (nonatomic ,strong) UISearchBar *SearchBar;
 
+@property (nonatomic, strong) RACSubject *myCircleViewSubject;
 @end

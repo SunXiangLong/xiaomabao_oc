@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sab-U6-qFN">
-                        <rect key="frame" x="16" y="8" width="210" height="17"/>
+                        <rect key="frame" x="16" y="8" width="288" height="17"/>
                         <attributedString key="attributedText">
                             <fragment content="五月一日出游，衣服准备好了吗？">
                                 <attributes>
@@ -28,16 +28,16 @@
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num1" translatesAutoresizingMaskIntoConstraints="NO" id="ydf-sw-0lP">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ydf-sw-0lP">
                         <rect key="frame" x="16" y="33" width="90.5" height="65.5"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="ydf-sw-0lP" secondAttribute="height" multiplier="18:13" id="y50-VW-uKW"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num1" translatesAutoresizingMaskIntoConstraints="NO" id="8tQ-80-ZYJ">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8tQ-80-ZYJ">
                         <rect key="frame" x="114" y="33" width="90.5" height="65.5"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num1" translatesAutoresizingMaskIntoConstraints="NO" id="Jd0-h1-VtU">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jd0-h1-VtU">
                         <rect key="frame" x="213" y="33" width="90.5" height="65.5"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="xzn-An-qfz">
@@ -87,6 +87,7 @@
                     <constraint firstAttribute="bottom" secondItem="3F3-MA-dzS" secondAttribute="bottom" id="1sy-Hg-U8t"/>
                     <constraint firstItem="Jd0-h1-VtU" firstAttribute="width" secondItem="ydf-sw-0lP" secondAttribute="width" id="4Dv-og-Vr5"/>
                     <constraint firstItem="sab-U6-qFN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="57O-8U-cfw"/>
+                    <constraint firstAttribute="trailing" secondItem="sab-U6-qFN" secondAttribute="trailing" constant="16" id="5Wi-dn-A4i"/>
                     <constraint firstItem="sab-U6-qFN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="5gt-GB-AET"/>
                     <constraint firstItem="8tQ-80-ZYJ" firstAttribute="leading" secondItem="ydf-sw-0lP" secondAttribute="trailing" constant="8" id="8ou-Js-SSn"/>
                     <constraint firstAttribute="trailing" secondItem="3F3-MA-dzS" secondAttribute="trailing" id="BZi-cl-Wol"/>
@@ -109,11 +110,20 @@
                     <constraint firstItem="ydf-sw-0lP" firstAttribute="top" secondItem="sab-U6-qFN" secondAttribute="bottom" constant="8" id="xKO-Ux-xCB"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="author_name" destination="LZr-Or-zhE" id="Xdl-GH-FqH"/>
+                <outlet property="image1" destination="ydf-sw-0lP" id="IgF-qa-uXD"/>
+                <outlet property="image2" destination="8tQ-80-ZYJ" id="oXo-7g-an4"/>
+                <outlet property="image3" destination="Jd0-h1-VtU" id="Cxx-BF-VQ9"/>
+                <outlet property="post_time" destination="5eZ-JA-fAM" id="1vK-7d-PCy"/>
+                <outlet property="post_title" destination="sab-U6-qFN" id="RLk-cS-sr0"/>
+                <outlet property="reply_cnt" destination="oP0-0x-1Te" id="VrN-xZ-O1W"/>
+            </connections>
+            <point key="canvasLocation" x="-17" y="214"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="comment_image.png" width="21" height="21"/>
-        <image name="placeholder_num1" width="250" height="110"/>
         <image name="placeholder_num2" width="66" height="66"/>
     </resources>
 </document>

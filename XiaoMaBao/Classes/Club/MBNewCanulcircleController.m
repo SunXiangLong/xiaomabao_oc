@@ -78,6 +78,7 @@
     CGFloat titleButtonW = (UISCREEN_WIDTH-1) / count;
     for (int  i = 0; i<count; i++) {
         UIButton *titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        titleButton.tag = i;
         [titleButton addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
         titleButton.backgroundColor = NavBar_Color;
         NSString *title = [self.childViewControllers[i] title];
@@ -130,6 +131,18 @@
 - (void)titleClick:(UIButton *)titleButton
 {
     if (![_lastButton isEqual:titleButton]) {
+        
+        MBMoreCirclesController *view = self.childViewControllers[2];
+        
+        
+        if (titleButton.tag==2) {
+            
+            [view.myCircleViewSubject  sendNext:@1];
+        }else{
+            if (view.isViewLoaded) {
+                 [view.myCircleViewSubject  sendNext:@0];
+            }
+        }
         // 让scrollView滚动到对应的位置
         _lastButton.backgroundColor = NavBar_Color;
         _lastButton = titleButton;
@@ -152,27 +165,19 @@
     UIViewController *willShowChildVc = self.childViewControllers[index];
     
     // 如果控制器的view已经被创建过，就直接返回
-    if (willShowChildVc.isViewLoaded){
-         MBMoreCirclesController *view = self.childViewControllers[2];
-        [view.SearchBar resignFirstResponder];
-        if (index!=2) {
-           
-            view.SearchBar.hidden = YES;
-            
-        }else{
-            view.SearchBar.hidden = NO;
-        }
-     return;
-    }
+    if (willShowChildVc.isViewLoaded) return;
+
     
     // 添加子控制器的view到scrollView身上
     if (index ==2) {
         MBMoreCirclesController *view = (MBMoreCirclesController *)willShowChildVc;
         view.MinView = self.view;
+       
     }
-     willShowChildVc.view.frame = scrollView.bounds;
-    
+    willShowChildVc.view.frame = scrollView.bounds;
     [scrollView addSubview:willShowChildVc.view];
+    
+
 }
 
 /**

@@ -55,11 +55,6 @@
         cell.labletext.text = @"分享到那个圈子？";
         [cell.biaoziImageView sd_setImageWithURL:[NSURL URLWithString:_quanzhi] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
         
-    }else{
-        cell.showImageView.image = [UIImage imageNamed:@"mCircle_image"];
-        cell.labletext.text = @"分享到那个圈子？";;
-        
-        
     }
     
     return  cell;

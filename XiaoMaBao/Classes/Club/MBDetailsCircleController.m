@@ -10,44 +10,170 @@
 #import "MBDetailsCircleTbaleViewCell.h"
 #import "MBDetailsCircleTableHeadView.h"
 #import "MBReleaseTopicViewController.h"
+#import "MBLoginViewController.h"
 @interface MBDetailsCircleController ()
-
+{
+    NSInteger _page;
+}
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+/**
+ *   帖子数据源
+ */
+@property (copy, nonatomic) NSMutableArray *dataArray;
 
 @end
 
 @implementation MBDetailsCircleController
-
+/**
+ *   帖子数据源懒加载
+ *
+ *  @return 初始化后的数组
+ */
+-(NSMutableArray *)dataArray{
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray array];
+    }
+    return _dataArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _tableView.tableHeaderView = [self setTableHeadView];;
-  
+    _tableView.tableHeaderView = [self setTableHeadView];
+    _page = 1;
+    
+    [self setData];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
+    footer.refreshingTitleHidden = YES;
+    self.tableView.mj_footer = footer;
 }
+/**
+ *  请求帖子数据
+ */
+- (void)setData{
+
+    [self show];
+    NSString *page = s_Integer(_page);
+    NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_circle_info"];
+    [MBNetworking   POSTOrigin:url parameters:@{@"circle_id":self.circle_id,@"page":page} success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        [self dismiss];
+        
+        if (responseObject) {
+            if ([[responseObject valueForKeyPath:@"data"] count]>0) {
+                [self.dataArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
+                _page++;
+                [_tableView reloadData];
+                [self.tableView .mj_footer endRefreshing];
+                
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                return ;
+            }
+            
+        }else{
+            [self show:@"没有相关数据" time:1];
+        }
+
+        
+        
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self show:@"请求失败 " time:1];
+        NSLog(@"%@",error);
+    }];
+    
+
+}
+#pragma mark--加入圈子或取消加入圈子
+- (void)setJoin_circle{
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    if (!sid) {
+        [self loginClicksss];
+        return;
+    }
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/join_circle"];
+    
+    [self show];
+    
+    [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict,@"circle_id":self.circle_id} success:^(id responseObject) {
+        [self dismiss];
+        [self show:@"加入圈子成功" time:1];
+        if ([[responseObject  valueForKeyPath:@"status"]isEqualToNumber:@1]) {
+        MBReleaseTopicViewController *VC = [[MBReleaseTopicViewController    alloc] init];
+        [self pushViewController:VC Animated:YES];
+            self.is_join = @"1";
+              _tableView.tableHeaderView = [self setTableHeadView];
+
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self show:@"请求失败 " time:1];
+        NSLog(@"%@",error);
+    }];
+    
+    
+}
+/**
+ *  tableViewheadView
+ *
+ *
+ */
 -(UIView *)setTableHeadView{
   
-         UIView *tableHeadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 70)];
+        UIView *tableHeadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 70)];
         MBDetailsCircleTableHeadView *view = [MBDetailsCircleTableHeadView instanceView];
         [tableHeadView addSubview:view];
+    [view.circle_logo sd_setImageWithURL:[NSURL URLWithString:self.circle_logo] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+    view.circle_name.text = self.circle_name;
+    view.circle_user_cnt.text = string(self.circle_user_cnt, @"个话题");
+    BOOL is_Join = NO;
+    if ([self.is_join isEqualToString:@"1"]) {
+        is_Join = YES;
+    }
+    
+    if (is_Join) {
+        [view.button setTitle:@"-" forState:UIControlStateNormal];
+        view.button.titleLabel.font = SYSTEMFONT(30);
+    }else{
+        [view.button setTitle:@"+" forState:UIControlStateNormal];
+        view.button.titleLabel.font = SYSTEMFONT(30);
+        
+    }
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.mas_equalTo(0);
             make.height.mas_equalTo(70);
         }];
-        @weakify(self);
-        [[view.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *number) {
-            @strongify(self);
-           [self show:@"成功加入" and:@"1-3岁宝宝" time:1];
-        }];
+
 
   
     return tableHeadView;
 
+}
+#pragma mark -- 跳转登陆页
+- (void)loginClicksss{
+    //跳转到登录页
+    
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
+    myView.vcType = @"mabao";
+    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
+    [self presentViewController:VC animated:YES completion:nil];
 }
 -(NSString *)titleStr{
 
     return self.title?:@"全部帖子";
 }
 -(void)rightTitleClick{
- [self prompt];
+    if ([self.is_join isEqualToString:@"0"]) {
+         [self prompt];
+    }else{
+        MBReleaseTopicViewController *VC = [[MBReleaseTopicViewController    alloc] init];
+        
+        [self pushViewController:VC Animated:YES];
+    }
+
 
 }
 - (void)didReceiveMemoryWarning {
@@ -60,23 +186,25 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 10;
+    return self.dataArray.count;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 74+(UISCREEN_WIDTH -16*3)/3*133/184;
 }
-
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary  *dic = _dataArray[indexPath.row];
     MBDetailsCircleTbaleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBDetailsCircleTbaleViewCell"];
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBDetailsCircleTbaleViewCell"owner:nil options:nil]firstObject];
     }
-    
-    
+    cell.post_title.text = dic[@"post_title"];
+    cell.post_time.text = dic[@"post_time"];
+    cell.reply_cnt.text = dic[@"reply_cnt"];
+    cell.author_name.text = dic[@"author_name"];
+    cell.array = dic[@"post_imgs"];
+   
     return cell;
     
 }
@@ -106,9 +234,7 @@
     [reloadAction setValue:UIcolor(@"575c65") forKey:@"titleTextColor"];
     
     UIAlertAction *reloadAction1 = [UIAlertAction actionWithTitle:@"加入圈子" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        MBReleaseTopicViewController *VC = [[MBReleaseTopicViewController    alloc] init];
-        
-        [self pushViewController:VC Animated:YES];
+        [self setJoin_circle];
         
     }];
     [alertCancel addAction:reloadAction];

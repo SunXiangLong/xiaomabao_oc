@@ -7,7 +7,7 @@
 //
 
 #import "MBMyCircleController.h"
-#import "MBMyCircleView.h"
+#import "MBMyCircleViewTo.h"
 #import "MBMycircleTableViewCell.h"
 #import "MBShopingViewController.h"
 #import "MBActivityViewController.h"
@@ -51,7 +51,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    _recommendArray = [NSMutableArray array];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
 }
 /**
  *  广告轮播图UI
@@ -60,7 +62,7 @@
  */
 - (UIView *)setHeaderView{
     UIView *view =[[UIView alloc] init];
-    view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_WIDTH*33/75+125);
+    view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_WIDTH*33/75+ UISCREEN_WIDTH/4*204/160);
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH,UISCREEN_WIDTH*33/75) delegate:self     placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
     NSMutableArray *imaageUrlArr = [NSMutableArray array];
     for (NSDictionary *dic in _bandImageArray) {
@@ -71,13 +73,13 @@
     cycleScrollView.delegate = self;
     [view addSubview:cycleScrollView];
     
-    MBMyCircleView *view1 = [MBMyCircleView instanceView];
-    view1.frame = CGRectMake(0, MaxY(cycleScrollView), UISCREEN_WIDTH, 125);
+    MBMyCircleViewTo *view1 = [MBMyCircleViewTo instanceView];
+    view1.frame = CGRectMake(0, MaxY(cycleScrollView), UISCREEN_WIDTH, UISCREEN_WIDTH/4*204/160);
     [view addSubview:view1];
     
     @weakify(self);
     [[view1.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *number) {
-        //        NSLog(@"%ld",[number integerValue]);
+        NSLog(@"%ld",[number integerValue]);
         @strongify(self);
         
     }];
@@ -132,8 +134,8 @@
                 
                 _recommendArray = [NSMutableArray arrayWithArray:[responseObject valueForKeyPath:@"recommend"]];
                 _tableView.tableHeaderView = [self setHeaderView];
-                _tableView.delegate = self;
-                _tableView.dataSource = self;
+             
+                [_tableView reloadData];
                 return ;
                 
             }
@@ -156,8 +158,8 @@
                  _myCircleArray = [NSMutableArray arrayWithArray:[responseObject valueForKeyPath:@"user_circle"]];
                  _recommendArray = [NSMutableArray arrayWithArray:[responseObject valueForKeyPath:@"recommend"]];
                 _tableView.tableHeaderView = [self setHeaderView];
-                _tableView.delegate = self;
-                _tableView.dataSource = self;
+             
+                [_tableView reloadData];
                 return ;
                 
             }
@@ -172,6 +174,41 @@
         }];
         
     }
+    
+    
+}
+#pragma mark--加入圈子或取消加入圈子
+- (void)setJoin_circle:(NSString *)circle_id indexPath:(NSIndexPath *)indexPath {
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    if (!sid) {
+        [self loginClicksss];
+        return;
+    }
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/join_circle"];
+    
+    [self show];
+    
+    [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict,@"circle_id":circle_id} success:^(id responseObject) {
+        if ([[responseObject  valueForKeyPath:@"status"]isEqualToNumber:@1]) {
+            
+            if (indexPath.section==0) {
+                [self prompt:indexPath];
+                
+            }else{
+                [self show:@"成功加入 " and:_recommendArray[indexPath.row][@"circle_name"] time:1];
+                [_myCircleArray addObject:_recommendArray[indexPath.row]];
+                [_recommendArray removeObjectAtIndex:indexPath.row];
+                [self.tableView reloadData];
+            }
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self show:@"请求失败 " time:1];
+        NSLog(@"%@",error);
+    }];
     
     
 }
@@ -323,7 +360,6 @@
     }
     cell.indexPath = indexPath;
     cell.indexPath = indexPath;
-    [cell.user_button setBackgroundColor:[UIColor whiteColor]];
     cell.user_name.text = dic[@"circle_name"];
     cell.user_center.text = dic[@"circle_desc"];
     [cell.user_image sd_setImageWithURL:[NSURL URLWithString:dic[@"circle_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
@@ -350,15 +386,16 @@
             return ;
         }
         
-        if (indexPath.section==0) {
-            [self prompt:indexPath];
+        NSDictionary *dic;
+        if (indexPath.section == 0) {
+            dic = _myCircleArray[indexPath.row];
             
         }else{
-            [self show:@"成功加入 " and:_recommendArray[indexPath.row][@"circle_name"] time:1];
-            [_myCircleArray addObject:_recommendArray[indexPath.row]];
-            [_recommendArray removeObjectAtIndex:indexPath.row];
-            [self.tableView reloadData];
+            dic = _recommendArray[indexPath.row];
+            
         }
+        [self setJoin_circle:dic[@"circle_id"] indexPath:indexPath];
+        
     }];
     
     return cell;
@@ -366,8 +403,27 @@
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+
+    NSDictionary *dic;
+    if (indexPath.section == 0) {
+        dic = _myCircleArray[indexPath.row];
+        
+    }else{
+        dic = _recommendArray[indexPath.row];
+
+    }
+    NSString *str ;
+    if (indexPath.section == 0) {
+        str = @"1";
+    }else{
+        str = @"0";
+    }
     MBDetailsCircleController *VC = [[MBDetailsCircleController alloc] init];
+    VC.circle_id = dic[@"circle_id"];
+    VC.circle_user_cnt = dic[@"circle_user_cnt"];
+    VC.circle_name = dic[@"circle_name"];
+    VC.circle_logo = dic[@"circle_logo"];
+    VC.is_join = str;
     [self pushViewController:VC Animated:YES];
 }
 - (void)prompt:(NSIndexPath *)indexPath{

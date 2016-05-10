@@ -17,5 +17,8 @@
 + (instancetype)instanceView;
 @property (weak, nonatomic) IBOutlet UIButton *button;
 
-@property (nonatomic, strong) RACSubject *myCircleViewSubject;
+@property (weak, nonatomic) IBOutlet UIImageView *circle_logo;
+@property (weak, nonatomic) IBOutlet UILabel *circle_name;
+@property (weak, nonatomic) IBOutlet UILabel *circle_user_cnt;
+
 @end

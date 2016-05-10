@@ -20,5 +20,28 @@
 
     // Configure the view for the selected state
 }
+-(NSArray *)imageArray{
+    
+    if (!_imageArray) {
+        _imageArray = @[_image1,_image2,_image3];
+    }
+    
+    return _imageArray;
+}
+-(void)setArray:(NSArray *)array{
+    _array = array;
+    NSInteger num = array.count;
+    if (array.count>3) {
+        num = 3;
+    }
+    
+    for (NSInteger i = 0; i<num; i++) {
+        UIImageView *imageView = self.imageArray[i];
+        imageView .contentMode =  UIViewContentModeScaleAspectFill;
+        imageView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        imageView.clipsToBounds  = YES;
+        [imageView sd_setImageWithURL:[NSURL URLWithString:array[i]] placeholderImage:[UIImage imageNamed:@"placeholder_num1"]];
+    }
 
+}
 @end

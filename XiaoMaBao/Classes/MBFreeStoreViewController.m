@@ -139,24 +139,6 @@
     }
     
 
-//    NSLog(@"%ld",index);
-//    NSInteger ad_type =  [ _brandAarray[index][@"ad_type"] integerValue];
-//    switch (ad_type) {
-//        case 1:
-//        {
-//            MBActivityViewController *categoryVc = [[MBActivityViewController alloc] init];
-//            
-//
-//            categoryVc.title = _brandAarray[index][@"act_name"];
-//            categoryVc.act_id = _brandAarray[index][@"act_id"];
-//            [self pushViewController:categoryVc Animated:YES];
-//            
-//        }
-//            break;
-//            
-//        default:
-//            break;
-//    }
 
 }
 #pragma mark --UITableViewDataSource
