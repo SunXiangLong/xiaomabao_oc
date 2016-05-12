@@ -62,9 +62,10 @@
     [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self dismiss];
         
+        NSLog(@"%@",responseObject);
         
         if ([[responseObject valueForKey:@"data"]count]>0) {
-            NSLog(@"%@",responseObject);
+            
       
             [_commentsArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
             _page++;

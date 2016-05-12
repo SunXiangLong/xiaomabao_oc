@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+   
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -31,6 +31,11 @@
 -(void)setArray:(NSArray *)array{
     _array = array;
     NSInteger num = array.count;
+    if (array.count>0) {
+        self.imageHeight.constant = (UISCREEN_WIDTH -16*3)/3*133/184;
+    }else{
+        self.imageHeight.constant = 0;
+    }
     if (array.count>3) {
         num = 3;
     }

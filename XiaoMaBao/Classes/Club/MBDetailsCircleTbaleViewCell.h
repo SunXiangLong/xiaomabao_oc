@@ -19,4 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *image3;
 @property (nonatomic,strong) NSArray *imageArray;
 @property (nonatomic,strong) NSArray *array;
+
+@property (weak, nonatomic) IBOutlet UILabel *post_content;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeight;
 @end

@@ -14,10 +14,11 @@
 /**
  *  存放cell高度的数组
  */
-@property (copy, nonatomic) NSMutableArray *heightArray;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end
 @implementation MBPostDetailsTwoCell
+
 - (RACSubject *)myCircleViewSubject {
     
     if (!_myCircleViewSubject) {
@@ -27,21 +28,13 @@
     
     return _myCircleViewSubject;
 }
--(NSMutableArray *)heightArray{
-    if (!_heightArray) {
-        _heightArray = [NSMutableArray array];
-    }
-    return _heightArray;
-}
 - (void)awakeFromNib {
     [super awakeFromNib];
     
 }
 -(void)setImagUrlStrArray:(NSArray *)imagUrlStrArray{
     _imagUrlStrArray = imagUrlStrArray;
-    for (NSInteger i= 0 ; i<imagUrlStrArray.count; i++) {
-        [self.heightArray addObject:@((UISCREEN_WIDTH-20)*105/125)];
-    }
+  
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.scrollEnabled  = NO;
@@ -57,7 +50,7 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"%lu",_heightArray.count);
+   
     return _heightArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -69,20 +62,9 @@
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBPostDetailsViewCell"owner:nil options:nil]firstObject];
     }
     cell.indexPath = indexPath;
+     cell.rootIndexPath = self.rootIndexPath;
     cell.imageUrlStr = _imagUrlStrArray[indexPath.row];
-    @weakify(self);
-    [[cell.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSArray *arr) {
-        @strongify(self);
-        NSNumber *cellHeight = arr.firstObject;
-        NSIndexPath *indexPath = arr.lastObject;
-        _heightArray[indexPath.row] = cellHeight;
-        [self.myCircleViewSubject  sendNext:@[cellHeight,_indexPath]];
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
-        
-        
-    }];
-    
+   
     return cell;
     
 }

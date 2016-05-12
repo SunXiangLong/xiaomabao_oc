@@ -109,7 +109,7 @@
 }
 - (NSString *)titleStr{
     
-    return self.title?:@"";
+    return self.title?:@"全部评价";
 }
 #pragma mark -- 更多服务
 - (void)moreService{
@@ -312,7 +312,7 @@
         }break;
         case 1:{
             MBUserEvaluationController *VC = [[MBUserEvaluationController alloc] init];
-            VC.shop_id = _dataDic[@"comment"][indexPath.row][@"comment_id"];
+            VC.shop_id = _dataDic[@"comment"][indexPath.row][@"shop_id"];
             [self pushViewController:VC Animated:YES];
             
         }break;

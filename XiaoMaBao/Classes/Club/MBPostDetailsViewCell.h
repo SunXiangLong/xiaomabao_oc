@@ -12,7 +12,9 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *image;
 
-@property (nonatomic, strong) RACSubject *myCircleViewSubject;
+
 @property (nonatomic,strong) NSString *imageUrlStr;
 @property (nonatomic, strong)NSIndexPath *indexPath;
+@property (nonatomic, strong)NSIndexPath *rootIndexPath;
+
 @end

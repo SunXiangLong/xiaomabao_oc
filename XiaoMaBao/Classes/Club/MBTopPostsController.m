@@ -53,15 +53,12 @@
 }
 #pragma mark -- 热帖数据数据
 - (void)setData{
-    [self show];
+
     NSString *page = s_Integer(_page);
     NSString *url = [NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/circle/get_circle_hot/",page];
     
     [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSLog(@"%@",responseObject);
-        
-        [self dismiss];
+//      NSLog(@"%@",responseObject);
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                 [self.dataArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
@@ -110,7 +107,7 @@
     if (post_content_height>51) {
         post_content_height = 51+10;
     }else{
-        post_content_height = 51+5;
+        post_content_height+=5;
     }
     return 72+post_title_height+post_content_height;
 }

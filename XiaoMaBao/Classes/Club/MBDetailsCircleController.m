@@ -191,7 +191,19 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 74+(UISCREEN_WIDTH -16*3)/3*133/184;
+    NSDictionary  *dic = _dataArray[indexPath.row];
+    NSString *post_content = dic[@"post_content"];
+    CGFloat post_content_height = [post_content sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake(UISCREEN_WIDTH - 24, MAXFLOAT)].height;
+    
+    if (post_content_height>51) {
+        post_content_height = 51+10;
+    }else{
+        post_content_height +=5;
+    }
+    if ([dic[@"post_imgs"] count]>0) {
+       return 70+(UISCREEN_WIDTH -16*3)/3*133/184+post_content_height;
+    }
+    return 70+post_content_height;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary  *dic = _dataArray[indexPath.row];
@@ -199,11 +211,12 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBDetailsCircleTbaleViewCell"owner:nil options:nil]firstObject];
     }
+    cell.array = dic[@"post_imgs"];
     cell.post_title.text = dic[@"post_title"];
     cell.post_time.text = dic[@"post_time"];
     cell.reply_cnt.text = dic[@"reply_cnt"];
     cell.author_name.text = dic[@"author_name"];
-    cell.array = dic[@"post_imgs"];
+    cell.post_content.text = dic[@"post_content"];
    
     return cell;
     
