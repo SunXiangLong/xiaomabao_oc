@@ -72,7 +72,7 @@
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="comment_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="dlx-R7-wi8">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="post_message" translatesAutoresizingMaskIntoConstraints="NO" id="dlx-R7-wi8">
                         <rect key="frame" x="268" y="221" width="10" height="9.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="4km-he-Dbz"/>
@@ -138,6 +138,16 @@
                             <constraint firstAttribute="height" constant="10" id="pM8-Ih-3Bi"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CZ-0q-8Ft">
+                        <rect key="frame" x="265" y="215" width="45" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="Fr7-9d-XuJ"/>
+                            <constraint firstAttribute="height" constant="20" id="hb1-VD-csV"/>
+                        </constraints>
+                        <connections>
+                            <action selector="reply:" destination="w5e-k9-YmQ" eventType="touchUpInside" id="zI2-pF-hGl"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="uMu-AX-FxH" secondAttribute="trailing" constant="10" id="0IO-Ov-dq3"/>
@@ -147,9 +157,11 @@
                     <constraint firstItem="qEb-lc-3Dp" firstAttribute="leading" secondItem="3eo-Wt-aSv" secondAttribute="trailing" constant="6" id="EQb-dX-lYj"/>
                     <constraint firstItem="3eo-Wt-aSv" firstAttribute="top" secondItem="NXO-sP-m2r" secondAttribute="top" constant="9" id="Gpo-xa-GXz"/>
                     <constraint firstItem="YiC-cb-uiw" firstAttribute="top" secondItem="fW2-6E-pdI" secondAttribute="bottom" constant="27" id="H5w-G3-MdQ"/>
+                    <constraint firstItem="YiC-cb-uiw" firstAttribute="top" secondItem="38l-U9-0jf" secondAttribute="bottom" constant="5" id="Hy1-Ls-87v"/>
                     <constraint firstItem="fW2-6E-pdI" firstAttribute="top" secondItem="UmP-kS-hz0" secondAttribute="bottom" constant="10" id="LKS-oF-x0M"/>
                     <constraint firstItem="38l-U9-0jf" firstAttribute="leading" secondItem="dlx-R7-wi8" secondAttribute="trailing" constant="4" id="TOQ-64-8MS"/>
                     <constraint firstItem="KFF-aa-C72" firstAttribute="top" secondItem="3eo-Wt-aSv" secondAttribute="bottom" constant="9" id="XiW-DC-sSz"/>
+                    <constraint firstItem="YiC-cb-uiw" firstAttribute="top" secondItem="0CZ-0q-8Ft" secondAttribute="bottom" constant="5" id="Xo3-5z-pLJ"/>
                     <constraint firstItem="qEb-lc-3Dp" firstAttribute="centerY" secondItem="3eo-Wt-aSv" secondAttribute="centerY" id="cNK-t8-wb3"/>
                     <constraint firstItem="YiC-cb-uiw" firstAttribute="leading" secondItem="NXO-sP-m2r" secondAttribute="leading" id="dHm-kD-b1s"/>
                     <constraint firstItem="KFF-aa-C72" firstAttribute="leading" secondItem="NXO-sP-m2r" secondAttribute="leading" constant="10" id="dtm-5t-WPp"/>
@@ -158,10 +170,12 @@
                     <constraint firstItem="YiC-cb-uiw" firstAttribute="top" secondItem="38l-U9-0jf" secondAttribute="bottom" constant="5" id="erx-mf-V3b"/>
                     <constraint firstAttribute="trailing" secondItem="38l-U9-0jf" secondAttribute="trailing" constant="10" id="fqv-fg-pTz"/>
                     <constraint firstItem="uMu-AX-FxH" firstAttribute="centerY" secondItem="qEb-lc-3Dp" secondAttribute="centerY" id="hZy-eO-Gkl"/>
+                    <constraint firstAttribute="trailing" secondItem="0CZ-0q-8Ft" secondAttribute="trailing" constant="10" id="i4t-te-VmE"/>
                     <constraint firstItem="fW2-6E-pdI" firstAttribute="leading" secondItem="NXO-sP-m2r" secondAttribute="leading" constant="50" id="iq7-ub-nQo"/>
                     <constraint firstAttribute="trailing" secondItem="KFF-aa-C72" secondAttribute="trailing" constant="10" id="jdV-bC-ceL"/>
                     <constraint firstAttribute="trailing" secondItem="YiC-cb-uiw" secondAttribute="trailing" id="jyD-BV-krl"/>
                     <constraint firstItem="3eo-Wt-aSv" firstAttribute="leading" secondItem="NXO-sP-m2r" secondAttribute="leading" constant="10" id="m2i-nC-t6L"/>
+                    <constraint firstAttribute="trailing" secondItem="38l-U9-0jf" secondAttribute="trailing" constant="10" id="riS-BN-Ehr"/>
                     <constraint firstItem="38l-U9-0jf" firstAttribute="centerY" secondItem="dlx-R7-wi8" secondAttribute="centerY" id="saU-8n-ahw"/>
                     <constraint firstAttribute="bottom" secondItem="YiC-cb-uiw" secondAttribute="bottom" id="sh5-TQ-pS7"/>
                     <constraint firstItem="UmP-kS-hz0" firstAttribute="top" secondItem="KFF-aa-C72" secondAttribute="bottom" constant="9" id="wmb-M9-udI"/>
@@ -184,7 +198,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="comment_image.png" width="21" height="21"/>
         <image name="placeholder_num2" width="66" height="66"/>
+        <image name="post_message" width="8" height="8"/>
     </resources>
 </document>

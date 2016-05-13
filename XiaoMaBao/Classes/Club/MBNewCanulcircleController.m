@@ -9,7 +9,7 @@
 #import "MBNewCanulcircleController.h"
 #import "MBTopPostsController.h"
 #import "MBMoreCirclesController.h"
-#import "MBSearchViewController.h"
+#import "MBSearchPostController.h"
 #import "MBShopDetailsViewController.h"
 #import "MBMyCircleController.h"
 @interface MBNewCanulcircleController ()<UIScrollViewDelegate>
@@ -117,7 +117,9 @@
     return @"search_image";
 }
 - (void)rightTitleClick{
-    MBSearchViewController *searchVc = [[MBSearchViewController alloc] init];
+    
+   
+    MBSearchPostController *searchVc = [[MBSearchPostController alloc] init];
     [self pushViewController:searchVc Animated:YES];
 }
 -(NSString *)titleStr{

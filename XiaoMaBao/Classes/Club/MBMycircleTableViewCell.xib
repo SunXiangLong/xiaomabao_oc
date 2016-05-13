@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -41,15 +41,16 @@
                             <constraint firstAttribute="height" constant="1" id="49X-YI-UkE"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qxJ-0h-73c">
-                        <rect key="frame" x="257" y="0.0" width="62.5" height="62.5"/>
-                        <color key="backgroundColor" red="0.90980392160000001" green="0.91764705879999997" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qxJ-0h-73c">
+                        <rect key="frame" x="238" y="-2.5" width="102" height="66"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="qxJ-0h-73c" secondAttribute="height" multiplier="1:1" id="YIJ-7R-MxE"/>
                         </constraints>
-                        <state key="normal" title="退出">
-                            <color key="titleColor" red="0.83921568629999999" green="0.38431372549999998" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <state key="normal" image="mbq_add">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <state key="selected" image="exit_image"/>
                         <connections>
                             <action selector="touch:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VgR-Lx-IFn"/>
                         </connections>
@@ -94,6 +95,8 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="exit_image" width="14" height="1"/>
+        <image name="mbq_add" width="14" height="14"/>
         <image name="placeholder_num2" width="66" height="66"/>
     </resources>
 </document>

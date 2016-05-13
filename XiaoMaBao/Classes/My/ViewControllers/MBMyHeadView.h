@@ -15,4 +15,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *user_price;
 @property (weak, nonatomic) IBOutlet UILabel *user_tiezi;
 + (instancetype)instanceView;
+@property (weak, nonatomic) IBOutlet UILabel *user_name;
 @end

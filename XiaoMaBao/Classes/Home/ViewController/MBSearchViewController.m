@@ -116,44 +116,6 @@
     return view;
 }
 
-//- (void)kaishide{
-//        UITextField *searchField = [[UITextField alloc] init];
-//        searchField.frame = CGRectMake(MARGIN_10,TOP_Y+10, self.view.frame.size.width - 60, 30);
-//        searchField.delegate = self;
-//        searchField.layer.cornerRadius = 15;
-//        searchField.backgroundColor = [UIColor whiteColor];
-//        searchField.font = [UIFont systemFontOfSize:15];
-//        searchField.textColor = [UIColor grayColor];
-//        searchField.placeholder = @"搜索商品";
-//        searchField.returnKeyType = UIReturnKeySearch;
-//        [self.view addSubview:searchField];
-//    
-//    
-//    
-//        UIView *searchLeftView = [[UIView alloc] init];
-//        searchLeftView.frame = CGRectMake(0, 0, 35, searchField.frame.size.height);
-//    
-//        UIImageView *searchImageView = [[UIImageView alloc] init];
-//        searchImageView.image = [UIImage imageNamed:@"search_icon"];
-//    
-//    
-//    
-//        searchImageView.contentMode = UIViewContentModeScaleAspectFit;
-//        searchImageView.frame = CGRectMake(10, (searchField.frame.size.height - 20) * 0.5, 20, 20);
-//        [searchLeftView addSubview:searchImageView];
-//    
-//        searchField.leftView = searchLeftView;
-//        searchField.leftViewMode = UITextFieldViewModeAlways;
-//        _searchField = searchField;
-//        UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        searchButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//        [searchButton addTarget:self action:@selector(clickSearch) forControlEvents:UIControlEventTouchUpInside];
-//        searchButton.frame = CGRectMake(CGRectGetMaxX(searchField.frame) + MARGIN_8, TOP_Y + MARGIN_10, 60, 30);
-//        [searchButton setTitle:@"搜索" forState:UIControlStateNormal];
-//        [self.view addSubview:searchButton];
-//    
-//
-//}
 
 #pragma mark --headView布局
 - (void)setHeacView{

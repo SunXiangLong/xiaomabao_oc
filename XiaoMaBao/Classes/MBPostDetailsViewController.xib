@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MBPostDetailsViewController">
             <connections>
+                <outlet property="collectionButton" destination="zIV-ZH-0de" id="CRp-1N-bxr"/>
                 <outlet property="tableView" destination="Ste-Uu-orY" id="aeI-os-g9s"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -16,23 +17,61 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ste-Uu-orY">
-                    <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ste-Uu-orY" customClass="TPKeyboardAvoidingTableView">
+                    <rect key="frame" x="0.0" y="64" width="320" height="371"/>
                     <color key="backgroundColor" red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="oFq-jg-kHB"/>
                         <outlet property="delegate" destination="-1" id="SFK-nC-aZ6"/>
                     </connections>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" enabled="NO" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIV-ZH-0de">
+                    <rect key="frame" x="0.0" y="435" width="159.5" height="45"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title=" 收藏" image="mbq_collect_inactive">
+                        <color key="titleColor" red="0.3411764705882353" green="0.36078431372549019" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="selected" image="mbq_collect_active"/>
+                    <connections>
+                        <action selector="collection:" destination="-1" eventType="touchUpInside" id="cdI-GE-jvu"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Haq-ed-Czf">
+                    <rect key="frame" x="160.5" y="435" width="159.5" height="45"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
+                    <state key="normal" title="评论" image="mbq_comment_comment">
+                        <color key="titleColor" red="0.3411764705882353" green="0.36078431372549019" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="comments:" destination="-1" eventType="touchUpInside" id="PMS-sH-V7b"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="Haq-ed-Czf" firstAttribute="width" secondItem="zIV-ZH-0de" secondAttribute="width" id="0r2-m9-lkw"/>
                 <constraint firstItem="Ste-Uu-orY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="GH8-cw-Ud5"/>
-                <constraint firstAttribute="bottom" secondItem="Ste-Uu-orY" secondAttribute="bottom" id="LDK-JH-JJ5"/>
+                <constraint firstAttribute="bottom" secondItem="Ste-Uu-orY" secondAttribute="bottom" constant="45" id="LDK-JH-JJ5"/>
                 <constraint firstAttribute="trailing" secondItem="Ste-Uu-orY" secondAttribute="trailing" id="OrQ-be-0ep"/>
+                <constraint firstItem="zIV-ZH-0de" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Vbw-F5-Ypi"/>
                 <constraint firstItem="Ste-Uu-orY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Yp9-wg-JWP"/>
+                <constraint firstItem="zIV-ZH-0de" firstAttribute="top" secondItem="Ste-Uu-orY" secondAttribute="bottom" id="baL-o0-Asp"/>
+                <constraint firstItem="Haq-ed-Czf" firstAttribute="leading" secondItem="zIV-ZH-0de" secondAttribute="trailing" constant="1" id="dxU-XX-y0B"/>
+                <constraint firstItem="Haq-ed-Czf" firstAttribute="top" secondItem="Ste-Uu-orY" secondAttribute="bottom" id="p7f-xs-CC9"/>
+                <constraint firstAttribute="bottom" secondItem="Haq-ed-Czf" secondAttribute="bottom" id="pfh-PW-TIJ"/>
+                <constraint firstAttribute="trailing" secondItem="Haq-ed-Czf" secondAttribute="trailing" id="pmt-dD-KYs"/>
+                <constraint firstAttribute="bottom" secondItem="zIV-ZH-0de" secondAttribute="bottom" id="wHx-uN-wOR"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="282" y="214"/>
         </view>
     </objects>
+    <resources>
+        <image name="mbq_collect_active" width="15" height="15"/>
+        <image name="mbq_collect_inactive" width="15" height="15"/>
+        <image name="mbq_comment_comment" width="15" height="15"/>
+    </resources>
 </document>

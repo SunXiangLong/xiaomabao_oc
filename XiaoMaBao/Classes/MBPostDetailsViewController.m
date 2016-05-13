@@ -10,6 +10,11 @@
 #import "MBPostDetailsOneCell.h"
 #import "MBPostDetailsTwoCell.h"
 #import "MBPostDetailsHeadView.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+#import "MBLoginViewController.h"
+#import "MBCollectionPostController.h"
+#import "CommentView.h"
 @interface MBPostDetailsViewController ()
 {
    
@@ -30,6 +35,10 @@
      *  是否弹出筛选view
      */
     BOOL _isbool;
+    /**
+     *  是否被收藏
+     */
+    BOOL _isCollection;
 }
 /**
  *  存放cell高度的数组
@@ -39,6 +48,10 @@
  *  存放楼主cell高度
  */
 @property (copy, nonatomic) NSMutableArray *headArray;
+/**
+ *  收藏button
+ */
+@property (weak, nonatomic) IBOutlet UIButton *collectionButton;
 /**
  *   底层视图控件
  */
@@ -63,6 +76,8 @@
  *  筛选帖子的条件 0是默认全部，1是只看楼主，2是只看图片
  */
 @property (copy, nonatomic) NSString *isImage;
+
+@property (strong, nonatomic) CommentView *commentView;
 @end
 
 @implementation MBPostDetailsViewController
@@ -84,6 +99,52 @@
     }
     return _commentsArray;
 }
+#pragma mark - Getter
+
+
+- (CommentView *)commentView {
+    if (_commentView) {
+        return _commentView;
+    }
+    __weak typeof(self) wself = self;
+    _commentView = [[CommentView alloc] initWithFrame:CGRectMake(0, UISCREEN_HEIGHT, UISCREEN_WIDTH, 54.0f)
+                                            sendBlock:^(NSString *content) {
+                                                __strong  typeof(wself) swself = wself;
+                                                
+                                            }];
+    
+    @weakify(self);
+    // 把监听到的通知转换信号
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillShowNotification object:nil] subscribeNext:^(id x) {
+        @strongify(self);
+        
+        //获取键盘的高度
+        NSDictionary *userInfo = [x userInfo];
+        NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+        CGRect keyboardRect = [aValue CGRectValue];
+        CGFloat height = keyboardRect.size.height;
+        [UIView animateWithDuration:.3 animations:^{
+           
+            self.commentView.frame = CGRectMake(0.0f, UISCREEN_HEIGHT - 44.0f - height, UISCREEN_WIDTH, 44.0f);
+        }];
+        
+        
+    }];
+    
+    // 把监听到的通知转换信号
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardDidHideNotification object:nil] subscribeNext:^(id x) {
+        
+        @strongify(self);
+       
+        
+        self.commentView.frame = CGRectMake(0, UISCREEN_HEIGHT, UISCREEN_WIDTH, 44.0f);
+
+      
+        
+    }];
+
+    return _commentView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -91,13 +152,13 @@
     _page =1;
     _poster =  @"1";
     _isImage = @"1";
-    
+    [self is_collectionData];
     [self setData];
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
     footer.refreshingTitleHidden = YES;
     self.tableView.mj_footer = footer;
-    
+    [self.view addSubview:self.commentView];
     
 
    //图片下载完成回调
@@ -288,6 +349,161 @@
     
     
 }
+#pragma mark -- 检查是否收藏
+- (void)is_collectionData{
+    
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    if (!sid) {
+        return;
+    }
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/check_is_collect"];
+    NSString *str = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  
+    
+    [MBNetworking   POSTOrigin:str parameters:@{@"session":sessiondict,@"post_id":self.post_id} success:^(id responseObject) {
+     
+        NSString *status = s_str([responseObject valueForKeyPath:@"status"]);
+     
+        if ([status isEqualToString:@"1"]) {
+            self.collectionButton.selected = YES;
+        }else{
+          self.collectionButton.selected = NO;
+        }
+        
+        self.collectionButton.enabled = YES;
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self show:@"请求失败 " time:1];
+        NSLog(@"%@",error);
+    }];
+
+}
+- (void)collectionData{
+    
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    if (!sid) {
+        [self loginClicksss];
+        return;
+    }
+    [self show];
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/collect_post"];
+    NSString *str = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    [MBNetworking   POSTOrigin:str parameters:@{@"session":sessiondict,@"post_id":self.post_id} success:^(id responseObject) {
+        
+        NSString *status = s_str([responseObject valueForKeyPath:@"info"]);
+        [self dismiss];
+     
+        if ([status isEqualToString:@"收藏成功"]) {
+            self.collectionButton.selected = YES;
+        }else{
+            self.collectionButton.selected = NO;
+        }
+        
+        self.collectionButton.enabled = YES;
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self show:@"请求失败 " time:1];
+        NSLog(@"%@",error);
+    }];
+    
+}
+#pragma mark -- 跳转登陆页
+- (void)loginClicksss{
+    //跳转到登录页
+    
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
+    myView.vcType = @"mabao";
+    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
+    [self presentViewController:VC animated:YES completion:nil];
+}
+-(NSString *)rightImage{
+    
+    return @"dian_image";
+}
+-(void)rightTitleClick{
+
+    [self share];
+}
+-(void)share{
+    
+    //1、创建分享参数
+    NSArray* imageArray = @[];
+    
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xiaomabao.com/goods-%@.html",@""]];
+    
+    
+    
+    //（注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
+    if (imageArray) {
+        
+        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+        [shareParams SSDKSetupShareParamsByText:@"小麻包帖子"
+                                         images:imageArray
+                                            url:url
+                                          title:@"小麻包母婴分享"
+                                           type:SSDKContentTypeAuto];
+        //2、分享（可以弹出我们的分享菜单和编辑界面）
+        [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
+                                 items:nil
+                           shareParams:shareParams
+                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                       
+                       switch (state) {
+                           case SSDKResponseStateSuccess:
+                           {
+                               UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                   message:nil
+                                                                                  delegate:nil
+                                                                         cancelButtonTitle:@"确定"
+                                                                         otherButtonTitles:nil];
+                               [alertView show];
+                               break;
+                           }
+                           case SSDKResponseStateFail:
+                           {
+                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                               message:[NSString stringWithFormat:@"%@",error]
+                                                                              delegate:nil
+                                                                     cancelButtonTitle:@"OK"
+                                                                     otherButtonTitles:nil, nil];
+                               [alert show];
+                               break;
+                           }
+                           default:
+                               break;
+                       }
+                       
+                   }];
+    }
+    
+    
+}
+#pragma mark --收藏
+- (IBAction)collection:(id)sender {
+     self.collectionButton.enabled = NO;
+    [self  collectionData];
+}
+#pragma mark -- 评论;
+- (IBAction)comments:(id)sender {
+    
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+   
+    if (!sid) {
+        [self loginClicksss];
+        return;
+    }
+    MBCollectionPostController *VC = [[MBCollectionPostController alloc] init];
+    
+    [self pushViewController:VC Animated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -307,16 +523,18 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         NSString *post_content = _post_detail[@"post_content"];
-        
+        NSString *post_title = _post_detail[@"post_title"];
+        CGFloat post_title_height = [post_title sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
+        CGFloat post_content_height = [post_content sizeWithFont:SYSTEMFONT(14) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
         if ([_post_detail[@"post_imgs"] count]>0) {
-            CGFloat height =  _post_detail_cellheight+145+[post_content sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
-            
-            return height;
+            CGFloat height =  _post_detail_cellheight+117+post_content_height;
+
+            return height+post_title_height;
           
         }
         
         
-         return _post_detail_cellheight+135+[post_content sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
+         return _post_detail_cellheight+155+post_content_height+post_title_height;
        
     }
     NSDictionary *dic = _commentsArray[indexPath.row];
@@ -331,7 +549,7 @@
         
         cellHeight+=40;
     }
-    return cellHeight+104+[comment_content sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
+    return cellHeight+104+ [comment_content sizeWithFont:SYSTEMFONT(14) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -344,7 +562,7 @@
    
          cell.rootIndexPath = indexPath;
          cell.heightArray = _headArray;
-     
+       
         cell.post_content.text = _post_detail[@"post_content"];
         cell.post_title.text = _post_detail[@"post_title"];
         cell.circle_name.text = _post_detail[@"circle_name"];
@@ -352,8 +570,12 @@
         cell.reply_cnt.text = _post_detail[@"reply_cnt"];
         [cell.author_userhead  sd_setImageWithURL:URL(_post_detail[@"author_userhead"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
           cell.imagUrlStrArray = _post_detail[@"post_imgs"];
-      
-
+ 
+        [cell.post_content rowSpace:6];
+        [cell.post_content columnSpace:1];
+        [cell.post_title rowSpace:6];
+        [cell.post_title columnSpace:1];
+       
         
         return cell;
     }
@@ -371,6 +593,8 @@
     cell.user_name.text = dic[@"user_name"];
     [cell.user_head sd_setImageWithURL:URL(dic[@"user_head"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
     
+    [cell.comment_content rowSpace:6];
+    [cell.comment_content columnSpace:1];
     if (dic[@"comment_reply"]) {
         cell.comment_reply_user_name.text = dic[@"comment_reply"][@"user_name"];
         cell.comment_reply_comment_content.text = dic[@"comment_reply"][@"comment_content"];
@@ -378,11 +602,19 @@
         cell.comment_reply_height.constant  = 40;
         cell.commentView.hidden = NO;
     }else{
-        
         cell.comment_reply_height.constant  = 0;
         cell.commentView.hidden = YES;
     }
     cell.imagUrlStrArray = dic[@"comment_imgs"];
+    @weakify(self);
+    [[cell.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSIndexPath *indexPath) {
+        @strongify(self);
+         NSDictionary *dic = self.commentsArray[indexPath.row];
+        self.commentView.placeHolder = [NSString stringWithFormat:@"回复%@:",dic[@"user_name"]];
+        [self.commentView.textView becomeFirstResponder];
+        
+    }];
+    
     return cell;
     
 }

@@ -211,7 +211,7 @@
             cycleScrollView.autoScrollTimeInterval = 3.0f;
             [reusableview addSubview:cycleScrollView];
             MBCollectionHeadView  *headView = [MBCollectionHeadView instanceView];
-            headView.tishi.text = @"每日必看";
+            headView.tishi.text = @"全部分类";
             [reusableview addSubview:headView];
             [headView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(cycleScrollView.mas_bottom).offset(0);
@@ -225,7 +225,7 @@
             UICollectionReusableView *reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView2" forIndexPath:indexPath];
             MBCollectionHeadView  *headView = [MBCollectionHeadView instanceView];
             [reusableview addSubview:headView];
-                 headView.tishi.text = @"全部分类";
+                 headView.tishi.text = @"每日必看";
             [headView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.left.right.mas_equalTo(0);
                 make.height.mas_equalTo(31);
@@ -271,16 +271,18 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        MBAffordablePlanetOneCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBAffordablePlanetOneCell" forIndexPath:indexPath];
-        cell.dataArray = _today_recommend;
-        cell.VC = self;
-        return cell;
-       
-    }else if(indexPath.section == 1){
         MBAffordablePlanetTwoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBAffordablePlanetTwoCell" forIndexPath:indexPath];
         cell.dataArray = _allShopArray;
         cell.VC =self;
         return cell;
+       
+    }else if(indexPath.section == 1){
+        
+        MBAffordablePlanetOneCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBAffordablePlanetOneCell" forIndexPath:indexPath];
+        cell.dataArray = _today_recommend;
+        cell.VC = self;
+        return cell;
+        
         
     }else{
         MBAffordablePlanetThreeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBAffordablePlanetThreeCell" forIndexPath:indexPath];
@@ -309,9 +311,10 @@
     NSString *str = _recommend_goods[indexPath.item][@"goods_name"];
     CGFloat height = [str sizeWithFont:[UIFont systemFontOfSize:10] withMaxSize:CGSizeMake((UISCREEN_WIDTH-27)/2-15, MAXFLOAT)].height;
     if (indexPath.section == 0) {
-        return CGSizeMake(UISCREEN_WIDTH, 40+(UISCREEN_WIDTH-28)/3*232/195+(UISCREEN_WIDTH-23)/2*160/299*2+UISCREEN_WIDTH*231/642);
+       return  CGSizeMake(UISCREEN_WIDTH , ((UISCREEN_WIDTH-18)/4+21)*2);
     }else if(indexPath.section == 1){
-        return  CGSizeMake(UISCREEN_WIDTH , ((UISCREEN_WIDTH-18)/4+21)*2);
+         return CGSizeMake(UISCREEN_WIDTH, 20+(UISCREEN_WIDTH-28)/3*232/195+UISCREEN_WIDTH*231/642);
+        
     }else{
         if (height>12) {
              return  CGSizeMake((UISCREEN_WIDTH-27)/2,(UISCREEN_WIDTH-47)/2+74);

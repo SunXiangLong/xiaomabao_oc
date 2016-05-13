@@ -14,13 +14,23 @@ typedef enum {
 } kTimeType;
 
 @interface NSString (BQ)
-
+/**
+ *  根据字符串来获取长度或宽度 字号 行距 求宽度或长度
+ *
+ *  @param font 字号
+ *  @param line 行数
+ *  @param size 宽度或长度
+ *
+ *  @return 长度或宽度
+ */
+- (CGFloat) sizeWithFont:(UIFont *)font lineSpacing:(CGFloat)line  withMax:(CGFloat)size;
 /**
  *  根据字符串来获取长度
  *
  *  @return 长度
  */
-- (CGSize)sizeWithFont:(UIFont *)font withMaxSize:(CGSize)size;
+- (CGSize)sizeWithFont:(UIFont *)font   withMaxSize:(CGSize)size;
+
 /**
  *  md5加密
  *

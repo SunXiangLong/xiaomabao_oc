@@ -258,9 +258,25 @@
 
 
 }
+/**
+ * 删除设置的cookie
+ */
+- (void)deleteCookie{
+    NSHTTPCookie *cookie;
+    
+    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    
+    NSArray *cookieAry = [cookieJar cookiesForURL: [NSURL URLWithString:@"http://www.xiaomabao.com"]];
+    
+    for (cookie in cookieAry) {
+        
+        [cookieJar deleteCookie: cookie];
+        
+    }
+}
 #pragma mark－－获取登陆账号信息
 - (void)zhanghzhao:(NSDictionary *)params{
-  
+    [self deleteCookie];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/signin"] parameters:params
                success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
                    
@@ -271,7 +287,7 @@
                        
                        NSDictionary *sessionDict = [userData valueForKeyPath:@"session"];
                        MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-//                    NSLog(@"%@",userData);
+                        NSLog(@"%@",userData);
                        
                        userInfo.sid = [sessionDict valueForKeyPath:@"sid"];
                        userInfo.uid = [sessionDict valueForKeyPath:@"uid"];

@@ -56,7 +56,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_circle_info"];
     [MBNetworking   POSTOrigin:url parameters:@{@"circle_id":self.circle_id,@"page":page} success:^(id responseObject) {
         
-        NSLog(@"%@",responseObject);
+//        NSLog(@"%@",responseObject);
         [self dismiss];
         
         if (responseObject) {
@@ -134,11 +134,11 @@
     }
     
     if (is_Join) {
-        [view.button setTitle:@"-" forState:UIControlStateNormal];
-        view.button.titleLabel.font = SYSTEMFONT(30);
+        view.button.selected = YES;
+
     }else{
-        [view.button setTitle:@"+" forState:UIControlStateNormal];
-        view.button.titleLabel.font = SYSTEMFONT(30);
+
+        view.button.selected = NO;
         
     }
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -164,6 +164,11 @@
 -(NSString *)titleStr{
 
     return self.title?:@"全部帖子";
+}
+- (NSString *)rightImage{
+    
+   return @"post_btn";
+    
 }
 -(void)rightTitleClick{
     if ([self.is_join isEqualToString:@"0"]) {
@@ -193,13 +198,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary  *dic = _dataArray[indexPath.row];
     NSString *post_content = dic[@"post_content"];
-    CGFloat post_content_height = [post_content sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake(UISCREEN_WIDTH - 24, MAXFLOAT)].height;
     
-    if (post_content_height>51) {
-        post_content_height = 51+10;
-    }else{
-        post_content_height +=5;
+    CGFloat post_content_height = [post_content  sizeWithFont:SYSTEMFONT(14) lineSpacing:3 withMax:UISCREEN_WIDTH-24];
+    if (post_content_height>56) {
+        post_content_height = 56;
     }
+    
     if ([dic[@"post_imgs"] count]>0) {
        return 70+(UISCREEN_WIDTH -16*3)/3*133/184+post_content_height;
     }
@@ -211,13 +215,15 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBDetailsCircleTbaleViewCell"owner:nil options:nil]firstObject];
     }
+      cell.post_content.text = dic[@"post_content"];
     cell.array = dic[@"post_imgs"];
     cell.post_title.text = dic[@"post_title"];
     cell.post_time.text = dic[@"post_time"];
     cell.reply_cnt.text = dic[@"reply_cnt"];
     cell.author_name.text = dic[@"author_name"];
-    cell.post_content.text = dic[@"post_content"];
-   
+ 
+    cell.post_content.rowspace = 3;
+    cell.post_content.columnSpace = 1;
     return cell;
     
 }

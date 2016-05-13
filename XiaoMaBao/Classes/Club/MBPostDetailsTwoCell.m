@@ -28,6 +28,11 @@
     
     return _myCircleViewSubject;
 }
+- (IBAction)reply:(UIButton *)sender {
+    [self.myCircleViewSubject  sendNext:self.rootIndexPath];
+
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     

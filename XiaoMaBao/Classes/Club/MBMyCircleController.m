@@ -15,6 +15,9 @@
 #import "MBGroupShopController.h"
 #import "MBDetailsCircleController.h"
 #import "MBLoginViewController.h"
+#import "MBCheckInViewController.h"
+#import "MBSharkViewController.h"
+#import "MBCollectionPostController.h"
 @interface MBMyCircleController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     
@@ -81,7 +84,41 @@
     [[view1.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *number) {
         NSLog(@"%ld",[number integerValue]);
         @strongify(self);
-        
+        switch ([number integerValue]) {
+            case 0:
+            {
+                
+                UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                MBCheckInViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBCheckInViewController"];
+          
+
+                [self pushViewController:myView Animated:YES];
+               
+                
+            }
+                
+               
+                break;
+            case 1:{
+            
+                
+                UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                MBSharkViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBSharkViewController"];
+                [self pushViewController:myView Animated:YES];
+
+            }
+                                break;
+            case 2:
+               
+                break;
+            case 3:
+            {
+                MBCollectionPostController *VC = [[MBCollectionPostController alloc] init];
+                [self pushViewController:VC Animated:YES]; } break;
+                
+            default:
+                break;
+        }
     }];
     return view;
 }
@@ -250,6 +287,7 @@
         case 3: {
             MBWebViewController *VC = [[MBWebViewController alloc] init];
             VC.url =  [NSURL URLWithString:_bandImageArray[index][@"ad_con"]];
+
             VC.title = _bandImageArray[index][@"ad_name"];
             [self pushViewController:VC Animated:YES];
             
@@ -365,10 +403,10 @@
     [cell.user_image sd_setImageWithURL:[NSURL URLWithString:dic[@"circle_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
     
     if (indexPath.section ==1) {
-        [cell.user_button setTitle:@"+" forState:UIControlStateNormal];
-        cell.user_button.titleLabel.font = BOLDSYSTEMFONT(30);
-        [cell.user_button setBackgroundColor:[UIColor whiteColor]];
+        cell.user_button.selected = NO;
+        
     }else{
+          cell.user_button.selected = YES;
         if (_myCircleArray.count==0) {
             cell.noLable.hidden = NO;
             cell.selectionStyle =  UITableViewCellSelectionStyleNone;

@@ -184,6 +184,7 @@
 		48F9F4F91B02067400ED4A5D /* MBHomeAdCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F9F4F81B02067400ED4A5D /* MBHomeAdCollectionViewCell.m */; };
 		48FAFD5E1B1FFAD6002D8DEC /* MBJoinCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FAFD5D1B1FFAD6002D8DEC /* MBJoinCartViewController.m */; };
 		940258BE1C97C39C0066329F /* ccguanzhu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 940258BD1C97C39C0066329F /* ccguanzhu@2x.png */; };
+		940329F51CE49B8A00E0C5FA /* ObjCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 940329F41CE49B8A00E0C5FA /* ObjCModel.m */; };
 		9404884F1C9F8D38008C7938 /* MBActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9404884D1C9F8D38008C7938 /* MBActivityViewController.m */; };
 		940488501C9F8D38008C7938 /* MBActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9404884E1C9F8D38008C7938 /* MBActivityViewController.xib */; };
 		940488541C9FA469008C7938 /* MBSearchShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940488521C9FA469008C7938 /* MBSearchShowViewController.m */; };
@@ -599,6 +600,12 @@
 		94DAFDF51C4505690009C91C /* MBBrandTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94DAFDF31C4505690009C91C /* MBBrandTableViewCell.xib */; };
 		94DB179B1C520E9500D1F482 /* MBVaccineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DB17991C520E9500D1F482 /* MBVaccineViewController.m */; };
 		94DB179C1C520E9500D1F482 /* MBVaccineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94DB179A1C520E9500D1F482 /* MBVaccineViewController.xib */; };
+		94DB1E111CE5718000ADAE9D /* MBSearchPostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DB1E0F1CE5718000ADAE9D /* MBSearchPostController.m */; };
+		94DB1E121CE5718000ADAE9D /* MBSearchPostController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94DB1E101CE5718000ADAE9D /* MBSearchPostController.xib */; };
+		94DB1E171CE5A59D00ADAE9D /* MBCollectionPostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DB1E151CE5A59D00ADAE9D /* MBCollectionPostController.m */; };
+		94DB1E181CE5A59D00ADAE9D /* MBCollectionPostController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94DB1E161CE5A59D00ADAE9D /* MBCollectionPostController.xib */; };
+		94DB1E1C1CE5E6F500ADAE9D /* CommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DB1E1B1CE5E6F500ADAE9D /* CommentView.m */; };
+		94DB1E1F1CE5E70A00ADAE9D /* AutoFitSizeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DB1E1E1CE5E70A00ADAE9D /* AutoFitSizeTextView.m */; };
 		94DB24781CD21B4300B1F153 /* MBMycircleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DB24761CD21B4300B1F153 /* MBMycircleTableViewCell.m */; };
 		94DB24791CD21B4300B1F153 /* MBMycircleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94DB24771CD21B4300B1F153 /* MBMycircleTableViewCell.xib */; };
 		94DC653C1CBC9D8E00AF3782 /* login_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DC653B1CBC9D8E00AF3782 /* login_image@2x.png */; };
@@ -1039,6 +1046,8 @@
 		48FAFD5D1B1FFAD6002D8DEC /* MBJoinCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBJoinCartViewController.m; sourceTree = "<group>"; };
 		4CE49EF90CD83F9EB54DB2F3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		940258BD1C97C39C0066329F /* ccguanzhu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ccguanzhu@2x.png"; sourceTree = "<group>"; };
+		940329F31CE49B8A00E0C5FA /* ObjCModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCModel.h; sourceTree = "<group>"; };
+		940329F41CE49B8A00E0C5FA /* ObjCModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCModel.m; sourceTree = "<group>"; };
 		9404884C1C9F8D38008C7938 /* MBActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBActivityViewController.h; sourceTree = "<group>"; };
 		9404884D1C9F8D38008C7938 /* MBActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBActivityViewController.m; sourceTree = "<group>"; };
 		9404884E1C9F8D38008C7938 /* MBActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBActivityViewController.xib; sourceTree = "<group>"; };
@@ -1757,6 +1766,16 @@
 		94DB17981C520E9500D1F482 /* MBVaccineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBVaccineViewController.h; sourceTree = "<group>"; };
 		94DB17991C520E9500D1F482 /* MBVaccineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBVaccineViewController.m; sourceTree = "<group>"; };
 		94DB179A1C520E9500D1F482 /* MBVaccineViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBVaccineViewController.xib; sourceTree = "<group>"; };
+		94DB1E0E1CE5718000ADAE9D /* MBSearchPostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSearchPostController.h; sourceTree = "<group>"; };
+		94DB1E0F1CE5718000ADAE9D /* MBSearchPostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSearchPostController.m; sourceTree = "<group>"; };
+		94DB1E101CE5718000ADAE9D /* MBSearchPostController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBSearchPostController.xib; sourceTree = "<group>"; };
+		94DB1E141CE5A59D00ADAE9D /* MBCollectionPostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBCollectionPostController.h; path = ../MBCollectionPostController.h; sourceTree = "<group>"; };
+		94DB1E151CE5A59D00ADAE9D /* MBCollectionPostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBCollectionPostController.m; path = ../MBCollectionPostController.m; sourceTree = "<group>"; };
+		94DB1E161CE5A59D00ADAE9D /* MBCollectionPostController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MBCollectionPostController.xib; path = ../MBCollectionPostController.xib; sourceTree = "<group>"; };
+		94DB1E1A1CE5E6EC00ADAE9D /* CommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentView.h; sourceTree = "<group>"; };
+		94DB1E1B1CE5E6F500ADAE9D /* CommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentView.m; sourceTree = "<group>"; };
+		94DB1E1D1CE5E70A00ADAE9D /* AutoFitSizeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoFitSizeTextView.h; sourceTree = "<group>"; };
+		94DB1E1E1CE5E70A00ADAE9D /* AutoFitSizeTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoFitSizeTextView.m; sourceTree = "<group>"; };
 		94DB24751CD21B4300B1F153 /* MBMycircleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMycircleTableViewCell.h; sourceTree = "<group>"; };
 		94DB24761CD21B4300B1F153 /* MBMycircleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMycircleTableViewCell.m; sourceTree = "<group>"; };
 		94DB24771CD21B4300B1F153 /* MBMycircleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBMycircleTableViewCell.xib; sourceTree = "<group>"; };
@@ -2808,6 +2827,15 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		940329F21CE49B5F00E0C5FA /* JSAndOC交互 */ = {
+			isa = PBXGroup;
+			children = (
+				940329F31CE49B8A00E0C5FA /* ObjCModel.h */,
+				940329F41CE49B8A00E0C5FA /* ObjCModel.m */,
+			);
+			name = "JSAndOC交互";
+			sourceTree = "<group>";
+		};
 		940507CB1BF9D86800CA02F5 /* 极光推送 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3353,6 +3381,12 @@
 				94684F731CE1D44E0068670F /* MBPostDetailsViewController.h */,
 				94684F741CE1D44E0068670F /* MBPostDetailsViewController.m */,
 				94684F751CE1D44E0068670F /* MBPostDetailsViewController.xib */,
+				94DB1E0E1CE5718000ADAE9D /* MBSearchPostController.h */,
+				94DB1E0F1CE5718000ADAE9D /* MBSearchPostController.m */,
+				94DB1E101CE5718000ADAE9D /* MBSearchPostController.xib */,
+				94DB1E141CE5A59D00ADAE9D /* MBCollectionPostController.h */,
+				94DB1E151CE5A59D00ADAE9D /* MBCollectionPostController.m */,
+				94DB1E161CE5A59D00ADAE9D /* MBCollectionPostController.xib */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -4041,6 +4075,17 @@
 			name = SUN_VC;
 			sourceTree = "<group>";
 		};
+		94DB1E191CE5E69B00ADAE9D /* 自定义键盘View */ = {
+			isa = PBXGroup;
+			children = (
+				94DB1E1A1CE5E6EC00ADAE9D /* CommentView.h */,
+				94DB1E1B1CE5E6F500ADAE9D /* CommentView.m */,
+				94DB1E1D1CE5E70A00ADAE9D /* AutoFitSizeTextView.h */,
+				94DB1E1E1CE5E70A00ADAE9D /* AutoFitSizeTextView.m */,
+			);
+			name = "自定义键盘View";
+			sourceTree = "<group>";
+		};
 		94E24F6F1CBD16C200C8D6B6 /* ZLCamera */ = {
 			isa = PBXGroup;
 			children = (
@@ -4182,6 +4227,8 @@
 		94E2942F1C8AA6D80063E678 /* Tool(公用) */ = {
 			isa = PBXGroup;
 			children = (
+				94DB1E191CE5E69B00ADAE9D /* 自定义键盘View */,
+				940329F21CE49B5F00E0C5FA /* JSAndOC交互 */,
 				94CD32B31CC623E400D1D763 /* layout */,
 				9496D3A11CA3A0C400743586 /* 自动适应键盘高度 */,
 				94E9A4751C9056450002E15E /* MJRefresh封装 */,
@@ -4602,6 +4649,7 @@
 				943ED8101CCF7655005AF4D9 /* MBIDCardCell.xib in Resources */,
 				941BA95E1CB370B800421BF6 /* MBEvaluationSuccessController.xib in Resources */,
 				9496D3BF1CA3E0C400743586 /* MBNewAddressViewController.xib in Resources */,
+				94DB1E121CE5718000ADAE9D /* MBSearchPostController.xib in Resources */,
 				94E12F891C50E019001CE4E4 /* sunxinglong.png in Resources */,
 				94FA70671CE027D900BCC364 /* MBTopPostCell.xib in Resources */,
 				94D2CE581C8E99FC0013BA5D /* focus_image@2x.png in Resources */,
@@ -4662,6 +4710,7 @@
 				94E2943D1C8AB4690063E678 /* MBFocusOneCollectionViewCell.xib in Resources */,
 				94684F7E1CE1D67E0068670F /* img_default@2x.png in Resources */,
 				94E294381C8AADAE0063E678 /* MBToolCollectionViewCell.xib in Resources */,
+				94DB1E181CE5A59D00ADAE9D /* MBCollectionPostController.xib in Resources */,
 				947630101C3E8143006BB840 /* MBEditPicturesViewController.xib in Resources */,
 				94B131C31C89AB5500204CD9 /* MBcanulaCirclesViewController.xib in Resources */,
 				94050E911CBC87B600F0E64B /* MBLoginView.xib in Resources */,
@@ -4829,6 +4878,7 @@
 				9432E4891C7D9AF800A64668 /* NTalkerVoiceRightTableViewCell.m in Sources */,
 				941BA9581CB362CA00421BF6 /* MBServiceEvaluationController.m in Sources */,
 				94E24FB31CBD16C200C8D6B6 /* ZLCameraImageView.m in Sources */,
+				94DB1E111CE5718000ADAE9D /* MBSearchPostController.m in Sources */,
 				94E24FBC1CBD16C200C8D6B6 /* LGPhotoPickerBrowserPhotoView.m in Sources */,
 				94E24FC41CBD16C200C8D6B6 /* LGPhotoPickerCollectionView.m in Sources */,
 				420BF65C1BB537BB00C89C3C /* AppDelegate.m in Sources */,
@@ -4872,6 +4922,7 @@
 				48F9F4EB1B01F70C00ED4A5D /* MBTabBarViewController.m in Sources */,
 				944DC75C1C3F62C30005C647 /* YXLTagView.m in Sources */,
 				948CA9FA1BFECBB400318EAE /* openssl_wrapper.m in Sources */,
+				94DB1E1F1CE5E70A00ADAE9D /* AutoFitSizeTextView.m in Sources */,
 				9468468A1C7168F500D6881B /* DXLocationManager.m in Sources */,
 				94B8A1471C3E7A350004930A /* MBCameraViewController.m in Sources */,
 				9432E4751C7D9AF800A64668 /* HPGrowingTextView.m in Sources */,
@@ -4916,11 +4967,13 @@
 				941BA9541CB355FD00421BF6 /* WLZ_ChangeCountView.m in Sources */,
 				9463A2D61C7C2B6600B30892 /* orderHeadView.m in Sources */,
 				94510EB31C856327005DF311 /* MBcheshiCollectionViewCell.m in Sources */,
+				94DB1E1C1CE5E6F500ADAE9D /* CommentView.m in Sources */,
 				42ED8D171BAE6AAC00F458DE /* Order.m in Sources */,
 				944BB0561CAD187900D16E19 /* MBServiceDetailsViewController.m in Sources */,
 				48742C421B2BDF36000F188F /* MBClubViewController.m in Sources */,
 				48FAFD5E1B1FFAD6002D8DEC /* MBJoinCartViewController.m in Sources */,
 				9428A48F1CB778FB002D2A53 /* MBPayResultsHeadView.m in Sources */,
+				94DB1E171CE5A59D00ADAE9D /* MBCollectionPostController.m in Sources */,
 				94F2161F1CB5FFC9008852E1 /* MBServiceRefundController.m in Sources */,
 				941CCD261CB3B5D50056890C /* MBMyServiceController.m in Sources */,
 				94892D631CB49F5A00668A98 /* MBServiceOrderController.m in Sources */,
@@ -5147,6 +5200,7 @@
 				9408C8B51CA28A7400A1B5E0 /* MBTableViewRmbCell.m in Sources */,
 				9411619A1C46618200EE8B9A /* MBStyleCollectionViewCell.m in Sources */,
 				9432E4861C7D9AF800A64668 /* NTalkerTextLeftTableViewCell.m in Sources */,
+				940329F51CE49B8A00E0C5FA /* ObjCModel.m in Sources */,
 				94EBB0131C328DE000466E92 /* MBEvaluationViewView.m in Sources */,
 				42B4559D1BB92862003E555F /* MBAboutViewController.m in Sources */,
 			);

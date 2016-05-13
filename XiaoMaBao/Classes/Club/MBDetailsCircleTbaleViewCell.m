@@ -30,6 +30,8 @@
 }
 -(void)setArray:(NSArray *)array{
     _array = array;
+    
+    
     NSInteger num = array.count;
     if (array.count>0) {
         self.imageHeight.constant = (UISCREEN_WIDTH -16*3)/3*133/184;
@@ -49,4 +51,6 @@
     }
 
 }
+
+
 @end

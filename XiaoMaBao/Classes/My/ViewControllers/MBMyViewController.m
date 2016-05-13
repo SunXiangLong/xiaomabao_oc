@@ -63,7 +63,7 @@
         NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
         if (sid) {
             
-           [self setHeadUserData];
+//           [self setHeadUserData];
         }else{
             [self.collerctonView  removeFromSuperview];
             self.collerctonView = nil;
@@ -110,8 +110,8 @@
 
 #pragma mark -- 个人详情
 - (void)backView{
-    MBPersonalCanulaCircleViewController *VC = [[MBPersonalCanulaCircleViewController alloc] init];
-    [self pushViewController:VC Animated:YES];
+//    MBPersonalCanulaCircleViewController *VC = [[MBPersonalCanulaCircleViewController alloc] init];
+//    [self pushViewController:VC Animated:YES];
     
 }
 #pragma mark --获取用户麻包圈的基本信息
@@ -324,19 +324,15 @@
                 
                 
             }
-            
+              MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
             MBMyHeadView *headView = [MBMyHeadView instanceView];
             headView.frame = topView.frame;
             headView.user_image.layer.cornerRadius = (topView.ml_height-8)/2;
             [reusableview   addSubview:headView];
-            [headView.user_image sd_setImageWithURL:[NSURL URLWithString:_userDic[@"avatar"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-            headView.user_guanzhu.text  = _userDic[@"attentions"];
-            headView.user_price.text = _userDic[@"fans"];
-            headView.user_tiezi.text = _userDic[@"article"];
-           [headView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backView)]];
-            
+
+            [headView.user_image sd_setImageWithURL:URL(userInfo.header_img) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+            headView.user_name.text = userInfo.nick_name;
              
-            
             UIView *view = [[UIView alloc] init];
             view.frame = CGRectMake(0, CGRectGetMaxY(topView.frame)+10, UISCREEN_WIDTH, UISCREEN_WIDTH*150/960);
             view.backgroundColor = [UIColor colorWithHexString:@"d66263"];

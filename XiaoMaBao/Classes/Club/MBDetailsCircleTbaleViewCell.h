@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *post_time;
 @property (weak, nonatomic) IBOutlet UILabel *reply_cnt;
 
+
 @property (weak, nonatomic) IBOutlet UILabel *author_name;
 @property (weak, nonatomic) IBOutlet UIImageView *image1;
 @property (weak, nonatomic) IBOutlet UIImageView *image2;

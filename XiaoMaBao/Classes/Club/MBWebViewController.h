@@ -10,4 +10,5 @@
 
 @interface MBWebViewController : BkBaseViewController
 @property (nonatomic,strong) NSURL *url;
+@property (nonatomic,assign) BOOL isloging;
 @end

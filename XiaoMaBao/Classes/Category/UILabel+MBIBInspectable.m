@@ -20,6 +20,7 @@
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
     //调整间距
     [attributedString addAttribute:(__bridge NSString *)kCTKernAttributeName value:@(columnSpace) range:NSMakeRange(0, [attributedString length])];
+    
     self.attributedText = attributedString;
     
 }
@@ -31,11 +32,20 @@
 }
 - (void)setRowspace:(CGFloat)rowspace
 {
-    self.numberOfLines = 0;
+
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
     //调整行距
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineSpacing = rowspace;
+    if (self.numberOfLines != 0 ) {
+       paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;//结尾部分的内容以……方式省略
+    }else{
+        
+      self.numberOfLines = 0;
+    }
+    NSLog(@"%ld",(long)self.numberOfLines);
+    paragraphStyle.lineSpacing = self.numberOfLines;
+   
+    
     paragraphStyle.baseWritingDirection = NSWritingDirectionLeftToRight;
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [self.text length])];
     self.attributedText = attributedString;
@@ -77,6 +87,7 @@
     //调整行距
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineSpacing = rowSpace;
+    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
     paragraphStyle.baseWritingDirection = NSWritingDirectionLeftToRight;
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [self.text length])];
     self.attributedText = attributedString;

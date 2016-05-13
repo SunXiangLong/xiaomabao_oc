@@ -40,11 +40,12 @@
 
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return _dataArray.count;
+    return 2;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     NSArray *arr = _dataArray[section];
+    
     return arr.count;
 }
 

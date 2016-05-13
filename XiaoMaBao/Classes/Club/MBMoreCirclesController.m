@@ -439,11 +439,10 @@
     
     
     if (is_Join) {
-        [cell.user_button setTitle:@"-" forState:UIControlStateNormal];
-        cell.user_button.titleLabel.font = SYSTEMFONT(30);
+        cell.user_button.selected = YES;
+
     }else{
-        [cell.user_button setTitle:@"+" forState:UIControlStateNormal];
-        cell.user_button.titleLabel.font = SYSTEMFONT(30);
+        cell.user_button.selected = NO;
         
     }
   

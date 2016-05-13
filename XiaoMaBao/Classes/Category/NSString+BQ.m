@@ -11,12 +11,33 @@
 
 @implementation NSString (BQ)
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-- (CGSize) sizeWithFont:(UIFont *)font withMaxSize:(CGSize)size {
+- (CGSize) sizeWithFont:(UIFont *)font   withMaxSize:(CGSize)size {
     if (iOS_7) {
+    
         return [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: font} context:nil].size;
     }else{
         return [self sizeWithFont:font constrainedToSize:size];
     }
+}
+- (CGFloat) sizeWithFont:(UIFont *)font lineSpacing:(CGFloat)line  withMax:(CGFloat)size{
+    
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:self];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = line;
+    
+    [attributeString addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, self.length)];
+    [attributeString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, self.length)];
+    NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
+    
+    CGRect rect = [attributeString boundingRectWithSize:CGSizeMake(size, MAXFLOAT) options:options context:nil];
+    
+    if ((rect.size.height - font.lineHeight) <= style.lineSpacing) {
+        rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height-style.lineSpacing);
+    }
+    
+    return rect.size.height;
+ 
+
 }
 
 - (NSString *)md5{

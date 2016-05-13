@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -51,16 +51,16 @@
                         <constraint firstAttribute="height" constant="10" id="OcO-pV-4Vf"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVk-1a-eJJ">
-                    <rect key="frame" x="272" y="7" width="40" height="40"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVk-1a-eJJ">
+                    <rect key="frame" x="272" y="5" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="40" id="d6m-gh-INR"/>
                         <constraint firstAttribute="height" constant="40" id="dJA-80-0zr"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="28"/>
-                    <state key="normal" title="+">
-                        <color key="titleColor" red="0.91372549020000005" green="0.090196078430000007" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" image="mbq_add">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="selected" image="exit_image"/>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -68,7 +68,7 @@
                 <constraint firstItem="rKv-Um-Rsw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="0Le-Qt-ZoZ"/>
                 <constraint firstAttribute="trailing" secondItem="pro-6d-Ovr" secondAttribute="trailing" id="IVf-qT-L9Q"/>
                 <constraint firstItem="x7K-e8-NHi" firstAttribute="leading" secondItem="rKv-Um-Rsw" secondAttribute="trailing" constant="9" id="Idw-aU-64z"/>
-                <constraint firstItem="UVk-1a-eJJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="7" id="Ip1-kI-hqq"/>
+                <constraint firstItem="UVk-1a-eJJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="Ip1-kI-hqq"/>
                 <constraint firstItem="rKv-Um-Rsw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="RD0-ie-sNg"/>
                 <constraint firstItem="1Kh-ah-LKw" firstAttribute="leading" secondItem="rKv-Um-Rsw" secondAttribute="trailing" constant="8" id="UhK-W0-aan"/>
                 <constraint firstAttribute="bottom" secondItem="pro-6d-Ovr" secondAttribute="bottom" id="UyY-9m-90h"/>
@@ -89,6 +89,8 @@
         </view>
     </objects>
     <resources>
+        <image name="exit_image" width="14" height="1"/>
+        <image name="mbq_add" width="14" height="14"/>
         <image name="placeholder_num2" width="66" height="66"/>
     </resources>
 </document>
