@@ -9,5 +9,5 @@
 #import "BkBaseViewController.h"
 
 @interface MBMyCircleController : BkBaseViewController
-
+@property (nonatomic, strong) RACSubject *myCircleViewSubject;
 @end

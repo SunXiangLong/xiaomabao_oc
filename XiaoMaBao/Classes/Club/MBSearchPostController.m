@@ -22,6 +22,8 @@
   
     UILabel *_lable3;
     NSInteger _page;
+    
+   
   
     
 }
@@ -29,6 +31,13 @@
 @property (strong,nonatomic) NSString *searchString;
 @property (nonatomic, strong) NSArray *colorPool;
 @property (strong, nonatomic) SKTagView *tagView;
+/**
+ *  大家都在搜关键字数组
+ */
+@property (strong, nonatomic) NSArray *historydataArray;
+/**
+ *   搜索帖子结果数据
+ */
  @property (copy, nonatomic) NSMutableArray *dataArray;
 @end
 
@@ -53,20 +62,18 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     _page = 1;
-    
-    [self setHeacView];
+    [self everyoneData];
+   
 }
 - (UIView *)headView{
     UIView  *view = [[UIView alloc] init];
     view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 180);
 
-    UILabel *lable = [[UILabel alloc] init];//WithFrame:CGRectMake(10, 12, 100, 23)];
+    UILabel *lable = [[UILabel alloc] init];
     lable.text  = @"大家都在搜";
     lable .font = [UIFont systemFontOfSize:17];
     lable.textColor =  UIcolor(@"575c65");
     [view addSubview:_lable3 = lable];
-    
-    
     
     _topView = [[UIView alloc] init];
     [view addSubview:_topView];
@@ -76,13 +83,44 @@
     
     return view;
 }
-
+/**
+ *   大家都在搜数据
+ *
+ *  @return nil
+ */
+#pragma mark -- 大家都在搜数据
+- (void)everyoneData{
+    
+    [self show];
+    NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_hot_search_words"];
+    
+    [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self dismiss];
+         NSLog(@"%@",responseObject);
+        
+        if (responseObject) {
+            if ([[responseObject valueForKeyPath:@"data"] count]>0) {
+                _SearchHistoryArray = [responseObject   valueForKeyPath:@"data"];
+                 [self setHeacView];
+                               return ;
+            }
+            
+        }
+        
+        [self show:@"没有相关数据" time:1];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@",error);
+        [self show:@"请求失败" time:1];
+    }];
+    
+    
+}
 
 #pragma mark --headView布局
 - (void)setHeacView{
     
     self.colorPool = @[@"07ecef4", @"084ccc9", @"88abda",@"7dc1dd",@"b6b8de"];
-    _SearchHistoryArray = @[@"宝宝不睡觉", @"宝宝不开心", @"宝宝便秘", @"宝宝发烧", @"宝宝哭了",@"宝宝不吃饭", @"怀孕反应",@"怀孕6月"];
     
     _SearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, TOP_Y, UISCREEN_WIDTH , 55)];
     _SearchBar.backgroundImage =  [UIImage saImageWithSingleColor:[UIColor whiteColor]];

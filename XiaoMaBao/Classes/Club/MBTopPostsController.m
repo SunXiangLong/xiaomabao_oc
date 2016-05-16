@@ -53,11 +53,12 @@
 }
 #pragma mark -- 热帖数据数据
 - (void)setData{
-
+    [self show];
     NSString *page = s_Integer(_page);
     NSString *url = [NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/circle/get_circle_hot/",page];
     
     [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self dismiss];
 //      NSLog(@"%@",responseObject);
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {

@@ -132,7 +132,7 @@
     }];
     
     // 把监听到的通知转换信号
-    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardDidHideNotification object:nil] subscribeNext:^(id x) {
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] subscribeNext:^(id x) {
         
         @strongify(self);
        
@@ -172,12 +172,7 @@
     NSNumber *num  = dic[@"number"];
     NSIndexPath *indexPath = dic[@"indexPath"];
     NSIndexPath *rootIndexPath = dic[@"rootIndexPath"];
-    
-    NSLog(@"%@ %ld %@",_headArray,indexPath.row,_post_detail[@"circle_id"]);
-    if (!_headArray) {
-        
-    }
-    
+
     
     if (rootIndexPath.section == 0) {
         /**
@@ -546,7 +541,9 @@
         cellHeight += [number floatValue];
     }
     if (dic[@"comment_reply"]) {
-        
+        NSString *comment_reply_comment_content =  dic[@"comment_reply"][@"comment_content"];
+        CGFloat comment_reply_user_name_height =  [comment_reply_comment_content sizeWithFont: SYSTEMFONT(12) lineSpacing:3 withMax:UISCREEN_WIDTH -70];
+        cellHeight+=comment_reply_user_name_height;
         cellHeight+=40;
     }
     return cellHeight+104+ [comment_content sizeWithFont:SYSTEMFONT(14) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
@@ -596,11 +593,16 @@
     [cell.comment_content rowSpace:6];
     [cell.comment_content columnSpace:1];
     if (dic[@"comment_reply"]) {
+        
+        NSString *comment_reply_comment_content =  dic[@"comment_reply"][@"comment_content"];
+        CGFloat comment_reply_user_name_height =  [comment_reply_comment_content sizeWithFont: SYSTEMFONT(12) lineSpacing:3 withMax:UISCREEN_WIDTH -70];
         cell.comment_reply_user_name.text = dic[@"comment_reply"][@"user_name"];
         cell.comment_reply_comment_content.text = dic[@"comment_reply"][@"comment_content"];
         [cell.user_head_user_head sd_setImageWithURL:URL(dic[@"comment_reply"][@"user_head"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-        cell.comment_reply_height.constant  = 40;
+        cell.comment_reply_height.constant  = comment_reply_user_name_height+40;
         cell.commentView.hidden = NO;
+        [cell.comment_reply_comment_content rowSpace:3];
+        [cell.comment_reply_comment_content columnSpace:1];
     }else{
         cell.comment_reply_height.constant  = 0;
         cell.commentView.hidden = YES;
@@ -643,5 +645,12 @@
         }];
             }
 
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    [self.commentView endEditing:YES];
+    
 }
 @end

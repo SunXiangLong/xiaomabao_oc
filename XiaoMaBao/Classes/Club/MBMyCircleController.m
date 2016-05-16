@@ -25,38 +25,74 @@
      *  轮播图数组
      */
     NSArray *_bandImageArray;
-    /**
-     *  推荐麻包圈数组
-     */
-    NSMutableArray *_recommendArray;
-    /**
-     *  我的麻包圈数组
-     */
-    NSMutableArray *_myCircleArray;
-    
     
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+/**
+ *  推荐麻包圈数组
+ */
+@property (copy, nonatomic) NSMutableArray *recommendArray;
+/**
+ *  我的麻包圈数组
+ */
+@property (copy, nonatomic) NSMutableArray *myCircleArray;
 @end
 
 @implementation MBMyCircleController
 -(void)viewWillDisappear:(BOOL)animated{
-
+    
     [super viewWillDisappear:animated];
     [MobClick beginLogPageView:@"MBMyCircleController"];
+   
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [MobClick endLogPageView:@"MBMyCircleController"];
-     [self setShufflingFigureData];
+    [self setShufflingFigureData];
+}
+-(NSMutableArray *)recommendArray{
+    
+    if (!_recommendArray) {
+        
+        _recommendArray = [NSMutableArray   array];
+    }
+    return _recommendArray;
+}
+-(NSMutableArray *)myCircleArray{
+
+    if (!_myCircleArray) {
+        
+        _myCircleArray = [NSMutableArray   array];
+    }
+    return _myCircleArray;
+
+}
+- (RACSubject *)myCircleViewSubject {
+    
+    if (!_myCircleViewSubject) {
+        
+        _myCircleViewSubject = [RACSubject subject];
+    }
+    
+    return _myCircleViewSubject;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _recommendArray = [NSMutableArray array];
+    
     _tableView.delegate = self;
     _tableView.dataSource = self;
+
+    @weakify(self);
+    [[self.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *num) {
+        @strongify(self);
+        
+        if ([num integerValue] == 1) {
+            [self.recommendArray removeAllObjects];
+            [self.myCircleArray removeAllObjects];
+            [self setData];
+        }
+    }];
 }
 /**
  *  广告轮播图UI
@@ -90,26 +126,26 @@
                 
                 UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                 MBCheckInViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBCheckInViewController"];
-          
-
+                
+                
                 [self pushViewController:myView Animated:YES];
-               
+                
                 
             }
                 
-               
+                
                 break;
             case 1:{
-            
+                
                 
                 UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                 MBSharkViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBSharkViewController"];
                 [self pushViewController:myView Animated:YES];
-
+                
             }
-                                break;
+                break;
             case 2:
-               
+                
                 break;
             case 3:
             {
@@ -130,12 +166,12 @@
 #pragma mark -- 我的圈轮播图数据
 - (void)setShufflingFigureData{
     
-   
+    [self show];
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_circle_ads"];
     
     [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-//        NSLog(@"%@",responseObject);
+        //        NSLog(@"%@",responseObject);
         
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
@@ -165,13 +201,13 @@
         NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_recommend_cat"];
         
         [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-     
-//            NSLog(@"%@",responseObject);
+            [self dismiss];
+            //     NSLog(@"%@",responseObject);
             if (responseObject) {
+                [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
                 
-                _recommendArray = [NSMutableArray arrayWithArray:[responseObject valueForKeyPath:@"recommend"]];
                 _tableView.tableHeaderView = [self setHeaderView];
-             
+                
                 [_tableView reloadData];
                 return ;
                 
@@ -188,15 +224,17 @@
         NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/get_user_circle"];
         
         [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict} success:^(id responseObject) {
-   
-//            NSLog(@"%@",responseObject);
+            [self dismiss];
+            //            NSLog(@"%@",responseObject);
             
             if (responseObject) {
-                 _myCircleArray = [NSMutableArray arrayWithArray:[responseObject valueForKeyPath:@"user_circle"]];
-                 _recommendArray = [NSMutableArray arrayWithArray:[responseObject valueForKeyPath:@"recommend"]];
+                
+                [self.myCircleArray addObjectsFromArray:[responseObject valueForKeyPath:@"user_circle"]];
+                [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
                 _tableView.tableHeaderView = [self setHeaderView];
-             
+                [self myCircleDefaults];
                 [_tableView reloadData];
+                
                 return ;
                 
             }
@@ -222,22 +260,30 @@
         [self loginClicksss];
         return;
     }
+    [self show];
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/join_circle"];
     
-    [self show];
-    
+  
     [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict,@"circle_id":circle_id} success:^(id responseObject) {
+      [self dismiss];
         if ([[responseObject  valueForKeyPath:@"status"]isEqualToNumber:@1]) {
-            
+           
             if (indexPath.section==0) {
-                [self prompt:indexPath];
+                [self show:@"成功退出" and:_myCircleArray[indexPath.row][@"circle_name"] time:1];
+                [_recommendArray addObject:_myCircleArray[indexPath.row]];
+                [_myCircleArray removeObjectAtIndex:indexPath.row];
+                [self myCircleDefaults];
+                [self.tableView reloadData];
+
                 
             }else{
                 [self show:@"成功加入 " and:_recommendArray[indexPath.row][@"circle_name"] time:1];
                 [_myCircleArray addObject:_recommendArray[indexPath.row]];
                 [_recommendArray removeObjectAtIndex:indexPath.row];
+                
+                 [self myCircleDefaults];
                 [self.tableView reloadData];
             }
             
@@ -287,7 +333,7 @@
         case 3: {
             MBWebViewController *VC = [[MBWebViewController alloc] init];
             VC.url =  [NSURL URLWithString:_bandImageArray[index][@"ad_con"]];
-
+            
             VC.title = _bandImageArray[index][@"ad_name"];
             [self pushViewController:VC Animated:YES];
             
@@ -307,7 +353,7 @@
     }
     
 }
-
+#pragma mark -- UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
     return 2;
@@ -337,6 +383,8 @@
     }
     return 41;
 }
+
+#pragma mark -- UITableViewDelegate
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor whiteColor];
@@ -406,7 +454,7 @@
         cell.user_button.selected = NO;
         
     }else{
-          cell.user_button.selected = YES;
+        cell.user_button.selected = YES;
         if (_myCircleArray.count==0) {
             cell.noLable.hidden = NO;
             cell.selectionStyle =  UITableViewCellSelectionStyleNone;
@@ -424,15 +472,16 @@
             return ;
         }
         
-        NSDictionary *dic;
+      
         if (indexPath.section == 0) {
-            dic = _myCircleArray[indexPath.row];
+            [self prompt:indexPath];
             
         }else{
-            dic = _recommendArray[indexPath.row];
+       
+             [self setJoin_circle:_recommendArray[indexPath.row][@"circle_id"] indexPath:indexPath];
             
         }
-        [self setJoin_circle:dic[@"circle_id"] indexPath:indexPath];
+       
         
     }];
     
@@ -441,14 +490,14 @@
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     NSDictionary *dic;
     if (indexPath.section == 0) {
         dic = _myCircleArray[indexPath.row];
         
     }else{
         dic = _recommendArray[indexPath.row];
-
+        
     }
     NSString *str ;
     if (indexPath.section == 0) {
@@ -463,6 +512,16 @@
     VC.circle_logo = dic[@"circle_logo"];
     VC.is_join = str;
     [self pushViewController:VC Animated:YES];
+}
+/**
+ *  保存我的麻包圈数据，和更多圈数据比较，（更多圈数据未分类）
+ */
+- (void)myCircleDefaults{
+    NSArray *myCircleArr = _myCircleArray;
+    [User_Defaults setObject:myCircleArr forKey:@"myCircle"];
+    [User_Defaults synchronize];
+    
+   
 }
 - (void)prompt:(NSIndexPath *)indexPath{
     
@@ -480,11 +539,8 @@
     [alertCancel setValue:alertControllerStr forKey:@"attributedTitle"];
     
     UIAlertAction *reloadAction = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self show:@"成功退出" and:str time:1];
-        [_recommendArray addObject:_myCircleArray[indexPath.row]];
-        [_myCircleArray removeObjectAtIndex:indexPath.row];
-        
-        [self.tableView reloadData];
+        [self setJoin_circle:_myCircleArray[indexPath.row][@"circle_id"] indexPath:indexPath];
+
         
     }];
     [reloadAction setValue:UIcolor(@"575c65") forKey:@"titleTextColor"];

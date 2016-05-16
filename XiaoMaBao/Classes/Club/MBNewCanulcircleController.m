@@ -12,6 +12,7 @@
 #import "MBSearchPostController.h"
 #import "MBShopDetailsViewController.h"
 #import "MBMyCircleController.h"
+#import "MBNewsCircleController.h"
 @interface MBNewCanulcircleController ()<UIScrollViewDelegate>
 {
     UIButton *_lastButton;
@@ -114,13 +115,26 @@
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 - (NSString *)rightImage{
+    
     return @"search_image";
+}
+- (NSString *)leftImage{
+    
+   return @"newsCircle_image";
+    
 }
 - (void)rightTitleClick{
     
-   
     MBSearchPostController *searchVc = [[MBSearchPostController alloc] init];
+    
     [self pushViewController:searchVc Animated:YES];
+}
+-(void)leftTitleClick{
+    
+    MBNewsCircleController *searchVc = [[MBNewsCircleController alloc] init];
+    
+    [self pushViewController:searchVc Animated:YES];
+
 }
 -(NSString *)titleStr{
     return @"麻包圈";
@@ -134,17 +148,22 @@
 {
     if (![_lastButton isEqual:titleButton]) {
         
-        MBMoreCirclesController *view = self.childViewControllers[2];
-        
+        MBMoreCirclesController *moreCirclesView = self.childViewControllers[2];
+        MBMyCircleController    *myCircleView = self.childViewControllers[0];
         
         if (titleButton.tag==2) {
             
-            [view.myCircleViewSubject  sendNext:@1];
+            [moreCirclesView.myCircleViewSubject  sendNext:@1];
         }else{
-            if (view.isViewLoaded) {
-                 [view.myCircleViewSubject  sendNext:@0];
+            if (moreCirclesView.isViewLoaded) {
+                 [moreCirclesView.myCircleViewSubject  sendNext:@0];
             }
         }
+        
+        if (titleButton.tag == 0) {
+             [myCircleView.myCircleViewSubject  sendNext:@1];
+        }
+        
         // 让scrollView滚动到对应的位置
         _lastButton.backgroundColor = NavBar_Color;
         _lastButton = titleButton;

@@ -32,20 +32,23 @@
     _webView.delegate = self;
     _webView.backgroundColor = [UIColor colorR:205 colorG:222 colorB:232];
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL(@"http://www.xiaomabao.com/testapp.html") cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
+    NSURLRequest *request = [NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
 
     
-        [self deleteCookie];
-         [self setCookie];
+    [self deleteCookie];
+    [self setCookie];
     [_webView loadRequest:request];
     
 }
+/**
+ *   删除cookie
+ */
 - (void)deleteCookie{
     NSHTTPCookie *cookie;
     
     NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     
-    NSArray *cookieAry = [cookieJar cookiesForURL: [NSURL URLWithString:@"http://www.xiaomabao.com"]];
+    NSArray *cookieAry = [cookieJar cookiesForURL: self.url];
     
     for (cookie in cookieAry) {
         
@@ -53,13 +56,16 @@
         
     }  
 }
+/**
+ *   注册cookie
+ */
 - (void)setCookie{
     NSMutableDictionary *cookieProperties = [NSMutableDictionary dictionary];
    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
    [cookieProperties setObject:@"ECS_ID" forKey:NSHTTPCookieName];
    [cookieProperties setObject:sid forKey:NSHTTPCookieValue];
-    [cookieProperties setObject:@"www.xiaomabao.com" forKey:NSHTTPCookieDomain];
-    [cookieProperties setObject:@"www.xiaomabo.com" forKey:NSHTTPCookieOriginURL];
+    [cookieProperties setObject:self.url forKey:NSHTTPCookieDomain];
+    [cookieProperties setObject:self.url forKey:NSHTTPCookieOriginURL];
     [cookieProperties setObject:@"/" forKey:NSHTTPCookiePath];
     [cookieProperties setObject:@"0" forKey:NSHTTPCookieVersion];
     [cookieProperties setValue:[NSDate dateWithTimeIntervalSinceNow:60*60*24*360] forKey:NSHTTPCookieExpires];

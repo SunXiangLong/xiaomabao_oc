@@ -13,6 +13,9 @@
 #import "MBLoginViewController.h"
 @interface MBDetailsCircleController ()
 {
+    /**
+     *  页数
+     */
     NSInteger _page;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

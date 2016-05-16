@@ -371,6 +371,8 @@
 		944DCD1D1C9B9D13003B5CC2 /* MBCategoryViewTwoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944DCD1B1C9B9D13003B5CC2 /* MBCategoryViewTwoCell.xib */; };
 		944DCD211C9BF6C0003B5CC2 /* MBDetailedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944DCD1F1C9BF6C0003B5CC2 /* MBDetailedViewController.m */; };
 		944DCD221C9BF6C0003B5CC2 /* MBDetailedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944DCD201C9BF6C0003B5CC2 /* MBDetailedViewController.xib */; };
+		944E3BE11CE99A73001C1F76 /* MBNewsCircleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944E3BDF1CE99A73001C1F76 /* MBNewsCircleController.m */; };
+		944E3BE21CE99A73001C1F76 /* MBNewsCircleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944E3BE01CE99A73001C1F76 /* MBNewsCircleController.xib */; };
 		9450025D1C22C18700820F5F /* MBOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9450025B1C22C18700820F5F /* MBOrderCell.m */; };
 		9450025E1C22C18700820F5F /* MBOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9450025C1C22C18700820F5F /* MBOrderCell.xib */; };
 		94510C751CE363FF006CC5AB /* MBPostDetailsHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94510C741CE363FF006CC5AB /* MBPostDetailsHeadView.m */; };
@@ -1355,6 +1357,9 @@
 		944DCD1E1C9BF6C0003B5CC2 /* MBDetailedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBDetailedViewController.h; sourceTree = "<group>"; };
 		944DCD1F1C9BF6C0003B5CC2 /* MBDetailedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBDetailedViewController.m; sourceTree = "<group>"; };
 		944DCD201C9BF6C0003B5CC2 /* MBDetailedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBDetailedViewController.xib; sourceTree = "<group>"; };
+		944E3BDE1CE99A73001C1F76 /* MBNewsCircleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBNewsCircleController.h; sourceTree = "<group>"; };
+		944E3BDF1CE99A73001C1F76 /* MBNewsCircleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBNewsCircleController.m; sourceTree = "<group>"; };
+		944E3BE01CE99A73001C1F76 /* MBNewsCircleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBNewsCircleController.xib; sourceTree = "<group>"; };
 		9450025A1C22C18700820F5F /* MBOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBOrderCell.h; sourceTree = "<group>"; };
 		9450025B1C22C18700820F5F /* MBOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBOrderCell.m; sourceTree = "<group>"; };
 		9450025C1C22C18700820F5F /* MBOrderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBOrderCell.xib; sourceTree = "<group>"; };
@@ -3387,6 +3392,9 @@
 				94DB1E141CE5A59D00ADAE9D /* MBCollectionPostController.h */,
 				94DB1E151CE5A59D00ADAE9D /* MBCollectionPostController.m */,
 				94DB1E161CE5A59D00ADAE9D /* MBCollectionPostController.xib */,
+				944E3BDE1CE99A73001C1F76 /* MBNewsCircleController.h */,
+				944E3BDF1CE99A73001C1F76 /* MBNewsCircleController.m */,
+				944E3BE01CE99A73001C1F76 /* MBNewsCircleController.xib */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -4718,6 +4726,7 @@
 				9450025E1C22C18700820F5F /* MBOrderCell.xib in Resources */,
 				94095B641CC4F18000859D03 /* MBTopCargoTwoCell.xib in Resources */,
 				94B131AC1C89950500204CD9 /* comment_image.png in Resources */,
+				944E3BE21CE99A73001C1F76 /* MBNewsCircleController.xib in Resources */,
 				94FA70621CE0272200BCC364 /* MBTopPostsController.xib in Resources */,
 				941531D81CBF414500B2AB1E /* btn_back_imagePicker@2x.png in Resources */,
 				424097E11BB3D429002DB272 /* tempShow_03.png in Resources */,
@@ -4935,6 +4944,7 @@
 				48162F431AF2866900E61D5C /* BkBaseViewController.m in Sources */,
 				420BF6601BB537BB00C89C3C /* MJArgument.m in Sources */,
 				94684F7B1CE1D4CC0068670F /* MBPostDetailsViewCell.m in Sources */,
+				944E3BE11CE99A73001C1F76 /* MBNewsCircleController.m in Sources */,
 				9432E48A1C7D9AF800A64668 /* XNEvaluateCell.m in Sources */,
 				94FDD0B41C57565C007B2A42 /* MBBabyImageCollectionViewCell.m in Sources */,
 				94FDD09A1C5745AF007B2A42 /* MBSecurityTipTableViewCell.m in Sources */,
