@@ -8,7 +8,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MBNewsCircleController">
             <connections>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="tableView" destination="Sbd-dQ-ZAw" id="OmF-P4-xEd"/>
+                <outlet property="topView" destination="uUP-6N-ta5" id="VIV-fL-Pfx"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="XJF-UE-y8A"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -19,18 +21,22 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Sbd-dQ-ZAw">
                     <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="rBW-Cs-NUx"/>
+                        <outlet property="delegate" destination="-1" id="qdm-q4-hEr"/>
+                    </connections>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uUP-6N-ta5">
                     <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noNews_image" translatesAutoresizingMaskIntoConstraints="NO" id="ijQ-3l-5gJ">
-                            <rect key="frame" x="115" y="60" width="90" height="161"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="ijQ-3l-5gJ">
+                            <rect key="frame" x="130" y="80" width="60" height="83.5"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="ijQ-3l-5gJ" secondAttribute="height" multiplier="111:198" id="yh2-5O-uua"/>
+                                <constraint firstAttribute="width" secondItem="ijQ-3l-5gJ" secondAttribute="height" multiplier="197:273" id="yh2-5O-uua"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂时没有消息，先去麻包圈逛一圈吧。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qQG-g2-lfi">
-                            <rect key="frame" x="24" y="236" width="272" height="19.5"/>
+                            <rect key="frame" x="24" y="178.5" width="272" height="19.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" red="0.54509803921568623" green="0.5490196078431373" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -38,10 +44,10 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="ijQ-3l-5gJ" firstAttribute="top" secondItem="uUP-6N-ta5" secondAttribute="top" constant="60" id="Kak-SZ-4RS"/>
+                        <constraint firstItem="ijQ-3l-5gJ" firstAttribute="top" secondItem="uUP-6N-ta5" secondAttribute="top" constant="80" id="Kak-SZ-4RS"/>
                         <constraint firstItem="qQG-g2-lfi" firstAttribute="top" secondItem="ijQ-3l-5gJ" secondAttribute="bottom" constant="15" id="Pas-kR-eHO"/>
-                        <constraint firstAttribute="trailing" secondItem="ijQ-3l-5gJ" secondAttribute="trailing" constant="115" id="Tpq-67-xxy"/>
-                        <constraint firstItem="ijQ-3l-5gJ" firstAttribute="leading" secondItem="uUP-6N-ta5" secondAttribute="leading" constant="115" id="eSC-C8-bW5"/>
+                        <constraint firstAttribute="trailing" secondItem="ijQ-3l-5gJ" secondAttribute="trailing" constant="130" id="Tpq-67-xxy"/>
+                        <constraint firstItem="ijQ-3l-5gJ" firstAttribute="leading" secondItem="uUP-6N-ta5" secondAttribute="leading" constant="130" id="eSC-C8-bW5"/>
                         <constraint firstItem="qQG-g2-lfi" firstAttribute="centerX" secondItem="ijQ-3l-5gJ" secondAttribute="centerX" id="xtW-iC-BsE"/>
                     </constraints>
                 </view>
@@ -62,6 +68,6 @@
         </view>
     </objects>
     <resources>
-        <image name="noNews_image" width="55" height="99"/>
+        <image name="login_image.png" width="98" height="136"/>
     </resources>
 </document>

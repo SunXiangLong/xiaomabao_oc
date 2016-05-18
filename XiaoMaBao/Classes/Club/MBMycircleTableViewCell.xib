@@ -23,13 +23,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1-3岁宝宝" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mg3-bI-yDR">
-                        <rect key="frame" x="60" y="15" width="55" height="14.5"/>
+                        <rect key="frame" x="60.5" y="15" width="55" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.83921568627450982" green="0.38431372549019605" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="宝宝心里苦，但是宝宝不说" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DwK-XS-hmh">
-                        <rect key="frame" x="60" y="33" width="132" height="13.5"/>
+                        <rect key="frame" x="60.5" y="33" width="197" height="13.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.3411764705882353" green="0.36078431372549019" blue="0.42745098039215684" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -42,7 +42,7 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qxJ-0h-73c">
-                        <rect key="frame" x="238" y="-2.5" width="102" height="66"/>
+                        <rect key="frame" x="257.5" y="0.0" width="62.5" height="62.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="qxJ-0h-73c" secondAttribute="height" multiplier="1:1" id="YIJ-7R-MxE"/>
@@ -55,7 +55,7 @@
                             <action selector="touch:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VgR-Lx-IFn"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您还没加入任何圈子，点击加入吧" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q7W-dE-aAN">
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您还没加入任何圈子，点击加入吧" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q7W-dE-aAN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="63.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -71,6 +71,7 @@
                     <constraint firstItem="rs5-0g-3l2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Dzv-hg-e21"/>
                     <constraint firstAttribute="trailing" secondItem="q7W-dE-aAN" secondAttribute="trailing" id="FrW-Dq-C6C"/>
                     <constraint firstAttribute="bottom" secondItem="q7W-dE-aAN" secondAttribute="bottom" id="JNY-Cb-Zcg"/>
+                    <constraint firstItem="qxJ-0h-73c" firstAttribute="leading" secondItem="DwK-XS-hmh" secondAttribute="trailing" id="JVv-jX-dsy"/>
                     <constraint firstItem="qxJ-0h-73c" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Kfk-kZ-She"/>
                     <constraint firstItem="q7W-dE-aAN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Lpf-x9-Ul8"/>
                     <constraint firstItem="QYs-X8-VIk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="O25-6D-go5"/>

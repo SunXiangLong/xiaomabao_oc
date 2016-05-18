@@ -1,212 +1,89 @@
 //
-//  MBReleaseTopicViewController.m
+//  MBPublishedViewController.m
 //  XiaoMaBao
 //
-//  Created by liulianqi on 16/5/9.
+//  Created by liulianqi on 16/1/26.
 //  Copyright © 2016年 HuiBei. All rights reserved.
 //
 
-#import "MBReleaseTopicViewController.h"
-#import "LGPhotoPickerViewController.h"
+#import "MBPostReplyController.h"
 #import "PhotoCollectionViewCell.h"
 #import "LGPhotoPickerViewController.h"
 #import "LGPhoto.h"
-@interface MBReleaseTopicViewController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SDPhotoBrowserDelegate,UICollectionViewDelegate,LGPhotoPickerViewControllerDelegate,PhotoCollectionViewCellDelegate>
+#import "MBWeatherTableViewCell.h"
+#import "MBWeatherAndMoodViewController.h"
+@interface MBPostReplyController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SDPhotoBrowserDelegate,PhotoCollectionViewCellDelegate,LGPhotoPickerViewControllerDelegate>
 {
-
+    /**
+     *   图片数据
+     */
+    NSMutableArray *_photoArray;
     /**
      *  图片选择类
      */
     SDPhotoBrowser *browser;
-
+    
+    
     
 }
+
+
 /**
- *  选取图片视图
- */
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-/**
- *  发表内容
+ *  回复textView
  */
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 /**
- *  没有发表内容的placeholder
+ *  没有回复内容提示
  */
 @property (weak, nonatomic) IBOutlet UILabel *lable;
 /**
- *  图片显示器分类
+ *  图片展示CollectionView
  */
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+/**
+ *  CollectionView的长度
+ */
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *width;
+
+
 @property (nonatomic, assign) LGShowImageType showType;
-/**
- *   发表话题的标题
- */
-@property (weak, nonatomic) IBOutlet UITextField *textField;
-/**
- *  collectionView距离底部的约束
- */
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom;
-/**
- *  存放图片数组
- */
-@property (copy, nonatomic) NSMutableArray  *photoArray;;
+
 @end
 
-@implementation MBReleaseTopicViewController
--(NSMutableArray *)photoArray{
-    if (!_photoArray) {
-        _photoArray = [NSMutableArray array];
-    }
-    return _photoArray;
+@implementation MBPostReplyController
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MBPostReplyController"];
+    
+    
+    
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"MBPostReplyController"];
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    [self setCollectionViewHeight];
+    
+    _photoArray = [NSMutableArray array];
+    [_photoArray addObject:[UIImage imageNamed:@"addPhoto_image"]];
 
- 
-    [self.photoArray addObject:[UIImage imageNamed:@"postCamera_image"]];
     
-    
-    UICollectionViewFlowLayout *flowLayout = ({
-        UICollectionViewFlowLayout *flowLayout =  [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        flowLayout;
-    });
-    
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.minimumInteritemSpacing =5;
+    flowLayout.minimumLineSpacing = 5;
     self.collectionView.collectionViewLayout = flowLayout;
-    self.collectionView.showsHorizontalScrollIndicator = NO;
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
     [ self.collectionView registerNib:[UINib nibWithNibName:@"PhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PhotoCollectionViewCell"];
     
-    @weakify(self);
-    // 把监听到的通知转换信号
-    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillShowNotification object:nil] subscribeNext:^(id x) {
-         @strongify(self);
-    
-        //获取键盘的高度
-        NSDictionary *userInfo = [x userInfo];
-        NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-        CGRect keyboardRect = [aValue CGRectValue];
-        CGFloat height = keyboardRect.size.height;
-        [UIView animateWithDuration:.3 animations:^{
-          self.bottom.constant = height;
-        }];
-      
-        
-    }];
-    
-    // 把监听到的通知转换信号
-    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardDidHideNotification object:nil] subscribeNext:^(id x) {
-      
-         @strongify(self);
-        if (self.bottom.constant != 0  ) {
-            [UIView animateWithDuration:.3 animations:^{
-                   self.bottom.constant = 0;
-            }];
-         
-        }
-    
-    }];
-
-    
-}
-- (NSString *)rightStr{
-    
-   return @"发送";
-
-}
-- (NSString *)titleStr{
-    
-   return @"发布话题";
-}
-- (void)rightTitleClick{
-    
-    if (_textField.text.length ==0 ) {
-        [self show:@"请输入标题" time:1];
-        return;
-    }
-    if (_textView.text.length ==0) {
-        [self show:@"输入内容不能为空" time:1];
-        return;
-    }
-    
-    [self getsubData];
-    
-}
-/**
- *  提交数据（图片和文字）
- */
--(void)getsubData
-{
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    
-    
-    [self showProgress];
-    
-    
-    
-    
-    
-    AFHTTPRequestOperation *fileUploadOp =
-  [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/add_post"]
-            parameters:@{@"session":sessiondict,@"post_content":_textView.text,@"circle_id":self.circle_id,@"post_title":_textField.text}
-     
-constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-    UIImage *image = [[UIImage alloc] init];
-    if (_photoArray.count>1) {
-        for (int i = 0; i<_photoArray.count-1; i++) {
-            if ([_photoArray[i]isKindOfClass:[UIImage class]]) {
-                image = _photoArray[i];
-            }else{
-                LGPhotoAssets *photo = _photoArray [i];
-                image = photo.originImage;
-            }
-          
-            NSData * data = UIImageJPEGRepresentation(image,0.5);
-            if(data != nil){
-                [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"photo[]"] fileName:[NSString stringWithFormat:@"photo%d.jpg",i]mimeType:@"image/jpeg"];
-            }
-            
-        }
-        
-        
-    }
-    
-}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   NSLog(@"success:%@",[responseObject valueForKeyPath:@"status"]);
-                   if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
-                       [self show:@"发表成功" time:1];
-                       
-                       
-                    [self popViewControllerAnimated:YES];
-                   }else{
-                       
-                       [self show:@"保存失败" time:1];
-                   }
-                   
-                   
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                   NSLog(@"%@",error);
-                   [self show:@"请求失败！" time:1];
-               }
-     ];
-    
-    [fileUploadOp setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        CGFloat progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
-        NSLog(@"上传进度:%f",progress);
-        self.progress = progress;
-        
-    }];
     
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 #pragma mark --相册多选
 /**
  *  初始化相册选择器
@@ -214,14 +91,26 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
 - (void)presentPhotoPickerViewControllerWithStyle:(LGShowImageType)style {
     LGPhotoPickerViewController *pickerVc = [[LGPhotoPickerViewController alloc] initWithShowType:style];
     pickerVc.status = PickerViewShowStatusCameraRoll;
-    pickerVc.maxCount = 7-_photoArray.count;   // 最多能选6张图片
+    pickerVc.maxCount = 6;   // 最多能选9张图片
     pickerVc.delegate = self;
     self.showType = style;
     [pickerVc showPickerVc:self];
 }
 
 
-
+#pragma mark --确定collectview的长度
+- (void)setCollectionViewHeight{
+    
+    if (_photoArray.count>4) {
+        _width.constant = ((UISCREEN_WIDTH-45)/4+5)*2;
+    }  else{
+        _width.constant = (UISCREEN_WIDTH-45)/4+5;
+        
+    }
+}
+-(NSString *)titleStr{
+    return self.title?:@"";
+}
 #pragma maek -- 拍照或从相机获取图片
 - (void)setCamera{
     if ([[[UIDevice currentDevice] systemVersion] floatValue] > 7.99) {
@@ -252,14 +141,104 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [self presentViewController:alertController animated:YES completion:nil];
     }
 }
+
+-(NSString *)rightStr{
+    return @"发表";
+}
+- (void)rightTitleClick{
+    
+    if (_textView.text.length ==0) {
+        [self show:@"输入内容不能为空" time:1];
+        return;
+    }
+    [self setreply:_textView.text];
+}
+- (void)setreply:(NSString *)comment_content{
+    {
+        NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+        NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+        
+        NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+        
+        NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/add_comment"];
+
+    [self showProgress];
+    
+    
+    
+    
+    AFHTTPRequestOperation *fileUploadOp =   [MBNetworking POST:url
+                                                     parameters:@{@"session":sessiondict,@"post_id":self.post_id,@"comment_reply_id":self.comment_reply_id,@"comment_content":comment_content}
+                                              
+                                      constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                                          UIImage *image = [[UIImage alloc] init];
+                                          if (_photoArray.count>1) {
+                                              for (int i = 0; i<_photoArray.count-1; i++) {
+                                                  if ([_photoArray[i]isKindOfClass:[UIImage class]]) {
+                                                      image = _photoArray[i];
+                                                  }else{
+                                                      LGPhotoAssets *photo = _photoArray [i];
+                                                      image = photo.thumbImage;
+                                                  }
+                                                  NSData * data = [UIImage reSizeImageData:image maxImageSize:800 maxSizeWithKB:800];
+                                                  if(data != nil){
+                                                      [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"photo[]"] fileName:[NSString stringWithFormat:@"photo%d.jpg",i]mimeType:@"image/jpeg"];
+                                                  }
+                                                  
+                                              }
+                                              
+                                              
+                                          }
+                                          
+                                      }
+                                                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                            NSLog(@"success:%@",[responseObject valueForKeyPath:@"status"]);
+                                                            if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
+                                                                
+                                                                [self dismiss];
+                                                                [self popViewControllerAnimated:YES];
+                                                            }else{
+                                                                
+                                                                [self show:@"保存失败" time:1];
+                                                            }
+                                                            
+                                                            
+                                                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                            NSLog(@"%@",error);
+                                                            [self show:@"请求失败！" time:1];
+                                                        }
+                                              ];
+    
+    [fileUploadOp setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        CGFloat progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
+        NSLog(@"上传进度:%f",progress);
+        self.progress = progress;
+        
+        
+    }];
+    
+    
+    
+    
+    }
+    
+    
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (void)pickerViewControllerDoneAsstes:(NSArray *)assets isOriginal:(BOOL)original{
-  for ( LGPhotoAssets *photo in assets) {
-         
-         [_photoArray insertObject:photo atIndex:0];
-     }
     
     
+    for ( LGPhotoAssets *photo in assets) {
+        
+        [_photoArray insertObject:photo atIndex:0];
+    }
     
+    
+    [self setCollectionViewHeight];
     [self.collectionView reloadData];
     
 }
@@ -272,22 +251,24 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         self.lable.text  = @"";
         
     }else{
-        self.lable.text  = @"内容，好内容上头条～";
+        self.lable.text  = @"回复内容...";
     }
     
     
     
 }
-
 #pragma mark ---UICollectionViewDelegate
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 10, 10);
+    UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 0, 0);
     return insets;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return CGSizeMake(70,70);
+    if (indexPath.item ==6) {
+        return CGSizeMake(0, 0);
+    }
+    return CGSizeMake((UISCREEN_WIDTH-45)/4,(UISCREEN_WIDTH-45)/4);
     
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -333,13 +314,15 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     }
     
     
-    SDPhotoBrowser *photoBrowser = [SDPhotoBrowser new];
-    photoBrowser.delegate = self;
-    photoBrowser.currentImageIndex = indexPath.item;
-    photoBrowser.imageCount = _photoArray.count-1;
-    photoBrowser.sourceImagesContainerView = self.collectionView;
     
-    [photoBrowser show];
+    UICollectionViewCell *cell = [_collectionView cellForItemAtIndexPath:indexPath];
+    browser = [[SDPhotoBrowser alloc] init];
+    browser.currentImageIndex =indexPath.row;
+    //        browser.isremove = YES;
+    browser.sourceImagesContainerView = cell.contentView;
+    browser.imageCount = _photoArray.count-1;
+    browser.delegate = self;
+    [browser show];
     
     
 };
@@ -358,6 +341,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
         if (image) {
             [_photoArray insertObject:image atIndex:0 ];
+            [self setCollectionViewHeight];
             [self.collectionView reloadData];
         }
         
@@ -391,6 +375,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     [_photoArray removeObjectAtIndex:index];
     
     [self show:@"删除成功" time:1];
+    [self setCollectionViewHeight];
     NSIndexPath *indexpath = [NSIndexPath indexPathForItem:index inSection:0];
     [self.collectionView deleteItemsAtIndexPaths:@[indexpath]];
     
@@ -421,7 +406,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     [self presentViewController:alertController animated:YES completion:nil];
     
 }
-
 
 
 @end

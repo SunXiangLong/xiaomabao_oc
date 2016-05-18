@@ -135,10 +135,13 @@
             /**
              *  获取保存在本地的我的圈数据
              */
-            NSArray *myCircleArr = [User_Defaults objectForKey:@"myCircle"];
-            self.myCircleArray  = [NSMutableArray arrayWithArray:myCircleArr];
-            [self.is_joinArray removeAllObjects];
-            [self setCircleData];
+            if (self.is_joinArray.count >0 ) {
+                NSArray *myCircleArr = [User_Defaults objectForKey:@"myCircle"];
+                self.myCircleArray  = [NSMutableArray arrayWithArray:myCircleArr];
+                [self.is_joinArray removeAllObjects];
+                [self setCircleData];
+            }
+           
             
         }
     }];
@@ -153,7 +156,7 @@
    
     [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self dismiss];
-
+        [self dismiss];
         if (responseObject) {
            _OneLevel = [responseObject valueForKeyPath:@"data"];
            

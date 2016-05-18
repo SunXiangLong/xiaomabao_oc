@@ -9,5 +9,12 @@
 #import "BkBaseViewController.h"
 
 @interface MBReleaseTopicViewController : BkBaseViewController
+/**
+ *  帖子id
+ */
+@property (nonatomic,strong) NSString *circle_id;
+
+
+
 
 @end

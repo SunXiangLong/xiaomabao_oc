@@ -266,6 +266,8 @@
 		9428A4941CB77A79002D2A53 /* MBPayResultsFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9428A4931CB77A79002D2A53 /* MBPayResultsFootView.xib */; };
 		9428A4981CB77B6F002D2A53 /* MBPayResultsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9428A4961CB77B6F002D2A53 /* MBPayResultsCell.m */; };
 		9428A4991CB77B6F002D2A53 /* MBPayResultsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9428A4971CB77B6F002D2A53 /* MBPayResultsCell.xib */; };
+		9428EB3F1CEB045B00EBCB78 /* MBPostReplyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9428EB3D1CEB045B00EBCB78 /* MBPostReplyController.m */; };
+		9428EB401CEB045B00EBCB78 /* MBPostReplyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9428EB3E1CEB045B00EBCB78 /* MBPostReplyController.xib */; };
 		942A5C631C12D5980083C382 /* MBRefundScheduleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 942A5C611C12D5980083C382 /* MBRefundScheduleTableViewCell.m */; };
 		942A5C641C12D5980083C382 /* MBRefundScheduleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 942A5C621C12D5980083C382 /* MBRefundScheduleTableViewCell.xib */; };
 		942C65841C464DA30053B23A /* MBSellingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 942C65821C464DA30053B23A /* MBSellingCollectionViewCell.m */; };
@@ -373,6 +375,9 @@
 		944DCD221C9BF6C0003B5CC2 /* MBDetailedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944DCD201C9BF6C0003B5CC2 /* MBDetailedViewController.xib */; };
 		944E3BE11CE99A73001C1F76 /* MBNewsCircleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944E3BDF1CE99A73001C1F76 /* MBNewsCircleController.m */; };
 		944E3BE21CE99A73001C1F76 /* MBNewsCircleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944E3BE01CE99A73001C1F76 /* MBNewsCircleController.xib */; };
+		944E3BE61CE9D35F001C1F76 /* MBNewsCircleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 944E3BE41CE9D35F001C1F76 /* MBNewsCircleCell.m */; };
+		944E3BE71CE9D35F001C1F76 /* MBNewsCircleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944E3BE51CE9D35F001C1F76 /* MBNewsCircleCell.xib */; };
+		944E3BED1CE9F978001C1F76 /* LaunchIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944E3BEC1CE9F978001C1F76 /* LaunchIntroductionView.m */; };
 		9450025D1C22C18700820F5F /* MBOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9450025B1C22C18700820F5F /* MBOrderCell.m */; };
 		9450025E1C22C18700820F5F /* MBOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9450025C1C22C18700820F5F /* MBOrderCell.xib */; };
 		94510C751CE363FF006CC5AB /* MBPostDetailsHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94510C741CE363FF006CC5AB /* MBPostDetailsHeadView.m */; };
@@ -1163,6 +1168,9 @@
 		9428A4951CB77B6F002D2A53 /* MBPayResultsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPayResultsCell.h; sourceTree = "<group>"; };
 		9428A4961CB77B6F002D2A53 /* MBPayResultsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPayResultsCell.m; sourceTree = "<group>"; };
 		9428A4971CB77B6F002D2A53 /* MBPayResultsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBPayResultsCell.xib; sourceTree = "<group>"; };
+		9428EB3C1CEB045B00EBCB78 /* MBPostReplyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPostReplyController.h; sourceTree = "<group>"; };
+		9428EB3D1CEB045B00EBCB78 /* MBPostReplyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPostReplyController.m; sourceTree = "<group>"; };
+		9428EB3E1CEB045B00EBCB78 /* MBPostReplyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBPostReplyController.xib; sourceTree = "<group>"; };
 		942A5C601C12D5980083C382 /* MBRefundScheduleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBRefundScheduleTableViewCell.h; sourceTree = "<group>"; };
 		942A5C611C12D5980083C382 /* MBRefundScheduleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBRefundScheduleTableViewCell.m; sourceTree = "<group>"; };
 		942A5C621C12D5980083C382 /* MBRefundScheduleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBRefundScheduleTableViewCell.xib; sourceTree = "<group>"; };
@@ -1360,6 +1368,11 @@
 		944E3BDE1CE99A73001C1F76 /* MBNewsCircleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBNewsCircleController.h; sourceTree = "<group>"; };
 		944E3BDF1CE99A73001C1F76 /* MBNewsCircleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBNewsCircleController.m; sourceTree = "<group>"; };
 		944E3BE01CE99A73001C1F76 /* MBNewsCircleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBNewsCircleController.xib; sourceTree = "<group>"; };
+		944E3BE31CE9D35F001C1F76 /* MBNewsCircleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBNewsCircleCell.h; sourceTree = "<group>"; };
+		944E3BE41CE9D35F001C1F76 /* MBNewsCircleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBNewsCircleCell.m; sourceTree = "<group>"; };
+		944E3BE51CE9D35F001C1F76 /* MBNewsCircleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBNewsCircleCell.xib; sourceTree = "<group>"; };
+		944E3BEB1CE9F978001C1F76 /* LaunchIntroductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchIntroductionView.h; sourceTree = "<group>"; };
+		944E3BEC1CE9F978001C1F76 /* LaunchIntroductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchIntroductionView.m; sourceTree = "<group>"; };
 		9450025A1C22C18700820F5F /* MBOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBOrderCell.h; sourceTree = "<group>"; };
 		9450025B1C22C18700820F5F /* MBOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBOrderCell.m; sourceTree = "<group>"; };
 		9450025C1C22C18700820F5F /* MBOrderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBOrderCell.xib; sourceTree = "<group>"; };
@@ -2390,6 +2403,8 @@
 				48BB3FF01B01F26200ADF5E7 /* MBTabBarView.m */,
 				AA9F03D01B8F0A3E0072D39A /* MBNewFeatrueView.h */,
 				AA9F03D11B8F0A3E0072D39A /* MBNewFeatrueView.m */,
+				944E3BEB1CE9F978001C1F76 /* LaunchIntroductionView.h */,
+				944E3BEC1CE9F978001C1F76 /* LaunchIntroductionView.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -3395,6 +3410,9 @@
 				944E3BDE1CE99A73001C1F76 /* MBNewsCircleController.h */,
 				944E3BDF1CE99A73001C1F76 /* MBNewsCircleController.m */,
 				944E3BE01CE99A73001C1F76 /* MBNewsCircleController.xib */,
+				9428EB3C1CEB045B00EBCB78 /* MBPostReplyController.h */,
+				9428EB3D1CEB045B00EBCB78 /* MBPostReplyController.m */,
+				9428EB3E1CEB045B00EBCB78 /* MBPostReplyController.xib */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -3429,6 +3447,9 @@
 				94510C731CE363FF006CC5AB /* MBPostDetailsHeadView.h */,
 				94510C741CE363FF006CC5AB /* MBPostDetailsHeadView.m */,
 				94510C781CE36428006CC5AB /* MBPostDetailsHeadView.xib */,
+				944E3BE31CE9D35F001C1F76 /* MBNewsCircleCell.h */,
+				944E3BE41CE9D35F001C1F76 /* MBNewsCircleCell.m */,
+				944E3BE51CE9D35F001C1F76 /* MBNewsCircleCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -4607,6 +4628,7 @@
 				941CCD361CB3E3590056890C /* MBMaBaoVolumeController.xib in Resources */,
 				948E1B951C3B8FFE00D19097 /* btn_close_selected.png in Resources */,
 				94FDD09B1C5745AF007B2A42 /* MBSecurityTipTableViewCell.xib in Resources */,
+				944E3BE71CE9D35F001C1F76 /* MBNewsCircleCell.xib in Resources */,
 				94C03AAB1C99680400953614 /* MBCollectionHeadView.xib in Resources */,
 				94895EF71C842FC80092356C /* CanulaCircleHeadView.xib in Resources */,
 				941CCD271CB3B5D50056890C /* MBMyServiceController.xib in Resources */,
@@ -4665,6 +4687,7 @@
 				94EBB0101C328D7600466E92 /* MBEvaluationViewView.xib in Resources */,
 				94B131B21C899CFF00204CD9 /* MBCommentTableViewCell.xib in Resources */,
 				9469DC4F1C7594F400C2E3E2 /* MBWeatherAndMoodViewController.xib in Resources */,
+				9428EB401CEB045B00EBCB78 /* MBPostReplyController.xib in Resources */,
 				943227331C9A612300E352AB /* MBFreeStoreViewOneCell.xib in Resources */,
 				9463A2D81C7C2DEE00B30892 /* orderFootView.xib in Resources */,
 				9428A4941CB77A79002D2A53 /* MBPayResultsFootView.xib in Resources */,
@@ -4800,8 +4823,10 @@
 				4838DAA31B1DD80300E6E4D2 /* MBMyTableViewHeaderView.m in Sources */,
 				9432E4871C7D9AF800A64668 /* NTalkerTextRightTableViewCell.m in Sources */,
 				9428A4921CB77A63002D2A53 /* MBPayResultsFootView.m in Sources */,
+				944E3BED1CE9F978001C1F76 /* LaunchIntroductionView.m in Sources */,
 				9424B0011BD47E59002D4A3C /* SFHFKeychainUtils.m in Sources */,
 				94D77CA31C994A9900748227 /* MBAffordablePlanetViewController.m in Sources */,
+				9428EB3F1CEB045B00EBCB78 /* MBPostReplyController.m in Sources */,
 				420BF65E1BB537BB00C89C3C /* CustomBadge.m in Sources */,
 				9432E48B1C7D9AF800A64668 /* XNEvaluateView.m in Sources */,
 				944DCD121C9B996F003B5CC2 /* MBCategoryViewController.m in Sources */,
@@ -4877,6 +4902,7 @@
 				420BF6651BB537BB00C89C3C /* MJMethod.m in Sources */,
 				94B6F47D1BD5DD2200B352B9 /* payRequsestHandler.mm in Sources */,
 				487602BC1AF30DB000A2B1F0 /* MBRegisterPhoneVerifyViewController.m in Sources */,
+				944E3BE61CE9D35F001C1F76 /* MBNewsCircleCell.m in Sources */,
 				4824ED671B57EE2F00E4B9E2 /* MBAdvert.m in Sources */,
 				482846921B22D07E0069FB28 /* MBShopCommonTableViewCell.m in Sources */,
 				94095B591CC4CC8700859D03 /* MBTopCargoCell.m in Sources */,
@@ -5406,8 +5432,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Xiaomabao Information Technology Co.,Ltd. (6Q52DP5P8X)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Xiaomabao Information Technology Co.,Ltd. (6Q52DP5P8X)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: lianqi liu (2H49VWW5ME)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: lianqi liu (2H49VWW5ME)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5491,8 +5517,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Xiaomabao Information Technology Co.,Ltd. (6Q52DP5P8X)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Xiaomabao Information Technology Co.,Ltd. (6Q52DP5P8X)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: lianqi liu (2H49VWW5ME)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: lianqi liu (2H49VWW5ME)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

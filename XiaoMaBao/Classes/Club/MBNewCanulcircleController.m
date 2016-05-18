@@ -13,6 +13,7 @@
 #import "MBShopDetailsViewController.h"
 #import "MBMyCircleController.h"
 #import "MBNewsCircleController.h"
+#import "APService.h"
 @interface MBNewCanulcircleController ()<UIScrollViewDelegate>
 {
     UIButton *_lastButton;
@@ -35,22 +36,85 @@
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
-    
     [super viewWillDisappear:animated];
     [MobClick beginLogPageView:@"MBNewCanulcircleController"];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    
     [super viewWillAppear:animated];
     [MobClick endLogPageView:@"MBNewCanulcircleController"];
+    
+    NSString *messageNumber = [User_Defaults objectForKey:@"messageNumber"];
+    if (messageNumber&&[messageNumber intValue]>0 ) {
+        [self.messageBadge autoBadgeSizeWithString:messageNumber];
+        self.messageBadge.hidden = NO;
+    }else{
+        self.messageBadge.hidden = YES;
+    }
 }
 - (void)viewDidLoad {
+    
+    self.back = YES;
+    
     [super viewDidLoad];
+    [self setUnreadMessages];
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupChildVcs];
     [self setupTitlesView];
     [self setupScrollView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageBadge:) name:@"messageBadge" object:nil];
+    
+}
+
+- (void)messageBadge:(NSNotification *)notificat{
+    NSString *badgeValue =  [User_Defaults objectForKey:@"messageNumber"];
+    
+    if (badgeValue&&[badgeValue integerValue]>0) {
+        [ self.messageBadge autoBadgeSizeWithString:badgeValue];
+        self.messageBadge.hidden = NO;
+    }else{
+        self.messageBadge.hidden = YES;
+    }
+}
+
+#pragma mark --获取未读消息数
+- (void)setUnreadMessages{
+    
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/get_message_number"];
+    if (! sid) {
+        return;
+    }
+    static dispatch_once_t pred;
+    dispatch_once(&pred, ^{
+        
+        NSSet *sets = [NSSet setWithObject:uid];
+        [APService setTags:sets alias:@"sunxianglong" callbackSelector:nil object:self];
+        
+    });
+    
+    [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict} success:^(id responseObject) {
+        NSLog(@"%@",responseObject);
+        [self dismiss];
+        if ([[responseObject valueForKeyPath:@"number"] integerValue]>0) {
+            [self.messageBadge autoBadgeSizeWithString:s_str([responseObject valueForKeyPath:@"number"])];
+            self.messageBadge.hidden = NO;
+        }else{
+        self.messageBadge.hidden = YES;
+        }
+        
+            
+        
+        
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self show:@"请求失败 " time:1];
+        NSLog(@"%@",error);
+    }];
+
+    
+    
 }
 - (void)setupChildVcs{
     
@@ -120,26 +184,35 @@
 }
 - (NSString *)leftImage{
     
-   return @"newsCircle_image";
+    return @"newsCircle_image";
     
 }
+
 - (void)rightTitleClick{
     
+   
     MBSearchPostController *searchVc = [[MBSearchPostController alloc] init];
-    
     [self pushViewController:searchVc Animated:YES];
+    
 }
 -(void)leftTitleClick{
     
+  [User_Defaults setObject:nil forKey:@"messageNumber"];
+    [User_Defaults synchronize];
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"messageBadge" object:nil userInfo:nil]];
     MBNewsCircleController *searchVc = [[MBNewsCircleController alloc] init];
-    
     [self pushViewController:searchVc Animated:YES];
-
+    
 }
 -(NSString *)titleStr{
+    
     return @"麻包圈";
 }
-
+-(NSString *)leftStr{
+    
+    return @"";
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -156,12 +229,12 @@
             [moreCirclesView.myCircleViewSubject  sendNext:@1];
         }else{
             if (moreCirclesView.isViewLoaded) {
-                 [moreCirclesView.myCircleViewSubject  sendNext:@0];
+                [moreCirclesView.myCircleViewSubject  sendNext:@0];
             }
         }
         
         if (titleButton.tag == 0) {
-             [myCircleView.myCircleViewSubject  sendNext:@1];
+            [myCircleView.myCircleViewSubject  sendNext:@1];
         }
         
         // 让scrollView滚动到对应的位置
@@ -187,18 +260,18 @@
     
     // 如果控制器的view已经被创建过，就直接返回
     if (willShowChildVc.isViewLoaded) return;
-
+    
     
     // 添加子控制器的view到scrollView身上
     if (index ==2) {
         MBMoreCirclesController *view = (MBMoreCirclesController *)willShowChildVc;
         view.MinView = self.view;
-       
+        
     }
     willShowChildVc.view.frame = scrollView.bounds;
     [scrollView addSubview:willShowChildVc.view];
     
-
+    
 }
 
 /**

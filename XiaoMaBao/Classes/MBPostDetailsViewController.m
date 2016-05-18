@@ -14,10 +14,10 @@
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "MBLoginViewController.h"
 #import "MBCollectionPostController.h"
-#import "CommentView.h"
+#import "MBPostReplyController.h"
 @interface MBPostDetailsViewController ()
 {
-   
+    
     
     /**
      *  楼主信息的字典
@@ -39,6 +39,9 @@
      *  是否被收藏
      */
     BOOL _isCollection;
+   
+   
+
 }
 /**
  *  存放cell高度的数组
@@ -76,11 +79,35 @@
  *  筛选帖子的条件 0是默认全部，1是只看楼主，2是只看图片
  */
 @property (copy, nonatomic) NSString *isImage;
+/**
+ *   是否是下个界面返回
+ */
 
-@property (strong, nonatomic) CommentView *commentView;
+@property (nonatomic,assign) BOOL isDismiass;
 @end
 
 @implementation MBPostDetailsViewController
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    [MobClick beginLogPageView:@"MBPostDetailsViewController"];
+    
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick endLogPageView:@"MBPostDetailsViewController"];
+    [self.tableView.mj_footer resetNoMoreData];
+    [self.headArray removeAllObjects];
+    [self.cellHeightArray removeAllObjects];
+    [self.commentsArray removeAllObjects];
+    _post_detail_cellheight = 0;
+    _page =1;
+    _poster =  @"1";
+    _isImage = @"1";
+    [self setData];
+    
+}
 - (NSMutableArray *)headArray{
     if (!_headArray) {
         _headArray = [NSMutableArray array];
@@ -99,71 +126,22 @@
     }
     return _commentsArray;
 }
-#pragma mark - Getter
-
-
-- (CommentView *)commentView {
-    if (_commentView) {
-        return _commentView;
-    }
-    __weak typeof(self) wself = self;
-    _commentView = [[CommentView alloc] initWithFrame:CGRectMake(0, UISCREEN_HEIGHT, UISCREEN_WIDTH, 54.0f)
-                                            sendBlock:^(NSString *content) {
-                                                __strong  typeof(wself) swself = wself;
-                                                
-                                            }];
-    
-    @weakify(self);
-    // 把监听到的通知转换信号
-    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillShowNotification object:nil] subscribeNext:^(id x) {
-        @strongify(self);
-        
-        //获取键盘的高度
-        NSDictionary *userInfo = [x userInfo];
-        NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-        CGRect keyboardRect = [aValue CGRectValue];
-        CGFloat height = keyboardRect.size.height;
-        [UIView animateWithDuration:.3 animations:^{
-           
-            self.commentView.frame = CGRectMake(0.0f, UISCREEN_HEIGHT - 44.0f - height, UISCREEN_WIDTH, 44.0f);
-        }];
-        
-        
-    }];
-    
-    // 把监听到的通知转换信号
-    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] subscribeNext:^(id x) {
-        
-        @strongify(self);
-       
-        
-        self.commentView.frame = CGRectMake(0, UISCREEN_HEIGHT, UISCREEN_WIDTH, 44.0f);
-
-      
-        
-    }];
-
-    return _commentView;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setTitle];
-    _page =1;
-    _poster =  @"1";
-    _isImage = @"1";
+ 
     [self is_collectionData];
-    [self setData];
+  
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
     footer.refreshingTitleHidden = YES;
     self.tableView.mj_footer = footer;
-    [self.view addSubview:self.commentView];
+
     
-
-   //图片下载完成回调
- [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload:) name:@"MBPostDetailsViewNOtifition" object:nil];
-
+    
+    //图片下载完成回调
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload:) name:@"MBPostDetailsViewNOtifition" object:nil];
+    
 }
 #pragma mark -- 图片下载监听通知
 -(void)reload:(NSNotification *)notif
@@ -172,7 +150,7 @@
     NSNumber *num  = dic[@"number"];
     NSIndexPath *indexPath = dic[@"indexPath"];
     NSIndexPath *rootIndexPath = dic[@"rootIndexPath"];
-
+    
     
     if (rootIndexPath.section == 0) {
         /**
@@ -181,25 +159,25 @@
         if ([self.headArray[indexPath.row] floatValue] != [num floatValue]) {
             _post_detail_cellheight +=  [num floatValue] - (UISCREEN_WIDTH-20)*105/125;
             self.headArray[indexPath.row] = num;
-                        [self.tableView reloadData];
-                    }
-     
+            [self.tableView reloadData];
+        }
+        
     }else{
         /**
          *  只有当下载完成图片长度和预设的图片长度不一致才刷新
          */
-        NSLog(@"%ld %ld",[_cellHeightArray[rootIndexPath.row][indexPath.row] count],indexPath.row);
+        
         if ([_cellHeightArray[rootIndexPath.row][indexPath.row] floatValue] != [num floatValue]) {
             _cellHeightArray[rootIndexPath.row][indexPath.row] = num;
-                [self.tableView reloadData];
-
+            [self.tableView reloadData];
+            
         }
-    
+        
     }
-   
-
     
- 
+    
+    
+    
 }
 #pragma mark -- tittButton和帖子筛选分类的View的Ui布局
 - (void)setTitle{
@@ -242,11 +220,10 @@
     [self.view addSubview:_topView];
     MBPostDetailsHeadView  *topView = [MBPostDetailsHeadView instanceView];
     topView.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 85);
-  
+    
     [_topView addSubview:topView];
     @weakify(self);
     [[topView.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *number) {
-        NSLog(@"%ld",[number integerValue]);
         
         @strongify(self);
         self.isImage = s_str(number);
@@ -256,10 +233,8 @@
         [self.headArray removeAllObjects];
         [self.commentsArray removeAllObjects];
         [self.cellHeightArray removeAllObjects];
-   
-        [self showTopView];
-        [self setData];
         
+        [self showTopView];
     }];
     
 }
@@ -276,62 +251,79 @@
         [UIView animateWithDuration:.5f animations:^{
             _imageView.transform = CGAffineTransformMakeRotation(0);
             _topView.frame = CGRectMake(UISCREEN_WIDTH, 64, UISCREEN_WIDTH, 85);
-
+            
         }];
-            }
-   
+    }
+    
     _isbool = !_isbool;
-   
+    
 }
+
 #pragma mark -- 帖子数据
 - (void)setData{
     [self show];
     NSString *page = s_Integer(_page);
-    NSString *url = [NSString stringWithFormat:@"%@%@/%@/%@/%@/%@",BASE_URL_root,@"/circle/get_post_detail",self.post_id,page,_isImage,_poster];
-    
+      NSString *url = [NSString stringWithFormat:@"%@%@/%@/%@/%@/%@",BASE_URL_root,@"/circle/get_post_detail",self.post_id,page,_isImage,_poster];
+    if (self.comment_id) {
+        url = [NSString stringWithFormat:@"%@/%@",url,self.comment_id];
+    }
+  
+     __unsafe_unretained __typeof(self) weakSelf = self;
     [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self dismiss];
-//        NSLog(@"%@",responseObject);
+        //        NSLog(@"%@",responseObject);
         
         if (responseObject) {
             if (_page ==1) {
                 _post_detail = [responseObject valueForKeyPath:@"post_detail"];
-              
+                
                 for (NSInteger i= 0 ; i<[_post_detail[@"post_imgs"] count]; i++) {
                     _post_detail_cellheight += (UISCREEN_WIDTH-20)*105/125;
-                    [self.headArray addObject:@((UISCREEN_WIDTH-20)*105/125)];
+                    [weakSelf.headArray addObject:@((UISCREEN_WIDTH-20)*105/125)];
                 }
                 
-                [self.commentsArray addObjectsFromArray:[responseObject valueForKeyPath:@"comments"]];
+                [weakSelf.commentsArray addObjectsFromArray:[responseObject valueForKeyPath:@"comments"]];
                 for (NSDictionary *dic in self.commentsArray) {
                     NSArray *arr = dic[@"comment_imgs"];
                     NSMutableArray *array = [NSMutableArray array];
                     for (NSInteger i = 0; i < arr.count; i++) {
                         [array addObject:@((UISCREEN_WIDTH-20)*105/125)];
                     }
-                    [self.cellHeightArray addObject:array];
+                    [weakSelf.cellHeightArray addObject:array];
                 }
-          
-                 [_tableView reloadData];
+                if (_isDismiass) {
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:weakSelf.commentsArray.count-1 inSection:1];
+                    
+                    [weakSelf.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [weakSelf.tableView scrollToRowAtIndexPath:indexPath
+                                              atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+                    _isDismiass = !_isDismiass;
+
+                }else{
+                    [weakSelf.tableView reloadData];
+                }
+            
                 _page++;
                 
             }else{
                 
                 if ([[responseObject valueForKeyPath:@"data"] count]>0) {
-                     [_commentsArray addObjectsFromArray:[responseObject valueForKeyPath:@"comments"]];
+                    [_commentsArray addObjectsFromArray:[responseObject valueForKeyPath:@"comments"]];
                     _page++;
-                    [_tableView reloadData];
-                    [self.tableView .mj_footer endRefreshing];
+                    
+                    
+                    [weakSelf.tableView reloadData];
+                    [weakSelf.tableView .mj_footer endRefreshing];
                     
                 }else{
-                    [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                    [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
                     return ;
                 }
-
-            
+                
+                
             }
-          
-        
+            
+            
             return ;
         }
         
@@ -356,16 +348,16 @@
     
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/check_is_collect"];
     NSString *str = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-  
+    
     
     [MBNetworking   POSTOrigin:str parameters:@{@"session":sessiondict,@"post_id":self.post_id} success:^(id responseObject) {
-     
+        
         NSString *status = s_str([responseObject valueForKeyPath:@"status"]);
-     
+        
         if ([status isEqualToString:@"1"]) {
             self.collectionButton.selected = YES;
         }else{
-          self.collectionButton.selected = NO;
+            self.collectionButton.selected = NO;
         }
         
         self.collectionButton.enabled = YES;
@@ -373,7 +365,7 @@
         [self show:@"请求失败 " time:1];
         NSLog(@"%@",error);
     }];
-
+    
 }
 - (void)collectionData{
     
@@ -394,7 +386,7 @@
         
         NSString *status = s_str([responseObject valueForKeyPath:@"info"]);
         [self dismiss];
-     
+        
         if ([status isEqualToString:@"收藏成功"]) {
             self.collectionButton.selected = YES;
         }else{
@@ -423,16 +415,16 @@
     return @"dian_image";
 }
 -(void)rightTitleClick{
-
+    
     [self share];
 }
 -(void)share{
     
     //1、创建分享参数
-    NSArray* imageArray = @[];
+    NSArray* imageArray = @[@"http://www.xiaomabao.com/static1/images/app_icon.png"];
     
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xiaomabao.com/goods-%@.html",@""]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.xiaomabao.com/circle/post/%@",self.post_id]];
     
     
     
@@ -443,7 +435,7 @@
         [shareParams SSDKSetupShareParamsByText:@"小麻包帖子"
                                          images:imageArray
                                             url:url
-                                          title:@"小麻包母婴分享"
+                                          title:@"小麻包帖子分享"
                                            type:SSDKContentTypeAuto];
         //2、分享（可以弹出我们的分享菜单和编辑界面）
         [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
@@ -483,21 +475,30 @@
 }
 #pragma mark --收藏
 - (IBAction)collection:(id)sender {
-     self.collectionButton.enabled = NO;
+    
+    
+    self.collectionButton.enabled = NO;
     [self  collectionData];
 }
 #pragma mark -- 评论;
 - (IBAction)comments:(id)sender {
     
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-   
+    
     if (!sid) {
         [self loginClicksss];
         return;
     }
-    MBCollectionPostController *VC = [[MBCollectionPostController alloc] init];
+    _isDismiass = YES;
+    MBPostReplyController *VC = [[MBPostReplyController alloc] init];
+    
+    VC.title   = [NSString stringWithFormat:@"回复%@:",@"楼主"];
+    VC.post_id =self.post_id;
+    VC.comment_reply_id  = @"0";
     
     [self pushViewController:VC Animated:YES];
+   
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -521,20 +522,21 @@
         NSString *post_title = _post_detail[@"post_title"];
         CGFloat post_title_height = [post_title sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
         CGFloat post_content_height = [post_content sizeWithFont:SYSTEMFONT(14) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
+
         if ([_post_detail[@"post_imgs"] count]>0) {
             CGFloat height =  _post_detail_cellheight+117+post_content_height;
-
+            
             return height+post_title_height;
-          
+            
+        }
+        if (post_content_height<17) {
+            return   _post_detail_cellheight+120+post_content_height+post_title_height;
         }
         
+        return _post_detail_cellheight+155+post_content_height+post_title_height;
         
-         return _post_detail_cellheight+155+post_content_height+post_title_height;
-       
     }
     NSDictionary *dic = _commentsArray[indexPath.row];
-
-    
     NSString *comment_content = dic[@"comment_content"];
     CGFloat cellHeight = 0;
     for (NSNumber *number in self.cellHeightArray[indexPath.row]) {
@@ -546,6 +548,7 @@
         cellHeight+=comment_reply_user_name_height;
         cellHeight+=40;
     }
+    
     return cellHeight+104+ [comment_content sizeWithFont:SYSTEMFONT(14) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -556,23 +559,23 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle]loadNibNamed:@"MBPostDetailsOneCell"owner:nil options:nil]firstObject];
         }
-   
-         cell.rootIndexPath = indexPath;
-         cell.heightArray = _headArray;
-       
+        
+        cell.rootIndexPath = indexPath;
+        cell.heightArray = _headArray;
+        
         cell.post_content.text = _post_detail[@"post_content"];
         cell.post_title.text = _post_detail[@"post_title"];
         cell.circle_name.text = _post_detail[@"circle_name"];
         cell.author_name.text = _post_detail[@"author_name"];
         cell.reply_cnt.text = _post_detail[@"reply_cnt"];
         [cell.author_userhead  sd_setImageWithURL:URL(_post_detail[@"author_userhead"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-          cell.imagUrlStrArray = _post_detail[@"post_imgs"];
- 
+        cell.imagUrlStrArray = _post_detail[@"post_imgs"];
+        
         [cell.post_content rowSpace:6];
         [cell.post_content columnSpace:1];
         [cell.post_title rowSpace:6];
         [cell.post_title columnSpace:1];
-       
+        
         
         return cell;
     }
@@ -581,7 +584,7 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBPostDetailsTwoCell"owner:nil options:nil]firstObject];
     }
-  
+    
     cell.rootIndexPath = indexPath;
     cell.heightArray =  _cellHeightArray[indexPath.row];
     cell.comment_time.text = dic[@"comment_time"];
@@ -610,11 +613,22 @@
     cell.imagUrlStrArray = dic[@"comment_imgs"];
     @weakify(self);
     [[cell.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSIndexPath *indexPath) {
+    
         @strongify(self);
-         NSDictionary *dic = self.commentsArray[indexPath.row];
-        self.commentView.placeHolder = [NSString stringWithFormat:@"回复%@:",dic[@"user_name"]];
-        [self.commentView.textView becomeFirstResponder];
+        NSDictionary *dic = self.commentsArray[indexPath.row];
+        NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
         
+        if (!sid) {
+            [self loginClicksss];
+            return;
+        }
+        MBPostReplyController *VC = [[MBPostReplyController alloc] init];
+        self.isDismiass  = YES;
+        VC.title   = [NSString stringWithFormat:@"回复%@:",dic[@"user_name"]];
+        VC.post_id =self.post_id;
+        VC.comment_reply_id  = dic[@"comment_id"];
+        
+        [self pushViewController:VC Animated:YES];
     }];
     
     return cell;
@@ -625,8 +639,8 @@
     
 }
 -(void)dealloc{
-
-[[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     _commentsArray = nil;
     _cellHeightArray = nil;
     _post_detail_cellheight = 0;
@@ -641,16 +655,11 @@
             _imageView.transform = CGAffineTransformMakeRotation(0);
             _topView.frame = CGRectMake(UISCREEN_WIDTH, 64, UISCREEN_WIDTH, 85);
             _isbool = !_isbool;
-
+            
         }];
-            }
-
-}
-
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    [self.commentView endEditing:YES];
+    }
     
 }
+
+
 @end

@@ -14,22 +14,50 @@
 
 @interface MBSearchPostController () <UITextFieldDelegate,UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
 {
+    /**
+     *    搜索框
+     */
     UISearchBar *_SearchBar;
+    /**
+     *   搜索结果列表
+     */
     UITableView *_tabView;
+    /**
+     *  表头view 显示大家都在搜数据
+     */
     UIView *_topView;
-    NSMutableArray *_HotSearchArray;
+    /**
+     *  大家都字搜数据
+     */
     NSArray *_SearchHistoryArray;
-  
+    /**
+     *   大家都在搜
+     */
     UILabel *_lable3;
+    /**
+     *   页数
+     */
     NSInteger _page;
     
    
   
     
 }
+/**
+ *  更改_SearchBar里面的searchField
+ */
 @property (nonatomic,weak) UITextField *searchField;
+/**
+ *  搜索关键字
+ */
 @property (strong,nonatomic) NSString *searchString;
+/**
+ *  背景颜色
+ */
 @property (nonatomic, strong) NSArray *colorPool;
+/**
+ *  大家都在搜标签
+ */
 @property (strong, nonatomic) SKTagView *tagView;
 /**
  *  大家都在搜关键字数组
@@ -42,12 +70,6 @@
 @end
 
 @implementation MBSearchPostController
--(NSMutableArray *)dataArray{
-    if (!_dataArray) {
-        _dataArray = [NSMutableArray array];
-    }
-    return _dataArray;
-}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -58,6 +80,12 @@
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"MBSearchPostController"];
+}
+-(NSMutableArray *)dataArray{
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray array];
+    }
+    return _dataArray;
 }
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -76,6 +104,7 @@
     [view addSubview:_lable3 = lable];
     
     _topView = [[UIView alloc] init];
+    
     [view addSubview:_topView];
     
    

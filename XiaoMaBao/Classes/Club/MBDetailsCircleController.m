@@ -11,12 +11,17 @@
 #import "MBDetailsCircleTableHeadView.h"
 #import "MBReleaseTopicViewController.h"
 #import "MBLoginViewController.h"
+#import "MBPostDetailsViewController.h"
 @interface MBDetailsCircleController ()
 {
     /**
      *  页数
      */
     NSInteger _page;
+    /**
+     *  是否从下一个界面返回
+     */
+    BOOL _isDimiss;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /**
@@ -27,6 +32,24 @@
 @end
 
 @implementation MBDetailsCircleController
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    [MobClick beginLogPageView:@"MBDetailsCircleController"];
+    
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick endLogPageView:@"MBDetailsCircleController"];
+    if (_isDimiss) {
+        _page = 1;
+        [self.dataArray removeAllObjects];
+        [self setData];
+    
+        _isDimiss   = !_isDimiss;
+    }
+}
 /**
  *   帖子数据源懒加载
  *
@@ -105,10 +128,15 @@
         [self dismiss];
         [self show:@"加入圈子成功" time:1];
         if ([[responseObject  valueForKeyPath:@"status"]isEqualToNumber:@1]) {
+        self.is_join = @"1";
+        _tableView.tableHeaderView = [self setTableHeadView];
+        _isDimiss = YES;
         MBReleaseTopicViewController *VC = [[MBReleaseTopicViewController    alloc] init];
+        VC.circle_id = self.circle_id;
         [self pushViewController:VC Animated:YES];
-            self.is_join = @"1";
-              _tableView.tableHeaderView = [self setTableHeadView];
+     
+            
+            
 
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -177,8 +205,9 @@
     if ([self.is_join isEqualToString:@"0"]) {
          [self prompt];
     }else{
+        _isDimiss = YES;
         MBReleaseTopicViewController *VC = [[MBReleaseTopicViewController    alloc] init];
-        
+        VC.circle_id = self.circle_id;
         [self pushViewController:VC Animated:YES];
     }
 
@@ -231,6 +260,12 @@
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSDictionary *dic = _dataArray[indexPath.row];
+    MBPostDetailsViewController *VC = [[MBPostDetailsViewController   alloc] init];
+    VC.post_id = dic[@"post_id"];
+    [self pushViewController:VC Animated:YES];
+    
     
 }
 - (void)prompt{

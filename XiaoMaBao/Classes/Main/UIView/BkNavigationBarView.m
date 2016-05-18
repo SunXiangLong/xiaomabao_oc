@@ -69,8 +69,7 @@
 
 + (instancetype)navigationBarView{
     BkNavigationBarView *navBar = [[BkNavigationBarView alloc] init];
-    // @taBbar:
-//    navBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bj_top"]];
+ 
     navBar.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 0);
     navBar.ml_height = iOS_7 ? 64 : 44;
     
@@ -100,7 +99,7 @@
         [_image removeFromSuperview];
         _image = nil;
     }
-    
+  
     if (back && self.leftStr == nil) {
         UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [backBtn setTitleColor:TEXT_COLOR forState:UIControlStateNormal];
@@ -109,6 +108,9 @@
         backBtn.frame =CGRectMake(0, NAV_BAR_Y, NAV_BAR_W, NAV_BAR_HEIGHT) ;
         [backBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:backBtn];
+    }else{
+    
+    
     }
     
     if(!back){

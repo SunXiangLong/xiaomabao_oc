@@ -95,6 +95,7 @@
 }
 
 - (void)messageBadge:(NSNotification *)notificat{
+    
     NSString *badgeValue =  [User_Defaults objectForKey:@"messageNumber"];
  
     if (badgeValue&&[badgeValue integerValue]>0) {

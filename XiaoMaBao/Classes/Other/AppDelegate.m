@@ -58,6 +58,7 @@
 #import "AFNetworkActivityIndicatorManager.h"
 //#import "NTalkerInstance.h"
 #import "DXAlertView.h"
+#import "LaunchIntroductionView.h"
 @interface AppDelegate ()<WXApiDelegate>
 {
     NSArray* titleandIds ;
@@ -78,18 +79,15 @@
     //友盟注册
     [self umengTrack];
     
-    //第一次打开应用显示导航
-    if (![self showNewFeature]) {
-        [self setupLanuchView];
-    }
+    
+
     //share第三方登陆分享
     [self share];
     
     // 微信支付注册
      [WXApi registerApp:@"wxfb1286f7ab6a18f3" withDescription:@"demo 2.0"];
     
-    //友盟移动推广效果统计
-//    [self AuMobilePromotion];
+
     
     //极光推送（通知）
     [self Required:launchOptions];
@@ -112,17 +110,27 @@
     [[XNSDKCore sharedInstance] initSDKWithSiteid:@"kf_9761" andSDKKey:@"4AE38950-F352-47F3-94EA-97C189F48B0F"];
     
     //极光推送（消息）
-        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-        [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
     
-
-
+        [ [NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
+    /**
+     *    消息数置为0
+     */
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
     
     //提示用户评价
     [self setAppirater];
     
     [self.window makeKeyAndVisible];
+    
+        //第一次打开应用显示导航
+        if ( ![self showNewFeature]) {
+            [self setupLanuchView];
+        }
+
     return YES;
+    
+  
 }
 -(void)setAppirater{
 
@@ -162,19 +170,10 @@
     [_messageAarray addObject:userInfo];
     [User_Defaults synchronize];
     
-    NSNotification *messageBadge =[NSNotification notificationWithName:@"messageBadge" object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] postNotification:messageBadge];
+    
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"messageBadge" object:nil userInfo:nil]];
 
 }
-//-(void)tagsAliasCallback:(int)iResCode
-//                    tags:(NSSet*)tags
-//                   alias:(NSString*)alias
-//{
-//    NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
-//    
-//    
-//}
-
 #pragma markshare第三方登陆分享
 - (void)share{
     /**
@@ -321,7 +320,8 @@
 
 #pragma mark - 是否需要显示新特性
 -(BOOL)showNewFeature{
-    BOOL flag = [[[NSUserDefaults standardUserDefaults] objectForKey:@"firstLaunch"] boolValue];
+ 
+     BOOL flag = [[[NSUserDefaults standardUserDefaults] objectForKey:@"firstLaunch"] boolValue];
    
     return flag;
    
@@ -511,15 +511,13 @@
                                                        UIUserNotificationTypeAlert)
                                            categories:nil];
     } else {
-        //categories 必须为nil
-        [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                       UIRemoteNotificationTypeSound |
-                                                       UIRemoteNotificationTypeAlert)
-                                           categories:nil];
+//        //categories 必须为nil
+//        [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+//                                                       UIRemoteNotificationTypeSound |
+//                                                       UIRemoteNotificationTypeAlert)
+//                                           categories:nil];
     }
     
-//    [APService setBadge:0];
-    // Required
     [APService setupWithOption:launchOptions];
 }
 
@@ -531,8 +529,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
      NSLog(@"%@",userInfo);
-//     NSString *str = userInfo[@"aps"][@"badge"];
-//     NSInteger num = [str integerValue];
+
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     [APService handleRemoteNotification:userInfo];
 }

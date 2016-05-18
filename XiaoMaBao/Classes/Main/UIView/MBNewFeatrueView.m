@@ -22,7 +22,7 @@
 
 -(instancetype)init{
     if (self = [super init]) {
-        iCarousel *carousel = [iCarousel new];
+        iCarousel *carousel = [[iCarousel alloc] init];
         carousel.delegate = self;
         carousel.dataSource = self;
         carousel.type = iCarouselTypeLinear;

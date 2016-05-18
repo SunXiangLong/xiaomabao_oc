@@ -25,6 +25,10 @@
      *  轮播图数组
      */
     NSArray *_bandImageArray;
+    /**
+     *  是否从下一个界面返回
+     */
+    BOOL _isDimiss;
     
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -49,7 +53,15 @@
 {
     [super viewWillAppear:animated];
     [MobClick endLogPageView:@"MBMyCircleController"];
-    [self setShufflingFigureData];
+    if (_isDimiss) {
+        
+        [self.recommendArray removeAllObjects];
+        [self.myCircleArray removeAllObjects];
+      
+         [self setData];
+        
+        _isDimiss   = !_isDimiss;
+    }
 }
 -(NSMutableArray *)recommendArray{
     
@@ -82,7 +94,7 @@
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
-
+    [self setShufflingFigureData];
     @weakify(self);
     [[self.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *num) {
         @strongify(self);
@@ -202,7 +214,7 @@
         
         [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self dismiss];
-            //     NSLog(@"%@",responseObject);
+//                 NSLog(@"%@",responseObject);
             if (responseObject) {
                 [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
                 
@@ -225,7 +237,7 @@
         
         [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict} success:^(id responseObject) {
             [self dismiss];
-            //            NSLog(@"%@",responseObject);
+                        NSLog(@"%@",responseObject);
             
             if (responseObject) {
                 
@@ -490,7 +502,7 @@
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    _isDimiss = YES;
     NSDictionary *dic;
     if (indexPath.section == 0) {
         dic = _myCircleArray[indexPath.row];
@@ -507,7 +519,7 @@
     }
     MBDetailsCircleController *VC = [[MBDetailsCircleController alloc] init];
     VC.circle_id = dic[@"circle_id"];
-    VC.circle_user_cnt = dic[@"circle_user_cnt"];
+    VC.circle_user_cnt = dic[@"circle_post_cnt"];
     VC.circle_name = dic[@"circle_name"];
     VC.circle_logo = dic[@"circle_logo"];
     VC.is_join = str;

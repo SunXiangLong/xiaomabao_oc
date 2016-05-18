@@ -42,7 +42,7 @@
         
       self.numberOfLines = 0;
     }
-    NSLog(@"%ld",(long)self.numberOfLines);
+    
     paragraphStyle.lineSpacing = self.numberOfLines;
    
     

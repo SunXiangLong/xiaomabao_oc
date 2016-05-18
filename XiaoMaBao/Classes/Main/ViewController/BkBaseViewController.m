@@ -33,13 +33,13 @@
         navBar.leftButtonW = self.leftButtonW;
         
         
-        if([self.rightStr isEqualToString:@"消息"]){
+        if([self.leftImage isEqualToString:@"newsCircle_image"]){
             if(self.messageBadge == nil){
                 
                 self.messageBadge = [CustomBadge customBadgeWithString:@"0" withStyle:[BadgeStyle defaultStyle]];
                 self.messageBadge.hidden = YES;
                 self.messageBadge.frame = CGRectMake(35, 5, self.messageBadge.ml_width, self.messageBadge.ml_height);
-                [navBar.rightButton addSubview:self.messageBadge];
+                [navBar.leftButton addSubview:self.messageBadge];
             }
         }
         if (self.leftImage.length) {
@@ -74,14 +74,13 @@
     
     self.view.backgroundColor = BG_COLOR;
     [self.navigationController.navigationBar removeFromSuperview];
- self.automaticallyAdjustsScrollViewInsets = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     // 导航栏点击事件
     [self setupClickEvent];
     
     
     self.navBar.back = self.back;
-    
     
 
     
@@ -256,7 +255,7 @@
         hud.mode = MBProgressHUDModeCustomView;
         hud.labelText = @"上传成功";
         HUD = hud;
-        
+
        
     }
 

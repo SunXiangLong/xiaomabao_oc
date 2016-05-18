@@ -12,13 +12,31 @@
 #import "MBPostDetailsViewController.h"
 @interface MBCollectionPostController ()
 {
+    /**
+     *  页数
+     */
     NSInteger _page;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+/**
+ *   收藏帖子数据
+ */
 @property (copy, nonatomic) NSMutableArray *dataArray;
 @end
 
 @implementation MBCollectionPostController
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    [MobClick beginLogPageView:@"MBCollectionPostController"];
+    
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick endLogPageView:@"MBCollectionPostController"];
+    
+}
 -(NSMutableArray *)dataArray{
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];
@@ -36,7 +54,7 @@
     self.tableView.mj_footer = footer;
 }
 /**
- *  请求帖子数据
+ *  请求收藏的帖子数据
  */
 - (void)setData{
     
@@ -53,8 +71,7 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/get_collect_post"];
    
     [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict,@"page":page} success:^(id responseObject) {
-        
-        NSLog(@"%@",responseObject);
+//        NSLog(@"%@",responseObject);
         [self dismiss];
         
         if (responseObject) {

@@ -26,7 +26,7 @@
                     </connections>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIV-ZH-0de">
-                    <rect key="frame" x="0.0" y="435" width="159.5" height="45"/>
+                    <rect key="frame" x="160.5" y="435" width="159" height="45"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title=" 收藏" image="mbq_collect_inactive">
@@ -38,7 +38,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Haq-ed-Czf">
-                    <rect key="frame" x="160.5" y="435" width="159.5" height="45"/>
+                    <rect key="frame" x="0.0" y="435" width="159.5" height="45"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
@@ -52,18 +52,18 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Haq-ed-Czf" firstAttribute="width" secondItem="zIV-ZH-0de" secondAttribute="width" id="0r2-m9-lkw"/>
+                <constraint firstItem="Haq-ed-Czf" firstAttribute="top" secondItem="Ste-Uu-orY" secondAttribute="bottom" id="9Da-zp-j8D"/>
                 <constraint firstItem="Ste-Uu-orY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="GH8-cw-Ud5"/>
+                <constraint firstItem="zIV-ZH-0de" firstAttribute="width" secondItem="Haq-ed-Czf" secondAttribute="width" id="HUA-14-45M"/>
                 <constraint firstAttribute="bottom" secondItem="Ste-Uu-orY" secondAttribute="bottom" constant="45" id="LDK-JH-JJ5"/>
                 <constraint firstAttribute="trailing" secondItem="Ste-Uu-orY" secondAttribute="trailing" id="OrQ-be-0ep"/>
-                <constraint firstItem="zIV-ZH-0de" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Vbw-F5-Ypi"/>
                 <constraint firstItem="Ste-Uu-orY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Yp9-wg-JWP"/>
-                <constraint firstItem="zIV-ZH-0de" firstAttribute="top" secondItem="Ste-Uu-orY" secondAttribute="bottom" id="baL-o0-Asp"/>
-                <constraint firstItem="Haq-ed-Czf" firstAttribute="leading" secondItem="zIV-ZH-0de" secondAttribute="trailing" constant="1" id="dxU-XX-y0B"/>
-                <constraint firstItem="Haq-ed-Czf" firstAttribute="top" secondItem="Ste-Uu-orY" secondAttribute="bottom" id="p7f-xs-CC9"/>
-                <constraint firstAttribute="bottom" secondItem="Haq-ed-Czf" secondAttribute="bottom" id="pfh-PW-TIJ"/>
-                <constraint firstAttribute="trailing" secondItem="Haq-ed-Czf" secondAttribute="trailing" id="pmt-dD-KYs"/>
-                <constraint firstAttribute="bottom" secondItem="zIV-ZH-0de" secondAttribute="bottom" id="wHx-uN-wOR"/>
+                <constraint firstItem="zIV-ZH-0de" firstAttribute="leading" secondItem="Haq-ed-Czf" secondAttribute="trailing" constant="1" id="ZPg-mS-3Yq"/>
+                <constraint firstAttribute="bottom" secondItem="zIV-ZH-0de" secondAttribute="bottom" id="oC8-wG-EJu"/>
+                <constraint firstItem="zIV-ZH-0de" firstAttribute="top" secondItem="Ste-Uu-orY" secondAttribute="bottom" id="oeV-Ut-rNH"/>
+                <constraint firstItem="Haq-ed-Czf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ogE-b8-Cfl"/>
+                <constraint firstAttribute="trailing" secondItem="zIV-ZH-0de" secondAttribute="trailing" id="wQ4-N5-cel"/>
+                <constraint firstAttribute="bottom" secondItem="Haq-ed-Czf" secondAttribute="bottom" id="yrM-3J-Seg"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="282" y="214"/>

@@ -21,7 +21,6 @@
 @implementation MBTopPostsController
 -(void)viewWillDisappear:(BOOL)animated
 {
-    
     [super viewWillDisappear:animated];
     [MobClick beginLogPageView:@"MBTopPostsController"];
 }
@@ -137,6 +136,7 @@
     
     cell.post_content.rowspace   = 15;
     cell.post_content.columnSpace = 1;
+    
     return cell;
     
 }

@@ -32,14 +32,26 @@
     CGRect rect = [attributeString boundingRectWithSize:CGSizeMake(size, MAXFLOAT) options:options context:nil];
     
     if ((rect.size.height - font.lineHeight) <= style.lineSpacing) {
-        rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height-style.lineSpacing);
+        if ([self containChinese]) {
+             rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height-style.lineSpacing);
+        }
+       
     }
     
     return rect.size.height;
  
 
 }
-
+//判断如果包含中文
+- (BOOL)containChinese{
+    for(int i=0; i< [self length];i++){
+        int a = [self characterAtIndex:i];
+        if( a > 0x4e00 && a < 0x9fff){
+            return YES;
+        }
+    }
+    return NO;
+}
 - (NSString *)md5{
     const char *cStr = [self UTF8String];
     unsigned char result[16];

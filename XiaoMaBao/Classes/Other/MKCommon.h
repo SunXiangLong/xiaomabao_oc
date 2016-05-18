@@ -78,9 +78,11 @@
 /**
  *  宽度与高度
  */
+
+#define UISCREEN_Bounds [UIScreen mainScreen].bounds
 #define UISCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 #define UISCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
-
+#define UISCREEN_KeyWindow [UIApplication sharedApplication].keyWindow
 #define NAV_H 44
 #define TOP_Y (iOS_7 ? 64 : NAV_H)
 #define TOP_TABLE_VIEW_H ((iOS_7 ? 64 : NAV_H) + NAV_H)

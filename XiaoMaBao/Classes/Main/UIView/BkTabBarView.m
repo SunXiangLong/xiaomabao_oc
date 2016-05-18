@@ -109,28 +109,28 @@
         [self clickTap:tabBarButton];
     }
     
-    if (self.tabBarButtons.count==5) {
-//        messageBadge = [CustomBadge customBadgeWithString:@"0" withStyle:[BadgeStyle defaultStyle]];
-//        
-//        [tabBarButton addSubview:messageBadge];
+    if (self.tabBarButtons.count== 4) {
+        messageBadge = [CustomBadge customBadgeWithString:@"0" withStyle:[BadgeStyle defaultStyle]];
+        
+        [tabBarButton addSubview:messageBadge];
 
-//        NSString *badgeValue =  [User_Defaults objectForKey:@"messageNumber"];
-//       
-//        if (badgeValue&&[badgeValue intValue]>0) {
-//            [messageBadge autoBadgeSizeWithString:badgeValue];
-//            messageBadge.hidden = NO;
-//        }else{
-//            messageBadge.hidden = YES;
-//        }
-//
-//        [messageBadge mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.size.mas_equalTo(CGSizeMake(messageBadge.ml_width,  messageBadge.ml_height));
-//            make.centerX.equalTo(tabBarButton.mas_centerX).offset(8);
-//            make.top.mas_equalTo(3);
-//        }];
+        NSString *badgeValue =  [User_Defaults objectForKey:@"messageNumber"];
+       
+        if (badgeValue&&[badgeValue intValue]>0) {
+            [messageBadge autoBadgeSizeWithString:badgeValue];
+            messageBadge.hidden = NO;
+        }else{
+            messageBadge.hidden = YES;
+        }
+
+        [messageBadge mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(messageBadge.ml_width,  messageBadge.ml_height));
+            make.centerX.equalTo(tabBarButton.mas_centerX).offset(8);
+            make.top.mas_equalTo(3);
+        }];
         
      
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageBadge:) name:@"messageBadge" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageBadge:) name:@"messageBadge" object:nil];
         
     }
 }

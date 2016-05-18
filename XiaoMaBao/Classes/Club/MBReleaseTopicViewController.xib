@@ -10,7 +10,6 @@
                 <outlet property="bottom" destination="S9g-P6-meL" id="7TW-A5-crJ"/>
                 <outlet property="collectionView" destination="PyM-xI-aUi" id="RvL-09-DSf"/>
                 <outlet property="lable" destination="35h-hc-aRr" id="pd5-dO-Vnc"/>
-                <outlet property="tableView" destination="HEc-hd-Arh" id="axG-MD-FcN"/>
                 <outlet property="textField" destination="9KN-aV-NxD" id="6DE-eb-YTY"/>
                 <outlet property="textView" destination="pQf-MG-S7k" id="oPt-Sq-uDX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -38,18 +37,14 @@
                     </constraints>
                 </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HEc-hd-Arh">
-                    <rect key="frame" x="0.0" y="430" width="320" height="50"/>
+                    <rect key="frame" x="0.0" y="480" width="320" height="0.0"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="oce-Yo-uYA"/>
+                        <constraint firstAttribute="height" id="oce-Yo-uYA"/>
                     </constraints>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="fBN-lK-jTZ"/>
-                        <outlet property="delegate" destination="-1" id="tdh-Aa-iVD"/>
-                    </connections>
                 </tableView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VUr-iC-k5t">
-                    <rect key="frame" x="0.0" y="429" width="320" height="1"/>
+                    <rect key="frame" x="0.0" y="479" width="320" height="1"/>
                     <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="EfP-aJ-W0m"/>
@@ -57,7 +52,7 @@
                     </constraints>
                 </imageView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="PyM-xI-aUi">
-                    <rect key="frame" x="0.0" y="339" width="320" height="90"/>
+                    <rect key="frame" x="0.0" y="389" width="320" height="90"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="90" id="WSZ-ZB-veu"/>

@@ -46,9 +46,10 @@
 
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    
     [super setSelected:selected animated:animated];
     
-    // Configure the view for the selected state
+   
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
@@ -73,7 +74,7 @@
     return cell;
     
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPat{
     
 }
 @end

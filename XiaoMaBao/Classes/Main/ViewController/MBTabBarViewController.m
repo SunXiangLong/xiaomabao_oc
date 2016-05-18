@@ -109,7 +109,7 @@
     MBNewHomeViewController *view = [[MBNewHomeViewController alloc] init];
     [self setupChildVC:view title:@"购物" imageName:@"icon_nav06" selectedImageName:@"icon_nav06_press"];
     self.homeVc = view;
-
+  
     
     MBServiceHomeViewController *serviceVc = [[MBServiceHomeViewController alloc] init];
     [self setupChildVC:serviceVc title:@"服务" imageName:@"ser_image" selectedImageName:@"serSelect_image"];

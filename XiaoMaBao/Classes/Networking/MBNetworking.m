@@ -20,8 +20,11 @@ static AFHTTPRequestOperationManager *mgr = nil;
     if (!mgr) {
         mgr = [AFHTTPRequestOperationManager manager];
         AFJSONResponseSerializer *response = [[AFJSONResponseSerializer alloc] init];
+        /**
+         *  删除json中  <null> 类型的字段  同时也会把key删除
+         */
         response.removesKeysWithNullValues = YES;
-
+        mgr.responseSerializer = response;
 
     }
     return mgr;
