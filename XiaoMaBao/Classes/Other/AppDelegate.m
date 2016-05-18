@@ -91,6 +91,7 @@
     
     //极光推送（通知）
     [self Required:launchOptions];
+    
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     //登陆
     [self Obtain];

@@ -233,7 +233,7 @@
         [self.headArray removeAllObjects];
         [self.commentsArray removeAllObjects];
         [self.cellHeightArray removeAllObjects];
-        
+        [self setData];
         [self showTopView];
     }];
     
@@ -520,20 +520,23 @@
     if (indexPath.section == 0) {
         NSString *post_content = _post_detail[@"post_content"];
         NSString *post_title = _post_detail[@"post_title"];
-        CGFloat post_title_height = [post_title sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
-        CGFloat post_content_height = [post_content sizeWithFont:SYSTEMFONT(14) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
+        CGFloat post_title_height = [post_title sizeWithFont:SYSTEMFONT(16) lineSpacing:2 withMax:UISCREEN_WIDTH-20];
+        CGFloat post_content_height = [post_content sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
 
-        if ([_post_detail[@"post_imgs"] count]>0) {
-            CGFloat height =  _post_detail_cellheight+117+post_content_height;
-            
-            return height+post_title_height;
-            
-        }
-        if (post_content_height<17) {
+       
+        if (post_content_height<25) {
             return   _post_detail_cellheight+120+post_content_height+post_title_height;
         }
+        /**
+         *  这个帖子有很多空格会导致字符串高度计算不对
+         */
+//        if ([_post_detail[@"post_title"] isEqualToString:@"李娟医生：肚子一天天隆起来，产检那些事儿您知道吗？"]) {
+//            return _post_detail_cellheight+258+post_content_height+post_title_height;
+//        }
+        return _post_detail_cellheight+180+post_content_height+post_title_height;
         
-        return _post_detail_cellheight+155+post_content_height+post_title_height;
+   
+      
         
     }
     NSDictionary *dic = _commentsArray[indexPath.row];
@@ -544,12 +547,17 @@
     }
     if (dic[@"comment_reply"]) {
         NSString *comment_reply_comment_content =  dic[@"comment_reply"][@"comment_content"];
-        CGFloat comment_reply_user_name_height =  [comment_reply_comment_content sizeWithFont: SYSTEMFONT(12) lineSpacing:3 withMax:UISCREEN_WIDTH -70];
-        cellHeight+=comment_reply_user_name_height;
-        cellHeight+=40;
+        CGFloat comment_reply_user_name_height =  [comment_reply_comment_content sizeWithFont: SYSTEMFONT(12) lineSpacing:2 withMax:UISCREEN_WIDTH -70];
+        if (comment_reply_user_name_height>35) {
+             cellHeight = comment_reply_user_name_height+45+cellHeight;
+        }else{
+            cellHeight = comment_reply_user_name_height+30+cellHeight;
+        }
+       
+       
     }
     
-    return cellHeight+104+ [comment_content sizeWithFont:SYSTEMFONT(14) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
+    return cellHeight+103+ [comment_content sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -573,7 +581,7 @@
         
         [cell.post_content rowSpace:6];
         [cell.post_content columnSpace:1];
-        [cell.post_title rowSpace:6];
+        [cell.post_title rowSpace:2];
         [cell.post_title columnSpace:1];
         
         
@@ -598,13 +606,18 @@
     if (dic[@"comment_reply"]) {
         
         NSString *comment_reply_comment_content =  dic[@"comment_reply"][@"comment_content"];
-        CGFloat comment_reply_user_name_height =  [comment_reply_comment_content sizeWithFont: SYSTEMFONT(12) lineSpacing:3 withMax:UISCREEN_WIDTH -70];
+        CGFloat comment_reply_user_name_height =  [comment_reply_comment_content sizeWithFont: SYSTEMFONT(12) lineSpacing:2 withMax:UISCREEN_WIDTH -70];
         cell.comment_reply_user_name.text = dic[@"comment_reply"][@"user_name"];
         cell.comment_reply_comment_content.text = dic[@"comment_reply"][@"comment_content"];
         [cell.user_head_user_head sd_setImageWithURL:URL(dic[@"comment_reply"][@"user_head"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-        cell.comment_reply_height.constant  = comment_reply_user_name_height+40;
+        if (comment_reply_user_name_height>40) {
+            cell.comment_reply_height.constant  = comment_reply_user_name_height+45;
+        }else{
+           cell.comment_reply_height.constant  = comment_reply_user_name_height+30;
+        }
+       
         cell.commentView.hidden = NO;
-        [cell.comment_reply_comment_content rowSpace:3];
+        [cell.comment_reply_comment_content rowSpace:2];
         [cell.comment_reply_comment_content columnSpace:1];
     }else{
         cell.comment_reply_height.constant  = 0;

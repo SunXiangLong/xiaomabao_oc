@@ -10,6 +10,7 @@
 #import "MBMycircleTableViewCell.h"
 #import "MBLoginViewController.h"
 #import "MBDetailsCircleController.h"
+#import "MBMoreCirclesCell.h"
 @interface MBMoreCirclesController ()<UITextFieldDelegate,UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource>
 
 {
@@ -556,7 +557,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([tableView isEqual:_tableViewOne]) {
-        return 30;
+        return 40;
     }
     return 64;
 }
@@ -564,17 +565,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([tableView isEqual:_tableViewOne]) {
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sssssss"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (!cell) {
-        cell = [[UITableViewCell    alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sssssss"];
-    }
-        cell.textLabel.text = _OneLevel[indexPath.row][@"cat_name"];
-        cell.textLabel.font = SYSTEMFONT(12);
+        MBMoreCirclesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBMoreCirclesCell"];
+        
+        if (!cell) {
+            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBMoreCirclesCell"owner:nil options:nil]firstObject];
+        }
+           cell.name.text = _OneLevel[indexPath.row][@"cat_name"];
+     
         if (_number == indexPath.row) {
-            cell.textLabel.textColor = UIcolor(@"d66263");
+            cell.name.textColor = UIcolor(@"d66263");
         }else{
-             cell.textLabel.textColor = UIcolor(@"575c65");
+             cell.name.textColor = UIcolor(@"575c65");
         }
     return cell;
     }

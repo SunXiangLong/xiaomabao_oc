@@ -373,7 +373,15 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if (section==0) {
+        if (_myCircleArray.count ==0) {
+            NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+            if (sid) {
+                return 1;
+            }
+        }
+       
         return  _myCircleArray.count;
+        
         
     }else{
         return _recommendArray.count;
@@ -385,8 +393,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section==0) {
         if (_myCircleArray.count == 0) {
+            NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+            if (sid) {
+                return 41;
+            }
             return 0;
         }
+        
         return 41;
     }
     
@@ -448,19 +461,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary *dic = _recommendArray[indexPath.row] ;
-    if (indexPath.section ==0) {
-        dic = _myCircleArray[indexPath.row];
-    }
+   
     MBMycircleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBMycircleTableViewCell"];
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBMycircleTableViewCell"owner:nil options:nil]firstObject];
     }
-    cell.indexPath = indexPath;
-    cell.indexPath = indexPath;
-    cell.user_name.text = dic[@"circle_name"];
-    cell.user_center.text = dic[@"circle_desc"];
-    [cell.user_image sd_setImageWithURL:[NSURL URLWithString:dic[@"circle_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
     
     if (indexPath.section ==1) {
         cell.user_button.selected = NO;
@@ -471,8 +476,21 @@
             cell.noLable.hidden = NO;
             cell.selectionStyle =  UITableViewCellSelectionStyleNone;
             cell.exclusiveTouch = NO;
+            return cell;
         }
     }
+    NSDictionary *dic = _recommendArray[indexPath.row] ;
+    if (indexPath.section ==0) {
+        dic = _myCircleArray[indexPath.row];
+    }
+  
+    cell.indexPath = indexPath;
+    cell.indexPath = indexPath;
+    cell.user_name.text = dic[@"circle_name"];
+    cell.user_center.text = dic[@"circle_desc"];
+    [cell.user_image sd_setImageWithURL:[NSURL URLWithString:dic[@"circle_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+    
+ 
     
     @weakify(self);
     [[cell.myCircleCellSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSIndexPath *indexPath) {

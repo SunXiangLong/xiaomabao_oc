@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -55,8 +55,8 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KFF-aa-C72">
                         <rect key="frame" x="10" y="48" width="300" height="0.0"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.68235294117647061" green="0.68235294117647061" blue="0.71372549019607845" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="0.0" alpha="0.89508551520270274" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="38l-U9-0jf">
@@ -64,7 +64,7 @@
                         <attributedString key="attributedText">
                             <fragment content="回复">
                                 <attributes>
-                                    <color key="NSColor" red="0.39607843139999999" green="0.41568627450000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="NSColor" red="0.396078431372549" green="0.41568627450980389" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
                                     <font key="NSFont" size="12" name="MicrosoftYaHei"/>
                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                 </attributes>
@@ -80,7 +80,7 @@
                         </constraints>
                     </imageView>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UmP-kS-hz0">
-                        <rect key="frame" x="10" y="57" width="300" height="106.5"/>
+                        <rect key="frame" x="10" y="57" width="300" height="101.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tableView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5u-if-OBw">
@@ -97,7 +97,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fW2-6E-pdI">
-                        <rect key="frame" x="50" y="173" width="260" height="40"/>
+                        <rect key="frame" x="50" y="168" width="260" height="45"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="DsH-Od-V8d">
                                 <rect key="frame" x="6" y="6" width="10" height="10"/>
@@ -113,21 +113,21 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="为了爽爽爽爽爽爽爽爽爽爽爽爽爽" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYg-Ed-z1n">
-                                <rect key="frame" x="10" y="23" width="240" height="14.5"/>
+                                <rect key="frame" x="10" y="24" width="240" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.68235294117647061" green="0.68235294117647061" blue="0.71372549019607845" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.68235294117647061" green="0.68235294117647061" blue="0.71372549019607845" alpha="0.79771959459459463" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="AYg-Ed-z1n" firstAttribute="top" secondItem="DsH-Od-V8d" secondAttribute="bottom" constant="8" id="98b-AA-WAN"/>
                             <constraint firstItem="Ech-5H-uda" firstAttribute="centerY" secondItem="DsH-Od-V8d" secondAttribute="centerY" id="HvB-wR-brP"/>
-                            <constraint firstAttribute="height" constant="40" id="M0p-n1-vTU"/>
+                            <constraint firstAttribute="height" constant="45" id="M0p-n1-vTU"/>
                             <constraint firstItem="Ech-5H-uda" firstAttribute="leading" secondItem="DsH-Od-V8d" secondAttribute="trailing" constant="5" id="Owu-gz-N5P"/>
                             <constraint firstItem="AYg-Ed-z1n" firstAttribute="leading" secondItem="fW2-6E-pdI" secondAttribute="leading" constant="10" id="Rw0-S1-rlh"/>
                             <constraint firstItem="DsH-Od-V8d" firstAttribute="top" secondItem="fW2-6E-pdI" secondAttribute="top" constant="6" id="kG6-61-Srq"/>
                             <constraint firstItem="DsH-Od-V8d" firstAttribute="leading" secondItem="fW2-6E-pdI" secondAttribute="leading" constant="6" id="m3F-gg-w9C"/>
-                            <constraint firstItem="AYg-Ed-z1n" firstAttribute="top" secondItem="Ech-5H-uda" secondAttribute="bottom" constant="5" id="x06-Yt-483"/>
                             <constraint firstAttribute="trailing" secondItem="AYg-Ed-z1n" secondAttribute="trailing" constant="10" id="zkF-Dd-kwO"/>
                         </constraints>
                     </view>

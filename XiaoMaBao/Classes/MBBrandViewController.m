@@ -8,7 +8,6 @@
 
 #import "MBBrandViewController.h"
 #import "MBSellingCollectionViewCell.h"
-#import "MBSmallCategoryCollectionViewCell.h"
 #import "MBMoreBrandsCollectionViewCell.h"
 #import "MBStyleCollectionViewCell.h"
 #import "MBShopingViewController.h"

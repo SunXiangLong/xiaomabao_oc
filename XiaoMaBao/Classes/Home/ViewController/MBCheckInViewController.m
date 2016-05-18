@@ -43,7 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self setNavBarViewBackgroundColor:[UIColor blackColor]];
+
     self.calendarBottomView.backgroundColor = [UIColor colorWithRed:126/256.0 green:156/256.0 blue:172/256.0 alpha:0.5];
     self.shareTimeView.backgroundColor = [UIColor colorWithRed:128.0/255.0 green:165.0/255.0 blue:193.0/255.0 alpha:0.7];
     self.calendarView.backgroundColor = [UIColor colorWithRed:157.0/255.0 green:193.0/255.0 blue:213.0/255.0 alpha:0.5];

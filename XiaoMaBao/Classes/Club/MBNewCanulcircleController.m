@@ -14,6 +14,7 @@
 #import "MBMyCircleController.h"
 #import "MBNewsCircleController.h"
 #import "APService.h"
+#import "MBLoginViewController.h"
 @interface MBNewCanulcircleController ()<UIScrollViewDelegate>
 {
     UIButton *_lastButton;
@@ -196,6 +197,11 @@
     
 }
 -(void)leftTitleClick{
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (! sid) {
+        
+        [self loginClicksss];
+    }
     
   [User_Defaults setObject:nil forKey:@"messageNumber"];
     [User_Defaults synchronize];
@@ -203,6 +209,16 @@
     MBNewsCircleController *searchVc = [[MBNewsCircleController alloc] init];
     [self pushViewController:searchVc Animated:YES];
     
+}
+#pragma mark -- 跳转登陆页
+- (void)loginClicksss{
+    //跳转到登录页
+    
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
+    myView.vcType = @"mabao";
+    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
+    [self presentViewController:VC animated:YES completion:nil];
 }
 -(NSString *)titleStr{
     

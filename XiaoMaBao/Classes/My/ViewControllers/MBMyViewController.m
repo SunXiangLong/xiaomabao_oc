@@ -38,7 +38,6 @@
     NSString *_nick_name;
     BOOL _isbool;
     
-    NSDictionary     *_userDic;
     
 }
 
@@ -62,7 +61,7 @@
         NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
         if (sid) {
             
-//           [self setHeadUserData];
+           [self.collerctonView reloadData];
         }else{
             [self.collerctonView  removeFromSuperview];
             self.collerctonView = nil;
@@ -109,45 +108,6 @@
 
 #pragma mark -- 个人详情
 - (void)backView{
-//    MBPersonalCanulaCircleViewController *VC = [[MBPersonalCanulaCircleViewController alloc] init];
-//    [self pushViewController:VC Animated:YES];
-    
-}
-#pragma mark --获取用户麻包圈的基本信息
-- (void)setHeadUserData{
-    
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/communicate/getusermbqinfo"];
-    if (! sid) {
-        return;
-    }
-    [MBNetworking POST:url parameters:@{@"session":sessiondict}
-               success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
-                   
-//                   NSLog(@"%@ %@",[responseObject valueForKey:@"status"],responseObject.data);
-                   
-                   
-                   if(1 == [[responseObject valueForKey:@"status"]  intValue]){
-                       
-                       
-                       _userDic  = [responseObject valueForKeyPath:@"data"];
-                       [self.collerctonView reloadData];
-                       
-                       
-                   }else{
-                       [self show:@"获取用户数据失败" time:1];
-                   }
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                   
-                   [self show:@"请求失败 " time:1];
-                   NSLog(@"%@",error);
-                   
-               }
-     ];
-    
     
 }
 -(void)getUserInfo

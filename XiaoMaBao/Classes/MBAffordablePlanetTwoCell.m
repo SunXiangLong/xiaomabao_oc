@@ -8,7 +8,6 @@
 
 #import "MBAffordablePlanetTwoCell.h"
 #import "MBAffordablePlanetTwoChildOneCell.h"
-#import "MBSmallCategoryViewController.h"
 #import "MBCategoryViewController.h"
 @interface MBAffordablePlanetTwoCell()<UICollectionViewDelegate,UICollectionViewDataSource>
 {

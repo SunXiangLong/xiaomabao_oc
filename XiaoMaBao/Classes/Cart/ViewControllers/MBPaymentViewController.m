@@ -17,7 +17,6 @@
 #import "MobClick.h"
 #import "WXApi.h"
 #import "payRequsestHandler.h"
-#import "MBHomeViewController.h"
 #import "MBPayResultsController.h"
 #import "MBPaySuccessView.h"
 #import "MBOrderListViewController.h"

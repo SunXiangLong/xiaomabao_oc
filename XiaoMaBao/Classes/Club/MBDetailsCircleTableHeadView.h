@@ -20,5 +20,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *circle_logo;
 @property (weak, nonatomic) IBOutlet UILabel *circle_name;
 @property (weak, nonatomic) IBOutlet UILabel *circle_user_cnt;
-
+@property (nonatomic, strong) RACSubject *myCircleViewSubject;
 @end

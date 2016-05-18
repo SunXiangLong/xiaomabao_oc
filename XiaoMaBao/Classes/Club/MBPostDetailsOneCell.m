@@ -19,6 +19,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+
 }
 -(void)setImagUrlStrArray:(NSArray *)imagUrlStrArray{
     _imagUrlStrArray = imagUrlStrArray;

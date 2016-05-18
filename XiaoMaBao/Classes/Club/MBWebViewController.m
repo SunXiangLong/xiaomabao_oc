@@ -32,11 +32,13 @@
     _webView.delegate = self;
     _webView.backgroundColor = [UIColor colorR:205 colorG:222 colorB:232];
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
+     NSURLRequest *request = [NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
 
-    
-    [self deleteCookie];
-    [self setCookie];
+    if (_isloging) {
+        [self deleteCookie];
+        [self setCookie];
+    }
+ 
     [_webView loadRequest:request];
     
 }
@@ -83,18 +85,18 @@
 
 -(void)webViewDidFinishLoad:(UIWebView*)webView{
     //当网页视图结束加载一个请求之后，得到通知。
-    JSContext *context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    
-    // 通过模型调用方法，这种方式更好些。
-    ObjCModel *model  = [[ObjCModel alloc] init];
-    context[@"xmbapp"] = model;
-    model.jsContext = context;
-    model.webView = self.webView;
-    
-    context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
-        context.exception = exceptionValue;
-        NSLog(@"异常信息：%@", exceptionValue);
-    };
+//    JSContext *context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+//    
+//    // 通过模型调用方法，这种方式更好些。
+//    ObjCModel *model  = [[ObjCModel alloc] init];
+//    context[@"xmbapp"] = model;
+//    model.jsContext = context;
+//    model.webView = self.webView;
+//    
+//    context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
+//        context.exception = exceptionValue;
+//        NSLog(@"异常信息：%@", exceptionValue);
+//    };
     [self dismiss];
   
 }

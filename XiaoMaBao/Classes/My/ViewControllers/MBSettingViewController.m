@@ -10,9 +10,6 @@
 #import "MBSettingTableViewCell.h"
 #import "MBEditProfileViewController.h"
 #import "MBEditPwdViewController.h"
-#import "MBEvaluateViewController.h"
-#import "MBServiceListViewController.h"
-#import "MBAboutUsViewController.h"
 #import "MBServiceProvisionViewController.h"
 #import "MBAboutViewController.h"
 #import "UIImageView+WebCache.h"
@@ -35,17 +32,14 @@
                        @"服务条款",
                        @"关于麻包",
                        @"清除缓存"
-                       
                        ];
         }else{
         
             _lists = @[
                        @"修改个人资料",
-                       //@"修改密码",
                        @"服务条款",
                        @"关于麻包",
                        @"清除缓存"
-                       
                        ];
         }
        

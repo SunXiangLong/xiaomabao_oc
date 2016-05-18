@@ -25,7 +25,6 @@
     #import "Reachability.h"
     #import "LGReachability.h"
     #import "MJRefresh.h"
-    #import "NSDate+FSExtension.h"
     #import "MBProgressHUD.h"
     #import "SDCycleScrollView.h"
     #import "Appirater.h"

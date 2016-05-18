@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -22,16 +22,28 @@
                             <constraint firstAttribute="width" constant="43.5" id="jFV-kh-um1"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1-3岁宝宝" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mg3-bI-yDR">
-                        <rect key="frame" x="60.5" y="15" width="55" height="14.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.83921568627450982" green="0.38431372549019605" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mg3-bI-yDR">
+                        <rect key="frame" x="60" y="13" width="63.5" height="17"/>
+                        <attributedString key="attributedText">
+                            <fragment content="1-3岁宝宝">
+                                <attributes>
+                                    <color key="NSColor" red="0.83921568627450982" green="0.38431372549019605" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="14" name="MicrosoftYaHei"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="宝宝心里苦，但是宝宝不说" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DwK-XS-hmh">
-                        <rect key="frame" x="60.5" y="33" width="197" height="13.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                        <color key="textColor" red="0.3411764705882353" green="0.36078431372549019" blue="0.42745098039215684" alpha="1" colorSpace="calibratedRGB"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DwK-XS-hmh">
+                        <rect key="frame" x="60" y="34" width="197" height="17"/>
+                        <attributedString key="attributedText">
+                            <fragment content="宝宝心里苦，但是宝宝不说">
+                                <attributes>
+                                    <color key="NSColor" red="0.3411764705882353" green="0.36078431372549019" blue="0.42745098039215684" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="13" name="MicrosoftYaHei"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QYs-X8-VIk">
@@ -42,7 +54,7 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qxJ-0h-73c">
-                        <rect key="frame" x="257.5" y="0.0" width="62.5" height="62.5"/>
+                        <rect key="frame" x="257" y="0.0" width="62.5" height="62.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="qxJ-0h-73c" secondAttribute="height" multiplier="1:1" id="YIJ-7R-MxE"/>
@@ -55,7 +67,7 @@
                             <action selector="touch:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VgR-Lx-IFn"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您还没加入任何圈子，点击加入吧" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q7W-dE-aAN">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您还没加入任何圈子，点击加入吧" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q7W-dE-aAN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="63.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -81,7 +93,7 @@
                     <constraint firstItem="rs5-0g-3l2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="hha-0d-nbq"/>
                     <constraint firstItem="q7W-dE-aAN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="psT-Dg-p8H"/>
                     <constraint firstAttribute="bottom" secondItem="qxJ-0h-73c" secondAttribute="bottom" constant="1" id="ryW-Xe-FjC"/>
-                    <constraint firstItem="mg3-bI-yDR" firstAttribute="top" secondItem="rs5-0g-3l2" secondAttribute="top" constant="5" id="uhn-dZ-tgD"/>
+                    <constraint firstItem="mg3-bI-yDR" firstAttribute="top" secondItem="rs5-0g-3l2" secondAttribute="top" constant="3" id="uhn-dZ-tgD"/>
                     <constraint firstItem="qxJ-0h-73c" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="wKm-OL-flw"/>
                 </constraints>
             </tableViewCellContentView>

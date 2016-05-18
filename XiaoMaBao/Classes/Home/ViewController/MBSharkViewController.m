@@ -63,7 +63,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavBarViewBackgroundColor:[UIColor blackColor]];
     [self getSwingTimes];//获取摇奖次数
     [self getPrizeUser];//获取中奖信息
     

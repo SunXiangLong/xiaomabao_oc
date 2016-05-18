@@ -12,6 +12,7 @@
 #import "MBReleaseTopicViewController.h"
 #import "MBLoginViewController.h"
 #import "MBPostDetailsViewController.h"
+
 @interface MBDetailsCircleController ()
 {
     /**
@@ -111,7 +112,7 @@
 
 }
 #pragma mark--加入圈子或取消加入圈子
-- (void)setJoin_circle{
+- (void)setJoin_circle:(BOOL)isRightButton{
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     if (!sid) {
@@ -130,10 +131,13 @@
         if ([[responseObject  valueForKeyPath:@"status"]isEqualToNumber:@1]) {
         self.is_join = @"1";
         _tableView.tableHeaderView = [self setTableHeadView];
-        _isDimiss = YES;
-        MBReleaseTopicViewController *VC = [[MBReleaseTopicViewController    alloc] init];
-        VC.circle_id = self.circle_id;
-        [self pushViewController:VC Animated:YES];
+            if (isRightButton) {
+                _isDimiss = YES;
+                MBReleaseTopicViewController *VC = [[MBReleaseTopicViewController    alloc] init];
+                VC.circle_id = self.circle_id;
+                [self pushViewController:VC Animated:YES];
+            }
+     
      
             
             
@@ -156,6 +160,14 @@
         UIView *tableHeadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 70)];
         MBDetailsCircleTableHeadView *view = [MBDetailsCircleTableHeadView instanceView];
         [tableHeadView addSubview:view];
+    @weakify(self);
+    [[view.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *num) {
+        @strongify(self);
+        
+        [self setJoin_circle:NO];
+        
+        
+    }];
     [view.circle_logo sd_setImageWithURL:[NSURL URLWithString:self.circle_logo] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
     view.circle_name.text = self.circle_name;
     view.circle_user_cnt.text = string(self.circle_user_cnt, @"个话题");
@@ -177,7 +189,7 @@
             make.height.mas_equalTo(70);
         }];
 
-
+    
   
     return tableHeadView;
 
@@ -231,15 +243,15 @@
     NSDictionary  *dic = _dataArray[indexPath.row];
     NSString *post_content = dic[@"post_content"];
     
-    CGFloat post_content_height = [post_content  sizeWithFont:SYSTEMFONT(14) lineSpacing:3 withMax:UISCREEN_WIDTH-24];
-    if (post_content_height>56) {
-        post_content_height = 56;
+    CGFloat post_content_height = [post_content  sizeWithFont:SYSTEMFONT(16) lineSpacing:3 withMax:UISCREEN_WIDTH-24];
+    if (post_content_height>65) {
+        post_content_height = 65;
     }
     
     if ([dic[@"post_imgs"] count]>0) {
-       return 70+(UISCREEN_WIDTH -16*3)/3*133/184+post_content_height;
+       return 78+(UISCREEN_WIDTH -16*3)/3*133/184+post_content_height;
     }
-    return 70+post_content_height;
+    return 78+post_content_height;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary  *dic = _dataArray[indexPath.row];
@@ -291,7 +303,7 @@
     [reloadAction setValue:UIcolor(@"575c65") forKey:@"titleTextColor"];
     
     UIAlertAction *reloadAction1 = [UIAlertAction actionWithTitle:@"加入圈子" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self setJoin_circle];
+        [self setJoin_circle:YES];
         
     }];
     [alertCancel addAction:reloadAction];
