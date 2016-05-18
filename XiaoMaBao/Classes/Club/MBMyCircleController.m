@@ -156,7 +156,14 @@
                 
             }
                 break;
-            case 2:
+            case 2: {
+            
+                MBWebViewController *VC = [[MBWebViewController alloc] init];
+                VC.url = URL(@"http://api.xiaomabao.com/circle/raffle");
+                VC.title =@"抽大奖";
+                VC.isloging = YES;
+                [self pushViewController:VC Animated:YES];
+            }
                 
                 break;
             case 3:
@@ -345,7 +352,7 @@
         case 3: {
             MBWebViewController *VC = [[MBWebViewController alloc] init];
             VC.url =  [NSURL URLWithString:_bandImageArray[index][@"ad_con"]];
-            
+      
             VC.title = _bandImageArray[index][@"ad_name"];
             [self pushViewController:VC Animated:YES];
             

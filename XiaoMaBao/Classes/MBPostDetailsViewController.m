@@ -530,9 +530,9 @@
         /**
          *  这个帖子有很多空格会导致字符串高度计算不对
          */
-//        if ([_post_detail[@"post_title"] isEqualToString:@"李娟医生：肚子一天天隆起来，产检那些事儿您知道吗？"]) {
-//            return _post_detail_cellheight+258+post_content_height+post_title_height;
-//        }
+        if ([_post_detail[@"post_title"] isEqualToString:@"李娟医生：肚子一天天隆起来，产检那些事儿您知道吗？"]) {
+            return _post_detail_cellheight+258+post_content_height+post_title_height;
+        }
         return _post_detail_cellheight+180+post_content_height+post_title_height;
         
    

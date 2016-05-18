@@ -11,7 +11,7 @@
 #import "MobClick.h"
 #import "SKTagView.h"
 #import "MBDetailsCircleTbaleViewCell.h"
-
+#import "MBPostDetailsViewController.h"
 @interface MBSearchPostController () <UITextFieldDelegate,UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     /**
@@ -406,7 +406,11 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    NSDictionary *dic = _dataArray[indexPath.row];
+    MBPostDetailsViewController *VC = [[MBPostDetailsViewController   alloc] init];
+    VC.post_id = dic[@"post_id"];
+    [self pushViewController:VC Animated:YES];
+
   
     
 }

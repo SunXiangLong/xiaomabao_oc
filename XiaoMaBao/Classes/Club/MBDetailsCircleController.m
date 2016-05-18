@@ -243,15 +243,15 @@
     NSDictionary  *dic = _dataArray[indexPath.row];
     NSString *post_content = dic[@"post_content"];
     
-    CGFloat post_content_height = [post_content  sizeWithFont:SYSTEMFONT(16) lineSpacing:3 withMax:UISCREEN_WIDTH-24];
-    if (post_content_height>65) {
-        post_content_height = 65;
+    CGFloat post_content_height = [post_content  sizeWithFont:SYSTEMFONT(14) lineSpacing:3 withMax:UISCREEN_WIDTH-24];
+    if (post_content_height>56) {
+        post_content_height = 56;
     }
     
     if ([dic[@"post_imgs"] count]>0) {
-       return 78+(UISCREEN_WIDTH -16*3)/3*133/184+post_content_height;
+        return 80+(UISCREEN_WIDTH -16*3)/3*133/184+post_content_height;
     }
-    return 78+post_content_height;
+    return 80+post_content_height;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary  *dic = _dataArray[indexPath.row];

@@ -122,12 +122,12 @@
     //提示用户评价
     [self setAppirater];
     
-    [self.window makeKeyAndVisible];
-    
-        //第一次打开应用显示导航
-        if ( ![self showNewFeature]) {
-            [self setupLanuchView];
-        }
+//    [self.window makeKeyAndVisible];
+//    
+//        //第一次打开应用显示导航
+//        if ( ![self showNewFeature]) {
+//            [self setupLanuchView];
+//        }
 
     return YES;
     
@@ -167,12 +167,17 @@
     NSDictionary * userInfo = [notification userInfo];
      NSLog(@"%@",userInfo);
     NSString *strNum = [NSString stringWithFormat:@"%@",userInfo[@"extras"][@"new_message"]];
+    NSString *uid = [NSString stringWithFormat:@"%@",userInfo[@"extras"][@"uid"]];
    [User_Defaults setObject:strNum forKey:@"messageNumber"];
     [_messageAarray addObject:userInfo];
     [User_Defaults synchronize];
-    
-    
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"messageBadge" object:nil userInfo:nil]];
+     NSString *userUid = [MBSignaltonTool getCurrentUserInfo].uid;
+    if (userUid) {
+        if ([userUid isEqualToString:uid]) {
+             [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"messageBadge" object:nil userInfo:nil]];
+        }
+    }
+   
 
 }
 #pragma markshare第三方登陆分享

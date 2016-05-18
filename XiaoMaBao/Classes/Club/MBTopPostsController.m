@@ -102,19 +102,20 @@
     NSDictionary *dic = _dataArray[indexPath.row];
     NSString *post_title = dic[@"post_title"];
       NSString *post_content = dic[@"post_content"];
-    CGFloat post_title_height = [post_title sizeWithFont:SYSTEMFONT(16) lineSpacing:2 withMax:UISCREEN_WIDTH - 24];
+    CGFloat post_title_height = [post_title sizeWithFont:SYSTEMFONT(15) lineSpacing:2 withMax:UISCREEN_WIDTH - 24];
     
-    CGFloat post_content_height = [post_content sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH - 24];
-    NSLog(@"%f ",post_content_height);
-         if (post_content_height>65) {
-        post_content_height = 65;
+    CGFloat post_content_height = [post_content sizeWithFont:SYSTEMFONT(14) lineSpacing:6 withMax:UISCREEN_WIDTH - 24];
+    if (post_content_height>56) {
+        post_content_height = 56+20;
+    }else{
+        post_content_height += 5;
     }
     
     if ([dic[@"post_imgs"] count]>0) {
-        return 80+(UISCREEN_WIDTH -16*3)/3*133/184+post_title_height+post_content_height;
+        return 65+(UISCREEN_WIDTH -16*3)/3*133/184+post_title_height+post_content_height;
     }
-    NSLog(@"%f ",post_content_height);
-    return 85+post_title_height+post_content_height;
+    
+    return 60+post_title_height+post_content_height;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dic = _dataArray[indexPath.row];
