@@ -13,13 +13,7 @@
 #import "UIImageView+WebCache.h"
 #import "MBShopingViewController.h"
 #import "MBLoginViewController.h"
-
-
-#import "MBPickerViewController.h"
-#import "MBCameraViewController.h"
 #import "MBBabyViewController.h"
-#import "MBCanulcircleHomeViewController.h"
-#import "MBCanulPublishedViewController.h"
 #import "MBNewHomeViewController.h"
 @interface MBSmallCategoryViewController () <UICollectionViewDataSource,UICollectionViewDelegate>
 {
