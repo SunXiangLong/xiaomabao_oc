@@ -22,11 +22,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *comment_reply_comment_content;
 @property (weak, nonatomic) IBOutlet UILabel *comment_reply_user_name;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *comment_reply_height;
-@property (nonatomic, strong)NSIndexPath *rootIndexPath;
-/**
- *  存放cell高度的数组
- */
-@property (copy, nonatomic) NSArray *heightArray;
+
 @property (weak, nonatomic) IBOutlet UIView *commentView;
+@property (nonatomic,strong) NSIndexPath *indexPath;
 
 @end

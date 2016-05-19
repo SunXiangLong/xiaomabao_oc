@@ -10,4 +10,8 @@
 
 @interface MBMyCircleController : BkBaseViewController
 @property (nonatomic, strong) RACSubject *myCircleViewSubject;
+/**
+ *  是否从下一个界面返回
+ */
+@property (nonatomic, assign) BOOL isDimiss;
 @end

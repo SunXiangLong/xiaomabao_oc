@@ -312,7 +312,7 @@
         [headerBoxView addSubview:imageview];
         
         UILabel *consigneeLabel = [[UILabel alloc] init];
-        consigneeLabel.frame = CGRectMake(Image.size.width+5, 0, self.view.ml_width-Image.size.width, 60);
+        consigneeLabel.frame = CGRectMake(Image.size.width+10, 0, self.view.ml_width-Image.size.width, 60);
         consigneeLabel.font = [UIFont systemFontOfSize:18];
         consigneeLabel.textAlignment = NSTextAlignmentLeft;
         consigneeLabel.text = @"请添加收货地址";

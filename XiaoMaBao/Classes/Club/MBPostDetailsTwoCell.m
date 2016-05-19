@@ -8,14 +8,11 @@
 
 #import "MBPostDetailsTwoCell.h"
 #import "MBPostDetailsViewCell.h"
-@interface MBPostDetailsTwoCell ()<UITableViewDelegate,UITableViewDataSource>
-{
-}
+@interface MBPostDetailsTwoCell ()
 /**
  *  存放cell高度的数组
  */
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end
 @implementation MBPostDetailsTwoCell
 
@@ -29,7 +26,7 @@
     return _myCircleViewSubject;
 }
 - (IBAction)reply:(UIButton *)sender {
-    [self.myCircleViewSubject  sendNext:self.rootIndexPath];
+    [self.myCircleViewSubject  sendNext:self.indexPath];
 
 }
 
@@ -37,44 +34,6 @@
     [super awakeFromNib];
     
 }
--(void)setImagUrlStrArray:(NSArray *)imagUrlStrArray{
-    _imagUrlStrArray = imagUrlStrArray;
-  
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.scrollEnabled  = NO;
 
-}
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    
-    [super setSelected:selected animated:animated];
-    
-   
-}
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
-    return 1;
-}
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-   
-    return _heightArray.count;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [_heightArray[indexPath.row] floatValue];
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MBPostDetailsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsViewCell"];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBPostDetailsViewCell"owner:nil options:nil]firstObject];
-    }
-    cell.indexPath = indexPath;
-     cell.rootIndexPath = self.rootIndexPath;
-    cell.imageUrlStr = _imagUrlStrArray[indexPath.row];
-   
-    return cell;
-    
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPat{
-    
-}
+
 @end

@@ -667,7 +667,7 @@
     
     MBDetailsCircleController * VC = [[MBDetailsCircleController alloc]init];
     VC.circle_id = dic[@"circle_id"];
-    VC.circle_user_cnt = dic[@"circle_user_cnt"];
+    VC.circle_user_cnt = dic[@"circle_post_cnt"];
     VC.circle_name = dic[@"circle_name"];
     VC.circle_logo = dic[@"circle_logo"];
     VC.is_join = str;

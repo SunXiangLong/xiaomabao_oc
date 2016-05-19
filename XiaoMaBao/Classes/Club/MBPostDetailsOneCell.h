@@ -10,8 +10,7 @@
 
 @interface MBPostDetailsOneCell : UITableViewCell
 
-@property (nonatomic, strong)NSIndexPath *rootIndexPath;
-@property (nonatomic,strong) NSArray *imagUrlStrArray;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *post_title;
 @property (weak, nonatomic) IBOutlet UILabel *author_name;
@@ -20,8 +19,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *circle_name;
 @property (weak, nonatomic) IBOutlet UIImageView *author_userhead;
 @property (weak, nonatomic) IBOutlet UILabel *post_content;
-/**
- *  存放cell高度的数组
- */
-@property (copy, nonatomic) NSArray *heightArray;
+
 @end

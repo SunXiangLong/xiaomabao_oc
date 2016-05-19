@@ -82,7 +82,7 @@
                             </collectionViewFlowLayout>
                         </collectionView>
                     </subviews>
-                    <color key="backgroundColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.80784313730000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="MUr-9p-g8W" firstAttribute="bottom" secondItem="EGB-UM-Jnp" secondAttribute="bottom" id="06j-0Q-gI7"/>
                         <constraint firstItem="cjT-nd-dPu" firstAttribute="bottom" secondItem="pqK-t4-iH8" secondAttribute="bottom" id="4ik-4B-Ecp"/>
@@ -108,7 +108,7 @@
                     </constraints>
                 </scrollView>
             </subviews>
-            <color key="backgroundColor" red="0.8980392157" green="0.91764705879999997" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="tuU-Ar-NYM" firstAttribute="leading" secondItem="QaB-Ll-3CH" secondAttribute="leading" id="8Sx-k5-UqY"/>
                 <constraint firstItem="MUr-9p-g8W" firstAttribute="width" secondItem="QaB-Ll-3CH" secondAttribute="width" constant="-30" id="FMD-nG-XgE"/>

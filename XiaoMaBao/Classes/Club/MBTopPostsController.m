@@ -132,10 +132,8 @@
     cell.post_content.text = dic[@"post_content"];
     
     [cell.post_title rowSpace:2];
-    [cell.post_title columnSpace:1];
-    
     cell.post_content.rowspace   = 6;
-    cell.post_content.columnSpace = 1;
+
     
     return cell;
     

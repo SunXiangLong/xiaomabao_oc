@@ -267,7 +267,6 @@
     cell.author_name.text = dic[@"author_name"];
  
     cell.post_content.rowspace = 3;
-    cell.post_content.columnSpace = 1;
     return cell;
     
 }

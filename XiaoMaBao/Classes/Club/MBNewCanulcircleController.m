@@ -18,6 +18,7 @@
 @interface MBNewCanulcircleController ()<UIScrollViewDelegate>
 {
     UIButton *_lastButton;
+    BOOL     _isDismiss;
 }
 @property (nonatomic,strong) UIView *titlesView;
 /** 这个scrollView的作用：存放所有子控制器的view */
@@ -39,6 +40,7 @@
 {
     [super viewWillDisappear:animated];
     [MobClick beginLogPageView:@"MBNewCanulcircleController"];
+    _isDismiss = YES;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -46,12 +48,21 @@
     [MobClick endLogPageView:@"MBNewCanulcircleController"];
     
     NSString *messageNumber = [User_Defaults objectForKey:@"messageNumber"];
+    
+    
     if (messageNumber&&[messageNumber intValue]>0 ) {
         [self.messageBadge autoBadgeSizeWithString:messageNumber];
         self.messageBadge.hidden = NO;
     }else{
         self.messageBadge.hidden = YES;
     }
+    if (_isDismiss) {
+        
+          MBMyCircleController    *myCircleView = self.childViewControllers[0];
+        myCircleView.isDimiss = YES;
+        _isDismiss = !_isDismiss;
+    }
+    
 }
 - (void)viewDidLoad {
     

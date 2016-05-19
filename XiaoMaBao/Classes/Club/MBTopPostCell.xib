@@ -22,7 +22,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhx-Gb-IKF">
-                        <rect key="frame" x="58" y="23" width="56" height="17"/>
+                        <rect key="frame" x="58" y="33" width="56" height="17"/>
                         <attributedString key="attributedText">
                             <fragment content="新趣味啊">
                                 <attributes>
@@ -35,7 +35,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92e-ib-MUW">
-                        <rect key="frame" x="226" y="23" width="80" height="17"/>
+                        <rect key="frame" x="226" y="33" width="80" height="17"/>
                         <attributedString key="attributedText">
                             <fragment content="0-3个月宝宝">
                                 <attributes>
@@ -47,10 +47,17 @@
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="宝宝早晨不想去幼儿园，说老师打" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gie-ZY-sqt">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gie-ZY-sqt">
                         <rect key="frame" x="10" y="60" width="296" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.3411764705882353" green="0.36078431372549019" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                        <attributedString key="attributedText">
+                            <fragment content="宝宝早晨不想去幼儿园，说老师打">
+                                <attributes>
+                                    <color key="NSColor" red="0.3411764705882353" green="0.36078431372549019" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="14" name="MicrosoftYaHei"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="columnSpace">
@@ -107,13 +114,13 @@
                     <constraint firstItem="i6n-d8-aS9" firstAttribute="leading" secondItem="xFv-1T-4or" secondAttribute="trailing" constant="8" id="4jp-FO-hUL"/>
                     <constraint firstItem="itc-NL-SuI" firstAttribute="leading" secondItem="gie-ZY-sqt" secondAttribute="leading" id="5pj-tH-Xha"/>
                     <constraint firstItem="th2-jh-D5G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="AXT-Ho-YuM"/>
-                    <constraint firstItem="gie-ZY-sqt" firstAttribute="top" secondItem="92e-ib-MUW" secondAttribute="bottom" constant="20" id="Dnw-CC-qWG"/>
+                    <constraint firstItem="gie-ZY-sqt" firstAttribute="top" secondItem="92e-ib-MUW" secondAttribute="bottom" constant="10" id="Dnw-CC-qWG"/>
                     <constraint firstItem="i6n-d8-aS9" firstAttribute="top" secondItem="CAY-Xn-vph" secondAttribute="top" id="EsB-ev-du8"/>
                     <constraint firstAttribute="trailing" secondItem="92e-ib-MUW" secondAttribute="trailing" constant="14" id="FBX-l7-yNh"/>
                     <constraint firstItem="hhx-Gb-IKF" firstAttribute="leading" secondItem="th2-jh-D5G" secondAttribute="trailing" constant="8" id="GUW-SB-hLE"/>
                     <constraint firstItem="xFv-1T-4or" firstAttribute="top" secondItem="CAY-Xn-vph" secondAttribute="top" id="HBx-DA-u2r"/>
                     <constraint firstItem="CAY-Xn-vph" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="J3y-5d-gcJ"/>
-                    <constraint firstItem="hhx-Gb-IKF" firstAttribute="bottom" secondItem="th2-jh-D5G" secondAttribute="bottom" constant="-10" id="SBV-s7-Pbg"/>
+                    <constraint firstItem="hhx-Gb-IKF" firstAttribute="bottom" secondItem="th2-jh-D5G" secondAttribute="bottom" id="SBV-s7-Pbg"/>
                     <constraint firstItem="xFv-1T-4or" firstAttribute="width" secondItem="CAY-Xn-vph" secondAttribute="width" id="TnR-RS-Nj9"/>
                     <constraint firstItem="i6n-d8-aS9" firstAttribute="width" secondItem="CAY-Xn-vph" secondAttribute="width" id="a0c-5Z-GYY"/>
                     <constraint firstAttribute="trailing" secondItem="LKu-j2-5g8" secondAttribute="trailing" id="aE1-nG-84t"/>

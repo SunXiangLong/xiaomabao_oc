@@ -7,11 +7,7 @@
 //
 
 #import "MBOnlineServiceViewController.h"
-#import "MBSendAfterServiceViewController.h"
-//#import "NTalkerInstance.h"
-//#import "NTalkerUnreadMessageModel.h"
-//#import "NTalkeBasicinfoModel.h"
-//#import "NTalkerTrailModel.h"
+
 @interface MBOnlineServiceViewController ()
 @end
 

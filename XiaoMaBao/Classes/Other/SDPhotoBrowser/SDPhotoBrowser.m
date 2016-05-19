@@ -181,8 +181,10 @@
         UICollectionView *view = (UICollectionView *)self.sourceImagesContainerView;
         NSIndexPath *path = [NSIndexPath indexPathForItem:currentIndex inSection:0];
         sourceView = [view cellForItemAtIndexPath:path];
-    }else {
-        sourceView = self.sourceImagesContainerView.subviews[currentIndex];
+    }else if([self.sourceImagesContainerView isKindOfClass:UITableViewCell.class]){
+        sourceView = self.sourceImagesContainerView;
+    }else{
+       sourceView = self.sourceImagesContainerView.subviews[currentIndex];
     }
     
     

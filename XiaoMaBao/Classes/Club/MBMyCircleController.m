@@ -25,10 +25,7 @@
      *  轮播图数组
      */
     NSArray *_bandImageArray;
-    /**
-     *  是否从下一个界面返回
-     */
-    BOOL _isDimiss;
+    
     
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -47,7 +44,7 @@
     
     [super viewWillDisappear:animated];
     [MobClick beginLogPageView:@"MBMyCircleController"];
-   
+    _isDimiss    = YES;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -102,6 +99,8 @@
         if ([num integerValue] == 1) {
             [self.recommendArray removeAllObjects];
             [self.myCircleArray removeAllObjects];
+            
+            
             [self setData];
         }
     }];
@@ -130,7 +129,7 @@
     
     @weakify(self);
     [[view1.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *number) {
-        NSLog(@"%ld",[number integerValue]);
+       
         @strongify(self);
         switch ([number integerValue]) {
             case 0:
@@ -244,7 +243,7 @@
         
         [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict} success:^(id responseObject) {
             [self dismiss];
-                        NSLog(@"%@",responseObject);
+//                        NSLog(@"%@",responseObject);
             
             if (responseObject) {
                 
@@ -435,14 +434,14 @@
     }];
     
     NSString *numStr = s_Integer(_myCircleArray.count);
-    NSString *comment_content = [NSString stringWithFormat:@"我的麻包圈(%@)",numStr];
+    NSString *comment_content = [NSString stringWithFormat:@"我的麻包圈( %@ )",numStr];
     
     
     NSRange range = [comment_content rangeOfString:numStr];
     
     NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:comment_content];
-    [att addAttributes:@{NSForegroundColorAttributeName:UIcolor(@"d66263")}  range:NSMakeRange(6, range.length)];
-    [att addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} range:NSMakeRange(6, range.length )];
+    [att addAttributes:@{NSForegroundColorAttributeName:UIcolor(@"d66263")}  range:NSMakeRange(range.location, range.length)];
+    [att addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} range:NSMakeRange(range.location, range.length )];
     
     
     if (section == 0) {

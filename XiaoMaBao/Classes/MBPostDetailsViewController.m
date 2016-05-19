@@ -15,14 +15,14 @@
 #import "MBLoginViewController.h"
 #import "MBCollectionPostController.h"
 #import "MBPostReplyController.h"
-@interface MBPostDetailsViewController ()
+#import "MBPostDetailsViewCell.h"
+#import "LWImageBrowser.h"
+
+@interface MBPostDetailsViewController ()<SDPhotoBrowserDelegate>
 {
     
     
-    /**
-     *  楼主信息的字典
-     */
-    NSDictionary *_post_detail;
+    
     /**
      *  titltButton的飙升箭头
      */
@@ -40,6 +40,7 @@
      */
     BOOL _isCollection;
    
+    NSIndexPath *_dianjiIndexPath;
    
 
 }
@@ -63,10 +64,6 @@
  *  存放跟帖用户的相关信息
  */
 @property (copy, nonatomic) NSMutableArray *commentsArray;
-/**
- *   楼主发布的全部图片的高度
- */
-@property (assign, nonatomic)   CGFloat post_detail_cellheight;
 /**
  *  页数
  */
@@ -97,15 +94,10 @@
 {
     [super viewWillAppear:animated];
     [MobClick endLogPageView:@"MBPostDetailsViewController"];
-    [self.tableView.mj_footer resetNoMoreData];
-    [self.headArray removeAllObjects];
-    [self.cellHeightArray removeAllObjects];
-    [self.commentsArray removeAllObjects];
-    _post_detail_cellheight = 0;
-    _page =1;
-    _poster =  @"1";
-    _isImage = @"1";
-    [self setData];
+    if (_isDismiass) {
+         [self setData];
+    }
+   
     
 }
 - (NSMutableArray *)headArray{
@@ -129,9 +121,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setTitle];
- 
+    _page =1;
+    _poster =  @"1";
+    _isImage = @"1";
+   
     [self is_collectionData];
-  
+   [self setData];
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
     footer.refreshingTitleHidden = YES;
@@ -149,31 +144,17 @@
     NSDictionary *dic = [notif userInfo];
     NSNumber *num  = dic[@"number"];
     NSIndexPath *indexPath = dic[@"indexPath"];
-    NSIndexPath *rootIndexPath = dic[@"rootIndexPath"];
-    
-    
-    if (rootIndexPath.section == 0) {
+   
         /**
          *  只有当下载完成图片长度和预设的图片长度不一致才刷新
          */
-        if ([self.headArray[indexPath.row] floatValue] != [num floatValue]) {
-            _post_detail_cellheight +=  [num floatValue] - (UISCREEN_WIDTH-20)*105/125;
-            self.headArray[indexPath.row] = num;
-            [self.tableView reloadData];
+        if ([_cellHeightArray[indexPath.section][indexPath.row-1] floatValue] != [num floatValue]) {
+            _cellHeightArray[indexPath.section][indexPath.row-1] = num;
+    
+             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
         
-    }else{
-        /**
-         *  只有当下载完成图片长度和预设的图片长度不一致才刷新
-         */
-        
-        if ([_cellHeightArray[rootIndexPath.row][indexPath.row] floatValue] != [num floatValue]) {
-            _cellHeightArray[rootIndexPath.row][indexPath.row] = num;
-            [self.tableView reloadData];
-            
-        }
-        
-    }
+    
     
     
     
@@ -228,7 +209,6 @@
         @strongify(self);
         self.isImage = s_str(number);
         self.page = 1;
-        self.post_detail_cellheight = 0;
         [self.tableView.mj_footer resetNoMoreData];
         [self.headArray removeAllObjects];
         [self.commentsArray removeAllObjects];
@@ -274,44 +254,83 @@
         //        NSLog(@"%@",responseObject);
         
         if (responseObject) {
-            if (_page ==1) {
-                _post_detail = [responseObject valueForKeyPath:@"post_detail"];
+            
+            
+            if (_isDismiass) {
                 
-                for (NSInteger i= 0 ; i<[_post_detail[@"post_imgs"] count]; i++) {
-                    _post_detail_cellheight += (UISCREEN_WIDTH-20)*105/125;
-                    [weakSelf.headArray addObject:@((UISCREEN_WIDTH-20)*105/125)];
-                }
-                
-                [weakSelf.commentsArray addObjectsFromArray:[responseObject valueForKeyPath:@"comments"]];
-                for (NSDictionary *dic in self.commentsArray) {
-                    NSArray *arr = dic[@"comment_imgs"];
-                    NSMutableArray *array = [NSMutableArray array];
-                    for (NSInteger i = 0; i < arr.count; i++) {
-                        [array addObject:@((UISCREEN_WIDTH-20)*105/125)];
+                if ([[responseObject valueForKeyPath:@"comments"] count]>_commentsArray.count-1) {
+                    NSDictionary *dataDic = [[responseObject valueForKeyPath:@"comments"] lastObject];
+                    [_commentsArray addObject:dataDic];
+                    
+                    
+                    NSMutableArray *cellHeight = [NSMutableArray array];
+                    
+                    NSArray *arr = dataDic[@"comment_imgs"];
+
+      
+                    for (NSString *imageUrl in arr) {
+                        [cellHeight addObject:@((UISCREEN_WIDTH-20)*105/125)];
                     }
-                    [weakSelf.cellHeightArray addObject:array];
-                }
-                if (_isDismiass) {
+
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:weakSelf.commentsArray.count-1 inSection:1];
                     
                     [weakSelf.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     [weakSelf.tableView scrollToRowAtIndexPath:indexPath
                                               atScrollPosition:UITableViewScrollPositionBottom animated:NO];
                     _isDismiass = !_isDismiass;
+                    
+                    return ;
 
-                }else{
-                    [weakSelf.tableView reloadData];
                 }
-            
+                
+            }
+            if (_page ==1) {
+
+                [weakSelf.commentsArray addObject:[responseObject valueForKeyPath:@"post_detail"]];
+                [weakSelf.commentsArray addObjectsFromArray:[responseObject valueForKeyPath:@"comments"]];
+                
+                for (NSInteger i = 0 ; i<self.commentsArray.count; i++) {
+                    NSDictionary *dic = self.commentsArray[i];
+                    NSMutableArray *cellHeight = [NSMutableArray array];
+                    if (i == 0) {
+                        NSArray *arr = dic[@"post_imgs"];
+                        for (NSString *imageUrl in arr) {
+                            [cellHeight addObject:@((UISCREEN_WIDTH-20)*105/125)];
+                        }
+                    }else{
+                    NSArray *arr = dic[@"comment_imgs"];
+                        for (NSString *imageUrl in arr) {
+                            [cellHeight addObject:@((UISCREEN_WIDTH-20)*105/125)];
+                        }
+                    }
+                    [weakSelf.cellHeightArray addObject:cellHeight];
+                }
+                
+                
+                
+             
+            [weakSelf.tableView reloadData];
                 _page++;
                 
             }else{
                 
                 if ([[responseObject valueForKeyPath:@"data"] count]>0) {
-                    [_commentsArray addObjectsFromArray:[responseObject valueForKeyPath:@"comments"]];
+                    
+                    NSArray *dataArr = [responseObject valueForKeyPath:@"comments"];
+                    [_commentsArray addObjectsFromArray:dataArr];
+                    for (NSInteger i = 0 ; i<dataArr.count; i++) {
+                        NSDictionary *dic = self.commentsArray[i];
+                        NSMutableArray *cellHeight = [NSMutableArray array];
+                        
+                            NSArray *arr = dic[@"comment_imgs"];
+                            for (NSString *imageUrl in arr) {
+                                [cellHeight addObject:@((UISCREEN_WIDTH-20)*105/125)];
+                            }
+                      
+                        [weakSelf.cellHeightArray addObject:cellHeight];
+                    }
+                    
                     _page++;
-                    
-                    
                     [weakSelf.tableView reloadData];
                     [weakSelf.tableView .mj_footer endRefreshing];
                     
@@ -493,7 +512,7 @@
     MBPostReplyController *VC = [[MBPostReplyController alloc] init];
     
     VC.title   = [NSString stringWithFormat:@"回复%@:",@"楼主"];
-    VC.post_id =self.post_id;
+    VC.post_id = self.post_id;
     VC.comment_reply_id  = @"0";
     
     [self pushViewController:VC Animated:YES];
@@ -507,157 +526,199 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
-    return 2;
+    return self.commentsArray.count;
+//    return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section == 0) {
+      NSDictionary *dic = _commentsArray[section];
+    if (section ==0) {
+        if ([dic[@"post_imgs"] count]>0 ) {
+            return [dic[@"post_imgs"] count]+1;
+        }
         return 1;
     }
-    return self.commentsArray.count;
+    if ([dic[@"comment_imgs"] count]>0 ) {
+        return [dic[@"comment_imgs"] count]+1;
+    }
+    return 1;
+    
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        NSString *post_content = _post_detail[@"post_content"];
-        NSString *post_title = _post_detail[@"post_title"];
-        CGFloat post_title_height = [post_title sizeWithFont:SYSTEMFONT(16) lineSpacing:2 withMax:UISCREEN_WIDTH-20];
-        CGFloat post_content_height = [post_content sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
-
-       
-        if (post_content_height<25) {
-            return   _post_detail_cellheight+120+post_content_height+post_title_height;
-        }
-        /**
-         *  这个帖子有很多空格会导致字符串高度计算不对
-         */
-        if ([_post_detail[@"post_title"] isEqualToString:@"李娟医生：肚子一天天隆起来，产检那些事儿您知道吗？"]) {
-            return _post_detail_cellheight+258+post_content_height+post_title_height;
-        }
-        return _post_detail_cellheight+180+post_content_height+post_title_height;
-        
-   
-      
-        
-    }
-    NSDictionary *dic = _commentsArray[indexPath.row];
-    NSString *comment_content = dic[@"comment_content"];
-    CGFloat cellHeight = 0;
-    for (NSNumber *number in self.cellHeightArray[indexPath.row]) {
-        cellHeight += [number floatValue];
-    }
-    if (dic[@"comment_reply"]) {
-        NSString *comment_reply_comment_content =  dic[@"comment_reply"][@"comment_content"];
-        CGFloat comment_reply_user_name_height =  [comment_reply_comment_content sizeWithFont: SYSTEMFONT(12) lineSpacing:2 withMax:UISCREEN_WIDTH -70];
-        if (comment_reply_user_name_height>35) {
-             cellHeight = comment_reply_user_name_height+45+cellHeight;
-        }else{
-            cellHeight = comment_reply_user_name_height+30+cellHeight;
-        }
-       
-       
-    }
+  
     
-    return cellHeight+103+ [comment_content sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
+        NSDictionary *dic = _commentsArray[indexPath.section];
+
+        if (indexPath.section ==0) {
+            if (indexPath.row ==0) {
+                NSString *post_content = dic[@"post_content"];
+                NSString *post_title = dic[@"post_title"];
+                CGFloat post_title_height = [post_title sizeWithFont:SYSTEMFONT(16) lineSpacing:2 withMax:UISCREEN_WIDTH-20];
+                CGFloat post_content_height = [post_content sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
+
+                return 108 +post_content_height+post_title_height;
+            }
+            
+            return [self.cellHeightArray[indexPath.section][indexPath.row-1] floatValue];
+        }
+  
+        if (indexPath.row == 0) {
+            NSString *comment_content = dic[@"comment_content"];
+              CGFloat cellHeight = 0;
+            if (dic[@"comment_reply"]) {
+                NSString *comment_reply_comment_content =  dic[@"comment_reply"][@"comment_content"];
+                CGFloat comment_reply_user_name_height =  [comment_reply_comment_content sizeWithFont: SYSTEMFONT(12) lineSpacing:2 withMax:UISCREEN_WIDTH -70];
+                if (comment_reply_user_name_height>35) {
+                    cellHeight = comment_reply_user_name_height+45+cellHeight;
+                }else{
+                    cellHeight = comment_reply_user_name_height+30+cellHeight;
+                }
+            
+        }
+        return cellHeight+105+ [comment_content sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
+       
+    }
+     return [self.cellHeightArray[indexPath.section][indexPath.row-1] floatValue];
+        
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+     NSDictionary *dic = _commentsArray[indexPath.section];
     if (indexPath.section == 0) {
-        MBPostDetailsOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsOneCell"];
-        if (!cell) {
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBPostDetailsOneCell"owner:nil options:nil]firstObject];
+        if (indexPath.row == 0) {
+           
+            MBPostDetailsOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsOneCell"];
+            if (!cell) {
+                cell = [[[NSBundle mainBundle]loadNibNamed:@"MBPostDetailsOneCell"owner:nil options:nil]firstObject];
+            }
+            
+
+            
+            cell.post_content.text = dic[@"post_content"];
+            cell.post_title.text = dic[@"post_title"];
+            cell.circle_name.text = dic[@"circle_name"];
+            cell.author_name.text = dic[@"author_name"];
+            cell.reply_cnt.text = dic[@"reply_cnt"];
+            [cell.author_userhead  sd_setImageWithURL:URL(dic[@"author_userhead"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];            
+            [cell.post_content rowSpace:6];
+            [cell.post_title rowSpace:2];
+            
+            return cell;
+
         }
         
-        cell.rootIndexPath = indexPath;
-        cell.heightArray = _headArray;
         
-        cell.post_content.text = _post_detail[@"post_content"];
-        cell.post_title.text = _post_detail[@"post_title"];
-        cell.circle_name.text = _post_detail[@"circle_name"];
-        cell.author_name.text = _post_detail[@"author_name"];
-        cell.reply_cnt.text = _post_detail[@"reply_cnt"];
-        [cell.author_userhead  sd_setImageWithURL:URL(_post_detail[@"author_userhead"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-        cell.imagUrlStrArray = _post_detail[@"post_imgs"];
+        MBPostDetailsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsViewCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBPostDetailsViewCell"owner:nil options:nil]firstObject];
+        }
+        cell.indexPath = indexPath;
+        if (indexPath.row-1<[dic[@"post_imgs"] count]) {
+            
+            cell.imageUrlStr =  dic[@"post_imgs"][indexPath.row-1];
+            
+ 
+        }
         
-        [cell.post_content rowSpace:6];
-        [cell.post_content columnSpace:1];
-        [cell.post_title rowSpace:2];
-        [cell.post_title columnSpace:1];
+        return cell;
+    
+    }
+    
+    if (indexPath.row == 0) {
         
+        MBPostDetailsTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsTwoCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBPostDetailsTwoCell"owner:nil options:nil]firstObject];
+        }
+        cell.comment_time.text = dic[@"comment_time"];
+        cell.comment_floor.text = dic[@"comment_floor"];
+        cell.comment_content.text = dic[@"comment_content"];
+        cell.user_name.text = dic[@"user_name"];
+        [cell.user_head sd_setImageWithURL:URL(dic[@"user_head"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+        cell.indexPath = indexPath;
+        [cell.comment_content rowSpace:6];
+        [cell.comment_content columnSpace:1];
+        if (dic[@"comment_reply"]) {
+            
+            NSString *comment_reply_comment_content =  dic[@"comment_reply"][@"comment_content"];
+            CGFloat comment_reply_user_name_height =  [comment_reply_comment_content sizeWithFont: SYSTEMFONT(12) lineSpacing:2 withMax:UISCREEN_WIDTH -70];
+            cell.comment_reply_user_name.text = dic[@"comment_reply"][@"user_name"];
+            cell.comment_reply_comment_content.text = dic[@"comment_reply"][@"comment_content"];
+            [cell.user_head_user_head sd_setImageWithURL:URL(dic[@"comment_reply"][@"user_head"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+            cell.comment_reply_height.constant  = comment_reply_user_name_height+30;
+            cell.commentView.hidden = NO;
+            [cell.comment_reply_comment_content rowSpace:2];
+            [cell.comment_reply_comment_content columnSpace:1];
+        }else{
+            cell.comment_reply_height.constant  = 0;
+            cell.commentView.hidden = YES;
+        }
+        @weakify(self);
+        [[cell.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSIndexPath *indexPath) {
+            
+            @strongify(self);
+            NSDictionary *dic = self.commentsArray[indexPath.section];
+            NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+            
+            if (!sid) {
+                [self loginClicksss];
+                return;
+            }
+            MBPostReplyController *VC = [[MBPostReplyController alloc] init];
+            self.isDismiass  = YES;
+            VC.title   = [NSString stringWithFormat:@"回复%@:",dic[@"user_name"]];
+            VC.post_id =self.post_id;
+            VC.comment_reply_id  = dic[@"comment_id"];
+            
+            [self pushViewController:VC Animated:YES];
+        }];
         
         return cell;
     }
-    NSDictionary *dic = _commentsArray[indexPath.row];
-    MBPostDetailsTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsTwoCell"];
+   
+    
+    MBPostDetailsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsViewCell"];
     if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBPostDetailsTwoCell"owner:nil options:nil]firstObject];
+        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBPostDetailsViewCell"owner:nil options:nil]firstObject];
     }
+    cell.indexPath = indexPath;
     
-    cell.rootIndexPath = indexPath;
-    cell.heightArray =  _cellHeightArray[indexPath.row];
-    cell.comment_time.text = dic[@"comment_time"];
-    cell.comment_floor.text = dic[@"comment_floor"];
-    cell.comment_content.text = dic[@"comment_content"];
-    cell.user_name.text = dic[@"user_name"];
-    [cell.user_head sd_setImageWithURL:URL(dic[@"user_head"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-    
-    [cell.comment_content rowSpace:6];
-    [cell.comment_content columnSpace:1];
-    if (dic[@"comment_reply"]) {
+  
+    if (indexPath.row-1<[dic[@"comment_imgs"] count]) {
         
-        NSString *comment_reply_comment_content =  dic[@"comment_reply"][@"comment_content"];
-        CGFloat comment_reply_user_name_height =  [comment_reply_comment_content sizeWithFont: SYSTEMFONT(12) lineSpacing:2 withMax:UISCREEN_WIDTH -70];
-        cell.comment_reply_user_name.text = dic[@"comment_reply"][@"user_name"];
-        cell.comment_reply_comment_content.text = dic[@"comment_reply"][@"comment_content"];
-        [cell.user_head_user_head sd_setImageWithURL:URL(dic[@"comment_reply"][@"user_head"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-        if (comment_reply_user_name_height>40) {
-            cell.comment_reply_height.constant  = comment_reply_user_name_height+45;
-        }else{
-           cell.comment_reply_height.constant  = comment_reply_user_name_height+30;
-        }
-       
-        cell.commentView.hidden = NO;
-        [cell.comment_reply_comment_content rowSpace:2];
-        [cell.comment_reply_comment_content columnSpace:1];
-    }else{
-        cell.comment_reply_height.constant  = 0;
-        cell.commentView.hidden = YES;
+        cell.imageUrlStr =  dic[@"comment_imgs"][indexPath.row-1];
+        
+        
     }
-    cell.imagUrlStrArray = dic[@"comment_imgs"];
-    @weakify(self);
-    [[cell.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSIndexPath *indexPath) {
-    
-        @strongify(self);
-        NSDictionary *dic = self.commentsArray[indexPath.row];
-        NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-        
-        if (!sid) {
-            [self loginClicksss];
-            return;
-        }
-        MBPostReplyController *VC = [[MBPostReplyController alloc] init];
-        self.isDismiass  = YES;
-        VC.title   = [NSString stringWithFormat:@"回复%@:",dic[@"user_name"]];
-        VC.post_id =self.post_id;
-        VC.comment_reply_id  = dic[@"comment_id"];
-        
-        [self pushViewController:VC Animated:YES];
-    }];
     
     return cell;
-    
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPat{
+    _dianjiIndexPath = indexPat;
+    NSDictionary *dic = _commentsArray[indexPat.section];
+      SDPhotoBrowser *photoBrowser = [[SDPhotoBrowser alloc] init];
+    if (indexPat.section == 0) {
+        photoBrowser.imageCount =  [dic[@"post_imgs"] count];
+    }else{
+        photoBrowser.imageCount =  [dic[@"comment_imgs"] count];
+    }
+    if (!(photoBrowser.imageCount > 0)) {
+        return;
+    }
+    UITableViewCell *cell = [tableView  cellForRowAtIndexPath:indexPat];
+    photoBrowser.delegate = self;
+    photoBrowser.currentImageIndex = indexPat.row -1;
+    photoBrowser.sourceImagesContainerView = cell;
+    [photoBrowser show];
 }
 -(void)dealloc{
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _commentsArray = nil;
     _cellHeightArray = nil;
-    _post_detail_cellheight = 0;
-    _post_detail = nil;
+
+ 
 }
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     
@@ -673,6 +734,27 @@
     }
     
 }
+- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
+{
+    NSString *imageName;
+    if (_dianjiIndexPath.section == 0) {
+      
+        imageName  = _commentsArray[_dianjiIndexPath.section][@"post_imgs"][index];
+        
+    }else{
+        
+     imageName =  _commentsArray[_dianjiIndexPath.section][@"comment_imgs"][index];
+        
+    }
+    
+    NSURL *url = URL(imageName);
+    return url;
+}
 
-
+- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
+{
+  
+    
+    return [UIImage imageNamed:@"img_default"];
+}
 @end
