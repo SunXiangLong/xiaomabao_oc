@@ -111,11 +111,7 @@
     scrollView.contentSize = CGSizeMake(self.childViewControllers.count * UISCREEN_WIDTH, 0);
     [self.view addSubview:scrollView];
     self.scrollView                   = scrollView;
-//    UIViewController *willShowChildVc = self.childViewControllers[1];
-//    willShowChildVc.view.frame        = scrollView.bounds;
-//    willShowChildVc.view.ml_x         = self.view.ml_width;
-//    [scrollView addSubview:willShowChildVc.view];
-    // 默认显示第0个控制器
+
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 - (NSString *)rightImage{

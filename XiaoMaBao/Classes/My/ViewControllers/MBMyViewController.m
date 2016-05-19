@@ -239,6 +239,7 @@
     }else{
         
         [self loginClicksss];
+        return;
        
     }
     

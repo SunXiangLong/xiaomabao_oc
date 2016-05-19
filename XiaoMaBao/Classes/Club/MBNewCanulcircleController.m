@@ -212,6 +212,7 @@
     if (! sid) {
         
         [self loginClicksss];
+        return;
     }
     
   [User_Defaults setObject:nil forKey:@"messageNumber"];
@@ -240,6 +241,7 @@
     return @"";
     
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
