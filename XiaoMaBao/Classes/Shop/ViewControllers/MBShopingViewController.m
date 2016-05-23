@@ -28,7 +28,8 @@
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "MBShopTableViewCell.h"
 #import "MBNavigationViewController.h"
-@interface MBShopingViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate>{
+#import "DataSigner.h"
+@interface MBShopingViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,UnicallDelegate>{
     
     NSTimer   *myTimer;
     NSInteger lettTimes;
@@ -136,7 +137,7 @@
 
     [super viewDidLoad];
     
-
+    [[Unicall singleton] attach:self appKey:UNICALL_APPKEY tenantId:UNICALL_TENANID];
     [self.navigationController.navigationItem.rightBarButtonItem setImage:[UIImage imageNamed:@"address_add"]];
     self.view.backgroundColor = [UIColor whiteColor];
     [self getGoosInfo];
@@ -355,15 +356,7 @@
         int page = _headerScrollview.contentOffset.x / 290;//通过滚动的偏移量来判断目前页面所对应的小白点
         _pagecontrol.currentPage = page;//pagecontroll响应值的变化
     }
-//    CGFloat offsetY = scrollView.contentOffset.y;
-//    
-//    CGFloat scaleTopView = 1 - (offsetY ) / 100;
-//    scaleTopView = scaleTopView > 1 ? scaleTopView : 1;
-//    
-//    //算出头部的变形 这里的动画不是很准确，好的动画是一点一点试出来了  这里可能还需要配合锚点来进行动画,关于这种动画我会在以后单开一个项目配合blog来讲解的 这里这就不细调了
-//    CGAffineTransform transform = CGAffineTransformMakeScale(scaleTopView, scaleTopView );
-//    CGFloat ty = (scaleTopView - 1) * UISCREEN_WIDTH;
-//    self.topView.transform = CGAffineTransformTranslate(transform, 0, -ty * 0.2);
+
 }
 
 -(void)pagescrolled:(UIPageControl *)pagecontrol
@@ -1023,32 +1016,110 @@
 }
 #pragma mark --小能客服
 - (void)service{
-    XNGoodsInfoModel *info = [[XNGoodsInfoModel alloc] init];
-    info.appGoods_type = @"3";
-    info.clientGoods_Type = @"1";
-    info.goods_id = self.GoodsId;
-    info.goods_showURL = [NSString stringWithFormat:@"http://www.xiaomabao.com/goods-%@.html",self.GoodsDict[@"goods_id"]];
-    info.goods_imageURL = self.goods_gallery[0];
-    info.goodsTitle = self.goods_name;
-    info.goodsPrice = self.shop_price_formatted;
-    info.goods_URL = @"https://www.baidu.com";
-    
-    NTalkerChatViewController *ctrl = [[NTalkerChatViewController alloc] init];
-    ctrl.productInfo = info;
-    ctrl.settingid = @"kf_9761_1432534158571";//【必传】 客服组id
-    ctrl.erpParams = @"www.baidu.com";
     
     
-    ctrl.pushOrPresent = NO;
-    
-    if (ctrl.pushOrPresent == YES) {
-        [self.navigationController pushViewController:ctrl animated:YES];
-    } else {
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctrl];
-        ctrl.pushOrPresent = NO;
-        [self presentViewController:nav animated:YES completion:nil];
-    }
 
+
+    NSDictionary *itemInfo = @{
+                               @"title" : self.GoodsDict[@"goods_name"],
+                               @"desc" : self.goods_brief,
+                               @"iconUrl" : @"http://www.xiaomabao.com/images/20160224/20165902241620595989.jpg",
+                               @"url" : [NSString stringWithFormat:@"http://www.xiaomabao.com/goods-%@.html",self.GoodsDict[@"goods_id"]]
+                               };
+    [[Unicall singleton] UnicallShowView:itemInfo];
+    
+    
+   [self getUnicallSignature];
+    return;
+    
+//    XNGoodsInfoModel *info = [[XNGoodsInfoModel alloc] init];
+//    info.appGoods_type = @"3";
+//    info.clientGoods_Type = @"1";
+//    info.goods_id = self.GoodsId;
+//    info.goods_showURL = [NSString stringWithFormat:@"http://www.xiaomabao.com/goods-%@.html",self.GoodsDict[@"goods_id"]];
+//    info.goods_imageURL = self.goods_gallery[0];
+//    info.goodsTitle = self.goods_name;
+//    info.goodsPrice = self.shop_price_formatted;
+//    info.goods_URL = @"https://www.baidu.com";
+//    
+//    NTalkerChatViewController *ctrl = [[NTalkerChatViewController alloc] init];
+//    ctrl.productInfo = info;
+//    ctrl.settingid = @"kf_9761_1432534158571";//【必传】 客服组id
+//    ctrl.erpParams = @"www.baidu.com";
+//    
+//    
+//    ctrl.pushOrPresent = NO;
+//    
+//    if (ctrl.pushOrPresent == YES) {
+//        [self.navigationController pushViewController:ctrl animated:YES];
+//    } else {
+//        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctrl];
+//        ctrl.pushOrPresent = NO;
+//        [self presentViewController:nav animated:YES completion:nil];
+//    }
+//
+    
+}
+
+-(void)getUnicallSignature{
+    NSString *privateKey =  [NSString stringWithFormat:@"%@%@%@%@%@%@%@",
+                            @"MIIBPAIBAAJBAMBrqadzplyUtQUXCP+VuDFWt0p9Kl+s3yrQ8PV+P89Bbt/UqN2/",
+                            @"BzVNPoNgtQ2fI7Ob652limC/jqVf6slzPEUCAwEAAQJAOL7HXnGVqxHTvHeJmM4P",
+                            @"bsVy8k2tNF/nxFmv5cXgjX7sd7BU9jyELGP4os3ID3tItdCHtmMM3KM91lTHYlkk",
+                            @"dQIhAOWKnz0moWISa0S8cBYJI0k0PRoYMv6Xsty5aZpC9WM/AiEA1pmqSthbMUb2",
+                            @"TrmRyJsHswLAYSHotTIS0kzHu655M3sCIQDLdWXUJCuj7EOcd5K6VXsrZdxLBuwc",
+                            @"coYd01LhYzxyrQIhAIsqc6i9zcWTAz/iT4wMHV4VNrTGzKZUpqgCarRnXOnpAiEA",
+                            @"pbZzKKXpVGNp2MMXRlpdzdGCKFMYSeqnqXuwd76iwco="
+                            ];
+    NSString *tenantId = UNICALL_TENANID;
+    NSString *appKey = UNICALL_APPKEY;
+    NSString *time = [self getCurrentTime];
+    NSString *expireTime = @"60000";
+    
+    NSString *stringToSign = [NSString stringWithFormat:@"%@&%@&%@&%@",appKey,expireTime,tenantId,time];
+      id<DataSigner> signer = CreateRSADataSigner(privateKey);
+    
+      NSString *signature = [signer uncallString:stringToSign];
+    NSDictionary *json = @{@"appKey":appKey,@"expireTime":expireTime,@"signature":signature,@"tenantId":tenantId,@"time":time};
+
+    Unicall *unicall = [Unicall singleton];
+    [unicall UnicallUpdateValidation:json];
+    [unicall UnicallUpdateUserInfo:@{@"nickname":@"Someone"}];
+}
+//delegate methods
+-(void)acquireValidation
+{
+   [self getUnicallSignature];
+}
+-(void)messageCountUpdated:(NSNumber*) data
+{
+    NSLog(@"count%@:",data);
+
+}
+-(void)messageArrived:(NSDictionary*) data
+{
+    NSError* error = nil;
+    NSData* source = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error];
+    NSString* str = [NSJSONSerialization JSONObjectWithData:source options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"%@%@",@"Unicall message arrived.",str);
+    
+    if([[data objectForKey:@"eventName"] isEqualToString:@"updateNewMessageCount"])
+         NSLog(@"count%@:",data);
+}
+-(UIViewController*) currentViewController
+{
+        NSLog(@"%@",@"22222222");
+    return self;
+}
+-(NSString*)getCurrentTime {
+    
+    NSDateFormatter*formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyy-MM-dd'T'HH:mm:ssZZZZZ"];
+    
+    NSString*dateTime = [formatter stringFromDate:[NSDate date]];
+    
+
+    return dateTime;
     
 }
 

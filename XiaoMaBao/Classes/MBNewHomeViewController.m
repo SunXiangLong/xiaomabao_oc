@@ -12,6 +12,10 @@
 #import "MBSearchViewController.h"
 #import "MBShopDetailsViewController.h"
 #import "MBTopCargoController.h"
+#import "MBShopingViewController.h"
+#import "MBActivityViewController.h"
+#import "MBWebViewController.h"
+#import "MBGroupShopController.h"
 @interface MBNewHomeViewController ()<UIScrollViewDelegate>
 {
     UIButton *_lastButton;
@@ -43,9 +47,42 @@
     
     [super viewWillAppear:animated];
     [MobClick endLogPageView:@"MBNewHomeViewController"];
+    
+    NSDictionary *userInfo = [User_Defaults valueForKeyPath:@"userInfo"];
+    
+    NSLog(@"%@",userInfo);
+    
+    if (userInfo) {
+        NSString *type = userInfo[@"type"];
+        if ([type isEqualToString:@"goods"]) {
+            MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+            VC.GoodsId =  userInfo[@"id"];
+            [self pushViewController:VC Animated:YES];
+        }else if([type isEqualToString:@"topic"]){
+            MBActivityViewController *VC = [[MBActivityViewController alloc] init];
+            VC.act_id = userInfo[@"id"];
+            [self pushViewController:VC Animated:YES];
+        }else if([type isEqualToString:@"group"]){
+            MBGroupShopController *VC = [[MBGroupShopController alloc] init];
+            [self pushViewController:VC Animated:YES];
+        }else if([type isEqualToString:@"web"]){
+            MBWebViewController *VC = [[MBWebViewController alloc] init];
+            VC.url =  [NSURL URLWithString:userInfo[@"id"]];
+            VC.isloging = YES;
+            [self pushViewController:VC Animated:YES];
+        }
+        [User_Defaults setObject:nil forKey:@"userInfo"];
+        [User_Defaults synchronize];
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+        return;
+    }
+    
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupChildVcs];
     [self setupTitlesView];

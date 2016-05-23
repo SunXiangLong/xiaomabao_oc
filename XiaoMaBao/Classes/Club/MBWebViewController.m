@@ -9,6 +9,7 @@
 #import "MBWebViewController.h"
 #import <JavaScriptCore/JavaScriptCore.h> //引入头文件
 #import "ObjCModel.h"
+#import "MBProgressHUD.h"
 @interface MBWebViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
@@ -103,7 +104,7 @@
 -(void)webView:(UIWebView*)webView DidFailLoadWithError:(NSError*)error{
     //当在请求加载中发生错误时，得到通知。会提供一个NSSError对象，以标识所发生错误类
     NSLog(@"%@",error);
-    [self show:@"加载失败" time:1];
+    [self show:error.userInfo[@"NSLocalizedDescription"] time:1];
 }
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{
     if (self.webView.canGoBack) {

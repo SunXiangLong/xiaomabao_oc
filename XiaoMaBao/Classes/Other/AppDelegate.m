@@ -59,6 +59,13 @@
 //#import "NTalkerInstance.h"
 #import "DXAlertView.h"
 #import "LaunchIntroductionView.h"
+
+#import "MBShopingViewController.h"
+#import "MBActivityViewController.h"
+#import "MBWebViewController.h"
+#import "MBGroupShopController.h"
+#import "MBTabBarViewController.h"
+#import "MBNavigationViewController.h"
 @interface AppDelegate ()<WXApiDelegate>
 {
     NSArray* titleandIds ;
@@ -91,8 +98,6 @@
     
     //极光推送（通知）
     [self Required:launchOptions];
-    
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     //登陆
     [self Obtain];
     //更新
@@ -111,24 +116,25 @@
     [[XNSDKCore sharedInstance] initSDKWithSiteid:@"kf_9761" andSDKKey:@"4AE38950-F352-47F3-94EA-97C189F48B0F"];
     
     //极光推送（消息）
-    
-        [ [NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
-    /**
-     *    消息数置为0
-     */
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    
+    [ [NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
+    if (launchOptions) {
+        NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        [User_Defaults setObject:userInfo forKey:@"userInfo"];
+        [User_Defaults synchronize];
+     
+    }
     
     //提示用户评价
     [self setAppirater];
     
-//    [self.window makeKeyAndVisible];
+   [self.window makeKeyAndVisible];
 //    
 //        //第一次打开应用显示导航
 //        if ( ![self showNewFeature]) {
 //            [self setupLanuchView];
 //        }
 
+    
     return YES;
     
   
@@ -534,24 +540,75 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-     NSLog(@"%@",userInfo);
+    
 
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    [APService handleRemoteNotification:userInfo];
 }
-
+/**
+ *  极光推送在后台收到通知走该方法
+ * UIApplicationStateActive, // 激活状态，用户正在使用App
+ * UIApplicationStateInactive, // 不激活状态，用户切换到其他App、按Home键回到桌面、拉下通知中心
+ * UIApplicationStateBackground // 在后台运行
+ *
+ *  @param application       系统单例
+ *  @param userInfo          通知字典
+ *  @param completionHandler 回调
+ */
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+
+    MBTabBarViewController *tabBarVc = (MBTabBarViewController *)self.window.rootViewController;
+    MBNavigationViewController *rootVC = tabBarVc.selectedViewController;
+
+    if (application.applicationState == UIApplicationStateBackground) {
+          [self notifJumpInterface:userInfo];
+    }else{
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"小麻包母婴通知" message:userInfo[@"aps"][@"alert"] preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"忽略" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+         
+        }];
+        UIAlertAction *OK = [UIAlertAction actionWithTitle:@"去看看" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            
+            [self notifJumpInterface:userInfo];
+        }];
+        
+        [alert addAction:cancel];
+        [alert addAction:OK];
+        [rootVC presentViewController:alert animated:YES completion:nil];
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    }
     
-    NSLog(@"%@",userInfo);
-    NSString *str = userInfo[@"aps"][@"badge"];
-    NSInteger num = [str integerValue];
-    num--;
-    
-    
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:num];
+   
     // IOS 7 Support Required
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
+}
+- (void)notifJumpInterface:(NSDictionary *)userInfo{
+    MBTabBarViewController *tabBarVc = (MBTabBarViewController *)self.window.rootViewController;
+    MBNavigationViewController *rootVC = tabBarVc.selectedViewController;
+    if (userInfo){
+        NSString *type = userInfo[@"type"];
+        if ([type isEqualToString:@"goods"]) {
+            MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+            VC.GoodsId =  userInfo[@"id"];
+            [rootVC pushViewController:VC animated:YES];
+        }else if([type isEqualToString:@"topic"]){
+            MBActivityViewController *VC = [[MBActivityViewController alloc] init];
+            VC.act_id = userInfo[@"id"];
+            [rootVC pushViewController:VC animated:YES];
+        }else if([type isEqualToString:@"group"]){
+            MBGroupShopController *VC = [[MBGroupShopController alloc] init];
+            [rootVC pushViewController:VC animated:YES];
+        }else if([type isEqualToString:@"web"]){
+            MBWebViewController *VC = [[MBWebViewController alloc] init];
+            VC.url =  [NSURL URLWithString:userInfo[@"id"]];
+            VC.isloging = YES;
+            [rootVC pushViewController:VC animated:YES];
+        }
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    }
+
 }
 -(BOOL)application:(UIApplication *)application handleOpenURL:(nonnull NSURL *)url{
 

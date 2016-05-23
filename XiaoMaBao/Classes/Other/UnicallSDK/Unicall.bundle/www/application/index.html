@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <link rel="stylesheet" type="text/css" class="__meteor-css__" href="/merged-stylesheets.css?1dec63061067034f96f09ec0f0a3e20a372ff23b">
+
+  <script type="text/javascript">
+    __meteor_runtime_config__ = JSON.parse(decodeURIComponent("%7B%22meteorRelease%22%3A%22METEOR%401.2.1%22%2C%22ROOT_URL%22%3A%22https%3A%2F%2Ft-wlxzxw2.yunkefu.com%2F%22%2C%22ROOT_URL_PATH_PREFIX%22%3A%22%22%2C%22DDP_DEFAULT_CONNECTION_URL%22%3A%22https%3A%2F%2Ft-wlxzxw2.yunkefu.com%22%2C%22autoupdateVersionCordova%22%3A%227258e2c27f4522cb4e2294bcc9e99264d54773f8%22%2C%22appId%22%3A%2290q00kzhqkdn1l0ptwl%22%2C%22PUBLIC_SETTINGS%22%3A%7B%22ROOT_URL%22%3A%22https%3A%2F%2Ft-wlxzxw2.yunkefu.com%2Fworkbench%22%7D%7D"));
+
+    if (/Android/i.test(navigator.userAgent)) {
+      // When Android app is emulated, it cannot connect to localhost,
+      // instead it should connect to 10.0.2.2
+      // (unless we're using an http proxy; then it works!)
+      if (!__meteor_runtime_config__.httpProxyPort) {
+        __meteor_runtime_config__.ROOT_URL = (__meteor_runtime_config__.ROOT_URL || '').replace(/localhost/i, '10.0.2.2');
+        __meteor_runtime_config__.DDP_DEFAULT_CONNECTION_URL = (__meteor_runtime_config__.DDP_DEFAULT_CONNECTION_URL || '').replace(/localhost/i, '10.0.2.2');
+      }
+    }
+  </script>
+
+  <script type="text/javascript" src="/cordova.js"></script>
+  <script type="text/javascript" src="/packages/es5-shim.js?03b82f907286b5353e3a371eb320635a634fc88b"></script>
+  <script type="text/javascript" src="/packages/underscore.js?46eaedbdeb6e71c82af1b16f51c7da4127d6f285"></script>
+  <script type="text/javascript" src="/packages/meteor.js?9418708e9519b747d9d631d85ea85b90c0b5c70c"></script>
+  <script type="text/javascript" src="/packages/webapp.js?1b9f36d855fc5c8399abf2579ac1e1512060cc95"></script>
+  <script type="text/javascript" src="/packages/base64.js?6b407c3b106cfc043cc07a07a111a2443d789bd4"></script>
+  <script type="text/javascript" src="/packages/ejson.js?5e95dd4b5971d96cb2d3287c54b14d9002f83ab7"></script>
+  <script type="text/javascript" src="/packages/check.js?9c4972d3f4fe56cd455d3022e70b5195e642fc41"></script>
+  <script type="text/javascript" src="/packages/babel-compiler.js?b72b25550ee1619b0eaddf5e0c1541e8c264ccf0"></script>
+  <script type="text/javascript" src="/packages/ecmascript.js?9c79b20dd3f3a6da85828defdd8585b8436af75d"></script>
+  <script type="text/javascript" src="/packages/babel-runtime.js?b0359ff15b87202234ffb6a78f85b70175b412af"></script>
+  <script type="text/javascript" src="/packages/ecmascript-runtime.js?d552d50ef9d63d143f8f549245241748a4796cec"></script>
+  <script type="text/javascript" src="/packages/promise.js?c18eac25a2117745aa5b372e139bae2fce4a84fe"></script>
+  <script type="text/javascript" src="/packages/unicall_unicall-extend.js?b466c56f43dff03d6ad017da544ac6eb20ad19e4"></script>
+  <script type="text/javascript" src="/packages/logging.js?43678cf365e00025aac2fb1f4b9e65a193c27fc4"></script>
+  <script type="text/javascript" src="/packages/tracker.js?7776276660c988c38fed448d8262b925dffb5bc3"></script>
+  <script type="text/javascript" src="/packages/deps.js?a0f1fc18309813a3aac8954f76d0c73e4c5d46f4"></script>
+  <script type="text/javascript" src="/packages/random.js?5851416a296763029b1a4d7302fb9dc24aba51d2"></script>
+  <script type="text/javascript" src="/packages/id-map.js?c9a0833f370b91bbc3fd76d54f21d6ce1850af49"></script>
+  <script type="text/javascript" src="/packages/ordered-dict.js?18a4254f3dd5f8c97946dadb60e33c91efab39c1"></script>
+  <script type="text/javascript" src="/packages/mongo-id.js?3c6c0f6ceace5f42b7dfee0fcafe19ae1b711909"></script>
+  <script type="text/javascript" src="/packages/diff-sequence.js?f4337773c8aaf9bcaa5f5f22865660cbdd471eaa"></script>
+  <script type="text/javascript" src="/packages/geojson-utils.js?bfbab9d995bbbb19fa1b11a3cfdb9da5f5f328ba"></script>
+  <script type="text/javascript" src="/packages/minimongo.js?cdf1a26cf7719fa9471a8017c3defd5aea812727"></script>
+  <script type="text/javascript" src="/packages/retry.js?acb5f93adc31a57311c18af4ce21068297f00f37"></script>
+  <script type="text/javascript" src="/packages/ddp-common.js?5bfbe93c6ad5580f8d13f28d81b2c0db0dae13c4"></script>
+  <script type="text/javascript" src="/packages/ddp-client.js?250b63e6c919c5383a0511ee4efbf42bb70a650f"></script>
+  <script type="text/javascript" src="/packages/ddp.js?1c935134013739ed5ece46880dea800b6319bd67"></script>
+  <script type="text/javascript" src="/packages/ddp-server.js?1057b33d71942bc01fd0167e2b2a5f49f5545d11"></script>
+  <script type="text/javascript" src="/packages/mongo.js?69942a86515ec397dfd8cbb0a151a0eefdd9560d"></script>
+  <script type="text/javascript" src="/packages/reactive-dict.js?8210a4b2fa52dbde9b3c8cf6b296192a34d7b899"></script>
+  <script type="text/javascript" src="/packages/session.js?9a40cf46e8dc125a3486dc33b2a965c1e9f8ff2b"></script>
+  <script type="text/javascript" src="/packages/livedata.js?93f27626c1702ea8af804d6170ffbf8968626718"></script>
+  <script type="text/javascript" src="/packages/jquery.js?1015953f785c9b76503e2ecb391507dce965f357"></script>
+  <script type="text/javascript" src="/packages/htmljs.js?fd1566f5a5a4b277eb93f0a636a84a07ab9a83db"></script>
+  <script type="text/javascript" src="/packages/observe-sequence.js?cd318009bd759e1458173f84a537c5dd315b4f86"></script>
+  <script type="text/javascript" src="/packages/reactive-var.js?975c4d5513ecf8c3a212b5aa160a9ea4447f3079"></script>
+  <script type="text/javascript" src="/packages/blaze.js?9391df93ba5076c2cfc61ee68724eb79b65f00d9"></script>
+  <script type="text/javascript" src="/packages/ui.js?6aa94fb4743be2472f799f928674607edae2afdf"></script>
+  <script type="text/javascript" src="/packages/spacebars.js?1aedcc2aa3ae9ff5d860d73516110cedd77c033e"></script>
+  <script type="text/javascript" src="/packages/templating.js?d7be2bab3c1e28f0cd14c87f8d52857a34311d16"></script>
+  <script type="text/javascript" src="/packages/coffeescript.js?03cc719a379ebb957f4a66012a69a9aa8ebf9052"></script>
+  <script type="text/javascript" src="/packages/arunoda_streams.js?4a70c19f69a98bd8ffb31e8b489f0eb82059595b"></script>
+  <script type="text/javascript" src="/packages/raix_eventemitter.js?9dbc8f21550d5b0e800bfa809850f28136f1deb6"></script>
+  <script type="text/javascript" src="/packages/meteorspark_util.js?4d0369b422a3b45ffaa1e99b319d0bff0d97fb37"></script>
+  <script type="text/javascript" src="/packages/tap_i18n.js?44f69dc260f95f0fa0c597fc1d5a34574f2f33d7"></script>
+  <script type="text/javascript" src="/packages/tomwasd_history-polyfill.js?084816ce7ecefaf46174955e309130b12cbb3ac3"></script>
+  <script type="text/javascript" src="/packages/tomwasd_flow-router-ie8.js?c3e5304d43bd0411869ced015bb3b272b08d0908"></script>
+  <script type="text/javascript" src="/packages/cosmos_browserify.js?7ee635cb94cb310a4d392976dbdd01acb76c3b25"></script>
+  <script type="text/javascript" src="/packages/kadira_flow-router.js?268f8b1c26479d926b9ee14ca4a727315fe2da6a"></script>
+  <script type="text/javascript" src="/packages/kadira_blaze-layout.js?21a108f15465b17c81a3094a6677fd7030802311"></script>
+  <script type="text/javascript" src="/packages/konecty_nrr.js?9df304b8dfaf834d24622871227ab5e9df3cc785"></script>
+  <script type="text/javascript" src="/packages/less.js?8d7e8cbf4562932bef6e158fb7a76c832c71b2b7"></script>
+  <script type="text/javascript" src="/packages/underscorestring_underscore.string.js?11d8f30cc70315e8e43923f800f22a6d1c88de17"></script>
+  <script type="text/javascript" src="/packages/momentjs_moment.js?4e38cbc4dc376eb002e586682f309a2b2d58561c"></script>
+  <script type="text/javascript" src="/packages/url.js?8c4d6df291ec5bafdb89c7be74de61e08741b10f"></script>
+  <script type="text/javascript" src="/packages/http.js?40d307fefc00445c189ac03f4ba12bc9ccf50635"></script>
+  <script type="text/javascript" src="/packages/mizzao_timesync.js?d8ea24fb6e38dc9bbdce798f4f2ae88b20fadced"></script>
+  <script type="text/javascript" src="/packages/npm-bcrypt.js?339fbff12a6703226e44b2e1f9d42612d7f2d1e1"></script>
+  <script type="text/javascript" src="/packages/rate-limit.js?1cbc4d8a96b20fbcf6376e96a09189bffb571050"></script>
+  <script type="text/javascript" src="/packages/ddp-rate-limiter.js?57ec3ab3391710187844397b2105593ab2ad8e01"></script>
+  <script type="text/javascript" src="/packages/localstorage.js?c9dab65641bca0463e02de20ea9d56feacf13aba"></script>
+  <script type="text/javascript" src="/packages/callback-hook.js?f5eea425e2802257907f21606b9e996a7087dab7"></script>
+  <script type="text/javascript" src="/packages/emojione_emojione.js?f29901c9d3a9866d196bd98a18e93b196e2bf2ff"></script>
+  <script type="text/javascript" src="/packages/accounts-base.js?67e748dfe23510810791106e9044c3422d3557a9"></script>
+  <script type="text/javascript" src="/packages/sha.js?8d3df110f526e457248524a1acbdb13b6e05179c"></script>
+  <script type="text/javascript" src="/packages/srp.js?efa91019a74800ae4a7521f5dca598e4b872bc0b"></script>
+  <script type="text/javascript" src="/packages/accounts-password.js?8eae27e32c4d1bc1194f7c6dd2aaed1e33a88499"></script>
+  <script type="text/javascript" src="/packages/standard-minifiers.js?b02a7937678c6058031ee7b2f45b5a617518335d"></script>
+  <script type="text/javascript" src="/packages/kevohagan_sweetalert.js?9c8b689959b2e4c5566afbf7c62717caf62eefb6"></script>
+  <script type="text/javascript" src="/packages/edgee_slingshot.js?4c5b8e7dc4cae9d464984ead4903ef4beaac99f5"></script>
+  <script type="text/javascript" src="/packages/horka_swipebox.js?33187512a0328f2b20415aa5d22087cffb62259d"></script>
+  <script type="text/javascript" src="/packages/axw_ratchet.js?62ba4fd0e9b1df1c8bec2d8e57371ed951585b01"></script>
+  <script type="text/javascript" src="/packages/global-imports.js?b7aff6f4bdbda95f75e592676b59b076252b52f0"></script>
+  <script type="text/javascript" src="/app/client/views/template.avatar.js?9fe0e63b756884cb3ec7f0bcfd9fdefb9af0fde6"></script>
+  <script type="text/javascript" src="/app/client/views/template.loading.js?4ca3ee9095f29e90b64e40546dda85281194ec0a"></script>
+  <script type="text/javascript" src="/app/client/views/template.message.js?f9941a3423ed96ef8c053b972c4259f37216ef7e"></script>
+  <script type="text/javascript" src="/app/client/views/template.pageHeader.js?63ecb4c473e1813c0d6e08e8ef96e40a5e74dbdd"></script>
+  <script type="text/javascript" src="/app/client/views/template.rating.js?d546adf666d9e8ce0055ca6d3c98ef1a8f9f548d"></script>
+  <script type="text/javascript" src="/app/client/views/template.result.js?993b6a88391808afbe9197ab1976c05d3643f917"></script>
+  <script type="text/javascript" src="/app/client/views/template.room.js?2dbdc1d50ab15758e4d2ca621ba56e0eb62eeaa6"></script>
+  <script type="text/javascript" src="/app/client/views/template.ticket.js?1ce81e38a9ba070e8f3fe7a4ad6c6d884f54f707"></script>
+  <script type="text/javascript" src="/app/client/views/template.main.js?485b6fb3b4d21eb09567fb3a01d17d6bfdeec8d6"></script>
+  <script type="text/javascript" src="/app/client/lib/fromApp/RoomHistoryManager.js?6f21075fac2dc0e569b71f5f6993ab1f08c268df"></script>
+  <script type="text/javascript" src="/app/client/lib/fromApp/avatar.js?45c946642633cb68d10654584f573e6660582381"></script>
+  <script type="text/javascript" src="/app/client/lib/_visitor.js?65ab701a2325dc16c05205fb4843da34c8fcb0b3"></script>
+  <script type="text/javascript" src="/app/client/lib/chatMessages.js?250da884d81e2cb8cba8044d774846f5a014be24"></script>
+  <script type="text/javascript" src="/app/client/lib/collections.js?765f29a6d58f993c3532b48aa55d063b6a5b330e"></script>
+  <script type="text/javascript" src="/app/client/lib/csvControler.js?fdcaf3f525d44408bd14799401016dba8f675b15"></script>
+  <script type="text/javascript" src="/app/client/lib/error.js?531de5190c80f42f09da1264cb68e7e8e76c756a"></script>
+  <script type="text/javascript" src="/app/client/lib/mobileAgent.js?74d95623d84ea3de1d1cb5353b117b54cd3a9949"></script>
+  <script type="text/javascript" src="/app/client/lib/msgTyping.js?2b184dd759f4b3d1b000d04370be27d8ac23a274"></script>
+  <script type="text/javascript" src="/app/client/lib/parentCall.js?d4ea01380c557a9e9387018e9a047df10889d126"></script>
+  <script type="text/javascript" src="/app/client/lib/unicall.js?0a69ecad16e973982e3efe9bb36efae309cdb36f"></script>
+  <script type="text/javascript" src="/app/client/lib/unicallAppInfoAgent.js?5c94ae9c0f2b92cc542c0b2d163292800304542b"></script>
+  <script type="text/javascript" src="/app/client/lib/webBrowserAgent.js?f395b39d07142641c7bb591b5aa2e4a5ca5e8f24"></script>
+  <script type="text/javascript" src="/app/client/cordova/app.js?de18efe7e575610c47af3b77a93e063140c2bda9"></script>
+  <script type="text/javascript" src="/app/client/methods/methods.js?1b9c13ea66db577f07a853d8dd6ddd5b7471d212"></script>
+  <script type="text/javascript" src="/app/client/methods/renderMarkDown.coffee.js?a32fe0b9deec389d607177425cb33498fe6ece01"></script>
+  <script type="text/javascript" src="/app/client/methods/sendMessageExternal.js?cfe6c5e61d842c664f7a9a4aa669e0e6ad2fdf05"></script>
+  <script type="text/javascript" src="/app/client/methods/slingshotUpload.coffee.js?76ce3f3b305424ee91150d80335bb8a288b953cb"></script>
+  <script type="text/javascript" src="/app/client/routes/router.js?0ee4394dac0d395f84b8c7eded10aca55a514065"></script>
+  <script type="text/javascript" src="/app/client/startup/history.js?b91bf0481cf3b1bb5c9538763773d49461060c96"></script>
+  <script type="text/javascript" src="/app/client/startup/room.js?b298c100944eae625127448df45baaec0af1d4c7"></script>
+  <script type="text/javascript" src="/app/client/startup/settings.js?990762f0cfae4f425fee6f069e7b431fd857ae0e"></script>
+  <script type="text/javascript" src="/app/client/startup/visitor.js?914389f2fde9b355cec8162abb04bbdcb2bacf86"></script>
+  <script type="text/javascript" src="/app/client/views/avatar.js?044281402c5305732003204ebc3569d7fac97fc6"></script>
+  <script type="text/javascript" src="/app/client/views/loading.js?f22eaeec0887c391c747ce6fafcfc042c35d8fcd"></script>
+  <script type="text/javascript" src="/app/client/views/message.js?72f8006bd8ee852b42a403daf7fce12bf6d025d5"></script>
+  <script type="text/javascript" src="/app/client/views/pageHeader.js?d8b7cfaacbd0d0819086b846272e0f090bb4037a"></script>
+  <script type="text/javascript" src="/app/client/views/rating.js?f919346741659a9a07538ede182de54def47f4e5"></script>
+  <script type="text/javascript" src="/app/client/views/result.js?913a98c4f892c6dd4c1e0d8abf0a7a18d412163c"></script>
+  <script type="text/javascript" src="/app/client/views/room.js?f286b9708c41fd7e4d20b9a4fa9a788e595f404c"></script>
+  <script type="text/javascript" src="/app/client/views/ticket.js?7fd9fc6d8b77e9d5164c63dbfa743c5ac436c176"></script>
+  <script type="text/javascript" src="/app/client/views/main.js?f6abbda335f95628db4fb477242d4cdb59064d2a"></script>
+  <script type="text/javascript" src="/packages/service-configuration.js?4940b1e4138b53dafd1a46ae719ad64bec87e957"></script>
+
+
+  <title>云客服.在线客服</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="expires" content="-1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="fragment" content="!" />
+	<meta name="distribution" content="global" />
+	<meta name="rating" content="general" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <!--样式 临时解决css中无法写相对路径BUG-->
+    <style type="text/css">
+        .message .msgBody .audioIcon{
+            background-image: url('packages/rocketchat_livechat/public/css_sprite.png');
+        }
+        .message .msgBody .playing{
+            background: url("packages/rocketchat_livechat/public/voice_gray_playing.gif") 0 0 !important;
+        }
+        .message.own .msgBody .playing{
+            background: url("packages/rocketchat_livechat/public/voice_playing.gif") 0 0 !important;
+        }
+        .message .msgBody .unRead{
+            background: url("packages/rocketchat_livechat/public/css_sprite.png") 0 -1422px;
+        }
+    </style>
+</head>
+
+<body>
+  
+</body>
+</html>

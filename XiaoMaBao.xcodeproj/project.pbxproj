@@ -277,6 +277,8 @@
 		9438495F1C29421000DC93E5 /* MBSpecificationsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9438495D1C29421000DC93E5 /* MBSpecificationsCell.m */; };
 		943849601C29421000DC93E5 /* MBSpecificationsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9438495E1C29421000DC93E5 /* MBSpecificationsCell.xib */; };
 		943A95051CC70FB1001E0579 /* RFQuiltLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 943A95041CC70FB1001E0579 /* RFQuiltLayout.m */; };
+		943DFA621CEED6DD006A3924 /* libUnicallSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 943DFA601CEED6DD006A3924 /* libUnicallSDK.a */; };
+		943DFA661CEED8B6006A3924 /* Unicall.h in Headers */ = {isa = PBXBuildFile; fileRef = 943DFA611CEED6DD006A3924 /* Unicall.h */; };
 		943E81321CAE186600DDD09C /* MBUserEvaluationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 943E81301CAE186600DDD09C /* MBUserEvaluationController.m */; };
 		943E81331CAE186600DDD09C /* MBUserEvaluationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943E81311CAE186600DDD09C /* MBUserEvaluationController.xib */; };
 		943E81371CAE266E00DDD09C /* MBUserEvaluationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 943E81351CAE266E00DDD09C /* MBUserEvaluationCell.m */; };
@@ -372,6 +374,7 @@
 		947468E71C7701A900F10FD2 /* MBHealthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947468E51C7701A900F10FD2 /* MBHealthViewController.xib */; };
 		9474B0DB1BD76D9700864DB0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9474B0DA1BD76D9700864DB0 /* Default-568h@2x.png */; };
 		9474D8DE1C3FC16D0071DACE /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9474D8DD1C3FC16D0071DACE /* Photos.framework */; };
+		947859B01CF2A6DE002E89C7 /* Unicall.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 947859AF1CF2A6DE002E89C7 /* Unicall.bundle */; };
 		947BD6131C069492001347B9 /* TopTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 947BD6111C069492001347B9 /* TopTableViewCell.m */; };
 		947BD6141C069492001347B9 /* TopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947BD6121C069492001347B9 /* TopTableViewCell.xib */; };
 		947BD6181C06991B001347B9 /* GoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 947BD6161C06991B001347B9 /* GoodsTableViewCell.m */; };
@@ -1067,6 +1070,8 @@
 		9438495E1C29421000DC93E5 /* MBSpecificationsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBSpecificationsCell.xib; sourceTree = "<group>"; };
 		943A95031CC70FB1001E0579 /* RFQuiltLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFQuiltLayout.h; sourceTree = "<group>"; };
 		943A95041CC70FB1001E0579 /* RFQuiltLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFQuiltLayout.m; sourceTree = "<group>"; };
+		943DFA601CEED6DD006A3924 /* libUnicallSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUnicallSDK.a; sourceTree = "<group>"; };
+		943DFA611CEED6DD006A3924 /* Unicall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unicall.h; sourceTree = "<group>"; };
 		943E812F1CAE186600DDD09C /* MBUserEvaluationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBUserEvaluationController.h; sourceTree = "<group>"; };
 		943E81301CAE186600DDD09C /* MBUserEvaluationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBUserEvaluationController.m; sourceTree = "<group>"; };
 		943E81311CAE186600DDD09C /* MBUserEvaluationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBUserEvaluationController.xib; sourceTree = "<group>"; };
@@ -1210,6 +1215,7 @@
 		947468E51C7701A900F10FD2 /* MBHealthViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBHealthViewController.xib; sourceTree = "<group>"; };
 		9474B0DA1BD76D9700864DB0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "libraries/Default-568h@2x.png"; sourceTree = "<group>"; };
 		9474D8DD1C3FC16D0071DACE /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		947859AF1CF2A6DE002E89C7 /* Unicall.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Unicall.bundle; sourceTree = "<group>"; };
 		947BD6101C069492001347B9 /* TopTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopTableViewCell.h; sourceTree = "<group>"; };
 		947BD6111C069492001347B9 /* TopTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopTableViewCell.m; sourceTree = "<group>"; };
 		947BD6121C069492001347B9 /* TopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopTableViewCell.xib; sourceTree = "<group>"; };
@@ -1685,6 +1691,7 @@
 				948CAA711BFEECF400318EAE /* libssl.a in Frameworks */,
 				42ED8D851BAE987A00F458DE /* libcrypto.a in Frameworks */,
 				A49925AE8DDCDC9FB1E4C58F /* libPods.a in Frameworks */,
+				943DFA621CEED6DD006A3924 /* libUnicallSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1737,6 +1744,7 @@
 		420BF6011BB537BA00C89C3C /* Other(第三方) */ = {
 			isa = PBXGroup;
 			children = (
+				943DFA5F1CEED6DD006A3924 /* UnicallSDK */,
 				94E9A46A1C9047340002E15E /* SDPhotoBrowser */,
 				9432E4121C7D9AF800A64668 /* NtalkerSDK */,
 				940507CB1BF9D86800CA02F5 /* 极光推送 */,
@@ -2667,6 +2675,16 @@
 				9432E4711C7D9AF800A64668 /* XNShowBigView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		943DFA5F1CEED6DD006A3924 /* UnicallSDK */ = {
+			isa = PBXGroup;
+			children = (
+				947859AF1CF2A6DE002E89C7 /* Unicall.bundle */,
+				943DFA601CEED6DD006A3924 /* libUnicallSDK.a */,
+				943DFA611CEED6DD006A3924 /* Unicall.h */,
+			);
+			path = UnicallSDK;
 			sourceTree = "<group>";
 		};
 		944441FA1C321ABD008B55AC /* 评分星星 */ = {
@@ -3754,6 +3772,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		943DFA651CEED893006A3924 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				943DFA661CEED8B6006A3924 /* Unicall.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		486D434B1AF23F240025A043 /* XiaoMaBao */ = {
 			isa = PBXNativeTarget;
@@ -3765,6 +3794,7 @@
 				486D434A1AF23F240025A043 /* Resources */,
 				0123BFAC41F13ADA049C0C0F /* Copy Pods Resources */,
 				E1DECF97A39B1FE8A8EFE50B /* Embed Pods Frameworks */,
+				943DFA651CEED893006A3924 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -3978,6 +4008,7 @@
 				94EBB0101C328D7600466E92 /* MBEvaluationViewView.xib in Resources */,
 				9469DC4F1C7594F400C2E3E2 /* MBWeatherAndMoodViewController.xib in Resources */,
 				9428EB401CEB045B00EBCB78 /* MBPostReplyController.xib in Resources */,
+				947859B01CF2A6DE002E89C7 /* Unicall.bundle in Resources */,
 				943227331C9A612300E352AB /* MBFreeStoreViewOneCell.xib in Resources */,
 				9463A2D81C7C2DEE00B30892 /* orderFootView.xib in Resources */,
 				9428A4941CB77A79002D2A53 /* MBPayResultsFootView.xib in Resources */,
@@ -4679,6 +4710,7 @@
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Other/Ntalker_SDK_1205/XNLib/VoiceConvert/lib",
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Other/NtalkerSDK/ThirdParty",
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Other/NtalkerSDK/ThirdParty/VoiceConvert/lib",
+					"$(PROJECT_DIR)/XiaoMaBao/Classes/Other/UnicallSDK",
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				OTHER_LDFLAGS = (
@@ -4764,6 +4796,7 @@
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Other/Ntalker_SDK_1205/XNLib/VoiceConvert/lib",
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Other/NtalkerSDK/ThirdParty",
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Other/NtalkerSDK/ThirdParty/VoiceConvert/lib",
+					"$(PROJECT_DIR)/XiaoMaBao/Classes/Other/UnicallSDK",
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				OTHER_LDFLAGS = (

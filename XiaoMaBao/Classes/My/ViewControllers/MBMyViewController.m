@@ -26,6 +26,7 @@
 #import "MBHealthViewController.h"
 #import "MBMyHeadView.h"
 #import "MBMyServiceController.h"
+#import "DataSigner.h"
 @interface MBMyViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 {
     NSArray *_menuItemTitles;
@@ -37,7 +38,10 @@
     NSString *_header_img;
     NSString *_nick_name;
     BOOL _isbool;
-    
+    /**
+     *    是否从云客服界面退出,初始为0  4为退出
+     */
+    NSInteger _UnicallCount;
     
 }
 
@@ -79,7 +83,6 @@
     [super viewDidLoad];
     [self data];
     [self.view addSubview:self.collerctonView];
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageBadge:) name:@"messageBadge" object:nil];
 
 
@@ -496,33 +499,79 @@
     return @"个人中心";
 }
 - (void)service{
-
-    XNGoodsInfoModel *info = [[XNGoodsInfoModel alloc] init];
-    info.appGoods_type = @"0";
-    info.clientGoods_Type = @"1";
-    info.goods_id = @"ntalker_test";
-    info.goods_showURL = @"http://pic.shopex.cn/pictures/goodsdetail/29b.jpg?rnd=111111";
-    info.goods_imageURL = @"http://pic.shopex.cn/pictures/goodsdetail/29b.jpg?rnd=111111";
-    info.goodsTitle = @"起案件是否可时间段回复开始的的女的开局被罚款vfkvfdvbdfk";
-    info.goodsPrice = @"¥17.0";
-    info.goods_URL = @"https://www.baidu.com";
-    
-    NTalkerChatViewController *ctrl = [[NTalkerChatViewController alloc] init];
-    ctrl.productInfo = info;
-    ctrl.settingid = @"kf_9761_1432534158571";//【必传】 客服组id
-    ctrl.erpParams = @"www.baidu.com";
+     [[Unicall singleton] attach:self appKey:UNICALL_APPKEY tenantId:UNICALL_TENANID];
+    NSDictionary *itemInfo = @{
+                               @"title" :@"",
+                               @"desc" :@"",
+                               @"iconUrl" :@"",
+                               @"url" :@""
+                               };
+    [[Unicall singleton] UnicallShowView:itemInfo];
     
     
-    ctrl.pushOrPresent = NO;
+}
+-(void)getUnicallSignature{
+    NSString *privateKey =  [NSString stringWithFormat:@"%@%@%@%@%@%@%@",
+                             @"MIIBPAIBAAJBAMBrqadzplyUtQUXCP+VuDFWt0p9Kl+s3yrQ8PV+P89Bbt/UqN2/",
+                             @"BzVNPoNgtQ2fI7Ob652limC/jqVf6slzPEUCAwEAAQJAOL7HXnGVqxHTvHeJmM4P",
+                             @"bsVy8k2tNF/nxFmv5cXgjX7sd7BU9jyELGP4os3ID3tItdCHtmMM3KM91lTHYlkk",
+                             @"dQIhAOWKnz0moWISa0S8cBYJI0k0PRoYMv6Xsty5aZpC9WM/AiEA1pmqSthbMUb2",
+                             @"TrmRyJsHswLAYSHotTIS0kzHu655M3sCIQDLdWXUJCuj7EOcd5K6VXsrZdxLBuwc",
+                             @"coYd01LhYzxyrQIhAIsqc6i9zcWTAz/iT4wMHV4VNrTGzKZUpqgCarRnXOnpAiEA",
+                             @"pbZzKKXpVGNp2MMXRlpdzdGCKFMYSeqnqXuwd76iwco="
+                             ];
+    NSString *tenantId = UNICALL_TENANID;
+    NSString *appKey = UNICALL_APPKEY;
+    NSString *time = [self getCurrentTime];
+    NSString *expireTime = @"60000";
     
-    if (ctrl.pushOrPresent == YES) {
-        [self.navigationController pushViewController:ctrl animated:YES];
-    } else {
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctrl];
-        ctrl.pushOrPresent = NO;
-        [self presentViewController:nav animated:YES completion:nil];
+    NSString *stringToSign = [NSString stringWithFormat:@"%@&%@&%@&%@",appKey,expireTime,tenantId,time];
+    id<DataSigner> signer = CreateRSADataSigner(privateKey);
+    
+    NSString *signature = [signer uncallString:stringToSign];
+    NSDictionary *json = @{@"appKey":appKey,@"expireTime":expireTime,@"signature":signature,@"tenantId":tenantId,@"time":time};
+    
+    Unicall *unicall = [Unicall singleton];
+    [unicall UnicallUpdateValidation:json];
+    [unicall UnicallUpdateUserInfo:@{@"nickname":@"Someone"}];
+}
+//delegate methods
+-(void)acquireValidation
+{
+    [self getUnicallSignature];
+}
+-(void)messageCountUpdated:(NSNumber*) data
+{
+    NSLog(@"count%@:",data);
+    
+}
+-(void)messageArrived:(NSDictionary*) data
+{
+    NSError* error = nil;
+    NSData* source = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error];
+    NSString* str = [NSJSONSerialization JSONObjectWithData:source options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"%@%@",@"Unicall message arrived.",str);
+    
+    if([[data objectForKey:@"eventName"] isEqualToString:@"updateNewMessageCount"])
+        NSLog(@"count%@:",data);
+}
+-(UIViewController*) currentViewController
+{
+    if (_UnicallCount ==0) {
+              self.tabBarController.tabBar.hidden = YES;
     }
- 
+    _UnicallCount++;
+    if (_UnicallCount ==4) {
+        self.tabBarController.tabBar.hidden = NO;
+        _UnicallCount =0;
+    }
+    return self;
+}
+-(NSString*)getCurrentTime {
+    NSDateFormatter*formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyy-MM-dd'T'HH:mm:ssZZZZZ"];
+    NSString*dateTime = [formatter stringFromDate:[NSDate date]];
+    return dateTime;
     
 }
 

@@ -1,0 +1,44 @@
+/* Imports for global scope */
+
+Meteor = Package.meteor.Meteor;
+WebApp = Package.webapp.WebApp;
+Log = Package.logging.Log;
+Tracker = Package.deps.Tracker;
+Deps = Package.deps.Deps;
+Session = Package.session.Session;
+DDP = Package['ddp-client'].DDP;
+Mongo = Package.mongo.Mongo;
+Blaze = Package.ui.Blaze;
+UI = Package.ui.UI;
+Handlebars = Package.ui.Handlebars;
+Spacebars = Package.spacebars.Spacebars;
+Template = Package.templating.Template;
+check = Package.check.check;
+Match = Package.check.Match;
+_ = Package.underscore._;
+$ = Package.jquery.$;
+jQuery = Package.jquery.jQuery;
+Random = Package.random.Random;
+EJSON = Package.ejson.EJSON;
+ECMAScript = Package.ecmascript.ECMAScript;
+Date = Package['es5-shim'].Date;
+parseInt = Package['es5-shim'].parseInt;
+TAPi18next = Package['tap:i18n'].TAPi18next;
+TAPi18n = Package['tap:i18n'].TAPi18n;
+FlowRouter = Package['kadira:flow-router'].FlowRouter;
+BlazeLayout = Package['kadira:blaze-layout'].BlazeLayout;
+s = Package['underscorestring:underscore.string'].s;
+moment = Package['momentjs:moment'].moment;
+TimeSync = Package['mizzao:timesync'].TimeSync;
+ReactiveVar = Package['reactive-var'].ReactiveVar;
+Slingshot = Package['edgee:slingshot'].Slingshot;
+Swipebox = Package['horka:swipebox'].Swipebox;
+HTML = Package.htmljs.HTML;
+babelHelpers = Package['babel-runtime'].babelHelpers;
+Symbol = Package['ecmascript-runtime'].Symbol;
+Map = Package['ecmascript-runtime'].Map;
+Set = Package['ecmascript-runtime'].Set;
+Promise = Package.promise.Promise;
+Accounts = Package['accounts-base'].Accounts;
+AccountsClient = Package['accounts-base'].AccountsClient;
+

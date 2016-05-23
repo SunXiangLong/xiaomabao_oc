@@ -13,8 +13,6 @@
 
 // JS调用此方法来调用OC登录
 - (void)showLogin;
-
-// 通过JSON传过来
 - (void)showGood:(NSString  *)params;
 - (void)showTopic:(NSString *)params;
 - (void)showGroup:(NSString *)params;

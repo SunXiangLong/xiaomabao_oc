@@ -37,6 +37,20 @@ typedef enum {
  *  @return 返回加密后的字符串
  */
 - (NSString *)md5;
+/**
+ *  SHA256加密
+ *
+ *  @return SHA256加密字符串
+ */
+- (NSString *)SHA256;
+/**
+ *  转换为Base64编码
+ */
+- (NSString *)base64EncodedString;
+/**
+ *  将Base64编码还原
+ */
+- (NSString *)base64DecodedString;
 
 - (NSString *)isNSString;
 @end

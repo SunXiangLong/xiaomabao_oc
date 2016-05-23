@@ -51,6 +51,10 @@
 #define MKLOG(fmt, ...)
 #endif
 
+
+/***** 云客服APPKEY和客服id */
+#define UNICALL_APPKEY  @"4D9A9F50-AF0F-495A-96A2-268CE6E868B0"
+#define UNICALL_TENANID  @"xiaomabao.yunkefu.com"
 /*****  友盟ios－－APPKEY */
 #define UMENG_APPKEY @"561f3d13e0f55ae1c60026cf"
 /** 所有的Font */

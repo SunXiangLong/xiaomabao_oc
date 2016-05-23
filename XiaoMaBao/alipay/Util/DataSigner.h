@@ -18,6 +18,7 @@ typedef enum DataSignAlgorithm {
 
 - (NSString *)algorithmName;
 - (NSString *)signString:(NSString *)string;
+- (NSString *)uncallString:(NSString *)string;
 
 @end
 
