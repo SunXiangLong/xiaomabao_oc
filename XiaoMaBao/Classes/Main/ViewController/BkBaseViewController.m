@@ -24,7 +24,6 @@
     if (!_navBar) {
         // 自定义导航栏
         BkNavigationBarView *navBar = [BkNavigationBarView navigationBarView];
-        navBar.backgroundColor = NavBar_Color;
         navBar.delegate = self;
         navBar.title = self.titleStr;
         navBar.rightStr = self.rightStr;

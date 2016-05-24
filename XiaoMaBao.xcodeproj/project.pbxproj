@@ -251,6 +251,8 @@
 		9439C9A81CF420F900AA0140 /* WXApiObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 9439C9A41CF420F900AA0140 /* WXApiObject.h */; };
 		9439C9B11CF42DFA00AA0140 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9439C9AF1CF42DFA00AA0140 /* AlipaySDK.bundle */; };
 		9439C9B21CF42DFA00AA0140 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9439C9B01CF42DFA00AA0140 /* AlipaySDK.framework */; };
+		9439C9B41CF44D3400AA0140 /* navBackcolor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9439C9B31CF44D3400AA0140 /* navBackcolor@2x.png */; };
+		9439C9B81CF450FC00AA0140 /* navBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9439C9B71CF450FC00AA0140 /* navBack@2x.png */; };
 		943A95051CC70FB1001E0579 /* RFQuiltLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 943A95041CC70FB1001E0579 /* RFQuiltLayout.m */; };
 		943DFA621CEED6DD006A3924 /* libUnicallSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 943DFA601CEED6DD006A3924 /* libUnicallSDK.a */; };
 		943DFA661CEED8B6006A3924 /* Unicall.h in Headers */ = {isa = PBXBuildFile; fileRef = 943DFA611CEED6DD006A3924 /* Unicall.h */; };
@@ -967,6 +969,8 @@
 		9439C9A41CF420F900AA0140 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		9439C9AF1CF42DFA00AA0140 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		9439C9B01CF42DFA00AA0140 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
+		9439C9B31CF44D3400AA0140 /* navBackcolor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBackcolor@2x.png"; sourceTree = "<group>"; };
+		9439C9B71CF450FC00AA0140 /* navBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBack@2x.png"; sourceTree = "<group>"; };
 		943A95031CC70FB1001E0579 /* RFQuiltLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFQuiltLayout.h; sourceTree = "<group>"; };
 		943A95041CC70FB1001E0579 /* RFQuiltLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFQuiltLayout.m; sourceTree = "<group>"; };
 		943DFA601CEED6DD006A3924 /* libUnicallSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUnicallSDK.a; sourceTree = "<group>"; };
@@ -2863,6 +2867,8 @@
 		94A783681C0BF4B4007D18A0 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				9439C9B71CF450FC00AA0140 /* navBack@2x.png */,
+				9439C9B31CF44D3400AA0140 /* navBackcolor@2x.png */,
 				94684F7D1CE1D67E0068670F /* img_default@2x.png */,
 				94CD32A21CC5E97A00D1D763 /* succes_image@2x.png */,
 				94DC653B1CBC9D8E00AF3782 /* login_image@2x.png */,
@@ -3526,6 +3532,7 @@
 				947468E71C7701A900F10FD2 /* MBHealthViewController.xib in Resources */,
 				940488551C9FA469008C7938 /* MBSearchShowViewController.xib in Resources */,
 				94F4192D1C5761EB000592DE /* MBPublishedViewController.xib in Resources */,
+				9439C9B81CF450FC00AA0140 /* navBack@2x.png in Resources */,
 				9496D3B31CA3BD6C00743586 /* MBShopAddresViewController.xib in Resources */,
 				94E3DE121CA11E6B00A94317 /* MBShopDetailsViewController.xib in Resources */,
 				9415778E1CB6486900523A67 /* MBDetailsRefundController.xib in Resources */,
@@ -3553,6 +3560,7 @@
 				48E6E4A01B26E24900B3556E /* MBAfterServiceTableViewCell.xib in Resources */,
 				9480D6171C47A0FA00C4A891 /* icon_cross_g.jpg in Resources */,
 				941531E41CBF414500B2AB1E /* X@2x.png in Resources */,
+				9439C9B41CF44D3400AA0140 /* navBackcolor@2x.png in Resources */,
 				94FDD0A81C57529C007B2A42 /* babyWord_image.png in Resources */,
 				94FDD0A01C574789007B2A42 /* MBGrowingTipsTableViewCell.xib in Resources */,
 				941531E31CBF414500B2AB1E /* X.png in Resources */,

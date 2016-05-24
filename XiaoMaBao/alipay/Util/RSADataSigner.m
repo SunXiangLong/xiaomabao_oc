@@ -30,7 +30,7 @@
 
 - (NSString *)formatPrivateKey:(NSString *)privateKey {
     const char *pstr = [privateKey UTF8String];
-    int len = [privateKey length];
+    NSUInteger len = [privateKey length];
     NSMutableString *result = [NSMutableString string];
     [result appendString:@"-----BEGIN RSA PRIVATE KEY-----\n"];
     int index = 0;

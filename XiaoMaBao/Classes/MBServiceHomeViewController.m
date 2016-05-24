@@ -66,7 +66,7 @@
         [self dismiss];
         
         NSArray *arr = [responseObject valueForKeyPath:@"data"];
-        NSLog(@"%@",arr);
+       
         if ([arr count]>0) {
             
             [_storeData addObjectsFromArray:arr];

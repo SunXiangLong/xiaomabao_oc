@@ -69,10 +69,13 @@
 
 + (instancetype)navigationBarView{
     BkNavigationBarView *navBar = [[BkNavigationBarView alloc] init];
- 
+
     navBar.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 0);
     navBar.ml_height = iOS_7 ? 64 : 44;
-    
+    UIImageView *banckImage = [[UIImageView  alloc] init];
+    banckImage.frame =CGRectMake(0, 0, navBar.ml_width, navBar.ml_height);
+    banckImage.image = [UIImage imageNamed:@"navBack"];
+    [navBar addSubview:banckImage];
     return navBar;
 }
 
@@ -116,7 +119,7 @@
     if(!back){
         _isBack = YES;
         _image = [[UIImageView alloc] initWithFrame:CGRectMake(0, NAV_BAR_Y, NAV_BAR_W, NAV_BAR_HEIGHT) ];
-        _image.backgroundColor = NavBar_Color;
+        
          [self addSubview:_image];
     
     }

@@ -78,7 +78,7 @@
  *  默认占为图
  */
 #define PLACEHOLDER_DEFAULT_IMG [UIImage imageNamed:@"placeholder_num2"]
-#define VERSION @"2.4"
+#define VERSION @"2.5"
 /**
  *  宽度与高度
  */
