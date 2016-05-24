@@ -249,7 +249,7 @@
     }
   
      __unsafe_unretained __typeof(self) weakSelf = self;
-    [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         //        NSLog(@"%@",responseObject);
         
@@ -348,7 +348,7 @@
         
         [self show:@"没有相关数据" time:1];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
@@ -380,7 +380,7 @@
         }
         
         self.collectionButton.enabled = YES;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
         NSLog(@"%@",error);
     }];
@@ -413,7 +413,7 @@
         }
         
         self.collectionButton.enabled = YES;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
         NSLog(@"%@",error);
     }];

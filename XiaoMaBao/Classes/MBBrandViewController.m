@@ -67,7 +67,7 @@
 - (void)setData{
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/group/topic"] parameters:@{@"topic_id":self.goodId}
-               success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
                    
                    if(1 == [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] intValue]){
@@ -91,7 +91,7 @@
                        [self show:errStr time:1];
                    }
                    
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    
                    NSLog(@"%@",error);

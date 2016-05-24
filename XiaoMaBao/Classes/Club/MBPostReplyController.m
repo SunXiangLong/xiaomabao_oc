@@ -162,60 +162,42 @@
         
         NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/add_comment"];
 
-    [self showProgress];
-    
-    
-    
-    
-    AFHTTPRequestOperation *fileUploadOp =   [MBNetworking POST:url
-                                                     parameters:@{@"session":sessiondict,@"post_id":self.post_id,@"comment_reply_id":self.comment_reply_id,@"comment_content":comment_content}
-                                              
-                                      constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                                          UIImage *image = [[UIImage alloc] init];
-                                          if (_photoArray.count>1) {
-                                              for (int i = 0; i<_photoArray.count-1; i++) {
-                                                  if ([_photoArray[i]isKindOfClass:[UIImage class]]) {
-                                                      image = _photoArray[i];
-                                                  }else{
-                                                      LGPhotoAssets *photo = _photoArray [i];
-                                                      image = photo.thumbImage;
-                                                  }
-                                                  NSData * data = [UIImage reSizeImageData:image maxImageSize:800 maxSizeWithKB:800];
-                                                  if(data != nil){
-                                                      [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"photo[]"] fileName:[NSString stringWithFormat:@"photo%d.jpg",i]mimeType:@"image/jpeg"];
-                                                  }
-                                                  
-                                              }
-                                              
-                                              
-                                          }
-                                          
-                                      }
-                                                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                            NSLog(@"success:%@",[responseObject valueForKeyPath:@"status"]);
-                                                            if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
-                                                                
-                                                                [self dismiss];
-                                                                [self popViewControllerAnimated:YES];
-                                                            }else{
-                                                                
-                                                                [self show:@"保存失败" time:1];
-                                                            }
-                                                            
-                                                            
-                                                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                            NSLog(@"%@",error);
-                                                            [self show:@"请求失败！" time:1];
-                                                        }
-                                              ];
-    
-    [fileUploadOp setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        CGFloat progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
-        NSLog(@"上传进度:%f",progress);
-        self.progress = progress;
+        [self showProgress];
         
-        
-    }];
+        [MBNetworking POST:url parameters:@{@"session":sessiondict,@"post_id":self.post_id,@"comment_reply_id":self.comment_reply_id,@"comment_content":comment_content} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            UIImage *image = [[UIImage alloc] init];
+            if (_photoArray.count>1) {
+                for (int i = 0; i<_photoArray.count-1; i++) {
+                    if ([_photoArray[i]isKindOfClass:[UIImage class]]) {
+                        image = _photoArray[i];
+                    }else{
+                        LGPhotoAssets *photo = _photoArray [i];
+                        image = photo.thumbImage;
+                    }
+                    NSData * data = [UIImage reSizeImageData:image maxImageSize:800 maxSizeWithKB:800];
+                    if(data != nil){
+                        [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"photo[]"] fileName:[NSString stringWithFormat:@"photo%d.jpg",i]mimeType:@"image/jpeg"];
+                    }
+                    
+                }
+                
+                
+            }
+        } progress:^(NSProgress *progress) {
+            self.progress = progress.fractionCompleted;
+        } success:^(NSURLSessionDataTask *task, id responseObject) {
+            if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
+                
+                [self dismiss];
+                [self popViewControllerAnimated:YES];
+            }else{
+                
+                [self show:@"保存失败" time:1];
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSLog(@"%@",error);
+            [self show:@"请求失败！" time:1];
+        }];
     
     
     

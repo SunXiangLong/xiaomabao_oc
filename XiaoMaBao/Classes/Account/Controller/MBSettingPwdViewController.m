@@ -69,7 +69,7 @@
         NSString *passwordMd5 = [userMd5 md5];
         NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/signup"];
         MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
-        [MBNetworking POST:url parameters:@{@"phoneCode":[_phoneCode md5],@"name":user.phoneNumber,@"password":passwordMd5,@"type":@"1"} success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+        [MBNetworking POST:url parameters:@{@"phoneCode":[_phoneCode md5],@"name":user.phoneNumber,@"password":passwordMd5,@"type":@"1"} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
             NSLog(@"%@",responseObject);
             
             
@@ -81,7 +81,7 @@
             }
           
           
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
              [self show:@"请求失败！" time:1];
             NSLog(@"%@",error);
             

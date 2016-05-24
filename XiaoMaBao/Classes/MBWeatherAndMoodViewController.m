@@ -71,7 +71,7 @@
     }
     [self show];
     [MBNetworking POST:url parameters:@{@"session":sessiondict}
-               success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
             NSLog(@"%@ %@",[responseObject valueForKey:@"status"],responseObject.data);
                    
@@ -90,7 +90,7 @@
                        self.collectionView.delegate = self;
                        
                    }
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
                    NSLog(@"%@",error);

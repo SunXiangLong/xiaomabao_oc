@@ -115,7 +115,7 @@
 #pragma mark -- 请求规格数据
 -(void)specificationsData{
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsSpecifications"] parameters:@{@"goods_id":self.goods_id} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsSpecifications"] parameters:@{@"goods_id":self.goods_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
          [self dismiss];
         NSLog(@"%@",[responseObject valueForKey:@"data"]);
         _specificationsDic  = [responseObject valueForKey:@"data"];
@@ -182,7 +182,7 @@
         
        
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
@@ -400,7 +400,7 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     NSString *goodnumber = self.numberFld.text;
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":dict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":arrs} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":dict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":arrs} success:^(NSURLSessionDataTask *operation, id responseObject) {
      
         
         
@@ -422,7 +422,7 @@
         
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
          [self show:@"请求失败！" time:1];
     }];
@@ -475,7 +475,7 @@
     }
     
     NSString *goodnumber = self.numberFld.text;
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":sessiondict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":attr} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":sessiondict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":attr} success:^(NSURLSessionDataTask *operation, id responseObject) {
         NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
         
          NSString *status = [NSString stringWithFormat:@"%@",[responseObject valueForKeyPath:@"status"][@"succeed"]];
@@ -492,7 +492,7 @@
         
         
          
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败..." time:1];
     }];
@@ -573,7 +573,7 @@
     
     
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsSpecificationInfo"] parameters:@{@"goods_id":self.goods_id,@"attr":attr,@"number":_numberFld.text} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsSpecificationInfo"] parameters:@{@"goods_id":self.goods_id,@"attr":attr,@"number":_numberFld.text} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         NSLog(@"%@",[responseObject valueForKey:@"data"]);
         NSDictionary *dic = [responseObject valueForKey:@"data"];
@@ -590,7 +590,7 @@
         }
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];

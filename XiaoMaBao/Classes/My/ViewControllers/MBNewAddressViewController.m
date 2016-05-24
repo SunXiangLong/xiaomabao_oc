@@ -172,7 +172,7 @@
 {
     
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"region"] parameters:@{@"parent_id":parent_id} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"region"] parameters:@{@"parent_id":parent_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         
         if (responseObject != nil) {
@@ -208,7 +208,7 @@
         
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         
     }];
@@ -347,7 +347,7 @@
         [self show:@"正在更新..."];
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_edit"] parameters:@{@"session":sessiondict,@"address_id":self.address_dic[@"address_id"],@"address":addressDict}
          
-                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                   success:^(NSURLSessionDataTask *operation, id responseObject) {
                        
 //                       NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                        
@@ -356,14 +356,14 @@
                            [self setDefault];
                            
                        }else{
-                           [self show:@"修改成功" time:1];
+                          
                            //刷新数据
                            [self popViewControllerAnimated:YES];
                            
                        }
                        
                    }
-                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                   failure:^(NSURLSessionDataTask *operation, NSError *error) {
                        NSLog(@"%@",error);
                        [self show:@"请求失败" time:1];
                    }
@@ -375,11 +375,8 @@
 //        [self show:@"正在添加..." time:1];
         [MBNetworking  POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_add"] parameters:@{@"session":sessiondict,@"address":addressDict}
          
-                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    success:^(NSURLSessionDataTask *operation, id responseObject) {
                         
-                      
-                        [self show:@"添加成功"time:1];
-                      
                         
                         //刷新数据
                         [self popViewControllerAnimated:YES];
@@ -387,7 +384,7 @@
                         
                         
                     }
-                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    failure:^(NSURLSessionDataTask *operation, NSError *error) {
                         NSLog(@"失败");
                         [self show:@"请求失败" time:1];
                     }
@@ -401,7 +398,7 @@
     
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/delete"] parameters:@{@"session":sessiondict,@"address_id":self.address_dic[@"id"]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/delete"] parameters:@{@"session":sessiondict,@"address_id":self.address_dic[@"id"]} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         if( [[responseObject valueForKey:@"status"][@"succeed"]isEqualToNumber:@1]){
             
@@ -411,7 +408,7 @@
         
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"失败");
     }];
     
@@ -426,7 +423,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/set_default_address"] parameters:@{@"session":dict,@"address_id":self.address_dic[@"address_id"]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/set_default_address"] parameters:@{@"session":dict,@"address_id":self.address_dic[@"address_id"]} success:^(NSURLSessionDataTask *operation, id responseObject) {
         if( [[responseObject valueForKey:@"status"][@"succeed"]isEqualToNumber:@1]){
             
             
@@ -435,7 +432,7 @@
             [self popViewControllerAnimated:YES];
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
     }];
 

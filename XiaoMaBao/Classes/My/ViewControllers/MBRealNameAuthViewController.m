@@ -97,7 +97,7 @@
      NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     params = @{@"real_name":_name.text, @"identity_card":_id.text,@"uid":uid,@"sid":sid,@"session":sessiondict};
        [self show];
-    [MBNetworking POST:url parameters:params success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+    [MBNetworking POST:url parameters:params success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                   
                    [self dismiss];
                    NSString *str = [responseObject valueForKeyPath:@"msg"];
@@ -111,7 +111,7 @@
                    }
         
                 
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    
                    NSLog(@"%@",error);

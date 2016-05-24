@@ -289,7 +289,7 @@
 - (void)zhanghzhao:(NSDictionary *)params{
     [self deleteCookie];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/signin"] parameters:params
-               success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
                    
                    if(1 == [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] intValue]){
@@ -319,7 +319,7 @@
                        NSLog(@"%@",errStr);
                    }
                    
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                   
                    NSLog(@"%@",error);
@@ -470,28 +470,21 @@
     
 }
 - (void)update{
-    AFHTTPRequestOperationManager *mmmm = [AFHTTPRequestOperationManager manager];
-    [mmmm POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/common/check_update"] parameters:@{@"device":@"ios"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"%@",responseObject);
-        
-   
+    [MBNetworking POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/common/check_update"] parameters:@{@"device":@"ios"} success:^(id responseObject) {
         NSDictionary *dic =responseObject;
         
-        
-        
+        NSLog(@"%@",dic);
         if ([dic[@"can_update"]isEqualToNumber:@1]) {
             NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-        
+            
             if ([version floatValue] <[dic[@"lastest_version"] floatValue]) {
-              [self promptUpdate:dic];
+                [self promptUpdate:dic];
             }
             
         }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
     }];
-
 }
 -(void)promptUpdate:(NSDictionary *)dic{
 

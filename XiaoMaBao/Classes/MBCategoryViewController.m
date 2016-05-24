@@ -61,7 +61,7 @@
     [self show];
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/AffordablePlanet/child_category_index/"];
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",url,self.cat_id];
-    [MBNetworking newGET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking newGET:urlStr parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         NSLog(@"%@ ",responseObject);
         
@@ -77,7 +77,7 @@
             _collectionView.dataSource = self;
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
@@ -93,7 +93,7 @@
     
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/AffordablePlanet/get_category_goods/"];
     NSString *urlStr = [NSString stringWithFormat:@"%@%@/%@",url,self.cat_id,page];
-    [MBNetworking newGET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking newGET:urlStr parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         NSLog(@"%@ ",responseObject);
         
@@ -115,7 +115,7 @@
          [self.collectionView.mj_footer endRefreshingWithNoMoreData];
         }
        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];

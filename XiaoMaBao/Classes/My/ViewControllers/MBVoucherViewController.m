@@ -78,7 +78,7 @@
     }
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/discount/get_user_coupon"] parameters:@{@"session":dict} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/discount/get_user_coupon"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         _couponList = [responseObject valueForKeyPath:@"data"];
         
@@ -95,7 +95,7 @@
         }
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
@@ -122,7 +122,7 @@
     }
     [self show];
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/discount/get_coupon_enable"] parameters:@{@"session":dict,@"order_money":order_money} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/discount/get_coupon_enable"] parameters:@{@"session":dict,@"order_money":order_money} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         [self dismiss];
         _couponList = [responseObject valueForKeyPath:@"data"];
@@ -138,7 +138,7 @@
         }
 
           [_tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
        [self show:@"请求失败" time:1];
     }];

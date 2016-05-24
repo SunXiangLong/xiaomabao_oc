@@ -165,7 +165,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/checkout"] parameters:@{@"session":sessiondict,@"address_id":_address_id}success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/checkout"] parameters:@{@"session":sessiondict,@"address_id":_address_id}success:^(NSURLSessionDataTask *operation, id responseObject) {
            NSLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
         
         [self dismiss];
@@ -201,7 +201,7 @@
             [self show:@"获取失败" time:1];
         }
         
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    [self show:@"请求失败！" time:1];
                    NSLog(@"%@",error);
                    
@@ -979,7 +979,7 @@
     NSString *name = arr[1];
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/done"]parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":@"0",@"inv_content":@"",@"inv_payee" :@"",@"real_name":name,@"identity_card":_identity_card}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+               success:^(NSURLSessionDataTask *operation, id responseObject) {
                  
                    [self dismiss];
                    
@@ -1000,7 +1000,7 @@
                        [alert show];
                    }
                    
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    NSLog(@"----%@",error);
                  [self show:@"请求失败！" time:1];
                   
@@ -1111,7 +1111,7 @@
 
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/discount/get_bonus_info"]
             parameters:@{@"session":sessiondict,@"bonus_sn":bonus_sn,@"order_money":order_money}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+               success:^(NSURLSessionDataTask *operation, id responseObject) {
                   
                    NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
                    
@@ -1141,7 +1141,7 @@
                        
                    }
                    
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    [self show:@"使用失败" time:1];
                    NSLog(@"%@",error);
                    
@@ -1223,7 +1223,7 @@
     NSDictionary * params = @{};
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     params = @{@"real_name":name, @"identity_card":_cardTextField.text,@"uid":uid,@"sid":sid,@"session":sessiondict};
-        [MBNetworking POST:url parameters:params success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+        [MBNetworking POST:url parameters:params success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
         
      
             
@@ -1242,7 +1242,7 @@
 
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         
         
         NSLog(@"%@",error);

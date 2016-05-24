@@ -84,7 +84,7 @@
         [self show:@"账号已过期，请重新登录" time:1];
         return;
     }
-    [MBNetworking POSTAPPStore:url parameters:@{@"session":sessiondict,@"order_id":self.order_id} success:^(id responseObject) {
+    [MBNetworking POSTOrigin:url parameters:@{@"session":sessiondict,@"order_id":self.order_id} success:^(id responseObject) {
         NSLog(@"%@",responseObject);
         [self dismiss];
         if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
@@ -99,7 +99,7 @@
         }else{
         [self show:@"数据错误" time:1];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
         NSLog(@"%@",error);
     }];
@@ -134,7 +134,7 @@
     NSLog(@"%@",ticket_ids);
     
     
-    [MBNetworking POSTAPPStore:url parameters:@{@"session":sessiondict,@"order_id":self.order_id,@"ticket_ids":ticket_ids,@"reason":@"测试"} success:^(id responseObject) {
+    [MBNetworking POSTOrigin:url parameters:@{@"session":sessiondict,@"order_id":self.order_id,@"ticket_ids":ticket_ids,@"reason":@"测试"} success:^(id responseObject) {
         NSLog(@"%@",responseObject);
         
         
@@ -148,7 +148,7 @@
         }else{
             [self show:@"数据错误" time:1];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
         NSLog(@"%@",error);
     }];

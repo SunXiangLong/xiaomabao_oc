@@ -95,7 +95,7 @@ return @"dian_image";
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/diarydel"];
     [self show];
     [MBNetworking POST:url parameters:@{@"session":sessiondict,@"id":self.ID}
-               success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                       [self dismiss];
                    
                    if(1 == [[responseObject valueForKey:@"status"]  intValue]){
@@ -107,7 +107,7 @@ return @"dian_image";
                        [self popViewControllerAnimated:YES];
                    }
                    
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
                    NSLog(@"%@",error);

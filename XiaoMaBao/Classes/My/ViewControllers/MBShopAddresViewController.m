@@ -62,7 +62,7 @@ return @"收货地址";
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_list"] parameters:@{@"session":dict} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_list"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         [self dismiss];
         _addressListArr = [responseObject valueForKeyPath:@"data"];
@@ -75,7 +75,7 @@ return @"收货地址";
         [_tableView reloadData];
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];

@@ -329,57 +329,50 @@
     }
     NSDictionary *parmeters = @{@"session":sessiondict,@"order_id":order_id,@"refund_type":_refund_type,@"refund_way":str4,@"refund_reason":_ProblemDescriptionTextView.text,@"consignee":str1,@"mobile":str2,@"address":str3,@"province":_provinceID,@"city":_cityID,@"district":_districtID,@"refund_goods":refund_goods};
     
-   // NSLog(@"%@",parmeters);
     
-    
-    
-    [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/apply"]
-            parameters:parmeters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                for (int i = 0; i<_photoArray.count-1; i++) {
-                    NSData * data;
-                    if ([_photoArray[i]isKindOfClass:[UIImage class]] ) {
-//                        data = UIImageJPEGRepresentation(_photoArray[i],0.5);
-                        data = [UIImage reSizeImageData:_photoArray[i] maxImageSize:800 maxSizeWithKB:800];
-                    }
-                    
-                    if(data != nil){
-                        [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"refund_pic%d",i+1] fileName:[NSString stringWithFormat:@"refund_pic%d.jpg",i+1] mimeType:@"image/jpeg"];
-                    }
-
-                }
-        
-}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   //NSLog(@"success:%@",[responseObject valueForKeyPath:@"status"]);
-                  // NSLog(@"data:%@",[responseObject valueForKeyPath:@"data"]);
-                    [self dismiss];
+    [self showProgress];
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/apply"] parameters:parmeters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        for (int i = 0; i<_photoArray.count-1; i++) {
+            NSData * data;
+            if ([_photoArray[i]isKindOfClass:[UIImage class]] ) {
+                
+                data = [UIImage reSizeImageData:_photoArray[i] maxImageSize:800 maxSizeWithKB:800];
+            }
+            
+            if(data != nil){
+                [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"refund_pic%d",i+1] fileName:[NSString stringWithFormat:@"refund_pic%d.jpg",i+1] mimeType:@"image/jpeg"];
+            }
+            
+        }
+    } progress:^(NSProgress *progress) {
+        self.progress = progress.fractionCompleted;
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        [self dismiss];
 #pragma mark -- 通知前一个界面改变进度状态
-                   NSString *section = [NSString stringWithFormat:@"%ld",self.section];
-                   NSDictionary *reduce = @{@"refund":@"2",@"section":section};
-                   NSNotification *notification =[NSNotification notificationWithName:@"Refund_status" object:nil userInfo:reduce];
-                   
-                   //通过通知中心发送通知
-                   [[NSNotificationCenter defaultCenter] postNotification:notification];
-                   MBRefundScheduleViewController   *VC = [[MBRefundScheduleViewController alloc] init];
-                   VC.type = @"1";
-                   if (_type ) {
-                       VC.order_sn = self.order_sn;
-                       VC.orderid  = self.order_id;
-                   }else{
-                       VC.order_sn = _refunDic[@"order_sn"];
-                       VC.orderid  = _refunDic[@"order_id"];
-                   }
-                   
-                   [self.navigationController pushViewController:VC animated:YES];
-                  
-                   [self show:[responseObject valueForKeyPath:@"status"][@"error_desc"] time:1];
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                   NSLog(@"%@",error);
-               
-                   [self show:@"请求失败！" time:1];
-               }
-     ];
+        NSString *section = [NSString stringWithFormat:@"%ld",self.section];
+        NSDictionary *reduce = @{@"refund":@"2",@"section":section};
+        NSNotification *notification =[NSNotification notificationWithName:@"Refund_status" object:nil userInfo:reduce];
+        
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        MBRefundScheduleViewController   *VC = [[MBRefundScheduleViewController alloc] init];
+        VC.type = @"1";
+        if (_type ) {
+            VC.order_sn = self.order_sn;
+            VC.orderid  = self.order_id;
+        }else{
+            VC.order_sn = _refunDic[@"order_sn"];
+            VC.orderid  = _refunDic[@"order_id"];
+        }
+        
+        [self.navigationController pushViewController:VC animated:YES];
+        
+        [self show:[responseObject valueForKeyPath:@"status"][@"error_desc"] time:1];
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+        [self show:@"请求失败！" time:1];
+    }];
 
 
 
@@ -400,7 +393,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/info"] parameters:@{@"session":sessiondict,@"order_id":self.order_id}success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/info"] parameters:@{@"session":sessiondict,@"order_id":self.order_id}success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         
         NSLog(@"成功获取退货信息---responseObject%@",[responseObject valueForKeyPath:@"data"]);
@@ -455,7 +448,7 @@
 
         
         [_tableView reloadData];
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }failure:^(NSURLSessionDataTask *operation, NSError *error) {
       [self show:@"请求失败！" time:1];
         NSLog(@"%@",error);
         
@@ -601,7 +594,7 @@
 {
     
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"region"] parameters:@{@"parent_id":parent_id} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"region"] parameters:@{@"parent_id":parent_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         
         if (responseObject != nil) {
@@ -637,7 +630,7 @@
         
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
       
     }];
@@ -647,7 +640,7 @@
     
     
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"region"] parameters:@{@"parent_id":parent_id} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"region"] parameters:@{@"parent_id":parent_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
          NSDictionary *d = [responseObject valueForKeyPath:@"data"];
         if (_levels==0) {
@@ -690,7 +683,7 @@
         
      
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
        
     }];

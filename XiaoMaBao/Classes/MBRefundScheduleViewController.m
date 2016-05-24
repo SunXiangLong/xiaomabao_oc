@@ -70,7 +70,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/process"] parameters:@{@"session":sessiondict,@"order_id":_orderid}success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/process"] parameters:@{@"session":sessiondict,@"order_id":_orderid}success:^(NSURLSessionDataTask *operation, id responseObject) {
          [self dismiss];
       //NSLog(@"退款进度查询成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
 
@@ -90,7 +90,7 @@
         [_table reloadData];
        
         
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }failure:^(NSURLSessionDataTask *operation, NSError *error) {
        [self show:@"请求失败！" time:1];
         NSLog(@"%@",error);
         

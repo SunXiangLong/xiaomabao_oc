@@ -101,7 +101,7 @@
     }
     
     [MBNetworking POST:url parameters:@{@"session":sessiondict,@"type":self.strType,@"page":page}
-               success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
                    ;
                    //                   NSLog(@"%@",responseObject.data);
@@ -121,7 +121,7 @@
                    
                    
                    
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
                    NSLog(@"%@",error);
@@ -148,7 +148,7 @@
     }
     
     [MBNetworking POST:url parameters:@{@"session":sessiondict,@"type":self.strType,@"page":page}
-               success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
                    ;
 //                    NSLog(@"%@",responseObject.data);
@@ -177,7 +177,7 @@
                   
                           [self.tableView reloadData];
                    [self.tableView .mj_header endRefreshing];
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
                    NSLog(@"%@",error);

@@ -99,7 +99,7 @@
 //        url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/AffordablePlanet/get_category_goods/",self.cat_id,page,_type];
 //    }
      url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/topic/info/",self.act_id,page,_type];
-    [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         NSLog(@"%@ ",responseObject);
         
@@ -124,7 +124,7 @@
             
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
@@ -143,7 +143,7 @@
 //        url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/AffordablePlanet/get_category_goods/",self.cat_id,page,_type];
 //    }
      url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/topic/info/",self.act_id,page,type];
-    [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         NSLog(@"%@ ",responseObject);
         
@@ -170,7 +170,7 @@
             
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];

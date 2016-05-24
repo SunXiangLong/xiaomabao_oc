@@ -57,49 +57,43 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [self show];
-    
- [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/post_comment"]
-            parameters:@{@"session":sessiondict,@"content":_textView.text,@"order_id":self.order_id}
-            constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-             UIImage *image = [[UIImage alloc] init];
-         if (_photoArray.count>1) {
-        for (int i = 0; i<_photoArray.count-1; i++) {
-            if ([_photoArray[i]isKindOfClass:[UIImage class]]) {
-                image = _photoArray[i];
-            }else{
-                LGPhotoAssets *photo = _photoArray [i];
-                image = photo.thumbImage;
-            }
-            NSData * data = [UIImage reSizeImageData:image maxImageSize:800 maxSizeWithKB:800];
-            if(data != nil){
-                [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"photo[]"] fileName:[NSString stringWithFormat:@"photo%d.jpg",i]mimeType:@"image/jpeg"];
+    [self showProgress];
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/post_comment"] parameters:@{@"session":sessiondict,@"content":_textView.text,@"order_id":self.order_id} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        UIImage *image = [[UIImage alloc] init];
+        if (_photoArray.count>1) {
+            for (int i = 0; i<_photoArray.count-1; i++) {
+                if ([_photoArray[i]isKindOfClass:[UIImage class]]) {
+                    image = _photoArray[i];
+                }else{
+                    LGPhotoAssets *photo = _photoArray [i];
+                    image = photo.thumbImage;
+                }
+                NSData * data = [UIImage reSizeImageData:image maxImageSize:800 maxSizeWithKB:800];
+                if(data != nil){
+                    [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"photo[]"] fileName:[NSString stringWithFormat:@"photo%d.jpg",i]mimeType:@"image/jpeg"];
+                }
+                
             }
             
+            
+        }
+    } progress:^(NSProgress *progress) {
+        self.progress = progress.fractionCompleted;
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
+            [self show:@"发表成功" time:1];
+            MBEvaluationSuccessController *VC = [[MBEvaluationSuccessController alloc] init];
+            
+            [self pushViewController:VC Animated:YES];
+        }else{
+            
+            [self show:@"保存失败" time:1];
         }
         
-        
-    }
-    
-}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   NSLog(@"success:%@",[responseObject valueForKeyPath:@"status"]);
-                   if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
-                       [self show:@"发表成功" time:1];
-                       MBEvaluationSuccessController *VC = [[MBEvaluationSuccessController alloc] init];
-                       
-                       [self pushViewController:VC Animated:YES];
-                   }else{
-                       
-                       [self show:@"保存失败" time:1];
-                   }
-                   
-                   
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                   NSLog(@"%@",error);
-                   [self show:@"请求失败！" time:1];
-               }
-     ];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+        [self show:@"请求失败！" time:1];
+    }];
       
 }
 #pragma mark --相册多选

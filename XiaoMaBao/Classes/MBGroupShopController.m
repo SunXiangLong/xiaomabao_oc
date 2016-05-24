@@ -59,7 +59,7 @@
 - (void)setData{
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/index/group_buy"] parameters:nil
-               success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
                    
                    if(1 == [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] intValue]){
@@ -80,7 +80,7 @@
                          [self show:errStr time:1];
                    }
                    
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                   [self show:@"请求失败 " time:1];
                    NSLog(@"%@",error);

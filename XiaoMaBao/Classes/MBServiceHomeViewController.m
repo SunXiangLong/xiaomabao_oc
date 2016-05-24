@@ -62,7 +62,7 @@
     
     //    NSString *page = [NSString stringWithFormat:@"%ld",_page];
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/shop_list"];
-    [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         
         NSArray *arr = [responseObject valueForKeyPath:@"data"];
@@ -80,7 +80,7 @@
             return ;
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];

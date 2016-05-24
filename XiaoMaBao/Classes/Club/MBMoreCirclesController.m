@@ -155,7 +155,7 @@
     [self show];
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_all_cat"];
    
-    [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         [self dismiss];
         if (responseObject) {
@@ -193,7 +193,7 @@
            [self.tableViewTwo reloadData];
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
@@ -301,7 +301,7 @@
             }
        
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
         NSLog(@"%@",error);
     }];
@@ -360,7 +360,7 @@
        
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
         NSLog(@"%@",error);
     }];

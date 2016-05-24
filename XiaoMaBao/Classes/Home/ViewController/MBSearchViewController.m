@@ -254,7 +254,7 @@
     NSDictionary *params = @{@"keywords":self.searchString,@"having_goods":@"false"};
     NSDictionary *pagination = @{@"coun":@"20",@"page":@"1"};
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"search"] parameters:@{@"filter":params,@"pagination":pagination} success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"search"] parameters:@{@"filter":params,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
         [self dismiss];
         if ([responseObject.data isKindOfClass:[NSArray class]]) {
             if (responseObject.data.count >0) {
@@ -270,7 +270,7 @@
             }
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
      
         [self show:@"请求失败" time:1];
     }];

@@ -223,23 +223,18 @@
 -(void)show:(NSString *)str time:(NSInteger)timer{
 
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    // Configure for text only and offset down
     hud.mode = MBProgressHUDModeText;
     hud.labelText = str;
-    hud.margin = 10.f;
     hud.removeFromSuperViewOnHide = YES;
-    
     [hud hide:YES afterDelay:timer];
-    [self dismiss];
 
 }
 - ( void)showProgress{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    hud.labelText = @"上传中...";
-//    hud.backgroundColor = [UIColor clearColor];
     hud.mode = MBProgressHUDModeAnnularDeterminate;
     hud.progress = self.progress;
     [HUD = hud show:YES];
+    
     
 
 }
@@ -248,13 +243,7 @@
     HUD.progress = progress;
     if (progress==1) {
         [self dismiss];
-         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        UIImage *image = [[UIImage imageNamed:@"Checkmark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        hud.customView = imageView;
-        hud.mode = MBProgressHUDModeCustomView;
-        hud.labelText = @"上传成功";
-        HUD = hud;
+      [self dismiss];
 
        
     }
@@ -262,8 +251,9 @@
 }
 -(void)dismiss{
     
-    [HUD  removeFromSuperview];
-    HUD = nil;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [HUD hide:YES];
+    });
 }
 
 

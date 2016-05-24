@@ -102,64 +102,41 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self.VC showProgress];
-    
-    AFHTTPRequestOperation *fileUploadOp =   [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/idcard/update"]
-                                                     parameters:@{@"session":sessiondict,@"real_name":self.name,@"identity_card":self.idCard,}
-                                              
-                                      constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                                          UIImage *image = [[UIImage alloc] init];
-                                          for (int i = 0; i<_photoArray.count-1; i++) {
-                                              if ([_photoArray[i]isKindOfClass:[LGPhotoAssets class]]) {
-                                                  LGPhotoAssets *photo = _photoArray [i];
-                                                  image = photo.thumbImage;
-                                              }else{
-                                                
-                                                  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                                                  MBIDCardCell *cell = (MBIDCardCell *)[_collectionView cellForItemAtIndexPath:indexPath];
-                                                  image = cell.cardImage.image;
-                                              }
-                                              NSData * data = [UIImage reSizeImageData:image maxImageSize:800 maxSizeWithKB:800];
-                                              if(data != nil){
-                                                  [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"photo[]"] fileName:[NSString stringWithFormat:@"photo%d.jpg",i]mimeType:@"image/jpeg"];
-                                              }
-                                              
-                                          }
-                                          
-                                          
-                                          
-                                          
-                                      }
-                                                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                            NSLog(@"success:%@",[responseObject valueForKeyPath:@"status"]);
-                                                            if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
-                                                                
-                                                                [self.VC show:@"提交成功" time:1];
-                                                                self.block(YES);
-                                                                
-                                                            }else{
-                                                                self.block(NO);
-                                                                [self.VC show:@"保存失败" time:1];
-                                                            }
-                                                            
-                                                            
-                                                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                            NSLog(@"%@",error);
-                                                             self.block(NO);
-                                                            [self.VC show:@"请求失败！" time:1];
-                                                        }
-                                              ];
-    
-    [fileUploadOp setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        CGFloat progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/idcard/update"] parameters:@{@"session":sessiondict,@"real_name":self.name,@"identity_card":self.idCard,} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        UIImage *image = [[UIImage alloc] init];
+        for (int i = 0; i<_photoArray.count-1; i++) {
+            if ([_photoArray[i]isKindOfClass:[LGPhotoAssets class]]) {
+                LGPhotoAssets *photo = _photoArray [i];
+                image = photo.thumbImage;
+            }else{
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                MBIDCardCell *cell = (MBIDCardCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+                image = cell.cardImage.image;
+            }
+            NSData * data = [UIImage reSizeImageData:image maxImageSize:800 maxSizeWithKB:800];
+            if(data != nil){
+                [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"photo[]"] fileName:[NSString stringWithFormat:@"photo%d.jpg",i]mimeType:@"image/jpeg"];
+            }
+            
+        }
         
-        self.VC.progress = progress;
-        
+    } progress:^(NSProgress *progress) {
+        self.VC.progress = progress.fractionCompleted;
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
+            
+            [self.VC show:@"提交成功" time:1];
+            self.block(YES);
+            
+        }else{
+            self.block(NO);
+            [self.VC show:@"保存失败" time:1];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        self.block(NO);
+        [self.VC show:@"请求失败！" time:1];
     }];
-    
-    
-    
-    
-    
     
     
 }

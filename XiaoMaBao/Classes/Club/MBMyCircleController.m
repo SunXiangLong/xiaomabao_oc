@@ -187,7 +187,7 @@
     [self show];
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_circle_ads"];
     
-    [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         //        NSLog(@"%@",responseObject);
         
@@ -202,7 +202,7 @@
         
         [self show:@"没有相关数据" time:1];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
@@ -218,7 +218,7 @@
         
         NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_recommend_cat"];
         
-        [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
             [self dismiss];
 //                 NSLog(@"%@",responseObject);
             if (responseObject) {
@@ -233,7 +233,7 @@
             
             [self show:@"没有相关数据" time:1];
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
             NSLog(@"%@",error);
             [self show:@"请求失败" time:1];
         }];
@@ -261,7 +261,7 @@
             
             
             
-        }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        }failure:^(NSURLSessionDataTask *operation, NSError *error) {
             [self show:@"请求失败 " time:1];
             NSLog(@"%@",error);
         }];
@@ -306,7 +306,7 @@
             }
             
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
         NSLog(@"%@",error);
     }];

@@ -74,7 +74,7 @@
     
     if (userInfo != nil && [userInfo valueForKey:@"uid"] != nil) {
         NSDictionary *dict = @{@"uid":[userInfo valueForKey:@"uid"],@"sid":[userInfo valueForKey:@"sid"]};
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"index/swing/new_prize"] parameters:@{@"session":dict} success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"index/swing/new_prize"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
             NSString* header_img = [responseObject.data valueForKey:@"header_img"];
             if (![header_img isKindOfClass:[NSNull class]]) {
                 [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:header_img]];
@@ -89,7 +89,7 @@
             
             self.timeLbl.text = str;
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
             
         }];
     }
@@ -107,7 +107,7 @@
                 self.tipLbl.text = [NSString stringWithFormat:@"还可以摇%d次",rest_count];
                 self.swingCount = rest_count ;
             }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
             
         }];
     }
@@ -244,7 +244,7 @@
         MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
         if (userInfo != nil && [userInfo valueForKey:@"uid"] != nil) {
             NSDictionary *dict = @{@"uid":[userInfo valueForKey:@"uid"],@"sid":[userInfo valueForKey:@"sid"]};
-            [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"index/swing"] parameters:@{@"session":dict} success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+            [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"index/swing"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                  [self dismiss];
                 self.swing = [MBSwing objectWithKeyValues:responseObject.data];
                 if ([[responseObject.data allValues] count] == 0) {
@@ -254,7 +254,7 @@
                     [self showSharkWinning:YES];
                 }
                
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                 [self show:@"请求失败" time:1];
             }];
         }

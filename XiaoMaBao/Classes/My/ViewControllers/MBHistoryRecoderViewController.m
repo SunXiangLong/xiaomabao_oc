@@ -56,7 +56,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/goods_history_record"] parameters:@{@"session":sessiondict,@"count":@"20",@"page":@"1"}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+               success:^(NSURLSessionDataTask *operation, id responseObject) {
                    NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    [self dismiss];
                    _array= [responseObject valueForKeyPath:@"data"];
@@ -71,7 +71,7 @@
                    }
              
                    
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    NSLog(@"%@",error);
                    [self show:@"请求失败" time:1];
                }];
@@ -88,13 +88,13 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/goods_history_record_clean"] parameters:@{@"session":sessiondict}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+               success:^(NSURLSessionDataTask *operation, id responseObject) {
                    NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    [self dismiss];
                    _array = @[];
                    [_tableView reloadData];
                     self.stateStr = @"暂无浏览记录";
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    NSLog(@"%@",error);
                    [self show:@"请求失败" time:1];
                }];

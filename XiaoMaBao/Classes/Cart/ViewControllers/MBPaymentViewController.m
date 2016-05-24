@@ -70,7 +70,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/info"] parameters:@{@"session":dict,@"order_id":self.order_id} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/info"] parameters:@{@"session":dict,@"order_id":self.order_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         NSLog(@"status---responseObject%@",[responseObject valueForKeyPath:@"status"]);
         if([[[responseObject valueForKeyPath:@"status"] valueForKey:@"succeed"] isEqualToNumber:@1]){
@@ -83,7 +83,7 @@
         }
        
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
        
   
         [self show:@"请求失败" time:1];
@@ -106,7 +106,7 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"flow/doneMobile"]
             parameters:@{@"session":dict,@"pay_id":self.pay_id,@"shipping_id":self.shipping_id,@"address_id":self.address_id,@"bonus_id":@"",@"coupon_id":self.coupon_id,@"integral":@"",@"inv_type":@"0",@"inv_content":@"",@"inv_payee" :@"",@"real_name":self.real_name,@"identity_card":self.identity_card}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+               success:^(NSURLSessionDataTask *operation, id responseObject) {
         NSLog(@"status---responseObject%@",[responseObject valueForKeyPath:@"status"]);
         NSLog(@"生成订单成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    
@@ -115,7 +115,7 @@
         _is_cross_border = _orderInfo[@"order_info"][@"is_cross_border"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCart" object:nil];
                    
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"----%@",error);
      
 

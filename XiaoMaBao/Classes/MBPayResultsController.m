@@ -57,7 +57,7 @@
     if (! sid) {
         return;
     }
-    [MBNetworking POSTAPPStore:url parameters:@{@"session":sessiondict,@"order_id":self.order_id} success:^(id responseObject) {
+    [MBNetworking POSTOrigin:url parameters:@{@"session":sessiondict,@"order_id":self.order_id} success:^(id responseObject) {
         
         if (responseObject) {
             _dataDic = responseObject;
@@ -67,7 +67,7 @@
           
             
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
         NSLog(@"%@",error);
     }];

@@ -63,7 +63,7 @@
         NSString *passwordMd5 = [self.pwdField.text md5] ;
         
         
-        [MBNetworking POST:url parameters:@{@"name":user.phoneNumber,@"password":passwordMd5,@"phoneCode":_code} success:^(AFHTTPRequestOperation *asd, MBModel *responseObject) {
+        [MBNetworking POST:url parameters:@{@"name":user.phoneNumber,@"password":passwordMd5,@"phoneCode":_code} success:^(NSURLSessionDataTask *asd, MBModel *responseObject) {
             
             NSDictionary *dic = responseObject.status;
             
@@ -79,7 +79,7 @@
             }else{
                 [self show:dic[@"error_desc"] time:1];
             }
-                    } failure:^(AFHTTPRequestOperation *asdf, NSError *asdfg) {
+                    } failure:^(NSURLSessionDataTask *asdf, NSError *asdfg) {
             [self show:@"请求失败！" time:1];
         }];
     }else{

@@ -40,11 +40,11 @@
 #pragma mark - 获取item菜单
 -(void)getMenuItem:(NSString *)menu_type
 {
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getFavourableMenu"] parameters:@{@"menu_type":menu_type} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getFavourableMenu"] parameters:@{@"menu_type":menu_type} success:^(NSURLSessionDataTask *operation, id responseObject) {
         _TeMaiArarry = [responseObject valueForKeyPath:@"data"];
         
       
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"失败");
     }];
 }

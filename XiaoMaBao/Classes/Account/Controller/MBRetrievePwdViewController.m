@@ -84,7 +84,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/signed"];
     NSString *userText = self.accountField.text;
     [self show];
-    [MBNetworking POST:url parameters:@{@"name":userText,@"type":@"1"} success:^(AFHTTPRequestOperation *asdf, MBModel *responseObject) {
+    [MBNetworking POST:url parameters:@{@"name":userText,@"type":@"1"} success:^(NSURLSessionDataTask *asdf, MBModel *responseObject) {
         [self dismiss];
         NSDictionary *status = responseObject.status;
         
@@ -96,14 +96,14 @@
             UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"亲，您的手机号码还未注册" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
-    } failure:^(AFHTTPRequestOperation *asdfg, NSError *asdfgh) {
+    } failure:^(NSURLSessionDataTask *asdfg, NSError *asdfgh) {
                  [self show:@"请求失败！" time:1];
     }];
     
    }
 - (void)getsss:(NSString *)userText{
     NSString *url2 = [NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/phoneCode"];
-    [MBNetworking POST:url2 parameters:@{@"name":userText,@"type":@"1"} success:^(AFHTTPRequestOperation *asd, MBModel *responseObject) {
+    [MBNetworking POST:url2 parameters:@{@"name":userText,@"type":@"1"} success:^(NSURLSessionDataTask *asd, MBModel *responseObject) {
         NSLog(@"---------%@-----------",responseObject.data);
         self.phoneCodeMd5 = [responseObject.data valueForKey:@"phoneCode"];
         
@@ -113,7 +113,7 @@
         user.phoneNumber = userText;
         [alert show];
         
-    } failure:^(AFHTTPRequestOperation *asdf, NSError *asdfg) {
+    } failure:^(NSURLSessionDataTask *asdf, NSError *asdfg) {
         NSLog(@"%@",asdfg);
     }];
 

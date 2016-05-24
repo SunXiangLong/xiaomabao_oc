@@ -10,113 +10,110 @@
 #import "MBModel.h"
 #import "MJExtension.h"
 
-static NSMutableDictionary *requestParams = nil;
+static NSDictionary *requestParams = nil;
 static NSString *url = nil;
 
 @implementation MBNetworking
 
-static AFHTTPRequestOperationManager *mgr = nil;
-+ (AFHTTPRequestOperationManager *)mgr{
+static AFHTTPSessionManager *mgr = nil;
++ (AFHTTPSessionManager *)mgr{
     if (!mgr) {
-        mgr = [AFHTTPRequestOperationManager manager];
+        mgr = [AFHTTPSessionManager manager];
+        
         AFJSONResponseSerializer *response = [[AFJSONResponseSerializer alloc] init];
         /**
          *  删除json中  <null> 类型的字段  同时也会把key删除
          */
         response.removesKeysWithNullValues = YES;
         mgr.responseSerializer = response;
-
+        mgr.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     }
     return mgr;
 }
-+ (AFHTTPRequestOperation *)POST:(NSString *)URLString
-                      parameters:(id)parameters
-       constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
-                         success:(void (^)(AFHTTPRequestOperation *operation, MBModel *responseObject))success
-                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+
++ (NSURLSessionDataTask *)POST:(NSString *)URLString
+                    parameters:(id)parameters
+     constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
+                      progress:(void(^)(NSProgress *progress))uploadProgress
+                       success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure{
     url = URLString;
-    NSDictionary *dic = @{@"version":VERSION,@"channel":@"APPStore",@"device":@"ios"};
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict addEntriesFromDictionary:parameters];
-    [dict addEntriesFromDictionary:dic];
     
-    requestParams = dict;
+    
+    requestParams = [self stitchingParameter:parameters];
     [self logURL];
     
-
-                             
-    return [self.mgr POST:URLString parameters:requestParams constructingBodyWithBlock:block success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        
-        MBModel *model = [MBModel objectWithKeyValues:responseObject];
-        success(operation,model);
+    
+    return [self.mgr POST:URLString parameters:requestParams constructingBodyWithBlock:block progress:uploadProgress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(task,responseObject);
     } failure:failure];
+    
+    
+    
 }
 
 
-+ (AFHTTPRequestOperation *)POSTOrigin:(NSString *)URLString parameters:(id)parameters success:(void (^)(id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
++ (NSURLSessionDataTask *)POSTOrigin:(NSString *)URLString parameters:(id)parameters success:(void (^)(id responseObject))success failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure{
     url = URLString;
-    NSDictionary *dic = @{@"version":VERSION,@"channel":@"APPStore",@"device":@"ios"};
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict addEntriesFromDictionary:parameters];
-    [dict addEntriesFromDictionary:dic];
     
-    requestParams = dict;
+    requestParams = [self stitchingParameter:parameters];
     [self logURL];
-    return [self.mgr POST:URLString parameters:requestParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    return   [self.mgr POST:URLString parameters:requestParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
     } failure:failure];
+    
 }
-+ (AFHTTPRequestOperation *)POSTAPPStore:(NSString *)URLString parameters:(id)parameters success:(void (^)(id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
-    url = URLString;
-       requestParams = parameters;
-    [self logURL];
-    return [self.mgr POST:URLString parameters:requestParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        success(responseObject);
-    } failure:failure];
 
-}
-+ (AFHTTPRequestOperation *)POST:(NSString *)URLString parameters:(id)parameters success:(void (^)(AFHTTPRequestOperation *operation, MBModel *responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
++ (NSURLSessionDataTask *)POST:(NSString *)URLString parameters:(id)parameters success:(void (^)(NSURLSessionDataTask *operation, MBModel *responseObject))success failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure{
     url = URLString;
+    requestParams = [self stitchingParameter:parameters];
+    [self logURL];
+    
+    
+    return   [self.mgr POST:URLString parameters:requestParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        MBModel *model = [MBModel objectWithKeyValues:responseObject];
+        
+        success(task,model);
+    } failure:failure];
+    
+}
+
++ (NSURLSessionDataTask *)GET:(NSString *)URLString parameters:(id)parameters success:(void (^)(NSURLSessionDataTask *, MBModel *responseObject))success failure:(void (^)(NSURLSessionDataTask *, NSError *))failure{
+    url = URLString;
+    requestParams = [self stitchingParameter:parameters];
+    [self logURL];
+    
+    return  [self.mgr GET:URLString parameters:requestParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        MBModel *model = [MBModel objectWithKeyValues:responseObject];
+        success(task,model);
+    } failure:failure];
+    
+}
+
++ (NSURLSessionDataTask *)newGET:(NSString *)URLString parameters:(id)parameters success:(void (^)(NSURLSessionDataTask *, id responseObject))success failure:(void (^)(NSURLSessionDataTask *, NSError *))failure{
+    url = URLString;
+    requestParams = [self stitchingParameter:parameters];
+    [self logURL];
+    
+    return  [self.mgr GET:URLString parameters:requestParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        success(task,responseObject);
+    } failure:failure];
+}
+/**
+ *  增加参数 version:版本号 channel:app下载来源  device:操作系统
+ *
+ *
+ *
+ *  @return 增加参数后的字典
+ */
++ (NSDictionary *)stitchingParameter:(NSDictionary *)parameters{
     NSDictionary *dic = @{@"version":VERSION,@"channel":@"APPStore",@"device":@"ios"};
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict addEntriesFromDictionary:parameters];
     [dict addEntriesFromDictionary:dic];
     
-    requestParams = dict;
-    
-    [self logURL];
-    
-    
-    
-    return [self.mgr POST:URLString parameters:requestParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
-       
-        
-        MBModel *model = [MBModel objectWithKeyValues:responseObject];
-        
-        
-        success(operation,model);
-    } failure:failure];
-}
-
-+ (AFHTTPRequestOperation *)GET:(NSString *)URLString parameters:(id)parameters success:(void (^)(AFHTTPRequestOperation *, MBModel *responseObject))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure{
-    url = URLString;
-    requestParams = parameters;
-    [self logURL];
-    return [self.mgr GET:URLString parameters:requestParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
-      
-        MBModel *model = [MBModel objectWithKeyValues:responseObject];
-        success(operation,model);
-    } failure:failure];
-}
-+ (AFHTTPRequestOperation *)newGET:(NSString *)URLString parameters:(id)parameters success:(void (^)(AFHTTPRequestOperation *, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure{
-    url = URLString;
-    requestParams = parameters;
-    [self logURL];
-    return [self.mgr GET:URLString parameters:requestParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
-      
-        success(operation,responseObject);
-    } failure:failure];
+    return dict;
 }
 /**
  *  测试用，显示拼接参数后的url

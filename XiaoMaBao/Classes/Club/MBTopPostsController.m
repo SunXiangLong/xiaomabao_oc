@@ -56,7 +56,7 @@
     NSString *page = s_Integer(_page);
     NSString *url = [NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/circle/get_circle_hot/",page];
     
-    [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
 //      NSLog(@"%@",responseObject);
         if (responseObject) {
@@ -77,7 +77,7 @@
         
        
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];

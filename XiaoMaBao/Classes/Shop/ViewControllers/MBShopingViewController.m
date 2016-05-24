@@ -105,7 +105,7 @@
     //更新购物车数量
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/list_count"] parameters:@{@"session":session}
      
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+               success:^(NSURLSessionDataTask *operation, id responseObject) {
                    // NSLog(@"成功：%@",[responseObject valueForKeyPath:@"data"]);
                    NSInteger status = [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] integerValue];
                    if(status == 1){
@@ -127,7 +127,7 @@
                    }
                    
                    
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    NSLog(@"失败");
                    
                }];
@@ -235,7 +235,7 @@
 
     
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsInfo"] parameters:@{@"session":session,@"goods_id":self.GoodsId,@"act_id":self.actId} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsInfo"] parameters:@{@"session":session,@"goods_id":self.GoodsId,@"act_id":self.actId} success:^(NSURLSessionDataTask *operation, id responseObject) {
         NSLog(@"成功");
          [self dismiss];
         self.GoodsDict = [responseObject valueForKeyPath:@"data"];
@@ -295,7 +295,7 @@
         });
         
        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"失败");
          [KVNProgress dismiss];
         
@@ -704,7 +704,7 @@
     [self show];
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
     NSDictionary *pagination =[NSDictionary dictionaryWithObjectsAndKeys:page,@"page",@"10",@"count", nil];;
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"comments"] parameters:@{@"goods_id":self.GoodsId,@"pagination":pagination} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"comments"] parameters:@{@"goods_id":self.GoodsId,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, id responseObject) {
             
 //            NSLog(@"获取评论成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
             [self dismiss];
@@ -721,7 +721,7 @@
             [self addItem2View];
             _page ++;
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
        
             [self show:@"请求失败" time:1];
             [self addItem2View];
@@ -1150,11 +1150,11 @@
         NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
         
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":dict, @"goods_id":self.GoodsId,@"number":@"1",@"spec":@""} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":dict, @"goods_id":self.GoodsId,@"number":@"1",@"spec":@""} success:^(NSURLSessionDataTask *operation, id responseObject) {
            // NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
             
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
             NSLog(@"失败");
         }];
         
@@ -1201,12 +1201,12 @@
     NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/collect/create"] parameters:@{@"session":session,@"goods_id":self.GoodsId}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+               success:^(NSURLSessionDataTask *operation, id responseObject) {
         
       
                    [self show:@"加入收藏成功" time:1];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
@@ -1222,13 +1222,13 @@
     
         [self show];
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsProperties"] parameters:@{@"goods_id":self.GoodsId}
-                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                   success:^(NSURLSessionDataTask *operation, id responseObject) {
                        [self dismiss];
 //                       NSLog(@"规格参数成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                        _googBrandArray = [responseObject valueForKeyPath:@"data"];
                        [self addItem1View];
                        
-                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                   } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                        [self show:@"请求失败" time:1];
                    }];
         

@@ -169,55 +169,46 @@
     
     NSDictionary *parmeters =@{@"session":sessiondict,@"order_id":self.order_id,@"goods_id":_shopArray[row][@"goods_id"],@"xinde":dic[@"xinde"],@"comment_rank":dic[@"comment_rank"],@"fileNames":fileNames};
     
-    [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/act_comment"]
-            parameters:parmeters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                for (int i = 0; i<photoArray.count; i++) {
-                    NSData * data;
-                    if ([photoArray[i]isKindOfClass:[UIImage class]] ) {
-                        data =  [UIImage reSizeImageData:photoArray[i] maxImageSize:800 maxSizeWithKB:800];
-                    }
-                    
-                    if(data != nil){
-                        [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"file_name_%d",i] fileName:[NSString stringWithFormat:@"file_name_%d.jpg",i] mimeType:@"image/jpeg"];
-                    }
-                    
-                }
-                
+    [self showProgress];
+    
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/act_comment"] parameters:parmeters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        for (int i = 0; i<photoArray.count; i++) {
+            NSData * data;
+            if ([photoArray[i]isKindOfClass:[UIImage class]] ) {
+                data =  [UIImage reSizeImageData:photoArray[i] maxImageSize:800 maxSizeWithKB:800];
             }
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   NSLog(@"succeed:%@",[responseObject valueForKeyPath:@"status"]);
-                   
-                   
-                   NSDictionary *dic = [responseObject valueForKeyPath:@"status"];
-                   if ([dic[@"succeed"]isEqualToNumber:@1]) {
-                       [self dismiss];
-                       [_evaluationArray removeObjectAtIndex:row];
-//                       NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
-//                       [_tableView deleteRowsAtIndexPaths:@[indexPath]  withRowAnimation:UITableViewRowAnimationAutomatic];
-                       [_tableView reloadData];
-                       NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:_array[row]];
-                       dic[@"is_comment"] = @"1";
-                       NSDictionary *dict = @{@"dic":dic,@"section":[NSString stringWithFormat:@"%ld",self.section]};
-                       NSNotification *notification =[NSNotification notificationWithName:@"MBEvaluationController" object:nil userInfo:dict];
-                       //通过通知中心发送通知
-                       [[NSNotificationCenter defaultCenter] postNotification:notification];
-                       
-                       if (_evaluationArray.count == 0) {
-                           [self popViewControllerAnimated:YES];
-                       }
-                   }else{
-                       [self show:dic[@"error_desc"] time:1];
-                   
-                   }
-                   
-                   
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                   NSLog(@"%@",error);
-                   
-                   [self show:@"请求失败！" time:1];
-               }
-     ];
+            
+            if(data != nil){
+                [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"file_name_%d",i] fileName:[NSString stringWithFormat:@"file_name_%d.jpg",i] mimeType:@"image/jpeg"];
+            }
+            
+        }
+    } progress:^(NSProgress *progress) {
+        self.progress = progress.fractionCompleted;
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        if ([dic[@"succeed"]isEqualToNumber:@1]) {
+            [self dismiss];
+            [_evaluationArray removeObjectAtIndex:row];
+            
+            [_tableView reloadData];
+            NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:_array[row]];
+            dic[@"is_comment"] = @"1";
+            NSDictionary *dict = @{@"dic":dic,@"section":[NSString stringWithFormat:@"%ld",self.section]};
+            NSNotification *notification =[NSNotification notificationWithName:@"MBEvaluationController" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            if (_evaluationArray.count == 0) {
+                [self popViewControllerAnimated:YES];
+            }
+        }else{
+            [self show:dic[@"error_desc"] time:1];
+            
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+        [self show:@"请求失败！" time:1];
+    }];
     
     
     

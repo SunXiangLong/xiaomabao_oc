@@ -279,7 +279,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [self show];
+    [self showProgress];
     NSString *str = @"";
     if ([_genderTextFie.text isEqualToString:@"男"]) {
         str = @"0";
@@ -287,36 +287,30 @@
         str = @"1";
         
     }
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/babyadd"]
-            parameters:@{@"session":sessiondict,@"nickname":_nameTextFie.text,@"birthday":_birthdaytextFie.text,@"gender":str,@"act":@"insert"}
-     
-constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/babyadd"] parameters:@{@"session":sessiondict,@"nickname":_nameTextFie.text,@"birthday":_birthdaytextFie.text,@"gender":str,@"act":@"insert"} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        NSData * data = [UIImage reSizeImageData:_image maxImageSize:300 maxSizeWithKB:300];
+        
+        if(data != nil){
+            [formData appendPartWithFileData:data name:@"children" fileName:@"children.jpg" mimeType:@"image/jpeg"];
+        }
+        
+    } progress:^(NSProgress *progress) {
+        NSLog(@"%f",progress.fractionCompleted);
+        self.progress = progress.fractionCompleted;
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
+            
+            [self getUserInfo];
+            
+        }else{
+            
+            [self show:@"保存失败" time:1];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+        [self show:@"请求失败！" time:1];
+    }];
     
-    NSData * data = [UIImage reSizeImageData:_image maxImageSize:300 maxSizeWithKB:300];
-    
-    if(data != nil){
-        [formData appendPartWithFileData:data name:@"children" fileName:@"children.jpg" mimeType:@"image/jpeg"];
-    }
-    
-}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//                   NSLog(@"success:%@",[responseObject valueForKeyPath:@"status"]);
-                   if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
-                       
-                     
-                       [self getUserInfo];
-                       
-                   }else{
-                       
-                       [self show:@"保存失败" time:1];
-                   }
-                   
-                   
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                   NSLog(@"%@",error);
-                   [self show:@"请求失败！" time:1];
-               }
-     ];
     
 }
 
@@ -333,8 +327,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/info"] parameters:@{@"session":sessiondict}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+               success:^(NSURLSessionDataTask *operation, id responseObject) {
+                   //                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    
                    [self show:@"保存成功" time:1];
                    
@@ -344,11 +338,10 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                    [self setheadData];
                    
                    
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    NSLog(@"%@",error);
                    [self show:@"请求失败" time:1];
                }];
-    
 }
 
 - (void)loginClicksss{
@@ -475,7 +468,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     }
     [self show];
     [MBNetworking POST:url parameters:@{@"session":sessiondict,@"device":@"ios",@"longitude":self.longitude,@"latitude":self.latitude}
-               success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
                  
                    if(1 == [[responseObject valueForKey:@"status"]  intValue]){
@@ -506,7 +499,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                        
                    }
                    
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
                    NSLog(@"%@",error);
@@ -530,7 +523,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     }
 
     [MBNetworking POST:url parameters:@{@"session":sessiondict,@"page":page}
-               success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
                    
                    if(1 == [[responseObject valueForKey:@"status"]  intValue]){
@@ -617,7 +610,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                        
                    }
                    
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
                    NSLog(@"%@",error);

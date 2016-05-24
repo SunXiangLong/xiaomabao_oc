@@ -120,7 +120,7 @@
     }
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
      [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/submitLogistics"] parameters:@{@"session":sessiondict,@"order_id":_order_id,@"logistics_no":_CourierNumber.text,@"logistics_cost":str}success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/submitLogistics"] parameters:@{@"session":sessiondict,@"order_id":_order_id,@"logistics_no":_CourierNumber.text,@"logistics_cost":str}success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
        // NSLog(@"填写运单号成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
  
@@ -140,7 +140,7 @@
         VC.orderid = self.order_id;
         [self.navigationController pushViewController:VC animated:YES];
         
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败！" time:1];
         NSLog(@"%@",error);
         

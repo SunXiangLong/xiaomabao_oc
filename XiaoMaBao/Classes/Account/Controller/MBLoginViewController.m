@@ -225,7 +225,7 @@
     
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/signin"] parameters:params
-               success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
                    [self dismiss];
                    
@@ -297,7 +297,7 @@
                        
                    }
                    
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    
                    NSLog(@"%@",error);
@@ -346,7 +346,7 @@
     
     
     [self show];
-    [MBNetworking POST:postUrl parameters:@{@"name":_view.photo.text,@"type":@"1"} success:^(AFHTTPRequestOperation *asdf, MBModel *responseObject) {
+    [MBNetworking POST:postUrl parameters:@{@"name":_view.photo.text,@"type":@"1"} success:^(NSURLSessionDataTask *asdf, MBModel *responseObject) {
         [self dismiss];
      
         
@@ -367,7 +367,7 @@
             [alert show];
         }
         
-    } failure:^(AFHTTPRequestOperation *asdfg, NSError *asdfgh) {
+    } failure:^(NSURLSessionDataTask *asdfg, NSError *asdfgh) {
         [self dismiss];
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请求失败，请重试" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
         [alert show];
@@ -389,7 +389,7 @@
     }
     [self show];
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/signup"];
-    [MBNetworking POST:url parameters:@{@"phoneCode":[_view.verifcation.text md5],@"name":_view.photo.text,@"password":[self.pwdField.text md5],@"email":self.accountField.text,@"type":@"1"} success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+    [MBNetworking POST:url parameters:@{@"phoneCode":[_view.verifcation.text md5],@"name":_view.photo.text,@"password":[self.pwdField.text md5],@"email":self.accountField.text,@"type":@"1"} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
   
         [self dismiss];
         
@@ -403,7 +403,7 @@
         }
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
     
       
        [self show:@"请求失败，请重试" time:1];

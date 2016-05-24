@@ -40,13 +40,13 @@
         NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
         NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/setDefault"] parameters:@{@"session":dict,@"address_id":self.address_id} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/setDefault"] parameters:@{@"session":dict,@"address_id":self.address_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
             NSLog(@"成功---responseObject%@",responseObject);
             
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateDefaultAddress" object:nil];
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
             NSLog(@"失败");
         }];
 
@@ -111,14 +111,14 @@
     
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/delete"] parameters:@{@"session":sessiondict,@"address_id":self.address_id} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/delete"] parameters:@{@"session":sessiondict,@"address_id":self.address_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
         NSLog(@"self.cellIndex%ld",self.cellIndex);
         [[NSNotificationCenter defaultCenter] postNotificationName:@"deleteAddress" object:nil userInfo:nil];
 
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"失败");
     }];
     

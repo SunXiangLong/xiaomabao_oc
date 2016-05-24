@@ -21,14 +21,14 @@
         NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
         NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/set_default_address"] parameters:@{@"session":dict,@"address_id":self.addressDic[@"address_id"]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/set_default_address"] parameters:@{@"session":dict,@"address_id":self.addressDic[@"address_id"]} success:^(NSURLSessionDataTask *operation, id responseObject) {
             if( [[responseObject valueForKey:@"status"][@"succeed"]isEqualToNumber:@1]){
             
 
                 [self.delagate MBShopAddressTableView];
             }
           
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
             NSLog(@"%@",error);
         }];
         
@@ -65,7 +65,7 @@
     
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_delete"] parameters:@{@"session":sessiondict,@"address_id":self.addressDic[@"address_id"]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_delete"] parameters:@{@"session":sessiondict,@"address_id":self.addressDic[@"address_id"]} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         if( [[responseObject valueForKey:@"status"][@"succeed"]isEqualToNumber:@1]){
             
@@ -76,7 +76,7 @@
         
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"失败");
     }];
 

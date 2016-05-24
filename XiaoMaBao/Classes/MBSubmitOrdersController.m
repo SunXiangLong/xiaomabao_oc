@@ -55,7 +55,7 @@
     [self show];
  
     NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_SHERVICE,@"service/product_price/",_product_id];
-    [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         NSLog(@"%@",responseObject);
         if (responseObject) {
@@ -82,7 +82,7 @@
         }
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
         [self popViewControllerAnimated:YES];
@@ -95,7 +95,7 @@
     [self show];
    
     NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_SHERVICE,@"service/product_price/",_product_id];
-    [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         
         if (responseObject) {
@@ -125,7 +125,7 @@
         }
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     
@@ -147,7 +147,7 @@
         }
         NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/submit_order"] parameters:@{@"session":sessiondict,@"product_id":self.product_id,@"product_number":_changeView.numberFD.text,@"mobile_phone":mobile_phone}
-                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                   success:^(NSURLSessionDataTask *operation, id responseObject) {
                        NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                        [self dismiss];
                        NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
@@ -161,7 +161,7 @@
                        }
                      
         
-                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                   } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                        NSLog(@"%@",error);
                        [self show:@"请求失败" time:1];
                    }];

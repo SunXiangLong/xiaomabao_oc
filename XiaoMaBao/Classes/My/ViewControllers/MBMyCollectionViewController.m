@@ -109,7 +109,7 @@
   
     
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/goods_list"] parameters:@{@"session":session,@"page":page} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/goods_list"] parameters:@{@"session":session,@"page":page} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         
         if ([[responseObject valueForKeyPath:@"data"] count]>0) {
@@ -121,7 +121,7 @@
         }
         
         [self loadItemViewWithTag:0];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
       
@@ -140,7 +140,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     NSDictionary *pagination = [NSDictionary dictionaryWithObjectsAndKeys:page,@"page",@"20",@"count",nil];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/collectBrands/list"] parameters:@{@"session":sessiondict,@"pagination":pagination} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/collectBrands/list"] parameters:@{@"session":sessiondict,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         NSLog(@"获取收藏的品牌成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
         _collectBrandsListArray = [responseObject valueForKeyPath:@"data"];
@@ -152,7 +152,7 @@
         }else{
         
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
@@ -258,7 +258,7 @@
         NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
         NSString *rec_id =  [[self.CartinfoDict objectAtIndex:self.selIndexPath.row] valueForKeyPath:@"rec_id"];
         NSDictionary *paramDict = @{@"session":sessiondict,@"rec_id":rec_id};
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/del_goods"] parameters:paramDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/del_goods"] parameters:paramDict success:^(NSURLSessionDataTask *operation, id responseObject) {
           
             
             MBModel *model = responseObject;
@@ -271,7 +271,7 @@
            [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:self.selIndexPath] withRowAnimation:UITableViewRowAnimationFade];
                
             }            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
             NSLog(@"失败");
         }];
         

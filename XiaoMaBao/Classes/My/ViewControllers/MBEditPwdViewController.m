@@ -101,7 +101,7 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/modPassword"]
         parameters:@{@"session":sessiondict,@"old_password":[self.oldFld.text md5],@"new_password":[self.pwd1.text md5]}
-        success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+        success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
             NSDictionary * status_dict = [responseObject valueForKey:@"status"];
             NSLog(@"success:%@",status_dict);
             [self dismiss];
@@ -124,7 +124,7 @@
             }
             
             
-        }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        }failure:^(NSURLSessionDataTask *operation, NSError *error) {
             [self show:@"请求失败" time:1];
         }];
 

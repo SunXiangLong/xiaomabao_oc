@@ -76,7 +76,7 @@
     [self show];
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/AffordablePlanet/index"];
     
-    [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
 //     NSLog(@"%@ ",responseObject);
         
@@ -91,7 +91,7 @@
             _collectionView.dataSource = self;
         }
        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
          NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
@@ -106,7 +106,7 @@
    
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
     NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/AffordablePlanet/recommend_goods/",page];
-    [MBNetworking newGET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
 
      
@@ -122,7 +122,7 @@
             return ;
         }
      
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];

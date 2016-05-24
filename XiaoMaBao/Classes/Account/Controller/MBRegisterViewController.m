@@ -195,7 +195,7 @@
     
     
     [self show];
-    [MBNetworking POST:postUrl parameters:@{@"name":str,@"type":@"1"} success:^(AFHTTPRequestOperation *asdf, MBModel *responseObject) {
+    [MBNetworking POST:postUrl parameters:@{@"name":str,@"type":@"1"} success:^(NSURLSessionDataTask *asdf, MBModel *responseObject) {
         [self dismiss];
         NSDictionary * status = responseObject.status;
         
@@ -217,7 +217,7 @@
             [alert show];
         }
         
-    } failure:^(AFHTTPRequestOperation *asdfg, NSError *asdfgh) {
+    } failure:^(NSURLSessionDataTask *asdfg, NSError *asdfgh) {
         [self dismiss];
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请求失败，请重试" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
         [alert show];
@@ -243,12 +243,12 @@
 //        BOOL matches = [test evaluateWithObject:phoneNumber];
 //        if (matches) {
 //            [KVNProgress showWithStatus:@"正在验证..."];
-//            [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/phoneCode"] parameters:@{@"name":phoneNumber, @"type":@"1",@"requesttype":@"100"} success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+//            [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/phoneCode"] parameters:@{@"name":phoneNumber, @"type":@"1",@"requesttype":@"100"} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
 //                [KVNProgress dismiss];
 //                
 //                self.md5Encryption = [responseObject.data valueForKey:@"phoneCode"];
 //                [self performSegueWithIdentifier:@"pushMBRegisterPhoneVerifyViewController" sender:nil];
-//            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            } failure:^(NSURLSessionDataTask *operation, NSError *error) {
 //                [KVNProgress showErrorWithStatus:@"验证失败"];
 //            }];
 //        }

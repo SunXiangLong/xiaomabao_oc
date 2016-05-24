@@ -45,7 +45,7 @@
     if (self.goodsNum == nil) {
         self.goodsNum = @"1";
     }
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":dict, @"goods_id":self.goods_id,@"number":self.goodsNum,@"spec":@""} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":dict, @"goods_id":self.goods_id,@"number":self.goodsNum,@"spec":@""} success:^(NSURLSessionDataTask *operation, id responseObject) {
         NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
         NSDictionary * status = (NSDictionary *)[responseObject valueForKey:@"status"];
         
@@ -56,7 +56,7 @@
              [self show:@"加入购物车失败!" time:1];
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"失败");
     }];
     

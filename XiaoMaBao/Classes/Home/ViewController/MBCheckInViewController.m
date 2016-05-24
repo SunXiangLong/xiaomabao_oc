@@ -117,7 +117,7 @@
     
   
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"index/sign/days"] parameters:@{@"session":dict} success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"index/sign/days"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
         
         NSArray *days = [responseObject.data valueForKey:@"days"];
         self.calendarView.datys = days;
@@ -145,7 +145,7 @@
             [self.signButton setImage:[UIImage imageNamed:@"signed_circle_btn"] forState:UIControlStateNormal];
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         
     }];
 }
@@ -188,7 +188,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"index/sign"] parameters:@{@"session":dict} success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"index/sign"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
         
         NSLog(@"%@",responseObject.status);
         
@@ -199,7 +199,7 @@
             [self show:@"签到成功! 您每天继续来签到吧!" time:1];
             [self refreshCalendarView];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败" time:1];
     }];
 }

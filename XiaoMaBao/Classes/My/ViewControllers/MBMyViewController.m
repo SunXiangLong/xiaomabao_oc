@@ -124,7 +124,7 @@
     }
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/info"] parameters:@{@"session":sessiondict}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+               success:^(NSURLSessionDataTask *operation, id responseObject) {
             NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
      
                    
@@ -133,7 +133,7 @@
                    _nick_name = dic[@"nick_name"];
                    [_collerctonView reloadData];
                    
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    NSLog(@"%@",error);
                    [self show:@"请求失败" time:1];
                }];

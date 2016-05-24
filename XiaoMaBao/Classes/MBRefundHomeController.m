@@ -256,7 +256,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
      NSString *page = [NSString stringWithFormat:@"%d",_page];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/list"] parameters:@{@"session":sessiondict,@"page":page,@"size":@"5"}success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/list"] parameters:@{@"session":sessiondict,@"page":page,@"size":@"5"}success:^(NSURLSessionDataTask *operation, id responseObject) {
          [self dismiss];
        // NSLog(@"成功获取全部可退换货订单---responseObject%@",[responseObject valueForKeyPath:@"data"]);
     
@@ -279,7 +279,7 @@
   
         
     
-       }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+       }failure:^(NSURLSessionDataTask *operation, NSError *error) {
                  [self show:@"请求失败！" time:1];
                    NSLog(@"%@",error);
                    
@@ -297,7 +297,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/search"] parameters:@{@"session":sessiondict,@"order_sn":str}success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/search"] parameters:@{@"session":sessiondict,@"order_sn":str}success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         //NSLog(@"成功获取搜索退换货订单信息---responseObject%@",[responseObject valueForKeyPath:@"data"]);
         NSArray *arr = [responseObject valueForKeyPath:@"data"];
@@ -309,7 +309,7 @@
      
         
         
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }failure:^(NSURLSessionDataTask *operation, NSError *error) {
    [self show:@"请求失败！" time:1];
         NSLog(@"%@",error);
         
@@ -325,7 +325,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
          NSString *page = [NSString stringWithFormat:@"%d",_page];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/applyList"] parameters:@{@"session":sessiondict,@"page":page,@"size":@"5"}success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/applyList"] parameters:@{@"session":sessiondict,@"page":page,@"size":@"5"}success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         //NSLog(@"成功获取全部已申请退换货订单---responseObject%@",[responseObject valueForKeyPath:@"data"]);
        
@@ -343,7 +343,7 @@
         [_tableView reloadData];
         
         
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }failure:^(NSURLSessionDataTask *operation, NSError *error) {
     [self show:@"请求失败！" time:1];
         NSLog(@"%@",error);
         

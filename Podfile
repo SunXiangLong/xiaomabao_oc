@@ -2,7 +2,7 @@
 platform :ios, '8.0'
 pod 'PureLayout', '~> 2.0.6'
 pod 'KVNProgress'
-pod 'AFNetworking', '~> 2.5.4'
+pod 'AFNetworking', '~> 3.1.0'
 pod 'iCarousel'
 pod 'DZNEmptyDataSet'
 pod 'WMPageController'

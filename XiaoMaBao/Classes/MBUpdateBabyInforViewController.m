@@ -299,31 +299,21 @@
     NSString * child_sex = [NSString stringWithFormat:@"%ld",self.babyGender.tag];
     NSString * parent_sex = [NSString stringWithFormat:@"%ld",self.familyGender.tag];
     
-    
-    
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/modInfo"]
-            parameters:@{@"session":dict,@"nick_name":nick_name,@"child_birthday":child_birthday,
-                         @"expected_date":expected_date,@"child_sex":child_sex,@"parent_sex":parent_sex}
-     
-constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-    //                UIImage *image = [self imageWithImageSimple:_headProfile.image scaledToSize:CGSizeMake(100, 100)];
-    NSData * data =  [UIImage reSizeImageData:_headProfile.image maxImageSize:300 maxSizeWithKB:300];
-    if(data != nil){
-        [formData appendPartWithFileData:data name:@"header_img" fileName:@"header_img.jpg" mimeType:@"image/jpeg"];
-    }
-    
-}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   NSLog(@"success:%@",[responseObject valueForKeyPath:@"status"]);
-                   
-                   [self show:@"保存成功" time:1];
-                   [self popViewControllerAnimated:YES];
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                   NSLog(@"%@",error);
-                   [self show:@"请求失败！" time:1];
-               }
-     ];
-}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/modInfo"] parameters:@{@"session":dict,@"nick_name":nick_name,@"child_birthday":child_birthday,@"expected_date":expected_date,@"child_sex":child_sex,@"parent_sex":parent_sex} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        NSData * data =  [UIImage reSizeImageData:_headProfile.image maxImageSize:300 maxSizeWithKB:300];
+        if(data != nil){
+            [formData appendPartWithFileData:data name:@"header_img" fileName:@"header_img.jpg" mimeType:@"image/jpeg"];
+        }
+        
+    } progress:^(NSProgress *progress) {
+        NSLog(@"%f",progress.fractionCompleted);
+    } success:^(NSURLSessionDataTask *task, MBModel *responseObject) {
+        [self show:@"保存成功" time:1];
+        [self popViewControllerAnimated:YES];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+        [self show:@"请求失败！" time:1];
+    }];}
 - (NSString *)titleStr{
     return @"修改宝宝信息";
 }
@@ -425,7 +415,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [self show];
+    [self showProgress];
     NSString *str = @"";
     if ([_babyGendertext isEqualToString:@"男"]) {
         str = @"0";
@@ -433,38 +423,34 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         str = @"1";
         
     }
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/babyadd"]
-            parameters:@{@"session":sessiondict,@"nickname":_nicknameText.text,@"birthday":_birthdaytext,@"gender":str ,@"act":@"modify",@"id":self.ID}
-     
-constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     
-    NSData * data =  [UIImage reSizeImageData:_headProfile.image maxImageSize:300 maxSizeWithKB:300];
-    if(data != nil){
-        [formData appendPartWithFileData:data name:@"children" fileName:@"children.jpg" mimeType:@"image/jpeg"];
-    }
-    
-}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   NSLog(@"success:%@",[responseObject valueForKeyPath:@"status"]);
-                   if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
-                       
-                       self.block(_nicknameText.text,str,_birthdaytext,_headProfile.image);
-                       
-                       
-                       [self popViewControllerAnimated:YES];
-                       [self show:@"修改成功" time:1];
-                
-                   }else{
-                       
-                       [self show:@"保存失败" time:1];
-                   }
-                   
-                   
-               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                   NSLog(@"%@",error);
-                   [self show:@"请求失败！" time:1];
-               }
-     ];
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/babyadd"] parameters:@{@"session":sessiondict,@"nickname":_nicknameText.text,@"birthday":_birthdaytext,@"gender":str ,@"act":@"modify",@"id":self.ID} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        NSData * data =  [UIImage reSizeImageData:_headProfile.image maxImageSize:300 maxSizeWithKB:300];
+        if(data != nil){
+            [formData appendPartWithFileData:data name:@"children" fileName:@"children.jpg" mimeType:@"image/jpeg"];
+        }
+
+    } progress:^(NSProgress *progress) {
+        self.progress = progress.fractionCompleted;
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
+            
+            self.block(_nicknameText.text,str,_birthdaytext,_headProfile.image);
+            
+            
+            [self popViewControllerAnimated:YES];
+            [self show:@"修改成功" time:1];
+            
+        }else{
+            
+            [self show:@"保存失败" time:1];
+        }
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+        [self show:@"请求失败！" time:1];
+    }];
+  
     
 }
 

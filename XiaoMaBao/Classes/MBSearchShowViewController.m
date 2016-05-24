@@ -51,7 +51,7 @@
         NSString *page = [NSString stringWithFormat:@"%ld",_page];
         NSDictionary *params = @{@"keywords":self.title,@"having_goods":@"false"};
         NSDictionary *pagination = @{@"coun":@"20",@"page":page};
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"search"] parameters:@{@"filter":params,@"pagination":pagination} success:^(AFHTTPRequestOperation *operation, MBModel *responseObject) {
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"search"] parameters:@{@"filter":params,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
     
             
             NSArray *arr = [responseObject valueForKeyPath:@"data"];
@@ -91,7 +91,7 @@
             
             
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
             
             [self show:@"请求失败" time:1];
         }];
