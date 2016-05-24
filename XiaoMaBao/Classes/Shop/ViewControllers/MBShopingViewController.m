@@ -22,8 +22,6 @@
 #import "UIImageView+WebCache.h"
 #import "MBShoppingCartViewController.h"
 #import "MobClick.h"
-#import "NTalkerChatViewController.h"
-#import "XNGoodsInfoModel.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "MBShopTableViewCell.h"

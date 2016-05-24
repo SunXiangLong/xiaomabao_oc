@@ -8,7 +8,6 @@
 
 #import "MBUpdateBabyInforViewController.h"
 #import "MBNetworking.h"
-#import "MBCheckBox.h"
 #import "TGCameraViewController.h"
 @interface MBUpdateBabyInforViewController () <UIAlertViewDelegate,UITextFieldDelegate,UIPickerViewDelegate,TGCameraDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {

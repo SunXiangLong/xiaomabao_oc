@@ -102,18 +102,7 @@
     [self Obtain];
     //更新
     [self update];
-    //小能客服注册
-    //**********H5集成才用******************//
-    //【重要】  必须在初始化前首先调用  用于获得规定的设备id从而供H5页面所用。
-    [XNUtilityHelper cidFromLocalStore];
     
-    /**
-     SDK初始化
-     siteid: 企业ID，即企业的唯一标识。格式示例：kf_9979 【必填】
-     SDKKey: 企业通行密钥。(从小能技术支持人员那获得) 【必填】
-     */
-    
-    [[XNSDKCore sharedInstance] initSDKWithSiteid:@"kf_9761" andSDKKey:@"4AE38950-F352-47F3-94EA-97C189F48B0F"];
     
     //极光推送（消息）
     [ [NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
@@ -388,6 +377,8 @@
     // 当用户通过支付宝客户端进行支付时,会回调该block:standbyCallback
     [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
         
+        NSLog(@"%@",resultDic);
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"AlipayPay" object:nil userInfo:resultDic]];
     }];
     
     

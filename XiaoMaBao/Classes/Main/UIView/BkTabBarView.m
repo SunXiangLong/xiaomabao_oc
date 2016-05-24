@@ -108,7 +108,6 @@
     if (self.tabBarButtons.count == 2) {
         [self clickTap:tabBarButton];
     }
-    
     if (self.tabBarButtons.count== 4) {
         messageBadge = [CustomBadge customBadgeWithString:@"0" withStyle:[BadgeStyle defaultStyle]];
         

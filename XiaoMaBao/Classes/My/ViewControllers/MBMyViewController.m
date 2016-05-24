@@ -17,8 +17,6 @@
 #import "MBHistoryRecoderViewController.h"
 #import "MBShopAddresViewController.h"
 #import "MBBackServiceViewController.h"
-#import "NTalkerChatViewController.h"
-#import "XNGoodsInfoModel.h"
 #import "MBHelpServiceViewController.h"
 #import "MBLoginViewController.h"
 #import "MBVaccineViewController.h"

@@ -5,7 +5,6 @@
 //  Created by 张磊 on 15/6/2.
 //  Copyright (c) 2015年 MakeZL. All rights reserved.
 //
-
 #import "MBPaymentViewController.h"
 #import "MBSignaltonTool.h"
 #import "MBNetworking.h"
@@ -46,6 +45,8 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wayPay:) name:@"wayPay" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AlipayPay:) name:@"AlipayPay" object:nil];
+    
     if(self.coupon_id == nil){
         self.coupon_id = @"";
     }
@@ -65,8 +66,6 @@
 
 - (void)getOrderInfo{
     [self show];
-    
-    
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
@@ -91,12 +90,8 @@
        
     }];
 }
-
-
 - (void)getDingdanINfo
 {
-    
-    
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     if (!_identity_card) {
@@ -180,15 +175,10 @@
                         @"支付宝客户端支付",
                         @"微信客户端支付"
                         ];
-    
-    
-    
     if (![WXApi isWXAppInstalled] && ![WXApi isWXAppSupportApi])
     {
         titles = @[@"支付宝客户端支付"];
-        
     }
-
     for (NSInteger i = 0; i < titles.count; i++) {
         UIView *payListView = [[UIView alloc] init];
         payListView.backgroundColor = [UIColor whiteColor];
@@ -197,8 +187,6 @@
         UIButton *payListBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         payListBtn.titleEdgeInsets = UIEdgeInsetsMake(0, MARGIN_8, 0, 0);
         [payListBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pay%ld",(long)i+1]] forState:UIControlStateNormal];
-       
-
         payListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         payListBtn.frame = CGRectMake(MARGIN_8, 0, self.view.ml_width, payListView.ml_height);
         [payListBtn setTitleColor:[UIColor colorWithHexString:@"323232"] forState:UIControlStateNormal];
@@ -306,6 +294,11 @@
 
 #pragma mark -- 第三方支付  支付宝
  - (void)payForMoney{
+     
+   NSString *str  = [[AlipaySDK defaultService] currentVersion];
+     NSLog(@"%@",str);
+     
+     
     /*
      *商户的唯一的parnter和seller。
      *签约后，支付宝会为每个商户分配一个唯一的 parnter 和 seller。
@@ -567,6 +560,17 @@
         req.sign                = [dict objectForKey:@"sign"];
         
         [WXApi sendReq:req];
+  
+    }
+}
+
+-(void)AlipayPay:(NSNotification *)notif
+{
+    NSDictionary * resultDic = [notif userInfo];
+    if ([resultDic[@"resultStatus"]isEqualToString:@"9000"]) {
+        [self alert:@"提示" msg:@"支付成功" success:@"1"];
+    }else{
+        [self alert:@"提示" msg:resultDic[@"memo"] success:@"0"];
     }
 }
 -(void)wayPay:(NSNotification *)notif
@@ -634,6 +638,8 @@
     
     return nil;
 }
-
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]  removeObserver:self];
+}
 
 @end

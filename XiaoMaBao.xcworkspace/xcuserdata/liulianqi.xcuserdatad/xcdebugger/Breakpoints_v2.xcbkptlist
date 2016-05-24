@@ -84,22 +84,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "XiaoMaBao/Classes/Cart/ViewControllers/MBPaymentViewController.m"
-            timestampString = "485234102.392475"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "-getOrderInfo"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -135,13 +119,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "XiaoMaBao/Classes/Other/AppDelegate.m"
-            timestampString = "485684915.717313"
+            filePath = "XiaoMaBao/Classes/Cart/ViewControllers/MBPaymentViewController.m"
+            timestampString = "485765994.560279"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "-application:didFinishLaunchingWithOptions:"
+            startingLineNumber = "436"
+            endingLineNumber = "436"
+            landmarkName = "-payForMoney"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

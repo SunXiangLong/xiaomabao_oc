@@ -8,7 +8,6 @@
 
 #import "MBEditProfileViewController.h"
 #import "MBNetworking.h"
-#import "MBCheckBox.h"
 #import "TGCameraViewController.h"
 @interface MBEditProfileViewController () <UIAlertViewDelegate,UITextFieldDelegate,UIPickerViewDelegate,TGCameraDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (strong,nonatomic) UITextField *nicknameText;
