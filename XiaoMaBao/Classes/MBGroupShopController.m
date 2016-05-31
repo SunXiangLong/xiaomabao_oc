@@ -149,7 +149,7 @@
 - (UIView *)setTableviewHeadView{
     if (!_topView) {
         UIView *view = [[UIView alloc] init];
-        view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_WIDTH*240/640);
+        view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_WIDTH*35/75);
         NSMutableArray *UrlStringArray = [NSMutableArray array];
         for (NSDictionary *dic in _shuffArray) {
             [UrlStringArray addObject:dic[@"ad_code"]];
@@ -256,7 +256,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (_isbool) {
-        return (UISCREEN_WIDTH*240/640+30);
+        return (UISCREEN_WIDTH*35/75+30);
     }
        return 116;
 }

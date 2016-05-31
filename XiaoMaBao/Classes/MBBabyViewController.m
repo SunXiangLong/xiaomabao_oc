@@ -27,7 +27,7 @@
     NSMutableArray *_logArray;
     MBUserDataSingalTon *userInfo;
     NSString *strSid;
-
+    
     
     
     
@@ -77,42 +77,37 @@
     }else{
         if (strSid&&[strSid isEqualToString:uid]) {
             if ([is_baby_add isEqualToString:@"1"]) {
-                
-                
-                
                 if (!_isBool) {
                     __unsafe_unretained __typeof(self) weakSelf = self;
                     [DXLocationManager getlocationWithBlock:^(double longitude, double latitude) {
-                        
-                        
                         weakSelf.longitude = [NSString stringWithFormat:@"%f",longitude];
                         weakSelf.latitude = [NSString stringWithFormat:@"%f" , latitude];
                         if (weakSelf.longitude) {
-                                [self setheadData];
+                            [self setheadData];
                         }else{
                             [self show:@"位置获取失败" time:1];
                         }
-                     
+                        
                     }];
                 }
                 
-              
+                
                 
             }else{
-                   __unsafe_unretained __typeof(self) weakSelf = self;
+                __unsafe_unretained __typeof(self) weakSelf = self;
                 [DXLocationManager getlocationWithBlock:^(double longitude, double latitude) {
                     
                     
                     weakSelf.longitude = [NSString stringWithFormat:@"%f",longitude];
                     weakSelf.latitude = [NSString stringWithFormat:@"%f" , latitude];
                     if (weakSelf.longitude) {
-                       [self setUIOne];
+                        [self setUIOne];
                     }else{
                         [self show:@"位置获取失败" time:1];
                     }
                     
                 }];
-           
+                
                 
             }
             
@@ -133,7 +128,7 @@
                         [self show:@"位置获取失败" time:1];
                     }
                 }];
-               
+                
             }else{
                 [self setUIOne];
             }
@@ -153,7 +148,7 @@
     _scrollView.hidden = YES;
     
     [GetLocationManger getMyLocationWithDelegate:YES];
-        
+    
     
 }
 - (void)setUITwo{
@@ -161,9 +156,9 @@
     
     _scrollView.hidden = YES;
     if (!_tableView) {
-    [self.view addSubview:[self setTableView]];
+        [self.view addSubview:[self setTableView]];
     }
-
+    
     _page = 1;
     
     
@@ -187,9 +182,6 @@
     
     [_tableView removeFromSuperview];
     _tableView = nil;
-    
-    
-    
     _scrollView.hidden = NO;
     _nameTextFie.delegate = self;
     _birthdaytextFie.delegate = self;
@@ -214,10 +206,7 @@
         self.gender =  userInfo.user_baby_info[@"gender"];
         self.birthday = userInfo.user_baby_info[@"birthday"];
     }
-    
-    
     _tableView.tableHeaderView = [self settableHeadView];
-    
     return _tableView;
 }
 
@@ -227,9 +216,7 @@
  *  @param sender
  */
 - (IBAction)PhotoButton:(id)sender {
-    //    MBBabyManagementViewController *VC = [[MBBabyManagementViewController alloc] init];
-    //    VC.title =@"详情";
-    //    [self pushViewController:VC Animated:YES];
+   
     [self setCamera];
 }
 /**
@@ -259,10 +246,6 @@
     
     [self getsubData];
     
-    //    MBBabyRecordViewController *VC = [[MBBabyRecordViewController alloc] init];
-    //    VC.title = [NSString stringWithFormat:@"麻花：%@",_nameTextFie.text];
-    //    VC.isDefault = NO;
-    //    [self pushViewController:VC Animated:YES];
 }
 /**
  *  移除textView的第一响应
@@ -295,7 +278,7 @@
         }
         
     } progress:^(NSProgress *progress) {
-        NSLog(@"%f",progress.fractionCompleted);
+        //        NSLog(@"%f",progress.fractionCompleted);
         self.progress = progress.fractionCompleted;
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
@@ -379,11 +362,8 @@
 }
 #pragma mark --- 宝宝性别
 -(void)selectBabyGender{
-    // Inside a IBAction method:
-    
     // Create an array of strings you want to show in the picker:
     NSArray *genders = [NSArray arrayWithObjects:@"男",@"女",nil];
-    
     [ActionSheetStringPicker showPickerWithTitle:@"请选择性别"
                                             rows:genders
                                 initialSelection:0
@@ -399,7 +379,7 @@
                                          NSLog(@"Block Picker Canceled");
                                      }
                                           origin:_genderTextFie];
-    // You can also use self.view if you don't have a sender
+   
 }
 #pragma maek -- 拍照或从相机获取图片
 - (void)setCamera{
@@ -470,11 +450,11 @@
     [MBNetworking POST:url parameters:@{@"session":sessiondict,@"device":@"ios",@"longitude":self.longitude,@"latitude":self.latitude}
                success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
-                 
+                   
                    if(1 == [[responseObject valueForKey:@"status"]  intValue]){
                        [self dismiss];
                        NSArray *arr = [responseObject valueForKeyPath:@"data"];
-//                      NSLog(@"%@",arr);
+                       //                      NSLog(@"%@",arr);
                        
                        
                        for (NSDictionary *dic in arr) {
@@ -482,9 +462,9 @@
                                if ([dic[@"group"]isEqualToString:@"tianqi"]) {
                                    [_logArray insertObject:dic  atIndex:0];
                                }else{
-                                [_logArray addObject:dic];
+                                   [_logArray addObject:dic];
                                }
-                              
+                               
                            }
                            
                        }
@@ -494,7 +474,7 @@
                        }else{
                            [self setUITwo];
                        }
-            
+                       
                        
                        
                    }
@@ -521,7 +501,7 @@
     if (! sid) {
         return;
     }
-
+    
     [MBNetworking POST:url parameters:@{@"session":sessiondict,@"page":page}
                success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
@@ -530,7 +510,7 @@
                        [self dismiss];
                        NSDictionary *userData = [responseObject valueForKeyPath:@"data"];
                        NSArray *arr = userData[@"result"];
-//                       NSLog(@"%@",arr);
+                       //                       NSLog(@"%@",arr);
                        
                        
                        if (_page==1) {
@@ -554,7 +534,7 @@
                            }
                            NSInteger count = _logArray.count;
                            [_logArray addObjectsFromArray:arrs];
-                  
+                           
                            
                            if (_isBoolFaBiao) {
                                
@@ -563,18 +543,18 @@
                                    [self.tableView reloadData];
                                }else{
                                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:count];
-                                 
+                                   
                                    
                                    
                                    
                                    [[self tableView] scrollToRowAtIndexPath:indexPath
                                                            atScrollPosition:UITableViewScrollPositionTop animated:YES];
-                                  
                                    
                                    
-//                                   [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                                 [self.tableView reloadData];
-
+                                   
+                                   //                                   [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                   [self.tableView reloadData];
+                                   
                                }
                                
                            }else{
@@ -587,8 +567,8 @@
                            
                            
                            
-                            NSArray *oneArray = _logArray.lastObject[@"data"];
-                            NSArray *twoArray = arr.lastObject[@"data"];
+                           NSArray *oneArray = _logArray.lastObject[@"data"];
+                           NSArray *twoArray = arr.lastObject[@"data"];
                            
                            if (arr.count == 0||([oneArray.lastObject[@"id"]isEqualToString:twoArray.lastObject[@"id"]])) {
                                [self.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -596,7 +576,7 @@
                            }
                            if([arr.firstObject[@"max_page"] integerValue]<_page) {
                                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-                              
+                               
                            }else{
                                [_logArray addObjectsFromArray:arr];
                                [self.tableView reloadData];
@@ -682,7 +662,7 @@
 #pragma mark -- 添加过宝宝的UI
 
 - (UIView *)settableHeadView{
-
+    
     UIView *view = [[UIView alloc] init];
     
     view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 158);
@@ -690,7 +670,7 @@
     
     headView1 *view1 = [headView1 instanceView];
     
-  
+    
     
     
     if ([self.photo isKindOfClass:[NSString class]]) {
@@ -702,8 +682,8 @@
         
         view1.touxiang.image = self.photo;
     }else{
-    
-        NSLog(@"11122233444");
+        
+        //        NSLog(@"11122233444");
     }
     
     view1.touxiang.contentMode =  UIViewContentModeScaleAspectFill;
@@ -727,7 +707,7 @@
         make.right.mas_equalTo(0);
     }];
     
-        [view1.touxiang addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(takePhotoTapped)]];
+    [view1.touxiang addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(takePhotoTapped)]];
     
     
     
@@ -738,11 +718,11 @@
 -(void)takePhotoTapped{
     MBUpdateBabyInforViewController *VC = [[MBUpdateBabyInforViewController alloc] init];
     if ([self.photo isKindOfClass:[NSString class]]) {
-            VC.imageUrl =self.photo;
+        VC.imageUrl =self.photo;
     }else{
         VC.image = self.photo;
     }
-
+    
     NSString *str =  userInfo.user_baby_info[@"gender"];
     VC.xingbie = [str isEqualToString:@"0"]?@"男":@"女";
     VC.name = userInfo.user_baby_info[@"nickname"];
@@ -754,8 +734,8 @@
         weakSelf.nickname =name;
         weakSelf.gender = xingbie;
         weakSelf.birthday = daty;
-    
-       weakSelf.tableView.tableHeaderView = [self settableHeadView];
+        
+        weakSelf.tableView.tableHeaderView = [self settableHeadView];
     };
     [self pushViewController:VC Animated:YES];
 }
@@ -764,11 +744,11 @@
     if ([userInfo.is_baby_add isEqualToString:@"1"]){
         
         _page = 1;
-      
+        
         __unsafe_unretained __typeof(self) weakSelf = self;
         MBPublishedViewController   *VC = [[MBPublishedViewController alloc] init];
         VC.block = ^(){
-              _isBoolFaBiao = YES;
+            _isBoolFaBiao = YES;
             
             [weakSelf setheadData];
         };
@@ -848,7 +828,7 @@
         view1.tishiLable.text = @"安心提示";
     }else if([group isEqualToString:@"tianqi"]){
         
-         view1.tishiLable.text = @"天气提醒";
+        view1.tishiLable.text = @"天气提醒";
     }else{
         if ([_logArray[section][@"data"]count] ==0) {
             view1.tishiLable.text= @"";
@@ -898,14 +878,14 @@
     }
     
     
-   }
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 28;
 }
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    NSLog(@"%@",_logArray);
+    //    NSLog(@"%@",_logArray);
     
     
     NSString *group = _logArray[indexPath.section][@"group"];
@@ -937,7 +917,7 @@
         return cell;
         
     }else if([group isEqualToString:@"tianqi"]){
-    
+        
         MBGrowingTipsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBGrowingTipsTableViewCell"];
         if (!cell) {
             cell = [[[NSBundle mainBundle]loadNibNamed:@"MBGrowingTipsTableViewCell" owner:nil options:nil]firstObject];
@@ -960,11 +940,11 @@
             if (!cell) {
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"MBTDetailableViewCell" owner:nil options:nil]firstObject];
             }
-           
+            
             cell.xiqiLable.text = _logArray[indexPath.section][@"data"][indexPath.row][@"week"];
             cell.dataLable.text =  _logArray[indexPath.section][@"data"][indexPath.row][@"day"];
             cell.miaoshuLable.text = _logArray[indexPath.section][@"data"][indexPath.row][@"content"];
-           // cell.nameLable.text = userInfo.user_baby_info[@"nickname"];
+            // cell.nameLable.text = userInfo.user_baby_info[@"nickname"];
             cell.timeLable.text = [NSString stringWithFormat:@"%@月%@日 %@", _logArray[indexPath.section][@"data"][indexPath.row][@"month"], _logArray[indexPath.section][@"data"][indexPath.row][@"day"], _logArray[indexPath.section][@"data"][indexPath.row][@"addtime"]];
             NSArray *photo = _logArray[indexPath.section][@"data"][indexPath.row][@"photo"];
             if (photo.count>0) {
@@ -982,7 +962,7 @@
             cell.showImageView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
             cell.showImageView .clipsToBounds  = YES;
             
-    
+            
             NSString *mood = _logArray[indexPath.section][@"data"][indexPath.row][@"mood"];
             NSString *weather = _logArray[indexPath.section][@"data"][indexPath.row][@"weather"];
             NSString *position = _logArray[indexPath.section][@"data"][indexPath.row][@"position"];
@@ -996,11 +976,11 @@
                 }else if ([weather isEqualToString:@""]){
                     cell.showImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"mood%@_image",weather]];
                 }else{
-                cell.showImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"mood%@_image",mood]];
-                cell.showsImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"mb_weather%@",weather]];
-                
+                    cell.showImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"mood%@_image",mood]];
+                    cell.showsImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"mb_weather%@",weather]];
+                    
                 }
-            
+                
             }
             
             if (![position isEqualToString:@""]) {
@@ -1039,7 +1019,7 @@
         VC.url = [NSURL URLWithString: _logArray[indexPath.section][@"data"][@"url"]];
         VC.title = @"天气提醒";
         [self pushViewController:VC Animated:YES];
-    
+        
     }
     
     else{

@@ -66,6 +66,7 @@
 /*
  所有 界面 背景色
  */
+#define RPM_TO_PULEES 11718.75L
 #define BACKColor [UIColor colorWithHexString:@"ecedf1"]
 #define BG_COLOR [UIColor colorWithHexString:@"d7d7d7"]
 #define NavBar_Color [UIColor colorWithHexString:@"d66263"]
@@ -78,7 +79,7 @@
  *  默认占为图
  */
 #define PLACEHOLDER_DEFAULT_IMG [UIImage imageNamed:@"placeholder_num2"]
-#define VERSION @"2.5"
+#define VERSION @"2.6"
 /**
  *  宽度与高度
  */
@@ -194,11 +195,14 @@ typedef void(^failureBlock)(NSError *error);
 #define SYSTEMFONT(FONTSIZE)    [UIFont systemFontOfSize:FONTSIZE]
 #define FONT(NAME, FONTSIZE)    [UIFont fontWithName:(NAME) size:(FONTSIZE)]
 
-// 微软雅黑
-#define YC_YAHEI_FONT(FONTSIZE) [UIFont fontWithName:@"MicrosoftYaHei" size:(FONTSIZE)]
-// 英文 和 数字
-#define YC_ENGLISH_FONT(FONTSIZE) [UIFont fontWithName:@"Helvetica Light" size:(FONTSIZE)]
 
+/***  微软雅黑 *****/
+#define YC_YAHEI_FONT(FONTSIZE) [UIFont fontWithName:@"MicrosoftYaHei" size:(FONTSIZE)]
+
+/***  英文和数字 *****/
+#define YC_ENGLISH_FONT(FONTSIZE) [UIFont fontWithName:@"Helvetica Light" size:(FONTSIZE)]
+/***  造字工房字体悦圆常规体 *****/
+#define YC_RTWSYueRoud_FONT(FONTSIZE) [UIFont fontWithName:@"RTWSYueRoudGoG0v1-Regular" size:(FONTSIZE)]
 // 颜色(RGB)
 #define RGBCOLOR(r, g, b)       [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]
 #define RGBACOLOR(r, g, b, a)   [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]

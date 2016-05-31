@@ -84,6 +84,10 @@
     
     
 }
+- (NSString *)titleStr{
+    
+    return self.title?:@"全部评价";
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

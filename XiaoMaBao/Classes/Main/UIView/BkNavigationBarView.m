@@ -15,8 +15,8 @@
 
 @interface BkNavigationBarView ()
 {
-    UIImageView *_image;
-    BOOL _isBack;
+
+   
 }
 @end
 
@@ -28,7 +28,7 @@
         leftButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [leftButton setTitleColor:TEXT_COLOR forState:UIControlStateNormal];
             leftButton.frame =CGRectMake(10, NAV_BAR_Y, NAV_BAR_W, NAV_BAR_HEIGHT) ;
-        leftButton.titleLabel.font = [UIFont systemFontOfSize:18];
+        leftButton.titleLabel.font = YC_RTWSYueRoud_FONT(17);
         [self addSubview:leftButton];
         self.leftButton = leftButton;
     }
@@ -40,7 +40,7 @@
         UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [rightButton setTitleColor:TEXT_COLOR forState:UIControlStateNormal];
         rightButton.frame =CGRectMake(self.ml_width - NAV_BAR_W, NAV_BAR_Y, NAV_BAR_W, NAV_BAR_HEIGHT) ;
-        rightButton.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+        rightButton.titleLabel.font = YC_RTWSYueRoud_FONT(16);
         
         [self addSubview:rightButton];
         self.rightButton = rightButton;
@@ -60,7 +60,7 @@
         [titleButton setTitleColor:TEXT_COLOR forState:UIControlStateNormal];
         titleButton.frame =CGRectMake(NAV_BAR_W, NAV_BAR_Y, self.ml_width - NAV_BAR_W * 2 , NAV_BAR_HEIGHT) ;
         titleButton.imageEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
-        titleButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+        titleButton.titleLabel.font =  YC_RTWSYueRoud_FONT(17);//[UIFont boldSystemFontOfSize:18];
         [self addSubview:titleButton];
         self.titleButton = titleButton;
     }
@@ -82,6 +82,7 @@
 - (void)setTitle:(NSString *)title{
     _title = title;
     [self.titleButton setTitle:title forState:UIControlStateNormal];
+    
 }
 
 - (void)setLeftStr:(NSString *)leftStr{
@@ -98,10 +99,7 @@
    
     
     _back = back;
-    if (_image) {
-        [_image removeFromSuperview];
-        _image = nil;
-    }
+
   
     if (back && self.leftStr == nil) {
         UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -111,18 +109,8 @@
         backBtn.frame =CGRectMake(0, NAV_BAR_Y, NAV_BAR_W, NAV_BAR_HEIGHT) ;
         [backBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:backBtn];
-    }else{
-    
-    
     }
-    
-    if(!back){
-        _isBack = YES;
-        _image = [[UIImageView alloc] initWithFrame:CGRectMake(0, NAV_BAR_Y, NAV_BAR_W, NAV_BAR_HEIGHT) ];
-        
-         [self addSubview:_image];
-    
-    }
+ 
 }
 
 - (void)setLeftButtonW:(CGFloat)leftButtonW{
@@ -135,11 +123,11 @@
 
 - (void) goBack : (UIButton *) btn{
      
-    if (!_isBack) {
+   
         if ([self.delegate respondsToSelector:@selector(navigationBarViewPopController:)]) {
             [self.delegate navigationBarViewPopController:self];
         }
-    }
+    
     
 }
 @end

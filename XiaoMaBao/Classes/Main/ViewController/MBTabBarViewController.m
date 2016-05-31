@@ -20,7 +20,6 @@
     NSMutableArray* menuIds ;
 }
 
-@property (nonatomic, weak) MBNewHomeViewController *homeVc;
 @property (nonatomic, weak)BkTabBarView *customTabBar;
 
 @end
@@ -99,14 +98,16 @@
         [menuIds addObject:dic[@"menu_id"]];
     }
    
-    MBNewHomeViewController *view = [[MBNewHomeViewController alloc] init];
-    [self setupChildVC:view title:@"购物" imageName:@"icon_nav06" selectedImageName:@"icon_nav06_press"];
-    self.homeVc = view;
+
   
     
     MBServiceHomeViewController *serviceVc = [[MBServiceHomeViewController alloc] init];
     [self setupChildVC:serviceVc title:@"服务" imageName:@"ser_image" selectedImageName:@"serSelect_image"];
     
+    
+    MBNewHomeViewController *view = [[MBNewHomeViewController alloc] init];
+    [self setupChildVC:view title:@"购物" imageName:@"icon_nav06" selectedImageName:@"icon_nav06_press"];
+
     MBNewCanulcircleController *shoppingCartVc = [[MBNewCanulcircleController alloc] init];
     [self setupChildVC:shoppingCartVc title:@"麻包圈" imageName:@"icon_nav03" selectedImageName:@"icon_nav03_press"];
 

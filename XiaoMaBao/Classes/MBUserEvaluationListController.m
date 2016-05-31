@@ -52,7 +52,9 @@
     
     
 }
-
+-(NSString *)titleStr{
+    return self.title?:@"个人全部评价";
+}
 #pragma mark -- 上拉加载数据
 - (void)setheadData{
     

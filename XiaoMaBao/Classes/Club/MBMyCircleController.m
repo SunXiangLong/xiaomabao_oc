@@ -112,7 +112,7 @@
  */
 - (UIView *)setHeaderView{
     UIView *view =[[UIView alloc] init];
-    view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_WIDTH*33/75+ UISCREEN_WIDTH/4*204/160);
+    view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_WIDTH*35/75+ UISCREEN_WIDTH/4*204/160);
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH,UISCREEN_WIDTH*33/75) delegate:self     placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
     NSMutableArray *imaageUrlArr = [NSMutableArray array];
     for (NSDictionary *dic in _bandImageArray) {
@@ -189,7 +189,7 @@
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-        //        NSLog(@"%@",responseObject);
+                NSLog(@"%@",responseObject);
         
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {

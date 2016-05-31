@@ -93,11 +93,7 @@
     [self show];
     NSString *url;
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
-//    if (self.countries) {
-//        url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/taxfreeStore/goods_list/",self.cat_id,page,_type];
-//    }else{
-//        url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/AffordablePlanet/get_category_goods/",self.cat_id,page,_type];
-//    }
+
      url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/topic/info/",self.act_id,page,_type];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
@@ -137,11 +133,7 @@
     [self show];
     NSString *url;
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
-//    if (self.countries) {
-//        url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/taxfreeStore/goods_list/",self.cat_id,page,_type];
-//    }else{
-//        url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/AffordablePlanet/get_category_goods/",self.cat_id,page,_type];
-//    }
+
      url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/topic/info/",self.act_id,page,type];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
@@ -240,18 +232,13 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        
-        
-        
         if (indexPath.section == 0) {
             UICollectionReusableView *reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView1" forIndexPath:indexPath];
             reusableview.backgroundColor = [UIColor whiteColor];
             UIImageView *imageView = [[UIImageView alloc] init];
-            imageView.frame = CGRectMake(0, 3, UISCREEN_WIDTH, UISCREEN_WIDTH*24/64);
+            imageView.frame = CGRectMake(0, 3, UISCREEN_WIDTH, UISCREEN_WIDTH*35/75);
             [reusableview addSubview:imageView];
             [imageView sd_setImageWithURL:[NSURL URLWithString:_banner] placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
-            
-
             NSInteger leftdays = _lettTimes/(24*60*60);
             NSInteger hour = (_lettTimes-leftdays*24*3600)/3600;
             NSInteger minute = (_lettTimes - hour*3600-leftdays*24*3600)/60;
@@ -299,10 +286,7 @@
     MBShopingViewController  *VC = [[MBShopingViewController alloc] init];
     VC.GoodsId = dic[@"goods_id"];
     [self pushViewController:VC Animated:YES];
-    
-    
-    
-    
+
     
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -313,7 +297,7 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
 
-        return CGSizeMake(UISCREEN_WIDTH, UISCREEN_WIDTH*24/64+33);
+        return CGSizeMake(UISCREEN_WIDTH, UISCREEN_WIDTH*35/75+33);
    
 
 }

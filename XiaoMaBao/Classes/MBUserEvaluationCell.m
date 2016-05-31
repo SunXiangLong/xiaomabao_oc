@@ -36,6 +36,7 @@
     VC.user_id = self.user_id;
     VC.user_name = self.user_name.text;
     VC.user_imageURl = self.imageUrl;
+    VC.title = string(self.user_name.text, @"的全部评价");
     [self.VC  pushViewController:VC Animated:YES ];
 }
 

@@ -438,7 +438,11 @@
     [self share];
 }
 -(void)share{
-    
+     NSDictionary *dic = _commentsArray[0];
+     NSString *post_content = dic[@"post_content"];
+    if (post_content.length>50) {
+        post_content = [post_content substringToIndex:50];
+    }
     //1、创建分享参数
     NSArray* imageArray = @[@"http://www.xiaomabao.com/static1/images/app_icon.png"];
     
@@ -451,10 +455,10 @@
     if (imageArray) {
         
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-        [shareParams SSDKSetupShareParamsByText:@"小麻包帖子"
+        [shareParams SSDKSetupShareParamsByText:post_content
                                          images:imageArray
                                             url:url
-                                          title:@"小麻包帖子分享"
+                                          title:dic[@"post_title"]
                                            type:SSDKContentTypeAuto];
         //2、分享（可以弹出我们的分享菜单和编辑界面）
         [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响

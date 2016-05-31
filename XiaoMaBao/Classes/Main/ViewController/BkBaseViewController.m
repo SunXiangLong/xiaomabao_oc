@@ -208,14 +208,21 @@
 	
  
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    
     [self.navigationController.view addSubview:HUD];
-    [HUD show:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [HUD show:YES];
+    });
+
+   
 }
 -(void)show:(NSString *)str{
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:HUD];
     HUD.labelText = str;
-    [HUD show:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [HUD show:YES];
+    });
 
 }
 
@@ -225,14 +232,20 @@
     hud.mode = MBProgressHUDModeText;
     hud.labelText = str;
     hud.removeFromSuperViewOnHide = YES;
-    [hud hide:YES afterDelay:timer];
+    dispatch_async(dispatch_get_main_queue(), ^{
+          [hud hide:YES afterDelay:timer];
+           [self dismiss];
+    });
 
 }
 - ( void)showProgress{
+      [HUD show:YES];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.mode = MBProgressHUDModeAnnularDeterminate;
     hud.progress = self.progress;
-    [HUD = hud show:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      
+    });
     
     
 

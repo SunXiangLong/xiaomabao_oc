@@ -39,34 +39,10 @@
     // Configure the view for the selected state
 }
 #pragma mark --UICollectionViewdelegate
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-//    
-//    return 5;
-//}
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-//    return 5;
-//
-//}
-//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-//{
-//    
-//    return   UIEdgeInsetsMake(7, 8, 7, 8);
-//    
-//}
 
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-//
-//
-//
-//    return  CGSizeMake(114,148);
-//
-//
-//
-//}
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return _dataArray.count;
 }
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     MBFreeStoreViewOnechildCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBFreeStoreViewOnechildCell" forIndexPath:indexPath];

@@ -101,11 +101,12 @@
     BkTabBarButton *tabBarButton = [[BkTabBarButton alloc] init];
     tabBarButton.item = item;
     tabBarButton.tag = self.tabBarButtons.count;
+    tabBarButton.titleLabel.font = YC_RTWSYueRoud_FONT(12);
     [tabBarButton addTarget:self action:@selector(clickTap:) forControlEvents:UIControlEventTouchDown];
     [self.tabBarButtons addObject:tabBarButton];
     [self addSubview:tabBarButton];
     
-    if (self.tabBarButtons.count == 2) {
+    if (self.tabBarButtons.count == 3) {
         [self clickTap:tabBarButton];
     }
     if (self.tabBarButtons.count== 4) {

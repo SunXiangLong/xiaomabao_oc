@@ -16,5 +16,5 @@ typedef void(^Block)(NSIndexPath *indexPath);
 @property (nonatomic,strong) NSString *date;
 @property (nonatomic,strong) NSString *addtime;
 @property (nonatomic,strong) NSIndexPath *indexPath;
-@property (nonatomic, assign) Block block;
+@property (nonatomic, copy) Block block;
 @end

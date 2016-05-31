@@ -1030,33 +1030,7 @@
    [self getUnicallSignature];
     return;
     
-//    XNGoodsInfoModel *info = [[XNGoodsInfoModel alloc] init];
-//    info.appGoods_type = @"3";
-//    info.clientGoods_Type = @"1";
-//    info.goods_id = self.GoodsId;
-//    info.goods_showURL = [NSString stringWithFormat:@"http://www.xiaomabao.com/goods-%@.html",self.GoodsDict[@"goods_id"]];
-//    info.goods_imageURL = self.goods_gallery[0];
-//    info.goodsTitle = self.goods_name;
-//    info.goodsPrice = self.shop_price_formatted;
-//    info.goods_URL = @"https://www.baidu.com";
-//    
-//    NTalkerChatViewController *ctrl = [[NTalkerChatViewController alloc] init];
-//    ctrl.productInfo = info;
-//    ctrl.settingid = @"kf_9761_1432534158571";//【必传】 客服组id
-//    ctrl.erpParams = @"www.baidu.com";
-//    
-//    
-//    ctrl.pushOrPresent = NO;
-//    
-//    if (ctrl.pushOrPresent == YES) {
-//        [self.navigationController pushViewController:ctrl animated:YES];
-//    } else {
-//        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ctrl];
-//        ctrl.pushOrPresent = NO;
-//        [self presentViewController:nav animated:YES completion:nil];
-//    }
-//
-    
+
 }
 
 -(void)getUnicallSignature{

@@ -59,7 +59,7 @@
 - (void)setData{
     
     [self show];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/AffordablePlanet/child_category_index/"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/AffordablePlanet/child_category_index2/"];
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",url,self.cat_id];
     [MBNetworking newGET:urlStr parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
@@ -170,7 +170,7 @@
          [cell.showImagaeView sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:@""]];
         }
     
-        cell.name.text = dic[@"cat_name"];
+        
         return cell;
     }else{
         MBCategoryViewTwoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBCategoryViewTwoCell" forIndexPath:indexPath];
@@ -203,7 +203,7 @@
             lable.backgroundColor  = [UIColor colorWithHexString:@"ecedf1"];
             lable.text = @"麻包精选";
             lable.textAlignment = 1;
-            lable.font  = [UIFont systemFontOfSize:15];
+            lable.font  =YC_RTWSYueRoud_FONT(15);
             lable.textColor = [UIColor colorWithHexString:@"606060"];
             [reusableview addSubview:lable];
             
@@ -238,7 +238,7 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return CGSizeMake(UISCREEN_WIDTH/4, UISCREEN_WIDTH/4+7);
+        return CGSizeMake(UISCREEN_WIDTH/4, (UISCREEN_WIDTH/4-20)*213/167+20);
     }
     
     return  CGSizeMake((UISCREEN_WIDTH-9)/2,(UISCREEN_WIDTH-9-29)/2+98);

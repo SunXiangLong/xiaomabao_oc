@@ -172,7 +172,7 @@
         if (indexPath.section == 0) {
             UICollectionReusableView *reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
             UIImageView *shopImgView = [[UIImageView alloc] init];
-            shopImgView.frame = CGRectMake(0,0, self.view.ml_width , self.view.ml_width*240/640);
+            shopImgView.frame = CGRectMake(0,0, self.view.ml_width , self.view.ml_width*35/75);
             [shopImgView sd_setImageWithURL:[NSURL URLWithString:_top_banner] placeholderImage:[UIImage imageNamed:@"placeholder_num3"]completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 shopImgView.alpha = 0.3f;
                 [UIView animateWithDuration:1
@@ -351,14 +351,14 @@
         return  CGSizeMake((UISCREEN_WIDTH-30)/2, (UISCREEN_WIDTH-40)/2+70);
     }else{
         
-        return  CGSizeMake((UISCREEN_WIDTH-30)/2,(UISCREEN_WIDTH-30)/2*240/640);
+        return  CGSizeMake((UISCREEN_WIDTH-30)/2,(UISCREEN_WIDTH-30)/2*35/75);
     }
     
     
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        return CGSizeMake(UISCREEN_WIDTH, UISCREEN_WIDTH*240/640+50);
+        return CGSizeMake(UISCREEN_WIDTH, UISCREEN_WIDTH*35/75+50);
     }else if(section == 1){
         return CGSizeMake(0, 0*240/640);
     }else{

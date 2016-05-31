@@ -56,51 +56,32 @@
 }
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     [viewController.navigationController.navigationBar removeFromSuperview];
+    
+       if (self.viewControllers.count > 0) {
+        /**
+         *  pus到新的界面 隐藏底部的tabbar
+         */
+        viewController.hidesBottomBarWhenPushed = YES;
+        BkBaseViewController *vc = (BkBaseViewController *) viewController;
+           vc.back = YES;
+    }
     [super pushViewController:viewController animated:animated];
-    [self setupRightBackAction:viewController];
-    self.tabBarController.tabBar.hidden = [[self childViewControllers] indexOfObject:viewController];
+   
 }
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion{
     [super presentViewController:viewControllerToPresent animated:flag completion:completion];
-    [self setupRightBackAction:viewControllerToPresent];
-}
-
-#pragma mark 初始化这边返回方法
-- (void) setupRightBackAction:(UIViewController *)viewControllerToPresent{
-    BkBaseViewController *vc = (BkBaseViewController *) viewControllerToPresent;
-    NSUInteger index = [[self childViewControllers] indexOfObject:vc];
-    if ([viewControllerToPresent isKindOfClass:[BkBaseViewController class]] && index >= 1) {
+  
+    if (self.viewControllers.count > 0) {
+        /**
+         *  pus到新的界面 隐藏底部的tabbar
+         */
+       
+        BkBaseViewController *vc = (BkBaseViewController *) viewControllerToPresent;
         vc.back = YES;
-        viewControllerToPresent = vc;
     }
-    
 }
 
-- (UIViewController *)popViewControllerAnimated:(BOOL)animated{
-    UIViewController *vc = [super popViewControllerAnimated:animated];
-    
-      self.tabBarController.tabBar.hidden = [[self childViewControllers] indexOfObject:vc];
-    if(vc){
-        if ([[self.view.subviews lastObject] isKindOfClass:[BkNavigationBarView class]]) {
-            [[self.view.subviews lastObject] removeFromSuperview];
-        }
-       self.tabBarController.tabBar.hidden = [[self childViewControllers] count] > 1;
 
-    }
-   
-    
-    return vc;
-}
--(NSArray<UIViewController *> *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated{
-     NSArray *arr =   [super popToViewController:viewController animated:animated];
-    if(viewController){
-        if ([[self.view.subviews lastObject] isKindOfClass:[BkNavigationBarView class]]) {
-            [[self.view.subviews lastObject] removeFromSuperview];
-        }
-    }
-    self.tabBarController.tabBar.hidden = [[self childViewControllers] count] > 1;
-    return arr;
 
-}
 @end

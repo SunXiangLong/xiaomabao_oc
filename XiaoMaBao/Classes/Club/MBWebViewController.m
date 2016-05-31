@@ -9,7 +9,10 @@
 #import "MBWebViewController.h"
 #import <JavaScriptCore/JavaScriptCore.h> //引入头文件
 #import "ObjCModel.h"
-#import "MBProgressHUD.h"
+#import "MBShopingViewController.h"
+#import "MBActivityViewController.h"
+#import "MBGroupShopController.h"
+#import "MBLoginViewController.h"
 @interface MBWebViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
@@ -35,7 +38,7 @@
 
      NSURLRequest *request = [NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
 
-    if (_isloging) {
+    if (self.isloging) {
         [self deleteCookie];
         [self setCookie];
     }
@@ -65,8 +68,12 @@
 - (void)setCookie{
     NSMutableDictionary *cookieProperties = [NSMutableDictionary dictionary];
    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    
    [cookieProperties setObject:@"ECS_ID" forKey:NSHTTPCookieName];
-   [cookieProperties setObject:sid forKey:NSHTTPCookieValue];
+    if (sid) {
+           [cookieProperties setObject:sid forKey:NSHTTPCookieValue];
+    }
+
     [cookieProperties setObject:self.url forKey:NSHTTPCookieDomain];
     [cookieProperties setObject:self.url forKey:NSHTTPCookieOriginURL];
     [cookieProperties setObject:@"/" forKey:NSHTTPCookiePath];
@@ -86,18 +93,46 @@
 
 -(void)webViewDidFinishLoad:(UIWebView*)webView{
     //当网页视图结束加载一个请求之后，得到通知。
-//    JSContext *context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-//    
-//    // 通过模型调用方法，这种方式更好些。
-//    ObjCModel *model  = [[ObjCModel alloc] init];
-//    context[@"xmbapp"] = model;
-//    model.jsContext = context;
-//    model.webView = self.webView;
-//    
-//    context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
-//        context.exception = exceptionValue;
-//        NSLog(@"异常信息：%@", exceptionValue);
-//    };
+    
+    if (self.isloging) {
+        JSContext *context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+        
+        // 通过模型调用方法，这种方式更好些。
+        ObjCModel *model  = [[ObjCModel alloc] init];
+        context[@"xmbapp"] = model;
+        model.jsContext = context;
+        model.webView = self.webView;
+        @weakify(self);
+        [[model.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDictionary *dic) {
+            @strongify(self);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([dic[@"type"] isEqualToString:@"showLogin"]) {
+                    [self loginClicksss];
+                }else if ([dic[@"type"] isEqualToString:@"showGood"]){
+                    MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+                    VC.GoodsId = dic[@"params"];
+                    [self pushViewController:VC Animated:YES];
+                }else if ([dic[@"type"] isEqualToString:@"showTopic"]){
+                    MBActivityViewController *VC = [[MBActivityViewController alloc] init];
+                    VC.act_id = dic[@"params"];;
+                    [self pushViewController:VC Animated:YES];
+                }else if ([dic[@"type"] isEqualToString:@"showGroup"]){
+                    
+                    MBGroupShopController *VC = [[MBGroupShopController alloc] init];
+                    [self pushViewController:VC Animated:YES];
+                    
+                }
+
+            });
+            
+            
+                   }];
+        context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
+            context.exception = exceptionValue;
+            NSLog(@"异常信息：%@", exceptionValue);
+        };
+    }
+    
     [self dismiss];
   
 }
@@ -112,5 +147,15 @@
         return nil;
     }
     return [self.navigationController popViewControllerAnimated:animated];
+}
+
+- (void)loginClicksss{
+    //跳转到登录页
+    
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
+    myView.vcType = @"mabao";
+    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
+    [self presentViewController:VC animated:YES completion:nil];
 }
 @end

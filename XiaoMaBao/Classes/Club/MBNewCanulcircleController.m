@@ -17,8 +17,9 @@
 #import "MBLoginViewController.h"
 @interface MBNewCanulcircleController ()<UIScrollViewDelegate>
 {
-    UIButton *_lastButton;
+
     BOOL     _isDismiss;
+    UISegmentedControl *_segmentControl;
 }
 @property (nonatomic,strong) UIView *titlesView;
 /** 这个scrollView的作用：存放所有子控制器的view */
@@ -145,41 +146,70 @@
 }
 - (void)setupTitlesView
 {
+
     // 标签栏整体
     UIView *titlesView = [[UIView alloc] init];
-    titlesView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 31);
+    titlesView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 45);
     [self.view addSubview:titlesView];
+    UIImageView *banckImage = [[UIImageView  alloc] init];
+    banckImage.frame =CGRectMake(0, 0, titlesView.ml_width, titlesView.ml_height);
+    banckImage.image = [UIImage imageNamed:@"navBackcolor"];
+    [titlesView addSubview:banckImage];
+    
     self.titlesView = titlesView;
-    NSUInteger count = self.childViewControllers.count;
-    CGFloat titleButtonH = 30;
-    CGFloat titleButtonW = (UISCREEN_WIDTH-1) / count;
-    for (int  i = 0; i<count; i++) {
-        UIButton *titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        titleButton.tag = i;
-        [titleButton addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
-        titleButton.backgroundColor = NavBar_Color;
-        NSString *title = [self.childViewControllers[i] title];
-        [titleButton setTitle:title forState:UIControlStateNormal];
-        titleButton.titleLabel.font = [UIFont systemFontOfSize:12];
-        [titleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        titleButton.frame = CGRectMake(i*(titleButtonW+1),1, titleButtonW, titleButtonH);
-        [self.titleButtons addObject:titleButton];
-        if (i==0) {
-            _lastButton = titleButton;
-            _lastButton.backgroundColor = [UIColor colorWithHexString:@"dd9682"];
+    
+    NSArray *segmentArray = @[
+                              @"我的圈",
+                              @"热帖",
+                              @"更多圈"
+                              ];
+    
+    // 初始化UISegmentedControl
+    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:segmentArray];
+    segmentControl.frame = CGRectMake((UISCREEN_WIDTH-200)/2, 10, 200, 25);
+    
+    // 设置默认选择项索引
+    segmentControl.selectedSegmentIndex = 0;
+    segmentControl.tintColor = [UIColor whiteColor];
+    
+    // 设置指定索引的题目
+    [segmentControl addTarget:self action:@selector(didClickSegmentedControlAction:)forControlEvents:UIControlEventValueChanged];
+    [segmentControl setTitleTextAttributes:@{NSFontAttributeName:YC_RTWSYueRoud_FONT(15)} forState:UIControlStateNormal];
+    [titlesView addSubview:_segmentControl = segmentControl];
+
+}
+- (void)didClickSegmentedControlAction:(UISegmentedControl *)segmentControl
+{
+    
+    NSInteger idx = segmentControl.selectedSegmentIndex;
+    NSLog(@"%ld", idx);
+   
+    MBMoreCirclesController *moreCirclesView = self.childViewControllers[2];
+    MBMyCircleController    *myCircleView = self.childViewControllers[0];
+    
+    if (idx==2) {
+        
+        [moreCirclesView.myCircleViewSubject  sendNext:@1];
+    }else{
+        if (moreCirclesView.isViewLoaded) {
+            [moreCirclesView.myCircleViewSubject  sendNext:@0];
         }
-        [_titlesView addSubview:titleButton];
     }
     
+    if (idx == 0) {
+        [myCircleView.myCircleViewSubject  sendNext:@1];
+    }
+    CGPoint offset = self.scrollView.contentOffset;
+    offset.x = UISCREEN_WIDTH*idx;
+    [self.scrollView setContentOffset:offset animated:YES];
 }
-
 - (void)setupScrollView
 {
     // 不要自动调整scrollView的contentInset
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIScrollView *scrollView = [[UIScrollView alloc] init];
-    scrollView.frame = CGRectMake(0, 31+TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-31-TOP_Y -49);
+    scrollView.frame = CGRectMake(0, 45+TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-45-TOP_Y -49);
     scrollView.backgroundColor = [UIColor colorWithHexString:@"ececef"];
     scrollView.delegate = self;
     scrollView.pagingEnabled = YES;
@@ -246,36 +276,7 @@
     [super didReceiveMemoryWarning];
     
 }
-- (void)titleClick:(UIButton *)titleButton
-{
-    if (![_lastButton isEqual:titleButton]) {
-        
-        MBMoreCirclesController *moreCirclesView = self.childViewControllers[2];
-        MBMyCircleController    *myCircleView = self.childViewControllers[0];
-        
-        if (titleButton.tag==2) {
-            
-            [moreCirclesView.myCircleViewSubject  sendNext:@1];
-        }else{
-            if (moreCirclesView.isViewLoaded) {
-                [moreCirclesView.myCircleViewSubject  sendNext:@0];
-            }
-        }
-        
-        if (titleButton.tag == 0) {
-            [myCircleView.myCircleViewSubject  sendNext:@1];
-        }
-        
-        // 让scrollView滚动到对应的位置
-        _lastButton.backgroundColor = NavBar_Color;
-        _lastButton = titleButton;
-        _lastButton.backgroundColor = [UIColor colorWithHexString:@"dd9682"];
-        CGPoint offset = self.scrollView.contentOffset;
-        offset.x = UISCREEN_WIDTH* [self.titleButtons indexOfObject:titleButton];
-        [self.scrollView setContentOffset:offset animated:YES];
-    }
-    
-}
+
 #pragma mark - <UIScrollViewDelegate>
 /**
  * 当滚动动画完毕的时候调用（通过代码setContentOffset:animated:让scrollView滚动完毕后，就会调用这个方法）
@@ -309,10 +310,10 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self scrollViewDidEndScrollingAnimation:scrollView];
-    
     // 点击按钮
     int index = scrollView.contentOffset.x / scrollView.ml_width;
-    [self titleClick:self.titleButtons[index]];
+    _segmentControl.selectedSegmentIndex = index;
+    [self didClickSegmentedControlAction:_segmentControl];
 }
 
 

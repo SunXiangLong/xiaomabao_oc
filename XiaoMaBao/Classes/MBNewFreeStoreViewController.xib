@@ -5,9 +5,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MBAffordablePlanetViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MBNewFreeStoreViewController">
             <connections>
-                <outlet property="collectionView" destination="Gv2-u3-X4L" id="RA4-Ka-Q5q"/>
+                <outlet property="collectionView" destination="lh9-nJ-VTr" id="dhs-am-Rrm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,10 +16,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Gv2-u3-X4L">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="lh9-nJ-VTr">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XU3-6I-0YC">
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jb2-Ll-d5V">
                         <size key="itemSize" width="50" height="50"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -27,14 +27,15 @@
                     </collectionViewFlowLayout>
                 </collectionView>
             </subviews>
-            <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Gv2-u3-X4L" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5jx-Zr-CfY"/>
-                <constraint firstAttribute="trailing" secondItem="Gv2-u3-X4L" secondAttribute="trailing" id="WH8-ib-znr"/>
-                <constraint firstItem="Gv2-u3-X4L" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="s7U-HO-1Ql"/>
-                <constraint firstAttribute="bottom" secondItem="Gv2-u3-X4L" secondAttribute="bottom" id="tbK-TG-EAP"/>
+                <constraint firstAttribute="bottom" secondItem="lh9-nJ-VTr" secondAttribute="bottom" id="IEg-DH-CLC"/>
+                <constraint firstAttribute="trailing" secondItem="lh9-nJ-VTr" secondAttribute="trailing" id="LFi-E2-u8u"/>
+                <constraint firstItem="lh9-nJ-VTr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="NpV-Wt-y3t"/>
+                <constraint firstItem="lh9-nJ-VTr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="SOf-21-0i7"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="276" y="-56"/>
         </view>
     </objects>
 </document>

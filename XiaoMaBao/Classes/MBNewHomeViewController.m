@@ -16,9 +16,10 @@
 #import "MBActivityViewController.h"
 #import "MBWebViewController.h"
 #import "MBGroupShopController.h"
+#import "MBNewFreeStoreViewController.h"
 @interface MBNewHomeViewController ()<UIScrollViewDelegate>
 {
-    UIButton *_lastButton;
+    
     UISegmentedControl *_segmentControl;
 }
 @property (nonatomic,strong) UIView *titlesView;
@@ -90,21 +91,20 @@
     [self setupScrollView];
 }
 - (void)setupChildVcs{
-    
-    
+  
     
     MBAffordablePlanetViewController *VC1 = [[MBAffordablePlanetViewController alloc] init];
     VC1.title = @"实惠星球";
     [self addChildViewController:VC1];
     
-    MBFreeStoreViewController *VC2 = [[MBFreeStoreViewController alloc] init];
-    VC2.title = @"全球闪购";
-    [self addChildViewController:VC2];
+//    MBFreeStoreViewController *VC2 = [[MBFreeStoreViewController alloc] init];
+//    VC2.title = @"全球闪购";
+//    [self addChildViewController:VC2];
     
     
-//    MBTopCargoController *VC3 = [[MBTopCargoController alloc] init];
-//    VC3.title = @"尖儿货";
-//    [self addChildViewController:VC3];
+    MBNewFreeStoreViewController *VC3 = [[MBNewFreeStoreViewController alloc] init];
+    VC3.title = @"全球闪购";
+    [self addChildViewController:VC3];
 }
 - (void)setupTitlesView
 {
@@ -134,7 +134,7 @@
 
     // 设置指定索引的题目
     [segmentControl addTarget:self action:@selector(didClickSegmentedControlAction:)forControlEvents:UIControlEventValueChanged];
-    
+    [segmentControl setTitleTextAttributes:@{NSFontAttributeName:YC_RTWSYueRoud_FONT(15)} forState:UIControlStateNormal];
     [titlesView addSubview:_segmentControl = segmentControl];
 
 
