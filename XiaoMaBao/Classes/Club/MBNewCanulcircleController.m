@@ -59,8 +59,9 @@
     }
     if (_isDismiss) {
         
-          MBMyCircleController    *myCircleView = self.childViewControllers[0];
+        MBMyCircleController    *myCircleView = self.childViewControllers[0];
         myCircleView.isDimiss = YES;
+        
         _isDismiss = !_isDismiss;
     }
     
@@ -147,16 +148,16 @@
 - (void)setupTitlesView
 {
 
-    // 标签栏整体
-    UIView *titlesView = [[UIView alloc] init];
-    titlesView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 45);
-    [self.view addSubview:titlesView];
-    UIImageView *banckImage = [[UIImageView  alloc] init];
-    banckImage.frame =CGRectMake(0, 0, titlesView.ml_width, titlesView.ml_height);
-    banckImage.image = [UIImage imageNamed:@"navBackcolor"];
-    [titlesView addSubview:banckImage];
-    
-    self.titlesView = titlesView;
+//    // 标签栏整体
+//    UIView *titlesView = [[UIView alloc] init];
+//    titlesView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 45);
+//    [self.view addSubview:titlesView];
+//    UIImageView *banckImage = [[UIImageView  alloc] init];
+//    banckImage.frame =CGRectMake(0, 0, titlesView.ml_width, titlesView.ml_height);
+//    banckImage.image = [UIImage imageNamed:@"navBackcolor"];
+//    [titlesView addSubview:banckImage];
+//    
+//    self.titlesView = titlesView;
     
     NSArray *segmentArray = @[
                               @"我的圈",
@@ -166,7 +167,7 @@
     
     // 初始化UISegmentedControl
     UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:segmentArray];
-    segmentControl.frame = CGRectMake((UISCREEN_WIDTH-200)/2, 10, 200, 25);
+    segmentControl.frame = CGRectMake((UISCREEN_WIDTH-200)/2, 27, 200, 25);
     
     // 设置默认选择项索引
     segmentControl.selectedSegmentIndex = 0;
@@ -175,7 +176,7 @@
     // 设置指定索引的题目
     [segmentControl addTarget:self action:@selector(didClickSegmentedControlAction:)forControlEvents:UIControlEventValueChanged];
     [segmentControl setTitleTextAttributes:@{NSFontAttributeName:YC_RTWSYueRoud_FONT(15)} forState:UIControlStateNormal];
-    [titlesView addSubview:_segmentControl = segmentControl];
+    [self.navBar addSubview:_segmentControl = segmentControl];
 
 }
 - (void)didClickSegmentedControlAction:(UISegmentedControl *)segmentControl
@@ -209,7 +210,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIScrollView *scrollView = [[UIScrollView alloc] init];
-    scrollView.frame = CGRectMake(0, 45+TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-45-TOP_Y -49);
+    scrollView.frame = CGRectMake(0,TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y -49);
     scrollView.backgroundColor = [UIColor colorWithHexString:@"ececef"];
     scrollView.delegate = self;
     scrollView.pagingEnabled = YES;
@@ -262,10 +263,7 @@
     MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
     [self presentViewController:VC animated:YES completion:nil];
 }
--(NSString *)titleStr{
-    
-    return @"麻包圈";
-}
+
 -(NSString *)leftStr{
     
     return @"";

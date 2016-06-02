@@ -89,8 +89,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
+
     [self setShufflingFigureData];
     @weakify(self);
     [[self.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *num) {
@@ -104,6 +103,20 @@
             [self setData];
         }
     }];
+    /**
+     *  观察用户的登录状态是否被改变（登录和不登录数据有些不同）
+     */
+    MBUserDataSingalTon  *user = [MBSignaltonTool getCurrentUserInfo];
+    [[user rac_valuesAndChangesForKeyPath:@"sid" options:NSKeyValueObservingOptionNew observer:nil] subscribeNext:^(id x) {
+         @strongify(self);
+        [self.recommendArray removeAllObjects];
+        [self.myCircleArray removeAllObjects];
+   
+        [self setData];
+        
+        
+    }];
+    
 }
 /**
  *  广告轮播图UI
@@ -225,8 +238,10 @@
                 [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
                 
                 _tableView.tableHeaderView = [self setHeaderView];
-                
-                [_tableView reloadData];
+               
+                _tableView.delegate = self;
+                _tableView.dataSource = self;
+                [self.tableView reloadData];
                 return ;
                 
             }
@@ -242,7 +257,7 @@
         NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/get_user_circle"];
         
         [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict} success:^(id responseObject) {
-            [self dismiss];
+           [self dismiss];
 //                        NSLog(@"%@",responseObject);
             
             if (responseObject) {
@@ -251,8 +266,10 @@
                 [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
                 _tableView.tableHeaderView = [self setHeaderView];
                 [self myCircleDefaults];
-                [_tableView reloadData];
                 
+                _tableView.delegate = self;
+                _tableView.dataSource = self;
+                [self.tableView reloadData];
                 return ;
                 
             }

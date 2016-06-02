@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 全部分类 -" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7k-2e-GUY">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="- 全部分类 -" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7k-2e-GUY">
                     <rect key="frame" x="121" y="23" width="78" height="15"/>
                     <fontDescription key="fontDescription" name="RTWSYueRoudGoG0v1-Regular" family="RTWS YueRoundedGothic G0v1" pointSize="15"/>
                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -51,6 +51,7 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="height" destination="CiU-YW-I3Z" id="adi-sI-U7d"/>
                 <outlet property="tishi" destination="f7k-2e-GUY" id="5C0-dr-bPD"/>
             </connections>
             <point key="canvasLocation" x="297" y="-217"/>

@@ -394,7 +394,7 @@
 - (UISearchBar *)SearchBar{
     if (!_SearchBar) {
        
-        _SearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,TOP_Y+45, UISCREEN_WIDTH , 55)];
+        _SearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,TOP_Y, UISCREEN_WIDTH , 55)];
         _SearchBar.backgroundImage =  [UIImage saImageWithSingleColor:[UIColor whiteColor]];
         _SearchBar.translucent = YES;
         _SearchBar.tintColor = UIcolor(@"a8a8b0");
@@ -493,7 +493,7 @@
     if ([searchBar isFirstResponder]) {
     
         [UIView animateWithDuration:0.2 animations:^{
-            _SearchBar.frame = CGRectMake(0, TOP_Y+31, UISCREEN_WIDTH, 55);
+            _SearchBar.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 55);
             _searchTableView.hidden = YES;
             
         }];

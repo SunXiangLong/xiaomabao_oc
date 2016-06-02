@@ -168,10 +168,12 @@
         }
     } progress:^(NSProgress *progress) {
         self.progress = progress.fractionCompleted;
+        NSLog(@"%f",progress.fractionCompleted);
+        
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         
         if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
-            [self show:@"发表成功" time:1];
+           
             
             
             [self popViewControllerAnimated:YES];

@@ -699,22 +699,44 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPat{
-    _dianjiIndexPath = indexPat;
+    
+
+    
     NSDictionary *dic = _commentsArray[indexPat.section];
-      SDPhotoBrowser *photoBrowser = [[SDPhotoBrowser alloc] init];
-    if (indexPat.section == 0) {
-        photoBrowser.imageCount =  [dic[@"post_imgs"] count];
+    
+    if (indexPat.section ==0) {
+        if ([dic[@"post_imgs"] count]>0 ) {
+            if (indexPat.row != 0) {
+                SDPhotoBrowser *photoBrowser = [[SDPhotoBrowser alloc] init];
+                photoBrowser.delegate = self;
+                photoBrowser.currentImageIndex = indexPat.row -1;
+                UITableViewCell *cell = [tableView  cellForRowAtIndexPath:indexPat];
+                photoBrowser.sourceImagesContainerView = cell;
+                photoBrowser.imageCount =  [dic[@"post_imgs"] count];
+                [photoBrowser show];
+
+            }
+            
+        }
+       
     }else{
-        photoBrowser.imageCount =  [dic[@"comment_imgs"] count];
+        if ([dic[@"comment_imgs"] count]>0 ) {
+            if (indexPat.row != 0) {
+                SDPhotoBrowser *photoBrowser = [[SDPhotoBrowser alloc] init];
+                photoBrowser.delegate = self;
+                photoBrowser.currentImageIndex = indexPat.row -1;
+                UITableViewCell *cell = [tableView  cellForRowAtIndexPath:indexPat];
+                photoBrowser.sourceImagesContainerView = cell;
+                photoBrowser.imageCount =  [dic[@"comment_imgs"] count];
+                [photoBrowser show];
+            }
+            
+        }
+    
     }
-    if (!(photoBrowser.imageCount > 0)) {
-        return;
-    }
-    UITableViewCell *cell = [tableView  cellForRowAtIndexPath:indexPat];
-    photoBrowser.delegate = self;
-    photoBrowser.currentImageIndex = indexPat.row -1;
-    photoBrowser.sourceImagesContainerView = cell;
-    [photoBrowser show];
+    
+ 
+    
 }
 -(void)dealloc{
     
@@ -727,7 +749,6 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     
     if (_isbool) {
-        
         
         [UIView animateWithDuration:.3f animations:^{
             _imageView.transform = CGAffineTransformMakeRotation(0);
@@ -747,7 +768,7 @@
         
     }else{
         
-     imageName =  _commentsArray[_dianjiIndexPath.section][@"comment_imgs"][index];
+       imageName =  _commentsArray[_dianjiIndexPath.section][@"comment_imgs"][index];
         
     }
     

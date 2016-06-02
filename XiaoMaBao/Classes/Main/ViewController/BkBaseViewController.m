@@ -7,12 +7,13 @@
 //
 
 #import "BkBaseViewController.h"
-
+#import "MBNavigationViewController.h"
 
 @interface BkBaseViewController () <BkNavigationBarViewDelegate>
 {
     UIWebView *webview;
     MBProgressHUD *HUD;
+    MBNavigationViewController *_nav;
 }
 //@property (nonatomic,weak) BkNavigationBarView *navBar;
 
@@ -77,7 +78,8 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     // 导航栏点击事件
     [self setupClickEvent];
-    
+    _nav = (MBNavigationViewController *)self.navigationController;
+
     
     self.navBar.back = self.back;
     
@@ -122,7 +124,7 @@
 }
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{
     
-    
+  
     return [self.navigationController popViewControllerAnimated:animated];
 }
 
@@ -205,10 +207,8 @@
     return [UIScreen mainScreen].applicationFrame.size.height ;
 }
 -(void)show{
-	
- 
+    _nav.pan.enabled = NO;
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-    
     [self.navigationController.view addSubview:HUD];
     dispatch_async(dispatch_get_main_queue(), ^{
         [HUD show:YES];
@@ -217,6 +217,7 @@
    
 }
 -(void)show:(NSString *)str{
+    _nav.pan.enabled = NO;
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:HUD];
     HUD.labelText = str;
@@ -227,7 +228,7 @@
 }
 
 -(void)show:(NSString *)str time:(NSInteger)timer{
-
+       _nav.pan.enabled = NO;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.mode = MBProgressHUDModeText;
     hud.labelText = str;
@@ -239,12 +240,12 @@
 
 }
 - ( void)showProgress{
-      [HUD show:YES];
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    hud.mode = MBProgressHUDModeAnnularDeterminate;
-    hud.progress = self.progress;
+    _nav.pan.enabled = NO;
+    HUD= [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    HUD.mode = MBProgressHUDModeAnnularDeterminate;
+    HUD.progress = self.progress;
     dispatch_async(dispatch_get_main_queue(), ^{
-      
+       [HUD show:YES];
     });
     
     
@@ -255,14 +256,14 @@
     HUD.progress = progress;
     if (progress==1) {
         [self dismiss];
-      [self dismiss];
+  
 
        
     }
 
 }
 -(void)dismiss{
-    
+    _nav.pan.enabled = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
         [HUD hide:YES];
     });

@@ -25,16 +25,16 @@
 {
     [super viewDidLoad];
     if (iOS_7) {
-        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] init];
+        self.pan = [[UIPanGestureRecognizer alloc] init];
         //  用KVC取出target和action
         NSArray *internalTargets = [self.interactivePopGestureRecognizer valueForKey:@"targets"];
         id internalTarget = [internalTargets.firstObject valueForKey:@"target"];
         SEL internalAction = NSSelectorFromString(@"handleNavigationTransition:");
-        pan.delegate = self;
-        [pan addTarget:internalTarget action:internalAction];
+        self.pan .delegate = self;
+        [self.pan  addTarget:internalTarget action:internalAction];
         self.interactivePopGestureRecognizer.enabled = NO;
-        [self.view addGestureRecognizer:pan];
-
+        [self.view addGestureRecognizer: self.pan];
+        
     }
     
 }
@@ -42,7 +42,7 @@
 // 是否触发手势
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-   
+    
     // 根控制器下不要触发手势,让手势不起作用
     return self.childViewControllers.count > 1 ;
 }
@@ -57,26 +57,26 @@
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     [viewController.navigationController.navigationBar removeFromSuperview];
     
-       if (self.viewControllers.count > 0) {
+    if (self.viewControllers.count > 0) {
         /**
          *  pus到新的界面 隐藏底部的tabbar
          */
         viewController.hidesBottomBarWhenPushed = YES;
         BkBaseViewController *vc = (BkBaseViewController *) viewController;
-           vc.back = YES;
+        vc.back = YES;
     }
     [super pushViewController:viewController animated:animated];
-   
+    
 }
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion{
     [super presentViewController:viewControllerToPresent animated:flag completion:completion];
-  
+    
     if (self.viewControllers.count > 0) {
         /**
          *  pus到新的界面 隐藏底部的tabbar
          */
-       
+        
         BkBaseViewController *vc = (BkBaseViewController *) viewControllerToPresent;
         vc.back = YES;
     }

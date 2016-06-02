@@ -171,9 +171,6 @@
                  ];
 }
 - (UICollectionView *)collerctonView{
-
-    
-   
     if (!_collerctonView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.itemSize = CGSizeMake(UISCREEN_WIDTH/4,UISCREEN_WIDTH/12*72/86+33);

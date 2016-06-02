@@ -109,25 +109,23 @@
 - (void)setupTitlesView
 {
     // 标签栏整体
-    UIView *titlesView = [[UIView alloc] init];
-    titlesView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 45);
-    [self.view addSubview:titlesView];
-    UIImageView *banckImage = [[UIImageView  alloc] init];
-    banckImage.frame =CGRectMake(0, 0, titlesView.ml_width, titlesView.ml_height);
-    banckImage.image = [UIImage imageNamed:@"navBackcolor"];
-    [titlesView addSubview:banckImage];
-    
-    self.titlesView = titlesView;
+//    UIView *titlesView = [[UIView alloc] init];
+//    titlesView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 45);
+//    [self.view addSubview:titlesView];
+//    UIImageView *banckImage = [[UIImageView  alloc] init];
+//    banckImage.frame =CGRectMake(0, 0, titlesView.ml_width, titlesView.ml_height);
+//    banckImage.image = [UIImage imageNamed:@"navBackcolor"];
+//    [titlesView addSubview:banckImage];
+//    
+//    self.titlesView = titlesView;
     
     NSArray *segmentArray = @[
                              @"实惠星球",
                              @"全球闪购"
                               ];
-    
     // 初始化UISegmentedControl
     UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:segmentArray];
-    segmentControl.frame = CGRectMake((UISCREEN_WIDTH-200)/2, 10, 200, 25);
-    
+    segmentControl.frame = CGRectMake((UISCREEN_WIDTH-200)/2, 27, 200, 25);
     // 设置默认选择项索引
     segmentControl.selectedSegmentIndex = 0;
     segmentControl.tintColor = [UIColor whiteColor];
@@ -135,7 +133,7 @@
     // 设置指定索引的题目
     [segmentControl addTarget:self action:@selector(didClickSegmentedControlAction:)forControlEvents:UIControlEventValueChanged];
     [segmentControl setTitleTextAttributes:@{NSFontAttributeName:YC_RTWSYueRoud_FONT(15)} forState:UIControlStateNormal];
-    [titlesView addSubview:_segmentControl = segmentControl];
+    [self.navBar addSubview:_segmentControl = segmentControl];
 
 
 }
@@ -143,7 +141,7 @@
 {
  
     NSInteger idx = segmentControl.selectedSegmentIndex;
-    NSLog(@"%ld", idx);
+  
     CGPoint offset = self.scrollView.contentOffset;
     offset.x = UISCREEN_WIDTH*idx;
     [self.scrollView setContentOffset:offset animated:YES];
@@ -156,7 +154,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIScrollView *scrollView = [[UIScrollView alloc] init];
-    scrollView.frame = CGRectMake(0, 45+TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-45-TOP_Y -49);
+    scrollView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y -49);
     scrollView.backgroundColor = [UIColor colorWithHexString:@"ececef"];
     scrollView.delegate = self;
     scrollView.pagingEnabled = YES;
@@ -173,9 +171,6 @@ return @"search_image";
 - (void)rightTitleClick{
     MBSearchViewController *searchVc = [[MBSearchViewController alloc] init];
     [self pushViewController:searchVc Animated:YES];
-}
--(NSString *)titleStr{
-return @"小麻包";
 }
 
 - (void)didReceiveMemoryWarning {

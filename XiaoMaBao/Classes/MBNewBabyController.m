@@ -8,7 +8,14 @@
 
 #import "MBNewBabyController.h"
 #import "MBNewBabyCell.h"
-@interface MBNewBabyController ()<UICollectionViewDelegate,UICollectionViewDataSource>
+#import "MBCollectionHeadView.h"
+#import "MBNewBabyOneTableCell.h"
+#import "MBNewBabyHeadView.h"
+#import "MBNewBabyTwoTableCell.h"
+#import "MBNewBabyThreeTableCell.h"
+#import "MBNewBabyFourTableCell.h"
+#import "MBBabyToolController.h"
+@interface MBNewBabyController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *_dateArray;
     NSInteger _row;
@@ -16,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UIView *topView;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIImageView *topImageView;
 
 @end
 
@@ -42,8 +51,21 @@
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
    [self.collectionView registerNib:[UINib nibWithNibName:@"MBNewBabyCell" bundle:nil] forCellWithReuseIdentifier:@"MBNewBabyCell"];
-// [self.collectionView setContentOffset:CGPointMake(_row*(UISCREEN_WIDTH -90)/3, 0) animated:YES];
+
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.tableHeaderView = ({
+        
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 390)];
+        MBNewBabyHeadView  *headView = [MBNewBabyHeadView instanceView];
+        headView.frame = view.frame;
+        [view addSubview:headView];
+        
+        view;
+    });
+
 }
+
 - (IBAction)back:(UIButton *)sender {
     
     NSLog(@"%ld",_row);
@@ -92,7 +114,6 @@
     return _dateArray.count;
     
 }
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MBNewBabyCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBNewBabyCell" forIndexPath:indexPath];
@@ -104,6 +125,140 @@
         cell.time.font = SYSTEMFONT(13);
     }
    return cell;
+}
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 4;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    switch (section) {
+        case 0: return 5;
+        case 1: return 1;
+        case 2: return 5;
+        default:return 1;
+    
+    }
+
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+  
+    switch (indexPath.section) {
+        case 0:  return 65;;
+        case 1:  return 45;
+        case 2:  return 140;
+        default: return (UISCREEN_WIDTH-2)/2*200/375+2+((UISCREEN_WIDTH -6)/4-10)+54;
+            
+    }
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 50;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+
+    if (section == 2 || section == 3) {
+        
+        return 60;
+    }
+    
+        return 0.00001;
+}
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *View = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 50)];
+    MBCollectionHeadView  *headView = [MBCollectionHeadView instanceView];
+    headView.frame = View.frame;
+    switch (section) {
+        case 0: headView.tishi.text = @"- 提醒事项 -";     break;
+        case 1: headView.tishi.text = @"- 工具 -";         break;
+        case 2: headView.tishi.text = @"- 麻包圈推荐 -";    break;
+        case 3: headView.tishi.text = @"- 麻包精选活动 -";   break;
+        default:
+            break;
+    }
+
+    [View addSubview:headView];
+    return View;
+
+}
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+
+    UIView *view = [[UIView alloc] init];
+    
+    
+    
+    return view;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+   
+    switch (indexPath.section) {
+        case 0: {
+            MBNewBabyOneTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBNewBabyOneTableCell"];
+            if (!cell) {
+                cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyOneTableCell"owner:nil options:nil]firstObject];
+            }
+            [self setUIEdgeInsetsZero:cell];
+            return cell;
+        }
+        case 1: {  MBNewBabyTwoTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBNewBabyOneTableCell"];
+            if (!cell) {
+                cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyTwoTableCell"owner:nil options:nil]firstObject];
+            }
+            [self setUIEdgeInsetsZero:cell];
+            return cell;
+        }
+        case 2: {  MBNewBabyOneTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBNewBabyThreeTableCell"];
+            if (!cell) {
+                cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyThreeTableCell"owner:nil options:nil]firstObject];
+            }
+            [self setUIEdgeInsetsZero:cell];
+            return cell;
+        }
+            
+        default: {  MBNewBabyOneTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBNewBabyFourTableCell"];
+            if (!cell) {
+                cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyFourTableCell"owner:nil options:nil]firstObject];
+            }
+            [self setUIEdgeInsetsZero:cell];
+            return cell;
+        }
+            
+
+    }
+  
+    
+}
+/**
+ *  让cell地下的边线挨着左边界
+ */
+- (void)setUIEdgeInsetsZero:(UITableViewCell *)cell{
+    cell.separatorInset = UIEdgeInsetsZero;
+    cell.layoutMargins = UIEdgeInsetsZero;
+    cell.preservesSuperviewLayoutMargins   = false;
+
+}
+/**
+ *  移除cell最下的线
+ */
+- (void)setRemoveUIEdgeInsetsZero:(UITableViewCell *)cell{
+    cell.separatorInset = UIEdgeInsetsMake(0, 10000, 0, 0);
+    cell.layoutMargins = UIEdgeInsetsMake(0, 10000, 0, 0);
+    
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    switch (indexPath.section) {
+        case 0: {}     break;
+        case 1: {
+            MBBabyToolController *VC = [[MBBabyToolController alloc] init];
+            [self pushViewController:VC Animated:YES];
+        
+        }              break;
+        case 2: {}     break;
+        case 3: {}     break;
+        default:
+            break;
+    }
 }
 
 @end
