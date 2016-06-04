@@ -23,7 +23,7 @@
 -(void)setImageUrlStr:(NSString *)imageUrlStr{
      __unsafe_unretained __typeof(self) weakSelf = self;
    [self.image sd_setImageWithURL:[NSURL URLWithString:imageUrlStr] placeholderImage:[UIImage imageNamed:@"img_default"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-       
+ 
        NSNumber *number = @((UISCREEN_WIDTH-20)*image.size.height/image.size.width);
         NSNotification *notification =[NSNotification notificationWithName:@"MBPostDetailsViewNOtifition" object:nil userInfo:@{@"number":number,@"indexPath":weakSelf.indexPath}];
        [[NSNotificationCenter defaultCenter] postNotification:notification];

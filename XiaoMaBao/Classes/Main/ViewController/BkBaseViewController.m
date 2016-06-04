@@ -72,7 +72,7 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = BG_COLOR;
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.navigationController.navigationBar removeFromSuperview];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];

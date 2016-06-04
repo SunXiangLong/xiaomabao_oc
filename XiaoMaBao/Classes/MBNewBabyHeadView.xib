@@ -12,18 +12,27 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="390"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navBack.png" translatesAutoresizingMaskIntoConstraints="NO" id="uk1-MF-WrL">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navBackcolor.png" translatesAutoresizingMaskIntoConstraints="NO" id="uk1-MF-WrL">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="65" id="Snu-sU-Oec"/>
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="r8h-oG-kKf">
-                    <rect key="frame" x="110" y="10" width="100" height="100"/>
+                    <rect key="frame" x="110" y="10" width="100" height="93"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="100" id="0u6-kF-jkb"/>
+                        <constraint firstAttribute="height" constant="93" id="0u6-kF-jkb"/>
                         <constraint firstAttribute="width" constant="100" id="MSu-0M-FZY"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="borderHexRgb" value="c7c8ca"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3vr-HM-beU">
                     <rect key="frame" x="0.0" y="165" width="320" height="5"/>
@@ -38,13 +47,13 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1公斤" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJT-xV-SEy">
                             <rect key="frame" x="28" y="21" width="49.5" height="24"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <color key="textColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="胎儿体重" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvG-Tg-ffG">
-                            <rect key="frame" x="31" y="5" width="44" height="13.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                            <color key="textColor" red="0.64313725490196083" green="0.64313725490196083" blue="0.64313725490196083" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="33" y="7" width="40" height="12"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -62,12 +71,12 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="80厘米" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2z-g1-SNW">
                     <rect key="frame" x="128" y="131" width="65" height="24"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                    <color key="textColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="胎儿身高" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vF-Ct-D4Y">
-                    <rect key="frame" x="138" y="115" width="44" height="13.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <rect key="frame" x="140" y="117" width="40" height="12"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="0.64313725489999995" green="0.64313725489999995" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -77,13 +86,13 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="297天" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0z8-p2-n0Y">
                             <rect key="frame" x="26" y="21" width="55" height="24"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <color key="textColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="距离预产期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ln-aa-Vgb">
-                            <rect key="frame" x="25" y="5" width="55" height="13.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                            <color key="textColor" red="0.64313725489999995" green="0.64313725489999995" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="28" y="7" width="50" height="12"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -96,6 +105,7 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wzu-es-yqN">
                     <rect key="frame" x="106" y="120" width="1" height="35"/>
+                    <color key="backgroundColor" red="0.7686274509803922" green="0.35686274509803922" blue="0.37254901960784315" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="1" id="qZ5-Xh-x9S"/>
                         <constraint firstAttribute="height" constant="35" id="s8X-XH-vHO"/>
@@ -103,6 +113,7 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mtT-rp-iYz">
                     <rect key="frame" x="213" y="120" width="1" height="35"/>
+                    <color key="backgroundColor" red="0.7686274509803922" green="0.35686274509803922" blue="0.37254901960784315" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="l76-Dp-4yD"/>
                         <constraint firstAttribute="width" constant="1" id="vjK-pN-oiF"/>
@@ -115,32 +126,37 @@
                         <constraint firstAttribute="width" constant="20" id="iHQ-BL-7Dq"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我们今天的世界爽爽爽爽爽爽爽爽爽爽爽爽爽爽爽爽爽发送方式方法生生世世沙发沙发沙发沙发爽爽爽爽爽爽分手分手分手分手是生生世世生生世世方法爽肤水爽爽爽爽爽爽爽爽爽爽爽爽爽爽爽爽舒舒服服分身乏术生生世世反反复复是多少" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EnK-N9-aPg">
-                    <rect key="frame" x="45" y="180" width="260" height="100.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我们今天的世界爽爽爽爽爽爽爽爽爽爽爽爽爽爽爽爽爽发送方式方法生生世世沙发沙发沙发沙发爽爽爽爽爽爽分手分手分手分手是生生世世生生世世方法爽肤水ssssssssss爽爽爽爽爽爽爽爽爽爽爽爽爽爽" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EnK-N9-aPg">
+                    <rect key="frame" x="45" y="180" width="260" height="107.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.44705882352941173" green="0.49019607843137253" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CAA-gT-hYx">
-                    <rect key="frame" x="0.0" y="290" width="320" height="5"/>
+                    <rect key="frame" x="0.0" y="297" width="320" height="5"/>
                     <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="5" id="8ee-5Q-NbD"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fal-Es-OJ7">
-                    <rect key="frame" x="20" y="295" width="70" height="85"/>
+                    <rect key="frame" x="20" y="302" width="70" height="85"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="q4b-IP-Prn">
                             <rect key="frame" x="12" y="10" width="46" height="46"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="q4b-IP-Prn" secondAttribute="height" multiplier="1:1" id="u23-WL-vwH"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <integer key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="记录宝宝" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnU-eo-agi">
-                            <rect key="frame" x="7" y="64" width="56" height="17"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.44705882352941179" green="0.44705882352941179" blue="0.44705882352941179" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="9" y="64" width="52" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -154,18 +170,23 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSO-nT-eeZ">
-                    <rect key="frame" x="90" y="295" width="70" height="85"/>
+                    <rect key="frame" x="90" y="302" width="70" height="85"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="E3j-lu-QEn">
                             <rect key="frame" x="12" y="10" width="46" height="46"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="E3j-lu-QEn" secondAttribute="height" multiplier="1:1" id="SSP-Xv-hSU"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <integer key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="知识库" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dal-gN-dU6">
-                            <rect key="frame" x="14" y="64" width="42" height="17"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.44705882349999998" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="15.5" y="64" width="39" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -180,18 +201,23 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Lg-Wk-dv6">
-                    <rect key="frame" x="160" y="295" width="70" height="85"/>
+                    <rect key="frame" x="160" y="302" width="70" height="85"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="Iwn-gy-kEb">
                             <rect key="frame" x="12" y="10" width="46" height="46"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="Iwn-gy-kEb" secondAttribute="height" multiplier="1:1" id="0Bs-I3-GZD"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <integer key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="记录宝宝" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rA-W1-Xox">
-                            <rect key="frame" x="7" y="64" width="56" height="17"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.44705882349999998" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="9" y="64" width="52" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -206,18 +232,23 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q7o-44-aLw">
-                    <rect key="frame" x="230" y="295" width="70" height="85"/>
+                    <rect key="frame" x="230" y="302" width="70" height="85"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="5FO-JU-bVi">
                             <rect key="frame" x="12" y="10" width="46" height="46"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="5FO-JU-bVi" secondAttribute="height" multiplier="1:1" id="0HQ-Xx-Ttd"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <integer key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="记录宝宝" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4w-Dl-5vo">
-                            <rect key="frame" x="7" y="64" width="56" height="17"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.44705882349999998" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="9" y="64" width="52" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -289,7 +320,7 @@
         </view>
     </objects>
     <resources>
-        <image name="navBack.png" width="375" height="64"/>
+        <image name="navBackcolor.png" width="375" height="45"/>
         <image name="placeholder_num2" width="66" height="66"/>
     </resources>
 </document>

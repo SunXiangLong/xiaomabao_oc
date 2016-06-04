@@ -15,6 +15,8 @@
 #import "MBNewBabyThreeTableCell.h"
 #import "MBNewBabyFourTableCell.h"
 #import "MBBabyToolController.h"
+#import "MBSetBabyInformationController.h"
+#import "MBBabyChestController.h"
 @interface MBNewBabyController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *_dateArray;
@@ -24,7 +26,7 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIImageView *topImageView;
+
 
 @end
 
@@ -97,11 +99,7 @@
     
 }
 
--(NSString *)titleStr{
 
- return @"AngleBody";
-    
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -248,14 +246,29 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.section) {
-        case 0: {}     break;
+        case 0: {
+        
+            MBSetBabyInformationController *VC = [[MBSetBabyInformationController alloc] init];
+            [self pushViewController:VC Animated:YES];
+            
+        }     break;
         case 1: {
             MBBabyToolController *VC = [[MBBabyToolController alloc] init];
             [self pushViewController:VC Animated:YES];
         
         }              break;
-        case 2: {}     break;
-        case 3: {}     break;
+        case 2: {
+        
+        
+            MBBabyChestController *VC = [[MBBabyChestController alloc] init];
+            [self pushViewController:VC Animated:YES];
+        
+        }     break;
+        case 3: {
+        
+           
+        
+        }     break;
         default:
             break;
     }

@@ -16,33 +16,33 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="H5Y-v2-KRr">
-                        <rect key="frame" x="16" y="10" width="44.5" height="44.5"/>
+                        <rect key="frame" x="16" y="15" width="34.5" height="34.5"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="H5Y-v2-KRr" secondAttribute="height" multiplier="1:1" id="WPR-gr-cSJ"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天气提醒" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Teb-Cx-YRF">
-                        <rect key="frame" x="68" y="10" width="60" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="60.5" y="15" width="60" height="18"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <color key="textColor" red="0.44313725490196076" green="0.44313725490196076" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天天气不是好的的的的时代时尚舒适放松舒服舒服是舒服舒服" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzD-Po-Adf">
-                        <rect key="frame" x="68" y="34" width="211" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.52549019607843139" green="0.52549019607843139" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="60.5" y="36" width="218.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="H5Y-v2-KRr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="API-q4-kIg"/>
-                    <constraint firstItem="Teb-Cx-YRF" firstAttribute="leading" secondItem="H5Y-v2-KRr" secondAttribute="trailing" constant="8" id="F2P-Rv-H8j"/>
+                    <constraint firstItem="Teb-Cx-YRF" firstAttribute="leading" secondItem="H5Y-v2-KRr" secondAttribute="trailing" constant="10" id="F2P-Rv-H8j"/>
                     <constraint firstItem="xzD-Po-Adf" firstAttribute="leading" secondItem="Teb-Cx-YRF" secondAttribute="leading" id="LqH-Hz-1Si"/>
-                    <constraint firstAttribute="bottom" secondItem="H5Y-v2-KRr" secondAttribute="bottom" constant="10" id="TCC-ZC-YlT"/>
-                    <constraint firstItem="H5Y-v2-KRr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="iWF-H2-S71"/>
+                    <constraint firstAttribute="bottom" secondItem="H5Y-v2-KRr" secondAttribute="bottom" constant="15" id="TCC-ZC-YlT"/>
+                    <constraint firstItem="H5Y-v2-KRr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="iWF-H2-S71"/>
                     <constraint firstAttribute="trailing" secondItem="xzD-Po-Adf" secondAttribute="trailing" constant="8" id="mkD-La-2FV"/>
                     <constraint firstItem="Teb-Cx-YRF" firstAttribute="top" secondItem="H5Y-v2-KRr" secondAttribute="top" id="n56-PB-CIR"/>
-                    <constraint firstItem="xzD-Po-Adf" firstAttribute="top" secondItem="Teb-Cx-YRF" secondAttribute="bottom" constant="6" id="wfo-lZ-qdL"/>
+                    <constraint firstItem="xzD-Po-Adf" firstAttribute="top" secondItem="Teb-Cx-YRF" secondAttribute="bottom" constant="3" id="wfo-lZ-qdL"/>
                 </constraints>
             </tableViewCellContentView>
             <point key="canvasLocation" x="152" y="257.5"/>

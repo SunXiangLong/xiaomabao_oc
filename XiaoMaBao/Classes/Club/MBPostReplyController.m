@@ -174,7 +174,7 @@
                         LGPhotoAssets *photo = _photoArray [i];
                         image = photo.thumbImage;
                     }
-                    NSData * data = [UIImage reSizeImageData:image maxImageSize:800 maxSizeWithKB:800];
+                    NSData *data = UIImageJPEGRepresentation(image, 0.5f);
                     if(data != nil){
                         [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"photo[]"] fileName:[NSString stringWithFormat:@"photo%d.jpg",i]mimeType:@"image/jpeg"];
                     }

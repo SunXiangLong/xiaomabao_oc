@@ -225,6 +225,6 @@
     _lastRow = indexPath.row;
     _image =   Mbcell.showImageView.image ;
     _row = [NSString stringWithFormat:@"%ld",indexPath.row];
-};
+}
 
 @end

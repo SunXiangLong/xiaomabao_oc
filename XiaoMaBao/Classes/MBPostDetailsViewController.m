@@ -16,7 +16,7 @@
 #import "MBCollectionPostController.h"
 #import "MBPostReplyController.h"
 #import "MBPostDetailsViewCell.h"
-#import "LWImageBrowser.h"
+
 
 @interface MBPostDetailsViewController ()<SDPhotoBrowserDelegate>
 {
@@ -48,10 +48,7 @@
  *  存放cell高度的数组
  */
 @property (copy, nonatomic) NSMutableArray *cellHeightArray;
-/**
- *  存放楼主cell高度
- */
-@property (copy, nonatomic) NSMutableArray *headArray;
+
 /**
  *  收藏button
  */
@@ -95,17 +92,21 @@
     [super viewWillAppear:animated];
     [MobClick endLogPageView:@"MBPostDetailsViewController"];
     if (_isDismiass) {
+        
+        if (_commentsArray.count<20) {
+            _page =1;
+        }
+        
+        
+        _poster =  @"1";
+        _isImage = @"1";
          [self setData];
+      
     }
    
     
 }
-- (NSMutableArray *)headArray{
-    if (!_headArray) {
-        _headArray = [NSMutableArray array];
-    }
-    return _headArray;
-}
+
 - (NSMutableArray *)cellHeightArray{
     if (!_cellHeightArray) {
         _cellHeightArray = [NSMutableArray array];
@@ -210,7 +211,7 @@
         self.isImage = s_str(number);
         self.page = 1;
         [self.tableView.mj_footer resetNoMoreData];
-        [self.headArray removeAllObjects];
+     
         [self.commentsArray removeAllObjects];
         [self.cellHeightArray removeAllObjects];
         [self setData];
@@ -255,35 +256,44 @@
         
         if (responseObject) {
             
-            
             if (_isDismiass) {
-                
-                if ([[responseObject valueForKeyPath:@"comments"] count]>_commentsArray.count-1) {
+              
+               
+                    
                     NSDictionary *dataDic = [[responseObject valueForKeyPath:@"comments"] lastObject];
+                    NSDictionary *dic = _commentsArray.lastObject;
+                
+                if ([dic[@"comment_id"]isEqualToString:dataDic[@"comment_id"]]) {
+                     _isDismiass = !_isDismiass;
+                    return ;
+                }
                     [_commentsArray addObject:dataDic];
                     
                     
                     NSMutableArray *cellHeight = [NSMutableArray array];
                     
                     NSArray *arr = dataDic[@"comment_imgs"];
-
-      
+                    
+                    
                     for (NSString *imageUrl in arr) {
                         [cellHeight addObject:@((UISCREEN_WIDTH-20)*105/125)];
                     }
-
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:weakSelf.commentsArray.count-1 inSection:1];
+                     [weakSelf.cellHeightArray addObject:cellHeight];
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:weakSelf.commentsArray.count-1];
                     
-                    [weakSelf.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                    [weakSelf.tableView scrollToRowAtIndexPath:indexPath
-                                              atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            
+                    [weakSelf.tableView insertSections:[NSIndexSet indexSetWithIndex:_commentsArray.count -1] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    
+                    [weakSelf.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
                     _isDismiass = !_isDismiass;
                     
-                    return ;
-
-                }
+                 
+                    
+                
+                   return ;
                 
             }
+           
             if (_page ==1) {
 
                 [weakSelf.commentsArray addObject:[responseObject valueForKeyPath:@"post_detail"]];
@@ -306,11 +316,10 @@
                     [weakSelf.cellHeightArray addObject:cellHeight];
                 }
                 
-                
-                
-             
-            [weakSelf.tableView reloadData];
+                [weakSelf.tableView reloadData];
                 _page++;
+                
+           
                 
             }else{
                 
@@ -628,6 +637,8 @@
     
     }
     
+    
+    NSLog(@"%ld",(long)indexPath.row);
     if (indexPath.row == 0) {
         
         MBPostDetailsTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsTwoCell"];
@@ -703,7 +714,7 @@
 
     
     NSDictionary *dic = _commentsArray[indexPat.section];
-    
+    _dianjiIndexPath = indexPat;
     if (indexPat.section ==0) {
         if ([dic[@"post_imgs"] count]>0 ) {
             if (indexPat.row != 0) {
@@ -738,14 +749,7 @@
  
     
 }
--(void)dealloc{
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    _commentsArray = nil;
-    _cellHeightArray = nil;
 
- 
-}
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     
     if (_isbool) {
@@ -782,4 +786,15 @@
     
     return [UIImage imageNamed:@"img_default"];
 }
+-(void)dealloc{
+    
+    [_tableView removeFromSuperview];
+    _tableView = nil;
+    _commentsArray = nil;
+    _cellHeightArray = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    
+}
+
 @end

@@ -103,19 +103,7 @@
             [self setData];
         }
     }];
-    /**
-     *  观察用户的登录状态是否被改变（登录和不登录数据有些不同）
-     */
-    MBUserDataSingalTon  *user = [MBSignaltonTool getCurrentUserInfo];
-    [[user rac_valuesAndChangesForKeyPath:@"sid" options:NSKeyValueObservingOptionNew observer:nil] subscribeNext:^(id x) {
-         @strongify(self);
-        [self.recommendArray removeAllObjects];
-        [self.myCircleArray removeAllObjects];
    
-        [self setData];
-        
-        
-    }];
     
 }
 /**
@@ -241,6 +229,8 @@
                
                 _tableView.delegate = self;
                 _tableView.dataSource = self;
+                
+                
                 [self.tableView reloadData];
                 return ;
                 

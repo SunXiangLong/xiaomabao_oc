@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -16,24 +15,24 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="添加更多工具" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZhA-07-HDn">
-                        <rect key="frame" x="131" y="14" width="78" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.58823529411764708" green="0.59607843137254901" blue="0.59215686274509804" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="128" y="13" width="84" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.65490196078431373" green="0.6588235294117647" blue="0.6588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="X24-Dx-w4c">
-                        <rect key="frame" x="110" y="14" width="16" height="16"/>
+                        <rect key="frame" x="103" y="14" width="15" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="X24-Dx-w4c" secondAttribute="height" multiplier="1:1" id="5aa-25-vYK"/>
+                            <constraint firstAttribute="width" constant="15" id="ejg-Iu-PNh"/>
+                            <constraint firstAttribute="height" constant="15" id="k4d-jV-ngj"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="ZhA-07-HDn" firstAttribute="leading" secondItem="X24-Dx-w4c" secondAttribute="trailing" constant="5" id="2W7-Iv-yBG"/>
+                    <constraint firstItem="ZhA-07-HDn" firstAttribute="leading" secondItem="X24-Dx-w4c" secondAttribute="trailing" constant="10" id="3Ka-qD-XFj"/>
                     <constraint firstItem="ZhA-07-HDn" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="10" id="Bfv-VF-gm9"/>
+                    <constraint firstItem="X24-Dx-w4c" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Hro-tX-zp3"/>
                     <constraint firstItem="ZhA-07-HDn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="SLP-sM-Ji6"/>
-                    <constraint firstItem="ZhA-07-HDn" firstAttribute="bottom" secondItem="X24-Dx-w4c" secondAttribute="bottom" id="ZmK-AN-FoI"/>
-                    <constraint firstItem="ZhA-07-HDn" firstAttribute="top" secondItem="X24-Dx-w4c" secondAttribute="top" id="ibD-S0-5F2"/>
                 </constraints>
             </tableViewCellContentView>
         </tableViewCell>

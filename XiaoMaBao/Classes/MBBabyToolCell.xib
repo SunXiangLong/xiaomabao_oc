@@ -27,22 +27,22 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="看懂B超单" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Rd-Qt-kDv">
-                        <rect key="frame" x="54" y="13" width="65.5" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.36862745098039218" green="0.37254901960784315" blue="0.3843137254901961" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="57" y="13" width="70" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.44313725490196076" green="0.44313725490196076" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="中药不是你想吃就能吃，苦口的不一定" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7p-Eg-xbI">
-                        <rect key="frame" x="54" y="32" width="196" height="14.5"/>
+                        <rect key="frame" x="57" y="33" width="198.5" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.5607843137254902" green="0.56470588235294117" blue="0.56862745098039214" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yO2-YJ-lss" customClass="SevenSwitch">
-                        <rect key="frame" x="255" y="18" width="50" height="23.5"/>
+                        <rect key="frame" x="261" y="19" width="44" height="22"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="50" id="F80-L1-Rco"/>
-                            <constraint firstAttribute="height" constant="23" id="dOw-ci-4rO"/>
+                            <constraint firstAttribute="width" constant="44" id="F80-L1-Rco"/>
+                            <constraint firstAttribute="height" constant="22" id="dOw-ci-4rO"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -54,7 +54,7 @@
                     <constraint firstItem="yO2-YJ-lss" firstAttribute="leading" secondItem="g7p-Eg-xbI" secondAttribute="trailing" constant="5" id="blw-xB-ouA"/>
                     <constraint firstAttribute="trailing" secondItem="yO2-YJ-lss" secondAttribute="trailing" constant="15" id="qmW-VL-k52"/>
                     <constraint firstItem="g7p-Eg-xbI" firstAttribute="top" secondItem="9Rd-Qt-kDv" secondAttribute="bottom" constant="2" id="qzc-yd-zAu"/>
-                    <constraint firstItem="9Rd-Qt-kDv" firstAttribute="leading" secondItem="tsd-F1-3vv" secondAttribute="trailing" constant="10" id="tW7-rC-SQl"/>
+                    <constraint firstItem="9Rd-Qt-kDv" firstAttribute="leading" secondItem="tsd-F1-3vv" secondAttribute="trailing" constant="13" id="tW7-rC-SQl"/>
                     <constraint firstItem="9Rd-Qt-kDv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="ttl-xK-qdz"/>
                     <constraint firstAttribute="bottom" secondItem="tsd-F1-3vv" secondAttribute="bottom" constant="15" id="yQO-LP-AtQ"/>
                 </constraints>
@@ -65,6 +65,7 @@
                 <outlet property="tool_switch" destination="yO2-YJ-lss" id="gIl-2h-s0d"/>
                 <outlet property="tool_title" destination="9Rd-Qt-kDv" id="G8m-sZ-j2J"/>
             </connections>
+            <point key="canvasLocation" x="124" y="-54"/>
         </tableViewCell>
     </objects>
     <resources>
