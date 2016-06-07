@@ -1056,7 +1056,14 @@
 
     Unicall *unicall = [Unicall singleton];
     [unicall UnicallUpdateValidation:json];
-    [unicall UnicallUpdateUserInfo:@{@"nickname":@"Someone"}];
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+       if (!sid) {
+     [unicall UnicallUpdateUserInfo:@{@"nickname":@"未注册用户"}];
+       }else{
+          
+       [unicall UnicallUpdateUserInfo:@{@"nickname": string(@"用户的sid:", sid)}];
+       }
+    
 }
 //delegate methods
 -(void)acquireValidation

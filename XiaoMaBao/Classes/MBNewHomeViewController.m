@@ -51,9 +51,6 @@
     [MobClick endLogPageView:@"MBNewHomeViewController"];
     
     NSDictionary *userInfo = [User_Defaults valueForKeyPath:@"userInfo"];
-    
-    NSLog(@"%@",userInfo);
-    
     if (userInfo) {
         NSString *type = userInfo[@"type"];
         if ([type isEqualToString:@"goods"]) {
@@ -175,7 +172,7 @@ return @"search_image";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-   
+    NSLog(@"%@",@"收到内存⚠️");
 }
 
 #pragma mark - <UIScrollViewDelegate>

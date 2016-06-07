@@ -123,7 +123,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/info"] parameters:@{@"session":sessiondict}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
-            NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//            NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
      
                    
                    NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
@@ -528,7 +528,13 @@
     
     Unicall *unicall = [Unicall singleton];
     [unicall UnicallUpdateValidation:json];
-    [unicall UnicallUpdateUserInfo:@{@"nickname":@"Someone"}];
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (!sid) {
+        [unicall UnicallUpdateUserInfo:@{@"nickname":@"未注册用户"}];
+    }else{
+        
+        [unicall UnicallUpdateUserInfo:@{@"nickname": string(@"用户的sid:", sid)}];
+    }
 }
 //delegate methods
 -(void)acquireValidation

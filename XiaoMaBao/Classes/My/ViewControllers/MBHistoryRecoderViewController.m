@@ -57,11 +57,11 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/goods_history_record"] parameters:@{@"session":sessiondict,@"count":@"20",@"page":@"1"}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
-                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    [self dismiss];
                    _array= [responseObject valueForKeyPath:@"data"];
                   
-                   NSLog(@"%@",_array);
+                 
                    
                    if (_array.count>0) {
                           [self tableView];
@@ -89,7 +89,7 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/goods_history_record_clean"] parameters:@{@"session":sessiondict}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
-                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    [self dismiss];
                    _array = @[];
                    [_tableView reloadData];
@@ -127,9 +127,5 @@
 - (NSString *)titleStr{
     return @"浏览记录";
 }
-- (void)registerClick{
 
-    NSLog(@".........");
-
-}
 @end

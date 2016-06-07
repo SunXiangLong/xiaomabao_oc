@@ -175,7 +175,7 @@
     [ShareSDK getUserInfo:SSDKPlatformTypeWechat conditional:nil
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
                
-               NSLog(@"%lu %@ %@",(unsigned long)state,user,error);
+//               NSLog(@"%lu %@ %@",(unsigned long)state,user,error);
                
                
                

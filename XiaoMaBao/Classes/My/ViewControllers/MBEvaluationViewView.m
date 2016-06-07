@@ -65,7 +65,7 @@
     
     _photoArray = [NSMutableArray array];
     [_photoArray addObject:[UIImage imageNamed:@"refund_pictures"]];
-    NSLog(@"%f",(UISCREEN_WIDTH-45)/6);
+
     
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];

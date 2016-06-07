@@ -73,7 +73,7 @@
     
     if (!sid) {
         [self setUIOne];
-        
+        strSid = nil;
     }else{
         if (strSid&&[strSid isEqualToString:uid]) {
             if ([is_baby_add isEqualToString:@"1"]) {

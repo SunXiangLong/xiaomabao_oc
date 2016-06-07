@@ -17,6 +17,8 @@
 #import "MBBabyToolController.h"
 #import "MBSetBabyInformationController.h"
 #import "MBBabyChestController.h"
+#import "MBabyRecordController.h"
+#import "MBBabyDueDateController.h"
 @interface MBNewBabyController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *_dateArray;
@@ -266,7 +268,8 @@
         }     break;
         case 3: {
         
-           
+            MBBabyDueDateController *VC = [[MBBabyDueDateController alloc] init];
+            [self pushViewController:VC Animated:YES];
         
         }     break;
         default:

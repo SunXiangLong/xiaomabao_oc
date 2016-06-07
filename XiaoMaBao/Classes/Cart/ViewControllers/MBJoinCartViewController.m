@@ -117,14 +117,14 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsSpecifications"] parameters:@{@"goods_id":self.goods_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
          [self dismiss];
-        NSLog(@"%@",[responseObject valueForKey:@"data"]);
+//        NSLog(@"%@",[responseObject valueForKey:@"data"]);
         _specificationsDic  = [responseObject valueForKey:@"data"];
         if (_specificationsDic) {
             [self setupGoodsView];
             _lastview = _goodsView;
             _specificationsArray = _specificationsDic[@"goods_specs"];
             
-            NSLog(@"%@",_specificationsArray);
+           
             
             if (_specificationsArray.count>0) {
                 UITableView *tableview = [[UITableView alloc] init];
@@ -401,11 +401,6 @@
     NSString *goodnumber = self.numberFld.text;
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":dict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":arrs} success:^(NSURLSessionDataTask *operation, id responseObject) {
-     
-        
-        
-        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
-        
         
         NSString *status = [NSString stringWithFormat:@"%@",[responseObject valueForKeyPath:@"status"][@"succeed"]];
         
@@ -476,8 +471,6 @@
     
     NSString *goodnumber = self.numberFld.text;
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":sessiondict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":attr} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
-        
          NSString *status = [NSString stringWithFormat:@"%@",[responseObject valueForKeyPath:@"status"][@"succeed"]];
         if ([status isEqualToString:@"1"]) {
             MBShoppingCartViewController *payVc = [[MBShoppingCartViewController alloc] init];
@@ -575,7 +568,7 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsSpecificationInfo"] parameters:@{@"goods_id":self.goods_id,@"attr":attr,@"number":_numberFld.text} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        NSLog(@"%@",[responseObject valueForKey:@"data"]);
+//        NSLog(@"%@",[responseObject valueForKey:@"data"]);
         NSDictionary *dic = [responseObject valueForKey:@"data"];
         if (dic) {
             

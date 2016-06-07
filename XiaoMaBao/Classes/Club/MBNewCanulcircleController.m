@@ -110,7 +110,6 @@
     });
     
     [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict} success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
         [self dismiss];
         if ([[responseObject valueForKeyPath:@"number"] integerValue]>0) {
             [self.messageBadge autoBadgeSizeWithString:s_str([responseObject valueForKeyPath:@"number"])];
@@ -183,8 +182,6 @@
 {
     
     NSInteger idx = segmentControl.selectedSegmentIndex;
-    NSLog(@"%ld", idx);
-   
     MBMoreCirclesController *moreCirclesView = self.childViewControllers[2];
     MBMyCircleController    *myCircleView = self.childViewControllers[0];
     

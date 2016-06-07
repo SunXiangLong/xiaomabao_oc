@@ -167,7 +167,7 @@
     
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/list"] parameters:@{@"session":sessiondict,@"pagination":paginationDict,@"type":type}success:^(NSURLSessionDataTask *operation, id responseObject) {
-        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
         [self dismiss];
         
         

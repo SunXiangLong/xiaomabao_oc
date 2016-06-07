@@ -20,7 +20,18 @@
 @end
 
 @implementation BkBaseViewController
-
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    [MobClick beginLogPageView:[NSString stringWithUTF8String:object_getClassName(self)]];
+    
+    
+    
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+   [MobClick beginLogPageView:[NSString stringWithUTF8String:object_getClassName(self)]];
+}
 - (BkNavigationBarView *)navBar{
     if (!_navBar) {
         // 自定义导航栏

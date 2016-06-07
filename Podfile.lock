@@ -24,6 +24,7 @@ PODS:
     - FMDB/common
   - HexColors (3.0.0)
   - iCarousel (1.8.2)
+  - JPFPSStatus (0.0.2)
   - KVNProgress (2.2.1)
   - Masonry (0.6.3)
   - MBProgressHUD (0.9.2)
@@ -70,6 +71,7 @@ DEPENDENCIES:
   - FMDB (~> 2.5)
   - HexColors
   - iCarousel
+  - JPFPSStatus (~> 0.0.2)
   - KVNProgress
   - Masonry
   - MBProgressHUD (~> 0.9.2)
@@ -99,6 +101,7 @@ SPEC CHECKSUMS:
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   HexColors: 8b83e3fe90c0d466dae7b98c9d22da95799f99cb
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
+  JPFPSStatus: 11de6027b4cbebfeee0c939dfe08f5ec124a0965
   KVNProgress: 7001d2d16a2755cee5599e8e485befe056f2197b
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1

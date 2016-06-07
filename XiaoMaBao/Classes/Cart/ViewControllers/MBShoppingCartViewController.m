@@ -636,7 +636,7 @@
     if (self.CartinfoDict.count>0) {
         
         cell.Goods_price.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"subtotal"];
-        cell.Market_Price.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"market_price"];
+        cell.Market_Price.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"shop_price_formatted"];
         cell.goods_number.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"goods_number"];
         NSString * nameStr = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"goods_name"];
         cell.row = indexPath.row;

@@ -73,7 +73,7 @@
         [self dismiss];
         NSLog(@"status---responseObject%@",[responseObject valueForKeyPath:@"status"]);
         if([[[responseObject valueForKeyPath:@"status"] valueForKey:@"succeed"] isEqualToNumber:@1]){
-            NSLog(@"生成订单成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//            NSLog(@"生成订单成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
             
             _orderInfo = [responseObject valueForKeyPath:@"data"];
             [self createView];
@@ -102,8 +102,8 @@
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"flow/doneMobile"]
             parameters:@{@"session":dict,@"pay_id":self.pay_id,@"shipping_id":self.shipping_id,@"address_id":self.address_id,@"bonus_id":@"",@"coupon_id":self.coupon_id,@"integral":@"",@"inv_type":@"0",@"inv_content":@"",@"inv_payee" :@"",@"real_name":self.real_name,@"identity_card":self.identity_card}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
-        NSLog(@"status---responseObject%@",[responseObject valueForKeyPath:@"status"]);
-        NSLog(@"生成订单成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//        NSLog(@"status---responseObject%@",[responseObject valueForKeyPath:@"status"]);
+//        NSLog(@"生成订单成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    
                    
         _orderInfo = [responseObject valueForKeyPath:@"data"];
@@ -237,7 +237,7 @@
     paymentLbl.font = [UIFont systemFontOfSize:14];
     
     if(self.order_id && self.isOrderDetail){
-        NSLog(@"%@",_order_id);
+       
         paymentLbl.text = [NSString stringWithFormat:@"应付金额：%@",_orderInfo[@"order_amount_formatted"]];
         
         
@@ -294,12 +294,7 @@
 
 #pragma mark -- 第三方支付  支付宝
  - (void)payForMoney{
-     
-   NSString *str  = [[AlipaySDK defaultService] currentVersion];
-     NSLog(@"%@",str);
-     
-     
-    /*
+     /*
      *商户的唯一的parnter和seller。
      *签约后，支付宝会为每个商户分配一个唯一的 parnter 和 seller。
      */
@@ -416,7 +411,7 @@
     
     //将商品信息拼接成字符串
     NSString *orderSpec = [order description];
-    //NSLog(@"orderSpec = %@",orderSpec);
+    
     
     //获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循RSA签名规范,并将签名字符串base64编码和UrlEncode
     id<DataSigner> signer = CreateRSADataSigner(privateKey);
@@ -432,7 +427,7 @@
         [win setHidden:NO];
         
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            NSLog(@"%@",resultDic);
+          
             
             if ([resultDic[@"resultStatus"]isEqualToString:@"9000"]) {
                 [self alert:@"提示" msg:@"支付成功" success:@"1"];
@@ -528,7 +523,7 @@
         
         //生成签名
         NSString *sign  = [req createMd5Sign:signParams];
-        NSLog(@"%@",sign);
+       
         
         
         //添加签名
@@ -543,9 +538,9 @@
         
         [self alert:@"提示信息" msg:debug success:@"0"];
         
-        NSLog(@"%@\n\n",debug);
+  
     }else{
-        NSLog(@"%@\n\n",[req getDebugifo]);
+       
         
         NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
         
@@ -588,7 +583,7 @@
     [alter show];
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSLog(@"%ld",buttonIndex);
+    
     
      if ([_success isEqualToString:@"1"]) {
          if(self.service_data){

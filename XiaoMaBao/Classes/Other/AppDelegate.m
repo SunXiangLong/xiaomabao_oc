@@ -56,16 +56,15 @@
 //for idfa
 #import <AdSupport/AdSupport.h>
 #import "AFNetworkActivityIndicatorManager.h"
-//#import "NTalkerInstance.h"
 #import "DXAlertView.h"
 #import "LaunchIntroductionView.h"
-
 #import "MBShopingViewController.h"
 #import "MBActivityViewController.h"
 #import "MBWebViewController.h"
 #import "MBGroupShopController.h"
 #import "MBTabBarViewController.h"
 #import "MBNavigationViewController.h"
+#import "JPFPSStatus.h"
 @interface AppDelegate ()<WXApiDelegate>
 {
     NSArray* titleandIds ;
@@ -123,11 +122,12 @@
 //            [self setupLanuchView];
 //        }
 
-    
+#if defined(DEBUG)||defined(_DEBUG)
+    [[JPFPSStatus sharedInstance] open];
+#endif
     return YES;
-    
-  
 }
+
 -(void)setAppirater{
 
     [Appirater setAppId:@"1049237132"];
@@ -463,12 +463,11 @@
 - (void)update{
     [MBNetworking POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/common/check_update"] parameters:@{@"device":@"ios"} success:^(id responseObject) {
         NSDictionary *dic =responseObject;
-        
-        NSLog(@"%@",dic);
+
         if ([dic[@"can_update"]isEqualToNumber:@1]) {
             NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
             
-            if ([version floatValue] <[dic[@"lastest_version"] floatValue]) {
+            if ([version floatValue] < [dic[@"lastest_version"] floatValue]) {
                 [self promptUpdate:dic];
             }
             

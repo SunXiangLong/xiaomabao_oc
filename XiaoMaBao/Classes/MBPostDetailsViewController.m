@@ -636,9 +636,7 @@
         return cell;
     
     }
-    
-    
-    NSLog(@"%ld",(long)indexPath.row);
+ 
     if (indexPath.row == 0) {
         
         MBPostDetailsTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsTwoCell"];

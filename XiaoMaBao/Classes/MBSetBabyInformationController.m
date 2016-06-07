@@ -56,6 +56,9 @@
                                      } origin:_baby_birthday];
     
 }
+- (NSString *)titleStr{
+    return @"设置宝宝信息";
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

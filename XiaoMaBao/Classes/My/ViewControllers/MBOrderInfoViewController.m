@@ -55,8 +55,8 @@
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/info"] parameters:@{@"session":dict,@"order_id":self.order_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-        NSLog(@"%@",[responseObject valueForKeyPath:@"data"]);
-        NSLog(@"%@",[responseObject valueForKeyPath:@"status"]);
+//        NSLog(@"%@",[responseObject valueForKeyPath:@"data"]);
+//        NSLog(@"%@",[responseObject valueForKeyPath:@"status"]);
         
         
         NSDictionary * status = [responseObject valueForKeyPath:@"status"];

@@ -190,7 +190,7 @@
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-                NSLog(@"%@",responseObject);
+        
         
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {

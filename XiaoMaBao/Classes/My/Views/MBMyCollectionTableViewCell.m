@@ -46,7 +46,7 @@
         self.goodsNum = @"1";
     }
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":dict, @"goods_id":self.goods_id,@"number":self.goodsNum,@"spec":@""} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
+//        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
         NSDictionary * status = (NSDictionary *)[responseObject valueForKey:@"status"];
         
         if (status[@"succeed"]) {

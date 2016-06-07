@@ -142,7 +142,7 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/collectBrands/list"] parameters:@{@"session":sessiondict,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        NSLog(@"获取收藏的品牌成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//        NSLog(@"获取收藏的品牌成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
         _collectBrandsListArray = [responseObject valueForKeyPath:@"data"];
         
         [self.view addSubview:self.collectionView];
@@ -242,7 +242,7 @@
         NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:point]; // 可以获取我们在哪个cell上长按
         self.selIndexPath = indexPath;
         if (indexPath != nil) {
-            NSLog(@"%ld", indexPath.row);
+         
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确定要删除本收藏吗？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             [alertView show];
         }
@@ -272,7 +272,7 @@
                
             }            
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            NSLog(@"失败");
+            NSLog(@"%@",error);
         }];
         
     }

@@ -39,6 +39,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>JPFPSStatus.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>KVNProgress.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -127,17 +132,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>02E5573A89BB2B82EA19A516179FE819</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>06B2232CE73059846F04E5C3DFEE0D38</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>13CCB52815E0C543DF7CFE494A5C1351</key>
+		<key>109834071FAC1BD96F294DC57642B382</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -157,12 +157,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>55680BD16F28725323BC534AC2932FDD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6704D504029BD157CFC13CBF82CFEE80</key>
+		<key>5C670CC8BCA798A70839D3A4B15FC72F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -172,7 +167,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8711F40B1E954949780CE6D538C5FBE4</key>
+		<key>744F7CD12F8BBD9F25362CDAD590D524</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>79586D3E391A55594EBEBEF001EE4FD7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -192,6 +192,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>99FDD959579740FF55C3BD54E8EACC9D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9EC9CB6519496379B058279426B9E73D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9F12FB4A63E20F601CFB2E64A65B57C1</key>
 		<dict>
 			<key>primary</key>
@@ -207,17 +217,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B74B2C85343CAD1A70FAF758CB56B919</key>
+		<key>A4BA32D5B4B968AE87EB02F17F7690FF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BD2485BC5A2CF9AB8A386116D9F348FE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C9C4481B5AD2FADB4868183FC7203FCC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>CBA9C9F6A582DF509DC7D779E374E359</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DED80652FE2F1589A91DA32410D6A037</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -228,11 +243,6 @@
 			<true/>
 		</dict>
 		<key>EDC12519E74CCF180C1A3F6DC7BA7734</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EFFA5540F1E017D7BE3206CD670D0012</key>
 		<dict>
 			<key>primary</key>
 			<true/>
