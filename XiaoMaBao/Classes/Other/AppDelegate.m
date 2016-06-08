@@ -116,11 +116,11 @@
     [self setAppirater];
     
    [self.window makeKeyAndVisible];
-//    
-//        //第一次打开应用显示导航
-//        if ( ![self showNewFeature]) {
-//            [self setupLanuchView];
-//        }
+    
+        //第一次打开应用显示导航
+        if ( ![self showNewFeature]) {
+            [self setupLanuchView];
+        }
 
 #if defined(DEBUG)||defined(_DEBUG)
     [[JPFPSStatus sharedInstance] open];
@@ -542,8 +542,12 @@
     MBNavigationViewController *rootVC = tabBarVc.selectedViewController;
 
     if (application.applicationState == UIApplicationStateBackground) {
+        
+    }else if (application.applicationState == UIApplicationStateInactive) {
           [self notifJumpInterface:userInfo];
-    }else{
+        
+        
+    }else if(application.applicationState == UIApplicationStateActive){
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"小麻包母婴通知" message:userInfo[@"aps"][@"alert"] preferredStyle:UIAlertControllerStyleAlert];
         

@@ -85,7 +85,7 @@
 
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(nullable UIView *)view{
-    NSString* imgName = [NSString stringWithFormat:@"lanch%d",(int)index];
+    NSString* imgName = [NSString stringWithFormat:@"lanchs%d",(int)index];
     UIImageView *v  = [[UIImageView alloc]init];
     v.image = [UIImage imageNamed:imgName];
     v.frame = self.carousel.bounds;

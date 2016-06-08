@@ -73,7 +73,7 @@
         [User_Defaults setObject:nil forKey:@"userInfo"];
         [User_Defaults synchronize];
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-        return;
+     
     }
     
 
@@ -94,9 +94,7 @@
     VC1.title = @"实惠星球";
     [self addChildViewController:VC1];
     
-//    MBFreeStoreViewController *VC2 = [[MBFreeStoreViewController alloc] init];
-//    VC2.title = @"全球闪购";
-//    [self addChildViewController:VC2];
+
     
     
     MBNewFreeStoreViewController *VC3 = [[MBNewFreeStoreViewController alloc] init];
@@ -105,16 +103,7 @@
 }
 - (void)setupTitlesView
 {
-    // 标签栏整体
-//    UIView *titlesView = [[UIView alloc] init];
-//    titlesView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 45);
-//    [self.view addSubview:titlesView];
-//    UIImageView *banckImage = [[UIImageView  alloc] init];
-//    banckImage.frame =CGRectMake(0, 0, titlesView.ml_width, titlesView.ml_height);
-//    banckImage.image = [UIImage imageNamed:@"navBackcolor"];
-//    [titlesView addSubview:banckImage];
-//    
-//    self.titlesView = titlesView;
+
     
     NSArray *segmentArray = @[
                              @"实惠星球",

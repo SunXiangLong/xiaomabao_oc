@@ -9,7 +9,7 @@
 #import "MBTabBarViewController.h"
 #import "MBNavigationViewController.h"
 #import "MBShoppingCartViewController.h"
-#import "MBMyViewController.h"
+#import "MBNewMyViewController.h"
 #import "BkTabBarView.h"
 #import "MBBabyViewController.h"
 #import "MBServiceHomeViewController.h"
@@ -112,7 +112,7 @@
     [self setupChildVC:shoppingCartVc title:@"麻包圈" imageName:@"icon_nav03" selectedImageName:@"icon_nav03_press"];
 
 
-    MBMyViewController *myVc = [[MBMyViewController alloc] init];
+    MBNewMyViewController *myVc = [[MBNewMyViewController alloc] init];
     [self setupChildVC:myVc title:@"个人中心" imageName:@"icon_nav05" selectedImageName:@"icon_nav05_press"];
 
       

@@ -329,15 +329,11 @@
 
 - (void)loginClicksss{
     //跳转到登录页
-    
-    //获取storyboard: 通过bundle根据storyboard的名字来获取我们的storyboard,
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    //由storyboard根据myView的storyBoardID来获取我们要切换的视图
     MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-    //由navigationController推向我们要推向的view
-    myView.vcType = @"shop";
-    [self.navigationController pushViewController:myView animated:YES];
-}
+    myView.vcType = @"mabao";
+    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
+    [self presentViewController:VC animated:YES completion:nil];}
 #pragma mark --- 宝宝生日
 -(void)selectBirthday{
     

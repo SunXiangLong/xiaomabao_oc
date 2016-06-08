@@ -147,16 +147,6 @@
 - (void)setupTitlesView
 {
 
-//    // 标签栏整体
-//    UIView *titlesView = [[UIView alloc] init];
-//    titlesView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 45);
-//    [self.view addSubview:titlesView];
-//    UIImageView *banckImage = [[UIImageView  alloc] init];
-//    banckImage.frame =CGRectMake(0, 0, titlesView.ml_width, titlesView.ml_height);
-//    banckImage.image = [UIImage imageNamed:@"navBackcolor"];
-//    [titlesView addSubview:banckImage];
-//    
-//    self.titlesView = titlesView;
     
     NSArray *segmentArray = @[
                               @"我的圈",

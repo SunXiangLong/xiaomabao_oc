@@ -9,12 +9,19 @@
 #import "MBBabyDueDateController.h"
 
 @interface MBBabyDueDateController ()
+{
+    /**
+     * 点击预产期计算器为Yes， 点击保存为NO
+     */
+    BOOL _isCalculation;
+}
 @property (weak, nonatomic) IBOutlet UITextField *dueDateTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastPeriodTextField;
 @property (weak, nonatomic) IBOutlet UITextField *menstrualCycleTextField;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *view_height;
 @property (weak, nonatomic) IBOutlet UIView *top_view;
 
+@property (weak, nonatomic) IBOutlet UIButton *button;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *view_top;
 @end
 
@@ -22,40 +29,94 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.top_view.hidden = YES;
+//  self.top_view.hidden = YES;
    
-    self.top_view.transform = CGAffineTransformMakeScale(0, 0);
+   self.top_view.transform = CGAffineTransformMakeScale(0, 0);
+    
    
 }
 - (IBAction)shezhi:(id)sender {
+    if (_isCalculation) {
+        return;
+    }
+    _isCalculation   = !_isCalculation;
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position"];
+    
+    
+    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(UISCREEN_WIDTH/2, 288)];
+    anim.duration = .5f;
+    anim.fillMode = kCAFillModeForwards;
+    anim.removedOnCompletion = NO;
+    // 必须设置代理
+    anim.delegate = self;
+    [self.button.layer addAnimation:anim forKey:@"position"];
+    
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    
 
+    scaleAnimation.toValue = [NSNumber numberWithFloat:1];
+    scaleAnimation.duration = .5f;
+    scaleAnimation.fillMode = kCAFillModeForwards;
+    scaleAnimation.removedOnCompletion = NO;
+        scaleAnimation.delegate = self;
+   [self.top_view.layer addAnimation:scaleAnimation forKey:@"transform.scale"];
     
+   
     
-    [UIView animateWithDuration:.5f animations:^{
-        self.view_height.constant = 90;
-        self.view_top.constant = 10;
-        self.top_view.hidden = NO;
-        self.top_view.transform = CGAffineTransformMakeScale(1, 1);
-        
-    } completion:^(BOOL finished) {
-     
-      
-    }];
+
     
 }
 - (IBAction)save:(id)sender {
-   
+    if (!_isCalculation) {
+        
+        
+        return;
+    }
+    _isCalculation   = !_isCalculation;
 
-    [UIView animateWithDuration:.5f animations:^{
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    
+      scaleAnimation.toValue = [NSNumber numberWithFloat:0];
+    scaleAnimation.duration = .5f;
+    scaleAnimation.fillMode = kCAFillModeForwards;
+    scaleAnimation.removedOnCompletion = NO;
+    scaleAnimation.delegate = self;
+    [self.top_view.layer addAnimation:scaleAnimation forKey:@"transform.scale"];
+    
+    
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position"];
+    
+    
+    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(UISCREEN_WIDTH/2, 188)];
+    anim.duration = .5f;
+    anim.fillMode = kCAFillModeForwards;
+    anim.removedOnCompletion = NO;
+    // 必须设置代理
+    anim.delegate = self;
+    [self.button.layer addAnimation:anim forKey:@"position"];
+
+    
+}
+//动画开始时
+- (void)animationDidStart:(CAAnimation *)anim{
+    NSLog(@"开始了");
+}
+//动画结束时
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
+    //方法中的flag参数表明了动画是自然结束还是被打断,比如调用了removeAnimationForKey:方法或removeAnimationForKey方法，flag为NO，如果是正常结束，flag为YES。
+    NSLog(@"结束了");
+    if (_isCalculation) {
+        self.top_view.transform = CGAffineTransformMakeScale(1 ,1);
+        self.view_height.constant = 90;
+        self.view_top.constant = 10;
+    }else{
+        self.top_view.transform = CGAffineTransformMakeScale(0 ,0);
         self.view_height.constant = 0;
         self.view_top.constant = 0;
-        self.top_view.hidden = YES;
-        self.top_view.transform = CGAffineTransformMakeScale(0, 0);
     
-    } completion:^(BOOL finished) {
-       
-    }];
-    
+    }
+  
+
 }
 #pragma mark --- 选择日期
 -(void)selectBirthday:(UITextField *)textField{

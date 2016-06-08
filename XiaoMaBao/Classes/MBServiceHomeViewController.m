@@ -60,8 +60,8 @@
     [self show];
     
     
-    //    NSString *page = [NSString stringWithFormat:@"%ld",_page];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/shop_list"];
+    NSString *page = [NSString stringWithFormat:@"%ld",_page];
+    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_SHERVICE,@"service/shop_list/",page];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         
@@ -74,7 +74,8 @@
             [self.tableView reloadData];
             // 拿到当前的上拉刷新控件，结束刷新状态
             [self.tableView .mj_footer endRefreshing];
-            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+
+           
         }else{
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
             return ;

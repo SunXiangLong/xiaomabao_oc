@@ -171,7 +171,7 @@
 }
 -(NSString *)titleStr{
     
-    return self.title?:@"";
+    return self.title?:@"专题活动";
 }
 -(void)timeFireMethod:(NSTimer *)timer{
     _lettTimes--;
