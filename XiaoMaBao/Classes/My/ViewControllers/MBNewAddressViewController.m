@@ -63,28 +63,73 @@
 #pragma mark -- 选着通讯录联系人
 - (IBAction)selectTheContact:(id)sender {
     
-    ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
-    //判断授权状态
-    
-    if (status == kABAuthorizationStatusNotDetermined) {
+    if (!iOS_9) {
+        ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
+        //判断授权状态
         
-        ABAddressBookRef book = ABAddressBookCreateWithOptions(NULL, NULL);
-        
-        ABAddressBookRequestAccessWithCompletion(book, ^(bool granted, CFErrorRef error) {
+        if (status == kABAuthorizationStatusNotDetermined) {
             
-            if (granted) {
-                //查找所有联系人
-                 [self selectTheContact];
-            }else
-            {
-                NSLog(@"授权失败");
-            }
-        });
-    }else if (status == kABAuthorizationStatusAuthorized)
-    {
-        //已授权
-        [self selectTheContact];
+            ABAddressBookRef book = ABAddressBookCreateWithOptions(NULL, NULL);
+            
+            ABAddressBookRequestAccessWithCompletion(book, ^(bool granted, CFErrorRef error) {
+                
+                if (granted) {
+                    //查找所有联系人
+                    [self selectTheContact];
+                }else
+                {
+                    NSLog(@"授权失败");
+                }
+            });
+        }else if (status == kABAuthorizationStatusAuthorized)
+        {
+            //已授权
+            [self selectTheContact];
+        }
+
+    }else{
+    
+        CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+        //判断授权状态
+        
+        if (status == CNAuthorizationStatusNotDetermined) {
+            
+            CNContactStore *book = [[CNContactStore alloc] init];
+            [book requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                
+                if (granted) {
+                    //查找所有联系人
+                    [self selectTheContact];
+                }else
+                {
+                    [self show:@"授权失败" time:1];
+                
+                }
+            }];
+            
+        }else if (status == CNAuthorizationStatusAuthorized)
+        {
+            //已授权
+            [self selectTheContact];
+        }else if(status == CNAuthorizationStatusDenied){
+        
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                                     message:@"请前往－设置－隐私－通讯录设置"
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel
+                                           
+                                                                 handler:^(UIAlertAction * action) {}];
+            
+            
+            [alertController addAction:cancelAction];
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+
+        }
+
+    
     }
+    
     
 }
 - (void)selectTheContact{

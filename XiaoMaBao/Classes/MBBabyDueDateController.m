@@ -27,18 +27,47 @@
 
 @implementation MBBabyDueDateController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-//  self.top_view.hidden = YES;
-   
    self.top_view.transform = CGAffineTransformMakeScale(0, 0);
     
    
 }
+#pragma mark--设置宝宝信息
+- (void)setData{
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    [self show];
+    
+    
+    NSDictionary *parameters = @{@"session":sessiondict,@"overdue_date":_dueDateTextField.text,@"last_period_data":@"",@"period_circle":@""};
+    
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/set_mengbao_info"];
+    [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
+        [self dismiss];
+        NSLog(@"%@",responseObject);
+        NSString *status =  s_str([responseObject valueForKeyPath:@"status"]);
+        if ([status isEqualToString:@"1"]) {
+            
+            MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
+            userInfo.is_baby_add =  @"1";
+            [self popViewControllerAnimated:YES];
+        }else{
+            
+            [self show:@"保存失败" time:1];
+        }
+        
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"请求失败 " time:1];
+        NSLog(@"%@",error);
+    }];
+    
+    
+}
 - (IBAction)shezhi:(id)sender {
-    if (_isCalculation) {
-        return;
-    }
+  
     _isCalculation   = !_isCalculation;
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position"];
     
@@ -60,18 +89,15 @@
     scaleAnimation.removedOnCompletion = NO;
         scaleAnimation.delegate = self;
    [self.top_view.layer addAnimation:scaleAnimation forKey:@"transform.scale"];
-    
    
+
+  
     
 
     
 }
 - (IBAction)save:(id)sender {
-    if (!_isCalculation) {
-        
-        
-        return;
-    }
+  
     _isCalculation   = !_isCalculation;
 
     CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
@@ -95,7 +121,7 @@
     anim.delegate = self;
     [self.button.layer addAnimation:anim forKey:@"position"];
 
-    
+      [self setData];
 }
 //动画开始时
 - (void)animationDidStart:(CAAnimation *)anim{

@@ -33,6 +33,9 @@
         return;
     }
     
+    [self setData];
+    
+
 }
 #pragma mark --- 宝宝生日
 -(void)selectBirthday{
@@ -58,6 +61,36 @@
 }
 - (NSString *)titleStr{
     return @"设置宝宝信息";
+}
+
+#pragma mark--设置宝宝信息
+- (void)setData{
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    [self show];
+
+
+   NSDictionary *parameters = @{@"session":sessiondict,@"nickname":_baby_name.text,@"birthday":_baby_birthday.text,@"gender":_babyGender};
+   
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/set_mengbao_info"];
+    [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
+        [self dismiss];
+        NSLog(@"%@",responseObject);
+        NSString *status =  s_str([responseObject valueForKeyPath:@"status"]);
+        if ([status isEqualToString:@"1"]) {
+                 [self popViewControllerAnimated:YES];
+        }else{
+        
+            [self show:@"保存失败" time:1];
+        }
+        
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"请求失败 " time:1];
+        NSLog(@"%@",error);
+    }];
+    
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

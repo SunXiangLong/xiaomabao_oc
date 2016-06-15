@@ -35,7 +35,7 @@
     
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    _tableView.tableFooterView = [[UIView  alloc ] init];
     _tableView.delegate   = self;
     _tableView.dataSource = self;
   
@@ -94,7 +94,7 @@ return @"收货地址";
     return _addressListArr.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 126;
+    return 116;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dic = _addressListArr[indexPath.row];
@@ -102,6 +102,7 @@ return @"收货地址";
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBShopAddressTableViewCell" owner:nil options:nil]firstObject];
     }
+    [self setUIEdgeInsetsZero:cell];
     cell.name.text = dic[@"consignee"];
     cell.photo.text = dic[@"mobile"];
     cell.address.text = [NSString stringWithFormat:@"%@-%@-%@-%@",dic[@"province_name"],dic[@"city_name"],dic[@"district_name"],dic[@"address"]];
@@ -115,6 +116,16 @@ return @"收货地址";
 
     return cell;
 
+}
+
+/**
+ *  让cell地下的边线挨着左边界
+ */
+- (void)setUIEdgeInsetsZero:(UITableViewCell *)cell{
+    cell.separatorInset = UIEdgeInsetsZero;
+    cell.layoutMargins = UIEdgeInsetsZero;
+    cell.preservesSuperviewLayoutMargins   = false;
+    
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    

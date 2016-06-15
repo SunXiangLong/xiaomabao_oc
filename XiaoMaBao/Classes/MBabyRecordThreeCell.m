@@ -12,7 +12,11 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    _image0.contentMode = UIViewContentModeScaleAspectFill;
+    _image0.clipsToBounds = YES;
+    _image1.contentMode = UIViewContentModeScaleAspectFill;
+    _image1.clipsToBounds = YES;
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -20,5 +24,14 @@
 
     // Configure the view for the selected state
 }
-
+-(void)setDataDic:(NSDictionary *)dataDic{
+    _dataDic = dataDic;
+    self.position.text    =  dataDic[@"position"];
+    self.weekAddtime.text = string(dataDic[@"week"], string(@"   ", dataDic[@"addtime"]));
+    self.day.text         = dataDic[@"day"];
+    self.year_month.text  = string(dataDic[@"year"], string(@".", dataDic[@"month"]));
+    
+    [self.image0 sd_setImageWithURL:URL([dataDic[@"photo"] lastObject]) placeholderImage:[UIImage imageNamed:@"placeholder_num1"]];
+     [self.image1 sd_setImageWithURL:URL([dataDic[@"photo"] firstObject]) placeholderImage:[UIImage imageNamed:@"placeholder_num1"]];
+}
 @end

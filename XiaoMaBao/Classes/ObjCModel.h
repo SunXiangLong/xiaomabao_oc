@@ -11,8 +11,20 @@
 #import <JavaScriptCore/JavaScriptCore.h> //引入头文件
 @protocol JavaScriptObjectiveCDelegate <JSExport>
 
-// JS调用此方法来调用OC登录
+
+/**
+ *  JS调用此方法来调用APP的登录界面
+ */
 - (void)showLogin;
+/**
+ *  萌宝界面 添加工具到首页
+ */
+- (void)refreshToolkit;
+/**
+ *  JS调用此方法来调用APP的相关界面
+ *
+ *  @param params js传过来的参数
+ */
 - (void)showGood:(NSString  *)params;
 - (void)showTopic:(NSString *)params;
 - (void)showGroup:(NSString *)params;

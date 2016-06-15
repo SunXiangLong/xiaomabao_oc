@@ -20,4 +20,5 @@
 @property (nonatomic,assign) BOOL isDefault;
 @property(strong,nonatomic)NSDictionary *addressDic;
 @property (nonatomic, weak) id<MBShopAddressTableViewDelgate> delagate;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *height;
 @end

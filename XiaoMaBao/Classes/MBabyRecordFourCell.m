@@ -20,5 +20,13 @@
 
     // Configure the view for the selected state
 }
+-(void)setDataDic:(NSDictionary *)dataDic{
+    _dataDic =dataDic;
+    self.content.text = dataDic[@"content"];
+    self.position.text    =  dataDic[@"position"];
+    self.weekAddtime.text = string(dataDic[@"week"], string(@"   ", dataDic[@"addtime"]));
+    self.day.text         = dataDic[@"day"];
+    self.year_month.text  = string(dataDic[@"year"], string(@".", dataDic[@"month"]));
+}
 
 @end

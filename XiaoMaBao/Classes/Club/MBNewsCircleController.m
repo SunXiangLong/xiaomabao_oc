@@ -122,11 +122,11 @@
      NSDictionary *dic = self.dataArray[indexPath.row];
     NSString *str  = dic[@"notify_content"];
     NSString *str1 = dic[@"notify_base_content"];
-    CGFloat height = [str1 sizeWithFont:SYSTEMFONT(12) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
+    CGFloat height = [str1 sizeWithFont:SYSTEMFONT(12) withMaxSize:CGSizeMake(UISCREEN_WIDTH-80, MAXFLOAT)].height;
     if (height>30) {
         height = 30+16;
     }else{
-        height += 16;
+        height += 20;
     }
     return 73+[str sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height+height;
 }
@@ -143,7 +143,8 @@
     cell.notify_content.text = dic[@"notify_content"];
     cell.notify_base_content.text = dic[@"notify_base_content"];
     NSString *str1 = dic[@"notify_base_content"];
-    CGFloat height = [str1 sizeWithFont:SYSTEMFONT(12) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
+    CGFloat height = [str1 sizeWithFont:SYSTEMFONT(12) withMaxSize:CGSizeMake(UISCREEN_WIDTH-80, MAXFLOAT)].height;
+    
     if (height>30) {
        cell.height.constant  = 30+16;
     }else{

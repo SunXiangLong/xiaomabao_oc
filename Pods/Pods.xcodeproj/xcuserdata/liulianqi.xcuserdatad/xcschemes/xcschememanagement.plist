@@ -29,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DateTools.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -137,7 +142,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>109834071FAC1BD96F294DC57642B382</key>
+		<key>0DF999DD91893406A30B42D9A9668462</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>31FF44B5E2FF8CF00090950A8B67AFF6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3B6A2D42E0693A6176BFE9EC95103FF9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,12 +167,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>52A39A2A85F367B47E3B276074990B50</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>53480ED0BE09FF49E34B1702D485CAAB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5C670CC8BCA798A70839D3A4B15FC72F</key>
+		<key>690C259E935D2D666132ADF4A0E5AD09</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6FCE11F4D408C7E6B1DA2B3DBFBF86E3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -172,7 +197,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>79586D3E391A55594EBEBEF001EE4FD7</key>
+		<key>756EE7BB1E7360DC08EF4049D9AFF17C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -192,16 +217,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>99FDD959579740FF55C3BD54E8EACC9D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9EC9CB6519496379B058279426B9E73D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>9F12FB4A63E20F601CFB2E64A65B57C1</key>
 		<dict>
 			<key>primary</key>
@@ -217,17 +232,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A4BA32D5B4B968AE87EB02F17F7690FF</key>
+		<key>BA0F5BBD88F56FBD4B9DF13D7A919F60</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BD2485BC5A2CF9AB8A386116D9F348FE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C9C4481B5AD2FADB4868183FC7203FCC</key>
+		<key>C85EFCB089948BD1E75E8E0DF7345700</key>
 		<dict>
 			<key>primary</key>
 			<true/>

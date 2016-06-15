@@ -132,7 +132,13 @@ return @"dian_image";
             UICollectionReusableView *reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView1" forIndexPath:indexPath];
             MBUserDataSingalTon  *userInfo = [MBSignaltonTool getCurrentUserInfo];
             [reusableview addSubview:_headView];
-            [_HeadPhotoImageView sd_setImageWithURL:[NSURL URLWithString:userInfo.user_baby_info[@"photo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+            if ([_image isKindOfClass:[NSString class]]) {
+                [_HeadPhotoImageView sd_setImageWithURL:[NSURL URLWithString:_image] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+            }else {
+            
+                _HeadPhotoImageView.image = _image;
+            }
+            
             _nameLable.text = userInfo.user_baby_info[@"nickname"];
             
             [_headView mas_makeConstraints:^(MASConstraintMaker *make) {

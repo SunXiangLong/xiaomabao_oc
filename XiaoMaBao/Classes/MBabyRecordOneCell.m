@@ -42,7 +42,27 @@
     [self.myCircleViewSubject sendNext:@(sender.view.tag)];
     
 }
-
+-(void)setDataArr:(NSArray *)dataArr{
+    _dataArr = dataArr;
+    
+    NSArray *imageArr = @[self.image0,self.image1,self.image2,self.image3,self.image4];
+    for (id object in _dataArr) {
+        
+         UIImageView *imageView = imageArr[[_dataArr indexOfObject:object]];
+        if ([object isKindOfClass:[NSString class]]) {
+          
+            
+            [imageView sd_setImageWithURL:URL(object) placeholderImage:[UIImage imageNamed:@"amengBaoLeft"]];
+            
+        }else if([object isKindOfClass:[UIImage class ]]){
+            
+            
+            imageView.image = object;
+        }
+        
+    }
+   
+}
 
 
 @end

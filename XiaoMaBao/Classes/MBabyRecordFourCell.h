@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface MBabyRecordFourCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UILabel *position;
+@property (weak, nonatomic) IBOutlet UILabel *content;
+@property (weak, nonatomic) IBOutlet UILabel *weekAddtime;
+@property (weak, nonatomic) IBOutlet UILabel *year_month;
+@property (weak, nonatomic) IBOutlet UILabel *day;
+@property(copy,nonatomic)NSDictionary *dataDic;
 @end

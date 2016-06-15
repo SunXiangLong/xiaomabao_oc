@@ -20,7 +20,7 @@
                         <color key="textColor" red="0.65490196078431373" green="0.6588235294117647" blue="0.6588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="X24-Dx-w4c">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addTool" translatesAutoresizingMaskIntoConstraints="NO" id="X24-Dx-w4c">
                         <rect key="frame" x="103" y="14" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="ejg-Iu-PNh"/>
@@ -38,6 +38,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="back" width="28" height="28"/>
+        <image name="addTool" width="14" height="14"/>
     </resources>
 </document>

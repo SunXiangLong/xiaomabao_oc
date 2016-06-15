@@ -16,6 +16,7 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - Appirater (2.0.5)
+  - DateTools (1.7.0)
   - DZNEmptyDataSet (1.7.1)
   - FMDB (2.5):
     - FMDB/standard (= 2.5)
@@ -67,6 +68,7 @@ DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 2.0.1)
   - AFNetworking (~> 3.1.0)
   - Appirater
+  - DateTools
   - DZNEmptyDataSet
   - FMDB (~> 2.5)
   - HexColors
@@ -97,6 +99,7 @@ SPEC CHECKSUMS:
   ActionSheetPicker-3.0: eeb47e64b7af3e09a50e1ce5dfee9c8c957490c6
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Appirater: e7c0a47fb67ee5041ce8479e6ba960927fb40264
+  DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   DZNEmptyDataSet: 2a398066c2bf5848f7f693fb50954b5064debd12
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   HexColors: 8b83e3fe90c0d466dae7b98c9d22da95799f99cb

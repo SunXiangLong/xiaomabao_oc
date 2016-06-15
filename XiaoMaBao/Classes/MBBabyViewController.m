@@ -741,15 +741,14 @@
         
         _page = 1;
         
-        __unsafe_unretained __typeof(self) weakSelf = self;
+//        __unsafe_unretained __typeof(self) weakSelf = self;
         MBPublishedViewController   *VC = [[MBPublishedViewController alloc] init];
-        VC.block = ^(){
-            _isBoolFaBiao = YES;
-            
-            [weakSelf setheadData];
-        };
-        VC.latitude = self.latitude;
-        VC.longitude = self.longitude;
+//        VC.block = ^(){
+//            _isBoolFaBiao = YES;
+//            
+//            [weakSelf setheadData];
+//        };
+     
         [self pushViewController:VC Animated:YES];
         
     }

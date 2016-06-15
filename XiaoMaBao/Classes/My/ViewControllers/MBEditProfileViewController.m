@@ -90,42 +90,7 @@
             _nicknameText.font = [UIFont systemFontOfSize:14];
             [fieldView addSubview:_nicknameText];
             _nicknameText.delegate = self;
-//        }else if(i == 1){
-//            _birthdayBtn = [[UIButton alloc] init];
-//            _birthdayBtn.frame = CGRectMake(CGRectGetMaxX(nameLbl.frame), nameLbl.ml_y, self.view.ml_width - CGRectGetMaxX(nameLbl.frame), nameLbl.ml_height);
-//            [_birthdayBtn setTitle:@"--请选择--" forState:UIControlStateNormal];
-//            _birthdayBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-////            _birthdayBtn.titleLabel.frame.size.width = 100;
-//            [_birthdayBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//            _birthdayBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//            _birthdayBtn.tag = i;
-//            [_birthdayBtn addTarget:self action:@selector(selectBirthday2:) forControlEvents:UIControlEventTouchUpInside];
-//            [fieldView addSubview:_birthdayBtn];
-//            
-//        }else if(i == 2){
-//            _preProductBtn = [[UIButton alloc] init];
-//            _preProductBtn.frame = CGRectMake(CGRectGetMaxX(nameLbl.frame), nameLbl.ml_y, self.view.ml_width - CGRectGetMaxX(nameLbl.frame), nameLbl.ml_height);
-//            [_preProductBtn setTitle:@"--请选择--" forState:UIControlStateNormal];
-//            _preProductBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-//            [_preProductBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//            _preProductBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//            
-//            [_preProductBtn addTarget:self action:@selector(selectBirthday2:) forControlEvents:UIControlEventTouchUpInside];
-//            _preProductBtn.tag = i;
-//            [fieldView addSubview:_preProductBtn];
-//        }else if(i == 3){
-//            
-//            _babyGender = [[UIButton alloc] init];
-//            _babyGender.frame = CGRectMake(CGRectGetMaxX(nameLbl.frame), nameLbl.ml_y, self.view.ml_width - CGRectGetMaxX(nameLbl.frame), nameLbl.ml_height);
-//            [_babyGender setTitle:@"--请选择--" forState:UIControlStateNormal];
-//            _babyGender.titleLabel.font = [UIFont systemFontOfSize:14];
-//            [_babyGender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//            _babyGender.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//            
-//            [_babyGender addTarget:self action:@selector(selectBabyGender:) forControlEvents:UIControlEventTouchUpInside];
-//            _babyGender.tag = i;
-//            [fieldView addSubview:_babyGender];
-//            
+           
       }
         else{
             

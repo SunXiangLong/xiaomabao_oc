@@ -206,12 +206,6 @@
     
     return nil;
 }
-
-
-
-
-
-
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 2;
 }

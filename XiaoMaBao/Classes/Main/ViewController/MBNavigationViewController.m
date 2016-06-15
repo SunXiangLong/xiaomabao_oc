@@ -69,18 +69,6 @@
     
 }
 
-//- (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion{
-//    [super presentViewController:viewControllerToPresent animated:flag completion:completion];
-//    
-//    if (self.viewControllers.count > 0) {
-//        /**
-//         *  pus到新的界面 隐藏底部的tabbar
-//         */
-//        
-//        BkBaseViewController *vc = (BkBaseViewController *) viewControllerToPresent;
-//        vc.back = YES;
-//    }
-//}
 
 
 

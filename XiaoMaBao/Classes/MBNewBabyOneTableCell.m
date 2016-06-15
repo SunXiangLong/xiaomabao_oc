@@ -20,5 +20,11 @@
 
     // Configure the view for the selected state
 }
+-(void)setDataDic:(NSDictionary *)dataDic{
+    _dataDic = dataDic;
+    _title.text = _dataDic[@"title"];
+    _summary.text = _dataDic[@"summary"];
+    [_showImage sd_setImageWithURL:URL(_dataDic[@"icon"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
 
+}
 @end

@@ -9,5 +9,6 @@
 #import "BkBaseViewController.h"
 
 @interface MBSetBabyInformationController : BkBaseViewController
+@property (nonatomic,strong) NSString *babyGender;
 
 @end

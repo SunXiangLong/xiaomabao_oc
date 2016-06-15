@@ -27,24 +27,23 @@
         carousel.dataSource = self;
         carousel.type = iCarouselTypeLinear;
         carousel.pagingEnabled = YES;
+        carousel.bounces = NO;
+ 
         carousel.scrollSpeed = 2;
         self.carousel = carousel;
         [self addSubview:self.carousel];
         
-        UIButton* btnStart = [UIButton new];
+        UIButton* btnStart = [[UIButton alloc] init];
         btnStart.alpha = 0 ;
         [btnStart addTarget:self action:@selector(start) forControlEvents:UIControlEventTouchUpInside];
-        btnStart.layer.masksToBounds = YES ;
-        btnStart.layer.cornerRadius = 4 ;
-        [btnStart setBackgroundColor:[UIColor colorWithHexString:@"6d4242"]];
-        [btnStart setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [btnStart setTitle:@"立即体验" forState:UIControlStateNormal];
+
+        [btnStart setImage:[UIImage imageNamed:@"lanch5"] forState:UIControlStateNormal];
         self.btnStart = btnStart ;
         [self addSubview:btnStart];
         
-        UIPageControl *pageControl = [UIPageControl new];
+        UIPageControl *pageControl = [[UIPageControl alloc] init];
         pageControl.pageIndicatorTintColor = [UIColor whiteColor];
-        pageControl.currentPageIndicatorTintColor = self.btnStart.backgroundColor;
+        pageControl.currentPageIndicatorTintColor = [UIColor redColor];
         pageControl.numberOfPages = 4;
         self.pageControl = pageControl;
         [self addSubview:pageControl];
@@ -57,8 +56,8 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     self.carousel.frame = self.bounds ;
-    CGFloat btnW = 120 ;
-    CGFloat btnH = 44 ;
+    CGFloat btnW = 160 ;
+    CGFloat btnH = 65 ;
     self.btnStart.frame = CGRectMake((self.frame.size.width-btnW)/2, self.frame.size.height - btnH - 36, btnW, btnH);
     self.pageControl.frame = CGRectMake((self.frame.size.width-btnW)/2, CGRectGetMaxY(self.btnStart.frame)-4, btnW, 24);
                                      
@@ -73,7 +72,7 @@
 {
     switch (option) {
         case iCarouselOptionWrap:
-            return 1;
+            return 0;
             break;
             
         default:
@@ -85,7 +84,7 @@
 
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(nullable UIView *)view{
-    NSString* imgName = [NSString stringWithFormat:@"lanchs%d",(int)index];
+    NSString* imgName = [NSString stringWithFormat:@"lanch%d",(int)index];
     UIImageView *v  = [[UIImageView alloc]init];
     v.image = [UIImage imageNamed:imgName];
     v.frame = self.carousel.bounds;

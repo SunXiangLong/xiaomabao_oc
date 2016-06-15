@@ -10,5 +10,5 @@
 
 @interface MBMBAffordablePlanetOneChildeOneCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *showImageView;
-
+@property (nonatomic, strong) NSIndexPath *currentIndexPath;
 @end

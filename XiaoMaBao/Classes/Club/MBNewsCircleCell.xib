@@ -122,7 +122,7 @@
                 <outlet property="user_head" destination="C8k-w8-8yo" id="vwc-a8-EQh"/>
                 <outlet property="user_name" destination="dxL-tJ-uhW" id="4Bo-bD-6Yq"/>
             </connections>
-            <point key="canvasLocation" x="24" y="221"/>
+            <point key="canvasLocation" x="98" y="212"/>
         </tableViewCell>
     </objects>
     <resources>

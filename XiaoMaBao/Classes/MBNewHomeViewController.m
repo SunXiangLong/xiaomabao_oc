@@ -94,9 +94,6 @@
     VC1.title = @"实惠星球";
     [self addChildViewController:VC1];
     
-
-    
-    
     MBNewFreeStoreViewController *VC3 = [[MBNewFreeStoreViewController alloc] init];
     VC3.title = @"全球闪购";
     [self addChildViewController:VC3];

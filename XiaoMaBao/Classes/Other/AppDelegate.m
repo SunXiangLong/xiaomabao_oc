@@ -118,13 +118,13 @@
    [self.window makeKeyAndVisible];
     
         //第一次打开应用显示导航
-        if ( ![self showNewFeature]) {
+        if (![self showNewFeature]) {
             [self setupLanuchView];
         }
 
-#if defined(DEBUG)||defined(_DEBUG)
-    [[JPFPSStatus sharedInstance] open];
-#endif
+//#if defined(DEBUG)||defined(_DEBUG)
+//    [[JPFPSStatus sharedInstance] open];
+//#endif
     return YES;
 }
 
@@ -287,7 +287,7 @@
                        
                        NSDictionary *sessionDict = [userData valueForKeyPath:@"session"];
                        MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-//                        NSLog(@"%@",userData);
+                      NSLog(@"%@",userData);
                        
                        userInfo.sid = [sessionDict valueForKeyPath:@"sid"];
                        userInfo.uid = [sessionDict valueForKeyPath:@"uid"];

@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.height.constant = 0.5f;
 }
 - (IBAction)default:(id)sender {
     if (!self.isDefault) {

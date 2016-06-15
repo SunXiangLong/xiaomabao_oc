@@ -12,8 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *tool_image;
 @property (weak, nonatomic) IBOutlet UILabel *tool_center;
-@property (weak, nonatomic) IBOutlet SevenSwitch *tool_switch;
-
-
 @property (weak, nonatomic) IBOutlet UILabel *tool_title;
+@property(strong,nonatomic)NSDictionary *dataDic;
 @end

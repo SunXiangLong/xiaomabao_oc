@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface MBNewBabyOneTableCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UIImageView *showImage;
+@property (weak, nonatomic) IBOutlet UILabel *title;
+@property (weak, nonatomic) IBOutlet UILabel *summary;
+@property (copy, nonatomic) NSDictionary *dataDic;
 @end

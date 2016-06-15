@@ -59,7 +59,7 @@
             [view addSubview:headView];
             MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
             headView.user_name.text =  userInfo.nick_name;
-            [headView.user_image sd_setImageWithURL:URL(userInfo.header_img) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+            [headView.user_image sd_setImageWithURL:URL(userInfo.header_img) placeholderImage:[UIImage imageNamed:@"headPortrait"]];
             if (userInfo.sid) {
                 headView.login_button.hidden = YES;
             }else{
@@ -108,7 +108,7 @@
     self.tabeleView.tableFooterView = [[UIView alloc] init];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageBadge:) name:@"messageBadge" object:nil];
     _dataArray = @[@{@"image":@"icon1",@"name":@"浏览记录"},
-                 @{@"image":@"icon2",@"name":@"热线电话",@"photo":@"400-0056-830"},
+                 @{@"image":@"icon2",@"name":@"热线电话",@"photo":@"400-136-7282"},
                  @{@"image":@"icon3",@"name":@"收货地址"},
                  @{@"image":@"icon4",@"name":@"售后服务"},
                  @{@"image":@"icon5",@"name":@"联系我们"},
@@ -138,8 +138,9 @@
 }
 
 - (void)rightTitleClick{
-    NSNotification *messageBadge =[NSNotification notificationWithName:@"messageBadge" object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] postNotification:messageBadge];
+    
+//    NSNotification *messageBadge =[NSNotification notificationWithName:@"messageBadge" object:nil userInfo:nil];
+//    [[NSNotificationCenter defaultCenter] postNotification:messageBadge];
     _isbool = NO;
     if (self.isLogin) {
         MBSettingViewController *settingVc = [[MBSettingViewController alloc] init];
@@ -306,7 +307,7 @@
             [self pushViewController:VC Animated:YES];
         }break;
         case 1: {//拨打电话号码
-            NSString * telStr = [NSString stringWithFormat:@"telprompt://%@",@"400-0056-830"];
+            NSString * telStr = [NSString stringWithFormat:@"telprompt://%@",@"400-136-728"];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
         }break;
         case 2:{

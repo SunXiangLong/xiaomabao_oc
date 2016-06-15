@@ -56,15 +56,15 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="6Tg-j9-A6O">
                         <rect key="frame" x="165" y="80" width="135" height="135"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="city_image" translatesAutoresizingMaskIntoConstraints="NO" id="yjB-r1-FaA">
-                        <rect key="frame" x="20" y="225" width="18" height="20"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="amengBaoPositioning" translatesAutoresizingMaskIntoConstraints="NO" id="yjB-r1-FaA">
+                        <rect key="frame" x="20" y="225" width="9" height="12"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="AX9-aR-WmA"/>
-                            <constraint firstAttribute="width" constant="18" id="TUn-yx-VSR"/>
+                            <constraint firstAttribute="height" constant="12" id="AX9-aR-WmA"/>
+                            <constraint firstAttribute="width" constant="9" id="TUn-yx-VSR"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="中国北京东城区" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4jc-L0-YHT">
-                        <rect key="frame" x="44" y="227" width="256" height="16"/>
+                        <rect key="frame" x="35" y="223" width="265" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -89,11 +89,19 @@
                     <constraint firstItem="Bml-zY-7ys" firstAttribute="leading" secondItem="PxQ-y0-zLP" secondAttribute="leading" constant="20" id="xrt-ic-2NP"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="day" destination="Hu0-DF-bY9" id="Wwx-bl-8sA"/>
+                <outlet property="image0" destination="6Tg-j9-A6O" id="SKe-0V-dNe"/>
+                <outlet property="image1" destination="Bml-zY-7ys" id="ay9-tv-cP3"/>
+                <outlet property="position" destination="4jc-L0-YHT" id="9yo-hI-bzi"/>
+                <outlet property="weekAddtime" destination="3YS-j0-F4a" id="Bnc-la-UXu"/>
+                <outlet property="year_month" destination="trg-Rz-krv" id="iWh-fJ-6rH"/>
+            </connections>
             <point key="canvasLocation" x="251" y="236"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="city_image" width="9" height="10"/>
+        <image name="amengBaoPositioning" width="8" height="11"/>
         <image name="placeholder_num2" width="66" height="66"/>
     </resources>
 </document>

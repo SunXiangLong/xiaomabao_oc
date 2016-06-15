@@ -13,21 +13,18 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
- 
-    [_tool_switch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
-    _tool_switch.offImage = [UIImage imageNamed:@"tool_cross"];
-    _tool_switch.onImage = [UIImage imageNamed:@"tool_check"];
-    _tool_switch.onTintColor = UIcolor(@"c84d51");
-    _tool_switch.inactiveColor = UIcolor(@"605b6a");
-    _tool_switch.isRounded = NO;
-    [_tool_switch setOn:NO animated:YES];
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
 }
-- (void)switchChanged:(SevenSwitch *)sender {
-    NSLog(@"Changed value to: %@", sender.on ? @"ON" : @"OFF");
+-(void)setDataDic:(NSDictionary *)dataDic{
+    _dataDic = dataDic ;
+    [self.tool_image sd_setImageWithURL:URL(dataDic[@"toolkit_icon"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+    
+    self.tool_center.text = dataDic[@"toolkit_desc"];
+    self.tool_title.text = dataDic[@"toolkit_name"];
 }
 @end

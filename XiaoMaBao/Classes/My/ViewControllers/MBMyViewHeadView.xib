@@ -34,10 +34,9 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3GQ-R4-cEe">
-                    <rect key="frame" x="110" y="103" width="100" height="40"/>
+                    <rect key="frame" x="160" y="103" width="0.0" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="3XE-hk-maT"/>
-                        <constraint firstAttribute="width" constant="100" id="A1U-ac-obE"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" red="0.56470588235294117" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>

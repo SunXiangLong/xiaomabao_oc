@@ -33,26 +33,17 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="中药不是你想吃就能吃，苦口的不一定" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7p-Eg-xbI">
-                        <rect key="frame" x="57" y="33" width="198.5" height="14.5"/>
+                        <rect key="frame" x="57" y="33" width="250" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.5607843137254902" green="0.56470588235294117" blue="0.56862745098039214" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yO2-YJ-lss" customClass="SevenSwitch">
-                        <rect key="frame" x="261" y="19" width="44" height="22"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="44" id="F80-L1-Rco"/>
-                            <constraint firstAttribute="height" constant="22" id="dOw-ci-4rO"/>
-                        </constraints>
-                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="tsd-F1-3vv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="FKx-6J-gzN"/>
                     <constraint firstItem="g7p-Eg-xbI" firstAttribute="leading" secondItem="9Rd-Qt-kDv" secondAttribute="leading" id="OMp-JW-EbB"/>
-                    <constraint firstItem="yO2-YJ-lss" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="THe-JQ-rbL"/>
+                    <constraint firstAttribute="trailing" secondItem="g7p-Eg-xbI" secondAttribute="trailing" constant="13" id="Ttg-na-wxE"/>
                     <constraint firstItem="tsd-F1-3vv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Wmg-kq-VNV"/>
-                    <constraint firstItem="yO2-YJ-lss" firstAttribute="leading" secondItem="g7p-Eg-xbI" secondAttribute="trailing" constant="5" id="blw-xB-ouA"/>
-                    <constraint firstAttribute="trailing" secondItem="yO2-YJ-lss" secondAttribute="trailing" constant="15" id="qmW-VL-k52"/>
                     <constraint firstItem="g7p-Eg-xbI" firstAttribute="top" secondItem="9Rd-Qt-kDv" secondAttribute="bottom" constant="2" id="qzc-yd-zAu"/>
                     <constraint firstItem="9Rd-Qt-kDv" firstAttribute="leading" secondItem="tsd-F1-3vv" secondAttribute="trailing" constant="13" id="tW7-rC-SQl"/>
                     <constraint firstItem="9Rd-Qt-kDv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="ttl-xK-qdz"/>
@@ -62,7 +53,6 @@
             <connections>
                 <outlet property="tool_center" destination="g7p-Eg-xbI" id="kP4-nh-2oE"/>
                 <outlet property="tool_image" destination="tsd-F1-3vv" id="gMX-R6-FTG"/>
-                <outlet property="tool_switch" destination="yO2-YJ-lss" id="gIl-2h-s0d"/>
                 <outlet property="tool_title" destination="9Rd-Qt-kDv" id="G8m-sZ-j2J"/>
             </connections>
             <point key="canvasLocation" x="124" y="-54"/>

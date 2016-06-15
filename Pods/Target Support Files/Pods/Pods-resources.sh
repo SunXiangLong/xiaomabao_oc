@@ -58,6 +58,7 @@ install_resource()
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "DateTools/DateTools/DateTools.bundle"
   install_resource "KVNProgress/KVNProgress/Resources/KVNProgressView.xib"
   install_resource "MJPhotoBrowser/MJPhotoBrowser/MJPhotoBrowser/MJPhotoBrowser.bundle"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
@@ -74,6 +75,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${BUILT_PRODUCTS_DIR}/Appirater.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "DateTools/DateTools/DateTools.bundle"
   install_resource "KVNProgress/KVNProgress/Resources/KVNProgressView.xib"
   install_resource "MJPhotoBrowser/MJPhotoBrowser/MJPhotoBrowser/MJPhotoBrowser.bundle"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"

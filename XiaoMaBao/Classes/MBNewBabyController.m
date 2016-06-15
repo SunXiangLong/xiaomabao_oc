@@ -14,98 +14,512 @@
 #import "MBNewBabyTwoTableCell.h"
 #import "MBNewBabyThreeTableCell.h"
 #import "MBNewBabyFourTableCell.h"
-#import "MBBabyToolController.h"
+#import "MBBabyWebController.h"
 #import "MBSetBabyInformationController.h"
-#import "MBBabyChestController.h"
 #import "MBabyRecordController.h"
 #import "MBBabyDueDateController.h"
-@interface MBNewBabyController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource>
+#import "MBLoginViewController.h"
+#import "MBBabyToolCell.h"
+#import "MBCollectionViewFlowLayout.h"
+#import "TGCameraNavigationController.h"
+#import "STPhotoKitController.h"
+#import "UIImagePickerController+ST.h"
+#import "STConfig.h"
+@interface MBNewBabyController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource,STPhotoKitDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
-    NSArray *_dateArray;
+    NSMutableArray *_dateArray;
     NSInteger _row;
+    /**
+     *  宝宝状态 yes已出生  no怀孕中
+     */
+    BOOL _babyState;
+    /**
+     *  宝宝性别  @“1”男  @“0”女
+     */
+    NSString *_babyGender;
+    
+    NSDate *_current_date;
+    NSDate *_start_date;
+    NSDate *_end_date;
+    /**
+     *  是否更换日期 默认当天的日期
+     */
+    BOOL _isdate;
+    /**
+     *  是否从下个界面返回的
+     */
+    BOOL _isDismiss;
+   
+    /**
+     *  修改的宝宝头像
+     */
+    UIImage *_baby_image;
+    
+    NSDictionary  *_day_info;
+    /**
+     *  宝宝头像
+     */
+     id _images;
 }
+/**
+ *  顶部view
+ */
 @property (weak, nonatomic) IBOutlet UIView *topView;
-
+/**
+ *  日期选择view
+ */
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+/**
+ *  底层展示控件
+ */
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+/**
+ *  妈妈状态选择view
+ */
+@property (weak, nonatomic) IBOutlet UIView *myStateView;
+/**
+ *  宝宝性别选择view
+ */
+@property (weak, nonatomic) IBOutlet UIView *babyGenderView;
 
-
+@property (copy, nonatomic) NSMutableArray *dataArray;
+@property (weak, nonatomic) IBOutlet UIButton *reftButton;
+@property (weak, nonatomic) IBOutlet UIButton *leftButton;
+/**
+ *  宝宝id
+ */
+@property (nonatomic, copy)  NSString *baby_id;
 @end
 
 @implementation MBNewBabyController
-
+-(NSMutableArray *)dataArray{
+    
+    if (!_dataArray) {
+        
+        _dataArray = [NSMutableArray array];
+    }
+    
+    return _dataArray;
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    
+    NSString *is_baby_add = [MBSignaltonTool getCurrentUserInfo].is_baby_add;
+    _baby_id = [MBSignaltonTool getCurrentUserInfo].user_baby_info[@"id"];
+    if (is_baby_add&&[is_baby_add isEqualToString:@"1"]) {
+        _babyGenderView.hidden = YES;
+        _myStateView.hidden = YES;
+        [self setToolkit:NO];
+    }else{
+        
+        
+    }
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _tableView.bounces = NO;
+    
+    
     self.view.backgroundColor = [UIColor    whiteColor];
-    _dateArray = [NSArray arrayWithObjects:@"五月1日",@"五月2日",@"五月3日",@"五月4日",@"五月6日",@"五月7日", nil];
-    _row = 1;
-    UICollectionViewFlowLayout *flowLayout = ({
-        UICollectionViewFlowLayout *flowLayout =  [[UICollectionViewFlowLayout alloc] init];
+    //    _row = 1;
+    MBCollectionViewFlowLayout *flowLayout = ({
+        MBCollectionViewFlowLayout *flowLayout =  [[MBCollectionViewFlowLayout alloc] init];
         flowLayout.itemSize = CGSizeMake((UISCREEN_WIDTH-90)/3,45);
-        flowLayout.minimumLineSpacing = 0;
-        flowLayout.minimumInteritemSpacing = 0;
-        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-       
+        // 设置内边距
+        CGFloat inset = (UISCREEN_WIDTH-90 - (UISCREEN_WIDTH-90)/3) * 0.5;
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, inset, 0, inset);
+     
         flowLayout;
     });
-    self.collectionView.scrollEnabled = NO;
+    self.collectionView.scrollEnabled = YES;
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.collectionViewLayout = flowLayout;
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-   [self.collectionView registerNib:[UINib nibWithNibName:@"MBNewBabyCell" bundle:nil] forCellWithReuseIdentifier:@"MBNewBabyCell"];
-
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.tableHeaderView = ({
-        
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 390)];
-        MBNewBabyHeadView  *headView = [MBNewBabyHeadView instanceView];
-        headView.frame = view.frame;
-        [view addSubview:headView];
-        
-        view;
-    });
+    [self.collectionView registerNib:[UINib nibWithNibName:@"MBNewBabyCell" bundle:nil] forCellWithReuseIdentifier:@"MBNewBabyCell"];
+    
 
 }
 
+- (IBAction)touchs:(UITapGestureRecognizer *)sender {
+    
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (!sid) {
+        [self loginClicksss];
+        return;
+    }
+    switch (sender.view.tag) {
+            
+        case 0:{
+            _babyGenderView.hidden = YES;
+            _babyGender = @"0";
+        }  break;
+        case 1:{
+            _babyGenderView.hidden = YES;
+            _babyGender = @"1";
+        }  break;
+        default: break;
+            
+            
+    }
+    MBSetBabyInformationController *VC = [[MBSetBabyInformationController alloc] init];
+    
+    VC.babyGender = _babyGender;
+    [self pushViewController:VC Animated:YES];
+}
+
+- (IBAction)touch:(id)sender {
+    
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
+    
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (!sid) {
+        [self loginClicksss];
+        return;
+    }
+    switch (tap.view.tag) {
+        case 0: {
+            
+            
+            _babyState = NO;
+            _babyGenderView.hidden = YES;
+            _myStateView.hidden = YES;
+            MBBabyDueDateController *VC = [[MBBabyDueDateController alloc] init];
+            
+            [self pushViewController:VC Animated:YES];
+            
+            
+            return;
+            
+            
+        }
+        case 1: {
+            _babyState = YES;
+            _myStateView.hidden = YES;
+            
+            return;
+        } break;
+            
+        default: break;
+            
+    }
+    
+    
+}
+
+
+
 - (IBAction)back:(UIButton *)sender {
     
-    NSLog(@"%ld",_row);
-  
-
+    _isdate = YES;
     if (_row == _dateArray.count-1) {
         return;
     }
     _row ++;
-    [self.collectionView reloadData];
-    CGFloat width = (UISCREEN_WIDTH -90)/3;
-    [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x + width, 0) animated:YES];
+    [self collectionViewOffset];
+    NSDate *date = _dateArray[_row];
+    
+    NSString *current_date  = [NSString stringWithFormat:@"%ld年%ld月%ld日",date.year,date.month,date.day];
+    if (sender) {
+        [self setData:current_date];
+    }
+    
+    
 }
 - (IBAction)next:(UIButton *)sender {
-
+    _isdate = YES;
     
-    CGFloat width = (UISCREEN_WIDTH -90)/3;
     
-    NSLog(@"%ld",_row);
-   
     if (_row ==0) {
         return;
     }
-     _row --;
-    [self.collectionView reloadData];
     
-    [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x - width, 0) animated:YES];
-
+    _row --;
+    [self collectionViewOffset];
+    NSDate *date = _dateArray[_row];
+    NSString *current_date  = [NSString stringWithFormat:@"%ld年%ld月%ld日",date.year,date.month,date.day];
+    
+    [self setData:current_date];
+    
+    
+}
+/**
+ *  请求工具数据
+ */
+- (void)setToolkit:(BOOL)refresh{
+    
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    if (!refresh) {
+        [self show];
+    }
+    
+    NSDictionary *parameters = @{@"session":sessiondict};
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_user_toolkit"];
+    [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
+        
+//        NSLog(@"%@",responseObject);
+        
+        if (refresh) {
+            self.dataArray[1] = [responseObject valueForKeyPath:@"data"];
+            
+            [_tableView  reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }else{
+            [self.dataArray addObject:[responseObject valueForKeyPath:@"data"]];
+            [self setData:nil];
+        }
+        
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"请求失败 " time:1];
+        NSLog(@"%@",error);
+    }];
+    
     
 }
 
+/**
+ *  请求萌宝数据
+ *
+ *
+ */
+#pragma mark--请求萌宝数据
+- (void)setData:(NSString *)date{
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    if (date) {
+        [self show];
+    }
+    NSDictionary *parameters = @{@"session":sessiondict};
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_index_info"];
+    [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
+        [self dismiss];
+//        NSLog(@"%@",responseObject);
+        if (_isdate) {
+            NSArray *toolArr= _dataArray[1];
+            [_dataArray removeAllObjects];
+            _day_info = [responseObject valueForKeyPath:@"day_info"];
+            [self setTableHeadView:_day_info];
+            [self.dataArray addObject:[responseObject valueForKeyPath:@"remind"]];
+            [self.dataArray addObject:toolArr];
+            [self.dataArray addObject:[responseObject valueForKeyPath:@"recommend_posts"]];
+            NSMutableArray *arr = [NSMutableArray array];
+            [arr addObjectsFromArray:[responseObject valueForKeyPath:@"recommend_topics"]];
+            [arr addObjectsFromArray:[responseObject valueForKeyPath:@"recommend_goods"]];
+            [self.dataArray addObject:@[arr]];
+            [_tableView reloadData];
+        }else{
+            _day_info = [responseObject valueForKeyPath:@"day_info"];
+            [self setTableHeadView:_day_info];
+            [self.dataArray insertObject:[responseObject valueForKeyPath:@"remind"] atIndex:0];
+            [self.dataArray addObject:[responseObject valueForKeyPath:@"recommend_posts"]];
+            NSMutableArray *arr = [NSMutableArray array];
+            [arr addObjectsFromArray:[responseObject valueForKeyPath:@"recommend_topics"]];
+            [arr addObjectsFromArray:[responseObject valueForKeyPath:@"recommend_goods"]];
+            [self.dataArray addObject:@[arr]];
+            _tableView.delegate = self;
+            _tableView.dataSource =self;
+            
+            
+            
+            _current_date = [self setDateStr:[responseObject valueForKeyPath:@"current_date"]];
+            _start_date   =  [self setDateStr:[responseObject valueForKeyPath:@"start_date"]];
+            _end_date     = [self setDateStr:[responseObject valueForKeyPath:@"end_date"]];
+            
+            [self calculateDate];
+            
+            
+            
+        }
+        
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"请求失败 " time:1];
+        NSLog(@"%@",error);
+    }];
+    
+    
+}
+- (void)setBabyImage{
+    
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/modInfo"] parameters:@{@"session":sessiondict,@"baby_id":_baby_id} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    
+            NSData * data =  UIImageJPEGRepresentation(_baby_image, 1.0);
+            if(data != nil){
+                [formData appendPartWithFileData:data name:@"photo" fileName:@"photo.jpg" mimeType:@"image/jpeg"];
+            }
+            
+        } progress:^(NSProgress *progress) {
+         
+        } success:^(NSURLSessionDataTask *task, MBModel *responseObject) {
+            [self show:@"设置成功" time:1];
+        
+            [self setTableHeadView:_day_info];
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSLog(@"%@",error);
+            [self show:@"请求失败！" time:1];
+        }];
+}
+/**
+ *  根据开始 和结束时间 计算天数并以 yyyy—MM－dd的date存入数据
+ */
+- (void)calculateDate{
+    _dateArray = [@[_current_date]mutableCopy];
+    NSInteger  i =1;
+    do {
+        [_dateArray addObject: [_current_date dateByAddingDays:i]];
+        
+        i++;
+    } while (i<[_end_date daysFrom:_current_date]);
+    
+    i=1;
+    do {
+        [_dateArray insertObject:[_current_date dateBySubtractingDays:i] atIndex:0];
+        i++;
+    } while (i<[_current_date daysFrom:_start_date]);
+    
+    
+    _collectionView.dataSource = self;
+    _collectionView.delegate = self;
+    _reftButton.hidden = NO;
+    _leftButton.hidden = NO;
+    _row = [_dateArray indexOfObject:_current_date];
+    _row --;
+    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+    
+    [self back:nil];
 
+}
+/**
+ *  让collectionView 移动到指定的cell
+ */
+- (void)collectionViewOffset{
+    
+    
+    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    
+}
+/**
+ *  设置tableView的headView
+ *
+ *  @param day_info day_info字典
+ */
+- (void)setTableHeadView:(NSDictionary *)day_info{
+    NSString *center = day_info[@"content"];
+    self.tableView.tableHeaderView = ({
+        CGFloat height = 0;
+        if (day_info) {
+            height =  123+(UISCREEN_WIDTH - 40)/4+88+[center sizeWithFont:SYSTEMFONT(15) withMaxSize:CGSizeMake(UISCREEN_WIDTH -50, MAXFLOAT)].height;
+        }else{
+            
+            height =  123+(UISCREEN_WIDTH - 40)/4*15/14;
+        }
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, height)];
+        MBNewBabyHeadView  *headView = [MBNewBabyHeadView instanceView];
+        
+        if (day_info) {
+            
+            headView.view_height.constant = 88+[center sizeWithFont:SYSTEMFONT(15) withMaxSize:CGSizeMake(UISCREEN_WIDTH -50, MAXFLOAT)].height;
+        }else{
+            
+            headView.view_height.constant = 0;
+            headView.cenView.hidden = YES;
+            
+            
+        }
+        if (_baby_image) {
+            _images = _baby_image;
+            headView.baby_image.image = _baby_image;
+        }else{
+             _images = _day_info[@"images"];
+        [headView.baby_image sd_setImageWithURL:URL(day_info[@"images"]) placeholderImage:[UIImage imageNamed:@"headPortrait"]];
+        }
+        
+        headView.baby_length.text = day_info[@"baby_weight"];
+        headView.baby_weight.text = day_info[@"baby_weight"];
+        headView.baby_date.text = day_info[@"overdue_daynum"];
+        headView.babyDate.text  =   headView.baby_date.text.length>0?@"距离预产期":@"";
+        
+        headView.baby_content.text = center;
+        headView.frame = view.frame;
+        [view addSubview:headView];
+        @weakify(self);
+        [[headView.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *tag) {
+            @strongify(self);
+            NSString *url;
+            NSString *title;
+            switch ([tag integerValue]) {
+                case 0: {
+                    MBabyRecordController *VC = [[MBabyRecordController alloc] init];
+                    VC.image = _images;
+                    [self pushViewController:VC Animated:YES];
+                    return ;
+                    
+                }break;
+                case 1:{
+                    
+                    url = @"/discovery/knowledge_index";
+                    title = @"知识库";
+                    
+                }break;
+                case 2:{
+                    
+                    url = @"/safefood/category";
+                    title = @"能不能吃";
+                }break;
+                case 3:{
+                    
+                    NSString *url = @"http://www.xiaomabao.com/tools/jewel.html";
+                    MBBabyWebController *VC = [[MBBabyWebController alloc] init];
+                    VC.url = URL(url);
+                    VC.title = @"百宝箱";
+                    [self pushViewController:VC Animated:YES];
+                    return;
+                    
+                }break;
+                default:{
+                    if (self.baby_id) {
+                        
+                        [self editImageSelected];
+                    }
+                    
+                    
+                }
+                    break;
+            }
+            
+            MBBabyWebController *VC = [[MBBabyWebController alloc] init];
+            VC.url = URL(string(BASE_URL_root, url));
+            VC.title = title;
+            [self pushViewController:VC Animated:YES];
+            
+        }];
+        
+        view;
+    });
+    
+    
+}
+#pragma mark -- 跳转登陆页
+- (void)loginClicksss{
+    //跳转到登录页
+    
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
+    myView.vcType = @"mabao";
+    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
+    [self presentViewController:VC animated:YES completion:nil];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark ---UICollectionViewDelagate
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
@@ -117,53 +531,74 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MBNewBabyCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBNewBabyCell" forIndexPath:indexPath];
-    cell.date.text = _dateArray[indexPath.item];
-    cell.date.font = SYSTEMFONT(14);
-    cell.time.font = SYSTEMFONT(10);
-    if (_row == indexPath.row) {
-        cell.date.font = SYSTEMFONT(18);
-        cell.time.font = SYSTEMFONT(13);
-    }
-   return cell;
+    NSDate *date = _dateArray[indexPath.item];
+    
+    cell.date.text = [NSString stringWithFormat:@"%ld月%ld日", date.month,date.day];
+    cell.time.text = [NSString stringWithFormat:@"%ld天", [date daysFrom:_start_date]];
+    cell.date.font = SYSTEMFONT(16);
+    cell.time.font = SYSTEMFONT(12);
+    
+    return cell;
 }
-
-
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    _row = indexPath.row;
+    
+    
+    [self collectionViewOffset];
+    NSDate *date = _dateArray[_row];
+    NSString *current_date  = [NSString stringWithFormat:@"%ld年%ld月%ld日",date.year,date.month,date.day];
+    
+    [self setData:current_date];
+}
+#pragma mark ---UITableViewDelagate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 4;
+    return _dataArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    switch (section) {
-        case 0: return 5;
-        case 1: return 1;
-        case 2: return 5;
-        default:return 1;
     
+    if (section==1) {
+        return [_dataArray[section] count]+1;
     }
-
+    return [_dataArray[section] count];
+    
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-  
+    
     switch (indexPath.section) {
         case 0:  return 65;;
-        case 1:  return 45;
+        case 1: {
+            if ([_dataArray[indexPath.section] count] == indexPath.row ) {
+                return 45;
+            }else{
+                return 60;
+            }
+            
+        }
         case 2:  return 140;
         default: return (UISCREEN_WIDTH-2)/2*200/375+2+((UISCREEN_WIDTH -6)/4-10)+54;
             
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        if ([_dataArray[section] count]==0) {
+            return 0;
+        }
+    }
+    
     return 50;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-
+    
     if (section == 2 || section == 3) {
         
         return 60;
     }
     
-        return 0.00001;
+    return 0.00001;
 }
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *View = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 50)];
@@ -177,21 +612,40 @@
         default:
             break;
     }
-
+    
     [View addSubview:headView];
     return View;
-
+    
 }
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-
-    UIView *view = [[UIView alloc] init];
     
+    UIView *view = [[UIView alloc] init];
+    view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 60);
+    UIImageView *imageView = [[UIImageView alloc] init];
+    [view addSubview:imageView];
+    
+    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-20);
+        make.centerY.equalTo(view.mas_centerY);
+        make.height.mas_equalTo(46);
+        make.width.mas_equalTo(103);
+        
+    }];
+    
+    if (section == 2) {
+        imageView.image = [UIImage imageNamed:@"axiajiao1"];
+        
+        
+    }else if (section == 3){
+        
+        imageView.image = [UIImage imageNamed:@"axiajiao2"];
+    }
     
     
     return view;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-   
+    
     switch (indexPath.section) {
         case 0: {
             MBNewBabyOneTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBNewBabyOneTableCell"];
@@ -199,34 +653,53 @@
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyOneTableCell"owner:nil options:nil]firstObject];
             }
             [self setUIEdgeInsetsZero:cell];
+            cell.dataDic = _dataArray[indexPath.section][indexPath.row];
             return cell;
         }
-        case 1: {  MBNewBabyTwoTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBNewBabyOneTableCell"];
-            if (!cell) {
-                cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyTwoTableCell"owner:nil options:nil]firstObject];
+        case 1: {
+            
+            if ([_dataArray[indexPath.section] count] == indexPath.row) {
+                MBNewBabyTwoTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBNewBabyOneTableCell"];
+                if (!cell) {
+                    cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyTwoTableCell"owner:nil options:nil]firstObject];
+                }
+                [self setUIEdgeInsetsZero:cell];
+                return cell;
             }
+            
+            
+            MBBabyToolCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBBabyToolCell"];
+            if (!cell) {
+                cell = [[[NSBundle mainBundle]loadNibNamed:@"MBBabyToolCell"owner:nil options:nil]firstObject];
+            }
+            cell.dataDic = _dataArray[indexPath.section][indexPath.row];
             [self setUIEdgeInsetsZero:cell];
             return cell;
         }
-        case 2: {  MBNewBabyOneTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBNewBabyThreeTableCell"];
+        case 2: {
+            MBNewBabyThreeTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBNewBabyThreeTableCell"];
             if (!cell) {
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyThreeTableCell"owner:nil options:nil]firstObject];
             }
+            cell.dataDic = _dataArray[indexPath.section][indexPath.row];
             [self setUIEdgeInsetsZero:cell];
             return cell;
         }
             
-        default: {  MBNewBabyOneTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBNewBabyFourTableCell"];
+        default: {
+            MBNewBabyFourTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBNewBabyFourTableCell"];
             if (!cell) {
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyFourTableCell"owner:nil options:nil]firstObject];
             }
+            cell.VC = self;
+            cell.dataArr = _dataArray[indexPath.section][0];
             [self setUIEdgeInsetsZero:cell];
             return cell;
         }
             
-
+            
     }
-  
+    
     
 }
 /**
@@ -236,7 +709,7 @@
     cell.separatorInset = UIEdgeInsetsZero;
     cell.layoutMargins = UIEdgeInsetsZero;
     cell.preservesSuperviewLayoutMargins   = false;
-
+    
 }
 /**
  *  移除cell最下的线
@@ -249,32 +722,124 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.section) {
         case 0: {
-        
-            MBSetBabyInformationController *VC = [[MBSetBabyInformationController alloc] init];
+            MBBabyWebController *VC = [[MBBabyWebController alloc] init];
+            VC.url = URL(_dataArray[indexPath.section][indexPath.row][@"url"]);
+            VC.title = _dataArray[indexPath.section][indexPath.row][@"title"];
             [self pushViewController:VC Animated:YES];
-            
-        }     break;
+        }break;
         case 1: {
-            MBBabyToolController *VC = [[MBBabyToolController alloc] init];
-            [self pushViewController:VC Animated:YES];
-        
-        }              break;
+            if ([_dataArray[indexPath.section] count] == indexPath.row ) {
+                
+                MBBabyWebController *VC = [[MBBabyWebController alloc] init];
+                VC.url = URL(string(BASE_URL_root, @"/mengbao/toolkit"));
+                VC.title = @"添加工具到首页";
+                @weakify(self);
+                [[VC.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSString *str) {
+                    @strongify(self);
+                    [self setToolkit:YES];
+                }];
+                [self pushViewController:VC Animated:YES];
+            }else{
+                NSDictionary *dic = _dataArray[indexPath.section][indexPath.row];
+                MBBabyWebController *VC = [[MBBabyWebController alloc] init];
+                VC.url = URL(dic[@"toolkit_url"]);
+                VC.title = dic[@"toolkit_name"];
+                [self pushViewController:VC Animated:YES];
+                
+            }
+            
+            
+        }break;
         case 2: {
-        
-        
-            MBBabyChestController *VC = [[MBBabyChestController alloc] init];
-            [self pushViewController:VC Animated:YES];
-        
-        }     break;
+            
+            
+            
+        }break;
         case 3: {
-        
-            MBBabyDueDateController *VC = [[MBBabyDueDateController alloc] init];
-            [self pushViewController:VC Animated:YES];
-        
-        }     break;
+            
+            
+            
+        }break;
         default:
             break;
     }
+}
+- (void)photoKitController:(STPhotoKitController *)photoKitController resultImage:(UIImage *)resultImage
+{
+    _baby_image = resultImage;
+    [self setBabyImage];
+
+    
+}
+#pragma mark - 2.UIImagePickerController的委托
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        UIImage *imageOriginal = [info objectForKey:UIImagePickerControllerOriginalImage];
+        STPhotoKitController *photoVC = [STPhotoKitController new];
+        [photoVC setDelegate:self];
+        [photoVC setImageOriginal:imageOriginal];
+        
+        [photoVC setSizeClip:CGSizeMake(300, 300)];
+       
+        [self presentViewController:photoVC animated:YES completion:nil];
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:^(){
+        
+    }];
+}
+
+#pragma mark - --- event response 事件相应 ---
+- (void)editImageSelected
+{
+    UIAlertController *alertController = [[UIAlertController alloc]init];
+    
+    UIAlertAction *action0 = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIImagePickerController *controller = [UIImagePickerController imagePickerControllerWithSourceType:UIImagePickerControllerSourceTypeCamera];
+        
+        if ([controller isAvailableCamera] && [controller isSupportTakingPhotos]) {
+            [controller setDelegate:self];
+            [self presentViewController:controller animated:YES completion:nil];
+        }else {
+            NSLog(@"%s %@", __FUNCTION__, @"相机权限受限");
+        }
+    }];
+    
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"从相册获取" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIImagePickerController *controller = [UIImagePickerController imagePickerControllerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        [controller setDelegate:self];
+        if ([controller isAvailablePhotoLibrary]) {
+            [self presentViewController:controller animated:YES completion:nil];
+        }    }];
+    
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    
+    [alertController addAction:action0];
+    [alertController addAction:action1];
+    [alertController addAction:action2];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+
+
+/**
+ *  根据字符串时间获取时间戳
+ *
+ *  @param dateStr 字符串时间
+ *
+ *  @return NSTimeInterval
+ */
+- (NSDate *)setDateStr:(NSString *)dateStr{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *date = [formatter  dateFromString:dateStr];
+    return date;
 }
 
 @end

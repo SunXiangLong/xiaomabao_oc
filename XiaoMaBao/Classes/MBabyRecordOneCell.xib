@@ -18,7 +18,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MTg-af-jhp">
                         <rect key="frame" x="10" y="0.0" width="93.5" height="192"/>
                         <subviews>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="hDU-BM-1xD">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="amengBaoLeft" translatesAutoresizingMaskIntoConstraints="NO" id="hDU-BM-1xD">
                                 <rect key="frame" x="0.0" y="0.0" width="93.5" height="93.5"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -28,7 +28,7 @@
                                     <outletCollection property="gestureRecognizers" destination="Uod-PO-xw7" appends="YES" id="oDH-zB-67b"/>
                                 </connections>
                             </imageView>
-                            <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="S53-cP-ggL">
+                            <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="amengBaoLeft" translatesAutoresizingMaskIntoConstraints="NO" id="S53-cP-ggL">
                                 <rect key="frame" x="0.0" y="98.5" width="93.5" height="93.5"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -53,7 +53,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLZ-Vi-SEq">
                         <rect key="frame" x="113.5" y="0.0" width="93" height="192"/>
                         <subviews>
-                            <imageView tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="lhn-W8-uq6">
+                            <imageView tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="amengBaoMiddle" translatesAutoresizingMaskIntoConstraints="NO" id="lhn-W8-uq6">
                                 <rect key="frame" x="0.0" y="0.0" width="93" height="192"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -71,7 +71,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RzV-eY-hzO">
                         <rect key="frame" x="216.5" y="0.0" width="93.5" height="192"/>
                         <subviews>
-                            <imageView tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="h4n-c6-d1D">
+                            <imageView tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="amengBaoLeft" translatesAutoresizingMaskIntoConstraints="NO" id="h4n-c6-d1D">
                                 <rect key="frame" x="0.0" y="0.0" width="93.5" height="93.5"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -81,7 +81,7 @@
                                     <outletCollection property="gestureRecognizers" destination="VZT-X6-f2t" appends="YES" id="3Y8-Pg-Xa7"/>
                                 </connections>
                             </imageView>
-                            <imageView tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="5vY-Zd-fQk">
+                            <imageView tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="amengBaoLeft" translatesAutoresizingMaskIntoConstraints="NO" id="5vY-Zd-fQk">
                                 <rect key="frame" x="0.0" y="98" width="93.5" height="93.5"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -172,6 +172,7 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="placeholder_num2" width="66" height="66"/>
+        <image name="amengBaoLeft" width="104" height="104"/>
+        <image name="amengBaoMiddle" width="126" height="218"/>
     </resources>
 </document>

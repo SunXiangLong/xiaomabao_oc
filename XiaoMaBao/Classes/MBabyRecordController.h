@@ -9,5 +9,6 @@
 #import "BkBaseViewController.h"
 
 @interface MBabyRecordController : BkBaseViewController
+@property (nonatomic,strong) id image;
 
 @end

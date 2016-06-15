@@ -16,52 +16,151 @@
 #import "MBabyRecordTwoCell.h"
 #import "MBabyRecordThreeCell.h"
 #import "MBabyRecordFourCell.h"
-@interface MBabyRecordController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, STPhotoKitDelegate>
+#import "MBPublishedViewController.h"
+#import "MBBabyManagementViewController.h"
+@interface MBabyRecordController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, STPhotoKitDelegate,UITableViewDelegate,UITableViewDataSource>
 {
-
+    NSInteger _page;
+    
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /**
  *  记录上传宝宝墙图片是第几个；
  */
 @property (assign, nonatomic) NSInteger num;
-@property (copy, nonatomic) NSMutableArray *imageArr;;
+@property (copy, nonatomic) NSMutableArray *imageArr;
+/**
+ *  宝宝日志数组
+ */
+@property (copy, nonatomic) NSMutableArray *resultArray;
 @end
 
 @implementation MBabyRecordController
-- (NSMutableArray *)imageArr {
-    
-    if (!_imageArr) {
+-(NSMutableArray *)resultArray{
+    if (!_resultArray) {
         
-        _imageArr = [NSMutableArray array];
+        _resultArray = [NSMutableArray array];
+     
+        
     }
-    
-    return _imageArr;
+    return _resultArray;
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _page = 1;
+    
+    
 
-    for (NSInteger i = 0; i<5; i++) {
-        [self.imageArr addObject:@(1)];
-    }
+     [self getBabyImage];
 }
+/**
+ *  请求日志列表
+ */
+- (void)setData{
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    NSString *page = [NSString stringWithFormat:@"%ld",(long)_page];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/diarylistng"];
+    if (! sid) {
+        return;
+    }
+  
+    [MBNetworking POSTOrigin:url parameters:@{@"session":sessiondict,@"page":page} success:^(id responseObject) {
+        
+         [self dismiss];
+//          NSLog(@"%@",responseObject);
+        if ([[responseObject valueForKeyPath:@"data"][@"result"] count] == 0) {
+            
+        }else{
+            
+            
+            [self.resultArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"][@"result"]];
+            NSLog(@"%@",self.resultArray);
+            
+            
+            
+            [_tableView reloadData];
 
+        
+        }
+        
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"请求失败 " time:1];
+        NSLog(@"%@",error);
+    }];
+    
+}
+- (void)getBabyImage{
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    [self show];
+    [MBNetworking  POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_pic_wall"] parameters:@{@"session":sessiondict} success:^(id responseObject) {
+//          NSLog(@"%@",responseObject);
+        
+        _imageArr = [@[[responseObject valueForKeyPath:@"data"][@"pic1"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic2"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic3"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic4"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic5"][@"photo"]] mutableCopy];
+        
+        
+        [self setData];
+    
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        NSLog(@"%@",error);
+        [self show:@"请求失败！" time:1];
+    }];
+
+}
+/**
+ *  设置照片墙上的数据
+ *
+ *  @param index 第几个图片
+ */
+- (void)setBabyImage:(NSInteger )index{
+    
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/set_pic_wall"] parameters:@{@"session":sessiondict,@"img_index":s_Integer(index +1)} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        NSData * data =  UIImageJPEGRepresentation(_imageArr[index], 1.0);
+        if(data != nil){
+            [formData appendPartWithFileData:data name:@"pic_wall_img" fileName:[NSString stringWithFormat:@"pic_wall_img%ld.jpg",index] mimeType:@"image/jpeg"];
+        }
+        
+    } progress:^(NSProgress *progress) {
+        
+    } success:^(NSURLSessionDataTask *task, MBModel *responseObject) {
+       [self show:@"设置成功" time:1];
+  
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+        [self show:@"请求失败！" time:1];
+    }];
+}
+- (NSString *)titleStr{
+
+    return self.title?:@"宝宝动态";
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
-    return 2;
+    if (_imageArr&&_resultArray) {
+           return 2;
+    }
+    return 0;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if (section == 0) {
         return 1;
     }
-    
-    return 10;
+  
+    return _resultArray.count+1;
 }
 
 
@@ -81,13 +180,14 @@
     if (indexPath.row == 0) {
         return 80;
     }
-
-    if (indexPath.row%2 == 0) {
-        
-        NSString *str = @"我们激光头去了哪个世界爽爽爽爽爽副驾驶飞机上就放假考试放假时间放松就放松空军飞机上看风景时口角是非家居服";
-        
-          return 115 + [str sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake(UISCREEN_WIDTH-60, MAXFLOAT)].height;
+  
+    NSDictionary *dic = _resultArray[indexPath.row -1];
+    if ([dic[@"photo"] count] == 0) {
+        NSString *str = dic[@"content"];
+        return 115 + [str sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake(UISCREEN_WIDTH-60, MAXFLOAT)].height;
     }
+    
+ 
       return 110+(UISCREEN_WIDTH - 50 )/2;
 
 }
@@ -112,18 +212,12 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle]loadNibNamed:@"MBabyRecordOneCell"owner:nil options:nil]firstObject];
         }
-        
-        cell.image0.image = [_imageArr[0] isKindOfClass:[NSNumber class ]]?[UIImage imageNamed:@"placeholder_num2"]:_imageArr[0];
-        
-        
-        cell.image1.image = [_imageArr[1] isKindOfClass:[NSNumber class ]]?[UIImage imageNamed:@"placeholder_num2"]:_imageArr[1];
-        cell.image2.image = [_imageArr[2] isKindOfClass:[NSNumber class ]]?[UIImage imageNamed:@"placeholder_num2"]:_imageArr[2];
-        cell.image3.image = [_imageArr[3] isKindOfClass:[NSNumber class ]]?[UIImage imageNamed:@"placeholder_num2"]:_imageArr[3];
-        cell.image4.image = [_imageArr[4] isKindOfClass:[NSNumber class ]]?[UIImage imageNamed:@"placeholder_num2"]:_imageArr[4];
+        cell.dataArr = _imageArr;
         @weakify(self);
         [[cell.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *num) {
             @strongify(self);
             self.num = [num integerValue];
+            
             [self editImageSelected];
             
         }];
@@ -136,29 +230,62 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle]loadNibNamed:@"MBabyRecordTwoCell"owner:nil options:nil]firstObject];
         }
+        
         return cell;
     }
 
-    if (indexPath.row%2 == 0) {
+    NSDictionary *dic = _resultArray[indexPath.row -1];
+    if ([dic[@"photo"] count] == 0) {
+        
         MBabyRecordFourCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBabyRecordFourCell"];
         if (!cell) {
             cell = [[[NSBundle mainBundle]loadNibNamed:@"MBabyRecordFourCell"owner:nil options:nil]firstObject];
         }
+        
+        cell.dataDic = dic;
         return cell;
     }
+
+    
     MBabyRecordThreeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBabyRecordThreeCell"];
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBabyRecordThreeCell"owner:nil options:nil]firstObject];
     }
+    cell.dataDic = dic;
     return cell;
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *dic = _resultArray[indexPath.row -1];
+    if (indexPath.section != 0) {
+        
+        if (indexPath.row == 0) {
+            MBPublishedViewController *VC = [[MBPublishedViewController alloc] init];
+            
+            [self pushViewController:VC Animated:YES];
+        }else {
+        
+            MBBabyManagementViewController *VC = [[MBBabyManagementViewController alloc] init];
+            VC.ID = dic[@"id"];
+            VC.photoArray = dic[@"photo"];
+            VC.date       = dic[@"group"];
+            VC.addtime    = dic[@"addtime"];
+            VC.content    = dic[@"content"];
+            VC.indexPath = indexPath;
+            VC.image  = self.image;
+            [self pushViewController:VC Animated:YES];
+        }
+        
+        
+        
+       
+    }
     
 }
 - (void)photoKitController:(STPhotoKitController *)photoKitController resultImage:(UIImage *)resultImage
 {
-    _imageArr[self.num] = resultImage;
+     _imageArr[self.num] = resultImage;
+    [self setBabyImage:self.num];
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     
 }

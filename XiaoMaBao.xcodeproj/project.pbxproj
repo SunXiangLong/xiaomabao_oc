@@ -283,6 +283,10 @@
 		943ED80B1CCF6B30005AF4D9 /* MBAddIDCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943ED80A1CCF6B30005AF4D9 /* MBAddIDCardView.xib */; };
 		943ED80F1CCF7655005AF4D9 /* MBIDCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 943ED80D1CCF7655005AF4D9 /* MBIDCardCell.m */; };
 		943ED8101CCF7655005AF4D9 /* MBIDCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943ED80E1CCF7655005AF4D9 /* MBIDCardCell.xib */; };
+		943F1CE61D10FFEF00CEA790 /* MBCollectionViewFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 943F1CE41D10FFEF00CEA790 /* MBCollectionViewFlowLayout.h */; };
+		943F1CE71D10FFEF00CEA790 /* MBCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 943F1CE51D10FFEF00CEA790 /* MBCollectionViewFlowLayout.m */; };
+		944241A21D0FA84A007BE088 /* MBBabyWebController.h in Headers */ = {isa = PBXBuildFile; fileRef = 944241A01D0FA84A007BE088 /* MBBabyWebController.h */; };
+		944241A31D0FA84A007BE088 /* MBBabyWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944241A11D0FA84A007BE088 /* MBBabyWebController.m */; };
 		944364F11CBCE0C60085E006 /* MBPaySuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944364F01CBCE0C60085E006 /* MBPaySuccessView.m */; };
 		944364F31CBCE0D30085E006 /* MBPaySuccessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944364F21CBCE0D30085E006 /* MBPaySuccessView.xib */; };
 		944441FD1C321AE6008B55AC /* RatingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 944441FC1C321AE6008B55AC /* RatingBar.m */; };
@@ -439,9 +443,6 @@
 		948E7ED31D012E0A00ECEB7D /* MBSetBabyInformationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 948E7ED01D012E0A00ECEB7D /* MBSetBabyInformationController.h */; };
 		948E7ED41D012E0A00ECEB7D /* MBSetBabyInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948E7ED11D012E0A00ECEB7D /* MBSetBabyInformationController.m */; };
 		948E7ED51D012E0A00ECEB7D /* MBSetBabyInformationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 948E7ED21D012E0A00ECEB7D /* MBSetBabyInformationController.xib */; };
-		948E7ED91D013A2700ECEB7D /* MBBabyChestController.h in Headers */ = {isa = PBXBuildFile; fileRef = 948E7ED61D013A2700ECEB7D /* MBBabyChestController.h */; };
-		948E7EDA1D013A2700ECEB7D /* MBBabyChestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948E7ED71D013A2700ECEB7D /* MBBabyChestController.m */; };
-		948E7EDB1D013A2700ECEB7D /* MBBabyChestController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 948E7ED81D013A2700ECEB7D /* MBBabyChestController.xib */; };
 		948E7EDF1D013A9100ECEB7D /* MBBabyChestCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 948E7EDC1D013A9100ECEB7D /* MBBabyChestCell.h */; };
 		948E7EE01D013A9100ECEB7D /* MBBabyChestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 948E7EDD1D013A9100ECEB7D /* MBBabyChestCell.m */; };
 		948E7EE11D013A9100ECEB7D /* MBBabyChestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 948E7EDE1D013A9100ECEB7D /* MBBabyChestCell.xib */; };
@@ -489,9 +490,6 @@
 		94B6F47D1BD5DD2200B352B9 /* payRequsestHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94B6F4791BD5DD2200B352B9 /* payRequsestHandler.mm */; };
 		94B6F47E1BD5DD2200B352B9 /* WXUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94B6F47B1BD5DD2200B352B9 /* WXUtil.mm */; };
 		94B6F4801BD616FC00B352B9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B6F47F1BD616FC00B352B9 /* CoreTelephony.framework */; };
-		94BE35D61CFFC2EF004F099E /* MBBabyToolController.h in Headers */ = {isa = PBXBuildFile; fileRef = 94BE35D31CFFC2EF004F099E /* MBBabyToolController.h */; };
-		94BE35D71CFFC2EF004F099E /* MBBabyToolController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BE35D41CFFC2EF004F099E /* MBBabyToolController.m */; };
-		94BE35D81CFFC2EF004F099E /* MBBabyToolController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94BE35D51CFFC2EF004F099E /* MBBabyToolController.xib */; };
 		94BE35DC1CFFC385004F099E /* MBBabyToolCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 94BE35D91CFFC385004F099E /* MBBabyToolCell.h */; };
 		94BE35DD1CFFC385004F099E /* MBBabyToolCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BE35DA1CFFC385004F099E /* MBBabyToolCell.m */; };
 		94BE35DE1CFFC385004F099E /* MBBabyToolCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94BE35DB1CFFC385004F099E /* MBBabyToolCell.xib */; };
@@ -1073,6 +1071,10 @@
 		943ED80C1CCF7655005AF4D9 /* MBIDCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBIDCardCell.h; sourceTree = "<group>"; };
 		943ED80D1CCF7655005AF4D9 /* MBIDCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBIDCardCell.m; sourceTree = "<group>"; };
 		943ED80E1CCF7655005AF4D9 /* MBIDCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBIDCardCell.xib; sourceTree = "<group>"; };
+		943F1CE41D10FFEF00CEA790 /* MBCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		943F1CE51D10FFEF00CEA790 /* MBCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		944241A01D0FA84A007BE088 /* MBBabyWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBabyWebController.h; sourceTree = "<group>"; };
+		944241A11D0FA84A007BE088 /* MBBabyWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabyWebController.m; sourceTree = "<group>"; };
 		944364EF1CBCE0C60085E006 /* MBPaySuccessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPaySuccessView.h; sourceTree = "<group>"; };
 		944364F01CBCE0C60085E006 /* MBPaySuccessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPaySuccessView.m; sourceTree = "<group>"; };
 		944364F21CBCE0D30085E006 /* MBPaySuccessView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBPaySuccessView.xib; sourceTree = "<group>"; };
@@ -1368,9 +1370,6 @@
 		948E7ED01D012E0A00ECEB7D /* MBSetBabyInformationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSetBabyInformationController.h; sourceTree = "<group>"; };
 		948E7ED11D012E0A00ECEB7D /* MBSetBabyInformationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSetBabyInformationController.m; sourceTree = "<group>"; };
 		948E7ED21D012E0A00ECEB7D /* MBSetBabyInformationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBSetBabyInformationController.xib; sourceTree = "<group>"; };
-		948E7ED61D013A2700ECEB7D /* MBBabyChestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBabyChestController.h; sourceTree = "<group>"; };
-		948E7ED71D013A2700ECEB7D /* MBBabyChestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabyChestController.m; sourceTree = "<group>"; };
-		948E7ED81D013A2700ECEB7D /* MBBabyChestController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBBabyChestController.xib; sourceTree = "<group>"; };
 		948E7EDC1D013A9100ECEB7D /* MBBabyChestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBabyChestCell.h; sourceTree = "<group>"; };
 		948E7EDD1D013A9100ECEB7D /* MBBabyChestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabyChestCell.m; sourceTree = "<group>"; };
 		948E7EDE1D013A9100ECEB7D /* MBBabyChestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBBabyChestCell.xib; sourceTree = "<group>"; };
@@ -1439,9 +1438,6 @@
 		94B6F47A1BD5DD2200B352B9 /* WXUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXUtil.h; sourceTree = "<group>"; };
 		94B6F47B1BD5DD2200B352B9 /* WXUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WXUtil.mm; sourceTree = "<group>"; };
 		94B6F47F1BD616FC00B352B9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		94BE35D31CFFC2EF004F099E /* MBBabyToolController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBabyToolController.h; sourceTree = "<group>"; };
-		94BE35D41CFFC2EF004F099E /* MBBabyToolController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabyToolController.m; sourceTree = "<group>"; };
-		94BE35D51CFFC2EF004F099E /* MBBabyToolController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBBabyToolController.xib; sourceTree = "<group>"; };
 		94BE35D91CFFC385004F099E /* MBBabyToolCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBabyToolCell.h; sourceTree = "<group>"; };
 		94BE35DA1CFFC385004F099E /* MBBabyToolCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabyToolCell.m; sourceTree = "<group>"; };
 		94BE35DB1CFFC385004F099E /* MBBabyToolCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBBabyToolCell.xib; sourceTree = "<group>"; };
@@ -2784,21 +2780,25 @@
 			children = (
 				947E0DBC1CFBD9380025594A /* MBNewBabyController.h */,
 				947E0DBD1CFBD9380025594A /* MBNewBabyController.m */,
-				94BE35D31CFFC2EF004F099E /* MBBabyToolController.h */,
-				94BE35D41CFFC2EF004F099E /* MBBabyToolController.m */,
-				94BE35D51CFFC2EF004F099E /* MBBabyToolController.xib */,
+				944241A01D0FA84A007BE088 /* MBBabyWebController.h */,
+				944241A11D0FA84A007BE088 /* MBBabyWebController.m */,
 				948E7ED01D012E0A00ECEB7D /* MBSetBabyInformationController.h */,
 				948E7ED11D012E0A00ECEB7D /* MBSetBabyInformationController.m */,
 				948E7ED21D012E0A00ECEB7D /* MBSetBabyInformationController.xib */,
-				948E7ED61D013A2700ECEB7D /* MBBabyChestController.h */,
-				948E7ED71D013A2700ECEB7D /* MBBabyChestController.m */,
-				948E7ED81D013A2700ECEB7D /* MBBabyChestController.xib */,
 				948E7EEE1D016AE600ECEB7D /* MBabyRecordController.h */,
 				948E7EEF1D016AE600ECEB7D /* MBabyRecordController.m */,
 				948E7EF01D016AE600ECEB7D /* MBabyRecordController.xib */,
 				941691AF1D066C6200442741 /* MBBabyDueDateController.h */,
 				941691B01D066C6200442741 /* MBBabyDueDateController.m */,
 				941691B11D066C6200442741 /* MBBabyDueDateController.xib */,
+				943F1CE41D10FFEF00CEA790 /* MBCollectionViewFlowLayout.h */,
+				943F1CE51D10FFEF00CEA790 /* MBCollectionViewFlowLayout.m */,
+				94F419291C5761EB000592DE /* MBPublishedViewController.h */,
+				94F4192A1C5761EB000592DE /* MBPublishedViewController.m */,
+				94F4192B1C5761EB000592DE /* MBPublishedViewController.xib */,
+				9453A1E01C56058D009CB36B /* MBBabyManagementViewController.h */,
+				9453A1E11C56058D009CB36B /* MBBabyManagementViewController.m */,
+				9453A1E21C56058D009CB36B /* MBBabyManagementViewController.xib */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -3642,12 +3642,6 @@
 			children = (
 				9453A1DD1C55BFCB009CB36B /* MBBabyViewController.h */,
 				9453A1DE1C55BFCB009CB36B /* MBBabyViewController.m */,
-				9453A1E01C56058D009CB36B /* MBBabyManagementViewController.h */,
-				9453A1E11C56058D009CB36B /* MBBabyManagementViewController.m */,
-				9453A1E21C56058D009CB36B /* MBBabyManagementViewController.xib */,
-				94F419291C5761EB000592DE /* MBPublishedViewController.h */,
-				94F4192A1C5761EB000592DE /* MBPublishedViewController.m */,
-				94F4192B1C5761EB000592DE /* MBPublishedViewController.xib */,
 				94446FD61C732DD90037D275 /* MBUpdateBabyInforViewController.h */,
 				94446FD71C732DD90037D275 /* MBUpdateBabyInforViewController.m */,
 				9469DC4B1C7594F400C2E3E2 /* MBWeatherAndMoodViewController.h */,
@@ -3718,7 +3712,6 @@
 				941687A51D0521AD00F069AE /* STConst.h in Headers */,
 				941687C41D0554EB00F069AE /* MBabyRecordFourCell.h in Headers */,
 				94E272211CFECF5A00172511 /* MBNewBabyOneTableCell.h in Headers */,
-				948E7ED91D013A2700ECEB7D /* MBBabyChestController.h in Headers */,
 				944BBB6C1CF5458400B9492E /* MBNewFreeStoreViewController.h in Headers */,
 				94743C2F1D07DF72003A262B /* MBNewMyViewCell.h in Headers */,
 				941687961D05217200F069AE /* STPhotoKitController.h in Headers */,
@@ -3734,9 +3727,9 @@
 				94BE35DC1CFFC385004F099E /* MBBabyToolCell.h in Headers */,
 				9439C9A61CF420F900AA0140 /* WechatAuthSDK.h in Headers */,
 				944BBB661CF5400C00B9492E /* MBAffordablePlanetMoreCell.h in Headers */,
-				94BE35D61CFFC2EF004F099E /* MBBabyToolController.h in Headers */,
 				941687A71D0521AD00F069AE /* STUI.h in Headers */,
 				94E272271CFED70D00172511 /* MBNewBabyTwoTableCell.h in Headers */,
+				943F1CE61D10FFEF00CEA790 /* MBCollectionViewFlowLayout.h in Headers */,
 				947E0DC31CFBEA8F0025594A /* LTInfiniteScrollView.h in Headers */,
 				948E7EF11D016AE600ECEB7D /* MBabyRecordController.h in Headers */,
 				947E0DBE1CFBD9380025594A /* MBNewBabyController.h in Headers */,
@@ -3744,6 +3737,7 @@
 				94743C2A1D07D1A7003A262B /* MBNewMyViewHeadView.h in Headers */,
 				941687AF1D05394000F069AE /* MBabyRecordHeadView.h in Headers */,
 				9439C9A81CF420F900AA0140 /* WXApiObject.h in Headers */,
+				944241A21D0FA84A007BE088 /* MBBabyWebController.h in Headers */,
 				941687A41D0521AD00F069AE /* STConfig.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3882,7 +3876,6 @@
 				949997D31C44E05500EB80A1 /* MBGroupShopController.xib in Resources */,
 				424097D51BB3D385002DB272 /* homepage_01.jpg in Resources */,
 				941531DB1CBF414500B2AB1E /* checkbox_pic_non2@2x.png in Resources */,
-				94BE35D81CFFC2EF004F099E /* MBBabyToolController.xib in Resources */,
 				48742C3B1B2AE0C2000F188F /* MBVoucherTableViewCell.xib in Resources */,
 				9469DC541C759A9800C2E3E2 /* MBWeatherMoodCollectionViewCell.xib in Resources */,
 				9480D6191C47A0FA00C4A891 /* thrid_goods_icon.jpg in Resources */,
@@ -3963,7 +3956,6 @@
 				94684F7C1CE1D4CC0068670F /* MBPostDetailsViewCell.xib in Resources */,
 				94833A8C1D05162500CF4DF2 /* MBabyRecordOneCell.xib in Resources */,
 				94FA706C1CE0314A00BCC364 /* MBDetailsCircleController.xib in Resources */,
-				948E7EDB1D013A2700ECEB7D /* MBBabyChestController.xib in Resources */,
 				944BB0611CAD2AE100D16E19 /* MBServiceShopsHeadView.xib in Resources */,
 				944BB06B1CAD3BF400D16E19 /* MBServiceShopsOneCell.xib in Resources */,
 				946AE54A1CA50A1D00F3F66C /* MyAddressManager_delete_new@2x.png in Resources */,
@@ -4130,7 +4122,6 @@
 				944AFCB61CBB6CF600E66535 /* MBMyHeadView.m in Sources */,
 				94E24FC61CBD16C200C8D6B6 /* LGPhotoPickerFooterCollectionReusableView.m in Sources */,
 				94DB179B1C520E9500D1F482 /* MBVaccineViewController.m in Sources */,
-				94BE35D71CFFC2EF004F099E /* MBBabyToolController.m in Sources */,
 				94E24FB41CBD16C200C8D6B6 /* ZLCameraView.m in Sources */,
 				94E9A45E1C8FB4280002E15E /* XWCatergoryViewCell.m in Sources */,
 				AA9F03D21B8F0A3E0072D39A /* MBNewFeatrueView.m in Sources */,
@@ -4192,6 +4183,7 @@
 				941BA9581CB362CA00421BF6 /* MBServiceEvaluationController.m in Sources */,
 				94E24FB31CBD16C200C8D6B6 /* ZLCameraImageView.m in Sources */,
 				94DB1E111CE5718000ADAE9D /* MBSearchPostController.m in Sources */,
+				944241A31D0FA84A007BE088 /* MBBabyWebController.m in Sources */,
 				94E24FBC1CBD16C200C8D6B6 /* LGPhotoPickerBrowserPhotoView.m in Sources */,
 				94E24FC41CBD16C200C8D6B6 /* LGPhotoPickerCollectionView.m in Sources */,
 				420BF65C1BB537BB00C89C3C /* AppDelegate.m in Sources */,
@@ -4400,13 +4392,13 @@
 				489ED3311B217EC200BB0547 /* MBShoppingBtn.m in Sources */,
 				48ED9FBE1AF74A250076A4CD /* UIButton+MBIBnspectable.m in Sources */,
 				48162F3F1AF2866900E61D5C /* UIColor+Extension.m in Sources */,
-				948E7EDA1D013A2700ECEB7D /* MBBabyChestController.m in Sources */,
 				949997D21C44E05500EB80A1 /* MBGroupShopController.m in Sources */,
 				94FA70791CE054B600BCC364 /* MBDetailsCircleTableHeadView.m in Sources */,
 				94095B5E1CC4ECF600859D03 /* MBTopCargoOneCell.m in Sources */,
 				480386081B58A08C0052FA20 /* Foundation+Log.m in Sources */,
 				94B6F47C1BD5DD2200B352B9 /* ApiXml.mm in Sources */,
 				9496D3AA1CA3A0E900743586 /* TPKeyboardAvoidingCollectionView.m in Sources */,
+				943F1CE71D10FFEF00CEA790 /* MBCollectionViewFlowLayout.m in Sources */,
 				94892D771CB5081D00668A98 /* MBServiceOrderTwoCell.m in Sources */,
 				94C41A501C92CB3D0011C016 /* WNXRefresgHeader.m in Sources */,
 				9404885D1C9FCE6D008C7938 /* timeView.m in Sources */,

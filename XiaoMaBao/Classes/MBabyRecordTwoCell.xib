@@ -49,7 +49,7 @@
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="WQ6-Kj-otQ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="amengBaoPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="WQ6-Kj-otQ">
                                 <rect key="frame" x="160" y="5" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="WQ6-Kj-otQ" secondAttribute="height" multiplier="1:1" id="FzU-nz-lef"/>
@@ -81,6 +81,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="placeholder_num2" width="66" height="66"/>
+        <image name="amengBaoPhoto" width="49" height="49"/>
     </resources>
 </document>

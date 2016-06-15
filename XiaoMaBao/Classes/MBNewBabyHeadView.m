@@ -9,7 +9,20 @@
 #import "MBNewBabyHeadView.h"
 
 @implementation MBNewBabyHeadView
+- (RACSubject *)myCircleViewSubject {
+    
+    if (!_myCircleViewSubject) {
+        
+        _myCircleViewSubject = [RACSubject subject];
+    }
+    
+    return _myCircleViewSubject;
+}
 + (instancetype)instanceView{
-    return [[[NSBundle mainBundle] loadNibNamed:@"MBNewBabyHeadView" owner:nil options:nil] lastObject];
+    return [[[NSBundle mainBundle] loadNibNamed:@"MBNewBabyHeadView" owner:nil options:nil]  firstObject];
+}
+- (IBAction)touch:(UITapGestureRecognizer *)sender {
+    
+    [self.myCircleViewSubject sendNext:@(sender.view.tag)];
 }
 @end

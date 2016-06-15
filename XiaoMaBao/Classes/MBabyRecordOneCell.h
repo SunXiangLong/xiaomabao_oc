@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *image2;
 @property (weak, nonatomic) IBOutlet UIImageView *image3;
 @property (weak, nonatomic) IBOutlet UIImageView *image4;
+@property(copy,nonatomic)NSArray *dataArr;
 
 @end

@@ -19,7 +19,6 @@ static AFHTTPSessionManager *mgr = nil;
 + (AFHTTPSessionManager *)mgr{
     if (!mgr) {
         mgr = [AFHTTPSessionManager manager];
-        
         AFJSONResponseSerializer *response = [[AFJSONResponseSerializer alloc] init];
         /**
          *  删除json中  <null> 类型的字段  同时也会把key删除

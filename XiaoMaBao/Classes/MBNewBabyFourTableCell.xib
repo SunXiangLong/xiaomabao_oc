@@ -18,7 +18,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JZh-wG-cMl">
                         <rect key="frame" x="0.0" y="0.0" width="159" height="84.5"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="msO-Vd-FRs">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="msO-Vd-FRs">
                                 <rect key="frame" x="0.0" y="0.0" width="159" height="84.5"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -37,7 +37,7 @@
                     <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SBJ-cw-ikU">
                         <rect key="frame" x="161" y="0.0" width="159" height="84"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uGo-qH-zQu">
+                            <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uGo-qH-zQu">
                                 <rect key="frame" x="0.0" y="0.0" width="159" height="83"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -242,6 +242,14 @@
                     <constraint firstAttribute="trailing" secondItem="SBJ-cw-ikU" secondAttribute="trailing" id="vwb-aa-wid"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="image0" destination="msO-Vd-FRs" id="NnT-Xw-BJG"/>
+                <outlet property="image1" destination="uGo-qH-zQu" id="cG9-jL-BJ1"/>
+                <outlet property="image2" destination="TjB-cE-GI3" id="LiR-gU-x37"/>
+                <outlet property="image3" destination="9mA-Hn-ho2" id="5kg-kK-qpx"/>
+                <outlet property="image4" destination="tpd-ZJ-8ib" id="Mti-uo-na2"/>
+                <outlet property="image5" destination="chO-Vl-nL5" id="qwB-gB-g6M"/>
+            </connections>
             <point key="canvasLocation" x="173" y="268"/>
         </tableViewCell>
         <tapGestureRecognizer id="XyS-Pw-rAQ">

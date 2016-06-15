@@ -87,10 +87,6 @@
     MBBabyViewController *babyVC = [[MBBabyViewController alloc] init];
     [self setupChildVC:babyVC title:@"萌宝" imageName:@"lovyeBab_image" selectedImageName:@"loveBaby_image"];
 
-   
-   
-    
-    
     
     menuIds =[NSMutableArray arrayWithCapacity:_TeMaiArarry.count];
     
@@ -99,7 +95,6 @@
     }
    
 
-  
     
     MBServiceHomeViewController *serviceVc = [[MBServiceHomeViewController alloc] init];
     [self setupChildVC:serviceVc title:@"服务" imageName:@"ser_image" selectedImageName:@"serSelect_image"];
@@ -145,9 +140,6 @@
 - (void)tabBar:(BkTabBarView *)tabBar didSelectButtonFrom:(NSInteger)from to:(NSInteger)to{
    
     
-    if (to == 1) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"postMenuIds" object:menuIds];
-    }
     self.selectedIndex = to;
     
 }
