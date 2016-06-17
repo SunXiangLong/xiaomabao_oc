@@ -560,19 +560,19 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                                 <subviews>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="axgz" translatesAutoresizingMaskIntoConstraints="NO" id="KPf-qq-IGS">
-                                        <rect key="frame" x="150" y="30" width="20" height="43"/>
+                                        <rect key="frame" x="128" y="30" width="64" height="138.5"/>
                                         <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="KPf-qq-IGS" secondAttribute="height" multiplier="170:379" id="JgJ-Ss-Wem"/>
+                                            <constraint firstAttribute="width" secondItem="KPf-qq-IGS" secondAttribute="height" multiplier="20:43" id="spQ-zP-GeM"/>
                                         </constraints>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="QEo-6B-vgY" appends="YES" id="zpd-c7-M6k"/>
                                         </connections>
                                     </imageView>
                                     <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="axwz" translatesAutoresizingMaskIntoConstraints="NO" id="DCM-lx-0ET">
-                                        <rect key="frame" x="150" y="88" width="20" height="43"/>
+                                        <rect key="frame" x="128" y="198.5" width="64" height="138.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="DCM-lx-0ET" secondAttribute="height" multiplier="170:379" id="zHm-IC-eMh"/>
+                                            <constraint firstAttribute="width" secondItem="DCM-lx-0ET" secondAttribute="height" multiplier="20:43" id="QLp-JM-KrN"/>
                                         </constraints>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="A7C-Jg-JiL" appends="YES" id="AEk-lG-E3Y"/>
@@ -582,31 +582,30 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstItem="DCM-lx-0ET" firstAttribute="leading" secondItem="M1e-lk-x3r" secondAttribute="leading" constant="150" id="IK9-Lp-vsT"/>
-                                    <constraint firstItem="KPf-qq-IGS" firstAttribute="leading" secondItem="M1e-lk-x3r" secondAttribute="leading" constant="150" id="Iov-nG-tIg"/>
-                                    <constraint firstItem="DCM-lx-0ET" firstAttribute="width" secondItem="DCM-lx-0ET" secondAttribute="height" multiplier="170:379" id="Lyz-kq-oSM"/>
-                                    <constraint firstItem="DCM-lx-0ET" firstAttribute="top" secondItem="KPf-qq-IGS" secondAttribute="bottom" constant="15" id="Wqk-CI-NEL"/>
-                                    <constraint firstAttribute="trailing" secondItem="KPf-qq-IGS" secondAttribute="trailing" constant="150" id="aHx-Lh-kgf"/>
-                                    <constraint firstItem="KPf-qq-IGS" firstAttribute="top" secondItem="M1e-lk-x3r" secondAttribute="top" constant="30" id="dsW-A8-xcF"/>
-                                    <constraint firstAttribute="trailing" secondItem="DCM-lx-0ET" secondAttribute="trailing" constant="150" id="hiN-4e-vYk"/>
+                                    <constraint firstItem="DCM-lx-0ET" firstAttribute="top" secondItem="KPf-qq-IGS" secondAttribute="bottom" constant="30" id="1jD-gn-fJJ"/>
+                                    <constraint firstItem="DCM-lx-0ET" firstAttribute="height" secondItem="KPf-qq-IGS" secondAttribute="height" id="4DU-Id-aRa"/>
+                                    <constraint firstItem="DCM-lx-0ET" firstAttribute="centerX" secondItem="M1e-lk-x3r" secondAttribute="centerX" id="KNf-nn-Y58"/>
+                                    <constraint firstAttribute="bottom" secondItem="DCM-lx-0ET" secondAttribute="bottom" constant="30" id="MhA-cC-fkb"/>
+                                    <constraint firstItem="KPf-qq-IGS" firstAttribute="centerX" secondItem="M1e-lk-x3r" secondAttribute="centerX" id="Ne4-lF-W0x"/>
+                                    <constraint firstItem="KPf-qq-IGS" firstAttribute="top" secondItem="M1e-lk-x3r" secondAttribute="top" constant="30" id="Qz4-FC-lAa"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xuy-dS-Ahs">
                                 <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                                 <subviews>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="awzhyz" translatesAutoresizingMaskIntoConstraints="NO" id="VQg-YX-811">
-                                        <rect key="frame" x="110" y="30" width="100" height="131.5"/>
+                                        <rect key="frame" x="107" y="30" width="105" height="138.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="VQg-YX-811" secondAttribute="height" multiplier="300:397" id="hUY-3G-86b"/>
+                                            <constraint firstAttribute="width" secondItem="VQg-YX-811" secondAttribute="height" multiplier="100:131" id="vWJ-iY-Mcu"/>
                                         </constraints>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="78L-O2-U5P" appends="YES" id="6Q6-jV-sbe"/>
                                         </connections>
                                     </imageView>
                                     <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bbycs" translatesAutoresizingMaskIntoConstraints="NO" id="Q19-Zi-C40">
-                                        <rect key="frame" x="110" y="176" width="100" height="131.5"/>
+                                        <rect key="frame" x="107" y="198" width="105" height="138.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="Q19-Zi-C40" secondAttribute="height" multiplier="300:397" id="mzC-W3-ee0"/>
+                                            <constraint firstAttribute="width" secondItem="Q19-Zi-C40" secondAttribute="height" multiplier="100:131" id="fAF-y3-IA7"/>
                                         </constraints>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="baO-Oq-fv0" appends="YES" id="PkC-46-mpq"/>
@@ -615,25 +614,42 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="VQg-YX-811" firstAttribute="leading" secondItem="xuy-dS-Ahs" secondAttribute="leading" constant="110" id="9LC-HE-7Lk"/>
-                                    <constraint firstItem="Q19-Zi-C40" firstAttribute="width" secondItem="Q19-Zi-C40" secondAttribute="height" multiplier="300:397" id="KtQ-b5-MUS"/>
-                                    <constraint firstAttribute="trailing" secondItem="Q19-Zi-C40" secondAttribute="trailing" constant="110" id="Zn1-JL-5TU"/>
-                                    <constraint firstAttribute="trailing" secondItem="VQg-YX-811" secondAttribute="trailing" constant="110" id="ejg-Dj-Sie"/>
-                                    <constraint firstItem="Q19-Zi-C40" firstAttribute="top" secondItem="VQg-YX-811" secondAttribute="bottom" constant="15" id="hdg-r4-YK6"/>
-                                    <constraint firstItem="VQg-YX-811" firstAttribute="top" secondItem="xuy-dS-Ahs" secondAttribute="top" constant="30" id="qob-OT-5uq"/>
-                                    <constraint firstItem="Q19-Zi-C40" firstAttribute="leading" secondItem="xuy-dS-Ahs" secondAttribute="leading" constant="110" id="vYg-3r-UEw"/>
+                                    <constraint firstItem="Q19-Zi-C40" firstAttribute="height" secondItem="VQg-YX-811" secondAttribute="height" id="2Be-Yr-23f"/>
+                                    <constraint firstItem="VQg-YX-811" firstAttribute="top" secondItem="xuy-dS-Ahs" secondAttribute="top" constant="30" id="Coz-ag-tuq"/>
+                                    <constraint firstItem="Q19-Zi-C40" firstAttribute="top" secondItem="VQg-YX-811" secondAttribute="bottom" constant="30" id="GWF-au-u5y"/>
+                                    <constraint firstAttribute="bottom" secondItem="Q19-Zi-C40" secondAttribute="bottom" constant="30" id="Oy7-wc-jse"/>
+                                    <constraint firstItem="VQg-YX-811" firstAttribute="centerX" secondItem="xuy-dS-Ahs" secondAttribute="centerX" id="cYb-0X-AVr"/>
+                                    <constraint firstItem="Q19-Zi-C40" firstAttribute="centerX" secondItem="xuy-dS-Ahs" secondAttribute="centerX" id="l2l-ld-JeN"/>
                                 </constraints>
                             </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEz-X1-L7Z">
+                                <rect key="frame" x="0.0" y="79" width="61" height="22"/>
+                                <state key="normal" image="backTady"/>
+                                <connections>
+                                    <action selector="button:" destination="Qd6-N2-YGO" eventType="touchUpInside" id="NBT-xn-jMt"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CK9-sZ-GNH">
+                                <rect key="frame" x="210" y="79" width="110" height="22"/>
+                                <state key="normal" image="beginParenting"/>
+                                <connections>
+                                    <action selector="button:" destination="Qd6-N2-YGO" eventType="touchUpInside" id="KMn-Nc-9ly"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="M1e-lk-x3r" secondAttribute="trailing" id="0SF-sx-v6j"/>
                             <constraint firstItem="M1e-lk-x3r" firstAttribute="top" secondItem="Ybf-RO-rZF" secondAttribute="bottom" id="42s-7K-2cH"/>
+                            <constraint firstItem="CK9-sZ-GNH" firstAttribute="top" secondItem="Ybf-RO-rZF" secondAttribute="bottom" constant="15" id="Dri-27-1uG"/>
                             <constraint firstItem="UBv-oJ-3zE" firstAttribute="top" secondItem="gVL-Q1-s07" secondAttribute="bottom" id="Jbc-Yy-Ccz"/>
                             <constraint firstItem="UBv-oJ-3zE" firstAttribute="leading" secondItem="cXV-Y1-ddp" secondAttribute="leading" id="Jfa-Bw-MUG"/>
                             <constraint firstItem="93g-RK-L6d" firstAttribute="top" secondItem="xuy-dS-Ahs" secondAttribute="bottom" id="MvX-0h-AXN"/>
                             <constraint firstItem="xuy-dS-Ahs" firstAttribute="leading" secondItem="cXV-Y1-ddp" secondAttribute="leading" id="Nso-2e-ktS"/>
+                            <constraint firstItem="YEz-X1-L7Z" firstAttribute="top" secondItem="Ybf-RO-rZF" secondAttribute="bottom" constant="15" id="OFO-Ps-qvi"/>
                             <constraint firstAttribute="trailing" secondItem="gVL-Q1-s07" secondAttribute="trailing" id="Oyw-qk-6Gh"/>
+                            <constraint firstItem="YEz-X1-L7Z" firstAttribute="leading" secondItem="cXV-Y1-ddp" secondAttribute="leading" id="SL5-C1-p4X"/>
+                            <constraint firstAttribute="trailing" secondItem="CK9-sZ-GNH" secondAttribute="trailing" id="Yxe-DS-0o9"/>
                             <constraint firstItem="gVL-Q1-s07" firstAttribute="top" secondItem="Ybf-RO-rZF" secondAttribute="bottom" constant="-45" id="bjh-mG-FkD"/>
                             <constraint firstItem="93g-RK-L6d" firstAttribute="top" secondItem="M1e-lk-x3r" secondAttribute="bottom" id="cy2-vu-jgB"/>
                             <constraint firstItem="gVL-Q1-s07" firstAttribute="leading" secondItem="cXV-Y1-ddp" secondAttribute="leading" id="gnB-VU-Nsu"/>
@@ -648,6 +664,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="babyGenderView" destination="M1e-lk-x3r" id="sJN-aw-lH9"/>
+                        <outlet property="backTadyButton" destination="YEz-X1-L7Z" id="HYR-BX-b2M"/>
+                        <outlet property="beginParentingButton" destination="CK9-sZ-GNH" id="oeF-Af-6rV"/>
                         <outlet property="collectionView" destination="JP4-Ek-Pky" id="Uql-5v-QfU"/>
                         <outlet property="leftButton" destination="xJX-tU-AaH" id="fMH-i2-xMH"/>
                         <outlet property="myStateView" destination="xuy-dS-Ahs" id="rDK-qR-Df1"/>
@@ -1858,7 +1876,9 @@
         <image name="awzhyz" width="150" height="198"/>
         <image name="axgz" width="85" height="198"/>
         <image name="axwz" width="85" height="198"/>
+        <image name="backTady" width="61" height="20"/>
         <image name="bbycs" width="150" height="198"/>
+        <image name="beginParenting" width="110" height="20"/>
         <image name="homepage_01.jpg" width="960" height="1476"/>
         <image name="homepage_02.jpg" width="960" height="1576"/>
         <image name="icon_weibo" width="21" height="21"/>

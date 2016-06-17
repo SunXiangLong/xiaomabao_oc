@@ -18,6 +18,7 @@
 #import "MBabyRecordFourCell.h"
 #import "MBPublishedViewController.h"
 #import "MBBabyManagementViewController.h"
+#import "MBabyRecordFiveCell.h"
 @interface MBabyRecordController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, STPhotoKitDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     NSInteger _page;
@@ -50,14 +51,20 @@
     [super viewDidLoad];
     _page = 1;
     
-    
-
-     [self getBabyImage];
+    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData:)];
+    footer.refreshingTitleHidden = YES;
+    self.tableView.mj_footer = footer;
+    [self getBabyImage];
 }
 /**
  *  请求日志列表
  */
-- (void)setData{
+- (void)setData:(BOOL)addNewDynamic{
+    if (addNewDynamic) {
+        _page =1;
+        [_resultArray removeAllObjects];
+        [_tableView.mj_footer resetNoMoreData];
+    }
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
@@ -70,19 +77,33 @@
     [MBNetworking POSTOrigin:url parameters:@{@"session":sessiondict,@"page":page} success:^(id responseObject) {
         
          [self dismiss];
-//          NSLog(@"%@",responseObject);
+         [_tableView.mj_footer endRefreshing];
+          NSLog(@"%@",responseObject);
         if ([[responseObject valueForKeyPath:@"data"][@"result"] count] == 0) {
-            
-        }else{
-            
-            
-            [self.resultArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"][@"result"]];
-            NSLog(@"%@",self.resultArray);
-            
-            
-            
-            [_tableView reloadData];
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
 
+        }else{
+            /**
+             *  发表了一个新的说说
+             */
+            if (addNewDynamic) {
+                
+               [self.resultArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"][@"result"]];
+               
+//                [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:1 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                 [_tableView reloadData];
+                 _page ++;
+              
+            }else{
+                [self.resultArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"][@"result"]];
+      
+                _page ++;
+                
+                [_tableView reloadData];
+
+            
+            }
+          
         
         }
         
@@ -98,12 +119,12 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
     [MBNetworking  POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_pic_wall"] parameters:@{@"session":sessiondict} success:^(id responseObject) {
-//          NSLog(@"%@",responseObject);
+//      NSLog(@"%@",responseObject);
         
         _imageArr = [@[[responseObject valueForKeyPath:@"data"][@"pic1"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic2"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic3"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic4"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic5"][@"photo"]] mutableCopy];
         
         
-        [self setData];
+        [self setData:NO];
     
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
@@ -149,14 +170,16 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (_imageArr&&_resultArray) {
-           return 2;
-    }
-    return 0;
+//    if (_imageArr&&_resultArray) {
+//           return 2;
+//    }
+//    return 0;
+    return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if (section == 0) {
+        
         return 1;
     }
   
@@ -180,8 +203,12 @@
     if (indexPath.row == 0) {
         return 80;
     }
-  
-    NSDictionary *dic = _resultArray[indexPath.row -1];
+     NSDictionary *dic = _resultArray[indexPath.row -1];
+    if ([dic[@"photo"] count] == 1) {
+    
+    return 110+(UISCREEN_WIDTH - 40 )/2;
+    }
+   
     if ([dic[@"photo"] count] == 0) {
         NSString *str = dic[@"content"];
         return 115 + [str sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake(UISCREEN_WIDTH-60, MAXFLOAT)].height;
@@ -245,7 +272,17 @@
         cell.dataDic = dic;
         return cell;
     }
-
+    if ([dic[@"photo"] count] == 1) {
+        
+        
+        MBabyRecordFiveCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBabyRecordFiveCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBabyRecordFiveCell"owner:nil options:nil]firstObject];
+        }
+        
+        cell.dataDic = dic;
+        return cell;
+    }
     
     MBabyRecordThreeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBabyRecordThreeCell"];
     if (!cell) {
@@ -256,15 +293,25 @@
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary *dic = _resultArray[indexPath.row -1];
+
     if (indexPath.section != 0) {
         
         if (indexPath.row == 0) {
             MBPublishedViewController *VC = [[MBPublishedViewController alloc] init];
             
+            
+            @weakify(self);
+            [[VC.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *num) {
+                @strongify(self);
+              
+                [self setData:YES];
+            }];
+            
+
+            
             [self pushViewController:VC Animated:YES];
         }else {
-        
+            NSDictionary *dic = _resultArray[indexPath.row -1];
             MBBabyManagementViewController *VC = [[MBBabyManagementViewController alloc] init];
             VC.ID = dic[@"id"];
             VC.photoArray = dic[@"photo"];
@@ -273,6 +320,13 @@
             VC.content    = dic[@"content"];
             VC.indexPath = indexPath;
             VC.image  = self.image;
+            __unsafe_unretained __typeof(self) weakSelf = self;
+            VC.block = ^(NSIndexPath *indexPath){
+            [_resultArray removeObjectAtIndex:indexPath.row -1];
+            [weakSelf.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+                
+            };
             [self pushViewController:VC Animated:YES];
         }
         

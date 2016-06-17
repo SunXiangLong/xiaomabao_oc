@@ -21,5 +21,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *babyDate;
 @property (weak, nonatomic) IBOutlet UILabel *baby_content;
 @property (weak, nonatomic) IBOutlet UIView *cenView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *view2_weith;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *view1_weith;
+@property (weak, nonatomic) IBOutlet UIImageView *came_image;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *view_weith;
+@property(copy,nonatomic)NSDictionary *dataDic;
 @end

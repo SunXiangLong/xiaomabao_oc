@@ -132,7 +132,14 @@
      
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageBadge:) name:@"messageBadge" object:nil];
         
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabBarBtn_selected:) name:@"tabBarBtn_selected" object:nil];
+        
     }
+}
+- (void)tabBarBtn_selected:(NSNotification *)notificat{
+    [self clickTap:_tabBarButtons[[notificat.userInfo[@"selected"] integerValue]]];
+ 
+
 }
 - (void)messageBadge:(NSNotification *)notificat{
    NSString *badgeValue =  [User_Defaults objectForKey:@"messageNumber"];
@@ -182,7 +189,6 @@
     [self setupTabBarButtonFrame];
 }
 
-
 /**
  *  设置选项卡按钮的位置和尺寸
  */
@@ -199,5 +205,9 @@
         button.ml_y = 0;
         
     }
+}
+-(void)dealloc  {
+
+    [ [NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end

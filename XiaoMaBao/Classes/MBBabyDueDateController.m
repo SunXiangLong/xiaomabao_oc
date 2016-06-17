@@ -7,22 +7,26 @@
 //
 
 #import "MBBabyDueDateController.h"
-
+#import "ActionSheetStringPicker.h"
+#import "MBNewWebViewController.h"
+#import "SFHFKeychainUtils.h"
 @interface MBBabyDueDateController ()
 {
     /**
      * 点击预产期计算器为Yes， 点击保存为NO
      */
     BOOL _isCalculation;
+    
+    NSDate *_lastPeriodDate;
 }
 @property (weak, nonatomic) IBOutlet UITextField *dueDateTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastPeriodTextField;
 @property (weak, nonatomic) IBOutlet UITextField *menstrualCycleTextField;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *view_height;
-@property (weak, nonatomic) IBOutlet UIView *top_view;
-
-@property (weak, nonatomic) IBOutlet UIButton *button;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *view_top;
+@property (weak, nonatomic) IBOutlet UIView *top_view;
+@property (weak, nonatomic) IBOutlet UIButton *button;
+
 @end
 
 @implementation MBBabyDueDateController
@@ -39,21 +43,30 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    if (_lastPeriodTextField.text.length == 0 ) {
+        
+    _lastPeriodTextField.text = @"";
+    }
+    
+    if ( _menstrualCycleTextField.text.length==0) {
+       _menstrualCycleTextField.text = @"";
+    }
     [self show];
     
     
-    NSDictionary *parameters = @{@"session":sessiondict,@"overdue_date":_dueDateTextField.text,@"last_period_data":@"",@"period_circle":@""};
+    NSDictionary *parameters = @{@"session":sessiondict,@"overdue_date":_dueDateTextField.text,@"last_period_data":_lastPeriodTextField.text,@"period_circle":_menstrualCycleTextField.text};
     
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/set_mengbao_info"];
     [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
-        [self dismiss];
+ 
         NSLog(@"%@",responseObject);
         NSString *status =  s_str([responseObject valueForKeyPath:@"status"]);
         if ([status isEqualToString:@"1"]) {
             
-            MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-            userInfo.is_baby_add =  @"1";
-            [self popViewControllerAnimated:YES];
+            
+    
+            [ self Obtain];
+           
         }else{
             
             [self show:@"保存失败" time:1];
@@ -67,11 +80,9 @@
     
 }
 - (IBAction)shezhi:(id)sender {
-  
-    _isCalculation   = !_isCalculation;
+   _top_view.hidden = NO;
+    _isCalculation   = YES;
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position"];
-    
-    
     anim.toValue = [NSValue valueWithCGPoint:CGPointMake(UISCREEN_WIDTH/2, 288)];
     anim.duration = .5f;
     anim.fillMode = kCAFillModeForwards;
@@ -79,10 +90,7 @@
     // 必须设置代理
     anim.delegate = self;
     [self.button.layer addAnimation:anim forKey:@"position"];
-    
     CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    
-
     scaleAnimation.toValue = [NSNumber numberWithFloat:1];
     scaleAnimation.duration = .5f;
     scaleAnimation.fillMode = kCAFillModeForwards;
@@ -96,13 +104,65 @@
 
     
 }
-- (IBAction)save:(id)sender {
-  
-    _isCalculation   = !_isCalculation;
 
+- (IBAction)jishuan:(id)sender {
+    MBNewWebViewController *VC = [[MBNewWebViewController alloc] init];
+    
+    [self pushViewController:VC Animated:YES];
+}
+
+- (IBAction)save:(id)sender {
+   
+  
+    
+    if (_dueDateTextField.text.length ==0  ) {
+       if (_isCalculation) {
+            
+            if (_lastPeriodTextField.text.length == 0 ) {
+                
+                [self show:@"选择末次月经时间" time:1];
+                
+                return;
+            }
+            
+            if ( _menstrualCycleTextField.text.length==0) {
+                
+                [self show:@"选择月经周期天数" time:1];
+                
+                return;
+            }
+           
+          NSInteger time =  28 - ( [_menstrualCycleTextField.text integerValue] - 45)+279;
+           NSDate *dueDate = [_lastPeriodDate dateByAddingDays:time];
+           NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+           //设定时间格式,这里可以设置成自己需要的格式
+           [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+           //用[NSDate date]可以获取系统当前时间
+           NSString *currentDateStr = [dateFormatter stringFromDate:dueDate];
+           _dueDateTextField.text = currentDateStr;
+           
+           [self setAnimation];
+           
+       }else{
+           
+           [self show:@"请设置你的预产期(可点击预产期计算器帮助计算)" time:1];
+           return;
+       }
+     
+        
+    }
+      [self setData];
+    
+    _isCalculation   = NO;
+}
+/**
+ *  隐藏预产期计算器
+ */
+- (void)setAnimation{
+     _top_view.hidden = YES;
     CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     
-      scaleAnimation.toValue = [NSNumber numberWithFloat:0];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:0];
     scaleAnimation.duration = .5f;
     scaleAnimation.fillMode = kCAFillModeForwards;
     scaleAnimation.removedOnCompletion = NO;
@@ -121,20 +181,20 @@
     anim.delegate = self;
     [self.button.layer addAnimation:anim forKey:@"position"];
 
-      [self setData];
 }
 //动画开始时
 - (void)animationDidStart:(CAAnimation *)anim{
-    NSLog(@"开始了");
+//    NSLog(@"开始了");
 }
 //动画结束时
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
     //方法中的flag参数表明了动画是自然结束还是被打断,比如调用了removeAnimationForKey:方法或removeAnimationForKey方法，flag为NO，如果是正常结束，flag为YES。
-    NSLog(@"结束了");
+//    NSLog(@"结束了");
     if (_isCalculation) {
         self.top_view.transform = CGAffineTransformMakeScale(1 ,1);
         self.view_height.constant = 90;
         self.view_top.constant = 10;
+       
     }else{
         self.top_view.transform = CGAffineTransformMakeScale(0 ,0);
         self.view_height.constant = 0;
@@ -146,7 +206,21 @@
 }
 #pragma mark --- 选择日期
 -(void)selectBirthday:(UITextField *)textField{
+    NSMutableArray *dateArr = [NSMutableArray array];
     
+    for (NSInteger i =20; i<46; i++) {
+        [dateArr addObject:s_Integer(i)];
+    }
+    if ([_menstrualCycleTextField isEqual:textField]) {
+  
+
+        [ActionSheetStringPicker showPickerWithTitle:@"请选择月经周期天数" rows:dateArr  initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+            textField.text = dateArr[selectedIndex];
+        } cancelBlock:^(ActionSheetStringPicker *picker) {
+            
+        } origin:textField];
+        return;
+    }
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
@@ -159,6 +233,9 @@
                                          [dateFormatter setDateFormat:@"yyyy-MM-dd"];
                                          //用[NSDate date]可以获取系统当前时间
                                          NSString *currentDateStr = [dateFormatter stringFromDate:selectedDate];
+                                         if ([_lastPeriodTextField isEqual:textField]) {
+                                             _lastPeriodDate = selectedDate;
+                                         }
                                          
                                          textField.text = currentDateStr;
                                      } cancelBlock:^(ActionSheetDatePicker *picker) {
@@ -175,6 +252,66 @@
     [self selectBirthday:textField];
     return NO;
 }
-
-
+#pragma mark --  获取keychina中存放的用户名和密码
+- (void)Obtain{
+    
+    NSString * UserName = [SFHFKeychainUtils getPasswordForUsername:@"zhanghu" andServiceName:@"com.xiaomabao.user" error:nil];
+    
+    NSString * Password = [SFHFKeychainUtils getPasswordForUsername:@"Password" andServiceName:@"com.xiaomabao.Password" error:nil];
+    
+    NSString *sign_type = [SFHFKeychainUtils getPasswordForUsername:@"sign_type" andServiceName:@"com.xiaomabao.sign_type" error:nil];
+    
+    NSString *name = [SFHFKeychainUtils getPasswordForUsername:@"name" andServiceName:@"com.xiaomabao.name" error:nil];
+    
+    NSString *header_img = [SFHFKeychainUtils getPasswordForUsername:@"header_img" andServiceName:@"com.xiaomabao.header_img" error:nil];
+    
+    NSString *nick_name = [SFHFKeychainUtils getPasswordForUsername:@"nick_name" andServiceName:@"com.xiaomabao.nick_nick_name" error:nil];
+    
+    
+    if(UserName&&Password){
+        
+        NSDictionary  *params = @{ @"name":UserName, @"password":[Password md5]};
+        [self zhanghzhao:params];
+        
+        
+        
+    }else if(sign_type&&name&&header_img&&nick_name){
+        
+        
+        NSDictionary   *params = @{@"sign_type":sign_type, @"name":name,@"header_img":header_img,@"nick_name":nick_name};
+        [self zhanghzhao:params];
+        
+    }
+    
+}
+#pragma mark－－获取登陆账号信息
+- (void)zhanghzhao:(NSDictionary *)params{
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/signin"] parameters:params
+               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
+                          [self dismiss];
+                   
+                   if(1 == [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] intValue]){
+                       NSDictionary *userData = [responseObject valueForKeyPath:@"data"];
+                       MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
+        
+                       userInfo.user_baby_info = userData[@"user"][@"user_baby_info"];
+                       userInfo.is_baby_add = [NSString stringWithFormat:@"%@", userData[@"user"][@"is_baby_add"]];
+                       [self show:@"设置成功" time:1];
+                        [self popViewControllerAnimated:YES];
+                   }else{
+                       
+                       NSString *errStr =[[responseObject valueForKey:@"status"] valueForKey:@"error_desc"];
+                       NSLog(@"%@",errStr);
+                   }
+                   
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+                   
+                   
+                   NSLog(@"%@",error);
+                   
+               }
+     ];
+    
+    
+}
 @end

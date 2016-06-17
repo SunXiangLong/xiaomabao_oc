@@ -114,7 +114,8 @@
                     [self.myCircleViewSubject sendNext:@1];
                 }else if ([dic[@"type"] isEqualToString:@"showWebView"]){
                     MBBabyWebController *VC = [[MBBabyWebController alloc] init];
-                    VC.url = URL(dic[@"params"]);
+                    NSString *params =  dic[@"params"];
+                    VC.url = URL([params stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
                     VC.title = dic[@"topId"];
                     [self pushViewController:VC Animated:YES];
                 }

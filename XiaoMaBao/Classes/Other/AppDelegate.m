@@ -287,7 +287,7 @@
                        
                        NSDictionary *sessionDict = [userData valueForKeyPath:@"session"];
                        MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-                      NSLog(@"%@",userData);
+                    NSLog(@"%@",userData);
                        
                        userInfo.sid = [sessionDict valueForKeyPath:@"sid"];
                        userInfo.uid = [sessionDict valueForKeyPath:@"uid"];

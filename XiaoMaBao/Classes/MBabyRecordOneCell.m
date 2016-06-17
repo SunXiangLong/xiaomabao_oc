@@ -50,9 +50,14 @@
         
          UIImageView *imageView = imageArr[[_dataArr indexOfObject:object]];
         if ([object isKindOfClass:[NSString class]]) {
-          
+            if ([_dataArr indexOfObject:object] ==2) {
+                  [imageView sd_setImageWithURL:URL(object) placeholderImage:[UIImage imageNamed:@"amengBaoMiddle"]];
+            }else{
             
-            [imageView sd_setImageWithURL:URL(object) placeholderImage:[UIImage imageNamed:@"amengBaoLeft"]];
+              [imageView sd_setImageWithURL:URL(object) placeholderImage:[UIImage imageNamed:@"amengBaoLeft"]];
+            }
+            
+          
             
         }else if([object isKindOfClass:[UIImage class ]]){
             

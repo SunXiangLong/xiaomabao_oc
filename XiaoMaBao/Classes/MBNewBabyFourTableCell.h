@@ -21,4 +21,20 @@
 @property (weak, nonatomic) IBOutlet UIImageView *image5;
 
 @property (weak, nonatomic) IBOutlet UIImageView *image3;
+
+@property (weak, nonatomic) IBOutlet UILabel *goods_name0;
+
+@property (weak, nonatomic) IBOutlet UILabel *goods_name1;
+@property (weak, nonatomic) IBOutlet UILabel *goods_name2;
+@property (weak, nonatomic) IBOutlet UILabel *goods_name3;
+@property (weak, nonatomic) IBOutlet UILabel *goods_price0;
+
+@property (weak, nonatomic) IBOutlet UILabel *goods_price1;
+@property (weak, nonatomic) IBOutlet UILabel *goods_price2;
+@property (weak, nonatomic) IBOutlet UILabel *goods_price3;
+@property (weak, nonatomic) IBOutlet UILabel *market_price0;
+@property (weak, nonatomic) IBOutlet UILabel *market_price1;
+@property (weak, nonatomic) IBOutlet UILabel *market_price3;
+
+@property (weak, nonatomic) IBOutlet UILabel *market_price2;
 @end

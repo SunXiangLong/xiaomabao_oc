@@ -104,7 +104,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _tabeleView.bounces = NO;
     self.tabeleView.tableFooterView = [[UIView alloc] init];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageBadge:) name:@"messageBadge" object:nil];
     _dataArray = @[@{@"image":@"icon1",@"name":@"浏览记录"},
@@ -139,8 +139,7 @@
 
 - (void)rightTitleClick{
     
-//    NSNotification *messageBadge =[NSNotification notificationWithName:@"messageBadge" object:nil userInfo:nil];
-//    [[NSNotificationCenter defaultCenter] postNotification:messageBadge];
+
     _isbool = NO;
     if (self.isLogin) {
         MBSettingViewController *settingVc = [[MBSettingViewController alloc] init];

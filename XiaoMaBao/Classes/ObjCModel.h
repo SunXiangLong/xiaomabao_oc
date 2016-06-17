@@ -10,8 +10,10 @@
 #import "BkBaseViewController.h"
 #import <JavaScriptCore/JavaScriptCore.h> //引入头文件
 @protocol JavaScriptObjectiveCDelegate <JSExport>
-
-
+/**
+ *  返回计算预产日期的界面
+ */
+- (void)finishView;
 /**
  *  JS调用此方法来调用APP的登录界面
  */
@@ -29,6 +31,7 @@
 - (void)showTopic:(NSString *)params;
 - (void)showGroup:(NSString *)params;
 - (void)showWebView:(NSString *)params :(NSString *)topId;
+
 @end
 @interface ObjCModel : NSObject <JavaScriptObjectiveCDelegate>
 @property (nonatomic, weak) JSContext *jsContext;

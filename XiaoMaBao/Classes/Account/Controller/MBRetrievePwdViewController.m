@@ -128,17 +128,17 @@
         return NO;
     }
     
-    NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
-    
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-    
-    BOOL isMatch = [pred evaluateWithObject:str];
-    
-    if (!isMatch) {
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输正确的手机号码" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        return NO;
-    }
+//    NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+//    
+//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+//    
+//    BOOL isMatch = [pred evaluateWithObject:str];
+//    
+//    if (!isMatch) {
+//        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输正确的手机号码" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//        [alert show];
+//        return NO;
+//    }
     return YES;
 }
 

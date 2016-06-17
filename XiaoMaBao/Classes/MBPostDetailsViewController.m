@@ -253,7 +253,7 @@
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         //        NSLog(@"%@",responseObject);
-        
+        [_tableView.mj_footer endRefreshing];
         if (responseObject) {
             
             if (_isDismiass) {
@@ -341,7 +341,7 @@
                     
                     _page++;
                     [weakSelf.tableView reloadData];
-                    [weakSelf.tableView .mj_footer endRefreshing];
+//                    [weakSelf.tableView .mj_footer endRefreshing];
                     
                 }else{
                     [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];

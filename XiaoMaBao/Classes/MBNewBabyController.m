@@ -25,9 +25,11 @@
 #import "STPhotoKitController.h"
 #import "UIImagePickerController+ST.h"
 #import "STConfig.h"
+#import "MBPostDetailsViewController.h"
 @interface MBNewBabyController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource,STPhotoKitDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
-    NSMutableArray *_dateArray;
+   
+    
     NSInteger _row;
     /**
      *  宝宝状态 yes已出生  no怀孕中
@@ -41,10 +43,7 @@
     NSDate *_current_date;
     NSDate *_start_date;
     NSDate *_end_date;
-    /**
-     *  是否更换日期 默认当天的日期
-     */
-    BOOL _isdate;
+    
     /**
      *  是否从下个界面返回的
      */
@@ -60,6 +59,14 @@
      *  宝宝头像
      */
      id _images;
+    
+    NSString *_oldUid;
+    
+    /**
+     *  是在怀孕状态 还是宝宝已出生  yes 是怀孕  no 宝宝出生后
+     */
+    BOOL  _isPregnant;
+    
 }
 /**
  *  顶部view
@@ -69,6 +76,10 @@
  *  日期选择view
  */
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+@property (weak, nonatomic) IBOutlet UIButton *beginParentingButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *backTadyButton;
 /**
  *  底层展示控件
  */
@@ -83,6 +94,7 @@
 @property (weak, nonatomic) IBOutlet UIView *babyGenderView;
 
 @property (copy, nonatomic) NSMutableArray *dataArray;
+@property (copy, nonatomic) NSMutableArray *dateArray;
 @property (weak, nonatomic) IBOutlet UIButton *reftButton;
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
 /**
@@ -101,18 +113,60 @@
     
     return _dataArray;
 }
+-(NSMutableArray *)dateArray{
+    
+    if (!_dateArray) {
+        
+        _dateArray = [NSMutableArray array];
+    }
+    
+    return _dateArray;
+}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSString *is_baby_add = [MBSignaltonTool getCurrentUserInfo].is_baby_add;
-    _baby_id = [MBSignaltonTool getCurrentUserInfo].user_baby_info[@"id"];
+    /**
+     *  判断用户是否登陆和设置过宝宝信息
+     */
     if (is_baby_add&&[is_baby_add isEqualToString:@"1"]) {
+         _baby_id = [MBSignaltonTool getCurrentUserInfo].user_baby_info[@"id"];
+        /**
+         *  判断是不是第二次进入这个界面 且用户状态没发生改变 就不在重请求数据
+         */
+        if (![uid isEqualToString:_oldUid]){
+        /**
+         *  第二次进入界面且登陆状态改变 上一次进入是否请求到数据 有就清空
+         */
+            [self.dataArray removeAllObjects];
+            [self.dateArray removeAllObjects];
+            
         _babyGenderView.hidden = YES;
         _myStateView.hidden = YES;
         [self setToolkit:NO];
-    }else{
+        _oldUid = uid;
+            
+         
+        }else{
+            if (self.dateArray.count == 0) {
+                
+                [self setToolkit:NO];
+            }
         
+        }
+       
+    }else{
+        _babyGenderView.hidden = NO;
+        _myStateView.hidden = NO;
+        _reftButton.hidden = YES;
+        _leftButton.hidden = YES;
+        _beginParentingButton.hidden = YES;
+        _backTadyButton.hidden = YES;
+  
+        [_dataArray removeAllObjects];
+        [_dateArray removeAllObjects];
+        [_tableView reloadData];
+        [_collectionView reloadData];
         
     }
     
@@ -123,8 +177,8 @@
     _tableView.bounces = NO;
     
     
-    self.view.backgroundColor = [UIColor    whiteColor];
-    //    _row = 1;
+   
+
     MBCollectionViewFlowLayout *flowLayout = ({
         MBCollectionViewFlowLayout *flowLayout =  [[MBCollectionViewFlowLayout alloc] init];
         flowLayout.itemSize = CGSizeMake((UISCREEN_WIDTH-90)/3,45);
@@ -134,12 +188,29 @@
      
         flowLayout;
     });
-    self.collectionView.scrollEnabled = YES;
-    self.collectionView.showsHorizontalScrollIndicator = NO;
-    self.collectionView.collectionViewLayout = flowLayout;
+    _collectionView.scrollEnabled = YES;
+    _collectionView.showsHorizontalScrollIndicator = NO;
+    _collectionView.collectionViewLayout = flowLayout;
+    _collectionView.dataSource = self;
+    _collectionView.delegate = self;
     [self.collectionView registerNib:[UINib nibWithNibName:@"MBNewBabyCell" bundle:nil] forCellWithReuseIdentifier:@"MBNewBabyCell"];
     
 
+}
+- (IBAction)button:(UIButton *)sender {
+    
+    if ([sender isEqual:_backTadyButton]) {
+        _row = [_dateArray indexOfObject:_current_date];
+        [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+        
+          [self setData:[self setDate:_current_date]];
+        sender.hidden= YES;
+        
+    }else{
+        _babyGenderView.hidden = NO;
+    
+    
+    }
 }
 
 - (IBAction)touchs:(UITapGestureRecognizer *)sender {
@@ -212,35 +283,39 @@
 
 - (IBAction)back:(UIButton *)sender {
     
-    _isdate = YES;
+   
     if (_row == _dateArray.count-1) {
         return;
+    }
+    if ([_dateArray[_row] isEqualToDate:_current_date]) {
+        _backTadyButton.hidden = YES;
     }
     _row ++;
     [self collectionViewOffset];
     NSDate *date = _dateArray[_row];
-    
-    NSString *current_date  = [NSString stringWithFormat:@"%ld年%ld月%ld日",date.year,date.month,date.day];
     if (sender) {
-        [self setData:current_date];
+        _backTadyButton.hidden = NO;
+        [self setData:[self setDate:date]];
     }
     
     
 }
 - (IBAction)next:(UIButton *)sender {
-    _isdate = YES;
+
+
     
-    
-    if (_row ==0) {
+    if (_row == 0) {
         return;
     }
-    
+    if ([_dateArray[_row] isEqualToDate:_current_date]) {
+        _backTadyButton.hidden = YES;
+    }
     _row --;
     [self collectionViewOffset];
     NSDate *date = _dateArray[_row];
-    NSString *current_date  = [NSString stringWithFormat:@"%ld年%ld月%ld日",date.year,date.month,date.day];
     
-    [self setData:current_date];
+    _backTadyButton.hidden = NO;
+   [self setData:[self setDate:date]];
     
     
 }
@@ -289,27 +364,35 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    NSDictionary *parameters = @{@"session":sessiondict};
     if (date) {
+       
+         parameters = @{@"session":sessiondict,@"current_date":date};
         [self show];
     }
-    NSDictionary *parameters = @{@"session":sessiondict};
+    
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_index_info"];
     [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
         [self dismiss];
+        _isPregnant = [[responseObject valueForKeyPath:@"type"] isEqualToString:@"pregnant"];
 //        NSLog(@"%@",responseObject);
-        if (_isdate) {
-            NSArray *toolArr= _dataArray[1];
-            [_dataArray removeAllObjects];
+        if (date) {
+
             _day_info = [responseObject valueForKeyPath:@"day_info"];
             [self setTableHeadView:_day_info];
-            [self.dataArray addObject:[responseObject valueForKeyPath:@"remind"]];
-            [self.dataArray addObject:toolArr];
-            [self.dataArray addObject:[responseObject valueForKeyPath:@"recommend_posts"]];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObjectsFromArray:[responseObject valueForKeyPath:@"recommend_topics"]];
-            [arr addObjectsFromArray:[responseObject valueForKeyPath:@"recommend_goods"]];
-            [self.dataArray addObject:@[arr]];
+            self.dataArray[0] = [responseObject valueForKeyPath:@"remind"];
+            if ( [responseObject valueForKeyPath:@"recommend_posts"]) {
+                self.dataArray[2] = [responseObject valueForKeyPath:@"recommend_posts"];
+            }
+            if ([responseObject valueForKeyPath:@"recommend_topics"]) {
+                self.dataArray[3][0] = [responseObject valueForKeyPath:@"recommend_topics"];
+            }
+            if ([responseObject valueForKeyPath:@"recommend_goods"]) {
+                self.dataArray[3][0] = [responseObject valueForKeyPath:@"recommend_goods"];
+            }
+ 
             [_tableView reloadData];
+      
         }else{
             _day_info = [responseObject valueForKeyPath:@"day_info"];
             [self setTableHeadView:_day_info];
@@ -321,13 +404,10 @@
             [self.dataArray addObject:@[arr]];
             _tableView.delegate = self;
             _tableView.dataSource =self;
-            
-            
-            
             _current_date = [self setDateStr:[responseObject valueForKeyPath:@"current_date"]];
             _start_date   =  [self setDateStr:[responseObject valueForKeyPath:@"start_date"]];
             _end_date     = [self setDateStr:[responseObject valueForKeyPath:@"end_date"]];
-            
+            [_tableView reloadData];
             [self calculateDate];
             
             
@@ -347,7 +427,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/modInfo"] parameters:@{@"session":sessiondict,@"baby_id":_baby_id} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/save_baby_photo"] parameters:@{@"session":sessiondict,@"baby_id":_baby_id} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     
             NSData * data =  UIImageJPEGRepresentation(_baby_image, 1.0);
             if(data != nil){
@@ -369,30 +449,63 @@
  *  根据开始 和结束时间 计算天数并以 yyyy—MM－dd的date存入数据
  */
 - (void)calculateDate{
-    _dateArray = [@[_current_date]mutableCopy];
-    NSInteger  i =1;
-    do {
-        [_dateArray addObject: [_current_date dateByAddingDays:i]];
+    
+ 
+    if (_isPregnant) {
         
+        /**
+         *  若到第38周到40周 之间 提示设置宝宝信息
+         */
+        NSDate *date =  [_start_date dateByAddingDays:266];
+        
+        if ([_current_date isLaterThan:date]) {
+            _beginParentingButton.hidden = NO;
+        }
+        
+    }else{
+    
+        
+        /**
+         *  超过六岁 就显示第一天的数据
+         */
+        if ( [_current_date daysFrom:_start_date]>[_end_date daysFrom:_start_date]) {
+            
+            return;
+        }
+    }
+
+    
+    [_dateArray addObject:_current_date];
+    
+    NSInteger  i =1;
+    
+    while (i<[_end_date daysFrom:_current_date]+2) {
+        [_dateArray addObject: [_current_date dateByAddingDays:i]];
+
         i++;
-    } while (i<[_end_date daysFrom:_current_date]);
+    }
+
     
     i=1;
-    do {
+    
+    while (i<[_current_date daysFrom:_start_date]) {
         [_dateArray insertObject:[_current_date dateBySubtractingDays:i] atIndex:0];
         i++;
-    } while (i<[_current_date daysFrom:_start_date]);
+    }
+    [_collectionView reloadData];
     
-    
-    _collectionView.dataSource = self;
-    _collectionView.delegate = self;
     _reftButton.hidden = NO;
     _leftButton.hidden = NO;
     _row = [_dateArray indexOfObject:_current_date];
-    _row --;
-    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-    
-    [self back:nil];
+    [self collectionViewOffset];
+//     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+//    _row --;
+//    if (_row > 0) {
+//        [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+//       
+//        [self back:nil];
+//    }
+ 
 
 }
 /**
@@ -421,31 +534,26 @@
         }
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, height)];
         MBNewBabyHeadView  *headView = [MBNewBabyHeadView instanceView];
-        
-        if (day_info) {
-            
-            headView.view_height.constant = 88+[center sizeWithFont:SYSTEMFONT(15) withMaxSize:CGSizeMake(UISCREEN_WIDTH -50, MAXFLOAT)].height;
-        }else{
-            
-            headView.view_height.constant = 0;
-            headView.cenView.hidden = YES;
-            
-            
-        }
+        headView.dataDic = day_info;
         if (_baby_image) {
             _images = _baby_image;
             headView.baby_image.image = _baby_image;
         }else{
-             _images = _day_info[@"images"];
-        [headView.baby_image sd_setImageWithURL:URL(day_info[@"images"]) placeholderImage:[UIImage imageNamed:@"headPortrait"]];
+            if (_isPregnant) {
+                headView.came_image.hidden = YES;
+                _images = day_info[@"images"];
+                
+                [headView.baby_image sd_setImageWithURL:URL(day_info[@"images"]) placeholderImage:[UIImage imageNamed:@"headPortrait"]];
+                headView.baby_image.userInteractionEnabled = NO;
+            }else{
+                _images = [MBSignaltonTool getCurrentUserInfo].user_baby_info[@"photo"];
+                     headView.came_image.hidden = NO;
+                  headView.baby_image.userInteractionEnabled = YES;
+                [headView.baby_image sd_setImageWithURL:URL([MBSignaltonTool getCurrentUserInfo].user_baby_info[@"photo"]) placeholderImage:[UIImage imageNamed:@"headPortrait"]];
+            
+            }
+           
         }
-        
-        headView.baby_length.text = day_info[@"baby_weight"];
-        headView.baby_weight.text = day_info[@"baby_weight"];
-        headView.baby_date.text = day_info[@"overdue_daynum"];
-        headView.babyDate.text  =   headView.baby_date.text.length>0?@"距离预产期":@"";
-        
-        headView.baby_content.text = center;
         headView.frame = view.frame;
         [view addSubview:headView];
         @weakify(self);
@@ -455,9 +563,12 @@
             NSString *title;
             switch ([tag integerValue]) {
                 case 0: {
-                    MBabyRecordController *VC = [[MBabyRecordController alloc] init];
-                    VC.image = _images;
-                    [self pushViewController:VC Animated:YES];
+                    
+                        MBabyRecordController *VC = [[MBabyRecordController alloc] init];
+                        VC.image = _images;
+                        [self pushViewController:VC Animated:YES];
+                    
+           
                     return ;
                     
                 }break;
@@ -525,7 +636,7 @@
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _dateArray.count;
+    return self.dateArray.count;
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -542,18 +653,16 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     _row = indexPath.row;
-    
+    _backTadyButton.hidden = NO;
     
     [self collectionViewOffset];
     NSDate *date = _dateArray[_row];
-    NSString *current_date  = [NSString stringWithFormat:@"%ld年%ld月%ld日",date.year,date.month,date.day];
-    
-    [self setData:current_date];
+    [self setData:[self setDate:date]];
 }
 #pragma mark ---UITableViewDelagate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return _dataArray.count;
+    return self.dataArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -622,6 +731,7 @@
     UIView *view = [[UIView alloc] init];
     view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 60);
     UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.userInteractionEnabled = YES;
     [view addSubview:imageView];
     
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -631,14 +741,19 @@
         make.width.mas_equalTo(103);
         
     }];
-    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(footerGes:)];
+    imageView.tag = section;
+    [imageView addGestureRecognizer:tap];
     if (section == 2) {
-        imageView.image = [UIImage imageNamed:@"axiajiao1"];
         
+        imageView.image = [UIImage imageNamed:@"axiajiao1"];
+     
+
         
     }else if (section == 3){
         
         imageView.image = [UIImage imageNamed:@"axiajiao2"];
+        
     }
     
     
@@ -648,10 +763,13 @@
     
     switch (indexPath.section) {
         case 0: {
+            
             MBNewBabyOneTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBNewBabyOneTableCell"];
+            
             if (!cell) {
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyOneTableCell"owner:nil options:nil]firstObject];
             }
+            
             [self setUIEdgeInsetsZero:cell];
             cell.dataDic = _dataArray[indexPath.section][indexPath.row];
             return cell;
@@ -702,6 +820,16 @@
     
     
 }
+- (void)footerGes:(UITapGestureRecognizer *)sender {
+    if (sender.view.tag ==2) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"tabBarBtn_selected" object:nil userInfo:@{@"selected":@"3"}];
+        self.tabBarController.selectedIndex = 3;
+    }else if (sender.view.tag== 3){
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"tabBarBtn_selected" object:nil userInfo:@{@"selected":@"2"}];
+       self.tabBarController.selectedIndex = 2;
+    
+    }
+}
 /**
  *  让cell地下的边线挨着左边界
  */
@@ -720,6 +848,7 @@
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+   
     switch (indexPath.section) {
         case 0: {
             MBBabyWebController *VC = [[MBBabyWebController alloc] init];
@@ -751,8 +880,10 @@
             
         }break;
         case 2: {
-            
-            
+         
+            MBPostDetailsViewController *VC = [[MBPostDetailsViewController   alloc] init];
+            VC.post_id = _dataArray[indexPath.section][indexPath.row][@"post_id"];
+            [self pushViewController:VC Animated:YES];
             
         }break;
         case 3: {
@@ -777,7 +908,7 @@
 {
     [picker dismissViewControllerAnimated:YES completion:^{
         UIImage *imageOriginal = [info objectForKey:UIImagePickerControllerOriginalImage];
-        STPhotoKitController *photoVC = [STPhotoKitController new];
+        STPhotoKitController *photoVC = [[STPhotoKitController alloc] init];
         [photoVC setDelegate:self];
         [photoVC setImageOriginal:imageOriginal];
         
@@ -842,4 +973,11 @@
     return date;
 }
 
+- (NSString *)setDate:(NSDate *)date{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+   return  [formatter stringFromDate:date];
+
+
+}
 @end

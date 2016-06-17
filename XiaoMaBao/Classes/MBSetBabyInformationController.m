@@ -7,7 +7,7 @@
 //
 
 #import "MBSetBabyInformationController.h"
-
+#import "SFHFKeychainUtils.h"
 @interface MBSetBabyInformationController ()
 @property (weak, nonatomic) IBOutlet UITextField *baby_name;
 @property (weak, nonatomic) IBOutlet UITextField *baby_birthday;
@@ -75,11 +75,12 @@
    
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/set_mengbao_info"];
     [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
-        [self dismiss];
+        
         NSLog(@"%@",responseObject);
         NSString *status =  s_str([responseObject valueForKeyPath:@"status"]);
         if ([status isEqualToString:@"1"]) {
-                 [self popViewControllerAnimated:YES];
+            [self Obtain];
+            
         }else{
         
             [self show:@"保存失败" time:1];
@@ -102,5 +103,67 @@
     [self selectBirthday];
     return NO;
 }
-
+#pragma mark --  获取keychina中存放的用户名和密码
+- (void)Obtain{
+    
+    NSString * UserName = [SFHFKeychainUtils getPasswordForUsername:@"zhanghu" andServiceName:@"com.xiaomabao.user" error:nil];
+    
+    NSString * Password = [SFHFKeychainUtils getPasswordForUsername:@"Password" andServiceName:@"com.xiaomabao.Password" error:nil];
+    
+    NSString *sign_type = [SFHFKeychainUtils getPasswordForUsername:@"sign_type" andServiceName:@"com.xiaomabao.sign_type" error:nil];
+    
+    NSString *name = [SFHFKeychainUtils getPasswordForUsername:@"name" andServiceName:@"com.xiaomabao.name" error:nil];
+    
+    NSString *header_img = [SFHFKeychainUtils getPasswordForUsername:@"header_img" andServiceName:@"com.xiaomabao.header_img" error:nil];
+    
+    NSString *nick_name = [SFHFKeychainUtils getPasswordForUsername:@"nick_name" andServiceName:@"com.xiaomabao.nick_nick_name" error:nil];
+    
+    
+    if(UserName&&Password){
+        
+        NSDictionary  *params = @{ @"name":UserName, @"password":[Password md5]};
+        [self zhanghzhao:params];
+        
+        
+        
+    }else if(sign_type&&name&&header_img&&nick_name){
+        
+        
+        NSDictionary   *params = @{@"sign_type":sign_type, @"name":name,@"header_img":header_img,@"nick_name":nick_name};
+        [self zhanghzhao:params];
+        
+    }
+    
+}
+#pragma mark－－获取登陆账号信息
+- (void)zhanghzhao:(NSDictionary *)params{
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/signin"] parameters:params
+               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
+                   [self dismiss];
+                   
+                   if(1 == [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] intValue]){
+                       NSDictionary *userData = [responseObject valueForKeyPath:@"data"];
+                       MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
+                       
+                       userInfo.user_baby_info = userData[@"user"][@"user_baby_info"];
+                       userInfo.is_baby_add = [NSString stringWithFormat:@"%@", userData[@"user"][@"is_baby_add"]];
+                       [self show:@"设置成功" time:.3];
+                       
+                       [self popViewControllerAnimated:YES];
+                   }else{
+                       
+                       NSString *errStr =[[responseObject valueForKey:@"status"] valueForKey:@"error_desc"];
+                       NSLog(@"%@",errStr);
+                   }
+                   
+               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+                   
+                   
+                   NSLog(@"%@",error);
+                   
+               }
+     ];
+    
+    
+}
 @end

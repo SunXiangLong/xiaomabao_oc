@@ -148,8 +148,6 @@
                 
                 break;
             case 1:{
-                
-                
                 UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                 MBSharkViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBSharkViewController"];
                 [self pushViewController:myView Animated:YES];
@@ -248,7 +246,7 @@
         
         [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict} success:^(id responseObject) {
            [self dismiss];
-//                        NSLog(@"%@",responseObject);
+//          NSLog(@"%@",responseObject);
             
             if (responseObject) {
                 

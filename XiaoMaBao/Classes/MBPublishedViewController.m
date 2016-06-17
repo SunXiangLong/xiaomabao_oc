@@ -37,7 +37,15 @@
 @end
 
 @implementation MBPublishedViewController
-
+- (RACSubject *)myCircleViewSubject {
+    
+    if (!_myCircleViewSubject) {
+        
+        _myCircleViewSubject = [RACSubject subject];
+    }
+    
+    return _myCircleViewSubject;
+}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     __unsafe_unretained __typeof(self) weakSelf = self;
@@ -184,7 +192,8 @@
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
             
-            
+            [self show:@"发表成功" time:1];
+            [self.myCircleViewSubject sendNext:@1];
 
             [self popViewControllerAnimated:YES];
             

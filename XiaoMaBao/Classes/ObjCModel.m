@@ -17,6 +17,10 @@
 
  [self.myCircleViewSubject sendNext:@{@"type":@"refreshTool"}];
 }
+- (void)finishView{
+[self.myCircleViewSubject sendNext:@{@"type":@"finishView"}];
+
+}
 - (RACSubject *)myCircleViewSubject {
     
     if (!_myCircleViewSubject) {
@@ -44,6 +48,7 @@
 
 }
 - (void)showWebView:(NSString *)params :(NSString *)topId{
+    
     [self.myCircleViewSubject sendNext:@{@"params":params,@"type":@"showWebView",@"topId":topId}];
  NSLog(@"Js调用了OC的方法，参数为：%@==%@", params,topId);
 
