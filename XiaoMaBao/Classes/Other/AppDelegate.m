@@ -65,6 +65,7 @@
 #import "MBTabBarViewController.h"
 #import "MBNavigationViewController.h"
 #import "JPFPSStatus.h"
+
 @interface AppDelegate ()<WXApiDelegate>
 {
     NSArray* titleandIds ;
@@ -109,14 +110,10 @@
         NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         [User_Defaults setObject:userInfo forKey:@"userInfo"];
         [User_Defaults synchronize];
-     
     }
-    
     //提示用户评价
     [self setAppirater];
-    
    [self.window makeKeyAndVisible];
-    
         //第一次打开应用显示导航
         if (![self showNewFeature]) {
             [self setupLanuchView];
@@ -125,6 +122,8 @@
 //#if defined(DEBUG)||defined(_DEBUG)
 //    [[JPFPSStatus sharedInstance] open];
 //#endif
+    
+
     return YES;
 }
 
@@ -274,9 +273,15 @@
         
     }
 }
+/**
+ *  默认记住密码后台登陆
+ *
+ *  @return 账号信息
+ */
 #pragma mark－－获取登陆账号信息
-- (void)zhanghzhao:(NSDictionary *)params{
+- (void)userVerifPassword:(NSDictionary *)params{
     [self deleteCookie];
+    
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/signin"] parameters:params
                success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
@@ -287,7 +292,7 @@
                        
                        NSDictionary *sessionDict = [userData valueForKeyPath:@"session"];
                        MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-                    NSLog(@"%@",userData);
+//                    NSLog(@"%@",userData);
                        
                        userInfo.sid = [sessionDict valueForKeyPath:@"sid"];
                        userInfo.uid = [sessionDict valueForKeyPath:@"uid"];
@@ -447,7 +452,7 @@
     if(UserName&&Password){
         
         NSDictionary  *params = @{ @"name":UserName, @"password":[Password md5]};
-        [self zhanghzhao:params];
+        [self userVerifPassword:params];
 
 
 
@@ -455,7 +460,7 @@
         
         
     NSDictionary   *params = @{@"sign_type":sign_type, @"name":name,@"header_img":header_img,@"nick_name":nick_name};
-                [self zhanghzhao:params];
+                [self userVerifPassword:params];
       
     }
     

@@ -43,7 +43,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/order_info"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/order_info"];
     if (! sid) {
         return;
     }

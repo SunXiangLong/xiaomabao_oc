@@ -95,7 +95,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/my_product"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/my_product"];
     if (! sid) {
         return;
     }
@@ -142,7 +142,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/my_product"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/my_product"];
     if (! sid) {
         return;
     }

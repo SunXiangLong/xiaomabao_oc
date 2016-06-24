@@ -21,34 +21,34 @@
 {
     NSDictionary *_dataDictionary;
     NSArray *_bandImageArray;
-    NSMutableArray *_today_recommend_bot;
+
     NSArray *_category;
     NSInteger _page;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-
+@property (copy, nonatomic) NSMutableArray  *today_recommend_bot;
 @end
 
 @implementation MBAffordablePlanetViewController
--(void)viewWillDisappear:(BOOL)animated
-{
-    
-    [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBAffordablePlanetViewController"];
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    
-    [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBAffordablePlanetViewController"];
+
+-(NSMutableArray *)today_recommend_bot{
+
+    if (!_today_recommend_bot) {
+        _today_recommend_bot = [NSMutableArray array];
+        
+    }
+    return _today_recommend_bot;
+
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navBar removeFromSuperview];
 
-    [_collectionView registerNib:[UINib nibWithNibName:@"MBAffordablePlanetViewCell" bundle:nil] forCellWithReuseIdentifier:@"MBAffordablePlanetViewCell"];
     [_collectionView registerNib:[UINib nibWithNibName:@"MBMBAffordablePlanetOneChildeOneCell" bundle:nil] forCellWithReuseIdentifier:@"MBMBAffordablePlanetOneChildeOneCell"];
-  
+
+      [_collectionView registerNib:[UINib nibWithNibName:@"MBAffordablePlanetViewCell" bundle:nil] forCellWithReuseIdentifier:@"MBAffordablePlanetViewCell"];
+    
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView1"];
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView2"];
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView3"];
@@ -65,29 +65,22 @@
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-
-        
         if (responseObject) {
-            _bandImageArray = [responseObject valueForKey:@"today_recommend_top"];
-            _today_recommend_bot = [NSMutableArray array];
-            for (NSDictionary *dic in [responseObject valueForKeyPath:@"today_recommend_bot"]) {
-                [_today_recommend_bot addObject:dic];
-                [_today_recommend_bot addObject:dic[@"goods"]];
-            }
-            for (NSInteger i = 0; i<_today_recommend_bot.count; i++) {
-                if (i%2 != 0) {
-                    [_collectionView registerNib:[UINib nibWithNibName:@"MBAffordablePlanetViewCell" bundle:nil] forCellWithReuseIdentifier:string(@"MBAffordablePlanetViewCell", s_Integer(i))];
-                }
-                
-            }
+        _bandImageArray = [responseObject valueForKey:@"today_recommend_top"];
+
+        [self.today_recommend_bot addObjectsFromArray:[responseObject valueForKeyPath:@"today_recommend_bot"]];
             _category = [responseObject valueForKey:@"category"];
             _collectionView.delegate = self;
             _collectionView.dataSource = self;
         }
        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        
+
          NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
+        
+
     }];
     
     
@@ -228,23 +221,23 @@
        
     }
     
-    if (indexPath.row%2 == 0) {
-        MBMBAffordablePlanetOneChildeOneCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBMBAffordablePlanetOneChildeOneCell" forIndexPath:indexPath];
-        NSString *url = _today_recommend_bot[indexPath.row][@"ad_img"];
-        [cell.showImageView sd_setImageWithURL:URL(url) placeholderImage:[UIImage imageNamed:@"placeholder_num1"]];
-        return cell;
-
-    }
-    MBAffordablePlanetViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:string(@"MBAffordablePlanetViewCell", s_Integer(indexPath.item)) forIndexPath:indexPath];
-    cell.dataArr = _today_recommend_bot[indexPath.item];
-    cell.act_id =  _today_recommend_bot[indexPath.item-1][@"act_id"];
-    cell.act_name = _today_recommend_bot[indexPath.item -1][@"act_name"];
-    cell.VC = self;
+    MBAffordablePlanetViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBAffordablePlanetViewCell" forIndexPath:indexPath];
+    
     return cell;
     
     
-    
-    
+}
+-(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(MBAffordablePlanetViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+
+    if (indexPath.section != 0 ) {
+        [cell.showImage sd_setImageWithURL:URL(_today_recommend_bot[indexPath.item][@"ad_img"]) placeholderImage:[UIImage imageNamed:@"placeholder_num1"]];
+        cell.act_id =  _today_recommend_bot[indexPath.item][@"act_id"];
+        cell.act_name = _today_recommend_bot[indexPath.item ][@"act_name"];
+        cell.VC = self;
+        cell.dataArr = _today_recommend_bot[indexPath.item][@"goods"];
+        [cell.collerctionView reloadData];
+    }
+
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
@@ -253,12 +246,12 @@
         VC.cat_id = _category[indexPath.item][@"cat_id"];
         [self pushViewController:VC Animated:YES];
     }else{
-    if (indexPath.row%2 ==0) {
+
         MBActivityViewController *categoryVc = [[MBActivityViewController alloc] init];
         categoryVc.title = _today_recommend_bot[indexPath.item][@"act_name"];
         categoryVc.act_id = _today_recommend_bot[indexPath.item][@"act_id"];
         [self pushViewController:categoryVc Animated:YES];
-    }
+    
     
     }
 }
@@ -270,13 +263,7 @@
       return CGSizeMake((UISCREEN_WIDTH-15-16)/2 , (UISCREEN_WIDTH-15-16)/2*213/348);
     }
     
-    if (indexPath.item%2 == 0) {
-        
-         return CGSizeMake(UISCREEN_WIDTH,  UISCREEN_WIDTH *33/75);
-      
-    }
-    
-        return CGSizeMake(UISCREEN_WIDTH,  155);
+        return CGSizeMake(UISCREEN_WIDTH,  155 + UISCREEN_WIDTH *35/75+15);
    
     
     

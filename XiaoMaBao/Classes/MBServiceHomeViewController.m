@@ -61,7 +61,7 @@
     
     
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
-    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_SHERVICE,@"service/shop_list/",page];
+    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/service/shop_list/",page];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         

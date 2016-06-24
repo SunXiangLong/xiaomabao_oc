@@ -62,7 +62,7 @@
 
     
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
-    NSString *url =[NSString stringWithFormat:@"%@%@%@/%@",BASE_URL_SHERVICE,@"service/user_comments/",_user_id,page];
+    NSString *url =[NSString stringWithFormat:@"%@%@%@/%@",BASE_URL_root,@"/service/user_comments/",_user_id,page];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         

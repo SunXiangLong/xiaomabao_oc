@@ -34,15 +34,14 @@
     }
     return _tableView;
 }
-- (void)viewWillAppear:(BOOL)animated
-{  
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBVoucherViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBVoucherViewController"];
+- (RACSubject *)myCircleViewSubject {
+    
+    if (!_myCircleViewSubject) {
+        
+        _myCircleViewSubject = [RACSubject subject];
+    }
+    
+    return _myCircleViewSubject;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -202,10 +201,11 @@
 {
    
     NSDictionary *dict = [_couponList objectAtIndex:indexPath.row];
-    //创建通知
-    NSNotification *notification =[NSNotification notificationWithName:@"AddCouponNotification" object:nil userInfo:dict];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//    //创建通知
+//    NSNotification *notification =[NSNotification notificationWithName:@"AddCouponNotification" object:nil userInfo:dict];
+//    //通过通知中心发送通知
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    [self.myCircleViewSubject sendNext:dict];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

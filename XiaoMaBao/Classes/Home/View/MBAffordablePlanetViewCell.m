@@ -13,20 +13,22 @@
 #import "MBActivityViewController.h"
 @interface MBAffordablePlanetViewCell()<UICollectionViewDelegate,UICollectionViewDataSource>
 {
+    BOOL _isRfresh;
 }
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collerctionView;
+
 
 @end
 @implementation MBAffordablePlanetViewCell
 -(void)setDataArr:(NSArray *)dataArr{
-    _dataArr =dataArr;
-    _collerctionView.dataSource = self;
-    _collerctionView.delegate = self;
-  
+    
+    _dataArr = dataArr;
+
+//  [_collerctionView reloadData];
    
 }
 - (void)awakeFromNib {
+    
     UICollectionViewFlowLayout *flowLayout =  [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     flowLayout.minimumLineSpacing = 0;
@@ -39,12 +41,15 @@
     [_collerctionView registerNib:[UINib nibWithNibName:@"MBFreeStoreViewOnechildCell" bundle:nil] forCellWithReuseIdentifier:@"MBFreeStoreViewOnechildCell"];
     
     [_collerctionView registerNib:[UINib nibWithNibName:@"MBAffordablePlanetMoreCell" bundle:nil] forCellWithReuseIdentifier:@"MBAffordablePlanetMoreCell"];
+    _collerctionView.dataSource = self;
+    _collerctionView.delegate = self;
 }
 
 
 #pragma mark --UICollectionViewdelegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
     return _dataArr.count+1;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -75,12 +80,16 @@
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row ==_dataArr.count) {
+        
         MBActivityViewController *categoryVc = [[MBActivityViewController alloc] init];
+        
         categoryVc.title = self.act_name;
         categoryVc.act_id =self.act_id ;
+        
         [self.VC pushViewController:categoryVc Animated:YES];
       
     }else{
+        
         MBShopingViewController *shopDetailVc = [[MBShopingViewController alloc] init];
         shopDetailVc.GoodsId = _dataArr[indexPath.item][@"goods_id"];
         [self.VC pushViewController:shopDetailVc Animated:YES];

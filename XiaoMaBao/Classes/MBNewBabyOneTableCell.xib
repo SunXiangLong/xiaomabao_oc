@@ -28,7 +28,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jiantou" translatesAutoresizingMaskIntoConstraints="NO" id="kVU-uc-kcD">
-                        <rect key="frame" x="295.5" y="39" width="9.5" height="10"/>
+                        <rect key="frame" x="295" y="39" width="9.5" height="10"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="kVU-uc-kcD" secondAttribute="height" multiplier="14:15" id="KRz-GL-UV3"/>
                             <constraint firstAttribute="height" constant="10" id="ilA-Nf-1wC"/>

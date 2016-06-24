@@ -14,4 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *tool_center;
 @property (weak, nonatomic) IBOutlet UILabel *tool_title;
 @property(strong,nonatomic)NSDictionary *dataDic;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lableWidth;
+@property (weak, nonatomic) IBOutlet UILabel *toolkit_remind_time;
 @end

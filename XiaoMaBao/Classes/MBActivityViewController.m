@@ -137,7 +137,7 @@
      url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/topic/info/",self.act_id,page,type];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        NSLog(@"%@ ",responseObject);
+//        NSLog(@"%@ ",responseObject);
         
         [self.collectionView .mj_footer endRefreshing];
         if (responseObject) {
@@ -257,7 +257,7 @@
                     make.bottom.left.mas_equalTo(0);
                     make.top.equalTo(imageView.mas_bottom).offset(0);
                     make.right.mas_equalTo(-5);
-                    make.left.mas_equalTo(5);
+             
                     
                 }];
             }

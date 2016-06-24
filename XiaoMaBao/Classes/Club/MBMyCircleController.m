@@ -53,6 +53,7 @@
     if (_isDimiss) {
         
         [self.recommendArray removeAllObjects];
+        
         [self.myCircleArray removeAllObjects];
       
          [self setData];
@@ -114,7 +115,7 @@
 - (UIView *)setHeaderView{
     UIView *view =[[UIView alloc] init];
     view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_WIDTH*35/75+ UISCREEN_WIDTH/4*204/160);
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH,UISCREEN_WIDTH*33/75) delegate:self     placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH,UISCREEN_WIDTH*35/75) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
     NSMutableArray *imaageUrlArr = [NSMutableArray array];
     for (NSDictionary *dic in _bandImageArray) {
         [imaageUrlArr addObject:dic[@"ad_img"]];
@@ -130,22 +131,17 @@
     
     @weakify(self);
     [[view1.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *number) {
-       
+        
         @strongify(self);
         switch ([number integerValue]) {
             case 0:
             {
-                
                 UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                
                 MBCheckInViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBCheckInViewController"];
                 
-                
                 [self pushViewController:myView Animated:YES];
-                
-                
             }
-                
-                
                 break;
             case 1:{
                 UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
@@ -188,8 +184,6 @@
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-        
-        
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                 _bandImageArray = [responseObject valueForKeyPath:@"data"];
@@ -219,7 +213,7 @@
         
         [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
             [self dismiss];
-//                 NSLog(@"%@",responseObject);
+//          NSLog(@"%@",responseObject);
             if (responseObject) {
                 [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
                 
@@ -247,7 +241,6 @@
         [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict} success:^(id responseObject) {
            [self dismiss];
 //          NSLog(@"%@",responseObject);
-            
             if (responseObject) {
                 
                 [self.myCircleArray addObjectsFromArray:[responseObject valueForKeyPath:@"user_circle"]];

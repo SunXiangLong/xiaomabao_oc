@@ -880,9 +880,6 @@
 }
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    //    NSLog(@"%@",_logArray);
-    
-    
     NSString *group = _logArray[indexPath.section][@"group"];
     NSArray*data = _logArray[indexPath.section][@"data"];
     

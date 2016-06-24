@@ -31,16 +31,8 @@
 @end
 
 @implementation MBPaymentViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBPaymentViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBPaymentViewController"];
-}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

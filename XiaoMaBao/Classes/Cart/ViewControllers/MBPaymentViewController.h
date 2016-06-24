@@ -32,4 +32,6 @@
 @property(strong,nonatomic)NSString *type;
 
 @property (nonatomic,strong) NSDictionary *service_data;
+
+
 @end

@@ -13,4 +13,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UILabel *summary;
 @property (copy, nonatomic) NSDictionary *dataDic;
+
 @end

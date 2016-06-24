@@ -526,7 +526,7 @@
         fireOrderVc.goods_amount = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_amount"];
         fireOrderVc.goods_amount_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_amount_formatted"];
         fireOrderVc.discount_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"discount_formatted"];
-        
+        fireOrderVc.surplus = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"surplus"];
         fireOrderVc.goodnumber = self.goodnumberArray;
         fireOrderVc.goodselectArray = self.goodSelectArray;
         fireOrderVc.consignee = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"consignee"] ;

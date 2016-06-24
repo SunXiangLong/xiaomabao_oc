@@ -80,7 +80,7 @@
 - (void)setheadData{
     
     [self show];
-    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_SHERVICE,@"service/shop_detail_info/",self.shop_id];
+    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/service/shop_detail_info/",self.shop_id];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         if ([responseObject count]>0) {

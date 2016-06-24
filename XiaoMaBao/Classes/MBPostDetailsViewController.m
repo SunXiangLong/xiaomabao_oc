@@ -41,6 +41,8 @@
     BOOL _isCollection;
    
     NSIndexPath *_dianjiIndexPath;
+    
+    BOOL _isRefresh;
    
 
 }
@@ -242,6 +244,11 @@
 
 #pragma mark -- 帖子数据
 - (void)setData{
+    if (_isRefresh) {
+      [_tableView.mj_footer endRefreshingWithNoMoreData];
+        _isRefresh  = NO;
+        return;
+    }
     [self show];
     NSString *page = s_Integer(_page);
       NSString *url = [NSString stringWithFormat:@"%@%@/%@/%@/%@/%@",BASE_URL_root,@"/circle/get_post_detail",self.post_id,page,_isImage,_poster];
@@ -282,9 +289,10 @@
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:weakSelf.commentsArray.count-1];
                     
             
-                    [weakSelf.tableView insertSections:[NSIndexSet indexSetWithIndex:_commentsArray.count -1] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [weakSelf.tableView reloadData];
                     
                     [weakSelf.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+                _isRefresh =YES;
                     _isDismiass = !_isDismiass;
                     
                  

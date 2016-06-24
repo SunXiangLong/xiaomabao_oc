@@ -14,7 +14,8 @@
 @property (nonatomic,strong) BkBaseViewController *VC;
 @property (nonatomic,strong) NSString *act_name;
 @property (nonatomic,strong) NSString *act_id;
-
+@property (weak, nonatomic) IBOutlet UICollectionView *collerctionView;
+@property (weak, nonatomic) IBOutlet UIImageView *showImage;
 
 @end
 

@@ -17,6 +17,8 @@
 #import "MBWebViewController.h"
 #import "MBGroupShopController.h"
 #import "MBNewFreeStoreViewController.h"
+#import "MBNewAffordablePlanetViewController.h"
+
 @interface MBNewHomeViewController ()<UIScrollViewDelegate>
 {
     
@@ -80,8 +82,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupChildVcs];
     [self setupTitlesView];
@@ -90,7 +90,7 @@
 - (void)setupChildVcs{
   
     
-    MBAffordablePlanetViewController *VC1 = [[MBAffordablePlanetViewController alloc] init];
+    MBNewAffordablePlanetViewController *VC1 = [[MBNewAffordablePlanetViewController alloc] init];
     VC1.title = @"实惠星球";
     [self addChildViewController:VC1];
     
@@ -151,6 +151,7 @@
 - (NSString *)rightImage{
 return @"search_image";
 }
+
 - (void)rightTitleClick{
     MBSearchViewController *searchVc = [[MBSearchViewController alloc] init];
     [self pushViewController:searchVc Animated:YES];

@@ -79,7 +79,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/return_order_info"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/return_order_info"];
     if (! sid) {
         [self show:@"账号已过期，请重新登录" time:1];
         return;
@@ -111,7 +111,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/submit_return_order"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/submit_return_order"];
     if (! sid) {
         [self show:@"账号已过期，请重新登录" time:1];
         return;

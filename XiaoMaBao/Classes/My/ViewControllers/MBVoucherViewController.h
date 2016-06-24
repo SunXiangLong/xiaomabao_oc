@@ -12,4 +12,5 @@
 @property(copy,nonatomic)NSString *is_fire;//是否结算时选择优惠券
 @property(copy,nonatomic)NSString *order_money;//结算金额
 
+@property (nonatomic, strong) RACSubject *myCircleViewSubject;
 @end

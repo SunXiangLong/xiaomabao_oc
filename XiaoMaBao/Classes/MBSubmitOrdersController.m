@@ -54,7 +54,7 @@
     
     [self show];
  
-    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_SHERVICE,@"service/product_price/",_product_id];
+    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/service/product_price/",_product_id];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         NSLog(@"%@",responseObject);
@@ -94,7 +94,7 @@
 - (void)upData{
     [self show];
    
-    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_SHERVICE,@"service/product_price/",_product_id];
+    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/service/product_price/",_product_id];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         
@@ -146,7 +146,7 @@
             return;
         }
         NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/submit_order"] parameters:@{@"session":sessiondict,@"product_id":self.product_id,@"product_number":_changeView.numberFD.text,@"mobile_phone":mobile_phone}
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/submit_order"] parameters:@{@"session":sessiondict,@"product_id":self.product_id,@"product_number":_changeView.numberFD.text,@"mobile_phone":mobile_phone}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
                        NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                        [self dismiss];

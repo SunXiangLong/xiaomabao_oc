@@ -26,7 +26,7 @@
 @property(nonatomic,copy)NSString *cross_border_tax;
 @property(nonatomic,copy)NSString *is_cross_border;
 @property(nonatomic,copy)NSString *is_over_sea;
-
+@property(nonatomic,copy)NSString *surplus;
 @property(strong,nonatomic)NSMutableDictionary *CartDict;
 @property(strong,nonatomic)NSDictionary *consignee;
 @property(nonatomic,strong) NSArray *cartinfoArray;

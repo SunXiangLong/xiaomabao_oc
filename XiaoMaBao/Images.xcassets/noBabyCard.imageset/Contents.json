@@ -1,0 +1,23 @@
+{
+  "images" : [
+   {
+      "idiom" : "universal",
+      "scale" : "1x",
+      "filename" : "noBabyCard.png"
+   },
+   {
+      "idiom" : "universal",
+      "scale" : "2x",
+      "filename" : "noBabyCard@2x.png"
+   },
+   {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "filename" : "noBabyCard@3x.png"
+   }
+ ],
+  "info" : {
+     "version" : 1,
+     "author" : "xcode"
+ }
+}

@@ -15,14 +15,19 @@
     static NSString *BASE_URL_ROOT = @"http://115.29.250.136:8087/";
     static NSString *BASE_URL = @"http://115.29.250.136:8087/mobile/?url=/";
     static NSString *BASE_URL_QUANZI = @"http://115.29.250.136:8088/mobile/?url=/";
+
 #else
 /***  线上后台 */
     static NSString  *BASE_PHP =       @"http://api.xiaomabao.com/discovery";
     static NSString  *BASE_URL_ROOT =  @"http://api.xiaomabao.com/";
-    static NSString *BASE_URL =       @"http://api.xiaomabao.com/mobile/?url=/";
-    static NSString *BASE_URL_root =  @"http://api.xiaomabao.com";
-    static NSString *BASE_PHP_test =  @"http://api.xiaomabao.com/babyInfo/inforecord";
-   static NSString *BASE_URL_SHERVICE = @"http://api.xiaomabao.com/";
+    static NSString *BASE_URL =        @"http://api.xiaomabao.com/mobile/?url=/";
+    static NSString *BASE_URL_root =   @"http://api.xiaomabao.com";
+    static NSString *BASE_PHP_test =   @"http://api.xiaomabao.com/babyInfo/inforecord";
+//
+
+
+
+
 /***  军哥后台 */
 //   static NSString *BASE_URL =      @"http://172.16.1.122/mobile/?url=/";
 //   static NSString *BASE_URL_root = @"http://172.16.1.122";
@@ -31,14 +36,14 @@
 //   static NSString *BASE_PHP_test = @"http://172.16.1.122/babyinfo/inforecord";
 
 /***  辉哥后台 */
-//     static NSString *BASE_URL = @"http://123.57.173.254/mobile/?url=/";
-//     static NSString *BASE_URL = @"http://172.16.1.182/mobile/mobile/?url=/";
-    static NSString *BASE_URL_QUANZI = @"http://115.29.250.136:8088/mobile/?url=/";
-//     static NSString *BASE_URL_SHARE = @"http://172.16.1.182/mobile/index.php/Discovery";
-//      static NSString *BASE_URL_SHERVICE = @"http://172.16.1.182/mobile/index.php/";
-//     static NSString *BASE_PHP =       @"http://172.16.1.182/Discovery";
+//static NSString  *BASE_PHP =       @"http://192.168.1.189/discovery";
+//static NSString  *BASE_URL_ROOT =  @"http://192.168.1.189/";
+//static NSString *BASE_URL =        @"http://192.168.1.189/mobile/?url=/";
+//static NSString *BASE_URL_root =   @"http://192.168.1.189";
+//static NSString *BASE_PHP_test =   @"http://192.168.1.189/babyInfo/inforecord";
 
-//    #define BASE_URL @"http://121.41.129.109"
+
+
 
 #define NOTIFICATION_TIME_CELL  @"NotificationTimeCell"
 #endif
@@ -79,7 +84,7 @@
  *  默认占为图
  */
 #define PLACEHOLDER_DEFAULT_IMG [UIImage imageNamed:@"placeholder_num2"]
-#define VERSION @"2.8"
+#define VERSION @"2.9"
 /**
  *  宽度与高度
  */

@@ -220,8 +220,8 @@
 
 - (void)rightTitleClick{
     
-   
     MBSearchPostController *searchVc = [[MBSearchPostController alloc] init];
+    
     [self pushViewController:searchVc Animated:YES];
     
 }
@@ -269,23 +269,19 @@
  */
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
+    
     // 取出对应的子控制器
     int index = scrollView.contentOffset.x / scrollView.ml_width;
     UIViewController *willShowChildVc = self.childViewControllers[index];
-    
     // 如果控制器的view已经被创建过，就直接返回
     if (willShowChildVc.isViewLoaded) return;
-    
-    
     // 添加子控制器的view到scrollView身上
     if (index ==2) {
         MBMoreCirclesController *view = (MBMoreCirclesController *)willShowChildVc;
         view.MinView = self.view;
-        
     }
     willShowChildVc.view.frame = scrollView.bounds;
     [scrollView addSubview:willShowChildVc.view];
-    
     
 }
 

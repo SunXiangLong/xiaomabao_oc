@@ -143,14 +143,14 @@
             
         _babyGenderView.hidden = YES;
         _myStateView.hidden = YES;
-        [self setToolkit:NO];
+        [self setToolkit:NO date:nil];
         _oldUid = uid;
             
          
         }else{
             if (self.dateArray.count == 0) {
                 
-                [self setToolkit:NO];
+                  [self setToolkit:NO date:nil];
             }
         
         }
@@ -295,7 +295,7 @@
     NSDate *date = _dateArray[_row];
     if (sender) {
         _backTadyButton.hidden = NO;
-        [self setData:[self setDate:date]];
+      [self setToolkit:NO date:[self setDate:date]];
     }
     
     
@@ -315,14 +315,15 @@
     NSDate *date = _dateArray[_row];
     
     _backTadyButton.hidden = NO;
-   [self setData:[self setDate:date]];
+    [self setToolkit:NO date:[self setDate:date]];
+
     
     
 }
 /**
  *  请求工具数据
  */
-- (void)setToolkit:(BOOL)refresh{
+- (void)setToolkit:(BOOL)refresh date:(NSString *)date{
     
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
@@ -332,7 +333,7 @@
     }
     
     NSDictionary *parameters = @{@"session":sessiondict};
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_user_toolkit"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_user_toolkit_v2"];
     [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
         
 //        NSLog(@"%@",responseObject);
@@ -341,9 +342,12 @@
             self.dataArray[1] = [responseObject valueForKeyPath:@"data"];
             
             [_tableView  reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }else if(date){
+              self.dataArray[1] = [responseObject valueForKeyPath:@"data"];
+            [self setData:date];
         }else{
             [self.dataArray addObject:[responseObject valueForKeyPath:@"data"]];
-            [self setData:nil];
+            [self setData:date];
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
@@ -368,7 +372,8 @@
     if (date) {
        
          parameters = @{@"session":sessiondict,@"current_date":date};
-        [self show];
+        
+      
     }
     
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_index_info"];
@@ -645,7 +650,7 @@
     NSDate *date = _dateArray[indexPath.item];
     
     cell.date.text = [NSString stringWithFormat:@"%ld月%ld日", date.month,date.day];
-    cell.time.text = [NSString stringWithFormat:@"%ld天", [date daysFrom:_start_date]];
+    cell.time.text = [NSString stringWithFormat:@"%ld天", [date daysFrom:_start_date]+1];
     cell.date.font = SYSTEMFONT(16);
     cell.time.font = SYSTEMFONT(12);
     
@@ -657,7 +662,8 @@
     
     [self collectionViewOffset];
     NSDate *date = _dateArray[_row];
-    [self setData:[self setDate:date]];
+    [self setToolkit:NO date:[self setDate:date]];
+
 }
 #pragma mark ---UITableViewDelagate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -668,6 +674,7 @@
     
     
     if (section==1) {
+        
         return [_dataArray[section] count]+1;
     }
     return [_dataArray[section] count];
@@ -682,6 +689,15 @@
             if ([_dataArray[indexPath.section] count] == indexPath.row ) {
                 return 45;
             }else{
+                
+                NSArray *arr =  _dataArray[indexPath.section][indexPath.row][@"toolkit_detail"];
+                if (arr&&arr.count > 0 ) {
+                    if (arr.count >3 ) {
+                       return 45 +20*3;
+                    }
+                   return  45 +20*arr.count;
+                }
+              
                 return 60;
             }
             
@@ -865,7 +881,7 @@
                 @weakify(self);
                 [[VC.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSString *str) {
                     @strongify(self);
-                    [self setToolkit:YES];
+                    [self setToolkit:YES date:nil];
                 }];
                 [self pushViewController:VC Animated:YES];
             }else{
