@@ -126,7 +126,7 @@
                 
                
                  [self.dataArray insertObject:[[responseObject valueForKeyPath:@"data"] firstObject] atIndex:0];
-                [self.recordSelectedArray insertObject:@0 atIndex:0];
+                [self.recordSelectedArray insertObject:@1 atIndex:0];
                 [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
           
                 _page ++;

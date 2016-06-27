@@ -55,8 +55,8 @@
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/info"] parameters:@{@"session":dict,@"order_id":self.order_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-//        NSLog(@"%@",[responseObject valueForKeyPath:@"data"]);
-//        NSLog(@"%@",[responseObject valueForKeyPath:@"status"]);
+        NSLog(@"%@",[responseObject valueForKeyPath:@"data"]);
+
         
         
         NSDictionary * status = [responseObject valueForKeyPath:@"status"];
@@ -79,7 +79,7 @@
             self.order_amount_formatted = [data valueForKeyPath:@"order_amount_formatted"];
             self.saving_money_formatted = [data valueForKeyPath:@"saving_money_formatted"];
             self.shipping_fee_formatted = [data valueForKeyPath:@"shipping_fee_formatted"];
-
+            self.surplus_formatted = [data valueForKeyPath:@"surplus_formatted"];
             self.goodsListArray = [data valueForKeyPath:@"goods_list"];
         }
         
@@ -189,17 +189,23 @@
     
     UILabel *freightLbl = [[UILabel alloc] init];
     freightLbl.font = [UIFont systemFontOfSize:14];
-    NSString * fee = [NSString stringWithFormat:@"运  费：%@",self.shipping_fee_formatted ];
+    NSString * fee = [NSString stringWithFormat:@"运        费:%@",self.shipping_fee_formatted ];
     freightLbl.text = fee;
     freightLbl.frame = CGRectMake(8, CGRectGetMaxY(totalLbl.frame) + MARGIN_5, self.view.ml_width, 15);
     
+    UILabel *surplusLbl = [[UILabel alloc] init];
+    surplusLbl.font = [UIFont systemFontOfSize:14];
+    surplusLbl.text = [NSString stringWithFormat:@"麻  包  卡:%@",self.surplus_formatted];;
+    surplusLbl.frame = CGRectMake(8, CGRectGetMaxY(freightLbl.frame) + MARGIN_5, self.view.ml_width, 15);
+    
     UILabel *remarkLbl = [[UILabel alloc] init];
     remarkLbl.font = [UIFont systemFontOfSize:14];
-    remarkLbl.text = [NSString stringWithFormat:@"备  注：%@",@""];
-    remarkLbl.frame = CGRectMake(8, CGRectGetMaxY(freightLbl.frame) + MARGIN_5, self.view.ml_width, 15);
+    remarkLbl.text = [NSString stringWithFormat:@"备        注:%@",@""];
+    remarkLbl.frame = CGRectMake(8, CGRectGetMaxY(surplusLbl.frame) + MARGIN_5, self.view.ml_width, 15);
     
     [footerView addSubview:totalLbl];
     [footerView addSubview:freightLbl];
+    [footerView addSubview:surplusLbl];
     [footerView addSubview:remarkLbl];
     
     return footerView;
@@ -217,6 +223,7 @@
     //第几组对应的goods_list
     
     if([_goodsListArray count] == 0){
+        
         return cell;
     }
     

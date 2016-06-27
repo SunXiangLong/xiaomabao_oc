@@ -53,4 +53,6 @@ typedef enum {
 - (NSString *)base64DecodedString;
 
 - (NSString *)isNSString;
+/***   手机号的正则匹配 *****/
+- (BOOL)isValidPhone;
 @end

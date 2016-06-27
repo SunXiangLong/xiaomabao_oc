@@ -19,6 +19,7 @@
 #import "MBPayResultsController.h"
 #import "MBPaySuccessView.h"
 #import "MBOrderListViewController.h"
+#import "MBServiceShopsViewController.h"
 @interface MBPaymentViewController ()<UIAlertViewDelegate>
 {
   NSString *_creatOrderId;
@@ -38,6 +39,10 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wayPay:) name:@"wayPay" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AlipayPay:) name:@"AlipayPay" object:nil];
+    
+    //覆盖侧滑手势
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(back)];
+    [self.navigationController.view  addGestureRecognizer:pan];
     
     if(self.coupon_id == nil){
         self.coupon_id = @"";
@@ -584,9 +589,7 @@
              [self pushViewController:VC Animated:YES];
          }else{
               self.navBar.back = NO;
-             //覆盖侧滑手势
-             UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(back)];
-             [self.navigationController.view  addGestureRecognizer:pan];
+             
              MBPaySuccessView *PaySuccessView = [MBPaySuccessView instanceView];
              PaySuccessView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y);
              [self.view addSubview:PaySuccessView];
@@ -617,10 +620,25 @@
         UIViewController *mainVc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
         [UIApplication sharedApplication].keyWindow.rootViewController = mainVc;
         return nil;
+    }else if([_type  isEqualToString:@"2"]){
+        
+        for (BkBaseViewController *VC in self.navigationController.viewControllers) {
+            if ([VC isKindOfClass:[MBServiceShopsViewController class]]) {
+                
+                
+                [self.navigationController popToViewController:VC animated:YES];
+                
+                NSNotification *notification =[NSNotification notificationWithName:@"HYTPopViewControllerNotification" object:nil userInfo:nil];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                
+            }
+        }
+
+
+        
     }else{
-        
-        return [self.navigationController popViewControllerAnimated:animated];
-        
+     return [self.navigationController popViewControllerAnimated:animated];
     }
     
     return nil;
