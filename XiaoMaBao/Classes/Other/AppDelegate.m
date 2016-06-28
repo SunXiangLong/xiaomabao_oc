@@ -119,9 +119,9 @@
             [self setupLanuchView];
         }
 
-//#if defined(DEBUG)||defined(_DEBUG)
-//    [[JPFPSStatus sharedInstance] open];
-//#endif
+#if defined(DEBUG)||defined(_DEBUG)
+    [[JPFPSStatus sharedInstance] open];
+#endif
     
 
     return YES;
@@ -292,7 +292,7 @@
                        
                        NSDictionary *sessionDict = [userData valueForKeyPath:@"session"];
                        MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-                    NSLog(@"%@",userData);
+//                    NSLog(@"%@",userData);
                        
                        userInfo.sid = [sessionDict valueForKeyPath:@"sid"];
                        userInfo.uid = [sessionDict valueForKeyPath:@"uid"];

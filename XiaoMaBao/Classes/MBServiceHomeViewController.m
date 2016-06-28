@@ -15,6 +15,7 @@
 @interface MBServiceHomeViewController ()
 {
     NSInteger _page;
+    
     NSMutableArray *_storeData;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -44,11 +45,7 @@
 }
 - (void)setRefresh{
     
-    
-    
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setheadData)];
-    //    footer.triggerAutomaticallyRefreshPercent = 0.5;
-    
     footer.refreshingTitleHidden = YES;
     self.tableView.mj_footer = footer;
     
