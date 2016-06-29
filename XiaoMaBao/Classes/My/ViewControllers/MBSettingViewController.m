@@ -15,6 +15,7 @@
 #import "UIImageView+WebCache.h"
 #import "MobClick.h"
 #import "SFHFKeychainUtils.h"
+#import "MBLogOperation.h"
 @interface MBSettingViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 @property (strong,nonatomic) NSArray *lists;
 @property (strong,nonatomic) UITableView *tableView;
@@ -186,7 +187,7 @@
     MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
     
     [user clearUserInfo];
-    [self deletePasswordAndUserName];
+    [MBLogOperation deletePasswordAndUserName];
     [MobClick profileSignOff];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -246,32 +247,6 @@
 
     
     
-}
-/**
- *  退出登录时，删除存在keychain里面的登录信息
- */
-- (void)deletePasswordAndUserName{
-    NSError *error;
-    BOOL UserNameDeleted;
-    BOOL Password;
-    BOOL sign_type;
-    BOOL name;
-    BOOL header_img;
-    BOOL nick_name;
-    UserNameDeleted = [SFHFKeychainUtils deleteItemForUsername:@"zhanghu" andServiceName:@"com.xiaomabao.user" error:&error];
-    Password        = [SFHFKeychainUtils   deleteItemForUsername:@"Password" andServiceName:@"com.xiaomabo.Password" error:&error];
-    
-    sign_type =    [SFHFKeychainUtils deleteItemForUsername:@"sign_type" andServiceName:@"com.xiaomabao.sign_type" error:&error];
-    name =    [SFHFKeychainUtils deleteItemForUsername:@"name" andServiceName:@"com.xiaomabao.name" error:&error];
-    header_img =    [SFHFKeychainUtils deleteItemForUsername:@"header_img" andServiceName:@"com.xiaomabao.header_img" error:&error];
-    nick_name =    [SFHFKeychainUtils deleteItemForUsername:@"nick_name" andServiceName:@"com.xiaomabao.nick_nick_name" error:&error];
-    if (!UserNameDeleted&&!Password) {
-        NSLog(@"删除成功");
-    }
-    
-    if (!sign_type&&!name&&!header_img&&!nick_name) {
-           NSLog(@"删除成功");
-    }
 }
 
 @end

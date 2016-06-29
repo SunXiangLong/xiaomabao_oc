@@ -139,7 +139,15 @@
     }
 
 
+}
 
-
++(NSString*)UUID{
+    CFUUIDRef puuid = CFUUIDCreate( nil );
+    CFStringRef uuidString = CFUUIDCreateString( nil, puuid );
+    NSString * result = (NSString *)CFBridgingRelease(CFStringCreateCopy( NULL, uuidString));
+    
+    CFRelease(puuid);
+    CFRelease(uuidString);
+    return result;
 }
 @end

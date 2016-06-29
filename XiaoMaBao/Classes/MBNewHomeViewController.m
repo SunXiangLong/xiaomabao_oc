@@ -160,6 +160,9 @@ return @"search_image";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     NSLog(@"%@",@"收到内存⚠️");
+    SDWebImageManager *mgr = [SDWebImageManager sharedManager];
+    [mgr cancelAll];
+    [mgr.imageCache clearMemory];
 }
 
 #pragma mark - <UIScrollViewDelegate>

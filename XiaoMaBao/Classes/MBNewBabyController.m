@@ -95,6 +95,7 @@
 
 @property (copy, nonatomic) NSMutableArray *dataArray;
 @property (copy, nonatomic) NSMutableArray *dateArray;
+
 @property (weak, nonatomic) IBOutlet UIButton *reftButton;
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
 /**
@@ -130,11 +131,13 @@
      *  判断用户是否登陆和设置过宝宝信息
      */
     if (is_baby_add&&[is_baby_add isEqualToString:@"1"]) {
+           
          _baby_id = [MBSignaltonTool getCurrentUserInfo].user_baby_info[@"id"];
         /**
          *  判断是不是第二次进入这个界面 且用户状态没发生改变 就不在重请求数据
          */
         if (![uid isEqualToString:_oldUid]){
+            
         /**
          *  第二次进入界面且登陆状态改变 上一次进入是否请求到数据 有就清空
          */
@@ -146,16 +149,19 @@
         [self setToolkit:NO date:nil];
         _oldUid = uid;
             
-         
         }else{
-            if (self.dateArray.count == 0) {
-                
+
+            NSInteger count = self.dataArray.count;
+           
+            if (count == 0) {
+  
                   [self setToolkit:NO date:nil];
             }
-        
+       
         }
        
     }else{
+           
         _babyGenderView.hidden = NO;
         _myStateView.hidden = NO;
         _reftButton.hidden = YES;
@@ -485,6 +491,7 @@
     NSInteger  i =1;
     
     while (i<[_end_date daysFrom:_current_date]+2) {
+        
         [_dateArray addObject: [_current_date dateByAddingDays:i]];
 
         i++;
@@ -503,13 +510,8 @@
     _leftButton.hidden = NO;
     _row = [_dateArray indexOfObject:_current_date];
     [self collectionViewOffset];
-//     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-//    _row --;
-//    if (_row > 0) {
-//        [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-//       
-//        [self back:nil];
-//    }
+  [self back:nil];
+
  
 
 }

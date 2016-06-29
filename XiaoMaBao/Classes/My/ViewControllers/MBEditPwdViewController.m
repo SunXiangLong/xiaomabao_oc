@@ -133,17 +133,7 @@
 - (NSString *)titleStr{
     return @"修改密码";
 }
-- (void)deletePasswordAndUserName{
-    
-    NSError *error;
-    BOOL UserNameDeleted;
-    BOOL Password;
-    Password = [SFHFKeychainUtils   deleteItemForUsername:@"Password" andServiceName:@"com.xiaomabo.Password" error:&error];
-    
-    if (!UserNameDeleted&&!Password) {
-        NSLog(@"删除成功");
-    }
-}
+
 #pragma mark --   保存密码账号到本地
 - (void )SavePassword:(NSString *)password{
     NSError *errors;

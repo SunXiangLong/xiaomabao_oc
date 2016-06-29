@@ -43,16 +43,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     [self getCityList:@"1"];
+    [self getCityList:@"1"];
     self.bottom.constant = UISCREEN_HEIGHT-TOP_Y;
-    
     self.maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_HEIGHT)];
     self.maskView.backgroundColor = [UIColor blackColor];
     self.maskView.alpha = 0;
     [self.maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMyPicker)]];
-    
     self.pickerBgView.ml_width = UISCREEN_WIDTH;
-    
     if (self.address_dic) {
         _name.text = self.address_dic[@"consignee"];
         _photo.text = self.address_dic[@"mobile"];

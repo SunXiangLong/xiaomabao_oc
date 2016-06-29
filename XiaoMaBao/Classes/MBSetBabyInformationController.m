@@ -8,6 +8,7 @@
 
 #import "MBSetBabyInformationController.h"
 #import "SFHFKeychainUtils.h"
+#import "MBLogOperation.h"
 @interface MBSetBabyInformationController ()
 @property (weak, nonatomic) IBOutlet UITextField *baby_name;
 @property (weak, nonatomic) IBOutlet UITextField *baby_birthday;
@@ -51,9 +52,15 @@
                                          //设定时间格式,这里可以设置成自己需要的格式
                                          [dateFormatter setDateFormat:@"yyyy-MM-dd"];
                                          //用[NSDate date]可以获取系统当前时间
-                                         NSString *currentDateStr = [dateFormatter stringFromDate:selectedDate];
+                                         if ([selectedDate isEarlierThan:date] ) {
+                                             NSString *currentDateStr = [dateFormatter stringFromDate:selectedDate];
+                                             
+                                             _baby_birthday.text = currentDateStr;
+                                         }else{
+                                             [self show:@"请选择正确的宝宝生日" time:1];
                                          
-                                         _baby_birthday.text = currentDateStr;
+                                         }
+                                   
                                      } cancelBlock:^(ActionSheetDatePicker *picker) {
                                          
                                      } origin:_baby_birthday];
@@ -79,7 +86,21 @@
         NSLog(@"%@",responseObject);
         NSString *status =  s_str([responseObject valueForKeyPath:@"status"]);
         if ([status isEqualToString:@"1"]) {
-            [self Obtain];
+            [MBLogOperation loginAuthentication:nil success:^{
+                [self dismiss];
+                [self popViewControllerAnimated:YES];
+            } failure:^(NSString *error_desc, NSError *error) {
+                if (error_desc) {
+        
+                    [self show:error_desc time:1];
+                    
+                }else{
+                    
+                    NSLog(@"%@",error);
+                    
+                    [self show:@"请求失败" time:1];
+                }
+            }];
             
         }else{
         
@@ -103,67 +124,5 @@
     [self selectBirthday];
     return NO;
 }
-#pragma mark --  获取keychina中存放的用户名和密码
-- (void)Obtain{
-    
-    NSString * UserName = [SFHFKeychainUtils getPasswordForUsername:@"zhanghu" andServiceName:@"com.xiaomabao.user" error:nil];
-    
-    NSString * Password = [SFHFKeychainUtils getPasswordForUsername:@"Password" andServiceName:@"com.xiaomabao.Password" error:nil];
-    
-    NSString *sign_type = [SFHFKeychainUtils getPasswordForUsername:@"sign_type" andServiceName:@"com.xiaomabao.sign_type" error:nil];
-    
-    NSString *name = [SFHFKeychainUtils getPasswordForUsername:@"name" andServiceName:@"com.xiaomabao.name" error:nil];
-    
-    NSString *header_img = [SFHFKeychainUtils getPasswordForUsername:@"header_img" andServiceName:@"com.xiaomabao.header_img" error:nil];
-    
-    NSString *nick_name = [SFHFKeychainUtils getPasswordForUsername:@"nick_name" andServiceName:@"com.xiaomabao.nick_nick_name" error:nil];
-    
-    
-    if(UserName&&Password){
-        
-        NSDictionary  *params = @{ @"name":UserName, @"password":[Password md5]};
-        [self zhanghzhao:params];
-        
-        
-        
-    }else if(sign_type&&name&&header_img&&nick_name){
-        
-        
-        NSDictionary   *params = @{@"sign_type":sign_type, @"name":name,@"header_img":header_img,@"nick_name":nick_name};
-        [self zhanghzhao:params];
-        
-    }
-    
-}
-#pragma mark－－获取登陆账号信息
-- (void)zhanghzhao:(NSDictionary *)params{
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/signin"] parameters:params
-               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-                   [self dismiss];
-                   
-                   if(1 == [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] intValue]){
-                       NSDictionary *userData = [responseObject valueForKeyPath:@"data"];
-                       MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-                       
-                       userInfo.user_baby_info = userData[@"user"][@"user_baby_info"];
-                       userInfo.is_baby_add = [NSString stringWithFormat:@"%@", userData[@"user"][@"is_baby_add"]];
-                       [self show:@"设置成功" time:.3];
-                       
-                       [self popViewControllerAnimated:YES];
-                   }else{
-                       
-                       NSString *errStr =[[responseObject valueForKey:@"status"] valueForKey:@"error_desc"];
-                       NSLog(@"%@",errStr);
-                   }
-                   
-               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   
-                   
-                   NSLog(@"%@",error);
-                   
-               }
-     ];
-    
-    
-}
+
 @end
