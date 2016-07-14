@@ -213,8 +213,10 @@
 -(void)getCityList:(NSString *)parent_id
 {
     
-    
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"region"] parameters:@{@"parent_id":parent_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/get_regions"] parameters:@{@"parent_id":parent_id,@"session":dict} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         
         if (responseObject != nil) {

@@ -18,8 +18,9 @@
 #import "MBGroupShopController.h"
 #import "MBNewFreeStoreViewController.h"
 #import "MBNewAffordablePlanetViewController.h"
+#import "DataSigner.h"
 
-@interface MBNewHomeViewController ()<UIScrollViewDelegate>
+@interface MBNewHomeViewController ()<UIScrollViewDelegate,UnicallDelegate>
 {
     
     UISegmentedControl *_segmentControl;
@@ -82,11 +83,14 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[Unicall singleton] attach:self appKey:UNICALL_APPKEY tenantId:UNICALL_TENANID];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupChildVcs];
     [self setupTitlesView];
     [self setupScrollView];
 }
+
 - (void)setupChildVcs{
   
     
@@ -196,5 +200,72 @@ return @"search_image";
     _segmentControl.selectedSegmentIndex = index;
 }
 
+-(void)getUnicallSignature{
+    NSString *privateKey =  [NSString stringWithFormat:@"%@%@%@%@%@%@%@",
+                             @"MIIBPAIBAAJBAMBrqadzplyUtQUXCP+VuDFWt0p9Kl+s3yrQ8PV+P89Bbt/UqN2/",
+                             @"BzVNPoNgtQ2fI7Ob652limC/jqVf6slzPEUCAwEAAQJAOL7HXnGVqxHTvHeJmM4P",
+                             @"bsVy8k2tNF/nxFmv5cXgjX7sd7BU9jyELGP4os3ID3tItdCHtmMM3KM91lTHYlkk",
+                             @"dQIhAOWKnz0moWISa0S8cBYJI0k0PRoYMv6Xsty5aZpC9WM/AiEA1pmqSthbMUb2",
+                             @"TrmRyJsHswLAYSHotTIS0kzHu655M3sCIQDLdWXUJCuj7EOcd5K6VXsrZdxLBuwc",
+                             @"coYd01LhYzxyrQIhAIsqc6i9zcWTAz/iT4wMHV4VNrTGzKZUpqgCarRnXOnpAiEA",
+                             @"pbZzKKXpVGNp2MMXRlpdzdGCKFMYSeqnqXuwd76iwco="
+                             ];
+    NSString *tenantId = UNICALL_TENANID;
+    NSString *appKey = UNICALL_APPKEY;
+    NSString *time = [self getCurrentTime];
+    NSString *expireTime = @"60000";
+    
+    NSString *stringToSign = [NSString stringWithFormat:@"%@&%@&%@&%@",appKey,expireTime,tenantId,time];
+    id<DataSigner> signer = CreateRSADataSigner(privateKey);
+    
+    NSString *signature = [signer uncallString:stringToSign];
+    NSDictionary *json = @{@"appKey":appKey,@"expireTime":expireTime,@"signature":signature,@"tenantId":tenantId,@"time":time};
+    
+    Unicall *unicall = [Unicall singleton];
+    [unicall UnicallUpdateValidation:json];
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (!sid) {
+        [unicall UnicallUpdateUserInfo:@{@"nickname":@"未注册用户"}];
+    }else{
+        
+        [unicall UnicallUpdateUserInfo:@{@"nickname": string(@"用户的sid:", sid)}];
+    }
+    
+}
+//delegate methods
+-(void)acquireValidation
+{
+    [self getUnicallSignature];
+}
+-(void)messageCountUpdated:(NSNumber*) data
+{
+
+}
+-(void)messageArrived:(NSDictionary*) data
+{
+    NSError* error = nil;
+    NSData* source = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error];
+    NSString* str = [NSJSONSerialization JSONObjectWithData:source options:NSJSONReadingMutableContainers error:&error];
+    NSLog(@"%@%@",@"Unicall message arrived.",str);
+    
+    if([[data objectForKey:@"eventName"] isEqualToString:@"updateNewMessageCount"])
+        NSLog(@"count%@:",data);
+}
+-(UIViewController*) currentViewController
+{
+
+    return self.navigationController.viewControllers.lastObject;
+}
+-(NSString*)getCurrentTime {
+    
+    NSDateFormatter*formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyy-MM-dd'T'HH:mm:ssZZZZZ"];
+    
+    NSString*dateTime = [formatter stringFromDate:[NSDate date]];
+    
+    
+    return dateTime;
+    
+}
 
 @end

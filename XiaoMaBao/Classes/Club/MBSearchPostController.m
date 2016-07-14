@@ -388,17 +388,13 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary  *dic = _dataArray[indexPath.row];
+
     MBDetailsCircleTbaleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBDetailsCircleTbaleViewCell"];
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBDetailsCircleTbaleViewCell"owner:nil options:nil]firstObject];
     }
-    cell.array = dic[@"post_imgs"];
-    cell.post_title.text = dic[@"post_title"];
-    cell.post_time.text = dic[@"post_time"];
-    cell.reply_cnt.text = dic[@"reply_cnt"];
-    cell.author_name.text = dic[@"author_name"];
-    cell.post_content.text = dic[@"post_content"];
+    cell.dataDic = _dataArray[indexPath.row];
+
     
     return cell;
 

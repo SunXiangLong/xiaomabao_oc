@@ -386,7 +386,7 @@
     [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
         [self dismiss];
         _isPregnant = [[responseObject valueForKeyPath:@"type"] isEqualToString:@"pregnant"];
-//        NSLog(@"%@",responseObject);
+        NSLog(@"%@",responseObject);
         if (date) {
 
             _day_info = [responseObject valueForKeyPath:@"day_info"];
@@ -407,6 +407,7 @@
         }else{
             _day_info = [responseObject valueForKeyPath:@"day_info"];
             [self setTableHeadView:_day_info];
+       
             [self.dataArray insertObject:[responseObject valueForKeyPath:@"remind"] atIndex:0];
             [self.dataArray addObject:[responseObject valueForKeyPath:@"recommend_posts"]];
             NSMutableArray *arr = [NSMutableArray array];

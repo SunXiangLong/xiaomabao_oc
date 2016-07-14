@@ -164,6 +164,7 @@
     
     __unsafe_unretained __typeof(self) weakSelf = self;
     // 上拉刷新
+    
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         
         [self setData];

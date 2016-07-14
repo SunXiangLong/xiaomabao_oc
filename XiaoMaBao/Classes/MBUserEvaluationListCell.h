@@ -16,7 +16,7 @@
 @property (nonatomic,strong) NSArray *comment_imgs;
 @property (nonatomic,strong) NSArray *comment_thumb_imgs;
 @property (nonatomic,strong) NSString *shop_id;
-@property (nonatomic,strong) BkBaseViewController*VC;
+@property (nonatomic,weak) BkBaseViewController*VC;
 
 
 @end

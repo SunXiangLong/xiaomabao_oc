@@ -179,19 +179,9 @@
         return NO;
     }
     
-//    NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,3-9]))\\d{8}$";
-//    
-//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-//    
-//    BOOL isMatch = [pred evaluateWithObject:str];
-//    
-//    if (!isMatch) {
-//        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入正确的手机号码" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [alert show];
-//        return NO;
-//    }
+
     
-    NSString *postUrl = [NSString stringWithFormat:@"%@%@",BASE_URL,@"user/valid"];
+    NSString *postUrl = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/regphonecode"];
     
     
     [self show];
@@ -236,22 +226,6 @@
         if([self.PhoneField.text isEqualToString:registNumber])
             return [self show:@"此号码已经登录" time:1 ];
         
-//         //跳转短信验证控制器
-//        NSString *phoneNumber = self.PhoneField.text;
-//        NSString *phoneRegex = @"^(0|86|17951)?(13[0-9]|15[012356789]|17[6789]|18[0-9]|14[57])[0-9]{8}$";  
-//        NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegex];
-//        BOOL matches = [test evaluateWithObject:phoneNumber];
-//        if (matches) {
-//            [KVNProgress showWithStatus:@"正在验证..."];
-//            [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/phoneCode"] parameters:@{@"name":phoneNumber, @"type":@"1",@"requesttype":@"100"} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-//                [KVNProgress dismiss];
-//                
-//                self.md5Encryption = [responseObject.data valueForKey:@"phoneCode"];
-//                [self performSegueWithIdentifier:@"pushMBRegisterPhoneVerifyViewController" sender:nil];
-//            } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-//                [KVNProgress showErrorWithStatus:@"验证失败"];
-//            }];
-//        }
         
         [self performSegueWithIdentifier:@"pushMBRegisterPhoneVerifyViewController" sender:nil];
     }

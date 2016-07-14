@@ -117,6 +117,7 @@
         self.alpha = 0 ;
     } completion:^(BOOL finished) {
         [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"firstLaunch"];
+        [[NSUserDefaults standardUserDefaults]  synchronize];
         [self removeFromSuperview];
        
         

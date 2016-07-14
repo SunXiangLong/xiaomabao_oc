@@ -259,12 +259,7 @@
     //加入购物车
     [shopingCartBtn addTarget:self action:@selector(goJoinCart) forControlEvents:UIControlEventTouchUpInside];
 }
-#pragma mark --小能客服
-- (void)service{
-   
-    
-    
-}
+
 
 #pragma -mark  加入购物车
 - (void)goJoinCart{
@@ -313,7 +308,7 @@
     }
     NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/collect/create"] parameters:@{@"session":session,@"goods_id":self.GoodsId}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/collect_goods"] parameters:@{@"session":session,@"goods_id":self.GoodsId}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
                    
                    
@@ -343,7 +338,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsInfo"] parameters:@{@"session":session,@"goods_id":self.GoodsId,@"act_id":self.actId} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsinfo"] parameters:@{@"session":session,@"goods_id":self.GoodsId,@"act_id":self.actId} success:^(NSURLSessionDataTask *operation, id responseObject) {
   
         [self dismiss];
         self.GoodsDict = [responseObject valueForKeyPath:@"data"];
@@ -399,7 +394,7 @@
     [self show ];
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
     NSDictionary *pagination =[NSDictionary dictionaryWithObjectsAndKeys:page,@"page",@"10",@"count", nil];;
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"comments"] parameters:@{@"goods_id":self.GoodsId,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/comments"] parameters:@{@"goods_id":self.GoodsId,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         [self dismiss];
         NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
@@ -431,7 +426,7 @@
     
     
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsProperties"] parameters:@{@"goods_id":self.GoodsId}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsproperty"] parameters:@{@"goods_id":self.GoodsId}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
                    [self dismiss];
                    NSLog(@"规格参数成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);

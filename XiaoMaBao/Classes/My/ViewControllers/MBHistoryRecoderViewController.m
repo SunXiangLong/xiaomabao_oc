@@ -55,7 +55,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/goods_history_record"] parameters:@{@"session":sessiondict,@"count":@"20",@"page":@"1"}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/history"] parameters:@{@"session":sessiondict,@"count":@"20",@"page":@"1"}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
 //                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    [self dismiss];
@@ -87,7 +87,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/goods_history_record_clean"] parameters:@{@"session":sessiondict}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/chistory"] parameters:@{@"session":sessiondict}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
 //                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    [self dismiss];

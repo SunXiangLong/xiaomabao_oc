@@ -10,6 +10,6 @@
 #import "BkBaseViewController.h"
 @interface MBFreeStoreViewOneCell : UITableViewCell
 @property (nonatomic,strong) NSArray *dataArray;
-@property (nonatomic,strong) BkBaseViewController *VC;
+@property (nonatomic,weak) BkBaseViewController *VC;
 
 @end

@@ -13,7 +13,7 @@
 
 @property (nonatomic,strong) NSArray *dataArr;
 @property (nonatomic,assign) NSInteger count;
-@property (nonatomic,strong) BkBaseViewController *VC;
+@property (nonatomic,weak) BkBaseViewController *VC;
 @property (nonatomic,strong) NSString *act_name;
 @property (nonatomic,strong) NSString *act_id;
 @end

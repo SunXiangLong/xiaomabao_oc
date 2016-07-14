@@ -67,10 +67,10 @@
 
         NSString *userMd5 = self.pwdField.text;
         NSString *passwordMd5 = [userMd5 md5];
-        NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/signup"];
+        NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/register"];
         MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
         [MBNetworking POST:url parameters:@{@"phoneCode":[_phoneCode md5],@"name":user.phoneNumber,@"password":passwordMd5,@"type":@"1"} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-            NSLog(@"%@",responseObject);
+            NSLog(@"%@",responseObject.data);
             
             
             if ([responseObject.status[@"succeed"] isEqualToNumber:@1]) {

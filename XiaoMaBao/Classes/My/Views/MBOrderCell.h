@@ -13,6 +13,6 @@
 @property(nonatomic,strong)NSArray *array;
 @property(nonatomic,strong)NSArray *imageUrlArray;
 @property(nonatomic,strong)NSString *order_sn;
-@property (nonatomic,strong) BkBaseViewController *VC;
+@property (nonatomic,weak) BkBaseViewController *VC;
 
 @end

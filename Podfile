@@ -23,6 +23,10 @@ pod 'UMengAnalytics'
 pod 'ReactiveCocoa', '~> 2.5'
 pod 'JPFPSStatus', '~> 0.0.2'
 pod 'DateTools'
+pod 'UITableView+FDTemplateLayoutCell', '~> 1.5.beta'
+pod 'TYAttributedLabel', '~> 2.6.1'
+pod 'YYWebImage'
+pod 'YYImage/WebP'
 # 主模块(必须)
 pod 'ShareSDK3'
 # Mob 公共库(必须) 如果同时集成SMSSDK iOS2.0:可看此注意事项：http://bbs.mob.com/thread-20051-1-1.html

@@ -297,11 +297,9 @@
     
     
     
-    UICollectionViewCell *cell = [_collectionView cellForItemAtIndexPath:indexPath];
     browser = [[SDPhotoBrowser alloc] init];
     browser.currentImageIndex =indexPath.row;
-    //        browser.isremove = YES;
-    browser.sourceImagesContainerView = cell.contentView;
+    browser.sourceImagesContainerView = _collectionView;
     browser.imageCount = _photoArray.count-1;
     browser.delegate = self;
     [browser show];

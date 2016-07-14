@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MBPostDetailsFooterOne">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="post_message" translatesAutoresizingMaskIntoConstraints="NO" id="F3w-QZ-agj">
+                    <rect key="frame" x="279.5" y="10" width="10" height="9.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="10" id="bpF-Zr-Tc1"/>
+                        <constraint firstAttribute="height" constant="10" id="gCZ-ez-zFO"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="超级宝宝豪妈妈" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jet-Nn-Tkj">
+                    <rect key="frame" x="28" y="7" width="84" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.39607843139999999" green="0.41568627450000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mbq_collect" translatesAutoresizingMaskIntoConstraints="NO" id="QRp-yY-VgO">
+                    <rect key="frame" x="10" y="8.5" width="13" height="12"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="12" id="k8X-9n-6O1"/>
+                        <constraint firstAttribute="width" constant="13" id="zHp-5g-apZ"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="69" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BeI-dd-ki6">
+                    <rect key="frame" x="294.5" y="7.5" width="15.5" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.39607843139999999" green="0.41568627450000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="BeI-dd-ki6" secondAttribute="trailing" constant="10" id="05L-ho-7OF"/>
+                <constraint firstItem="BeI-dd-ki6" firstAttribute="centerY" secondItem="QRp-yY-VgO" secondAttribute="centerY" id="CF6-Et-1MP"/>
+                <constraint firstItem="F3w-QZ-agj" firstAttribute="centerY" secondItem="QRp-yY-VgO" secondAttribute="centerY" id="Dy2-A0-I0H"/>
+                <constraint firstItem="jet-Nn-Tkj" firstAttribute="leading" secondItem="QRp-yY-VgO" secondAttribute="trailing" constant="5" id="Hdb-Pq-wNS"/>
+                <constraint firstItem="BeI-dd-ki6" firstAttribute="leading" secondItem="F3w-QZ-agj" secondAttribute="trailing" constant="5" id="Mjj-Pc-ina"/>
+                <constraint firstItem="QRp-yY-VgO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="age-NN-RYo"/>
+                <constraint firstItem="jet-Nn-Tkj" firstAttribute="centerY" secondItem="QRp-yY-VgO" secondAttribute="centerY" id="sqc-fl-GzX"/>
+                <constraint firstItem="QRp-yY-VgO" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="v76-Sb-zLQ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="user_cnt" destination="BeI-dd-ki6" id="p2s-6L-qH3"/>
+                <outlet property="user_name" destination="jet-Nn-Tkj" id="RcD-01-EYa"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="mbq_collect" width="10" height="10"/>
+        <image name="post_message" width="8" height="8"/>
+    </resources>
+</document>

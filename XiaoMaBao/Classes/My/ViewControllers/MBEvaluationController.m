@@ -171,7 +171,7 @@
     
     [self showProgress];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/act_comment"] parameters:parmeters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_comment"] parameters:parmeters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         for (int i = 0; i<photoArray.count; i++) {
             NSData * data;
             if ([photoArray[i]isKindOfClass:[UIImage class]] ) {

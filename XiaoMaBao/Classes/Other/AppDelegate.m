@@ -34,7 +34,6 @@
 //微信SDK头文件
 #import "WXApi.h"
 #import "WXApiObject.h"
-
 //极光推送
 #import "APService.h"
 #import "JPFPSStatus.h"
@@ -49,6 +48,14 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+   //第三方注册
+    [self registered:launchOptions];
+
+    return YES;
+}
+#pragma  mark --注册
+-(void)registered:(NSDictionary *)launchOptions{
     //友盟注册
     [MBAPService umengTrack];
     //share第三方登陆分享
@@ -71,24 +78,17 @@
     }
     //提示用户评价
     [self setAppirater];
-    
-   [self.window makeKeyAndVisible];
+    [self.window makeKeyAndVisible];
     //第一次打开应用显示导航
     [MBLogOperation guidePage:self.window];
-
+    //消息数置0
+     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 //#if defined(DEBUG)||defined(_DEBUG)
 //    [[JPFPSStatus sharedInstance] open];
 //#endif
     
- 
-
-    return YES;
+    
 }
-
-
-
-
-
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -152,7 +152,6 @@
 {
     // 当用户通过支付宝客户端进行支付时,会回调该block:standbyCallback
     [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-        NSLog(@"%@",resultDic);
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"AlipayPay" object:nil userInfo:resultDic]];
     }];
     
@@ -181,9 +180,5 @@
     [Appirater setDebug:NO];
     [Appirater appLaunched:YES];
 }
-
-
-
-
 
 @end

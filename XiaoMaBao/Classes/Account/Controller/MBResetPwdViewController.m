@@ -58,7 +58,7 @@
     
     if ([self.pwdField.text isEqualToString:self.pwd2Field.text] && self.pwdField.text.length >= 6) {
         
-        NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/modPass"];
+        NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/modpassword"];
         MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
         NSString *passwordMd5 = [self.pwdField.text md5] ;
         

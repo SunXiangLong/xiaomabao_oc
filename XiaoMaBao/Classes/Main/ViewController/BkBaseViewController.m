@@ -15,8 +15,6 @@
     MBProgressHUD *HUD;
     MBNavigationViewController *_nav;
 }
-//@property (nonatomic,weak) BkNavigationBarView *navBar;
-
 @end
 
 @implementation BkBaseViewController
@@ -279,6 +277,12 @@
         [HUD hide:YES];
     });
 }
+-(void)dealloc{
+   
+    NSLog(@"%@销毁了",[NSString stringWithUTF8String:object_getClassName(self)]);
 
+
+    
+}
 
 @end

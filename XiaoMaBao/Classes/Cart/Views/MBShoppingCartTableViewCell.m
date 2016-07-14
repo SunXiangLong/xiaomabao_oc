@@ -31,8 +31,7 @@
 }
 -(void)tap:(UITapGestureRecognizer *)gesture{
     
-//    //通过通知中心发送通知
-//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+
     if (self.delegate&&[self.delegate respondsToSelector:@selector(click:)]) {
         [self.delegate click:self.row];
     }

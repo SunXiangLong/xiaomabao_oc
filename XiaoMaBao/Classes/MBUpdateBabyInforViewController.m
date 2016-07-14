@@ -7,7 +7,6 @@
 //
 
 #import "MBUpdateBabyInforViewController.h"
-#import "MBNetworking.h"
 #import "TGCameraViewController.h"
 @interface MBUpdateBabyInforViewController () <UIAlertViewDelegate,UITextFieldDelegate,UIPickerViewDelegate,TGCameraDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {
@@ -34,18 +33,6 @@
 @end
 
 @implementation MBUpdateBabyInforViewController
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBUpdateBabyInforViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBUpdateBabyInforViewController"];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     

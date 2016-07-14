@@ -94,12 +94,13 @@
         [self show:@"两次密码不一致" time:1];
         return;
     }
-    
+    [self.pwd2 resignFirstResponder];
+    [self.pwd1 resignFirstResponder];
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/modPassword"]
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/modpassword"]
         parameters:@{@"session":sessiondict,@"old_password":[self.oldFld.text md5],@"new_password":[self.pwd1.text md5]}
         success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
             NSDictionary * status_dict = [responseObject valueForKey:@"status"];
@@ -109,6 +110,7 @@
                 [self show:[status_dict valueForKeyPath:@"error_desc"] time:1];
             }else{
                 [self show:@"修改密码成功" time:1];
+                
                 [self SavePassword:_pwd2.text];
                 //退出并跳转到登录页
                 

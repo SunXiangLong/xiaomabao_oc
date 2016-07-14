@@ -220,6 +220,7 @@
 
 - (void)rightTitleClick{
     
+     
     MBSearchPostController *searchVc = [[MBSearchPostController alloc] init];
     
     [self pushViewController:searchVc Animated:YES];

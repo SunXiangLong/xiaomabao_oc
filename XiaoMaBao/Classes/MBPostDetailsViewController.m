@@ -16,13 +16,12 @@
 #import "MBCollectionPostController.h"
 #import "MBPostReplyController.h"
 #import "MBPostDetailsViewCell.h"
-
-
-@interface MBPostDetailsViewController ()<SDPhotoBrowserDelegate>
+#import "UITableView+FDTemplateLayoutCell.h"
+#import "MBPostDetailsFooterOne.h"
+#import "MBPostDetailsFooterTwo.h"
+@interface MBPostDetailsViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
-    
-    
-    
+
     /**
      *  titltButton的飙升箭头
      */
@@ -46,10 +45,6 @@
    
 
 }
-/**
- *  存放cell高度的数组
- */
-@property (copy, nonatomic) NSMutableArray *cellHeightArray;
 
 /**
  *  收藏button
@@ -83,16 +78,10 @@
 @end
 
 @implementation MBPostDetailsViewController
--(void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBPostDetailsViewController"];
-    
-}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBPostDetailsViewController"];
     if (_isDismiass) {
         
         if (_commentsArray.count<20) {
@@ -109,12 +98,6 @@
     
 }
 
-- (NSMutableArray *)cellHeightArray{
-    if (!_cellHeightArray) {
-        _cellHeightArray = [NSMutableArray array];
-    }
-    return _cellHeightArray;
-}
 - (NSMutableArray *)commentsArray{
     if (!_commentsArray) {
         _commentsArray = [NSMutableArray array];
@@ -128,41 +111,18 @@
     _poster =  @"1";
     _isImage = @"1";
    
+    
+    [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsOneCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsOneCell"];
+    [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsTwoCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsTwoCell"];
+    [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsViewCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsViewCell"];
+    
     [self is_collectionData];
    [self setData];
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
-    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
-    footer.refreshingTitleHidden = YES;
-    self.tableView.mj_footer = footer;
+    
 
-    
-    
-    //图片下载完成回调
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload:) name:@"MBPostDetailsViewNOtifition" object:nil];
-    
+
 }
-#pragma mark -- 图片下载监听通知
--(void)reload:(NSNotification *)notif
-{
-    NSDictionary *dic = [notif userInfo];
-    NSNumber *num  = dic[@"number"];
-    NSIndexPath *indexPath = dic[@"indexPath"];
-   
-        /**
-         *  只有当下载完成图片长度和预设的图片长度不一致才刷新
-         */
-        if ([_cellHeightArray[indexPath.section][indexPath.row-1] floatValue] != [num floatValue]) {
-            _cellHeightArray[indexPath.section][indexPath.row-1] = num;
-    
-             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        }
-        
-    
-    
-    
-    
-    
-}
+
 #pragma mark -- tittButton和帖子筛选分类的View的Ui布局
 - (void)setTitle{
     UILabel *lable = [[UILabel alloc] init];
@@ -215,7 +175,6 @@
         [self.tableView.mj_footer resetNoMoreData];
      
         [self.commentsArray removeAllObjects];
-        [self.cellHeightArray removeAllObjects];
         [self setData];
         [self showTopView];
     }];
@@ -256,7 +215,7 @@
         url = [NSString stringWithFormat:@"%@/%@",url,self.comment_id];
     }
   
-     __unsafe_unretained __typeof(self) weakSelf = self;
+
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         //        NSLog(@"%@",responseObject);
@@ -265,8 +224,6 @@
             
             if (_isDismiass) {
               
-               
-                    
                     NSDictionary *dataDic = [[responseObject valueForKeyPath:@"comments"] lastObject];
                     NSDictionary *dic = _commentsArray.lastObject;
                 
@@ -275,23 +232,13 @@
                     return ;
                 }
                     [_commentsArray addObject:dataDic];
-                    
-                    
-                    NSMutableArray *cellHeight = [NSMutableArray array];
-                    
-                    NSArray *arr = dataDic[@"comment_imgs"];
-                    
-                    
-                    for (NSString *imageUrl in arr) {
-                        [cellHeight addObject:@((UISCREEN_WIDTH-20)*105/125)];
-                    }
-                     [weakSelf.cellHeightArray addObject:cellHeight];
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:weakSelf.commentsArray.count-1];
+                
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:self.commentsArray.count-1];
                     
             
-                    [weakSelf.tableView reloadData];
+                    [self.tableView reloadData];
                     
-                    [weakSelf.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+                    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
                 _isRefresh =YES;
                     _isDismiass = !_isDismiass;
                     
@@ -304,27 +251,11 @@
            
             if (_page ==1) {
 
-                [weakSelf.commentsArray addObject:[responseObject valueForKeyPath:@"post_detail"]];
-                [weakSelf.commentsArray addObjectsFromArray:[responseObject valueForKeyPath:@"comments"]];
+                [self.commentsArray addObject:[responseObject valueForKeyPath:@"post_detail"]];
+                [self.commentsArray addObjectsFromArray:[responseObject valueForKeyPath:@"comments"]];
                 
-                for (NSInteger i = 0 ; i<self.commentsArray.count; i++) {
-                    NSDictionary *dic = self.commentsArray[i];
-                    NSMutableArray *cellHeight = [NSMutableArray array];
-                    if (i == 0) {
-                        NSArray *arr = dic[@"post_imgs"];
-                        for (NSString *imageUrl in arr) {
-                            [cellHeight addObject:@((UISCREEN_WIDTH-20)*105/125)];
-                        }
-                    }else{
-                    NSArray *arr = dic[@"comment_imgs"];
-                        for (NSString *imageUrl in arr) {
-                            [cellHeight addObject:@((UISCREEN_WIDTH-20)*105/125)];
-                        }
-                    }
-                    [weakSelf.cellHeightArray addObject:cellHeight];
-                }
                 
-                [weakSelf.tableView reloadData];
+                [self.tableView reloadData];
                 _page++;
                 
            
@@ -335,24 +266,12 @@
                     
                     NSArray *dataArr = [responseObject valueForKeyPath:@"comments"];
                     [_commentsArray addObjectsFromArray:dataArr];
-                    for (NSInteger i = 0 ; i<dataArr.count; i++) {
-                        NSDictionary *dic = self.commentsArray[i];
-                        NSMutableArray *cellHeight = [NSMutableArray array];
-                        
-                            NSArray *arr = dic[@"comment_imgs"];
-                            for (NSString *imageUrl in arr) {
-                                [cellHeight addObject:@((UISCREEN_WIDTH-20)*105/125)];
-                            }
-                      
-                        [weakSelf.cellHeightArray addObject:cellHeight];
-                    }
                     
                     _page++;
-                    [weakSelf.tableView reloadData];
-//                    [weakSelf.tableView .mj_footer endRefreshing];
+                    [self.tableView reloadData];
                     
                 }else{
-                    [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+                    [self.tableView.mj_footer endRefreshingWithNoMoreData];
                     return ;
                 }
                 
@@ -515,7 +434,12 @@
 }
 #pragma mark --收藏
 - (IBAction)collection:(id)sender {
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     
+    if (!sid) {
+        [self loginClicksss];
+        return;
+    }
     
     self.collectionButton.enabled = NO;
     [self  collectionData];
@@ -540,7 +464,35 @@
    
     
 }
-
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    cell.fd_enforceFrameLayout = YES;
+    NSDictionary *dic = _commentsArray[indexPath.section];
+    if (indexPath.section == 0) {
+        if (indexPath.row ==0) {
+            MBPostDetailsOneCell *detailsOneCell = (MBPostDetailsOneCell *)cell;
+            detailsOneCell.dataDic =  dic;
+        }else{
+            MBPostDetailsViewCell *DetailsViewCell = (MBPostDetailsViewCell *)cell;
+            DetailsViewCell.imageUrl = dic[@"post_imgs"][indexPath.row -1];
+            DetailsViewCell.num = [dic[@"post_imgs_scale"][indexPath.row -1 ] floatValue];
+            
+        }
+    }else{
+        
+        if (indexPath.row ==0 ) {
+            MBPostDetailsTwoCell *DetailsTwoCell = (MBPostDetailsTwoCell *)cell;
+            DetailsTwoCell.dataDic =  dic;
+            //            DetailsTwoCell.indexPath = indexPath;
+                    }else{
+            MBPostDetailsViewCell *DetailsViewCell = (MBPostDetailsViewCell *)cell;
+            DetailsViewCell.imageUrl = dic[@"comment_imgs"][indexPath.row -1 ];
+            DetailsViewCell.num = [dic[@"comment_imgs_scale"][indexPath.row - 1] floatValue];
+            
+        }
+        
+    }
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -548,9 +500,9 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.commentsArray.count;
-//    return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
       NSDictionary *dic = _commentsArray[section];
     if (section ==0) {
         if ([dic[@"post_imgs"] count]>0 ) {
@@ -558,129 +510,79 @@
         }
         return 1;
     }
+    
     if ([dic[@"comment_imgs"] count]>0 ) {
         return [dic[@"comment_imgs"] count]+1;
     }
     return 1;
+
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    
+    return 40;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.00001;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
   
-    
-        NSDictionary *dic = _commentsArray[indexPath.section];
-
         if (indexPath.section ==0) {
             if (indexPath.row ==0) {
-                NSString *post_content = dic[@"post_content"];
-                NSString *post_title = dic[@"post_title"];
-                CGFloat post_title_height = [post_title sizeWithFont:SYSTEMFONT(16) lineSpacing:2 withMax:UISCREEN_WIDTH-20];
-                CGFloat post_content_height = [post_content sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
+                return [tableView fd_heightForCellWithIdentifier:@"MBPostDetailsOneCell" cacheByIndexPath:indexPath configuration:^(MBPostDetailsOneCell *cell) {
+                    [self configureCell:cell atIndexPath:indexPath];
+                    
+                }];
 
-                return 108 +post_content_height+post_title_height;
             }
             
-            return [self.cellHeightArray[indexPath.section][indexPath.row-1] floatValue];
+            return [tableView fd_heightForCellWithIdentifier:@"MBPostDetailsViewCell" cacheByIndexPath:indexPath configuration:^(MBPostDetailsViewCell *cell) {
+                [self configureCell:cell atIndexPath:indexPath];
+                
+            }];
         }
   
         if (indexPath.row == 0) {
-            NSString *comment_content = dic[@"comment_content"];
-              CGFloat cellHeight = 0;
-            if (dic[@"comment_reply"]) {
-                NSString *comment_reply_comment_content =  dic[@"comment_reply"][@"comment_content"];
-                CGFloat comment_reply_user_name_height =  [comment_reply_comment_content sizeWithFont: SYSTEMFONT(12) lineSpacing:2 withMax:UISCREEN_WIDTH -70];
-                if (comment_reply_user_name_height>35) {
-                    cellHeight = comment_reply_user_name_height+45+cellHeight;
-                }else{
-                    cellHeight = comment_reply_user_name_height+30+cellHeight;
-                }
-            
-        }
-        return cellHeight+105+ [comment_content sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
+            return [tableView fd_heightForCellWithIdentifier:@"MBPostDetailsTwoCell" cacheByIndexPath:indexPath configuration:^(MBPostDetailsTwoCell *cell) {
+                [self configureCell:cell atIndexPath:indexPath];
+                
+            }];
        
     }
-     return [self.cellHeightArray[indexPath.section][indexPath.row-1] floatValue];
+    return [tableView fd_heightForCellWithIdentifier:@"MBPostDetailsViewCell" cacheByIndexPath:indexPath configuration:^(MBPostDetailsViewCell *cell) {
+        [self configureCell:cell atIndexPath:indexPath];
         
+    }];
+    
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-     NSDictionary *dic = _commentsArray[indexPath.section];
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-           
-            MBPostDetailsOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsOneCell"];
-            if (!cell) {
-                cell = [[[NSBundle mainBundle]loadNibNamed:@"MBPostDetailsOneCell"owner:nil options:nil]firstObject];
-            }
-            
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 
-            
-            cell.post_content.text = dic[@"post_content"];
-            cell.post_title.text = dic[@"post_title"];
-            cell.circle_name.text = dic[@"circle_name"];
-            cell.author_name.text = dic[@"author_name"];
-            cell.reply_cnt.text = dic[@"reply_cnt"];
-            [cell.author_userhead  sd_setImageWithURL:URL(dic[@"author_userhead"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];            
-            [cell.post_content rowSpace:6];
-            [cell.post_title rowSpace:2];
-            
-            return cell;
-
-        }
+    return [[UIView alloc] init];
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 40)];
+    footerView.backgroundColor = UIcolor(@"eaeaea");
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 30, UISCREEN_WIDTH, 10)];
+    [footerView addSubview:view];
+    if (section == 0) {
+        MBPostDetailsFooterOne *Footer = [MBPostDetailsFooterOne instanceView];
+        Footer.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 30);
+        [footerView addSubview:Footer];
+        Footer.user_cnt.text = _commentsArray[section][@"reply_cnt"];
+        Footer.user_name.text = _commentsArray[section][@"circle_name"];
         
-        
-        MBPostDetailsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsViewCell"];
-        if (!cell) {
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBPostDetailsViewCell"owner:nil options:nil]firstObject];
-        }
-        cell.indexPath = indexPath;
-        if (indexPath.row-1<[dic[@"post_imgs"] count]) {
-            
-            cell.imageUrlStr =  dic[@"post_imgs"][indexPath.row-1];
-            
- 
-        }
-        
-        return cell;
+    }else{
     
-    }
- 
-    if (indexPath.row == 0) {
-        
-        MBPostDetailsTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsTwoCell"];
-        if (!cell) {
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBPostDetailsTwoCell"owner:nil options:nil]firstObject];
-        }
-        cell.comment_time.text = dic[@"comment_time"];
-        cell.comment_floor.text = dic[@"comment_floor"];
-        cell.comment_content.text = dic[@"comment_content"];
-        cell.user_name.text = dic[@"user_name"];
-        [cell.user_head sd_setImageWithURL:URL(dic[@"user_head"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-        cell.indexPath = indexPath;
-        [cell.comment_content rowSpace:6];
-        [cell.comment_content columnSpace:1];
-        if (dic[@"comment_reply"]) {
-            
-            NSString *comment_reply_comment_content =  dic[@"comment_reply"][@"comment_content"];
-            CGFloat comment_reply_user_name_height =  [comment_reply_comment_content sizeWithFont: SYSTEMFONT(12) lineSpacing:2 withMax:UISCREEN_WIDTH -70];
-            cell.comment_reply_user_name.text = dic[@"comment_reply"][@"user_name"];
-            cell.comment_reply_comment_content.text = dic[@"comment_reply"][@"comment_content"];
-            [cell.user_head_user_head sd_setImageWithURL:URL(dic[@"comment_reply"][@"user_head"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-            cell.comment_reply_height.constant  = comment_reply_user_name_height+30;
-            cell.commentView.hidden = NO;
-            [cell.comment_reply_comment_content rowSpace:2];
-            [cell.comment_reply_comment_content columnSpace:1];
-        }else{
-            cell.comment_reply_height.constant  = 0;
-            cell.commentView.hidden = YES;
-        }
+       MBPostDetailsFooterTwo *Footer = [MBPostDetailsFooterTwo instanceView];
+        Footer.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 30);
+        Footer.indexPath =  [NSIndexPath indexPathForRow:section inSection:0];
+        [footerView addSubview:Footer];
         @weakify(self);
-        [[cell.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSIndexPath *indexPath) {
-            
+        [[Footer.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSIndexPath *indexPath) {
+
             @strongify(self);
-            NSDictionary *dic = self.commentsArray[indexPath.section];
+            NSDictionary *dic = self.commentsArray[indexPath.row];
             NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-            
+
             if (!sid) {
                 [self loginClicksss];
                 return;
@@ -690,76 +592,49 @@
             VC.title   = [NSString stringWithFormat:@"回复%@:",dic[@"user_name"]];
             VC.post_id =self.post_id;
             VC.comment_reply_id  = dic[@"comment_id"];
-            
+
             [self pushViewController:VC Animated:YES];
         }];
+
+        
+    }
+    
+    return footerView;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section ==0) {
+        if (indexPath.row ==0) {
+            
+            MBPostDetailsOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsOneCell"];
+            [self configureCell:cell atIndexPath:indexPath];
+
+             return cell;
+            
+        }
+       MBPostDetailsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsViewCell"];
+        [self configureCell:cell atIndexPath:indexPath];
         
         return cell;
     }
-   
     
+    if (indexPath.row == 0) {
+        
+        MBPostDetailsTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsTwoCell"];
+        [self configureCell:cell atIndexPath:indexPath];
+        return cell;
+        
+    }
     MBPostDetailsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsViewCell"];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBPostDetailsViewCell"owner:nil options:nil]firstObject];
-    }
-    cell.indexPath = indexPath;
-    
-  
-    if (indexPath.row-1<[dic[@"comment_imgs"] count]) {
-        
-        cell.imageUrlStr =  dic[@"comment_imgs"][indexPath.row-1];
-        
-        
-    }
+    [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPat{
-    
-
-    
-    NSDictionary *dic = _commentsArray[indexPat.section];
-    _dianjiIndexPath = indexPat;
-    if (indexPat.section ==0) {
-        if ([dic[@"post_imgs"] count]>0 ) {
-            if (indexPat.row != 0) {
-                SDPhotoBrowser *photoBrowser = [[SDPhotoBrowser alloc] init];
-                photoBrowser.delegate = self;
-                photoBrowser.currentImageIndex = indexPat.row -1;
-                UITableViewCell *cell = [tableView  cellForRowAtIndexPath:indexPat];
-                photoBrowser.sourceImagesContainerView = cell;
-                photoBrowser.imageCount =  [dic[@"post_imgs"] count];
-                [photoBrowser show];
-
-            }
-            
-        }
-       
-    }else{
-        if ([dic[@"comment_imgs"] count]>0 ) {
-            if (indexPat.row != 0) {
-                SDPhotoBrowser *photoBrowser = [[SDPhotoBrowser alloc] init];
-                photoBrowser.delegate = self;
-                photoBrowser.currentImageIndex = indexPat.row -1;
-                UITableViewCell *cell = [tableView  cellForRowAtIndexPath:indexPat];
-                photoBrowser.sourceImagesContainerView = cell;
-                photoBrowser.imageCount =  [dic[@"comment_imgs"] count];
-                [photoBrowser show];
-            }
-            
-        }
-    
-    }
-    
- 
     
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     
     if (_isbool) {
-        
         [UIView animateWithDuration:.3f animations:^{
             _imageView.transform = CGAffineTransformMakeRotation(0);
             _topView.frame = CGRectMake(UISCREEN_WIDTH, 64, UISCREEN_WIDTH, 85);
@@ -769,38 +644,6 @@
     }
     
 }
-- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
-{
-    NSString *imageName;
-    if (_dianjiIndexPath.section == 0) {
-      
-        imageName  = _commentsArray[_dianjiIndexPath.section][@"post_imgs"][index];
-        
-    }else{
-        
-       imageName =  _commentsArray[_dianjiIndexPath.section][@"comment_imgs"][index];
-        
-    }
-    
-    NSURL *url = URL(imageName);
-    return url;
-}
 
-- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
-{
-  
-    
-    return [UIImage imageNamed:@"img_default"];
-}
--(void)dealloc{
-    
-    [_tableView removeFromSuperview];
-    _tableView = nil;
-    _commentsArray = nil;
-    _cellHeightArray = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    
-}
 
 @end

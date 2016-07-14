@@ -278,7 +278,7 @@
     
     
     
-    NSString *postUrl = [NSString stringWithFormat:@"%@%@",BASE_URL,@"user/valid"];
+    NSString *postUrl = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/phonecode"];
     
     
     [self show];
@@ -324,7 +324,7 @@
         return;
     }
     [self show];
-    NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/signup"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/signup"];
     [MBNetworking POST:url parameters:@{@"phoneCode":[_view.verifcation.text md5],@"name":_view.photo.text,@"password":[self.pwdField.text md5],@"email":self.accountField.text,@"type":@"1"} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
         
         [self dismiss];

@@ -9,12 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface MBPostDetailsViewCell : UITableViewCell
-
-@property (weak, nonatomic) IBOutlet UIImageView *image;
-
-
-@property (nonatomic,strong) NSString *imageUrlStr;
-@property (nonatomic, strong)NSIndexPath *indexPath;
+@property (nonatomic,assign) float num;
+@property(copy,nonatomic)NSString *imageUrl;
 
 
 @end

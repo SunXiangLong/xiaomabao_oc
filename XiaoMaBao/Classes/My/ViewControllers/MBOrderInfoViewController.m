@@ -53,7 +53,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/info"] parameters:@{@"session":dict,@"order_id":self.order_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_detail"] parameters:@{@"session":dict,@"order_id":self.order_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         NSLog(@"%@",[responseObject valueForKeyPath:@"data"]);
 

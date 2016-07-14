@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *photo;
 @property (weak, nonatomic) IBOutlet UILabel *address;
 @property (weak, nonatomic) IBOutlet UIButton *is_default;
-@property (nonatomic,strong) BkBaseViewController *VC;
+@property (nonatomic,weak) BkBaseViewController *VC;
 @property (nonatomic,assign) BOOL isDefault;
 @property(strong,nonatomic)NSDictionary *addressDic;
 @property (nonatomic, weak) id<MBShopAddressTableViewDelgate> delagate;

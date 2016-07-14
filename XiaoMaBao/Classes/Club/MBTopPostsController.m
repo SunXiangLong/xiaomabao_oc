@@ -19,18 +19,6 @@
 @end
 
 @implementation MBTopPostsController
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBTopPostsController"];
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    
-    [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBTopPostsController"];
-}
-
 -(NSMutableArray *)dataArray{
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];

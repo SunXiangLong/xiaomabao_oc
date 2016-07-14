@@ -5,7 +5,6 @@
 //  Created by 张磊 on 15/5/29.
 //  Copyright (c) 2015年 MakeZL. All rights reserved.
 //
-
 #import "MBShopingViewController.h"
 #import "MBJoinCartViewController.h"
 #import "NSString+BQ.h"
@@ -27,7 +26,7 @@
 #import "MBShopTableViewCell.h"
 #import "MBNavigationViewController.h"
 #import "DataSigner.h"
-@interface MBShopingViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,UnicallDelegate>{
+@interface MBShopingViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate>{
     
     NSTimer   *myTimer;
     NSInteger lettTimes;
@@ -40,31 +39,30 @@
     NSInteger _lesss;
     MBNavigationViewController *_nav;
 }
-@property (weak,nonatomic) UIScrollView *contentScrollView;
-@property (weak,nonatomic) UIView *shopTitleView;
-@property (weak,nonatomic) UIScrollView *headerScrollview;
-@property (weak,nonatomic) UIView *shopTimeView;
-@property (weak,nonatomic) UIView *shopDescView;
-@property (weak,nonatomic) UILabel *shopDiscount;
-@property (weak,nonatomic) UIView *shopFreightView;
-@property (weak,nonatomic) UIView *shopPackageView;
-@property (weak,nonatomic) UIView *shopInfoView;
-@property (weak,nonatomic) UIView *tabbarView;
+@property (strong,nonatomic) UIScrollView *contentScrollView;
+@property (strong,nonatomic) UIView *shopTitleView;
+@property (strong,nonatomic) UIScrollView *headerScrollview;
+@property (strong,nonatomic) UIView *shopTimeView;
+@property (strong,nonatomic) UIView *shopDescView;
+@property (strong,nonatomic) UILabel *shopDiscount;
+@property (strong,nonatomic) UIView *shopFreightView;
+@property (strong,nonatomic) UIView *shopPackageView;
+@property (strong,nonatomic) UIView *shopInfoView;
+@property (strong,nonatomic) UIView *tabbarView;
 @property (strong,nonatomic) UIView*briefView;
 @property (strong,nonatomic) NSMutableArray *infoItemViews;
 @property (strong,nonatomic) UIView *infoItemLineView;
-
-@property (weak,nonatomic) UIView *item0BriefView;
-@property (weak,nonatomic) UIView *item1BriefView;
-@property (weak,nonatomic) UIView *item2BriefView;
+@property (strong,nonatomic) UIView *item0BriefView;
+@property (strong,nonatomic) UIView *item1BriefView;
+@property (strong,nonatomic) UIView *item2BriefView;
 @property (strong,nonatomic) UITableView *tableView;
 @property (strong,nonatomic) NSMutableArray *shops;
 @property (strong,nonatomic) NSArray        *googBrandArray;
 @property (strong,nonatomic) NSDictionary   *commentsdict;
 @property (strong,nonatomic) UIPageControl  *pagecontrol;
-@property (nonatomic) NSInteger length;
+@property (nonatomic,assign) NSInteger length;
 @property (nonatomic,strong) UITableView *_shopTableView;
-@property (nonatomic,strong)NSMutableArray *_shopImageArrat;
+@property (nonatomic,strong) NSMutableArray *_shopImageArrat;
 /**
  *  用来装top的scrollView
  */
@@ -93,7 +91,7 @@
 {
     [super viewWillDisappear:animated];
     [myTimer invalidate];
-    myTimer = nil;
+     myTimer = nil;
     [MobClick endLogPageView:@"MBShopingViewController"];
 }
 - (void)viewDidAppear:(BOOL)animated{
@@ -101,18 +99,21 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     //更新购物车数量
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/list_count"] parameters:@{@"session":session}
+    if (!uid) {
+        return;
+    }
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/list_count"] parameters:@{@"session":session}
      
                success:^(NSURLSessionDataTask *operation, id responseObject) {
-                   // NSLog(@"成功：%@",[responseObject valueForKeyPath:@"data"]);
+//                  NSLog(@"成功：%@",[responseObject valueForKeyPath:@"data"]);
                    NSInteger status = [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] integerValue];
                    if(status == 1){
-                       NSString * list_count =[[responseObject valueForKeyPath:@"data"] valueForKey:@"list_count"];
+                       NSString * list_count = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKey:@"list_count"]];
                        
                        if(list_count != nil){
                            if ([list_count integerValue]>0) {
-                                [self.badge autoBadgeSizeWithString:list_count];
-                               self.badge.hidden = NO;
+                            [self.badge autoBadgeSizeWithString:list_count];
+                             self.badge.hidden = NO;
                            }else{
                            self.badge.hidden = YES;
                            }
@@ -134,8 +135,11 @@
 - (void)viewDidLoad{
 
     [super viewDidLoad];
+  
+
+
     
-    [[Unicall singleton] attach:self appKey:UNICALL_APPKEY tenantId:UNICALL_TENANID];
+//    [[Unicall singleton] attach:self appKey:UNICALL_APPKEY tenantId:UNICALL_TENANID];
     [self.navigationController.navigationItem.rightBarButtonItem setImage:[UIImage imageNamed:@"address_add"]];
     self.view.backgroundColor = [UIColor whiteColor];
     [self getGoosInfo];
@@ -219,7 +223,7 @@
 
     [self show];
     
-    NSLog(@"%@",self.GoodsId);
+
     if (self.GoodsId == nil) {
         
         return ;
@@ -233,11 +237,11 @@
 
     
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsInfo"] parameters:@{@"session":session,@"goods_id":self.GoodsId,@"act_id":self.actId} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        NSLog(@"成功");
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsinfo"] parameters:@{@"session":session,@"goods_id":self.GoodsId,@"act_id":self.actId} success:^(NSURLSessionDataTask *operation, id responseObject) {
+       
          [self dismiss];
         self.GoodsDict = [responseObject valueForKeyPath:@"data"];
-      NSLog(@"商品详情---%@",self.GoodsDict);
+//      NSLog(@"商品详情---%@",self.GoodsDict);
         
         
         NSArray *arr = [self.GoodsDict valueForKeyPath:@"goods_gallery"];
@@ -294,9 +298,9 @@
         
        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"失败");
-         [KVNProgress dismiss];
-        
+        NSLog(@"%@",error);
+      
+        [self show:@"请求失败" time:1];
           
        
         
@@ -620,7 +624,7 @@
 #pragma -mark 选择规格
 -(void)GuigeClick:(UITapGestureRecognizer *)ger
 {
-    NSLog(@"选择规格参数");
+  
     MBJoinCartViewController *joinCartVc = [[MBJoinCartViewController alloc] init];
     joinCartVc.isBuy = NO;
     joinCartVc.isSelectGuige = YES;
@@ -702,8 +706,7 @@
     [self show];
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
     NSDictionary *pagination =[NSDictionary dictionaryWithObjectsAndKeys:page,@"page",@"10",@"count", nil];;
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"comments"] parameters:@{@"goods_id":self.GoodsId,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, id responseObject) {
-            
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/comments"] parameters:@{@"goods_id":self.GoodsId,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, id responseObject) {
 //            NSLog(@"获取评论成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
             [self dismiss];
             
@@ -711,7 +714,6 @@
                  _commentsdict = [responseObject valueForKeyPath:@"data"];
             [_evaluationArray addObjectsFromArray:dic[@"comments_list"]];
             if ([dic isEqualToDictionary:_dic ]) {
-//                self.contentScrollView.mj_footer.ignoredScrollViewContentInsetBottom = 100;
                 [ self.contentScrollView.mj_footer endRefreshingWithNoMoreData];
                 return ;
             }
@@ -721,6 +723,7 @@
             
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
        
+            NSLog(@"%@",error);
             [self show:@"请求失败" time:1];
             [self addItem2View];
         }];
@@ -786,9 +789,10 @@
     }
     
     self.contentScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(_item0BriefView.frame));
-    NSLog(@"---------%f ",self.contentScrollView.contentSize.height);
+   
     
-}- (void)addItem1View
+}
+- (void)addItem1View
 {
     if (self.contentScrollView.mj_footer) {
         [self.contentScrollView.mj_footer removeFromSuperview];
@@ -1012,7 +1016,7 @@
     //加入购物车
     [shopingCartBtn addTarget:self action:@selector(goJoinCart) forControlEvents:UIControlEventTouchUpInside];
 }
-#pragma mark --小能客服
+#pragma mark --云客服
 - (void)service{
     
     
@@ -1028,7 +1032,7 @@
     
     
    [self getUnicallSignature];
-    return;
+
     
 
 }
@@ -1065,31 +1069,7 @@
        }
     
 }
-//delegate methods
--(void)acquireValidation
-{
-   [self getUnicallSignature];
-}
--(void)messageCountUpdated:(NSNumber*) data
-{
-    NSLog(@"count%@:",data);
 
-}
--(void)messageArrived:(NSDictionary*) data
-{
-    NSError* error = nil;
-    NSData* source = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error];
-    NSString* str = [NSJSONSerialization JSONObjectWithData:source options:NSJSONReadingMutableContainers error:&error];
-    NSLog(@"%@%@",@"Unicall message arrived.",str);
-    
-    if([[data objectForKey:@"eventName"] isEqualToString:@"updateNewMessageCount"])
-         NSLog(@"count%@:",data);
-}
--(UIViewController*) currentViewController
-{
-        NSLog(@"%@",@"22222222");
-    return self;
-}
 -(NSString*)getCurrentTime {
     
     NSDateFormatter*formatter = [[NSDateFormatter alloc]init];
@@ -1129,7 +1109,7 @@
         NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
         
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":dict, @"goods_id":self.GoodsId,@"number":@"1",@"spec":@""} success:^(NSURLSessionDataTask *operation, id responseObject) {
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/addtocart"] parameters:@{@"session":dict, @"goods_id":self.GoodsId,@"number":@"1",@"spec":@""} success:^(NSURLSessionDataTask *operation, id responseObject) {
            // NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
             
             
@@ -1179,7 +1159,7 @@
     }
     NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/collect/create"] parameters:@{@"session":session,@"goods_id":self.GoodsId}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/collect_goods"] parameters:@{@"session":session,@"goods_id":self.GoodsId}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
         
       
@@ -1200,7 +1180,7 @@
     }else{
     
         [self show];
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsProperties"] parameters:@{@"goods_id":self.GoodsId}
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsproperty"] parameters:@{@"goods_id":self.GoodsId}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
                        [self dismiss];
 //                       NSLog(@"规格参数成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
@@ -1277,7 +1257,6 @@
     [cell dict:dic];
     return cell;
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dic =_evaluationArray[indexPath.row];
     NSString *str = dic[@"content"];
@@ -1292,6 +1271,4 @@
     
     return 50+height;
 }
-
-
 @end

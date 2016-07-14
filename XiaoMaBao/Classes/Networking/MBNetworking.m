@@ -68,8 +68,9 @@ static AFHTTPSessionManager *mgr = nil;
     requestParams = [self stitchingParameter:parameters];
     [self logURL];
     
-    
     return   [self.mgr POST:URLString parameters:requestParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSLog(@"%@",responseObject);
+
         MBModel *model = [MBModel objectWithKeyValues:responseObject];
         success(task,model);
     } failure:failure];
@@ -117,6 +118,7 @@ static AFHTTPSessionManager *mgr = nil;
  *  测试用，显示拼接参数后的url
  */
 + (void)logURL{
+    
     NSMutableString *getURL = [NSMutableString stringWithString:url];
     NSMutableString *paramStr = [NSMutableString stringWithString:@"?"];
     

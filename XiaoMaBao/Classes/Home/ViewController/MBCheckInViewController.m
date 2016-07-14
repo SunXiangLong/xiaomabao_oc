@@ -22,32 +22,21 @@
 - (IBAction)SignClick;
 @property (weak, nonatomic) IBOutlet UIButton *signButton;
 @property (weak, nonatomic) IBOutlet UILabel *timeLbl;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *changdu;
-
 @property (weak, nonatomic) IBOutlet UILabel *msgLbl;
 @property (strong,nonatomic) NSArray *weeks;
 @end
 
 @implementation MBCheckInViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBCheckIn"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBCheckIn"];
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-
+  
     self.calendarBottomView.backgroundColor = [UIColor colorWithRed:126/256.0 green:156/256.0 blue:172/256.0 alpha:0.5];
     self.shareTimeView.backgroundColor = [UIColor colorWithRed:128.0/255.0 green:165.0/255.0 blue:193.0/255.0 alpha:0.7];
     self.calendarView.backgroundColor = [UIColor colorWithRed:157.0/255.0 green:193.0/255.0 blue:213.0/255.0 alpha:0.5];
-    self.changdu.constant  = 150;
+   
     NSDate *date = [NSDate date];
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
     fmt.dateFormat = @"yyyy年MM月";
@@ -117,11 +106,11 @@
     
   
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"index/sign/days"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/get_sign_days"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
         
         NSArray *days = [responseObject.data valueForKey:@"days"];
         self.calendarView.datys = days;
-        NSLog(@"%@",responseObject.data);
+       
         
         
         if ([[responseObject.status valueForKey:@"error_code"] integerValue] > 0) {
@@ -140,7 +129,7 @@
         self.msgLbl.attributedText = attr;
         
         if ([[responseObject.data valueForKey:@"signed"] integerValue] == 1) {
-            // 本日签到成功
+       
             // 刷新btn
             [self.signButton setImage:[UIImage imageNamed:@"signed_circle_btn"] forState:UIControlStateNormal];
         }
@@ -188,7 +177,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"index/sign"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/sign"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
         
         NSLog(@"%@",responseObject.status);
         

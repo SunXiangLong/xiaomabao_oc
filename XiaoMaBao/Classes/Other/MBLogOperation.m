@@ -38,6 +38,7 @@
     BOOL flag = [[[NSUserDefaults standardUserDefaults] objectForKey:@"firstLaunch"] boolValue];
     
     if (!flag) {
+        
         [window addSubview:guidePageView];
     }
 }
@@ -165,12 +166,13 @@
     
     
   
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/signin"] parameters:dic
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/login"] parameters:dic
                success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    //成功，就把用户信息保存到单列MBUserDataSingalTon中
                    if(1 == [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] intValue]){
                        NSDictionary *userData = [responseObject valueForKeyPath:@"data"];
                        NSDictionary *sessionDict = [userData valueForKeyPath:@"session"];
+//                       NSLog(@"%@",userData);
                        MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
                        userInfo.sid = [sessionDict valueForKeyPath:@"sid"];
                        userInfo.uid = [sessionDict valueForKeyPath:@"uid"];
@@ -200,7 +202,7 @@
                        }
                    }
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   NSLog(@"%@",error);
+                   NSLog(@"-----%@",error);
                     failure(nil,error);
                }
      ];

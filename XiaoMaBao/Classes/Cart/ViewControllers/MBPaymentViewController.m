@@ -313,14 +313,14 @@
     }
     
 
-    order.notifyURL =  [NSString stringWithFormat:@"%@%@",BASE_URL_ROOT,@"/mobile/payment/alipay/notify_url.php"]; //回调URL
+    order.notifyURL =  [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/payment/order_alipay_notify"]; //回调URL
      
      if (self.service_data) {
         
          order.productName = @"小麻包购买服务";//商品标题
          order.productDescription = @"小麻包购买服务";//商品描述
          order.amount = self.service_data[@"order_amount"];//商品价格
-          order.notifyURL  = [NSString stringWithFormat:@"%@%@",BASE_URL_ROOT,@"payment/alipay_notify"]; //回调URL
+          order.notifyURL  = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/payment/alipay_notify"]; //回调URL
      }
     NSString *privateKey = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@",
                             @"MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAN33e4EXrmgdqvXH",
@@ -337,42 +337,7 @@
                             @"JwNUGHcvr+FWGXw0vvjLN0vta3GKgNh1hi/qhhZd4qIo2Va1rScJAkA5vZuFwEJH",
                             @"MQlf3p18GKnGyd2QRJE0PDSP9wB736S7Vh5PEsaQA2W2N9QYHPjJU6v4Nwav3dCQeb350xkmPGmQ"
                             ];
-//    if (![_is_cross_border  isEqual:[NSNull null]]) {
-//        if (![_is_cross_border integerValue]== 0) {
-//            
-//            privateKey = [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@ %@ %@ %@",
-//                          @"MIICXQIBAAKBgQCyRddjMMtmtp6XIsrjwbf9DuwmdqBx4ODqmiRyON935ZAYeAba",
-//                          @"u1kPTF0N1NQmDzp62uTDeBfsk7AMViVgCLlFrrvMlLkxmqtmEuMU/LHBQu1F9lu1",
-//                          @"5n9KaZrmK7LSzlr/Xw6Ljfhp8AL1T0EolzyGvHF30sgZ9e8pOFPjGeHL0wIDAQAB",
-//                          @"AoGABSx9ucU6wfpe0+gQl1eR7Wg3dk5PDb8HCAf9MstvwN0Kt4sUN9jkFsuSj8oz",
-//                          @"df9PJS2hIgMkPptyqoj9gLIAHncyjcich6Uc8t0Blebj502qdzQZPBKUffTFY8uV",
-//                          @"uL41QcOIqG9DL28wdPLzDCgXrK+wuaRi2iWEV+mscjokXhECQQDab/KaNbjveOlh",
-//                          @"sNlPq4FbwugB1F3wsbDhg4WKa+Qk5lXjeM6fjHbM/CLTZ7rNCL4Zy0sGai0ZcPqC",
-//                          @"AcB9fLB1AkEA0O3FoehiGtTP4MhRr3kq9s9Df6QfuW2yIIqDw0KUwwdf4yqawT+1",
-//                          @"cRtDFdOgg22OCY8dTgzTxuRISHFf6DoCJwJBAMSV/YtFkBONCNTPmTO3USspJS4I",
-//                          @"Vyb4dAzxFez2npOK7H9UyPgULRLcU+dYsmg2VwfVysaSJdaAtCLuurL01cUCQEI5",
-//                          @"K6yfQQFqNR31wNaS3Ihwt99sgVXALHbeENfCce7DlqQlq/nXHMbmMkRn2PfvsNbc",
-//                          @"0xgbPsFLOJIlxZWRVX8CQQCLWnk+mf+NhHRk0XOYoP9Gl7Swa0jJunj4WdEBBNbG",
-//                          @"l3Q98N1rJDyON0QhA3C4t5i85BURJJWGeniMEHKkQ0Pg"
-//                          ];
-//            
-//            
-//            
-//            partner = @"2088021773439893";
-//            seller = @"liulianqi@xiaomabao.com";
-//            order.rmb_fee = order.amount;
-//            order.amount = nil;
-//            order.notifyURL =    @"http://api.xiaomabao.com/interalipay/notify_url.php"; //回调URL
-//            order.forex_biz = @"FP";
-//            order.product_code = @"NEW_WAP_OVERSEAS_SELLER";
-//            order.split_fund_info = @"[{\"transIn\":\"2088911663943262\",\"amount\":\"0.0\",\"currency\":\"CNY\",\"desc\":\"\"}]";
-//            order.currency = @"USD";
-//        }
-//        
-//    }
-    /*============================================================================*/
-    /*============================================================================*/
-    /*============================================================================*/
+
     
     //partner和seller获取失败,提示
     if ([partner length] == 0 ||
@@ -507,7 +472,6 @@
         time(&now);
         time_stamp  = [NSString stringWithFormat:@"%ld", now];
         nonce_str	= [WXUtil md5:time_stamp];
-        
         package         = @"Sign=WXPay";
         //第二次签名参数列表
         NSMutableDictionary *signParams = [NSMutableDictionary dictionary];
@@ -517,12 +481,8 @@
         [signParams setObject: MCH_ID        forKey:@"partnerid"];
         [signParams setObject: time_stamp   forKey:@"timestamp"];
         [signParams setObject: prePayid     forKey:@"prepayid"];
-        
         //生成签名
         NSString *sign  = [req createMd5Sign:signParams];
-       
-        
-        
         //添加签名
         [signParams setObject: sign  forKey:@"sign"];
         

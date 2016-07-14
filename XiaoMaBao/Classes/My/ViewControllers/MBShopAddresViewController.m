@@ -10,13 +10,9 @@
 #import "MBShopAddressTableViewCell.h"
 #import "MBNewAddressViewController.h"
 @interface MBShopAddresViewController ()<UITableViewDelegate,UITableViewDataSource,MBShopAddressTableViewDelgate>
-
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic)NSArray *addressListArr;
-
-
 @end
-
 @implementation MBShopAddresViewController
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -31,15 +27,11 @@
     
 }
 
-    
-    
 - (void)viewDidLoad {
     [super viewDidLoad];
     _tableView.tableFooterView = [[UIView  alloc ] init];
     _tableView.delegate   = self;
     _tableView.dataSource = self;
-  
-   
 }
 -(void)updateReloadData
 {
@@ -66,15 +58,7 @@ return @"收货地址";
         
         [self dismiss];
         _addressListArr = [responseObject valueForKeyPath:@"data"];
-     
-        
-       NSLog(@"%@",_addressListArr);
-        
-
-     
         [_tableView reloadData];
-        
-        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
@@ -83,7 +67,6 @@ return @"收货地址";
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-   
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
 
@@ -128,16 +111,13 @@ return @"收货地址";
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-   
     if (!self.PersonalCenter) {
-        
         [self popViewControllerAnimated:YES];
         NSDictionary *dict = [_addressListArr objectAtIndex:indexPath.row];
         //创建通知
         NSNotification *notification =[NSNotification notificationWithName:@"AddressNOtifition" object:nil userInfo:dict];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
-       
        
     }
     

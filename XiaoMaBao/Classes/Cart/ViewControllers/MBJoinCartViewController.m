@@ -115,9 +115,9 @@
 #pragma mark -- 请求规格数据
 -(void)specificationsData{
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsSpecifications"] parameters:@{@"goods_id":self.goods_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsspecs"] parameters:@{@"goods_id":self.goods_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
          [self dismiss];
-//        NSLog(@"%@",[responseObject valueForKey:@"data"]);
+        NSLog(@"%@",[responseObject valueForKey:@"data"]);
         _specificationsDic  = [responseObject valueForKey:@"data"];
         if (_specificationsDic) {
             [self setupGoodsView];
@@ -400,7 +400,7 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     NSString *goodnumber = self.numberFld.text;
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":dict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":arrs} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/addtocart"] parameters:@{@"session":dict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":arrs} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         NSString *status = [NSString stringWithFormat:@"%@",[responseObject valueForKeyPath:@"status"][@"succeed"]];
         
@@ -470,15 +470,19 @@
     }
     
     NSString *goodnumber = self.numberFld.text;
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":sessiondict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":attr} success:^(NSURLSessionDataTask *operation, id responseObject) {
-         NSString *status = [NSString stringWithFormat:@"%@",[responseObject valueForKeyPath:@"status"][@"succeed"]];
+    
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/addtocart"] parameters:@{@"session":sessiondict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":attr} success:^(NSURLSessionDataTask *operation, id responseObject) {
+        
+        NSString *status = [NSString stringWithFormat:@"%@",[responseObject valueForKeyPath:@"status"][@"succeed"]];
+        
+        NSLog(@"%@",[responseObject valueForKeyPath:@"status"]);
+        
         if ([status isEqualToString:@"1"]) {
             MBShoppingCartViewController *payVc = [[MBShoppingCartViewController alloc] init];
             payVc.showBottomBar = @"yes";
             [self.navigationController pushViewController:payVc animated:YES];
         }else{
             
-            //[self.navigationController popViewControllerAnimated:YES];
             [self show:[responseObject valueForKeyPath:@"status"][@"error_desc"] time:1];
         }
 
@@ -534,7 +538,7 @@
 }
 #pragma mark --MBSpecificationsCelldelegate
 -(void)getDic:(NSDictionary *)dic{
-   // NSLog(@"%@",dic);
+
     _specificationsMutableArray[[dic[@"row"] integerValue]]=dic;
     
     [self setData];
@@ -542,7 +546,7 @@
 }
 -(void)setData{
     
-   // NSLog(@"-------%@",_specificationsMutableArray);
+
     NSMutableArray *arr = [NSMutableArray array];
     for (id dic in _specificationsMutableArray) {
         if ([dic isKindOfClass:[NSDictionary class]]) {
@@ -566,7 +570,7 @@
     
     
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsSpecificationInfo"] parameters:@{@"goods_id":self.goods_id,@"attr":attr,@"number":_numberFld.text} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsspecinfos"] parameters:@{@"goods_id":self.goods_id,@"attr":attr,@"number":_numberFld.text} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
 //        NSLog(@"%@",[responseObject valueForKey:@"data"]);
         NSDictionary *dic = [responseObject valueForKey:@"data"];

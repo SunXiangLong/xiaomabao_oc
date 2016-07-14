@@ -47,9 +47,9 @@
 #define MCH_ID          @"1267217701"
 //商户API密钥，填写相应参数
 #define PARTNER_ID      @"sunxianglongxiaomabao20151106www"
-//支付结果回调页面
-#define NOTIFY_URL      @"http://api.xiaomabao.com/mobile/payment/wechat/notify.php"
-
+//支付结果回调页面(商品)
+#define NOTIFY_URL      @"http://api.xiaomabao.com/payment/order_wechat_notify"
+// 服务的
 #define NOTIFY_service_URL  @"http://api.xiaomabao.com/payment/wechat_notify"
 //获取服务器端支付数据地址（商户自定义）
 #define SP_URL          @"http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php"

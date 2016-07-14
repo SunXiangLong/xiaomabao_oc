@@ -9,11 +9,8 @@
 #import "MBShoppingCartViewController.h"
 #import "MBFireOrderViewController.h"
 #import "MBSignaltonTool.h"
-#import "MBNetworking.h"
 #import "MBShoppingCartTableViewCell.h"
-#import "UIImageView+WebCache.h"
 #import "MBShopingViewController.h"
-#import <math.h>
 #import "MBLoginViewController.h"
 #import "MBRealNameAuthViewController.h"
 @interface MBShoppingCartViewController () <UITableViewDataSource,UITableViewDelegate,MBShoppingCartTableViewdelegate>
@@ -24,7 +21,7 @@
     UIButton *_submitButton;
     
 }
-@property (weak,nonatomic) UIView *maskView;
+@property (strong,nonatomic)  UIView *maskView;
 @property (strong,nonatomic) UILabel *totalLbl;
 @property (strong,nonatomic)UITableView *mytableView;
 @property (strong,nonatomic)NSMutableArray *goodnumberArray;
@@ -40,8 +37,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"PageOne"];
-    
     
     MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
     
@@ -55,17 +50,11 @@
         [self maskView];
     }
 }
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"PageOne"];
-}
-
 
 - (void)viewDidLoad{
     [super viewDidLoad];
     _selectCountNumber = 0;
-    self.view.backgroundColor = BG_COLOR;
+//    self.view.backgroundColor = BG_COLOR;
 
     self.CartinfoDict = [NSMutableArray array];
     self.total = [NSDictionary dictionary];
@@ -160,7 +149,6 @@
         }
         if (_isAllselectDict) {
             
-            
             [self getCartInfo:0 type:nil];
         }
         
@@ -198,8 +186,7 @@
 }
 //减少一个
 - (void)reduceShop:(NSDictionary *)dic{
-    
-    
+
     //如果选中，则更新购物车
     NSString * selected =dic[@"selected"];
     if([selected isEqualToString:@"1"]){
@@ -583,8 +570,7 @@
     if (num == 0) {//删除
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/del_cart"] parameters:@{@"session":session,@"rec_id":rec_id}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
-                       
-                       NSLog(@"删除成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+
                        
                        [self getCartInfo:row type:@"dele"];
                        
@@ -597,7 +583,7 @@
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/collect_goods"] parameters:@{@"session":session,@"goods_id":rec_id}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
                        
-                       if ([[responseObject valueForKeyPath:@"status"][@"succeed"]isEqualToString:@"1"]) {
+                       if ([[responseObject valueForKeyPath:@"status"][@"succeed"]isEqualToNumber:@1]) {
                            [self show:@"收藏成功" time:1];
                            
                        }else{
@@ -635,17 +621,13 @@
     MBShoppingCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (self.CartinfoDict.count>0) {
         
-        cell.Goods_price.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"subtotal"];
-        cell.Market_Price.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"shop_price_formatted"];
+        cell.Goods_price.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"goods_price_formatted"];
+        cell.Market_Price.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"market_price_formatted"];
         cell.goods_number.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"goods_number"];
         NSString * nameStr = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"goods_name"];
         cell.row = indexPath.row;
         cell.delegate =self;
-//        NSInteger minLen = MIN(28, [nameStr length]);
-
         cell.GoodsDescribe.text = [NSString stringWithFormat:@"%@",nameStr];
-        
-        
         cell.goodID = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"goods_id"];
         cell.rec_id = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"rec_id"];
         NSString *urlstr = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"goods_img"];
@@ -747,8 +729,5 @@
     return@[deleteRowAction,moreRowAction];
     
 }
-
-
-
 
 @end

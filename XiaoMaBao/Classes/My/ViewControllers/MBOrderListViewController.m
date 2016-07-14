@@ -166,8 +166,8 @@
     
     
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/list"] parameters:@{@"session":sessiondict,@"pagination":paginationDict,@"type":type}success:^(NSURLSessionDataTask *operation, id responseObject) {
-//        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_list"] parameters:@{@"session":sessiondict,@"pagination":paginationDict,@"type":type}success:^(NSURLSessionDataTask *operation, id responseObject) {
+//       NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
         [self dismiss];
         
         
@@ -580,7 +580,6 @@
 -(void)comment:(UIButton *)button{
     
     NSArray *arr = _goodListArray[button.tag];
-    NSLog(@"%@",arr);
     NSMutableArray *array = [NSMutableArray array];
     for (NSDictionary *dic in arr) {
         if ([dic[@"is_comment"]isEqualToString:@"0"]) {
@@ -608,9 +607,7 @@
 
 }
 - (void)shipped:(UIButton *)button{
-    NSLog(@"%ld",(long)button.tag);
-    
-    
+
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
@@ -618,7 +615,7 @@
     NSString *order_id = _orderListArray[button.tag][@"order_id"];
     
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/affirm_received"] parameters:@{@"session":sessiondict,@"order_id":order_id}success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_receive"] parameters:@{@"session":sessiondict,@"order_id":order_id}success:^(NSURLSessionDataTask *operation, id responseObject) {
  
         NSDictionary *dic = [responseObject valueForKeyPath:@"status"];
 
@@ -628,9 +625,7 @@
             [_orderListArray removeObjectAtIndex:button.tag];
 
             [_tableView reloadData];
-//            NSIndexSet *indexSet = [[NSIndexSet alloc ]initWithIndex:button.tag];
-//            [_tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-          
+            
             
         }else{
             [self show:dic[@"error_desc"] time:1];

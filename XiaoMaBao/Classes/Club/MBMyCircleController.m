@@ -132,6 +132,12 @@
     @weakify(self);
     [[view1.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *number) {
         
+        NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+        if (!sid) {
+         [ self  loginClicksss];
+            return ;
+        }
+       
         @strongify(self);
         switch ([number integerValue]) {
             case 0:
@@ -141,6 +147,7 @@
                 MBCheckInViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBCheckInViewController"];
                 
                 [self pushViewController:myView Animated:YES];
+               
             }
                 break;
             case 1:{
@@ -314,7 +321,8 @@
 #pragma mark -- 跳转登陆页
 - (void)loginClicksss{
     //跳转到登录页
-    
+   
+
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
     myView.vcType = @"mabao";
@@ -482,6 +490,10 @@
             cell.exclusiveTouch = NO;
             return cell;
         }
+    }
+    if (indexPath.row >_recommendArray.count) {
+        
+        return cell;
     }
     NSDictionary *dic = _recommendArray[indexPath.row] ;
     if (indexPath.section ==0) {

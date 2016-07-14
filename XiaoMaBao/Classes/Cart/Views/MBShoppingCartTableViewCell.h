@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView2;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView3;
 @property (weak, nonatomic) IBOutlet UIImageView *imageVIew4;
-
 @property (weak, nonatomic) IBOutlet UIImageView *Carimageview;
 @property (weak, nonatomic) IBOutlet UILabel *GoodsDescribe;
 @property (weak, nonatomic) IBOutlet UILabel *Goods_price;
@@ -28,14 +27,11 @@
 @property(strong,nonatomic)NSString *goodID;
 @property(strong,nonatomic)NSString *rec_id;
 @property(strong,nonatomic)NSString * isSelect;
-@property(strong,nonatomic)BkBaseViewController * viewController;
+@property(weak,nonatomic)BkBaseViewController * viewController;
 @property (weak, nonatomic) IBOutlet UIButton *Reduction;
 @property(assign,nonatomic)NSInteger row;
-@property(assign,nonatomic)id<MBShoppingCartTableViewdelegate>delegate;
-//- (IBAction)GoogSelect:(id)sender;
+@property(weak,nonatomic)id<MBShoppingCartTableViewdelegate>delegate;
 @property(assign,nonatomic)int deleteOrSaveTag;
-//- (IBAction)DelteCart:(id)sender;
-//- (IBAction)Savecollect:(id)sender;
 - (IBAction)reduce:(id)sender;
 - (IBAction)Add:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *selectbutton;

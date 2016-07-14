@@ -8,10 +8,7 @@
 
 #import "MBSearchViewController.h"
 #import "MBSearchShowViewController.h"
-#import "MobClick.h"
 #import "SKTagView.h"
-
-
 @interface MBSearchViewController () <UITextFieldDelegate,UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     UISearchBar *_SearchBar;
@@ -249,29 +246,29 @@
 #pragma mark --搜索数据;
 - (void)clickSearch{
  
-       NSLog(@"%f",_lable1.ml_y);
+    
     
     NSDictionary *params = @{@"keywords":self.searchString,@"having_goods":@"false"};
-    NSDictionary *pagination = @{@"coun":@"20",@"page":@"1"};
+    NSDictionary *pagination = @{@"count":@"20",@"page":@"1"};
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"search"] parameters:@{@"filter":params,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/search/index"] parameters:@{@"filter":params,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
         [self dismiss];
         if ([responseObject.data isKindOfClass:[NSArray class]]) {
             if (responseObject.data.count >0) {
-               // NSLog(@"%@",responseObject.data);
-                
                 
                 MBSearchShowViewController *categroy = [[MBSearchShowViewController alloc] init];
                 categroy.dataArr = [responseObject valueForKey:@"data"];
                 categroy.title = self.searchString;
                 [self.navigationController pushViewController:categroy animated:YES];
+                
             }else{
+                
                 [self show:@"没有该类的商品，请换个关键词搜索" time:1];
             }
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-     
+        NSLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
 }

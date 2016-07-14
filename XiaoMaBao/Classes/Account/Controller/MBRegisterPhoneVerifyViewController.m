@@ -62,14 +62,7 @@
     NSString *verifyStr = [NSString stringWithFormat:@"请输入手机号%@收到的短信校验码", newNumb];
     [self.MBRegisterList setText:verifyStr];
     
-//    UILabel *msgLabel = [[UILabel alloc] init];
-//    msgLabel.frame = CGRectMake(0, 0, 102, 12);
-//    msgLabel.font = [UIFont systemFontOfSize:14];
-//    msgLabel.text = @"38秒后重发";
-//    msgLabel.backgroundColor = [UIColor clearColor];
-//    
-//    self.verifyField.rightView = msgLabel;
-//    self.verifyField.rightViewMode = UITextFieldViewModeWhileEditing;
+
 }
 
 - (NSString *)titleStr{

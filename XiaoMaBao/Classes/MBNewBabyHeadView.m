@@ -43,6 +43,8 @@
     self.baby_weight.text = dataDic[@"baby_weight"];
     self.baby_date.text = dataDic[@"overdue_daynum"];
     if (!dataDic[@"overdue_daynum"]) {
+        self.babylenth.text = @"宝宝体重";
+        self.babyWeight.text = @"宝宝身高";
         self.view_weith.constant = self.view1_weith.constant = (UISCREEN_WIDTH -1)/2;
         self.view2_weith.constant =  0;
     }else{

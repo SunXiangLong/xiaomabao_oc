@@ -28,17 +28,7 @@
 @end
 
 @implementation MBFreeStoreViewController
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBFreeStoreViewController"];
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    
-    [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBFreeStoreViewController"];
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
       [self.navBar removeFromSuperview];
