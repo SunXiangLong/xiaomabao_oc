@@ -45,12 +45,19 @@ NS_ASSUME_NONNULL_END
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.viewOverlay setHollowWithCenterFrame:self.rectClip];
+    // 虚线框
+    
+    UIImageView *dashedBoxView  = [[UIImageView alloc] initWithFrame: self.rectClip];
+    dashedBoxView.image = [UIImage imageNamed:@"caijian_bg"];
+    dashedBoxView.center = self.view.center;
+   
     [self.view setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:self.imageView];
     [self.view addSubview:self.viewOverlay];
     [self.view addSubview:self.buttonCancel];
     [self.view addSubview:self.buttonConfirm];
     [self.view addSubview:self.buttonBack];
+     [self.view addSubview:dashedBoxView];
     [self addGestureRecognizerToView:self.view];
 
 }

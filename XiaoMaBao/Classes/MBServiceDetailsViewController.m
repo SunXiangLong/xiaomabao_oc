@@ -8,6 +8,7 @@
 
 #import "MBServiceDetailsViewController.h"
 #import "MBSubmitOrdersController.h"
+#import "MBLoginViewController.h"
 @interface MBServiceDetailsViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIButton *button;
@@ -40,11 +41,29 @@
 
 }
 - (IBAction)buy:(id)sender {
+    
+    
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (! sid) {
+        
+        [self loginClicksss];
+        return;
+    }
+    
     MBSubmitOrdersController *VC = [[MBSubmitOrdersController alloc] init];
     VC.product_id = self.product_id;
     [self pushViewController:VC Animated:YES];
 }
-
+#pragma mark -- 跳转登陆页
+- (void)loginClicksss{
+    //跳转到登录页
+    
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
+    myView.vcType = @"mabao";
+    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
+    [self presentViewController:VC animated:YES completion:nil];
+}
 - (NSString *)titleStr{
    return @"产品详情";
 

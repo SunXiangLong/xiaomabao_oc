@@ -82,9 +82,9 @@
             UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[status valueForKey:@"error_desc"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
-    } failure:^(NSURLSessionDataTask *asdfg, NSError *asdfgh) {
-        
-                 [self show:@"请求失败！" time:1];
+    } failure:^(NSURLSessionDataTask *asdfg, NSError *error) {
+        NSLog(@"%@",error);
+        [self show:@"请求失败！" time:1];
     }];
     
    }
@@ -93,7 +93,7 @@
     [MBNetworking POST:url2 parameters:@{@"name":userText,@"type":@"1"} success:^(NSURLSessionDataTask *asd, MBModel *responseObject) {
    
         self.phoneCodeMd5 = [responseObject.data valueForKey:@"phoneCode"];
-        
+        NSLog(@"%@",_phoneCodeMd5);
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message: [NSString stringWithFormat:@"已发短信至手机号:%@请注意查收", self.accountField.text] delegate:self cancelButtonTitle:@"下一步" otherButtonTitles:nil, nil];
         alert.tag = 1010;
         MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
@@ -115,21 +115,13 @@
         return NO;
     }
     
-
     return YES;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-   
-    
-    
     if (alertView.tag == 1010) {
-        
-        
         [self performSegueWithIdentifier:@"PushMBMessageCheckViewController" sender:nil];
-        
-        
     }
 }
 
@@ -139,10 +131,7 @@
         MBMessageCheckViewController *controller = segue.destinationViewController;
         controller.phoneNumber = self.accountField.text;
         controller.phoneMd5 = self.phoneCodeMd5;
-        
         NSLog(@"%@",self.phoneCodeMd5);
-        
-        
     }
 }
 

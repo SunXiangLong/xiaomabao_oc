@@ -435,7 +435,7 @@
     //================================
     //预付单参数订单设置
     //================================
-    srand( (unsigned)time(0) );
+    srand( (unsigned)time(0));
     NSString *noncestr  = [NSString stringWithFormat:@"%d", rand()];
     NSString *orderno   =  [self.orderInfo valueForKeyPath:@"order_sn"]; //[NSString stringWithFormat:@"%ld",time(0)];
     if (self.service_data) {
@@ -492,15 +492,9 @@
     if(dict == nil){
         //错误提示
         NSString *debug = [req getDebugifo];
-        
         [self alert:@"提示信息" msg:debug success:@"0"];
-        
-  
     }else{
-       
-        
         NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
-        
         //调起微信支付
         PayReq* req             = [[PayReq alloc] init];
         req.openID              = [dict objectForKey:@"appid"];

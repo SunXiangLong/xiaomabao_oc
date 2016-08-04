@@ -38,13 +38,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBLogin"];
+    if ([MBLogOperation accountPasswordLogin]) {
+        self.accountField.text = [MBLogOperation accountPasswordLogin][@"name"];
+        self.pwdField.text = [MBLogOperation accountPasswordLogin][@"password"];
+    }
 }
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBLogin"];
-}
+
 - (UIView *)bottomShareView{
     if (!_bottomShareView) {
         UIView *bottomShareView = [[UIView alloc] init];

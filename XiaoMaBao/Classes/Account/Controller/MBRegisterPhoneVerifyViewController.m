@@ -62,7 +62,7 @@
     NSString *verifyStr = [NSString stringWithFormat:@"请输入手机号%@收到的短信校验码", newNumb];
     [self.MBRegisterList setText:verifyStr];
     
-
+    
 }
 
 - (NSString *)titleStr{
@@ -71,26 +71,16 @@
 
 // 认证手机认证码
 - (IBAction)nextBtnClick {
-    
-    
-    
     if( self.verifyField.text !=nil && self.verifyField.text.length == 6){
-        NSString *currentText = self.verifyField.text;
-        NSString *encryptedMd5 = [currentText md5];
+        
+        [self performSegueWithIdentifier:@"pushMBSettingPwdViewController" sender:nil];
         
         
-        if ([self.phoneVerifyCode isEqualToString:encryptedMd5]) {
-        // 保存手机号
-            MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
-            user.phoneNumber = self.phoneNumb;
-            
-            [self show:@"验证成功" time:1];
-            [self performSegueWithIdentifier:@"pushMBSettingPwdViewController" sender:nil];
-        }else{
-            [self show:@"验证码有误,验证失败!" time:1];
-            return;
-        }
+    }else{
+        [self show:@"验证码有误,验证失败!" time:1];
+        
     }
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -100,6 +90,7 @@
     if ([segue.identifier isEqualToString:@"pushMBSettingPwdViewController"]) {
         MBSettingPwdViewController *controller = segue.destinationViewController;
         controller.phoneCode = self.verifyField.text;
+        controller.phone = self.phoneNumb;
         
         
     }

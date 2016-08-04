@@ -769,7 +769,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入手机号1590****889收到的短信校验码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwD-c4-3YQ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="请输入手机号1590****889收到的短信校验码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwD-c4-3YQ">
                                 <rect key="frame" x="12" y="79" width="296" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="kpd-Dt-fp4"/>
@@ -781,7 +781,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="textHexColor" value="b2b2b2"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tLB-u8-1hc" customClass="MBRegisterField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tLB-u8-1hc" customClass="MBRegisterField">
                                 <rect key="frame" x="12" y="118" width="296" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="33" id="i9Y-wJ-b9F"/>
@@ -789,7 +789,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jGQ-nb-xGQ">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jGQ-nb-xGQ">
                                 <rect key="frame" x="22" y="183" width="276" height="33"/>
                                 <color key="backgroundColor" red="0.83921568627450982" green="0.38431372549019605" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -846,7 +846,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="设置您的登录密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mob-B6-Tvy" customClass="MBRegisterField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="设置您的登录密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mob-B6-Tvy" customClass="MBRegisterField">
                                 <rect key="frame" x="12" y="87" width="296" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="33" id="7l3-vp-VxI"/>
@@ -854,7 +854,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="确认登录密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6gz-g7-3oy" customClass="MBRegisterField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="确认登录密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6gz-g7-3oy" customClass="MBRegisterField">
                                 <rect key="frame" x="12" y="128" width="296" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="33" id="cdF-Bo-SFG"/>
@@ -862,7 +862,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码由6-20位英文字母、数字或符号组成" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMc-M1-nqH">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="密码由6-20位英文字母、数字或符号组成" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMc-M1-nqH">
                                 <rect key="frame" x="12" y="174" width="296" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="pUr-uA-OnP"/>
@@ -874,7 +874,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="textHexColor" value="b2b2b2"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1FR-P1-GL3">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1FR-P1-GL3">
                                 <rect key="frame" x="50" y="224" width="244" height="33"/>
                                 <color key="backgroundColor" red="0.83921568627450982" green="0.38431372549019605" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>

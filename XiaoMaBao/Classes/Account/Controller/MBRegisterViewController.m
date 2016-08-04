@@ -185,33 +185,26 @@
     
     
     [self show];
-    [MBNetworking POST:postUrl parameters:@{@"name":str,@"type":@"1"} success:^(NSURLSessionDataTask *asdf, MBModel *responseObject) {
-        [self dismiss];
-        NSDictionary * status = responseObject.status;
-        
-        
-        if([status[@"succeed"] isEqualToNumber:@1]){
-            
-            NSDictionary * data = responseObject.data;
-            self.md5Encryption = data[@"phoneCode"];
-            
-            NSLog(@"%@",self.md5Encryption);
-            
-            
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认验证码" message:[NSString stringWithFormat:@"我们已向您的手机：%@ 发送了验证码，请查收",self.PhoneField.text] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"下一步", nil];
-            alertView.delegate = self;
-            
-            [alertView show];
+    [MBNetworking POSTOrigin:postUrl parameters:@{@"name":str,@"type":@"1"}  success:^(id responseObject) {
+        NSLog(@"%@",responseObject);
+           [self dismiss];
+         NSString *succeed = [NSString stringWithFormat:@"%@",responseObject[@"status"][@"succeed"]];
+        if ([succeed isEqualToString:@"1"]) {
+            [self show:@"短信已发送，请注意查收" time:1];
+            self.md5Encryption = responseObject[@"data"][@"phoneCode"];
+            [self performSegueWithIdentifier:@"pushMBRegisterPhoneVerifyViewController" sender:nil];
         }else{
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:status[@"error_desc"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
-            [alert show];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:responseObject[@"data"][@"info"] delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+                [alert show];
+        
         }
         
-    } failure:^(NSURLSessionDataTask *asdfg, NSError *asdfgh) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self dismiss];
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请求失败，请重试" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请求失败，请重试" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
         [alert show];
     }];
+
     
     return YES;
 }
@@ -227,7 +220,7 @@
             return [self show:@"此号码已经登录" time:1 ];
         
         
-        [self performSegueWithIdentifier:@"pushMBRegisterPhoneVerifyViewController" sender:nil];
+        
     }
 }
 

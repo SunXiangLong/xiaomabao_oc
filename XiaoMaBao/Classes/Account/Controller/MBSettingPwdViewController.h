@@ -10,4 +10,5 @@
 
 @interface MBSettingPwdViewController : BkBaseViewController
 @property (nonatomic,copy) NSString *phoneCode;
+@property (nonatomic,copy) NSString *phone;
 @end

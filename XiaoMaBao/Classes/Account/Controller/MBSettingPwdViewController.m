@@ -15,7 +15,8 @@
 #import "MBNetworking.h"
 #import "NSString+BQ.h"
 #import "MBRegisterPhoneDoneViewController.h"
-#import "MobClick.h"
+#import "MBLogOperation.h"
+#import "MBLoginViewController.h"
 @interface MBSettingPwdViewController ()
 @property (weak, nonatomic) IBOutlet MBRegisterField *pwdField;
 @property (weak, nonatomic) IBOutlet MBRegisterField *pwd2Field;
@@ -25,16 +26,6 @@
 @end
 
 @implementation MBSettingPwdViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBSettingPwdViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBSettingPwdViewController"];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -63,32 +54,51 @@
     self.pwd2Field.leftViewMode = UITextFieldViewModeAlways;
 }
 - (IBAction)nextBtnClick {
+    [self show];
+    [self.pwdField resignFirstResponder];
+    [self.pwd2Field resignFirstResponder];
     if (self.pwdField.text.length >= 6 && [self.pwdField.text isEqualToString:self.pwd2Field.text]) {
 
         NSString *userMd5 = self.pwdField.text;
         NSString *passwordMd5 = [userMd5 md5];
         NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/register"];
-        MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
-        [MBNetworking POST:url parameters:@{@"phoneCode":[_phoneCode md5],@"name":user.phoneNumber,@"password":passwordMd5,@"type":@"1"} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-            NSLog(@"%@",responseObject.data);
-            
-            
-            if ([responseObject.status[@"succeed"] isEqualToNumber:@1]) {
-                  [self performSegueWithIdentifier:@"pushMBRegisterPhoneDoneViewController" sender:nil];
+       
+        [MBNetworking POSTOrigin:url parameters:@{@"phoneCode":[_phoneCode md5],@"name":self.phone,@"password":passwordMd5,@"type":@"1"}  success:^(id responseObject) {
+            [self dismiss];
+            NSLog(@"%@",responseObject);
+            NSString *succeed = s_str(responseObject[@"status"][@"succeed"]);
+            if ([succeed isEqualToString:@"1"]){
+                [self show:@"设置成功,返回登录" time:1];
+                
+                [MBLogOperation savelogInformation:@{@"name":self.phone,@"password":self.pwdField.text}];
+                
+                for ( id vc in  self.navigationController.viewControllers) {
+                    
+                    if ([vc isKindOfClass:[MBLoginViewController class]]) {
+                        [self.navigationController popToViewController:vc animated:YES];
+                    }
+                }
+                
+                
+
             }else{
-            
-              [self show:responseObject.status[@"error_desc"] time:1];
+                if (responseObject[@"status"][@"error_desc"]&&[responseObject[@"status"][@"error_desc"] isEqualToString:@""]) {
+                    [self show:responseObject[@"status"][@"error_desc"] time:1];
+                }else{
+                    [self show:@"未知错误" time:1];
+
+                }
+
             }
-          
-          
+            
+            
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-             [self show:@"请求失败！" time:1];
+            [self show:@"请求失败！" time:1];
             NSLog(@"%@",error);
-            
-            
         }];
+        
     }else{
-        [self show:@"密码不相等" time:1];
+        [self show:@"密码不相等或密码长度最少为6位" time:1];
     }
 }
 

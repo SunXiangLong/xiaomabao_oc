@@ -14,14 +14,21 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="168.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="五月一日出游，衣服准备好了吗？" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sab-U6-qFN">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sab-U6-qFN">
                         <rect key="frame" x="16" y="8" width="288" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.396078431372549" green="0.41568627450980389" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                        <attributedString key="attributedText">
+                            <fragment content="五月一日出游，衣服准备好了吗？">
+                                <attributes>
+                                    <color key="NSColor" red="0.396078431372549" green="0.41568627450980389" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="15" name="MicrosoftYaHei"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ydf-sw-0lP">
-                        <rect key="frame" x="16" y="71.5" width="90.5" height="65.5"/>
+                        <rect key="frame" x="16" y="71" width="90.5" height="65.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="65.5" id="weB-Xh-n9X"/>
                         </constraints>
@@ -54,16 +61,30 @@
                             <constraint firstAttribute="height" constant="12" id="tSf-yN-shg"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="超级宝宝豪妈妈" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZr-Or-zhE">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZr-Or-zhE">
                         <rect key="frame" x="34" y="142" width="98" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.396078431372549" green="0.41568627450980389" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                        <attributedString key="attributedText">
+                            <fragment content="超级宝宝豪妈妈">
+                                <attributes>
+                                    <color key="NSColor" red="0.396078431372549" green="0.41568627450980389" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="12" name="MicrosoftYaHei"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="69" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oP0-0x-1Te">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oP0-0x-1Te">
                         <rect key="frame" x="292" y="145" width="18" height="17"/>
-                        <fontDescription key="fontDescription" name="MicrosoftYaHei" family="Microsoft YaHei" pointSize="12"/>
-                        <color key="textColor" red="0.396078431372549" green="0.41568627450980389" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                        <attributedString key="attributedText">
+                            <fragment content="69">
+                                <attributes>
+                                    <color key="NSColor" red="0.396078431372549" green="0.41568627450980389" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="12" name="MicrosoftYaHei"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="post_message" translatesAutoresizingMaskIntoConstraints="NO" id="HjW-23-bCw">
@@ -73,10 +94,17 @@
                             <constraint firstAttribute="width" constant="10" id="JzR-az-tLp"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6分钟前" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5eZ-JA-fAM">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5eZ-JA-fAM">
                         <rect key="frame" x="221" y="144" width="51" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.396078431372549" green="0.41568627450980389" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                        <attributedString key="attributedText">
+                            <fragment content="6分钟前">
+                                <attributes>
+                                    <color key="NSColor" red="0.396078431372549" green="0.41568627450980389" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="12" name="MicrosoftYaHei"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3F3-MA-dzS">
@@ -86,10 +114,17 @@
                             <constraint firstAttribute="height" constant="10" id="cg0-F5-JXl"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="宝宝早晨不想去幼儿园，说老师打她，宝宝早晨很不开心。" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lqu-QA-QO2">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lqu-QA-QO2">
                         <rect key="frame" x="16" y="33" width="288" height="33.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.3411764705882353" green="0.36078431372549019" blue="0.396078431372549" alpha="0.80096600506756754" colorSpace="calibratedRGB"/>
+                        <attributedString key="attributedText">
+                            <fragment content="宝宝早晨不想去幼儿园，说老师打她，宝宝早晨很不开心。">
+                                <attributes>
+                                    <color key="NSColor" red="0.3411764705882353" green="0.36078431372549019" blue="0.396078431372549" alpha="0.80096600506756754" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="14" name="MicrosoftYaHei"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="columnSpace">

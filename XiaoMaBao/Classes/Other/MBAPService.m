@@ -7,7 +7,7 @@
 //
 
 #import "MBAPService.h"
-#import "APService.h"
+#import "JPUSHService.h"
 #import "MBShopingViewController.h"
 #import "MBActivityViewController.h"
 #import "MBWebViewController.h"
@@ -25,21 +25,13 @@
 
 }
 + (void)required:(NSDictionary *)launchOptions{
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-        //可以添加自定义categories
-        [APService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+
+        [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
                                                        UIUserNotificationTypeSound |
                                                        UIUserNotificationTypeAlert)
                                            categories:nil];
-    } else {
-        //        //categories 必须为nil
-        //        [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-        //                                                       UIRemoteNotificationTypeSound |
-        //                                                       UIRemoteNotificationTypeAlert)
-        //                                           categories:nil];
-    }
-    
-    [APService setupWithOption:launchOptions];
+    [JPUSHService setupWithOption:launchOptions appKey:@"f05bfa6c8239efa28520f511" channel:@"APPStore" apsForProduction:YES advertisingIdentifier:nil];
+ 
     
 
     

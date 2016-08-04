@@ -35,7 +35,7 @@
 #import "WXApi.h"
 #import "WXApiObject.h"
 //极光推送
-#import "APService.h"
+#import "JPUSHService.h"
 #import "JPFPSStatus.h"
 #import "MBLogOperation.h"
 #import "MBAPService.h"
@@ -83,9 +83,9 @@
     [MBLogOperation guidePage:self.window];
     //消息数置0
      [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-//#if defined(DEBUG)||defined(_DEBUG)
+#if defined(DEBUG)||defined(_DEBUG)
 //    [[JPFPSStatus sharedInstance] open];
-//#endif
+#endif
     
     
 }
@@ -118,7 +118,7 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     /***极光推送获取token*/
-    [APService registerDeviceToken:deviceToken];
+    [JPUSHService registerDeviceToken:deviceToken];
 }
 /**
  *  极光推送在后台收到通知走该方法
@@ -132,7 +132,7 @@
     [MBAPService  receiveRemoteNotification:userInfo root:self.window application:application];
     
     // IOS 7 Support Required
-    [APService handleRemoteNotification:userInfo];
+    [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
@@ -168,12 +168,12 @@
 
 
 /**
- *  提醒用户评价app  安装应用2天后提醒5次   点击以后提醒 推迟两天提醒评价
+ *  提醒用户评价app  安装应用1天后提醒5次   点击以后提醒 推迟两天提醒评价
  */
 -(void)setAppirater{
     
     [Appirater setAppId:@"1049237132"];
-    [Appirater setDaysUntilPrompt:2];
+    [Appirater setDaysUntilPrompt:1];
     [Appirater setUsesUntilPrompt:5];
     [Appirater setSignificantEventsUntilPrompt:-1];
     [Appirater setTimeBeforeReminding:2];

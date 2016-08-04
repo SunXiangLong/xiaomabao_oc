@@ -13,7 +13,7 @@
 #import "MBShopDetailsViewController.h"
 #import "MBMyCircleController.h"
 #import "MBNewsCircleController.h"
-#import "APService.h"
+#import "JPUSHService.h"
 #import "MBLoginViewController.h"
 @interface MBNewCanulcircleController ()<UIScrollViewDelegate>
 {
@@ -105,7 +105,7 @@
     dispatch_once(&pred, ^{
         
         NSSet *sets = [NSSet setWithObject:uid];
-        [APService setTags:sets alias:@"sunxianglong" callbackSelector:nil object:self];
+        [ JPUSHService setTags:sets alias:@"sunxianglong" callbackSelector:nil object:self];
         
     });
     

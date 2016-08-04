@@ -137,11 +137,11 @@
 		940488551C9FA469008C7938 /* MBSearchShowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 940488531C9FA469008C7938 /* MBSearchShowViewController.xib */; };
 		9404885A1C9FCE4F008C7938 /* timeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 940488591C9FCE4F008C7938 /* timeView.xib */; };
 		9404885D1C9FCE6D008C7938 /* timeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9404885C1C9FCE6D008C7938 /* timeView.m */; };
-		940507CF1BF9D87500CA02F5 /* libPushSDK-1.8.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 940507CE1BF9D87500CA02F5 /* libPushSDK-1.8.8.a */; };
 		940507D11BF9D8C600CA02F5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 940507D01BF9D8C600CA02F5 /* CFNetwork.framework */; };
 		940507D31BF9D8F300CA02F5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 940507D21BF9D8F300CA02F5 /* CoreFoundation.framework */; };
 		940507D51BF9D92300CA02F5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 940507D41BF9D92300CA02F5 /* CoreGraphics.framework */; };
-		940507D71BF9D99800CA02F5 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 940507D61BF9D99800CA02F5 /* PushConfig.plist */; };
+		9406B10B1D51D6A900827DA1 /* jpush-ios-2.1.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9406B1091D51D6A900827DA1 /* jpush-ios-2.1.8.a */; };
+		9406B10C1D51D6A900827DA1 /* JPUSHService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9406B10A1D51D6A900827DA1 /* JPUSHService.h */; };
 		9408C8B51CA28A7400A1B5E0 /* MBTableViewRmbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9408C8B31CA28A7400A1B5E0 /* MBTableViewRmbCell.m */; };
 		9408C8B61CA28A7400A1B5E0 /* MBTableViewRmbCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9408C8B41CA28A7400A1B5E0 /* MBTableViewRmbCell.xib */; };
 		94095B4F1CC4BF1500859D03 /* MBTopCargoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94095B4D1CC4BF1500859D03 /* MBTopCargoController.m */; };
@@ -924,12 +924,11 @@
 		940488591C9FCE4F008C7938 /* timeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = timeView.xib; sourceTree = "<group>"; };
 		9404885B1C9FCE6D008C7938 /* timeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timeView.h; sourceTree = "<group>"; };
 		9404885C1C9FCE6D008C7938 /* timeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = timeView.m; sourceTree = "<group>"; };
-		940507CD1BF9D87500CA02F5 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
-		940507CE1BF9D87500CA02F5 /* libPushSDK-1.8.8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-1.8.8.a"; sourceTree = "<group>"; };
 		940507D01BF9D8C600CA02F5 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		940507D21BF9D8F300CA02F5 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		940507D41BF9D92300CA02F5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		940507D61BF9D99800CA02F5 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
+		9406B1091D51D6A900827DA1 /* jpush-ios-2.1.8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "jpush-ios-2.1.8.a"; path = "../../../../../../lib/jpush-ios-2.1.8.a"; sourceTree = "<group>"; };
+		9406B10A1D51D6A900827DA1 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPUSHService.h; path = ../../../../../../lib/JPUSHService.h; sourceTree = "<group>"; };
 		9408C8B21CA28A7400A1B5E0 /* MBTableViewRmbCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTableViewRmbCell.h; sourceTree = "<group>"; };
 		9408C8B31CA28A7400A1B5E0 /* MBTableViewRmbCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTableViewRmbCell.m; sourceTree = "<group>"; };
 		9408C8B41CA28A7400A1B5E0 /* MBTableViewRmbCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBTableViewRmbCell.xib; sourceTree = "<group>"; };
@@ -1796,11 +1795,11 @@
 				940507D31BF9D8F300CA02F5 /* CoreFoundation.framework in Frameworks */,
 				940507D11BF9D8C600CA02F5 /* CFNetwork.framework in Frameworks */,
 				94B6F4801BD616FC00B352B9 /* CoreTelephony.framework in Frameworks */,
+				9406B10B1D51D6A900827DA1 /* jpush-ios-2.1.8.a in Frameworks */,
 				94B6F46F1BD5DC3000B352B9 /* libsqlite3.0.tbd in Frameworks */,
 				94B6F46D1BD5DC1900B352B9 /* SystemConfiguration.framework in Frameworks */,
 				9439C9A51CF420F900AA0140 /* libWeChatSDK.a in Frameworks */,
 				94B6F4691BD5D97000B352B9 /* libWeChatSDK.a in Frameworks */,
-				940507CF1BF9D87500CA02F5 /* libPushSDK-1.8.8.a in Frameworks */,
 				42B455E71BB971F6003E555F /* AdSupport.framework in Frameworks */,
 				42B455E51BB96E92003E555F /* AddressBook.framework in Frameworks */,
 				42B455E31BB96E88003E555F /* AssetsLibrary.framework in Frameworks */,
@@ -2447,9 +2446,8 @@
 		940507CC1BF9D87500CA02F5 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				940507CD1BF9D87500CA02F5 /* APService.h */,
-				940507CE1BF9D87500CA02F5 /* libPushSDK-1.8.8.a */,
-				940507D61BF9D99800CA02F5 /* PushConfig.plist */,
+				9406B1091D51D6A900827DA1 /* jpush-ios-2.1.8.a */,
+				9406B10A1D51D6A900827DA1 /* JPUSHService.h */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -3862,6 +3860,7 @@
 				9439C9A71CF420F900AA0140 /* WXApi.h in Headers */,
 				943DFA661CEED8B6006A3924 /* Unicall.h in Headers */,
 				941687B81D0546D100F069AE /* MBabyRecordTwoCell.h in Headers */,
+				9406B10C1D51D6A900827DA1 /* JPUSHService.h in Headers */,
 				941D8EA91D378D1C00E60972 /* MBPostDetailsFooterTwo.h in Headers */,
 				94E272331CFEE8A500172511 /* MBNewBabyFourTableCell.h in Headers */,
 				94E2722D1CFEDA4100172511 /* MBNewBabyThreeTableCell.h in Headers */,
@@ -4197,7 +4196,6 @@
 				941309DA1CEC0B3A0056379A /* MBWebViewController.xib in Resources */,
 				9408C8B61CA28A7400A1B5E0 /* MBTableViewRmbCell.xib in Resources */,
 				949725CE1CB6233100804098 /* MBServiceRefundHeadView.xib in Resources */,
-				940507D71BF9D99800CA02F5 /* PushConfig.plist in Resources */,
 				94684F7E1CE1D67E0068670F /* img_default@2x.png in Resources */,
 				94E294381C8AADAE0063E678 /* MBToolCollectionViewCell.xib in Resources */,
 				94DB1E181CE5A59D00ADAE9D /* MBCollectionPostController.xib in Resources */,
