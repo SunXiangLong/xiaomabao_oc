@@ -10,28 +10,18 @@
 
 @interface MBPaymentViewController : BkBaseViewController
 
-@property(strong,nonatomic)NSString *order_id;
-@property(strong,nonatomic)NSString *pay_id;
-@property(strong,nonatomic)NSString *shipping_id;
-@property(strong,nonatomic)NSString *address_id;
-@property(strong,nonatomic)NSString *bonus_id;
-@property(strong,nonatomic)NSString *coupon_id;
-@property(strong,nonatomic)NSString *integral;
-@property(strong,nonatomic)NSString *inv_type;
-@property(strong,nonatomic)NSString *inv_content;
-@property(strong,nonatomic)NSString *inv_payee;
 
-@property(strong,nonatomic)NSString *isOrderDetail;
-
-@property(strong,nonatomic) NSNumber *is_cross_border;
-
-@property(strong,nonatomic)NSString *real_name;
-@property(strong,nonatomic)NSString *identity_card;
-
+/**
+ *  商品订单信息
+ */
 @property(strong,nonatomic)NSDictionary *orderInfo;
-@property(strong,nonatomic)NSString *type;
-
+/**
+ *   服务订单信息
+ */
 @property (nonatomic,strong) NSDictionary *service_data;
-
+/**
+ *  标示  2代表服务订单  1代表商品订单  返回的界面不一样
+ */
+@property(strong,nonatomic)NSString *type;
 
 @end

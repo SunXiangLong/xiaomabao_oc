@@ -34,6 +34,7 @@
  *  清除keychina存放的用户信息
  */
 + (void)deletePasswordAndUserName;
++ (void)deleteCookie;
 #pragma mark --   保存密码账号到本地
 + (void )savelogInformation:(NSDictionary *)params;
 + (NSDictionary * )accountPasswordLogin;

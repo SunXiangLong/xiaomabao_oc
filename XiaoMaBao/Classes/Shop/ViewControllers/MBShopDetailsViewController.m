@@ -666,9 +666,9 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle]loadNibNamed:@"MBShopTableViewCell" owner:self options:nil]firstObject];
         }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        NSDictionary *dic = _evaluationArray[indexPath.row];
-        [cell dict:dic];
+        
+       cell.dic = _evaluationArray[indexPath.row];
+
         return cell;
     }
     static NSString *str = @"ssss";

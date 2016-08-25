@@ -69,8 +69,7 @@ static AFHTTPSessionManager *mgr = nil;
     [self logURL];
     
     return   [self.mgr POST:URLString parameters:requestParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSLog(@"%@",responseObject);
-
+      
         MBModel *model = [MBModel objectWithKeyValues:responseObject];
         success(task,model);
     } failure:failure];
@@ -107,6 +106,7 @@ static AFHTTPSessionManager *mgr = nil;
  *  @return 增加参数后的字典
  */
 + (NSDictionary *)stitchingParameter:(NSDictionary *)parameters{
+    
     NSDictionary *dic = @{@"version":VERSION,@"channel":@"APPStore",@"device":@"ios"};
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict addEntriesFromDictionary:parameters];

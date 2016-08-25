@@ -10,9 +10,7 @@
 #import "WMMenuItem.h"
 #import "WMProgressView.h"
 #import "WMFooldView.h"
-// 导航菜单栏距边界的间距
-#define WMMenuMargin 0
-#define kMaskWidth   0
+
 #define kItemWidth   60
 #define kTagGap      6250
 #define kBGColor     [UIColor colorWithRed:172.0/255.0 green:165.0/255.0 blue:162.0/255.0 alpha:1.0]
@@ -34,6 +32,13 @@ static CGFloat const WMProgressHeight = 2.0;
 @implementation WMMenuView
 
 #pragma mark - Lazy
+- (CGFloat)progressHeight {
+    if (_progressHeight == 0.0) {
+        _progressHeight = WMProgressHeight;
+    }
+    return _progressHeight;
+}
+
 - (UIColor *)lineColor {
     if (!_lineColor) {
         _lineColor = _selColor;
@@ -49,17 +54,16 @@ static CGFloat const WMProgressHeight = 2.0;
 }
 
 #pragma mark - Public Methods
-- (instancetype)initWithFrame:(CGRect)frame buttonItems:(NSArray *)items backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor
-{
+- (instancetype)initWithFrame:(CGRect)frame buttonItems:(NSArray *)items backgroundColor:(UIColor *)bgColor norSize:(CGFloat)norSize selSize:(CGFloat)selSize norColor:(UIColor *)norColor selColor:(UIColor *)selColor {
     if (self = [super initWithFrame:frame]) {
-        self.items = items;
+        _items = items;
         if (bgColor) {
-            self.bgColor = bgColor;
-        }else{
-            self.bgColor = kBGColor;
+            _bgColor = bgColor;
+        } else {
+            _bgColor = kBGColor;
         }
-        _norSize = norSize;
-        _selSize = selSize;
+        _norSize  = norSize;
+        _selSize  = selSize;
         _norColor = norColor;
         _selColor = selColor;
     }
@@ -136,7 +140,7 @@ static CGFloat const WMProgressHeight = 2.0;
         CGFloat targetX;
         if ((contentSize.width-itemX) <= width/2) {
             targetX = contentSize.width - width;
-        }else{
+        } else {
             targetX = frame.origin.x - width/2 + frame.size.width/2;
         }
         // 应该有更好的解决方法
@@ -144,7 +148,7 @@ static CGFloat const WMProgressHeight = 2.0;
             targetX = contentSize.width - width;
         }
         [self.scrollView setContentOffset:CGPointMake(targetX, 0) animated:YES];
-    }else{
+    } else {
         [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
 }
@@ -175,18 +179,18 @@ static CGFloat const WMProgressHeight = 2.0;
         item.userInteractionEnabled = YES;
         if (self.fontName) {
             item.font = [UIFont fontWithName:self.fontName size:_selSize];
-        }else{
+        } else {
             item.font = [UIFont systemFontOfSize:_selSize];
         }
         item.backgroundColor = [UIColor clearColor];
-        item.normalSize = _norSize;
-        item.selectedSize = _selSize;
-        item.normalColor = _norColor;
+        item.normalSize    = _norSize;
+        item.selectedSize  = _selSize;
+        item.normalColor   = _norColor;
         item.selectedColor = _selColor;
         if (i == 0) {
             [item selectedItemWithoutAnimation];
             self.selItem = item;
-        }else {
+        } else {
             [item deselectedItemWithoutAnimation];
         }
         [self.scrollView addSubview:item];
@@ -196,7 +200,7 @@ static CGFloat const WMProgressHeight = 2.0;
 // 计算所有item的frame值，主要是为了适配所有item的宽度之和小于屏幕宽的情况
 // 这里与后面的 `-addItems` 做了重复的操作，并不是很合理
 - (void)calculateItemFrames {
-    CGFloat contentWidth = WMMenuMargin;
+    CGFloat contentWidth = [self itemMarginAtIndex:0];
     for (int i = 0; i < self.items.count; i++) {
         CGFloat itemW = kItemWidth;
         if ([self.delegate respondsToSelector:@selector(menuView:widthForItemAtIndex:)]) {
@@ -205,9 +209,8 @@ static CGFloat const WMProgressHeight = 2.0;
         CGRect frame = CGRectMake(contentWidth, 0, itemW, self.frame.size.height);
         // 记录frame
         [self.frames addObject:[NSValue valueWithCGRect:frame]];
-        contentWidth += itemW;
+        contentWidth += itemW + [self itemMarginAtIndex:i+1];
     }
-    contentWidth += WMMenuMargin;
     // 如果总宽度小于屏幕宽,重新计算frame,为item间添加间距
     if (contentWidth < self.frame.size.width) {
         // 计算间距
@@ -215,7 +218,7 @@ static CGFloat const WMProgressHeight = 2.0;
         CGFloat gap = distance / (self.items.count + 1);
         for (int i = 0; i < self.frames.count; i++) {
             CGRect frame = [self.frames[i] CGRectValue];
-            frame.origin.x += gap*(i+1);
+            frame.origin.x += gap * (i+1);
             self.frames[i] = [NSValue valueWithCGRect:frame];
         }
         contentWidth = self.frame.size.width;
@@ -223,9 +226,16 @@ static CGFloat const WMProgressHeight = 2.0;
     self.scrollView.contentSize = CGSizeMake(contentWidth, self.frame.size.height);
 }
 
+- (CGFloat)itemMarginAtIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(menuView:itemMarginAtIndex:)]) {
+        return [self.delegate menuView:self itemMarginAtIndex:index];
+    }
+    return 0.0;
+}
+
 // MARK:Progress View
 - (void)addProgressView {
-    WMProgressView *pView = [[WMProgressView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-WMProgressHeight, self.scrollView.contentSize.width, WMProgressHeight)];
+    WMProgressView *pView = [[WMProgressView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - self.progressHeight, self.scrollView.contentSize.width, self.progressHeight)];
     pView.itemFrames = self.frames;
     pView.color = self.lineColor.CGColor;
     pView.backgroundColor = [UIColor clearColor];
@@ -248,7 +258,7 @@ static CGFloat const WMProgressHeight = 2.0;
     if (self.selItem == menuItem) return;
     
     CGFloat progress = menuItem.tag - kTagGap;
-    self.progressView.progress = progress;
+    [self.progressView moveToPostion:progress];
     
     NSInteger currentIndex = self.selItem.tag - kTagGap;
     if ([self.delegate respondsToSelector:@selector(menuView:didSelesctedIndex:currentIndex:)]) {

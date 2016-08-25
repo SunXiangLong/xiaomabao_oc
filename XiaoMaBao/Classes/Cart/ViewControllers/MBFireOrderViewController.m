@@ -959,7 +959,7 @@
    
 }
 /**
- *  麻包卡点击时间
+ *  麻包卡点击事件
  *
  *  @param ger 点按手势
  */
@@ -1110,11 +1110,9 @@
                    
                    if ([responseObject valueForKeyPath:@"data"]) {
                        VC.orderInfo = [responseObject valueForKeyPath:@"data"][@"order_info"];
-                   
-                       
-                       
+                       NSLog(@"%@",VC.orderInfo);
+
                        VC.type = @"1";
-//                       VC.is_cross_border = VC.orderInfo[@"order_info"][@"is_cross_border"];
                        [self.navigationController pushViewController:VC animated:YES];
                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCart" object:nil];
                        

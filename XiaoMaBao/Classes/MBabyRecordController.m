@@ -11,7 +11,6 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "STPhotoKitController.h"
 #import "UIImagePickerController+ST.h"
-#import "STConfig.h"
 #import "MBabyRecordHeadView.h"
 #import "MBabyRecordTwoCell.h"
 #import "MBabyRecordThreeCell.h"

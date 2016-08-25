@@ -7,7 +7,7 @@
 //
 
 #import "MBOrderListViewController.h"
-#import "MBOrderInfoViewController.h"
+#import "MBOrderInfoTableViewController.h"
 #import "MBSignaltonTool.h"
 #import "MBNetworking.h"
 #import "MBAfterServiceTableViewCell.h"
@@ -43,16 +43,7 @@
     }
     return _orderSections;
 }
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBOrderListViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBOrderListViewController"];
-}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -309,11 +300,11 @@
 {
 
     NSInteger section = pinch.view.tag;
-    MBOrderInfoViewController *infoVc = [[MBOrderInfoViewController alloc] init];
-    //单号和时间
-    NSString *order_id = [_orderListArray[section] valueForKeyPath:@"order_id"];
-    infoVc.order_id = order_id;
-    [self.navigationController pushViewController:infoVc animated:YES];
+    
+    UINavigationController  *nav =  [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
+    MBOrderInfoTableViewController *infoVc = (MBOrderInfoTableViewController *)nav.viewControllers.firstObject;
+    infoVc.order_id =  [_orderListArray[section] valueForKeyPath:@"order_id"];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
     
 }
 
@@ -561,22 +552,36 @@
 }
 
 -(void)payForMoney:(UIButton *)btn{
-    MBPaymentViewController *payVc = [[MBPaymentViewController alloc] init];
-    payVc.pay_id = @"3";//支付宝
-    payVc.shipping_id = @"4";//默认配送方式
-    //获取订单详情
-    NSInteger section = btn.tag;
-    NSString *order_id = [_orderListArray[section] valueForKeyPath:@"order_id"];
-    
-    payVc.order_id = order_id;
-    payVc.isOrderDetail = @"yes";
-    if (![[_orderListArray[btn.tag]valueForKeyPath:@"is_cross_border"] isEqualToString:@"0"] ) {
-        payVc.is_cross_border = [NSNumber numberWithLong:1];
-    }
-    [self.navigationController pushViewController:payVc animated:YES];
-    
+   
+    [self getOrderInfo:btn.tag];
 }
+- (void)getOrderInfo:(NSInteger)row{
+    [self show];
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/info"] parameters:@{@"session":dict,@"order_id":[_orderListArray[row] valueForKeyPath:@"order_id"]} success:^(NSURLSessionDataTask *operation, MBModel *model) {
+        [self dismiss];
+        if([model.status[@"succeed"] isEqualToNumber:@1]){
+            NSLog(@"%@",model.data);
+            MBPaymentViewController *payVc = [[MBPaymentViewController alloc] init];
+            payVc.orderInfo = model.data;
+            [self.navigationController pushViewController:payVc animated:YES];
+            
+        }else{
 
+            [self show:model.status[@"error_desc"] time:1];
+        }
+        
+        
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        
+        
+        [self show:@"请求失败" time:1];
+        
+        
+    }];
+}
 -(void)comment:(UIButton *)button{
     
     NSArray *arr = _goodListArray[button.tag];

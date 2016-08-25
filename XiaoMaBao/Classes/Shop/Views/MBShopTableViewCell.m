@@ -11,14 +11,12 @@
 #import "PhotoCollectionViewCell.h"
 @implementation MBShopTableViewCell
 
-
-
 - (void)awakeFromNib {
     
     //self.userInteractionEnabled  = YES;
 }
-- (void)dict:(NSDictionary *)dic{
-
+-(void)setDic:(NSDictionary *)dic{
+    _dic =dic;
     RatingBar *bar = [[RatingBar alloc] initWithFrame:CGRectMake(0, 0, 100, self.evaluationView.ml_height)];
     [self.evaluationView addSubview:bar];
     bar.enable = NO;
@@ -26,18 +24,15 @@
     bar.starNumber = [str integerValue];
     self.name.text = [dic[@"author"]isEqualToString:@""]?@"匿名用户":dic[@"author"];
     self.evaluationText.text = dic[@"content"];
-    
-    
     NSArray *arr = dic[@"img_path"];
-   
-        if (arr.count>0) {
-            self.photoArray = arr;
-        }else{
-            [self.evaluationPhoto removeFromSuperview];
-        }
+    
+    if (arr.count>0) {
+        self.photoArray = arr;
+    }else{
+        [self.evaluationPhoto removeFromSuperview];
+    }
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-//flowLayout.minimumInteritemSpacing =5;
     flowLayout.itemSize = CGSizeMake((UISCREEN_WIDTH-40)/5,(UISCREEN_WIDTH-40)/5);
     flowLayout.minimumInteritemSpacing =5;
     self.evaluationPhoto.collectionViewLayout = flowLayout;
@@ -45,12 +40,15 @@
     self.evaluationPhoto.delegate = self;
     [ self.evaluationPhoto registerNib:[UINib nibWithNibName:@"PhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PhotoCollectionViewCell"];
     
+
+
 }
+
 #pragma mark ---UICollectionViewDelegate
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 0, 0);
-    return insets;
+   
+    return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{

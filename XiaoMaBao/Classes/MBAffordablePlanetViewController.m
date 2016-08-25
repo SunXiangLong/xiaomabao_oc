@@ -16,6 +16,7 @@
 #import "MBFreeStoreViewOneCell.h"
 #import "MBAffordablePlanetViewCell.h"
 #import "MBCategoryViewController.h"
+#import "MBCollectionHeadViewTo.h"
 @interface MBAffordablePlanetViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate>
 
 {
@@ -169,17 +170,19 @@
                 [urlImageArray addObject:dic[@"ad_img"]];
             }
             SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH,UISCREEN_WIDTH*35/75) delegate:self     placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
+            
+            
             cycleScrollView.imageURLStringsGroup = urlImageArray;
             cycleScrollView.autoScrollTimeInterval = 3.0f;
             [reusableview addSubview:cycleScrollView];
-            MBCollectionHeadView  *headView = [MBCollectionHeadView instanceView];
-            headView.tishi.text = @"全部分类";
+            MBCollectionHeadViewTo  *headView = [MBCollectionHeadViewTo instanceView];
+            
             [reusableview addSubview:headView];
             [headView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(cycleScrollView.mas_bottom).offset(0);
                 make.left.mas_equalTo(0);
                 make.right.mas_equalTo(0);
-                make.height.mas_equalTo(50);
+                make.height.mas_equalTo(145);
             }];
             
             return reusableview;
@@ -270,7 +273,7 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        return CGSizeMake(UISCREEN_WIDTH,UISCREEN_WIDTH*35/75+50);
+        return CGSizeMake(UISCREEN_WIDTH,UISCREEN_WIDTH*35/75+140);
     }else if(section == 1){
         return CGSizeMake(UISCREEN_WIDTH, 50);
     }else{

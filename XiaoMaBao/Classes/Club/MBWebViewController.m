@@ -15,20 +15,8 @@
 #import "MBLoginViewController.h"
 @interface MBWebViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-
 @end
-
 @implementation MBWebViewController
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBWebViewController"];
-    
-}
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBWebViewController"];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSURLCache sharedURLCache] removeAllCachedResponses];

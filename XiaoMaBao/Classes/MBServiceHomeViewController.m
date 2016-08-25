@@ -23,17 +23,7 @@
 @end
 
 @implementation MBServiceHomeViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBServiceHomeViewController"];
-}
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBServiceHomeViewController"];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

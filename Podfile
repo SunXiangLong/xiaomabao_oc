@@ -1,5 +1,6 @@
 
 platform :ios, '8.0'
+target 'XiaoMaBao' do
 pod 'PureLayout', '~> 2.0.6'
 pod 'KVNProgress'
 pod 'AFNetworking', '~> 3.1.0'
@@ -19,6 +20,7 @@ pod 'MBProgressHUD', '~> 0.9.2'
 pod 'SDCycleScrollView','~> 1.6'
 pod 'Appirater'
 pod 'Masonry'
+pod 'FreeStreamer'
 pod 'UMengAnalytics'
 pod 'ReactiveCocoa', '~> 2.5'
 pod 'JPFPSStatus', '~> 0.0.2'
@@ -27,6 +29,8 @@ pod 'UITableView+FDTemplateLayoutCell', '~> 1.5.beta'
 pod 'TYAttributedLabel', '~> 2.6.1'
 pod 'YYWebImage'
 pod 'YYImage/WebP'
+pod 'ZFPlayer'
+pod 'StreamingKit'
 # 主模块(必须)
 pod 'ShareSDK3'
 # Mob 公共库(必须) 如果同时集成SMSSDK iOS2.0:可看此注意事项：http://bbs.mob.com/thread-20051-1-1.html
@@ -41,4 +45,4 @@ pod 'ShareSDK3/ShareSDKPlatforms/WeChat'
 #pod 'ShareSDK3/ShareSDKPlatforms/RenRen'
 #pod 'ShareSDK3/ShareSDKPlatforms/AliPaySocial'
 #pod 'ShareSDK3/ShareSDKPlatforms/Kakao'
-
+end

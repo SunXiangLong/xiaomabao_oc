@@ -19,16 +19,6 @@
 @end
 
 @implementation MBOrderInfoViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBOrderInfoViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBOrderInfoViewController"];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     

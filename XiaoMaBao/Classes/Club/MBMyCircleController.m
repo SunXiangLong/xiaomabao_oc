@@ -15,9 +15,9 @@
 #import "MBGroupShopController.h"
 #import "MBDetailsCircleController.h"
 #import "MBLoginViewController.h"
-#import "MBCheckInViewController.h"
-#import "MBSharkViewController.h"
 #import "MBCollectionPostController.h"
+#import "MBVoiceViewController.h"
+#import "MBArticleViewController.h"
 @interface MBMyCircleController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     
@@ -114,7 +114,7 @@
  */
 - (UIView *)setHeaderView{
     UIView *view =[[UIView alloc] init];
-    view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_WIDTH*35/75+ UISCREEN_WIDTH/4*204/160);
+    view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_WIDTH*35/75+ 90);
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH,UISCREEN_WIDTH*35/75) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
     NSMutableArray *imaageUrlArr = [NSMutableArray array];
     for (NSDictionary *dic in _bandImageArray) {
@@ -126,49 +126,41 @@
     [view addSubview:cycleScrollView];
     
     MBMyCircleViewTo *view1 = [MBMyCircleViewTo instanceView];
-    view1.frame = CGRectMake(0, MaxY(cycleScrollView), UISCREEN_WIDTH, UISCREEN_WIDTH/4*204/160);
+    view1.frame = CGRectMake(0, MaxY(cycleScrollView), UISCREEN_WIDTH, 90);
     [view addSubview:view1];
     
     @weakify(self);
     [[view1.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *number) {
         
         NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-        if (!sid) {
-         [ self  loginClicksss];
-            return ;
-        }
+       
        
         @strongify(self);
         switch ([number integerValue]) {
             case 0:
             {
-                UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                
-                MBCheckInViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBCheckInViewController"];
-                
-                [self pushViewController:myView Animated:YES];
+                MBArticleViewController *Vc  = [[MBArticleViewController alloc] init];
+                [self pushViewController:Vc Animated:YES];
                
-            }
-                break;
+            }break;
             case 1:{
-                UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                MBSharkViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBSharkViewController"];
-                [self pushViewController:myView Animated:YES];
                 
-            }
-                break;
+                MBVoiceViewController *Vc  = [[MBVoiceViewController alloc] init];
+                [self pushViewController:Vc Animated:YES];
+                
+            }break;
             case 2: {
-            
-                MBWebViewController *VC = [[MBWebViewController alloc] init];
-                VC.url = URL(@"http://api.xiaomabao.com/circle/raffle");
-                VC.title =@"抽大奖";
-                VC.isloging = YES;
-                [self pushViewController:VC Animated:YES];
-            }
-                
-                break;
+                if (!sid) {
+                    [ self  loginClicksss];
+                    return ;
+                }
+            }break;
             case 3:
             {
+                if (!sid) {
+                [ self  loginClicksss];
+                return ;
+            }
                 MBCollectionPostController *VC = [[MBCollectionPostController alloc] init];
                 [self pushViewController:VC Animated:YES]; } break;
                 
@@ -491,10 +483,11 @@
             return cell;
         }
     }
-    if (indexPath.row >_recommendArray.count) {
+    if (indexPath.row >_recommendArray.count&&_recommendArray.count > 0) {
         
         return cell;
     }
+   
     NSDictionary *dic = _recommendArray[indexPath.row] ;
     if (indexPath.section ==0) {
         dic = _myCircleArray[indexPath.row];

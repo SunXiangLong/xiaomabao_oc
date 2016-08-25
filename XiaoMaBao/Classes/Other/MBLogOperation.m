@@ -203,7 +203,10 @@
                    }
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    NSLog(@"-----%@",error);
-                    failure(nil,error);
+                   if (error) {
+                       failure(nil,error);
+                   }
+                   
                }
      ];
     

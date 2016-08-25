@@ -10,13 +10,10 @@
 #import "MBPostDetailsOneCell.h"
 #import "MBPostDetailsTwoCell.h"
 #import "MBPostDetailsHeadView.h"
-#import <ShareSDK/ShareSDK.h>
-#import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "MBLoginViewController.h"
 #import "MBCollectionPostController.h"
 #import "MBPostReplyController.h"
 #import "MBPostDetailsViewCell.h"
-#import "UITableView+FDTemplateLayoutCell.h"
 #import "MBPostDetailsFooterOne.h"
 #import "MBPostDetailsFooterTwo.h"
 @interface MBPostDetailsViewController ()<UITableViewDelegate,UITableViewDataSource>

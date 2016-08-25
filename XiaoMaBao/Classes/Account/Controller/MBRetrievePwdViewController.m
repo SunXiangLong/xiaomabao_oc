@@ -50,7 +50,8 @@
 }
 
 - (IBAction)nextStep {
-
+    [self.accountField resignFirstResponder];
+    [self.verifyField resignFirstResponder];
     NSString *changeString = self.codeView.changeString;
     NSString *verifyString = self.verifyField.text;
     NSString *accountString = self.accountField.text;
@@ -71,7 +72,7 @@
     NSString *userText = self.accountField.text;
     [self show];
     [MBNetworking POST:url parameters:@{@"name":userText,@"type":@"1"} success:^(NSURLSessionDataTask *asdf, MBModel *responseObject) {
-        [self dismiss];
+        
         NSDictionary *status = responseObject.status;
         
         
@@ -79,6 +80,7 @@
       
             [self getsss:userText];
         }else{
+            [self dismiss];
             UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[status valueForKey:@"error_desc"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
@@ -91,17 +93,25 @@
 - (void)getsss:(NSString *)userText{
     NSString *url2 = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/phoneCode"];
     [MBNetworking POST:url2 parameters:@{@"name":userText,@"type":@"1"} success:^(NSURLSessionDataTask *asd, MBModel *responseObject) {
-   
+        [self dismiss];
+        NSLog(@"%@",responseObject.data);
         self.phoneCodeMd5 = [responseObject.data valueForKey:@"phoneCode"];
-        NSLog(@"%@",_phoneCodeMd5);
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message: [NSString stringWithFormat:@"已发短信至手机号:%@请注意查收", self.accountField.text] delegate:self cancelButtonTitle:@"下一步" otherButtonTitles:nil, nil];
-        alert.tag = 1010;
-        MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
-        user.phoneNumber = userText;
-        [alert show];
+        if ([responseObject.status[@"succeed"] integerValue] == 1) {
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message: [NSString stringWithFormat:@"已发短信至手机号:%@请注意查收", self.accountField.text] delegate:self cancelButtonTitle:@"下一步" otherButtonTitles:nil, nil];
+            alert.tag = 1010;
+            MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
+            user.phoneNumber = userText;
+            [alert show];
+        }else{
+        
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message: responseObject.data[@"info"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
         
     } failure:^(NSURLSessionDataTask *asdf, NSError *asdfg) {
-        NSLog(@"%@",asdfg);
+      [self dismiss];
+        
     }];
 
 

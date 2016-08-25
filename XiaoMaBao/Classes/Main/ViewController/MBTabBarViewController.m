@@ -15,6 +15,7 @@
 #import "MBServiceHomeViewController.h"
 #import "MBNewHomeViewController.h"
 #import "MBNewCanulcircleController.h"
+#import "MBVideoPlaybackViewController.h"
 @interface MBTabBarViewController () <BkTabBarViewDelegate>{
     NSArray* _TeMaiArarry;
     NSMutableArray* menuIds ;

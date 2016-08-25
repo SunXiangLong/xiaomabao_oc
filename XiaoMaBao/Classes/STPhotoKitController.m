@@ -7,7 +7,6 @@
 //
 
 #import "STPhotoKitController.h"
-#import "STConfig.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @interface STPhotoKitController ()<UIGestureRecognizerDelegate>

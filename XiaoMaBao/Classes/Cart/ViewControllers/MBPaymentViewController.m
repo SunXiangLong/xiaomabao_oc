@@ -8,7 +8,7 @@
 #import "MBPaymentViewController.h"
 #import "MBSignaltonTool.h"
 #import "MBNetworking.h"
-#import "MBOrderInfoViewController.h"
+#import "MBOrderInfoTableViewController.h"
 #import "Order.h"
 #import "APAuthV2Info.h"
 #import "DataSigner.h"
@@ -22,7 +22,7 @@
 #import "MBServiceShopsViewController.h"
 @interface MBPaymentViewController ()<UIAlertViewDelegate>
 {
-  NSString *_creatOrderId;
+    NSString *_creatOrderId;
     int  _fight;
     UIButton *_PayButton;
     UIButton *_WeChatButton;
@@ -44,76 +44,36 @@
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(back)];
     [self.navigationController.view  addGestureRecognizer:pan];
     
-    if(self.coupon_id == nil){
-        self.coupon_id = @"";
-    }
     
     
-    
-    if(self.order_id && self.isOrderDetail){
-        [self getOrderInfo];
-        
+    if ([self.orderInfo[@"order_amount"] floatValue] > 0 || [[_orderInfo[@"order_amount_formatted"] substringFromIndex:1] floatValue] > 0) {
+        [self createView];
     }else{
-    
-     [self createView];
-    }
-    
-    
-}
-
-- (void)getOrderInfo{
-    [self show];
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/info"] parameters:@{@"session":dict,@"order_id":self.order_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        [self dismiss];
-        NSLog(@"status---responseObject%@",[responseObject valueForKeyPath:@"status"]);
-        if([[[responseObject valueForKeyPath:@"status"] valueForKey:@"succeed"] isEqualToNumber:@1]){
-//            NSLog(@"生成订单成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
-            
-            _orderInfo = [responseObject valueForKeyPath:@"data"];
+        if ([self.service_data[@"order_amount"] floatValue] > 0) {
             [self createView];
         }else{
-            [self show:[[responseObject valueForKeyPath:@"status"] valueForKey:@"error_desc"] time:1];
+            [self successView];
         }
-       
         
-    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-       
-  
-        [self show:@"请求失败" time:1];
-    
-       
-    }];
-}
-- (void)getDingdanINfo
-{
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    if (!_identity_card) {
-        _identity_card = @"";
-        _real_name = @"";
     }
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"flow/doneMobile"]
-            parameters:@{@"session":dict,@"pay_id":self.pay_id,@"shipping_id":self.shipping_id,@"address_id":self.address_id,@"bonus_id":@"",@"coupon_id":self.coupon_id,@"integral":@"",@"inv_type":@"0",@"inv_content":@"",@"inv_payee" :@"",@"real_name":self.real_name,@"identity_card":self.identity_card}
-               success:^(NSURLSessionDataTask *operation, id responseObject) {
-//        NSLog(@"status---responseObject%@",[responseObject valueForKeyPath:@"status"]);
-//        NSLog(@"生成订单成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
-                   
-                   
-        _orderInfo = [responseObject valueForKeyPath:@"data"];
-        _is_cross_border = _orderInfo[@"order_info"][@"is_cross_border"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCart" object:nil];
-                   
-    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"----%@",error);
-     
-
-    }];
-
+    
+    
+    
+    
 }
+/**
+ *  支付成功的view视图
+ */
+- (void)successView{
+    self.navBar.back = NO;
+    MBPaySuccessView *PaySuccessView = [MBPaySuccessView instanceView];
+    PaySuccessView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y);
+    [self.view addSubview:PaySuccessView];
+    [PaySuccessView.shopButton addTarget:self action:@selector(shop) forControlEvents:UIControlEventTouchUpInside];
+    [PaySuccessView.orderButton addTarget:self action:@selector(order) forControlEvents:UIControlEventTouchUpInside];
+}
+
+
 -(void)createView
 {
     UILabel *promptLbl = [[UILabel alloc] init];
@@ -141,8 +101,9 @@
         orderLbl.text = @"";
     }
     if (self.service_data) {
-         orderLbl.text =self.service_data[@"product_sn"];
+        orderLbl.text =self.service_data[@"product_sn"];
     }
+    [self addTopLineView:orderView];
     [orderView addSubview:orderLbl];
     
     UIImageView *orderImgView = [[UIImageView alloc] init];
@@ -153,7 +114,6 @@
     orderView.userInteractionEnabled = YES;
     UITapGestureRecognizer *ger = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(orderInfoClick:)];
     [orderView addGestureRecognizer:ger];
-    
     // 支付方式View
     UIView *paymentMethodView = [[UIView alloc] init];
     paymentMethodView.backgroundColor = [UIColor whiteColor];
@@ -166,7 +126,7 @@
     paymentMethodLbl.font = [UIFont systemFontOfSize:14];
     paymentMethodLbl.text = @"请选择支付方式：";
     [paymentMethodView addSubview:paymentMethodLbl];
-    
+    [self addBottomLineView:paymentMethodView];
     [self addTopLineView:paymentMethodView];
     NSArray *titles = @[
                         @"支付宝客户端支付",
@@ -203,20 +163,19 @@
             payListButton.selected = NO;
             _PayButton = payListButton;
         }else if(i==1){
-        
+            
             _WeChatButton = payListButton;
         }
-       
+        
         [payListView addSubview:payListButton];
         
-        [self addTopLineView:payListView];
+        [self addBottomLineView:payListView];
     }
     
     UIView *bottomView = [[UIView alloc] init];
     bottomView.backgroundColor = [UIColor whiteColor];
     CGFloat tabbarHeight = 45;
     bottomView.frame = CGRectMake(0, self.view.ml_height - tabbarHeight, self.view.ml_width, tabbarHeight);
-    
     CGFloat submitButtonWidth = 70;
     UIButton *submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
     submitButton.frame = CGRectMake(self.view.ml_width - submitButtonWidth, 0, submitButtonWidth, bottomView.ml_height);
@@ -233,35 +192,26 @@
     paymentLbl.textColor = [UIColor colorWithHexString:@"323232"];
     paymentLbl.font = [UIFont systemFontOfSize:14];
     
-    if(self.order_id && self.isOrderDetail){
-       
-        paymentLbl.text = [NSString stringWithFormat:@"应付金额：%@",_orderInfo[@"order_amount_formatted"]];
-        
-        
-    }else{
-        
-        paymentLbl.text = [NSString stringWithFormat:@"应付金额：%@",[_orderInfo valueForKeyPath:@"order_amount"]];
-    }
-    
-    
     if (self.service_data) {
-          paymentLbl.text = [NSString stringWithFormat:@"应付金额：¥%@",self.service_data[@"order_amount"]];
+        paymentLbl.text = [NSString stringWithFormat:@"应付金额：¥%@",self.service_data[@"order_amount"]];
+    }else{
+        NSString *order_amount = _orderInfo[@"order_amount"]? _orderInfo[@"order_amount"]:[_orderInfo[@"order_amount_formatted"] substringFromIndex:1];
+        paymentLbl.text = [NSString stringWithFormat:@"应付金额：%@",order_amount];
     }
     [bottomView addSubview:paymentLbl];
-
-    
+    [self addTopLineView:bottomView];
     [self.view addSubview:bottomView];
-
+    
 }
 
 #pragma mark --- 选择支付方式
 - (void)ChoicePayment:(UIButton *)button{
-
+    
     switch (button.tag) {
         case 0 :
             _fight = 0;  button.selected = NO; _WeChatButton.selected = YES; break;
         case 1 :
-        
+            
             _fight = 1;   button.selected = NO; _PayButton.selected = YES; break;
         default:
             break;
@@ -275,23 +225,26 @@
         case 1:   [self wxpay];         break;
         default:                       break;
     }
-
+    
 }
 -(void)orderInfoClick:(UITapGestureRecognizer *)ger{
-    MBOrderInfoViewController *infoVc = [[MBOrderInfoViewController alloc] init];
-    //单号和时间
+    
+    UINavigationController  *nav =  [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
+    MBOrderInfoTableViewController *infoVc = (MBOrderInfoTableViewController *)nav.viewControllers.firstObject;
+    
+    
     NSString *order_id = [_orderInfo valueForKeyPath:@"order_id"];
     infoVc.order_id = order_id;
     if (self.service_data) {
-      infoVc.order_id = self.service_data[@"order_id"];
+        infoVc.order_id = self.service_data[@"order_id"];
     }
-    [self.navigationController pushViewController:infoVc animated:YES];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 
 #pragma mark -- 第三方支付  支付宝
- - (void)payForMoney{
-     /*
+- (void)payForMoney{
+    /*
      *商户的唯一的parnter和seller。
      *签约后，支付宝会为每个商户分配一个唯一的 parnter 和 seller。
      */
@@ -302,26 +255,17 @@
     Order *order = [[Order alloc] init];
     NSString *partner = @"2088911663943262";
     NSString *seller = @"zfb@xiaomabao.com";
-    if(self.order_id && self.isOrderDetail){
-        order.productName = @"小麻包购买商品";//商品标题
-        order.productDescription = @"小麻包购买商品"; //商品描述
-        order.amount = [[self.orderInfo valueForKeyPath:@"order_amount_formatted"] substringFromIndex:1]; //商品价格
+    if (self.service_data) {
+        order.productName = self.service_data[@"subject"];//商品标题
+        order.productDescription = self.service_data[@"subject"];//商品描述
+        order.amount = self.service_data[@"order_amount"];//商品价格
+        order.notifyURL  = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/payment/alipay_notify"]; //回调URL
     }else{
-        order.productName = [self.orderInfo  valueForKeyPath:@"subject"];//商品标题
-        order.productDescription = [self.orderInfo valueForKeyPath:@"desc"]; //商品描述
-        order.amount = [self.orderInfo  valueForKeyPath:@"order_amount"]; //商品价格
+        order.productName = _orderInfo[@"subject"]?_orderInfo[@"subject"]:@"北京小麻包信息技术有限公司";
+        order.productDescription = _orderInfo[@"desc"]?_orderInfo[@"desc"]:@"北京小麻包信息技术有限公司";//商品描述
+        order.amount = _orderInfo[@"order_amount"]? _orderInfo[@"order_amount"]:[_orderInfo[@"order_amount_formatted"] substringFromIndex:1]; //商品价格
+        order.notifyURL =  [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/payment/order_alipay_notify"]; //回调URL
     }
-    
-
-    order.notifyURL =  [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/payment/order_alipay_notify"]; //回调URL
-     
-     if (self.service_data) {
-        
-         order.productName = @"小麻包购买服务";//商品标题
-         order.productDescription = @"小麻包购买服务";//商品描述
-         order.amount = self.service_data[@"order_amount"];//商品价格
-          order.notifyURL  = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/payment/alipay_notify"]; //回调URL
-     }
     NSString *privateKey = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@",
                             @"MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAN33e4EXrmgdqvXH",
                             @"wx3bifW+v57GolErHmWuDF7vGn2kH8X8M56hgd9IAelLsSPUMaprdit3XcbdId0J",
@@ -337,7 +281,7 @@
                             @"JwNUGHcvr+FWGXw0vvjLN0vta3GKgNh1hi/qhhZd4qIo2Va1rScJAkA5vZuFwEJH",
                             @"MQlf3p18GKnGyd2QRJE0PDSP9wB736S7Vh5PEsaQA2W2N9QYHPjJU6v4Nwav3dCQeb350xkmPGmQ"
                             ];
-
+    
     
     //partner和seller获取失败,提示
     if ([partner length] == 0 ||
@@ -360,9 +304,9 @@
     order.partner = partner;
     order.seller = seller;
     order.tradeNO = [self.orderInfo valueForKeyPath:@"order_sn"]; //订单ID（由商家自行制定）
-     if (self.service_data) {
-         order.tradeNO =  self.service_data[@"product_sn"];
-     }
+    if (self.service_data) {
+        order.tradeNO =  self.service_data[@"product_sn"];
+    }
     order.service = @"mobile.securitypay.pay";
     order.paymentType = @"1";
     order.inputCharset = @"utf-8";
@@ -389,14 +333,14 @@
         [win setHidden:NO];
         
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-          
+            
             
             if ([resultDic[@"resultStatus"]isEqualToString:@"9000"]) {
                 [self alert:@"提示" msg:@"支付成功" success:@"1"];
             }else{
                 [self alert:@"提示" msg:resultDic[@"memo"] success:@"0"];
             }
-         
+            
         }];
         
     }
@@ -419,18 +363,14 @@
     //订单标题，展示给用户
     NSString *order_name    = @"小麻包购买商品";
     //订单金额,单位（分）
-    NSString *order_price  ;
-    NSString *price;
-    if(self.order_id && self.isOrderDetail){
-        
-        price = [[self.orderInfo valueForKeyPath:@"order_amount_formatted"] substringFromIndex:1]; //商品价格
-    }else{
-        
-       price = [self.orderInfo  valueForKeyPath:@"order_amount"]; //商品价格
-    }
-  
-    order_price = [NSString stringWithFormat:@"%.0f",[price doubleValue]*100];
-   
+    
+    
+    
+    NSString *price =  _orderInfo[@"order_amount"]? _orderInfo[@"order_amount"]:[_orderInfo[@"order_amount_formatted"] substringFromIndex:1];
+    
+    
+    NSString *order_price  = [NSString stringWithFormat:@"%.0f",[price doubleValue]*100];
+    
     
     //================================
     //预付单参数订单设置
@@ -439,7 +379,7 @@
     NSString *noncestr  = [NSString stringWithFormat:@"%d", rand()];
     NSString *orderno   =  [self.orderInfo valueForKeyPath:@"order_sn"]; //[NSString stringWithFormat:@"%ld",time(0)];
     if (self.service_data) {
-        order_name = @"小麻包购买服务";
+        order_name = self.service_data[@"desc"];
         order_price =  [NSString stringWithFormat:@"%.0f",[self.service_data[@"order_amount"] doubleValue]*100];
         orderno = self.service_data[@"product_sn"];
     }
@@ -506,7 +446,7 @@
         req.sign                = [dict objectForKey:@"sign"];
         
         [WXApi sendReq:req];
-  
+        
     }
 }
 
@@ -536,37 +476,34 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     
-     if ([_success isEqualToString:@"1"]) {
-         if(self.service_data){
-             MBPayResultsController *VC = [[MBPayResultsController alloc] init];
-             VC.order_id = self.service_data[@"order_id"];
-             [self pushViewController:VC Animated:YES];
-         }else{
-              self.navBar.back = NO;
-             
-             MBPaySuccessView *PaySuccessView = [MBPaySuccessView instanceView];
-             PaySuccessView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y);
-             [self.view addSubview:PaySuccessView];
-             [PaySuccessView.shopButton addTarget:self action:@selector(shop) forControlEvents:UIControlEventTouchUpInside];
-             [PaySuccessView.orderButton addTarget:self action:@selector(order) forControlEvents:UIControlEventTouchUpInside];
-             
-         }
-
-     }
+    if ([_success isEqualToString:@"1"]) {
+        
+        if(self.service_data){
+            MBPayResultsController *VC = [[MBPayResultsController alloc] init];
+            VC.order_id = self.service_data[@"order_id"];
+            [self pushViewController:VC Animated:YES];
+        }else{
+            
+            [self successView];
+            
+        }
+        
+    }
 }
 - (void)back{
-
+    
 }
 - (void)shop{
     UIViewController *mainVc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
     [UIApplication sharedApplication].keyWindow.rootViewController = mainVc;
-  
+    
 }
 - (void)order{
-
+    
     MBOrderListViewController *VC = [[MBOrderListViewController alloc] init];
+    
     [self.navigationController pushViewController:VC animated:YES];
-
+    
 }
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{
     
@@ -588,17 +525,15 @@
                 
             }
         }
-
-
+        
+        
         
     }else{
-     return [self.navigationController popViewControllerAnimated:animated];
+        return [self.navigationController popViewControllerAnimated:animated];
     }
     
     return nil;
 }
--(void)dealloc{
-    [[NSNotificationCenter defaultCenter]  removeObserver:self];
-}
+
 
 @end

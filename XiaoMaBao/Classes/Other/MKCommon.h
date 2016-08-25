@@ -18,10 +18,10 @@
 
 #else
 /***  线上后台 */
-    static NSString  *BASE_PHP =       @"http://api.xiaomabao.com/discovery";
-    static NSString *BASE_URL =        @"http://api.xiaomabao.com/mobile/?url=/";
-    static NSString *BASE_URL_root =   @"http://api.xiaomabao.com";
-    static NSString *BASE_PHP_test =   @"http://api.xiaomabao.com/babyInfo/inforecord";
+//    static NSString  *BASE_PHP =       @"http://api.xiaomabao.com/discovery";
+//    static NSString *BASE_URL =        @"http://api.xiaomabao.com/mobile/?url=/";
+//    static NSString *BASE_URL_root =   @"http://api.xiaomabao.com";
+//    static NSString *BASE_PHP_test =   @"http://api.xiaomabao.com/babyInfo/inforecord";
 
 
 
@@ -33,11 +33,11 @@
 //   static NSString *BASE_PHP_test = @"http://192.168.11.36/babyinfo/inforecord";
 
 /***  辉哥后台 */
-//static NSString  *BASE_PHP =       @"http://192.168.1.189/discovery";
-//static NSString  *BASE_URL_ROOT =  @"http://192.168.1.189/";
-//static NSString *BASE_URL =        @"http://192.168.1.189/mobile/?url=/";
-//static NSString *BASE_URL_root =   @"http://192.168.1.189";
-//static NSString *BASE_PHP_test =   @"http://192.168.1.189/babyInfo/inforecord";
+static NSString  *BASE_PHP =       @"http://192.168.11.62/discovery";
+static NSString  *BASE_URL_ROOT =  @"http://192.168.11.62/";
+static NSString *BASE_URL =        @"http://192.168.11.62/mobile/?url=/";
+static NSString *BASE_URL_root =   @"http://192.168.11.62";
+static NSString *BASE_PHP_test =   @"http://192.168.11.62/babyInfo/inforecord";
 
 
 
@@ -81,7 +81,7 @@
  *  默认占为图
  */
 #define PLACEHOLDER_DEFAULT_IMG [UIImage imageNamed:@"placeholder_num2"]
-#define VERSION @"3.1"
+#define VERSION  [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"]
 /**
  *  宽度与高度
  */

@@ -22,14 +22,16 @@
     
     [super viewWillDisappear:animated];
     [MobClick beginLogPageView:[NSString stringWithUTF8String:object_getClassName(self)]];
-    
-    
+
     
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
    [MobClick beginLogPageView:[NSString stringWithUTF8String:object_getClassName(self)]];
+    
 }
+
+
 - (BkNavigationBarView *)navBar{
     if (!_navBar) {
         // 自定义导航栏
@@ -83,6 +85,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     [self.navigationController.navigationBar removeFromSuperview];
+
     self.automaticallyAdjustsScrollViewInsets = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     // 导航栏点击事件
@@ -227,6 +230,7 @@
 }
 -(void)show:(NSString *)str{
     _nav.pan.enabled = NO;
+//    views = UIApplication.sharedApplication().keyWindow
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:HUD];
     HUD.labelText = str;

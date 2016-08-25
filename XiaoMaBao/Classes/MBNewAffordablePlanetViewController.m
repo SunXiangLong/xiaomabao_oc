@@ -19,6 +19,10 @@
 #import "MBAffordableCategoryCell.h"
 #import "MBAffordableCategoryCollectionCell.h"
 #import "MBAffordablePlanetMoreCell.h"
+#import "MBCollectionHeadViewTo.h"
+#import "MBLoginViewController.h"
+#import "MBCheckInViewController.h"
+#import "MBSharkViewController.h"
 @interface MBNewAffordablePlanetViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     /**
@@ -99,12 +103,65 @@
                 for (NSDictionary *dic in _bandImageArray) {
                     [urlImageArray addObject:dic[@"ad_img"]];
                 }
+                UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_WIDTH*35/75+95)];
                 SDCycleScrollView *tableheaderView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH,UISCREEN_WIDTH*35/75) delegate:self     placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
                 tableheaderView.imageURLStringsGroup = urlImageArray;
                 tableheaderView.autoScrollTimeInterval = 3.0f;
-               
+                [headView addSubview:tableheaderView];
+                MBCollectionHeadViewTo  *View = [MBCollectionHeadViewTo instanceView];
                 
-                tableheaderView;
+                [headView addSubview:View];
+                
+                @weakify(self);
+                [[View.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *number) {
+                    
+                    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+                    if (!sid) {
+                        [ self  loginClicksss];
+                        return ;
+                    }
+                    
+                    @strongify(self);
+                    switch ([number integerValue]) {
+                        case 0:
+                        {
+                            UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                            
+                            MBCheckInViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBCheckInViewController"];
+                            
+                            [self pushViewController:myView Animated:YES];
+                            
+                        }
+                            break;
+                        case 1:{
+                            UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                            MBSharkViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBSharkViewController"];
+                            [self pushViewController:myView Animated:YES];
+                            
+                        }
+                            break;
+                        case 2: {
+                            
+                            MBWebViewController *VC = [[MBWebViewController alloc] init];
+                            VC.url = URL(@"http://api.xiaomabao.com/circle/raffle");
+                            VC.title =@"抽大奖";
+                            VC.isloging = YES;
+                            [self pushViewController:VC Animated:YES];
+                        }
+                            
+                            break;
+                        default:
+                            break;
+                    }
+                }];
+                [View mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(tableheaderView.mas_bottom).offset(0);
+                    make.left.mas_equalTo(0);
+                    make.right.mas_equalTo(0);
+                    make.height.mas_equalTo(95);
+                }];
+
+                headView;
             });
             
 
@@ -122,6 +179,17 @@
     }];
     
     
+}
+#pragma mark -- 跳转登陆页
+- (void)loginClicksss{
+    //跳转到登录页
+    
+    
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
+    myView.vcType = @"mabao";
+    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
+    [self presentViewController:VC animated:YES completion:nil];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

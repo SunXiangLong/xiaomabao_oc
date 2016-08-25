@@ -11,6 +11,7 @@
 #import "MBNavigationViewController.h"
 #import "BkBaseViewController.h"
 #import "BkNavigationBarView.h"
+#import "MBOrderInfoTableViewController.h"
 #define BG_IMAGEVIEW_X -[[UIScreen mainScreen] bounds].size.width/2
 
 
@@ -38,6 +39,8 @@
     }
     
 }
+
+
 #pragma mark - UIGestureRecognizerDelegate方法
 // 是否触发手势
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -62,8 +65,11 @@
          *  pus到新的界面 隐藏底部的tabbar
          */
         viewController.hidesBottomBarWhenPushed = YES;
-        BkBaseViewController *vc = (BkBaseViewController *) viewController;
-        vc.back = YES;
+        if ([viewController isKindOfClass:[BkBaseViewController class] ]) {
+            BkBaseViewController *vc = (BkBaseViewController *) viewController;
+            vc.back = YES;
+
+        }
     }
     [super pushViewController:viewController animated:animated];
     

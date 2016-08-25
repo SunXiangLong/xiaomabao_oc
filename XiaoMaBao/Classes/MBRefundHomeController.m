@@ -13,7 +13,7 @@
 #import "MBDeliveryInformationViewController.h"
 #import "MobClick.h"
 #import "MBRefundScheduleViewController.h"
-#import "MBOrderInfoViewController.h"
+#import "MBOrderInfoTableViewController.h"
 @interface MBRefundHomeController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     NSArray *_titles;
@@ -621,11 +621,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"点我");
     
-    MBOrderInfoViewController *infoVc = [[MBOrderInfoViewController alloc] init];
+    UINavigationController  *nav =  [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
+    MBOrderInfoTableViewController *infoVc = (MBOrderInfoTableViewController *)nav.viewControllers.firstObject;
+   
+    
     //单号和时间
     NSString *order_id = [_orderArray[indexPath.section] valueForKeyPath:@"order_id"];
     infoVc.order_id = order_id;
-    [self.navigationController pushViewController:infoVc animated:YES];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark --UITextFideldDelegate（点击键盘搜索触发事件）

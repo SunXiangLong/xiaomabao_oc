@@ -24,7 +24,6 @@
 #import "TGCameraNavigationController.h"
 #import "STPhotoKitController.h"
 #import "UIImagePickerController+ST.h"
-#import "STConfig.h"
 #import "MBPostDetailsViewController.h"
 @interface MBNewBabyController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource,STPhotoKitDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {

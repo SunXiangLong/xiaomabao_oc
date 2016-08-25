@@ -23,6 +23,8 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
+  - FreeStreamer (3.6.2):
+    - Reachability (~> 3.0)
   - HexColors (3.0.0)
   - iCarousel (1.8.2)
   - JPFPSStatus (0.0.2)
@@ -58,6 +60,7 @@ PODS:
   - ShareSDK3/ShareSDKUI (3.2.5)
   - SKTagView (0.7):
     - Masonry
+  - StreamingKit (0.1.29)
   - SVProgressHUD (1.1.3)
   - TGCameraViewController (2.2.1)
   - TYAttributedLabel (2.6.1)
@@ -74,6 +77,8 @@ PODS:
   - YYWebImage (1.0.4):
     - YYCache
     - YYImage
+  - ZFPlayer (1.2.1):
+    - Masonry
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 2.0.1)
@@ -82,6 +87,7 @@ DEPENDENCIES:
   - DateTools
   - DZNEmptyDataSet
   - FMDB (~> 2.5)
+  - FreeStreamer
   - HexColors
   - iCarousel
   - JPFPSStatus (~> 0.0.2)
@@ -102,6 +108,7 @@ DEPENDENCIES:
   - ShareSDK3/ShareSDKPlatforms/WeChat
   - ShareSDK3/ShareSDKUI
   - SKTagView
+  - StreamingKit
   - TGCameraViewController
   - TYAttributedLabel (~> 2.6.1)
   - UITableView+FDTemplateLayoutCell (~> 1.5.beta)
@@ -109,6 +116,7 @@ DEPENDENCIES:
   - WMPageController
   - YYImage/WebP
   - YYWebImage
+  - ZFPlayer
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: eeb47e64b7af3e09a50e1ce5dfee9c8c957490c6
@@ -117,6 +125,7 @@ SPEC CHECKSUMS:
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   DZNEmptyDataSet: 2a398066c2bf5848f7f693fb50954b5064debd12
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  FreeStreamer: 32a59f31065bf10909c329c47c8d6a2e1d9ba559
   HexColors: 8b83e3fe90c0d466dae7b98c9d22da95799f99cb
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
   JPFPSStatus: 11de6027b4cbebfeee0c939dfe08f5ec124a0965
@@ -133,6 +142,7 @@ SPEC CHECKSUMS:
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   ShareSDK3: ccdd8ec971044703e7722e19c2f3b38fb03775e2
   SKTagView: 1e89c1ce2292cf890610901d3621c55d1ed82379
+  StreamingKit: c329785aaef3ac142d4ae388345bfe1ed23cfd45
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TGCameraViewController: 06bc4b742f2524fbf60f92cade61df595e8b8678
   TYAttributedLabel: 4785820dc8d7935446f49f1de4daa0f99ebcba8a
@@ -143,5 +153,8 @@ SPEC CHECKSUMS:
   YYCache: 282f35b5b0990833d0b7a06d864a87141a021da2
   YYImage: 362f44ffba1fc498f2152060f3bb54ed84600981
   YYWebImage: 0431ed108e104527669b86f75efd58958425cca2
+  ZFPlayer: 80cf92fef7412ff7a31e47c6658c50393351f938
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 3c86a3d484c4fedff5a5cfa97877fd4c95908b9b
+
+COCOAPODS: 1.0.1

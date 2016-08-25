@@ -15,6 +15,7 @@
 #import "MBNewsCircleController.h"
 #import "JPUSHService.h"
 #import "MBLoginViewController.h"
+
 @interface MBNewCanulcircleController ()<UIScrollViewDelegate>
 {
 
@@ -220,7 +221,7 @@
 
 - (void)rightTitleClick{
     
-     
+
     MBSearchPostController *searchVc = [[MBSearchPostController alloc] init];
     
     [self pushViewController:searchVc Animated:YES];

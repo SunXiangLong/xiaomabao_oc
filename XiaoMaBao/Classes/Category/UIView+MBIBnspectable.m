@@ -85,5 +85,19 @@
 - (BOOL)onePx{
     return self.onePx;
 }
+-(void)setToBounds:(BOOL)toBounds{
+    self.clipsToBounds  =toBounds;
 
+}
+-(void)setResizingMask:(UIViewAutoresizing)resizingMask{
+ self.autoresizingMask = resizingMask;
+
+}
+-(UIViewAutoresizing)resizingMask{
+    return self.autoresizingMask;
+
+}
+-(BOOL)toBounds{
+    return self.clipsToBounds;
+}
 @end
