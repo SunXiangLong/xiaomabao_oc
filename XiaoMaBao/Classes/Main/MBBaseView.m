@@ -11,7 +11,7 @@
 @implementation MBBaseView
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
 }
 + (instancetype)instanceView{
     return [[[NSBundle mainBundle] loadNibNamed:@"<#MBBaseView#>" owner:nil options:nil] lastObject];

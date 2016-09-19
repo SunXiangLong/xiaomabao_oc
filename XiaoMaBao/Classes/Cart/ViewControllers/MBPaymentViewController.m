@@ -94,11 +94,9 @@
     orderLbl.frame = CGRectMake(MARGIN_8, 0, self.view.ml_width, promptLbl.ml_height);
     orderLbl.textColor = [UIColor colorWithHexString:@"323232"];
     orderLbl.font = [UIFont systemFontOfSize:14];
-    NSString *order_sn = [_orderInfo valueForKeyPath:@"order_sn"];
-    
-    orderLbl.text =[NSString stringWithFormat:@"订单号：%@",order_sn];
-    if (!order_sn) {
-        orderLbl.text = @"";
+    orderLbl.text =  string(@"订单号：", _orderInfo[@"parent_order_sn"]);
+    if (!orderLbl.text) {
+        orderLbl.text = @"订单号";
     }
     if (self.service_data) {
         orderLbl.text =self.service_data[@"product_sn"];
@@ -185,7 +183,6 @@
     [bottomView addSubview:submitButton];
     //点击确认订单
     [submitButton addTarget:self action:@selector(MethodPayment) forControlEvents:UIControlEventTouchUpInside];
-    
     //应付金额
     UILabel *paymentLbl = [[UILabel alloc] init];
     paymentLbl.frame = CGRectMake(MARGIN_8, 0, self.view.ml_width-submitButtonWidth, bottomView.ml_height);
@@ -231,12 +228,10 @@
     
     UINavigationController  *nav =  [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
     MBOrderInfoTableViewController *infoVc = (MBOrderInfoTableViewController *)nav.viewControllers.firstObject;
-    
-    
-    NSString *order_id = [_orderInfo valueForKeyPath:@"order_id"];
-    infoVc.order_id = order_id;
+
+    infoVc.parent_order_sn = _orderInfo[@"parent_order_sn"];
     if (self.service_data) {
-        infoVc.order_id = self.service_data[@"order_id"];
+        infoVc.parent_order_sn = self.service_data[@"parent_order_sn"];
     }
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }

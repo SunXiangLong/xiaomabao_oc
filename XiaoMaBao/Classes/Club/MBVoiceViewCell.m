@@ -14,12 +14,15 @@
     [super awakeFromNib];
     // Initialization code
     self.view_height.constant = (UISCREEN_WIDTH - 42)/3;
+
 }
 - (void)setDataDic:(NSDictionary *)dataDic{
     _dataDic = dataDic;
+    
     _post_title.text    = _dataDic[@"title"];
     _post_center.text = _dataDic[@"abstract_text"];
     [_post_center rowSpace:5];
+    _post_center.numberOfLines = 3;
     _user_title.text = string(@"作者 ：", _dataDic[@"author"]);
     _atype.text = _dataDic[@"atype"];
     if ([_atype.text isEqualToString: @"图书"]) {

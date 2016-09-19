@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MBBaseTableViewController : UITableViewController
-//- (void)setNavigationBar;
+-(void)show;
+-(void)dismiss;
 @end

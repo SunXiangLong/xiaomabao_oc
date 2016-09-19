@@ -12,43 +12,31 @@
 #define IS_TEST 0
 //  服务器地址
 #if IS_TEST
-    static NSString *BASE_URL_ROOT = @"http://115.29.250.136:8087/";
-    static NSString *BASE_URL = @"http://115.29.250.136:8087/mobile/?url=/";
-    static NSString *BASE_URL_QUANZI = @"http://115.29.250.136:8088/mobile/?url=/";
-
 #else
-/***  线上后台 */
+///***  线上后台 */
 //    static NSString  *BASE_PHP =       @"http://api.xiaomabao.com/discovery";
 //    static NSString *BASE_URL =        @"http://api.xiaomabao.com/mobile/?url=/";
 //    static NSString *BASE_URL_root =   @"http://api.xiaomabao.com";
 //    static NSString *BASE_PHP_test =   @"http://api.xiaomabao.com/babyInfo/inforecord";
-
-
-
-
 /***  军哥后台 */
-//   static NSString *BASE_URL =      @"http://192.168.11.36/mobile/?url=/";
-//   static NSString *BASE_URL_root = @"http://192.168.11.36";
-//   static NSString *BASE_PHP =      @"http://192.168.11.36/discovery";
-//   static NSString *BASE_PHP_test = @"http://192.168.11.36/babyinfo/inforecord";
+   static NSString *BASE_URL =      @"http://192.168.11.36/mobile/?url=/";
+   static NSString *BASE_URL_root = @"http://192.168.11.36";
+   static NSString *BASE_PHP =      @"http://192.168.11.36/discovery";
+   static NSString *BASE_PHP_test = @"http://192.168.11.36/babyinfo/inforecord";
 
 /***  辉哥后台 */
-static NSString  *BASE_PHP =       @"http://192.168.11.62/discovery";
-static NSString  *BASE_URL_ROOT =  @"http://192.168.11.62/";
-static NSString *BASE_URL =        @"http://192.168.11.62/mobile/?url=/";
-static NSString *BASE_URL_root =   @"http://192.168.11.62";
-static NSString *BASE_PHP_test =   @"http://192.168.11.62/babyInfo/inforecord";
-
-
-
-
+//static NSString  *BASE_PHP =       @"http://192.168.11.62/discovery";
+//static NSString  *BASE_URL_ROOT =  @"http://192.168.11.62/";
+//static NSString *BASE_URL =        @"http://192.168.11.62/mobile/?url=/";
+//static NSString *BASE_URL_root =   @"http://192.168.11.62";
+//static NSString *BASE_PHP_test =   @"http://192.168.11.62/babyInfo/inforecord";
 #define NOTIFICATION_TIME_CELL  @"NotificationTimeCell"
 #endif
 
 #define DEBUG_LOG 1
 /** Log*/
 #if DEBUG_LOG
-#define MKLOG(fmt, ...) NSLog((@"[LOG] " fmt), ##__VA_ARGS__);
+#define MKLOG(fmt, ...) MMLog((@"[LOG] " fmt), ##__VA_ARGS__);
 #else
 #define MKLOG(fmt, ...)
 #endif
@@ -132,10 +120,14 @@ static NSString *BASE_PHP_test =   @"http://192.168.11.62/babyInfo/inforecord";
  *  @return 弱应用的视图控制器
  */
 #define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
-#ifdef DEBUG
-#define XBLog(...) NSLog(__VA_ARGS__)
+#if DEBUG
+
+#define MMLog(FORMAT, ...) fprintf(stderr, "[%s:%d行] %s\n", [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+
 #else
-#define XBLog(...)
+
+#define MMLog(FORMAT, ...) nil
+
 #endif
 /**
  *  用户沙盒信息

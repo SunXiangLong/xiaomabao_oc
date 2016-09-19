@@ -100,7 +100,7 @@ return @"绑定新卡";
         [self dismiss];
 
         
-        NSLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         if ([[responseObject  valueForKey:@"status"] integerValue] ==1) {
             [self.myCircleViewSubject sendNext:@1];
             [self popViewControllerAnimated:YES];
@@ -113,7 +113,7 @@ return @"绑定新卡";
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
         
     }];
@@ -127,7 +127,7 @@ return @"绑定新卡";
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
    textField.text = [textField.text uppercaseString];
     string = [string uppercaseString];
-    NSLog(@"%@",string);
+    MMLog(@"%@",string);
     
  
     

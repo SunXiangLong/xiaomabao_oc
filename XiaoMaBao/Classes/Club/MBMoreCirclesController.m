@@ -194,7 +194,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
@@ -303,7 +303,7 @@
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
    
 
@@ -324,7 +324,7 @@
     
     [MBNetworking   POSTOrigin:str parameters:@{@"session":sessiondict,@"keyword":searcText} success:^(id responseObject) {
         [self dismiss];
-        NSLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         if (responseObject) {
             
             _searchArray = [NSMutableArray arrayWithArray:[responseObject valueForKeyPath:@"data"]];
@@ -362,7 +362,7 @@
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
 }
 #pragma mark -- 跳转登陆页
@@ -415,7 +415,7 @@
         
         // 把监听到的通知转换信号
         [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardDidHideNotification object:nil] subscribeNext:^(id x) {
-            NSLog(@"键盘收回");
+            MMLog(@"键盘收回");
           
                 [self searchBarCancelButtonClicked:_SearchBar];
 

@@ -81,7 +81,7 @@
  */
 + (void)networkDidReceiveMessage:(NSNotification *)notification {
     NSDictionary * userInfo = [notification userInfo];
-    NSLog(@"%@",userInfo);
+    MMLog(@"%@",userInfo);
     NSString *strNum = [NSString stringWithFormat:@"%@",userInfo[@"extras"][@"new_message"]];
     NSString *uid = [NSString stringWithFormat:@"%@",userInfo[@"extras"][@"uid"]];
     [User_Defaults setObject:strNum forKey:@"messageNumber"];
@@ -135,7 +135,7 @@
 
 + (void)onlineConfigCallBack:(NSNotification *)note {
     
-    NSLog(@"online config has fininshed and note = %@", note.userInfo);
+    MMLog(@"online config has fininshed and note = %@", note.userInfo);
     
 }
 @end

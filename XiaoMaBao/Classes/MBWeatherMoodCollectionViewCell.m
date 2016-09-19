@@ -10,8 +10,5 @@
 
 @implementation MBWeatherMoodCollectionViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
 
 @end

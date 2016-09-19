@@ -65,7 +65,8 @@
        
         [MBNetworking POSTOrigin:url parameters:@{@"phoneCode":[_phoneCode md5],@"name":self.phone,@"password":passwordMd5,@"type":@"1"}  success:^(id responseObject) {
             [self dismiss];
-            NSLog(@"%@",responseObject);
+            MMLog(@"%@",responseObject);
+            
             NSString *succeed = s_str(responseObject[@"status"][@"succeed"]);
             if ([succeed isEqualToString:@"1"]){
                 [self show:@"设置成功,返回登录" time:1];
@@ -94,7 +95,7 @@
             
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
             [self show:@"请求失败！" time:1];
-            NSLog(@"%@",error);
+            MMLog(@"%@",error);
         }];
         
     }else{

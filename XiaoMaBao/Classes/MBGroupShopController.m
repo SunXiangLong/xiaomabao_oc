@@ -66,7 +66,7 @@
                        [self dismiss];
                        NSDictionary *userData = [responseObject valueForKeyPath:@"data"];
                        _shuffArray = userData[@"top_ads"];
-//                     NSLog(@"%@",userData);
+//                     MMLog(@"%@",userData);
                        _shopArray = userData[@"group_goods"];
                        _brandArray = userData[@"group_topics"];
                        [self setModel];
@@ -76,14 +76,14 @@
                    }else{
                        
                        NSString *errStr =[[responseObject valueForKey:@"status"] valueForKey:@"error_desc"];
-                         NSLog(@"%@",errStr);
+                         MMLog(@"%@",errStr);
                          [self show:errStr time:1];
                    }
                    
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                   [self show:@"请求失败 " time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    
                }
      ];

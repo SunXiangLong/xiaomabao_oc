@@ -117,7 +117,7 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsspecs"] parameters:@{@"goods_id":self.goods_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
          [self dismiss];
-        NSLog(@"%@",[responseObject valueForKey:@"data"]);
+        MMLog(@"%@",[responseObject valueForKey:@"data"]);
         _specificationsDic  = [responseObject valueForKey:@"data"];
         if (_specificationsDic) {
             [self setupGoodsView];
@@ -183,7 +183,7 @@
        
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
 
@@ -415,7 +415,7 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
          [self show:@"请求失败！" time:1];
     }];
 
@@ -473,7 +473,7 @@
         
         NSString *status = [NSString stringWithFormat:@"%@",[responseObject valueForKeyPath:@"status"][@"succeed"]];
         
-        NSLog(@"%@",[responseObject valueForKeyPath:@"status"]);
+        MMLog(@"%@",[responseObject valueForKeyPath:@"status"]);
         
         if ([status isEqualToString:@"1"]) {
             MBShoppingCartViewController *payVc = [[MBShoppingCartViewController alloc] init];
@@ -488,7 +488,7 @@
         
          
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败..." time:1];
     }];
     
@@ -570,7 +570,7 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsspecinfos"] parameters:@{@"goods_id":self.goods_id,@"attr":attr,@"number":_numberFld.text} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-//        NSLog(@"%@",[responseObject valueForKey:@"data"]);
+//        MMLog(@"%@",[responseObject valueForKey:@"data"]);
         NSDictionary *dic = [responseObject valueForKey:@"data"];
         if (dic) {
             
@@ -586,7 +586,7 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     

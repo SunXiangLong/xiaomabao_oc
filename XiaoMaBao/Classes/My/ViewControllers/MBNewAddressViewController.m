@@ -75,7 +75,7 @@
                     [self selectTheContact];
                 }else
                 {
-                    NSLog(@"授权失败");
+                    MMLog(@"授权失败");
                 }
             });
         }else if (status == kABAuthorizationStatusAuthorized)
@@ -253,7 +253,7 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         
     }];
     
@@ -393,7 +393,7 @@
          
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
                        
-//                       NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//                       MMLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                        
                        if ([addressDict[@"default_address"] isEqualToString:@"1"]) {
                            
@@ -408,7 +408,7 @@
                        
                    }
                    failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                       NSLog(@"%@",error);
+                       MMLog(@"%@",error);
                        [self show:@"请求失败" time:1];
                    }
          ];
@@ -429,7 +429,7 @@
                         
                     }
                     failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                        NSLog(@"失败");
+                        MMLog(@"失败");
                         [self show:@"请求失败" time:1];
                     }
          ];
@@ -453,7 +453,7 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"失败");
+        MMLog(@"失败");
     }];
     
 }
@@ -477,7 +477,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
 
     
@@ -587,7 +587,7 @@
 //        // 2.2.2.获取电话号码
 //        NSString *phoneValue = (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(phones, i);
 //        
-//        NSLog(@"%@ %@", phoneLabel, phoneValue);
+//        MMLog(@"%@ %@", phoneLabel, phoneValue);
 //    }
 //    
     // 注意:管理内存
@@ -597,7 +597,7 @@
 // 当用户选中某一个联系人的某一个属性时会执行该方法,并且选中属性后会退出控制器
 - (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker didSelectPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
 {
-    NSLog(@"%s", __func__);
+    MMLog(@"%s", __func__);
 }
 
 #pragma mark - <CNContactPickerDelegate>
@@ -626,7 +626,7 @@
 //        CNPhoneNumber *phoneNumer = labeledValue.value;
 //        NSString *phoneValue = phoneNumer.stringValue;
 //        
-//        NSLog(@"%@",phoneValue);
+//        MMLog(@"%@",phoneValue);
 //    }
 }
 

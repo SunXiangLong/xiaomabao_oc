@@ -56,7 +56,7 @@
             
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
 }
 /**
@@ -172,7 +172,7 @@
                    if(1 == [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] intValue]){
                        NSDictionary *userData = [responseObject valueForKeyPath:@"data"];
                        NSDictionary *sessionDict = [userData valueForKeyPath:@"session"];
-//                       NSLog(@"%@",userData);
+//                       MMLog(@"%@",userData);
                        MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
                        userInfo.sid = [sessionDict valueForKeyPath:@"sid"];
                        userInfo.uid = [sessionDict valueForKeyPath:@"uid"];
@@ -202,11 +202,8 @@
                        }
                    }
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   NSLog(@"-----%@",error);
-                   if (error) {
-                       failure(nil,error);
-                   }
-                   
+                   MMLog(@"-----%@",error);
+                                      
                }
      ];
     
@@ -235,15 +232,15 @@
     DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示更新" contentText:dic[@"version_description"] leftButtonTitle:@"下次" rightButtonTitle:@"现在更新"];
     [alert show];
     alert.leftBlock = ^() {
-        NSLog(@"left button clicked");
+        MMLog(@"left button clicked");
     };
     alert.rightBlock = ^() {
-        NSLog(@"right button clicked");
+        MMLog(@"right button clicked");
         
         [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/xiao-ma-bao/id1049237132?mt=8"]];
     };
     alert.dismissBlock = ^() {
-        NSLog(@"Do something interesting after dismiss block");
+        MMLog(@"Do something interesting after dismiss block");
     };
     
 }
@@ -261,9 +258,9 @@
     BOOL nick_name = [SFHFKeychainUtils storeUsername:@"nick_name" andPassword:params[@"nick_name"]
                           forServiceName:@"com.xiaomabao.nick_nick_name" updateExisting:YES error:nil];
         if (sign_type&&name&&header_img&&nick_name) {
-              NSLog(@"✅Keychain保存密码成功");
+              MMLog(@"✅Keychain保存密码成功");
         }else{
-            NSLog(@"❌Keychain保存密码时出错");
+            MMLog(@"❌Keychain保存密码时出错");
         }
     }else{
         NSError *error;
@@ -273,9 +270,9 @@
         BOOL pass = [SFHFKeychainUtils storeUsername:@"Password" andPassword:params[@"password"]forServiceName:@"com.xiaomabao.Password" updateExisting:YES error:&errors];
         
         if (!saved&&!pass) {
-            NSLog(@"❌Keychain保存密码时出错：%@ %@", error,errors);
+            MMLog(@"❌Keychain保存密码时出错：%@ %@", error,errors);
         }else{
-            NSLog(@"✅Keychain保存密码成功！");
+            MMLog(@"✅Keychain保存密码成功！");
         }
     
     }
@@ -299,9 +296,9 @@
         header_img =    [SFHFKeychainUtils deleteItemForUsername:@"header_img" andServiceName:@"com.xiaomabao.header_img" error:nil];
         nick_name =    [SFHFKeychainUtils deleteItemForUsername:@"nick_name" andServiceName:@"com.xiaomabao.nick_nick_name" error:nil];
         if (!UserNameDeleted&&!Password) {
-            NSLog(@"删除成功");
+            MMLog(@"删除成功");
         }else if (!sign_type&&!name&&!header_img&&!nick_name) {
-            NSLog(@"删除成功");
+            MMLog(@"删除成功");
         }
    
 }

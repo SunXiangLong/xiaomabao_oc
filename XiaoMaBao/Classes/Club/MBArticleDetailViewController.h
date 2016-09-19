@@ -10,5 +10,5 @@
 
 @interface MBArticleDetailViewController : BkBaseViewController
 @property (nonatomic,strong) NSURL *url;
-
+@property(copy,nonatomic)NSDictionary *dataDic;
 @end

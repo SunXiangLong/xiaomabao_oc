@@ -32,16 +32,7 @@
 @end
 
 @implementation MBRegisterViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBRegister"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBRegister"];
-}
+
 - (MBEmailRegisterView *)emailRegisterView{
     if (!_emailRegisterView) {
         MBEmailRegisterView *emailRegisterView = [MBEmailRegisterView instanceXibView];
@@ -186,7 +177,7 @@
     
     [self show];
     [MBNetworking POSTOrigin:postUrl parameters:@{@"name":str,@"type":@"1"}  success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
            [self dismiss];
          NSString *succeed = [NSString stringWithFormat:@"%@",responseObject[@"status"][@"succeed"]];
         if ([succeed isEqualToString:@"1"]) {

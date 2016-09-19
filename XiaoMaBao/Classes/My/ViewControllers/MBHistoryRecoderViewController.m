@@ -57,7 +57,7 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/history"] parameters:@{@"session":sessiondict,@"count":@"20",@"page":@"1"}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
-//                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//                   MMLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    [self dismiss];
                    _array= [responseObject valueForKeyPath:@"data"];
                   
@@ -72,7 +72,7 @@
              
                    
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    [self show:@"请求失败" time:1];
                }];
     
@@ -89,13 +89,13 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/chistory"] parameters:@{@"session":sessiondict}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
-//                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//                   MMLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    [self dismiss];
                    _array = @[];
                    [_tableView reloadData];
                     self.stateStr = @"暂无浏览记录";
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    [self show:@"请求失败" time:1];
                }];
 

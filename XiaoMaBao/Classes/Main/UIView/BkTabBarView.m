@@ -153,7 +153,7 @@
 }
 - (void) clickTap:(UIButton *) tabBarBtn{
     
-    if ([self.delegate respondsToSelector:@selector(tabBar:didSelectButtonFrom:to:)]) {
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(tabBar:didSelectButtonFrom:to:)]) {
         [self.delegate tabBar:self didSelectButtonFrom:self.currentButton.tag to:tabBarBtn.tag];
     }
      [self playBounceAnimation:tabBarBtn.imageView];

@@ -59,7 +59,7 @@
             
             NSDictionary *dic = responseObject.status;
             
-            NSLog(@"%@",dic);
+            MMLog(@"%@",dic);
             if ([dic[@"succeed"]isEqualToNumber:@1]) {
                 
                 [self show:@"密码修改成功,正在跳转首页" time:1];

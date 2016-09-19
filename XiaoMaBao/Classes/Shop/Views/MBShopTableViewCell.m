@@ -11,10 +11,7 @@
 #import "PhotoCollectionViewCell.h"
 @implementation MBShopTableViewCell
 
-- (void)awakeFromNib {
-    
-    //self.userInteractionEnabled  = YES;
-}
+
 -(void)setDic:(NSDictionary *)dic{
     _dic =dic;
     RatingBar *bar = [[RatingBar alloc] initWithFrame:CGRectMake(0, 0, 100, self.evaluationView.ml_height)];

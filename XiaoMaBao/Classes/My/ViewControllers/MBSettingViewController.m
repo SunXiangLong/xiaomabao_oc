@@ -47,16 +47,7 @@
     }
     return _lists;
 }
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBSettingViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBSettingViewController"];
-}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];

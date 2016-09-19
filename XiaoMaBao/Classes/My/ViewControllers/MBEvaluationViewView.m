@@ -59,7 +59,7 @@
 
 }
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
    _bar = [[RatingBar alloc] initWithFrame:CGRectMake(0, 0, 100, self.view.ml_height)];
     [self.view addSubview:_bar];
     

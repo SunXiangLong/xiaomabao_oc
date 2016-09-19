@@ -92,7 +92,7 @@
         
       
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
       
         
@@ -142,7 +142,7 @@
                
             }            
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            NSLog(@"%@",error);
+            MMLog(@"%@",error);
         }];
         
     }

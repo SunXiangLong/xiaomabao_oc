@@ -84,7 +84,7 @@
 }
 #pragma mark -- 请求数据
 - (void)setData{
-    
+   
     [self show];
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/AffordablePlanet/index2"];
     
@@ -128,15 +128,15 @@
                             UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                             
                             MBCheckInViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBCheckInViewController"];
-                            
-                            [self pushViewController:myView Animated:YES];
+                         [self presentViewController:myView animated:YES completion:nil];
+
                             
                         }
                             break;
                         case 1:{
                             UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                             MBSharkViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBSharkViewController"];
-                            [self pushViewController:myView Animated:YES];
+                            [self presentViewController:myView animated:YES completion:nil];
                             
                         }
                             break;
@@ -172,7 +172,7 @@
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         
         
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
         
         

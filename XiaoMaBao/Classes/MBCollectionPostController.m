@@ -25,18 +25,7 @@
 @end
 
 @implementation MBCollectionPostController
--(void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBCollectionPostController"];
-    
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBCollectionPostController"];
-    
-}
+
 -(NSMutableArray *)dataArray{
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];
@@ -71,7 +60,7 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/get_collect_post"];
    
     [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict,@"page":page} success:^(id responseObject) {
-//        NSLog(@"%@",responseObject);
+//        MMLog(@"%@",responseObject);
         [self dismiss];
         
         if (responseObject) {
@@ -95,7 +84,7 @@
         
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
     

@@ -77,7 +77,7 @@
         
          [self dismiss];
          [_tableView.mj_footer endRefreshing];
-          NSLog(@"%@",responseObject);
+          MMLog(@"%@",responseObject);
         if ([[responseObject valueForKeyPath:@"data"][@"result"] count] == 0) {
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
 
@@ -108,7 +108,7 @@
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
 }
@@ -118,7 +118,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
     [MBNetworking  POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_pic_wall"] parameters:@{@"session":sessiondict} success:^(id responseObject) {
-//      NSLog(@"%@",responseObject);
+//      MMLog(@"%@",responseObject);
         
         _imageArr = [@[[responseObject valueForKeyPath:@"data"][@"pic1"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic2"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic3"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic4"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic5"][@"photo"]] mutableCopy];
         
@@ -126,7 +126,7 @@
         [self setData:NO];
     
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
 
@@ -155,7 +155,7 @@
   
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
 }
@@ -381,7 +381,7 @@
             [controller setDelegate:self];
             [self presentViewController:controller animated:YES completion:nil];
         }else {
-            NSLog(@"%s %@", __FUNCTION__, @"相机权限受限");
+            MMLog(@"%s %@", __FUNCTION__, @"相机权限受限");
         }
     }];
     

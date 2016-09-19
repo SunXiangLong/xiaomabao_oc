@@ -73,7 +73,7 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/checkout"];
     
     [MBNetworking POSTOrigin:url parameters:parameter success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         [self dismiss];
         if (responseObject) {
             self.shop_name.text = [responseObject valueForKeyPath:@"product_name"];
@@ -92,7 +92,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
         [self popViewControllerAnimated:YES];
     }];
@@ -106,7 +106,7 @@
     NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/service/product_price/",_product_id];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-        NSLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         
         
         if (responseObject) {
@@ -140,7 +140,7 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     
     }];
@@ -157,7 +157,7 @@
         NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/submit_order"] parameters:@{@"session":sessiondict,@"product_id":self.product_id,@"product_number":_changeView.numberFD.text,@"mobile_phone":_user_photo.text,@"cards":self.cards}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
-                       NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+                       MMLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                        
                        [self dismiss];
                        NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
@@ -173,7 +173,7 @@
                      
         
                    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                       NSLog(@"%@",error);
+                       MMLog(@"%@",error);
                        [self show:@"请求失败" time:1];
                    }];
 

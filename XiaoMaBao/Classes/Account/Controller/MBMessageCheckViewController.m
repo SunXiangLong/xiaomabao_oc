@@ -57,7 +57,7 @@
         NSString *Md5 = [self.verifyField.text md5];
         NSString *phoneMd5 = self.phoneMd5;
         
-        NSLog(@"%@  == %@",Md5,phoneMd5);
+        MMLog(@"%@  == %@",Md5,phoneMd5);
         
         if ([phoneMd5 isEqualToString:Md5]) {
             

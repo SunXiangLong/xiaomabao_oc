@@ -11,9 +11,7 @@
 @implementation MBFreeStoreViewThreeCell
 
 - (void)awakeFromNib {
-//    self.showImageView .contentMode =  UIViewContentModeScaleAspectFill;
-//    self.showImageView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
-//    self.showImageView .clipsToBounds  = YES;
+    [super awakeFromNib];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -34,7 +34,7 @@
 - (void)setProgress:(CGFloat)progress
 {
     _progress = progress;
-//    NSLog(@"%@",[NSThread currentThread]);
+//    MMLog(@"%@",[NSThread currentThread]);
     //将重绘操作放在主线程，解决自动布局控制台报错的问题
     dispatch_async(dispatch_get_main_queue(), ^{
         

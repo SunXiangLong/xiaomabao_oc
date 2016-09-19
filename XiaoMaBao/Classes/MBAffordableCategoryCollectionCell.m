@@ -18,6 +18,8 @@
     if (self) {
         
         [self setUI];
+        
+        
     }
     
     return self;
@@ -27,8 +29,9 @@
   
     [self.contentView addSubview:({
          _showImageView = [[UIImageView alloc] init];
-        
-        
+        _showImageView.contentMode =  UIViewContentModeScaleAspectFill;
+        _showImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        _showImageView.clipsToBounds  = YES;
         _showImageView;
         
     })];
@@ -36,8 +39,6 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     _showImageView.frame = self.contentView.bounds;
-    
-    
     
 }
 -(void)setDataDic:(NSDictionary *)dataDic{

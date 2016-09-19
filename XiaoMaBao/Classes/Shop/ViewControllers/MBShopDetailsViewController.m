@@ -80,7 +80,7 @@
         NSIndexPath *indexPath = notificat.userInfo[@"indexPath"];
         NSString *image_height =  notificat.userInfo[@"image_height"];
         _heightArray[indexPath.row] = image_height;
-//        NSLog(@"%ld",(long)indexPath.row);
+//        MMLog(@"%ld",(long)indexPath.row);
         if (_isReload) {
             if (indexPath.row >= _oldRow) {
                [self.rmdTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
@@ -315,7 +315,7 @@
                    [self show:@"加入收藏成功" time:1];
                    
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    [self show:@"请求失败！" time:1];
                }];
     
@@ -342,7 +342,7 @@
   
         [self dismiss];
         self.GoodsDict = [responseObject valueForKeyPath:@"data"];
-//        NSLog(@"商品详情---%@",self.GoodsDict);
+//        MMLog(@"商品详情---%@",self.GoodsDict);
         
         
         NSArray *arr = [self.GoodsDict valueForKeyPath:@"goods_gallery"];
@@ -379,7 +379,7 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"失败");
+        MMLog(@"失败");
         [KVNProgress dismiss];
         
         
@@ -429,7 +429,7 @@
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsproperty"] parameters:@{@"goods_id":self.GoodsId}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
                    [self dismiss];
-                   NSLog(@"规格参数成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+                   MMLog(@"规格参数成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    _googBrandArray = [responseObject valueForKeyPath:@"data"];
                    
                    [self.infoTableView reloadData];

@@ -53,7 +53,7 @@
 }
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    NSLog(@"%ld",index);
+    MMLog(@"%ld",index);
     
 }
 

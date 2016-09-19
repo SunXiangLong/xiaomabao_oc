@@ -83,7 +83,11 @@
     [MBLogOperation guidePage:self.window];
     //消息数置0
      [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    //JSPatch 热修复
+    [JSPatch startWithAppKey:@"17ff2af963cfd7dd"];
+    [JSPatch sync];
 #if defined(DEBUG)||defined(_DEBUG)
+    [JSPatch setupDevelopment];
 //    [[JPFPSStatus sharedInstance] open];
 #endif
     

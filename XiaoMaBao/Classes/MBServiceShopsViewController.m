@@ -85,7 +85,7 @@
         [self dismiss];
         if ([responseObject count]>0) {
             
-            NSLog(@"%@",responseObject);
+            MMLog(@"%@",responseObject);
             _dataDic = responseObject;
             self.tableView.tableHeaderView = [self setTableHeadView];
             _dataArr = @[_dataDic[@"products"],_dataDic[@"comment"],_dataDic[@"other_shop"]];
@@ -99,7 +99,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     

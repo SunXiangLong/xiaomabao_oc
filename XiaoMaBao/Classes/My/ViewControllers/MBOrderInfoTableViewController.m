@@ -18,14 +18,10 @@
 @implementation MBOrderInfoTableViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    [self setNavigationBar];
-
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
-    
-   
+
     self.tableView.tableFooterView  = [[UIView alloc] init];
     
     [self getOrderInfo];
@@ -34,17 +30,28 @@
 
 
 - (void)getOrderInfo{
-   
+    [self show];
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_detail_new"];
+    NSDictionary *parameters ;
+    if (_order_id) {
+        url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_detail"];
+        parameters  = @{@"session":dict,@"order_id":self.order_id};
+    } else if(_parent_order_sn){
+        parameters = @{@"session":dict,@"order_sn":self.parent_order_sn};
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_detail"] parameters:@{@"session":dict,@"order_id":self.order_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    }
+    
+    MMLog(@"%@,%@",parameters,url)
+    
+    
+    [MBNetworking POST:url parameters:parameters  success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-        NSLog(@"%@",[responseObject valueForKeyPath:@"data"]);
         
         
-        
+        [self dismiss];
         NSDictionary * status = [responseObject valueForKeyPath:@"status"];
         if([status[@"succeed"] isEqualToNumber:@1]){
            _dataDic = [responseObject valueForKeyPath:@"data"];
@@ -55,7 +62,7 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"失败");
+        MMLog(@"失败");
     }];
 }
 
@@ -69,11 +76,9 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-   
     if (!_dataDic) {
         return 0;
     }
-    
     if([_dataDic[@"order_status"] isEqualToString:@"shipped"]||[_dataDic[@"order_status"] isEqualToString:@"finished"]){
     
         return 4;

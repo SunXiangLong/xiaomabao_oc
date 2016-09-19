@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BkBaseViewController.h"
 #import <JavaScriptCore/JavaScriptCore.h> //引入头文件
+#import <WebKit/WebKit.h>
 @protocol JavaScriptObjectiveCDelegate <JSExport>
 /**
  *  返回计算预产日期的界面

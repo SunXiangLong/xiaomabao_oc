@@ -90,7 +90,7 @@ NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/TaxfreeStore/
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
@@ -100,7 +100,7 @@ NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/TaxfreeStore/
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-      NSLog(@"%@",@"收到内存⚠️");
+      MMLog(@"%@",@"收到内存⚠️");
 }
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{

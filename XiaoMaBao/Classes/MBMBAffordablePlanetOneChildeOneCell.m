@@ -20,6 +20,7 @@
     objc_setAssociatedObject(self, @selector(currentIndexPath), currentIndexPath, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.showImageView .contentMode =  UIViewContentModeScaleAspectFill;
     self.showImageView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.showImageView .clipsToBounds  = YES;

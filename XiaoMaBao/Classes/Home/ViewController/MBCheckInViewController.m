@@ -12,7 +12,6 @@
 #import "MBSignaltonTool.h"
 #import "ZLDateView.h"
 #import "MBSignRoleView.h"
-#import "MobClick.h"
 @interface MBCheckInViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *calendarBottomView;
@@ -41,11 +40,18 @@
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
     fmt.dateFormat = @"yyyy年MM月";
     self.timeLbl.text = [fmt stringFromDate:date];
-    
+    self.automaticallyAdjustsScrollViewInsets = YES;
     [self refreshCalendarView];
     [self setupBottomView];
 }
+-(NSString *)leftImage{
+return @"nav_back";
 
+}
+-(void)leftTitleClick{
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+}
 - (void)setupBottomView{
     NSArray *bottomCalendarTitles = @[@"今天",@"签到成功"];
     
@@ -53,7 +59,6 @@
     CGFloat width = (self.calendarBottomView.ml_width - MARGIN_20) / count;
     
     for (NSInteger i = 0; i < count; i++) {
-        
         UIView *bottomRangeView = [[UIView alloc] init];
         bottomRangeView.frame = CGRectMake(i * width + MARGIN_20, 0, width, self.calendarBottomView.ml_height);
         [self.calendarBottomView addSubview:bottomRangeView];
@@ -103,16 +108,9 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    
-  
-    
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/get_sign_days"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-        
         NSArray *days = [responseObject.data valueForKey:@"days"];
         self.calendarView.datys = days;
-       
-        
-        
         if ([[responseObject.status valueForKey:@"error_code"] integerValue] > 0) {
             [self show:[responseObject.status valueForKey:@"error_desc"] time:1];
             return ;
@@ -179,7 +177,7 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/sign"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
         
-        NSLog(@"%@",responseObject.status);
+        MMLog(@"%@",responseObject.status);
         
         if ([[responseObject.status valueForKey:@"succeed"] integerValue] == 0) {
             [self show:responseObject.status[@"error_desc"] time:1];

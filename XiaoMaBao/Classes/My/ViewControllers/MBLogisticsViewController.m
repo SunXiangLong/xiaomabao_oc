@@ -31,7 +31,7 @@
     
     //http://m.kuaidi100.com/index_all.html?type=yuantong&postid=806113789439
     NSURL *url1 = [NSURL  URLWithString:[[NSString stringWithFormat:@"http://m.kuaidi100.com/index_all.html?type=%@&postid=%@",self.type,self.postid] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSLog(@"%@",url1);
+    MMLog(@"%@",url1);
     NSURLRequest* request = [NSURLRequest requestWithURL:url1 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0f];//创建NSURLRequest
     [_webView loadRequest:request];//加载
     [self.view insertSubview:_webView atIndex:0];
@@ -74,12 +74,12 @@
 //}
 //-(void)webView:(UIWebView*)webView DidFailLoadWithError:(NSError*)error{
 //    //当在请求加载中发生错误时，得到通知。会提供一个NSSError对象，以标识所发生错误类
-//    NSLog(@"%@",error);
+//    MMLog(@"%@",error);
 //    [self show:@"加载失败" time:1];
 //}
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
     
-    NSLog(@"%@",error);
+    MMLog(@"%@",error);
     [self show:@"加载失败" time:1];
 }
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{

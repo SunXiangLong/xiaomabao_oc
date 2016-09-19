@@ -37,6 +37,7 @@
     #import "iCarousel.h"
     #import "DateTools.h"
 #import <ShareSDK/ShareSDK.h>
+#import <JSPatch/JSPatch.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "STConfig.h"
 #import "MBBaseTableViewController.h"

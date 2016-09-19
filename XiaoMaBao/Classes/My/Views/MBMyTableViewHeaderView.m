@@ -18,7 +18,7 @@
 @implementation MBMyTableViewHeaderView
 
 - (void)awakeFromNib{
-    
+     [super awakeFromNib];
     //绘制顶部菜单
     UIView *headerView = [[UIView alloc] init];
     CGFloat width_all = [UIScreen mainScreen].bounds.size.width;
@@ -97,6 +97,7 @@
 }
 
 + (instancetype)instanceView{
+   
     return [[[NSBundle mainBundle] loadNibNamed:@"MBMyTableViewHeaderView" owner:nil options:nil] lastObject];
 }
 

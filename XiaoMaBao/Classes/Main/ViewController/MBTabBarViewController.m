@@ -26,7 +26,16 @@
 @end
 
 @implementation MBTabBarViewController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    // 移除系统自动产生的UITabBarButton
+    for (UIView *child in self.tabBar.subviews) {
+        if ([child isKindOfClass:[UIControl class]]) {
+            [child removeFromSuperview];
+        }
+    }
+    
+}
 - (BkTabBarView *)customTabBar{
     if (!_customTabBar) {
         BkTabBarView *customTabBar = [[BkTabBarView alloc] initWithFrame:self.tabBar.bounds];
@@ -45,7 +54,7 @@
         
       
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"失败");
+        MMLog(@"失败");
     }];
 }
 
@@ -58,16 +67,7 @@
           [self setupChilds];
     
 }
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    // 移除系统自动产生的UITabBarButton
-    for (UIView *child in self.tabBar.subviews) {
-        if ([child isKindOfClass:[UIControl class]]) {
-            [child removeFromSuperview];
-        }
-    }
-    
-}
+
 -(void)HYTPopViewControllerNotification{
   
     
@@ -139,8 +139,7 @@
 
 #pragma mark -BkTabBarViewDelegate 点击控制器跳转
 - (void)tabBar:(BkTabBarView *)tabBar didSelectButtonFrom:(NSInteger)from to:(NSInteger)to{
-   
- 
+
     self.selectedIndex = to;
     
 }

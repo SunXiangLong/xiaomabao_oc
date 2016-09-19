@@ -206,7 +206,7 @@
             CGFloat btnX = col * (btnW + margin) + margin + 10;
             CGFloat btnY = row * btnH - 20;
             CGRect frame = CGRectMake(btnX, btnY, btnW, btnH);
-            [[NSString stringWithFormat:@"%d",index] drawInRect:frame withAttributes:dict];
+            [[NSString stringWithFormat:@"%ld",(long)index] drawInRect:frame withAttributes:dict];
             [self.dateFrames addObject:[NSValue valueWithCGRect:frame]];
         }
     }

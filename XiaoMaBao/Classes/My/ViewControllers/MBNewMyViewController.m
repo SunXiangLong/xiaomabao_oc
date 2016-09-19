@@ -215,7 +215,7 @@
 }
 -(void)messageCountUpdated:(NSNumber*) data
 {
-    NSLog(@"count%@:",data);
+    MMLog(@"count%@:",data);
     
 }
 -(void)messageArrived:(NSDictionary*) data
@@ -223,10 +223,10 @@
     NSError* error = nil;
     NSData* source = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error];
     NSString* str = [NSJSONSerialization JSONObjectWithData:source options:NSJSONReadingMutableContainers error:&error];
-    NSLog(@"%@%@",@"Unicall message arrived.",str);
+    MMLog(@"%@%@",@"Unicall message arrived.",str);
     
     if([[data objectForKey:@"eventName"] isEqualToString:@"updateNewMessageCount"])
-        NSLog(@"count%@:",data);
+        MMLog(@"count%@:",data);
 }
 -(UIViewController*) currentViewController
 {

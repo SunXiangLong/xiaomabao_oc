@@ -43,7 +43,7 @@ int rsa_sign_with_private_key_pem(char *message, int message_length
 		BIO_free_all(bio_private);
 	}
 	else {
-		NSLog(@"rsa_private read error : private key is NULL");
+		MMLog(@"rsa_private read error : private key is NULL");
 	}
 
     return success;

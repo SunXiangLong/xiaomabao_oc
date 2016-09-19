@@ -34,6 +34,7 @@
     [_webView loadRequest:request];
     
 }
+
 /**
  *   删除cookie
  */
@@ -105,19 +106,14 @@
                     VC.act_id = dic[@"params"];;
                     [self pushViewController:VC Animated:YES];
                 }else if ([dic[@"type"] isEqualToString:@"showGroup"]){
-                    
                     MBGroupShopController *VC = [[MBGroupShopController alloc] init];
                     [self pushViewController:VC Animated:YES];
-                    
                 }
-
             });
-            
-            
-                   }];
+        }];
         context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
             context.exception = exceptionValue;
-            NSLog(@"异常信息：%@", exceptionValue);
+            MMLog(@"异常信息：%@", exceptionValue);
         };
     }
     
@@ -126,7 +122,7 @@
 }
 -(void)webView:(UIWebView*)webView DidFailLoadWithError:(NSError*)error{
     //当在请求加载中发生错误时，得到通知。会提供一个NSSError对象，以标识所发生错误类
-    NSLog(@"%@",error);
+    MMLog(@"%@",error);
     [self show:error.userInfo[@"NSLocalizedDescription"] time:1];
 }
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{

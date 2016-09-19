@@ -11,7 +11,7 @@
 #import "MBSignaltonTool.h"
 @implementation MBShoppingCartTableViewCell
 - (void)awakeFromNib {
-   
+   [super awakeFromNib];
         UIView *view = [[UIView alloc] init];
     
         [self addSubview:view];

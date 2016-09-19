@@ -113,18 +113,7 @@
                                       appKey:@"aER7I1TUxBFJzKEv"
                                     authType:SSDKAuthTypeBoth];
                  break;
-                 //             case SSDKPlatformTypeRenren:
-                 //                 [appInfo        SSDKSetupRenRenByAppId:@"226427"
-                 //                                                 appKey:@"fc5b8aed373c4c27a05b712acba0f8c3"
-                 //                                              secretKey:@"f29df781abdd4f49beca5a2194676ca4"
-                 //                                               authType:SSDKAuthTypeBoth];
-                 //                 break;
-                 //             case SSDKPlatformTypeGooglePlus:
-                 //                 [appInfo SSDKSetupGooglePlusByClientID:@"232554794995.apps.googleusercontent.com"
-                 //                                           clientSecret:@"PEdFgtrMw97aCvf0joQj7EMk"
-                 //                                            redirectUri:@"http://localhost"
-                 //                                               authType:SSDKAuthTypeBoth];
-                 //                 break;
+                
              default:
                  break;
          }

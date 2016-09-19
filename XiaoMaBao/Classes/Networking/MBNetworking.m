@@ -67,9 +67,9 @@ static AFHTTPSessionManager *mgr = nil;
     url = URLString;
     requestParams = [self stitchingParameter:parameters];
     [self logURL];
-    
+   
     return   [self.mgr POST:URLString parameters:requestParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-      
+        
         MBModel *model = [MBModel objectWithKeyValues:responseObject];
         success(task,model);
     } failure:failure];
@@ -129,7 +129,7 @@ static AFHTTPSessionManager *mgr = nil;
     paramStr = (NSMutableString *)[paramStr substringToIndex:(paramStr.length-1)];
     
     [getURL appendString:paramStr];
-    NSLog(@"完整的是：  %@", getURL);
+    MMLog(@"完整的是：  %@", getURL);
     
     
 }

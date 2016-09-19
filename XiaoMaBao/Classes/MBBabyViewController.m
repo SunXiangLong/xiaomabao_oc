@@ -279,7 +279,7 @@
         }
         
     } progress:^(NSProgress *progress) {
-        //        NSLog(@"%f",progress.fractionCompleted);
+        //        MMLog(@"%f",progress.fractionCompleted);
         self.progress = progress.fractionCompleted;
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
@@ -291,7 +291,7 @@
             [self show:@"保存失败" time:1];
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
     
@@ -312,7 +312,7 @@
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/info"] parameters:@{@"session":sessiondict}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
-                   //                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+                   //                   MMLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    
                    [self show:@"保存成功" time:1];
                    
@@ -323,7 +323,7 @@
                    
                    
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    [self show:@"请求失败" time:1];
                }];
 }
@@ -373,7 +373,7 @@
                                            }
                                        }
                                      cancelBlock:^(ActionSheetStringPicker *picker) {
-                                         NSLog(@"Block Picker Canceled");
+                                         MMLog(@"Block Picker Canceled");
                                      }
                                           origin:_genderTextFie];
    
@@ -451,7 +451,7 @@
                    if(1 == [[responseObject valueForKey:@"status"]  intValue]){
                        [self dismiss];
                        NSArray *arr = [responseObject valueForKeyPath:@"data"];
-                       //                      NSLog(@"%@",arr);
+                       //                      MMLog(@"%@",arr);
                        
                        
                        for (NSDictionary *dic in arr) {
@@ -479,7 +479,7 @@
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    
                }
      ];
@@ -507,7 +507,7 @@
                        [self dismiss];
                        NSDictionary *userData = [responseObject valueForKeyPath:@"data"];
                        NSArray *arr = userData[@"result"];
-                       //                       NSLog(@"%@",arr);
+                       //                       MMLog(@"%@",arr);
                        
                        
                        if (_page==1) {
@@ -590,7 +590,7 @@
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    
                }
      ];
@@ -680,7 +680,7 @@
         view1.touxiang.image = self.photo;
     }else{
         
-        //        NSLog(@"11122233444");
+        //        MMLog(@"11122233444");
     }
     
     view1.touxiang.contentMode =  UIViewContentModeScaleAspectFill;

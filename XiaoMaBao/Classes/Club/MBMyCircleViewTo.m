@@ -10,10 +10,7 @@
 
 @implementation MBMyCircleViewTo
 
--(void)awakeFromNib{
-    
-    
-}
+
 + (instancetype)instanceView{
     return [[[NSBundle mainBundle] loadNibNamed:@"MBMyCircleViewTo" owner:nil options:nil] lastObject];
 }

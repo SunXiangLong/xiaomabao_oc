@@ -104,7 +104,7 @@
         parameters:@{@"session":sessiondict,@"old_password":[self.oldFld.text md5],@"new_password":[self.pwd1.text md5]}
         success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
             NSDictionary * status_dict = [responseObject valueForKey:@"status"];
-            NSLog(@"success:%@",status_dict);
+            MMLog(@"success:%@",status_dict);
             [self dismiss];
             if([[status_dict valueForKeyPath:@"succeed"] isEqualToNumber:@0]){
                 [self show:[status_dict valueForKeyPath:@"error_desc"] time:1];
@@ -143,9 +143,9 @@
     BOOL pass = [SFHFKeychainUtils storeUsername:@"Password" andPassword:password forServiceName:@"com.xiaomabao.Password" updateExisting:YES error:&errors];
     
     if (!pass) {
-        NSLog(@"❌Keychain保存密码时出错：%@",errors);
+        MMLog(@"❌Keychain保存密码时出错：%@",errors);
     }else{
-        NSLog(@"✅Keychain保存密码成功！");
+        MMLog(@"✅Keychain保存密码成功！");
     }
     
 }

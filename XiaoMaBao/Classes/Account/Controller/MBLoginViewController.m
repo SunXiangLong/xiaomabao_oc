@@ -176,7 +176,7 @@
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
                
                
-               NSLog(@"%lu",(unsigned long)state);
+               MMLog(@"%lu",(unsigned long)state);
                
                
                [self thirdLogin:state user:user sign_type:@"qq"];
@@ -236,7 +236,7 @@
             
         }else{
             
-            NSLog(@"%@",error);
+            MMLog(@"%@",error);
             
             [self show:@"请求失败" time:1];
         }
@@ -289,16 +289,19 @@
         NSDictionary * status = responseObject.status;
         
         
-        if([status[@"succeed"] isEqualToNumber:@1]){
+        if([status[@"succeed"] isEqualToNumber:@1]&&responseObject.data[@"phoneCode"]){
             
-            NSDictionary * data = responseObject.data;
-            self.md5Encryption = data[@"phoneCode"];
+            self.md5Encryption = responseObject.data[@"phoneCode"];
             
-            NSLog(@"%@",self.md5Encryption);
+            MMLog(@"%@",self.md5Encryption);
             
             
         }else{
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:status[@"error_desc"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+            NSString *message = @"系统繁忙，请稍后再试";
+            if (status[@"error_desc"]) {
+                message = status[@"error_desc"];
+            }
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
             [alert show];
         }
         
@@ -342,7 +345,7 @@
         
         
         [self show:@"请求失败，请重试" time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         
         
     }];

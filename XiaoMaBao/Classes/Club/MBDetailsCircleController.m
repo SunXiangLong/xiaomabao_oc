@@ -82,7 +82,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_circle_info"];
     [MBNetworking   POSTOrigin:url parameters:@{@"circle_id":self.circle_id,@"page":page} success:^(id responseObject) {
         
-//      NSLog(@"%@",responseObject);
+//      MMLog(@"%@",responseObject);
         [self dismiss];
         
         if (responseObject) {
@@ -112,7 +112,7 @@
         
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
 
@@ -159,7 +159,7 @@
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
     

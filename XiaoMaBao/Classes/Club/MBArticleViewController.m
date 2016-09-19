@@ -45,7 +45,7 @@
 - (void)loadData{
     [self show];
     
-    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/index.php/voice/voice_list") parameters:@{@"page":s_Integer(_page),@"keyword":_keyword} success:^(id responseObject) {
+    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/voice/voice_list") parameters:@{@"page":s_Integer(_page),@"keyword":_keyword} success:^(id responseObject) {
         [self dismiss];
         
          [self.tableView .mj_footer endRefreshing];
@@ -60,10 +60,11 @@
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
            
         }
-        NSLog(@"%@",self.dataArr);
+        MMLog(@"%@",self.dataArr);
         [self.tableView reloadData];
 
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
 

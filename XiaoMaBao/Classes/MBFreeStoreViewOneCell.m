@@ -19,6 +19,7 @@
 @implementation MBFreeStoreViewOneCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     UICollectionViewFlowLayout *flowLayout =  [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     flowLayout.minimumLineSpacing = 5;

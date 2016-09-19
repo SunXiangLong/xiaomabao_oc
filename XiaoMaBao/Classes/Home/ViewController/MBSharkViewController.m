@@ -49,13 +49,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.automaticallyAdjustsScrollViewInsets = YES;
     [self getSwingTimes:NO];//获取摇奖次数
     [self getPrizeUser];//获取中奖信息
-    
-
 }
-
 - (void)getPrizeUser{
     MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
     
@@ -111,7 +108,14 @@
         }];
     }
 }
-
+-(NSString *)leftImage{
+    return @"nav_back";
+    
+}
+-(void)leftTitleClick{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
 - (void)showSharkWinning:(BOOL)winning{
     UIView *sharkView = [[UIView alloc] init];
     sharkView.backgroundColor = [UIColor whiteColor];
@@ -205,13 +209,13 @@
 #pragma mark - 摇一摇相关方法
 // 摇一摇开始摇动
 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    NSLog(@"开始摇动");
+    MMLog(@"开始摇动");
     return;
 }
 
 // 摇一摇取消摇动
 - (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    NSLog(@"取消摇动");
+    MMLog(@"取消摇动");
     return;
 }
 

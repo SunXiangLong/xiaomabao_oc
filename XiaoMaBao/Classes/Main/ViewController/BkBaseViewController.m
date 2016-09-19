@@ -82,7 +82,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.view.backgroundColor = [UIColor whiteColor];
     [self.navigationController.navigationBar removeFromSuperview];
 
@@ -220,7 +220,9 @@
 }
 -(void)show{
     _nav.pan.enabled = NO;
-    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+
+    UIView *view = [[UIApplication   sharedApplication] keyWindow];
+    HUD = [[MBProgressHUD alloc] initWithView:view];
     [self.navigationController.view addSubview:HUD];
     dispatch_async(dispatch_get_main_queue(), ^{
         [HUD show:YES];
@@ -230,8 +232,8 @@
 }
 -(void)show:(NSString *)str{
     _nav.pan.enabled = NO;
-//    views = UIApplication.sharedApplication().keyWindow
-    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    UIView *view = [[UIApplication   sharedApplication] keyWindow];
+    HUD = [[MBProgressHUD alloc] initWithView:view];
     [self.navigationController.view addSubview:HUD];
     HUD.labelText = str;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -242,7 +244,8 @@
 
 -(void)show:(NSString *)str time:(NSInteger)timer{
        _nav.pan.enabled = NO;
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    UIView *view = [[UIApplication   sharedApplication] keyWindow];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeText;
     hud.labelText = str;
     hud.removeFromSuperViewOnHide = YES;
@@ -283,10 +286,8 @@
 }
 -(void)dealloc{
    
-    NSLog(@"%@销毁了",[NSString stringWithUTF8String:object_getClassName(self)]);
+    MMLog(@"%@销毁了",[NSString stringWithUTF8String:object_getClassName(self)]);
 
-
-    
 }
 
 @end

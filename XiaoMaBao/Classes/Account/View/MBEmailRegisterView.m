@@ -27,6 +27,7 @@
 }
 
 - (void)awakeFromNib{
+    [super awakeFromNib];
     CGRect leftViewRect     = CGRectMake(0, 0, 75, 12);
     MBRegisterFieldRightViewButton *accountLeftView = [MBRegisterFieldRightViewButton buttonWithType:UIButtonTypeCustom];
     accountLeftView.frame   = leftViewRect;

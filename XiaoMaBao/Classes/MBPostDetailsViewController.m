@@ -76,24 +76,7 @@
 
 @implementation MBPostDetailsViewController
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    if (_isDismiass) {
-        
-        if (_commentsArray.count<20) {
-            _page =1;
-        }
-        
-        
-        _poster =  @"1";
-        _isImage = @"1";
-         [self setData];
-      
-    }
-   
-    
-}
+
 
 - (NSMutableArray *)commentsArray{
     if (!_commentsArray) {
@@ -215,33 +198,28 @@
 
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        //        NSLog(@"%@",responseObject);
+        //        MMLog(@"%@",responseObject);
         [_tableView.mj_footer endRefreshing];
         if (responseObject) {
             
             if (_isDismiass) {
               
                     NSDictionary *dataDic = [[responseObject valueForKeyPath:@"comments"] lastObject];
+                
+                
                     NSDictionary *dic = _commentsArray.lastObject;
                 
-                if ([dic[@"comment_id"]isEqualToString:dataDic[@"comment_id"]]) {
+                if (!dataDic&&[dic[@"comment_id"]isEqualToString:dataDic[@"comment_id"]]) {
                      _isDismiass = !_isDismiass;
                     return ;
                 }
                     [_commentsArray addObject:dataDic];
                 
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:self.commentsArray.count-1];
-                    
-            
                     [self.tableView reloadData];
-                    
                     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-                _isRefresh =YES;
+                    _isRefresh =YES;
                     _isDismiass = !_isDismiass;
-                    
-                 
-                    
-                
                    return ;
                 
             }
@@ -282,7 +260,7 @@
         [self show:@"没有相关数据" time:1];
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
@@ -315,7 +293,7 @@
         self.collectionButton.enabled = YES;
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
 }
@@ -348,7 +326,7 @@
         self.collectionButton.enabled = YES;
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
 }
@@ -456,7 +434,21 @@
     VC.title   = [NSString stringWithFormat:@"回复%@:",@"楼主"];
     VC.post_id = self.post_id;
     VC.comment_reply_id  = @"0";
+    WS(weakSelf)
+    VC.successEvaluation = ^(){
+        
+        if (weakSelf.isDismiass) {
+            
+            if (weakSelf.commentsArray.count<20) {
+                weakSelf.page =1;
+            }
+            weakSelf.poster =  @"1";
+            weakSelf.isImage = @"1";
+            [weakSelf setData];
+            
+        }
     
+    };
     [self pushViewController:VC Animated:YES];
    
     

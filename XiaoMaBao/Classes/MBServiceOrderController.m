@@ -38,7 +38,7 @@
         return;
     }
     [MBNetworking POSTOrigin:url parameters:@{@"session":sessiondict,@"order_id":self.order_id} success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         if (responseObject) {
             _dataDic = responseObject;
             
@@ -46,7 +46,7 @@
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
 }

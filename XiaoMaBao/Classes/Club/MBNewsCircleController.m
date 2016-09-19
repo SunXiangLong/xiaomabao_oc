@@ -75,7 +75,7 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/get_notification"];
     
     [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict,@"page":page} success:^(id responseObject) {
-//        NSLog(@"%@",responseObject);
+//        MMLog(@"%@",responseObject);
         [self dismiss];
         
         if (responseObject) {
@@ -100,7 +100,7 @@
         
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
     

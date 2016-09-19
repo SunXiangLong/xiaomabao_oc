@@ -128,16 +128,16 @@
 #pragma mark - audio delegate
 
 -(void) audioPlayer:(STKAudioPlayer*)audioPlayer didStartPlayingQueueItemId:(NSObject*)queueItemId{
-    NSLog(@"%@",@"开始111");
+    MMLog(@"%@",@"开始111");
 }
 /// Raised when an item has finished buffering (may or may not be the currently playing item)
 /// This event may be raised multiple times for the same item if seek is invoked on the player
 -(void) audioPlayer:(STKAudioPlayer*)audioPlayer didFinishBufferingSourceWithQueueItemId:(NSObject*)queueItemId{
-NSLog(@"%@",@"开始33333");
+MMLog(@"%@",@"开始33333");
 }
 /// Raised when the state of the player has changed
 -(void) audioPlayer:(STKAudioPlayer*)audioPlayer stateChanged:(STKAudioPlayerState)state previousState:(STKAudioPlayerState)previousState{
-NSLog(@"%@",@"结束");
+MMLog(@"%@",@"结束");
 }
 /// Raised when an item has finished playing
 -(void) audioPlayer:(STKAudioPlayer*)audioPlayer didFinishPlayingQueueItemId:(NSObject*)queueItemId withReason:(STKAudioPlayerStopReason)stopReason andProgress:(double)progress andDuration:(double)duration{

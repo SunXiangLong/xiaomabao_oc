@@ -104,7 +104,7 @@
                success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
                    ;
-                   //                   NSLog(@"%@",responseObject.data);
+                   //                   MMLog(@"%@",responseObject.data);
                    [self.tableView.mj_header endRefreshing];
                    
                    if ([[responseObject valueForKeyPath:@"data"] count]>0) {
@@ -124,7 +124,7 @@
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    [self.tableView.mj_header endRefreshing];
                    
                }
@@ -151,7 +151,7 @@
                success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
                    ;
-//                    NSLog(@"%@",responseObject.data);
+//                    MMLog(@"%@",responseObject.data);
                    
                    if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                        _promptLable.hidden = YES;
@@ -180,7 +180,7 @@
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    [self.tableView .mj_header endRefreshing];
                    
                }

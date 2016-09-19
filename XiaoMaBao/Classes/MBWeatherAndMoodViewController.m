@@ -73,7 +73,7 @@
     [MBNetworking POST:url parameters:@{@"session":sessiondict}
                success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
-            NSLog(@"%@ %@",[responseObject valueForKey:@"status"],responseObject.data);
+            MMLog(@"%@ %@",[responseObject valueForKey:@"status"],responseObject.data);
                    
                    
                    if(1 == [[responseObject valueForKey:@"status"]  intValue]){
@@ -82,7 +82,7 @@
                           self.topLabletext.text = @"分享到那个圈子？";
                        self.infoArray = (NSArray *)responseObject.data;
                        
-                       NSLog(@"%@",_infoArray);
+                       MMLog(@"%@",_infoArray);
                        
                        
                        
@@ -93,7 +93,7 @@
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    
                }
      ];

@@ -11,6 +11,7 @@
 @implementation MBCategoryViewOneCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.showImagaeView .contentMode =  UIViewContentModeScaleAspectFill;
     self.showImagaeView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.showImagaeView .clipsToBounds  = YES;

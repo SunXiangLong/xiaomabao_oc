@@ -85,7 +85,7 @@
             [alert show];
         }
     } failure:^(NSURLSessionDataTask *asdfg, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
     
@@ -94,7 +94,7 @@
     NSString *url2 = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/phoneCode"];
     [MBNetworking POST:url2 parameters:@{@"name":userText,@"type":@"1"} success:^(NSURLSessionDataTask *asd, MBModel *responseObject) {
         [self dismiss];
-        NSLog(@"%@",responseObject.data);
+        MMLog(@"%@",responseObject.data);
         self.phoneCodeMd5 = [responseObject.data valueForKey:@"phoneCode"];
         if ([responseObject.status[@"succeed"] integerValue] == 1) {
             UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message: [NSString stringWithFormat:@"已发短信至手机号:%@请注意查收", self.accountField.text] delegate:self cancelButtonTitle:@"下一步" otherButtonTitles:nil, nil];
@@ -141,7 +141,7 @@
         MBMessageCheckViewController *controller = segue.destinationViewController;
         controller.phoneNumber = self.accountField.text;
         controller.phoneMd5 = self.phoneCodeMd5;
-        NSLog(@"%@",self.phoneCodeMd5);
+        MMLog(@"%@",self.phoneCodeMd5);
     }
 }
 

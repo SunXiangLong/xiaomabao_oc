@@ -18,6 +18,7 @@
 #import "MBCollectionPostController.h"
 #import "MBVoiceViewController.h"
 #import "MBArticleViewController.h"
+#import "MBArticleCollectViewController.h"
 @interface MBMyCircleController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     
@@ -43,13 +44,13 @@
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBMyCircleController"];
+    
     _isDimiss    = YES;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBMyCircleController"];
+    
     if (_isDimiss) {
         
         [self.recommendArray removeAllObjects];
@@ -89,7 +90,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.tableView.tableFooterView = [[UIView alloc] init];
 
     [self setShufflingFigureData];
     @weakify(self);
@@ -154,6 +155,11 @@
                     [ self  loginClicksss];
                     return ;
                 }
+                
+                
+                
+                MBArticleCollectViewController *VC = [[MBArticleCollectViewController alloc] init];
+                [self pushViewController:VC Animated:YES];
             }break;
             case 3:
             {
@@ -162,7 +168,8 @@
                 return ;
             }
                 MBCollectionPostController *VC = [[MBCollectionPostController alloc] init];
-                [self pushViewController:VC Animated:YES]; } break;
+                [self pushViewController:VC Animated:YES];
+            } break;
                 
             default:
                 break;
@@ -195,7 +202,7 @@
         [self show:@"没有相关数据" time:1];
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
@@ -212,16 +219,11 @@
         
         [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
             [self dismiss];
-//          NSLog(@"%@",responseObject);
             if (responseObject) {
                 [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
                 
                 _tableView.tableHeaderView = [self setHeaderView];
                
-                _tableView.delegate = self;
-                _tableView.dataSource = self;
-                
-                
                 [self.tableView reloadData];
                 return ;
                 
@@ -230,7 +232,7 @@
             [self show:@"没有相关数据" time:1];
             
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            NSLog(@"%@",error);
+            MMLog(@"%@",error);
             [self show:@"请求失败" time:1];
         }];
         
@@ -239,28 +241,23 @@
         
         [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict} success:^(id responseObject) {
            [self dismiss];
-//          NSLog(@"%@",responseObject);
+//          MMLog(@"%@",responseObject);
             if (responseObject) {
                 
                 [self.myCircleArray addObjectsFromArray:[responseObject valueForKeyPath:@"user_circle"]];
                 [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
                 _tableView.tableHeaderView = [self setHeaderView];
                 [self myCircleDefaults];
-                
-                _tableView.delegate = self;
-                _tableView.dataSource = self;
                 [self.tableView reloadData];
                 return ;
                 
             }
             
             [self show:@"没有相关数据" time:1];
-            
-            
-            
+
         }failure:^(NSURLSessionDataTask *operation, NSError *error) {
             [self show:@"请求失败 " time:1];
-            NSLog(@"%@",error);
+            MMLog(@"%@",error);
         }];
         
     }
@@ -305,7 +302,7 @@
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
     
@@ -377,18 +374,18 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if (section==0) {
-        if (_myCircleArray.count ==0) {
+        if (self.myCircleArray.count ==0) {
             NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
             if (sid) {
                 return 1;
             }
         }
        
-        return  _myCircleArray.count;
+        return  self.myCircleArray.count;
         
         
     }else{
-        return _recommendArray.count;
+        return self.recommendArray.count;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -396,7 +393,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section==0) {
-        if (_myCircleArray.count == 0) {
+        if (self.myCircleArray.count == 0) {
             NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
             if (sid) {
                 return 41;
@@ -407,7 +404,7 @@
         return 41;
     }
     
-    if (_recommendArray.count == 0) {
+    if (self.recommendArray.count == 0) {
         return 0;
     }
     return 41;
@@ -473,24 +470,19 @@
     
     if (indexPath.section ==1) {
         cell.user_button.selected = NO;
-        
     }else{
         cell.user_button.selected = YES;
         if (_myCircleArray.count==0) {
             cell.noLable.hidden = NO;
-            cell.selectionStyle =  UITableViewCellSelectionStyleNone;
             cell.exclusiveTouch = NO;
             return cell;
         }
     }
-    if (indexPath.row >_recommendArray.count&&_recommendArray.count > 0) {
-        
-        return cell;
-    }
-   
-    NSDictionary *dic = _recommendArray[indexPath.row] ;
+    
+   MMLog(@"%ld---%ld",self.recommendArray.count,indexPath.row)
+    NSDictionary *dic = self.recommendArray[indexPath.row];
     if (indexPath.section ==0) {
-        dic = _myCircleArray[indexPath.row];
+        dic = self.myCircleArray[indexPath.row];
     }
   
     cell.indexPath = indexPath;
@@ -498,9 +490,6 @@
     cell.user_name.text = dic[@"circle_name"];
     cell.user_center.text = dic[@"circle_desc"];
     [cell.user_image sd_setImageWithURL:[NSURL URLWithString:dic[@"circle_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-    
- 
-    
     @weakify(self);
     [[cell.myCircleCellSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSIndexPath *indexPath) {
         @strongify(self);
@@ -518,10 +507,7 @@
         }else{
        
              [self setJoin_circle:_recommendArray[indexPath.row][@"circle_id"] indexPath:indexPath];
-            
         }
-       
-        
     }];
     
     return cell;
@@ -529,6 +515,12 @@
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (_myCircleArray.count==0) {
+    
+        return;
+    
+    }
     _isDimiss = YES;
     NSDictionary *dic;
     if (indexPath.section == 0) {

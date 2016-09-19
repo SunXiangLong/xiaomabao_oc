@@ -11,7 +11,7 @@
 @implementation ApplyTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+   [super awakeFromNib];
     
 }
 

@@ -9,7 +9,11 @@
 #import "MBBaseTableViewController.h"
 
 @interface MBBaseTableViewController ()
-
+{
+    
+    MBProgressHUD *HUD;
+    
+}
 @end
 
 @implementation MBBaseTableViewController
@@ -56,6 +60,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
+-(void)show{
+   
+    
+    UIView *view = [[UIApplication   sharedApplication] keyWindow];
+    HUD = [[MBProgressHUD alloc] initWithView:view];
+    [self.navigationController.view addSubview:HUD];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [HUD show:YES];
+    });
+    
+    
+}
+-(void)dismiss{
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [HUD hide:YES];
+    });
+}
 @end

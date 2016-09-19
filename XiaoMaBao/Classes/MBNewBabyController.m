@@ -341,7 +341,7 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_user_toolkit_v2"];
     [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
         
-//        NSLog(@"%@",responseObject);
+//        MMLog(@"%@",responseObject);
         
         if (refresh) {
             self.dataArray[1] = [responseObject valueForKeyPath:@"data"];
@@ -357,7 +357,7 @@
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
     
@@ -385,7 +385,7 @@
     [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
         [self dismiss];
         _isPregnant = [[responseObject valueForKeyPath:@"type"] isEqualToString:@"pregnant"];
-        NSLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         if (date) {
 
             _day_info = [responseObject valueForKeyPath:@"day_info"];
@@ -427,7 +427,7 @@
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
     
@@ -452,7 +452,7 @@
         
             [self setTableHeadView:_day_info];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            NSLog(@"%@",error);
+            MMLog(@"%@",error);
             [self show:@"请求失败！" time:1];
         }];
 }
@@ -954,7 +954,7 @@
             [controller setDelegate:self];
             [self presentViewController:controller animated:YES completion:nil];
         }else {
-            NSLog(@"%s %@", __FUNCTION__, @"相机权限受限");
+            MMLog(@"%s %@", __FUNCTION__, @"相机权限受限");
         }
     }];
     

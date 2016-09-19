@@ -155,7 +155,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/checkout"] parameters:@{@"session":sessiondict,@"address_id":_address_id}success:^(NSURLSessionDataTask *operation, id responseObject) {
-//           NSLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
+//           MMLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
         
         [self dismiss];
         if ([[responseObject valueForKeyPath:@"status"][@"succeed"] isEqualToNumber:@1]) {
@@ -192,7 +192,7 @@
         
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    [self show:@"请求失败！" time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    
                }
      ];
@@ -989,7 +989,7 @@
             }
         }
         
-        NSLog(@"%@",_cards);
+        MMLog(@"%@",_cards);
         
         
         [self beforeCreateOrder];
@@ -1008,7 +1008,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/checkout"] parameters:@{@"session":sessiondict,@"cards":self.cards}success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-//        NSLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
+//        MMLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
         
         NSMutableArray * infoDict = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_list"];
         
@@ -1046,7 +1046,7 @@
      
                failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    [self show:@"请求失败！" time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    
                }
      ];
@@ -1101,7 +1101,7 @@
     NSArray *arr = [_name.text componentsSeparatedByString:@"："];
     NSString *name = arr[1];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/done"]parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":@"0",@"inv_content":@"",@"inv_payee" :@"",@"real_name":name,@"identity_card":_identity_card,@"cards":self.cards}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/done_new"]parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":@"0",@"inv_content":@"",@"inv_payee" :@"",@"real_name":name,@"identity_card":_identity_card,@"cards":self.cards}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
                  
                    [self dismiss];
@@ -1110,8 +1110,7 @@
                    
                    if ([responseObject valueForKeyPath:@"data"]) {
                        VC.orderInfo = [responseObject valueForKeyPath:@"data"][@"order_info"];
-                       NSLog(@"%@",VC.orderInfo);
-
+                       MMLog(@"%@",VC.orderInfo);
                        VC.type = @"1";
                        [self.navigationController pushViewController:VC animated:YES];
                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCart" object:nil];
@@ -1122,7 +1121,7 @@
                    }
                    
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   NSLog(@"----%@",error);
+                   MMLog(@"----%@",error);
                  [self show:@"请求失败！" time:1];
                   
                    
@@ -1264,7 +1263,7 @@
                    
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    [self show:@"使用失败" time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    
                }];
     
@@ -1345,10 +1344,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     params = @{@"real_name":name, @"identity_card":_cardTextField.text,@"uid":uid,@"sid":sid,@"session":sessiondict};
         [MBNetworking POST:url parameters:params success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-        
-     
-            
-            
+   
             NSString *str = [responseObject valueForKeyPath:@"msg"];
             if ([str isEqualToString:@"绑定成功"]) {
                 [self show:str time:1];
@@ -1366,7 +1362,7 @@
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         
         
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         
         [self show:@"验证失败" time:1];
         

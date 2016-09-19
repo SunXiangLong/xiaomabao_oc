@@ -45,6 +45,7 @@
 }
 
 - (void)awakeFromNib{
+    [super awakeFromNib];
     [self xwp_initailizeProperty];
     [self xwp_initializeUI];
 }

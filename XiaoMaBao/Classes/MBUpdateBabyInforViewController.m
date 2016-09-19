@@ -153,7 +153,7 @@
                                            }
                                        }
                                      cancelBlock:^(ActionSheetStringPicker *picker) {
-                                         NSLog(@"Block Picker Canceled");
+                                         MMLog(@"Block Picker Canceled");
                                      }
                                           origin:sender];
     // You can also use self.view if you don't have a sender
@@ -271,7 +271,7 @@
 -(void)setBirthday:(id)sender
 {
     NSDate *selected = [_babyBirthdayDate date];
-    NSLog(@"date: %@", selected);
+    MMLog(@"date: %@", selected);
 }
 
 - (void)saveProfile:(UIButton *)sender{
@@ -292,12 +292,12 @@
         }
         
     } progress:^(NSProgress *progress) {
-        NSLog(@"%f",progress.fractionCompleted);
+        MMLog(@"%f",progress.fractionCompleted);
     } success:^(NSURLSessionDataTask *task, MBModel *responseObject) {
         [self show:@"保存成功" time:1];
         [self popViewControllerAnimated:YES];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];}
 - (NSString *)titleStr{
@@ -329,18 +329,18 @@
 
 - (void)cameraWillTakePhoto
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+    MMLog(@"%s", __PRETTY_FUNCTION__);
 }
 
 - (void)cameraDidSavePhotoAtPath:(NSURL *)assetURL
 {
     // When this method is implemented, an image will be saved on the user's device
-    NSLog(@"%s album path: %@", __PRETTY_FUNCTION__, assetURL);
+    MMLog(@"%s album path: %@", __PRETTY_FUNCTION__, assetURL);
 }
 
 - (void)cameraDidSavePhotoWithError:(NSError *)error
 {
-    NSLog(@"%s error: %@", __PRETTY_FUNCTION__, error);
+    MMLog(@"%s error: %@", __PRETTY_FUNCTION__, error);
 }
 
 #pragma mark - TGCameraDelegate required
@@ -433,7 +433,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
   

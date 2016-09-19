@@ -19,7 +19,7 @@
 #import "MBNewFreeStoreViewController.h"
 #import "MBNewAffordablePlanetViewController.h"
 #import "DataSigner.h"
-
+#import "MBMaBaoFeaturesCollectionViewController.h"
 @interface MBNewHomeViewController ()<UIScrollViewDelegate,UnicallDelegate>
 {
     
@@ -41,18 +41,13 @@
     }
     return _titleButtons;
 }
--(void)viewWillDisappear:(BOOL)animated
-{
-    
-    [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBNewHomeViewController"];
-}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     
     [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBNewHomeViewController"];
-    
+
+
     NSDictionary *userInfo = [User_Defaults valueForKeyPath:@"userInfo"];
     if (userInfo) {
         NSString *type = userInfo[@"type"];
@@ -83,10 +78,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
 
-    
     [[Unicall singleton] attach:self appKey:UNICALL_APPKEY tenantId:UNICALL_TENANID];
     
     self.view.backgroundColor = [UIColor whiteColor];
@@ -102,9 +94,16 @@
     VC1.title = @"实惠星球";
     [self addChildViewController:VC1];
     
-    MBNewFreeStoreViewController *VC3 = [[MBNewFreeStoreViewController alloc] init];
-    VC3.title = @"全球闪购";
+    MBNewFreeStoreViewController *VC2 = [[MBNewFreeStoreViewController alloc] init];
+    VC2.title = @"全球闪购";
+    [self addChildViewController:VC2];
+    
+    
+    MBMaBaoFeaturesCollectionViewController *VC3 =   [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBMaBaoFeaturesCollectionViewController"];
+    VC3.title = @"麻包特色";
+    VC3.rootVC = self;
     [self addChildViewController:VC3];
+    
 }
 - (void)setupTitlesView
 {
@@ -112,19 +111,23 @@
     
     NSArray *segmentArray = @[
                              @"实惠星球",
-                             @"全球闪购"
+                             @"全球闪购",
+                             @"麻包特色"
                               ];
     // 初始化UISegmentedControl
     UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:segmentArray];
-    segmentControl.frame = CGRectMake((UISCREEN_WIDTH-200)/2, 27, 200, 25);
     // 设置默认选择项索引
     segmentControl.selectedSegmentIndex = 0;
     segmentControl.tintColor = [UIColor whiteColor];
-
     // 设置指定索引的题目
     [segmentControl addTarget:self action:@selector(didClickSegmentedControlAction:)forControlEvents:UIControlEventValueChanged];
     [segmentControl setTitleTextAttributes:@{NSFontAttributeName:YC_RTWSYueRoud_FONT(15)} forState:UIControlStateNormal];
     [self.navBar addSubview:_segmentControl = segmentControl];
+    [segmentControl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(8);
+        make.centerX.mas_equalTo(0);
+    }];
+    
 
 
 }
@@ -157,7 +160,7 @@
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 - (NSString *)rightImage{
-return @"search_image";
+    return @"search_image";
 }
 
 - (void)rightTitleClick{
@@ -167,7 +170,7 @@ return @"search_image";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    NSLog(@"%@",@"收到内存⚠️");
+    MMLog(@"%@",@"收到内存⚠️");
     SDWebImageManager *mgr = [SDWebImageManager sharedManager];
     [mgr cancelAll];
     [mgr.imageCache clearMemory];
@@ -250,10 +253,10 @@ return @"search_image";
     NSError* error = nil;
     NSData* source = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error];
     NSString* str = [NSJSONSerialization JSONObjectWithData:source options:NSJSONReadingMutableContainers error:&error];
-    NSLog(@"%@%@",@"Unicall message arrived.",str);
+    MMLog(@"%@%@",@"Unicall message arrived.",str);
     
     if([[data objectForKey:@"eventName"] isEqualToString:@"updateNewMessageCount"])
-        NSLog(@"count%@:",data);
+        MMLog(@"count%@:",data);
 }
 -(UIViewController*) currentViewController
 {

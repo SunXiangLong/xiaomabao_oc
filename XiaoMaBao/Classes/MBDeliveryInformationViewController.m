@@ -122,7 +122,7 @@
      [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/submitLogistics"] parameters:@{@"session":sessiondict,@"order_id":_order_id,@"logistics_no":_CourierNumber.text,@"logistics_cost":str}success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-       // NSLog(@"填写运单号成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+       // MMLog(@"填写运单号成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
  
         
         [self show:[responseObject valueForKeyPath:@"status"][@"error_desc"] time:1];
@@ -142,7 +142,7 @@
         
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败！" time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         
     }
      ];

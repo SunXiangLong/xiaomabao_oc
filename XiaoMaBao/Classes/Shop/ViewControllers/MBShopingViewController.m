@@ -103,9 +103,7 @@
         return;
     }
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/list_count"] parameters:@{@"session":session}
-     
                success:^(NSURLSessionDataTask *operation, id responseObject) {
-//                  NSLog(@"成功：%@",[responseObject valueForKeyPath:@"data"]);
                    NSInteger status = [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] integerValue];
                    if(status == 1){
                        NSString * list_count = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKey:@"list_count"]];
@@ -127,7 +125,7 @@
                    
                    
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   NSLog(@"失败");
+                   MMLog(@"失败");
                    
                }];
 }
@@ -237,7 +235,7 @@
        
          [self dismiss];
         self.GoodsDict = [responseObject valueForKeyPath:@"data"];
-//      NSLog(@"商品详情---%@",self.GoodsDict);
+//      MMLog(@"商品详情---%@",self.GoodsDict);
         
         
         NSArray *arr = [self.GoodsDict valueForKeyPath:@"goods_gallery"];
@@ -266,7 +264,7 @@
         
         self.carriage_fee = [self.GoodsDict valueForKeyPath:@"carriage_fee"];
         self.salesnum = [self.GoodsDict valueForKeyPath:@"salesnum"];
-       // NSLog(@"self.goods_desc---%@",self.goods_desc);
+       // MMLog(@"self.goods_desc---%@",self.goods_desc);
         dispatch_async(dispatch_get_main_queue(), ^{
             
             // 商品内容ScrollView
@@ -288,7 +286,7 @@
         
        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
       
         [self show:@"请求失败" time:1];
           
@@ -618,7 +616,7 @@
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
     NSDictionary *pagination =[NSDictionary dictionaryWithObjectsAndKeys:page,@"page",@"10",@"count", nil];;
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/comments"] parameters:@{@"goods_id":self.GoodsId,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, id responseObject) {
-//            NSLog(@"获取评论成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//            MMLog(@"获取评论成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
             [self dismiss];
             
             NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
@@ -634,7 +632,7 @@
             
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
        
-            NSLog(@"%@",error);
+            MMLog(@"%@",error);
             [self show:@"请求失败" time:1];
             [self addItem2View];
         }];
@@ -1021,11 +1019,11 @@
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
         
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/addtocart"] parameters:@{@"session":dict, @"goods_id":self.GoodsId,@"number":@"1",@"spec":@""} success:^(NSURLSessionDataTask *operation, id responseObject) {
-           // NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
+           // MMLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
             
             
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            NSLog(@"失败");
+            MMLog(@"失败");
         }];
         
         joinCartVc.isBuy = YES;
@@ -1077,7 +1075,7 @@
                    [self show:@"加入收藏成功" time:1];
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
     
@@ -1094,7 +1092,7 @@
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsproperty"] parameters:@{@"goods_id":self.GoodsId}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
                        [self dismiss];
-//                       NSLog(@"规格参数成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//                       MMLog(@"规格参数成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                        _googBrandArray = [responseObject valueForKeyPath:@"data"];
                        [self addItem1View];
                        
@@ -1121,7 +1119,7 @@
     [self.navigationController pushViewController:shoppingCartVc animated:YES];
 }
 -(void)timeFireMethod:(NSTimer *)timer{
-    //    NSLog(@"倒计时-1");
+    //    MMLog(@"倒计时-1");
     //倒计时-1
     
     lettTimes--;

@@ -60,7 +60,7 @@ return @"收货地址";
         _addressListArr = [responseObject valueForKeyPath:@"data"];
         [_tableView reloadData];
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     

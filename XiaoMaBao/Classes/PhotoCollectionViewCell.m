@@ -11,7 +11,7 @@
 @implementation PhotoCollectionViewCell
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
     self.image.userInteractionEnabled = YES;
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress)];
     longPress.minimumPressDuration = 0.8;

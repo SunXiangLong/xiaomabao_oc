@@ -74,7 +74,7 @@
     NSString *str1 = [str stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSArray *arr = [str1 componentsSeparatedByString:@"_title_"];
-    NSLog(@"%@",str);
+    MMLog(@"%@",str);
     
     if ([url isEqual:_url]) {
         return YES;
@@ -103,7 +103,7 @@
 }
 -(void)webView:(UIWebView*)webView DidFailLoadWithError:(NSError*)error{
     //当在请求加载中发生错误时，得到通知。会提供一个NSSError对象，以标识所发生错误类
-    NSLog(@"%@",error);
+    MMLog(@"%@",error);
     [self show:@"加载失败" time:1];
 }
 -(NSString *)titleStr{

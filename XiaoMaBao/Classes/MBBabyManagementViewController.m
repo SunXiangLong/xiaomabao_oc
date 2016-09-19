@@ -101,7 +101,7 @@ return @"dian_image";
                    if(1 == [[responseObject valueForKey:@"status"]  intValue]){
                     
                        NSDictionary *userData = [responseObject valueForKeyPath:@"status"];
-                       NSLog(@"%@",userData);
+                       MMLog(@"%@",userData);
                     
                        self.block(self.indexPath);
                        [self popViewControllerAnimated:YES];
@@ -110,7 +110,7 @@ return @"dian_image";
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    
                }
      ];

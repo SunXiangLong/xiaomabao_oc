@@ -11,7 +11,7 @@
 #import "MBNewWebViewController.h"
 #import "SFHFKeychainUtils.h"
 #import "MBLogOperation.h"
-@interface MBBabyDueDateController ()
+@interface MBBabyDueDateController ()<CAAnimationDelegate>
 {
     /**
      * 点击预产期计算器为Yes， 点击保存为NO
@@ -60,7 +60,7 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/set_mengbao_info"];
     [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
  
-        NSLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         NSString *status =  s_str([responseObject valueForKeyPath:@"status"]);
         if ([status isEqualToString:@"1"]) {
             
@@ -88,7 +88,7 @@
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
     
@@ -198,12 +198,12 @@
 }
 //动画开始时
 - (void)animationDidStart:(CAAnimation *)anim{
-//    NSLog(@"开始了");
+//    MMLog(@"开始了");
 }
 //动画结束时
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
     //方法中的flag参数表明了动画是自然结束还是被打断,比如调用了removeAnimationForKey:方法或removeAnimationForKey方法，flag为NO，如果是正常结束，flag为YES。
-//    NSLog(@"结束了");
+//    MMLog(@"结束了");
     if (_isCalculation) {
         self.top_view.transform = CGAffineTransformMakeScale(1 ,1);
         self.view_height.constant = 90;

@@ -45,7 +45,7 @@
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_detail"] parameters:@{@"session":dict,@"order_id":self.order_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-        NSLog(@"%@",[responseObject valueForKeyPath:@"data"]);
+        MMLog(@"%@",[responseObject valueForKeyPath:@"data"]);
 
         
         
@@ -78,7 +78,7 @@
         [_tableView reloadData];
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"失败");
+        MMLog(@"失败");
     }];
 }
 

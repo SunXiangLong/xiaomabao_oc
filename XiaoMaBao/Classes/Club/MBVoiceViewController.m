@@ -56,7 +56,7 @@
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
             
         }
-        NSLog(@"%@",self.dataArr);
+        MMLog(@"%@",self.dataArr);
         [self.tableView reloadData];
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
@@ -142,6 +142,7 @@
     MBArticleDetailViewController *VC = [[MBArticleDetailViewController alloc] init];
     VC.url = URL(_dataArr[indexPath.section][@"url"]);
     VC.title = _dataArr[indexPath.section][@"title"];
+    VC.dataDic = _dataArr[indexPath.section];
     [self pushViewController:VC Animated:YES];
     
 }

@@ -125,7 +125,7 @@
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-         NSLog(@"%@",responseObject);
+         MMLog(@"%@",responseObject);
         
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
@@ -139,7 +139,7 @@
         [self show:@"没有相关数据" time:1];
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
@@ -258,7 +258,7 @@
         
         [MBNetworking   POSTOrigin:str parameters:@{@"page":page,@"keyword":self.searchString} success:^(id responseObject) {
             [self dismiss];
-            NSLog(@"%@",responseObject);
+            MMLog(@"%@",responseObject);
             if (responseObject) {
                 if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                     if (_page ==1) {
@@ -287,7 +287,7 @@
             
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
             [self show:@"请求失败 " time:1];
-            NSLog(@"%@",error);
+            MMLog(@"%@",error);
         }];
     }
 

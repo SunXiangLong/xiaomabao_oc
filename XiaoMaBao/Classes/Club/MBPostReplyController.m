@@ -189,13 +189,14 @@
             if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
                 
                 [self dismiss];
+                self.successEvaluation();
                 [self popViewControllerAnimated:YES];
             }else{
                 
                 [self show:@"保存失败" time:1];
             }
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            NSLog(@"%@",error);
+            MMLog(@"%@",error);
             [self show:@"请求失败！" time:1];
         }];
     
@@ -315,7 +316,7 @@
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
-    // NSLog(@"%@",image);
+    // MMLog(@"%@",image);
     
     [self dismissViewControllerAnimated:YES completion:^{
         

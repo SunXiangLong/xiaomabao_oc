@@ -83,7 +83,7 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/set_mengbao_info"];
     [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
         
-        NSLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         NSString *status =  s_str([responseObject valueForKeyPath:@"status"]);
         if ([status isEqualToString:@"1"]) {
             [MBLogOperation loginAuthentication:nil success:^{
@@ -96,7 +96,7 @@
                     
                 }else{
                     
-                    NSLog(@"%@",error);
+                    MMLog(@"%@",error);
                     
                     [self show:@"请求失败" time:1];
                 }
@@ -109,7 +109,7 @@
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
     
