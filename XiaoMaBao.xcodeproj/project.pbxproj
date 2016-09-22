@@ -729,8 +729,6 @@
 		9FB1BD861D8FD8310033D12B /* MBBrandDetailsCollectionViewReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB1BD841D8FD8310033D12B /* MBBrandDetailsCollectionViewReusableView.m */; };
 		9FB1BD891D8FE9E80033D12B /* MBBrandDetailsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FB1BD871D8FE9E80033D12B /* MBBrandDetailsViewController.h */; };
 		9FB1BD8A1D8FE9E80033D12B /* MBBrandDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB1BD881D8FE9E80033D12B /* MBBrandDetailsViewController.m */; };
-		9FD6E4F21D8FBB8E00E7A37B /* UIImageView+AspectFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FD6E4F01D8FBB8E00E7A37B /* UIImageView+AspectFill.h */; };
-		9FD6E4F31D8FBB8E00E7A37B /* UIImageView+AspectFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FD6E4F11D8FBB8E00E7A37B /* UIImageView+AspectFill.m */; };
 		AA9F03CF1B8EEA110072D39A /* MBSignRoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9F03CE1B8EEA110072D39A /* MBSignRoleView.m */; };
 		B3C9001AC99E335042846E0A /* libPods-XiaoMaBao.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B55EAB0FEA8B4021C94070 /* libPods-XiaoMaBao.a */; };
 /* End PBXBuildFile section */
@@ -1852,8 +1850,6 @@
 		9FB1BD841D8FD8310033D12B /* MBBrandDetailsCollectionViewReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBrandDetailsCollectionViewReusableView.m; sourceTree = "<group>"; };
 		9FB1BD871D8FE9E80033D12B /* MBBrandDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBrandDetailsViewController.h; sourceTree = "<group>"; };
 		9FB1BD881D8FE9E80033D12B /* MBBrandDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBrandDetailsViewController.m; sourceTree = "<group>"; };
-		9FD6E4F01D8FBB8E00E7A37B /* UIImageView+AspectFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AspectFill.h"; sourceTree = "<group>"; };
-		9FD6E4F11D8FBB8E00E7A37B /* UIImageView+AspectFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AspectFill.m"; sourceTree = "<group>"; };
 		AA9F03CD1B8EEA110072D39A /* MBSignRoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSignRoleView.h; sourceTree = "<group>"; };
 		AA9F03CE1B8EEA110072D39A /* MBSignRoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSignRoleView.m; sourceTree = "<group>"; };
 		D1B55EAB0FEA8B4021C94070 /* libPods-XiaoMaBao.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-XiaoMaBao.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2197,8 +2193,6 @@
 				48ED9FBD1AF74A250076A4CD /* UIButton+MBIBnspectable.m */,
 				94D456CA1CCDAFFB00752DDA /* UILabel+MBIBInspectable.h */,
 				94D456CB1CCDAFFB00752DDA /* UILabel+MBIBInspectable.m */,
-				9FD6E4F01D8FBB8E00E7A37B /* UIImageView+AspectFill.h */,
-				9FD6E4F11D8FBB8E00E7A37B /* UIImageView+AspectFill.m */,
 			);
 			name = "Category(分类)";
 			path = Category;
@@ -3907,7 +3901,6 @@
 				944BBB601CF53AE300B9492E /* MBAffordablePlanetViewCell.h in Headers */,
 				941691B21D066C6200442741 /* MBBabyDueDateController.h in Headers */,
 				941BCEC41D64619A00B4C67E /* MBVideoViewCell.h in Headers */,
-				9FD6E4F21D8FBB8E00E7A37B /* UIImageView+AspectFill.h in Headers */,
 				943D22221D767F10004ECC02 /* MBArticleCollectViewController.h in Headers */,
 				94833A8A1D05162500CF4DF2 /* MBabyRecordOneCell.h in Headers */,
 				948E7ED31D012E0A00ECEB7D /* MBSetBabyInformationController.h in Headers */,
@@ -4425,7 +4418,6 @@
 				48F9F4F01B01F71200ED4A5D /* BkTabBarButton.m in Sources */,
 				48ED9FC11AF774BB0076A4CD /* MBRegisterFieldRightViewButton.m in Sources */,
 				94E9A45B1C8FB4280002E15E /* UIColor+XWAdd.m in Sources */,
-				9FD6E4F31D8FBB8E00E7A37B /* UIImageView+AspectFill.m in Sources */,
 				48B97A921B28A13D00F4B641 /* MBReceiptAddressTableViewCell.m in Sources */,
 				941309DF1CEC17A00056379A /* MBAdvert.m in Sources */,
 				48E6E4951B25FED400B3556E /* MBRealNameAuthViewController.m in Sources */,
@@ -4946,11 +4938,11 @@
 				CODE_SIGN_ENTITLEMENTS = XiaoMaBao/XiaoMaBao.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: lianqi liu (2H49VWW5ME)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: lianqi liu (2H49VWW5ME)";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoMaBao/alipay",
-					"$(PROJECT_DIR)/XiaoMaBao/libraries/extends/QQSDK",
 					"$(PROJECT_DIR)/XiaoMaBao/libraries",
 					"$(PROJECT_DIR)/XiaoMaBao",
 					"$(PROJECT_DIR)",
@@ -4973,8 +4965,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoMaBao",
-					"$(PROJECT_DIR)/XiaoMaBao/libraries/extends/SinaWeiboSDK",
-					"$(PROJECT_DIR)/XiaoMaBao/libraries/extends/WeChatSDK",
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Other/lib",
 					"$(PROJECT_DIR)/XiaoMaBao/alipay",
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Other/UnicallSDK",
@@ -5010,6 +5000,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaomabao.APPxiaomabao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "8684f268-c825-4df6-920a-ccf244230476";
+				PROVISIONING_PROFILE_SPECIFIER = "Pus-APPxioamabao";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -5025,13 +5016,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = XiaoMaBao/XiaoMaBao.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: lianqi liu (2H49VWW5ME)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: lianqi liu (2H49VWW5ME)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Xiaomabao Information Technology Co.,Ltd. (6Q52DP5P8X)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Xiaomabao Information Technology Co.,Ltd. (6Q52DP5P8X)";
+				DEVELOPMENT_TEAM = 6Q52DP5P8X;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoMaBao/alipay",
-					"$(PROJECT_DIR)/XiaoMaBao/libraries/extends/QQSDK",
 					"$(PROJECT_DIR)/XiaoMaBao/libraries",
 					"$(PROJECT_DIR)/XiaoMaBao",
 					"$(PROJECT_DIR)",
@@ -5054,8 +5045,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoMaBao",
-					"$(PROJECT_DIR)/XiaoMaBao/libraries/extends/SinaWeiboSDK",
-					"$(PROJECT_DIR)/XiaoMaBao/libraries/extends/WeChatSDK",
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Other/lib",
 					"$(PROJECT_DIR)/XiaoMaBao/alipay",
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Other/UnicallSDK",
@@ -5090,7 +5079,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaomabao.APPxiaomabao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8684f268-c825-4df6-920a-ccf244230476";
+				PROVISIONING_PROFILE = "a1cdb9e5-60e2-4092-be47-7a4d6f99ac84";
+				PROVISIONING_PROFILE_SPECIFIER = "pus-fabuxiaomabo";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};

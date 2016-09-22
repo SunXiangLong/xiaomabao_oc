@@ -2183,7 +2183,7 @@
         <scene sceneID="Yie-6n-yEN">
             <objects>
                 <collectionViewController storyboardIdentifier="MBMaBaoFeaturesCollectionViewController" id="7Zp-mv-5VS" customClass="MBMaBaoFeaturesCollectionViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="9vE-yv-vvt">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="9vE-yv-vvt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2361,7 +2361,7 @@
         <scene sceneID="rgg-TX-kmK">
             <objects>
                 <collectionViewController storyboardIdentifier="MBBrandDetailsCollectionViewController" id="DE3-KG-3fR" customClass="MBBrandDetailsCollectionViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="mIa-7G-zoj">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="mIa-7G-zoj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
