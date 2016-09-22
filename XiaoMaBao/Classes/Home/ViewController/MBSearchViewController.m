@@ -292,12 +292,9 @@
    
     NSArray *subViews;
     
-    if (iOS_7) {
-        subViews = [(_SearchBar.subviews[0]) subviews];
-    }
-    else {
-        subViews = _SearchBar.subviews;
-    }
+    
+    subViews = [(_SearchBar.subviews[0]) subviews];
+   
     
     for (id view in subViews) {
         if ([view isKindOfClass:[UIButton class]]) {

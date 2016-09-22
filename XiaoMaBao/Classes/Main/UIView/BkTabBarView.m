@@ -73,11 +73,9 @@
  */
 - (void)setupBg
 {
-    if (!iOS_7) {
-        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tabbar_background"]];
-    }else{
-        self.backgroundColor = [UIColor whiteColor];
-    }
+    
+    self.backgroundColor = [UIColor whiteColor];
+    
 }
 
 /**

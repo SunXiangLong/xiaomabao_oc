@@ -10,8 +10,6 @@
 #import "PhotoCollectionViewCell.h"
 #import "LGPhotoPickerViewController.h"
 #import "LGPhoto.h"
-#import "MBWeatherTableViewCell.h"
-#import "MBWeatherAndMoodViewController.h"
 @interface MBPostReplyController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SDPhotoBrowserDelegate,PhotoCollectionViewCellDelegate,LGPhotoPickerViewControllerDelegate>
 {
     /**

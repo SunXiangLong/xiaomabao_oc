@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,52 +13,50 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FcY-4f-mwu">
-                    <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="width" id="qhg-bv-hZO"/>
+                    </constraints>
                     <state key="normal" image="mm_voiceanswers"/>
                     <connections>
                         <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="C2I-lE-vcf"/>
                     </connections>
                 </button>
                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kax-iL-MkS">
-                    <rect key="frame" x="80" y="0.0" width="80" height="100"/>
                     <state key="normal" image="mm_expertarticle"/>
                     <connections>
                         <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="6n7-kH-RYL"/>
                     </connections>
                 </button>
                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhS-CJ-Ac7">
-                    <rect key="frame" x="240" y="0.0" width="80" height="100"/>
                     <state key="normal" image="mm_postcollect"/>
                     <connections>
                         <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="gNV-A0-Uqo"/>
                     </connections>
                 </button>
                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZ5-pt-bs1">
-                    <rect key="frame" x="160" y="0.0" width="80" height="100"/>
                     <state key="normal" image="mm_articleCollect"/>
                     <connections>
                         <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="H7z-Fu-wNg"/>
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Kax-iL-MkS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3Hg-fY-u1a"/>
-                <constraint firstAttribute="bottom" secondItem="NhS-CJ-Ac7" secondAttribute="bottom" id="3yF-9x-Kvy"/>
-                <constraint firstItem="NZ5-pt-bs1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="4AO-M3-YJA"/>
-                <constraint firstItem="NhS-CJ-Ac7" firstAttribute="width" secondItem="FcY-4f-mwu" secondAttribute="width" id="4MS-Jd-Ee5"/>
-                <constraint firstAttribute="bottom" secondItem="FcY-4f-mwu" secondAttribute="bottom" id="8wB-Fe-Wck"/>
-                <constraint firstAttribute="bottom" secondItem="NZ5-pt-bs1" secondAttribute="bottom" id="9jY-hx-VI3"/>
-                <constraint firstItem="Kax-iL-MkS" firstAttribute="width" secondItem="FcY-4f-mwu" secondAttribute="width" id="EXu-Ht-ACe"/>
-                <constraint firstItem="Kax-iL-MkS" firstAttribute="leading" secondItem="FcY-4f-mwu" secondAttribute="trailing" id="Eo1-dR-GuJ"/>
-                <constraint firstItem="NZ5-pt-bs1" firstAttribute="leading" secondItem="Kax-iL-MkS" secondAttribute="trailing" id="Q4F-tx-F2P"/>
-                <constraint firstItem="FcY-4f-mwu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="U0T-PO-mB4"/>
-                <constraint firstItem="NhS-CJ-Ac7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="YF9-JD-yvt"/>
-                <constraint firstAttribute="bottom" secondItem="Kax-iL-MkS" secondAttribute="bottom" id="bWR-Je-Dmj"/>
-                <constraint firstAttribute="trailing" secondItem="NhS-CJ-Ac7" secondAttribute="trailing" id="eTh-67-5ye"/>
-                <constraint firstItem="FcY-4f-mwu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ggF-RX-TzD"/>
-                <constraint firstItem="NhS-CJ-Ac7" firstAttribute="leading" secondItem="NZ5-pt-bs1" secondAttribute="trailing" id="mMo-ZU-k47"/>
-                <constraint firstItem="NZ5-pt-bs1" firstAttribute="width" secondItem="FcY-4f-mwu" secondAttribute="width" id="r6x-EG-30n"/>
+                <constraint firstItem="FcY-4f-mwu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3IG-OK-0Bi"/>
+                <constraint firstAttribute="bottom" secondItem="FcY-4f-mwu" secondAttribute="bottom" id="7vN-Nj-w3s"/>
+                <constraint firstItem="NhS-CJ-Ac7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="83q-6O-TPy"/>
+                <constraint firstAttribute="bottom" secondItem="Kax-iL-MkS" secondAttribute="bottom" id="88O-2j-qj8"/>
+                <constraint firstAttribute="bottom" secondItem="NZ5-pt-bs1" secondAttribute="bottom" id="B34-Qw-iPG"/>
+                <constraint firstItem="NZ5-pt-bs1" firstAttribute="width" secondItem="Kax-iL-MkS" secondAttribute="width" id="FnM-Uv-ZWE"/>
+                <constraint firstItem="NhS-CJ-Ac7" firstAttribute="leading" secondItem="NZ5-pt-bs1" secondAttribute="trailing" id="Vzl-pF-aAd"/>
+                <constraint firstItem="Kax-iL-MkS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="X6a-WN-iI4"/>
+                <constraint firstItem="Kax-iL-MkS" firstAttribute="leading" secondItem="FcY-4f-mwu" secondAttribute="trailing" id="XL4-TT-BqL"/>
+                <constraint firstAttribute="bottom" secondItem="NhS-CJ-Ac7" secondAttribute="bottom" id="YMB-je-p7j"/>
+                <constraint firstItem="NZ5-pt-bs1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="aT7-iV-IUd"/>
+                <constraint firstItem="FcY-4f-mwu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="h3S-2U-iHV"/>
+                <constraint firstAttribute="trailing" secondItem="NhS-CJ-Ac7" secondAttribute="trailing" id="hvy-lg-DxN"/>
+                <constraint firstItem="NZ5-pt-bs1" firstAttribute="leading" secondItem="Kax-iL-MkS" secondAttribute="trailing" id="p3e-bx-5ul"/>
+                <constraint firstItem="NhS-CJ-Ac7" firstAttribute="width" secondItem="Kax-iL-MkS" secondAttribute="width" id="tug-Hz-O5W"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

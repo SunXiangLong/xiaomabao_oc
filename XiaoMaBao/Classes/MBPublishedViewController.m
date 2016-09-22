@@ -10,8 +10,7 @@
 #import "PhotoCollectionViewCell.h"
 #import "LGPhotoPickerViewController.h"
 #import "LGPhoto.h"
-#import "MBWeatherTableViewCell.h"
-#import "MBWeatherAndMoodViewController.h"
+
 @interface MBPublishedViewController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SDPhotoBrowserDelegate,PhotoCollectionViewCellDelegate,LGPhotoPickerViewControllerDelegate>
 {
     NSMutableArray *_photoArray;

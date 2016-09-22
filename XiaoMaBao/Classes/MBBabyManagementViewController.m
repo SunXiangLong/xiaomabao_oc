@@ -20,19 +20,7 @@
 @end
 
 @implementation MBBabyManagementViewController
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBBabyManagementViewController"];
-    
-    
-    
-}
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBBabyManagementViewController"];
-    
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setCollerctonView];
@@ -49,8 +37,6 @@
     flowLayout.itemSize = CGSizeMake((UISCREEN_WIDTH-60)/3,(UISCREEN_WIDTH-60)/3);
     
     flowLayout.sectionInset = UIEdgeInsetsMake(5, 15, 5, 15);
-//    flowLayout.minimumInteritemSpacing =5;
-//    flowLayout.minimumLineSpacing =5;
     _collectionView.collectionViewLayout = flowLayout;
      _collectionView.alwaysBounceVertical = YES;
     _collectionView.delegate = self;

@@ -21,7 +21,6 @@
 #import "MBLoginViewController.h"
 #import "MBBabyToolCell.h"
 #import "MBCollectionViewFlowLayout.h"
-#import "TGCameraNavigationController.h"
 #import "STPhotoKitController.h"
 #import "UIImagePickerController+ST.h"
 #import "MBPostDetailsViewController.h"

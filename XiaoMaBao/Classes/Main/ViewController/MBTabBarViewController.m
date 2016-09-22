@@ -11,14 +11,14 @@
 #import "MBShoppingCartViewController.h"
 #import "MBNewMyViewController.h"
 #import "BkTabBarView.h"
-#import "MBBabyViewController.h"
+#import "MBNewBabyController.h"
 #import "MBServiceHomeViewController.h"
 #import "MBNewHomeViewController.h"
 #import "MBNewCanulcircleController.h"
 #import "MBVideoPlaybackViewController.h"
 @interface MBTabBarViewController () <BkTabBarViewDelegate>{
     NSArray* _TeMaiArarry;
-    NSMutableArray* menuIds ;
+   
 }
 
 @property (nonatomic, weak)BkTabBarView *customTabBar;
@@ -85,17 +85,8 @@
 
 - (void) setupChilds{
     
-    MBBabyViewController *babyVC = [[MBBabyViewController alloc] init];
+    MBNewBabyController *babyVC = [[MBNewBabyController alloc] init];
     [self setupChildVC:babyVC title:@"萌宝" imageName:@"lovyeBab_image" selectedImageName:@"loveBaby_image"];
-
-    
-    menuIds =[NSMutableArray arrayWithCapacity:_TeMaiArarry.count];
-    
-    for (NSDictionary* dic in _TeMaiArarry) {
-        [menuIds addObject:dic[@"menu_id"]];
-    }
-   
-
     
     MBServiceHomeViewController *serviceVc = [[MBServiceHomeViewController alloc] init];
     [self setupChildVC:serviceVc title:@"服务" imageName:@"ser_image" selectedImageName:@"serSelect_image"];
@@ -121,9 +112,9 @@
     childVc.tabBarItem.image = [UIImage imageNamed:imageName];
     
     UIImage *selectedImage = [UIImage imageNamed:selectedImageName];
-    if (iOS_7) { // 如果是iOS7, 不需要渲染图片
-        selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    }
+    
+    selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
 
     // 设置选中的图片
     childVc.tabBarItem.selectedImage = selectedImage;

@@ -2183,7 +2183,7 @@
         <scene sceneID="Yie-6n-yEN">
             <objects>
                 <collectionViewController storyboardIdentifier="MBMaBaoFeaturesCollectionViewController" id="7Zp-mv-5VS" customClass="MBMaBaoFeaturesCollectionViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="9vE-yv-vvt">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="9vE-yv-vvt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2361,19 +2361,19 @@
         <scene sceneID="rgg-TX-kmK">
             <objects>
                 <collectionViewController storyboardIdentifier="MBBrandDetailsCollectionViewController" id="DE3-KG-3fR" customClass="MBBrandDetailsCollectionViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="mIa-7G-zoj">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="mIa-7G-zoj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Fuy-hY-V2B">
                             <size key="itemSize" width="277" height="369"/>
-                            <size key="headerReferenceSize" width="50" height="109"/>
+                            <size key="headerReferenceSize" width="50" height="110"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MBBrandDetailsCollectionViewCell" id="WSu-LV-BuG" customClass="MBBrandDetailsCollectionViewCell">
-                                <rect key="frame" x="49" y="109" width="277" height="369"/>
+                                <rect key="frame" x="49" y="110" width="277" height="369"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="277" height="369"/>
@@ -2438,7 +2438,7 @@
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" reuseIdentifier="MBBrandDetailsCollectionViewReusableView" id="a6a-p8-X2g" customClass="MBBrandDetailsCollectionViewReusableView">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="109"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="13z-jR-ycK">
@@ -2448,6 +2448,7 @@
                                     </constraints>
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0rX-ek-Wx2">
+                                    <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="25" id="0F2-tw-w9m"/>
                                         <constraint firstAttribute="width" constant="1" id="jyb-tP-dRP"/>
@@ -2477,6 +2478,7 @@
                                 <constraint firstItem="0rX-ek-Wx2" firstAttribute="leading" secondItem="13z-jR-ycK" secondAttribute="trailing" constant="18" id="4nA-fp-tvR"/>
                                 <constraint firstItem="13z-jR-ycK" firstAttribute="leading" secondItem="a6a-p8-X2g" secondAttribute="leading" constant="20" id="KYR-oF-Yfo"/>
                                 <constraint firstItem="OWQ-aM-QGa" firstAttribute="leading" secondItem="13z-jR-ycK" secondAttribute="leading" id="Rjy-4G-bl5"/>
+                                <constraint firstAttribute="bottom" secondItem="OWQ-aM-QGa" secondAttribute="bottom" constant="10" id="T8M-sJ-eoY"/>
                                 <constraint firstItem="13z-jR-ycK" firstAttribute="top" secondItem="a6a-p8-X2g" secondAttribute="top" constant="15" id="YHt-D3-OxH"/>
                                 <constraint firstItem="z4Q-71-g5L" firstAttribute="leading" secondItem="0rX-ek-Wx2" secondAttribute="trailing" constant="18" id="Zsg-hg-e4f"/>
                                 <constraint firstItem="OWQ-aM-QGa" firstAttribute="top" secondItem="13z-jR-ycK" secondAttribute="bottom" constant="15" id="gYV-v0-r6L"/>
@@ -2496,7 +2498,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qVq-1e-Eiq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2134" y="-2487"/>
+            <point key="canvasLocation" x="-2135.1999999999998" y="-2487.7061469265368"/>
         </scene>
         <!--Phonetic Detail Table View Controller-->
         <scene sceneID="0aF-oV-P2o">

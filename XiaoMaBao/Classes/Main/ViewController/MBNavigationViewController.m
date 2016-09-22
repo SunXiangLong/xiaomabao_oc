@@ -25,18 +25,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (iOS_7) {
-        self.pan = [[UIPanGestureRecognizer alloc] init];
-        //  用KVC取出target和action
-        NSArray *internalTargets = [self.interactivePopGestureRecognizer valueForKey:@"targets"];
-        id internalTarget = [internalTargets.firstObject valueForKey:@"target"];
-        SEL internalAction = NSSelectorFromString(@"handleNavigationTransition:");
-        self.pan .delegate = self;
-        [self.pan  addTarget:internalTarget action:internalAction];
-        self.interactivePopGestureRecognizer.enabled = NO;
-        [self.view addGestureRecognizer: self.pan];
+    
+    self.pan = [[UIPanGestureRecognizer alloc] init];
+    //  用KVC取出target和action
+    NSArray *internalTargets = [self.interactivePopGestureRecognizer valueForKey:@"targets"];
+    id internalTarget = [internalTargets.firstObject valueForKey:@"target"];
+    SEL internalAction = NSSelectorFromString(@"handleNavigationTransition:");
+    self.pan .delegate = self;
+    [self.pan  addTarget:internalTarget action:internalAction];
+    self.interactivePopGestureRecognizer.enabled = NO;
+    [self.view addGestureRecognizer: self.pan];
         
-    }
+    
     
 }
 

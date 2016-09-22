@@ -44,7 +44,7 @@
     
     }
     
-    MMLog(@"%@,%@",parameters,url)
+  
     
     
     [MBNetworking POST:url parameters:parameters  success:^(NSURLSessionDataTask *operation, id responseObject) {

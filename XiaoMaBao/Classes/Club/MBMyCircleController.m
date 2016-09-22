@@ -479,7 +479,7 @@
         }
     }
     
-   MMLog(@"%ld---%ld",self.recommendArray.count,indexPath.row)
+    MMLog(@"%ld---%ld",self.recommendArray.count,indexPath.row);
     NSDictionary *dic = self.recommendArray[indexPath.row];
     if (indexPath.section ==0) {
         dic = self.myCircleArray[indexPath.row];

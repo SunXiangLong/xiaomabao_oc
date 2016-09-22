@@ -20,7 +20,6 @@
     #import "UIView+MLExtension.h"
     #import "MBSignaltonTool.h"
     #import "MobClick.h"
-    #import "KVNProgress.h"
     #import "MBNetworking.h"
     #import <Masonry/Masonry.h>
     #import "HexColors.h"

@@ -10,8 +10,5 @@
 
 @implementation MBMoreBrandsCollectionViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
 
 @end

@@ -14,15 +14,15 @@
 #if IS_TEST
 #else
 ///***  线上后台 */
-//    static NSString  *BASE_PHP =       @"http://api.xiaomabao.com/discovery";
-//    static NSString *BASE_URL =        @"http://api.xiaomabao.com/mobile/?url=/";
-//    static NSString *BASE_URL_root =   @"http://api.xiaomabao.com";
-//    static NSString *BASE_PHP_test =   @"http://api.xiaomabao.com/babyInfo/inforecord";
+    static NSString  *BASE_PHP =       @"http://api.xiaomabao.com/discovery";
+    static NSString *BASE_URL =        @"http://api.xiaomabao.com/mobile/?url=/";
+    static NSString *BASE_URL_root =   @"http://api.xiaomabao.com";
+    static NSString *BASE_PHP_test =   @"http://api.xiaomabao.com/babyInfo/inforecord";
 /***  军哥后台 */
-   static NSString *BASE_URL =      @"http://192.168.11.36/mobile/?url=/";
-   static NSString *BASE_URL_root = @"http://192.168.11.36";
-   static NSString *BASE_PHP =      @"http://192.168.11.36/discovery";
-   static NSString *BASE_PHP_test = @"http://192.168.11.36/babyinfo/inforecord";
+//   static NSString *BASE_URL =      @"http://192.168.11.36/mobile/?url=/";
+//   static NSString *BASE_URL_root = @"http://192.168.11.36";
+//   static NSString *BASE_PHP =      @"http://192.168.11.36/discovery";
+//   static NSString *BASE_PHP_test = @"http://192.168.11.36/babyinfo/inforecord";
 
 /***  辉哥后台 */
 //static NSString  *BASE_PHP =       @"http://192.168.11.62/discovery";
@@ -62,9 +62,12 @@
 #define NavBar_Color [UIColor colorWithHexString:@"d66263"]
 #define LINE_COLOR [UIColor colorWithHexString:@"e2e2e2"]
 #define TEXT_COLOR [UIColor whiteColor]
-#define iOS_7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
-#define iOS_8 ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0f)
-#define iOS_9 ([UIDevice currentDevice].systemVersion.floatValue >= 9.0f)
+
+#define iOS_10 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0)
+#define iOS_9 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
+#define iOS_8 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+
+
 /**
  *  默认占为图
  */
@@ -79,8 +82,8 @@
 #define UISCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 #define UISCREEN_KeyWindow [UIApplication sharedApplication].keyWindow
 #define NAV_H 44
-#define TOP_Y (iOS_7 ? 64 : NAV_H)
-#define TOP_TABLE_VIEW_H ((iOS_7 ? 64 : NAV_H) + NAV_H)
+#define TOP_Y 64
+#define TOP_TABLE_VIEW_H (64 + NAV_H)
 
 #define NAV_BAR_HEIGHT 44
 #define NAV_BAR_Y 20

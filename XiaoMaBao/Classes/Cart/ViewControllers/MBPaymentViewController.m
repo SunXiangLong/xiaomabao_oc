@@ -94,7 +94,7 @@
     orderLbl.frame = CGRectMake(MARGIN_8, 0, self.view.ml_width, promptLbl.ml_height);
     orderLbl.textColor = [UIColor colorWithHexString:@"323232"];
     orderLbl.font = [UIFont systemFontOfSize:14];
-    orderLbl.text =  string(@"订单号：", _orderInfo[@"parent_order_sn"]);
+    orderLbl.text =  string(@"订单号：", _orderInfo[@"order_sn"]);
     if (!orderLbl.text) {
         orderLbl.text = @"订单号";
     }

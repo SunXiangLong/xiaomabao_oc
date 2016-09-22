@@ -12,12 +12,10 @@
 @implementation NSString (BQ)
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (CGSize) sizeWithFont:(UIFont *)font   withMaxSize:(CGSize)size {
-    if (iOS_7) {
+   
     
-        return [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: font} context:nil].size;
-    }else{
-        return [self sizeWithFont:font constrainedToSize:size];
-    }
+    return [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: font} context:nil].size;
+    
 }
 - (CGFloat) sizeWithFont:(UIFont *)font lineSpacing:(CGFloat)line  withMax:(CGFloat)size{
     

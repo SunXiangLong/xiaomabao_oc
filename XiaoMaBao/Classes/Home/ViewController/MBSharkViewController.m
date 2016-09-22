@@ -13,7 +13,6 @@
 #import "UIImageView+WebCache.h"
 #import "MBSwing.h"
 #import "MJExtension.h"
-#import <KVNProgress/KVNProgress.h>
 #import <AVFoundation/AVFoundation.h>
 @interface MBSharkViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *tipLbl;

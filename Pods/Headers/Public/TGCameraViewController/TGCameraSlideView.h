@@ -1,1 +1,0 @@
-../../../TGCameraViewController/TGCameraViewController/Classes/UI/TGCameraSlideView.h

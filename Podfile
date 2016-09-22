@@ -2,13 +2,14 @@
 platform :ios, '8.0'
 target 'XiaoMaBao' do
 pod 'PureLayout', '~> 2.0.6'
-pod 'KVNProgress'
+#pod 'KVNProgress'
 pod 'AFNetworking', '~> 3.1.0'
 pod 'iCarousel'
 pod 'DZNEmptyDataSet'
 pod 'WMPageController'
 pod 'ActionSheetPicker-3.0', '~> 2.0.1'
-pod 'TGCameraViewController'
+#pod 'TGCameraViewController',:git => 'https://github.com/tdginternet/TGCameraViewController.git', :tag => '2.2.6'
+
 pod "SKTagView"
 pod 'HexColors'
 pod 'Reachability', '~> 3.2'

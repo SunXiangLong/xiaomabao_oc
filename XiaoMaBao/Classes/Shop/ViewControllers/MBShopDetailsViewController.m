@@ -380,7 +380,7 @@
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         MMLog(@"失败");
-        [KVNProgress dismiss];
+        [self show:@"请求失败" time:1];
         
         
         

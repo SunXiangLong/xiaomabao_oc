@@ -8,7 +8,6 @@
 
 #import "MBCheckInViewController.h"
 #import "MBNetworking.h"
-#import "KVNProgress.h"
 #import "MBSignaltonTool.h"
 #import "ZLDateView.h"
 #import "MBSignRoleView.h"

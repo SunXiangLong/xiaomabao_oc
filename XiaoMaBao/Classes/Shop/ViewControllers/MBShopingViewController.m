@@ -7,7 +7,6 @@
 //
 #import "MBShopingViewController.h"
 #import "MBJoinCartViewController.h"
-#import "NSString+BQ.h"
 #import "MBShoppingBtn.h"
 #import "MBShopCommon.h"
 #import "MBShopCommonFrame.h"
@@ -17,7 +16,6 @@
 #import "MBUserDataSingalTon.h"
 #import "MBSignaltonTool.h"
 #import "MBLoginViewController.h"
-#import <KVNProgress/KVNProgress.h>
 #import "UIImageView+WebCache.h"
 #import "MBShoppingCartViewController.h"
 #import "MobClick.h"

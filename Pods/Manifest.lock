@@ -28,7 +28,6 @@ PODS:
   - HexColors (3.0.0)
   - iCarousel (1.8.2)
   - JPFPSStatus (0.0.2)
-  - KVNProgress (2.2.1)
   - Masonry (0.6.3)
   - MBProgressHUD (0.9.2)
   - MJPhotoBrowser (1.0.2):
@@ -62,7 +61,6 @@ PODS:
     - Masonry
   - StreamingKit (0.1.29)
   - SVProgressHUD (1.1.3)
-  - TGCameraViewController (2.2.1)
   - TYAttributedLabel (2.6.1)
   - UITableView+FDTemplateLayoutCell (1.5.beta)
   - UMengAnalytics (3.6.6)
@@ -91,7 +89,6 @@ DEPENDENCIES:
   - HexColors
   - iCarousel
   - JPFPSStatus (~> 0.0.2)
-  - KVNProgress
   - Masonry
   - MBProgressHUD (~> 0.9.2)
   - MJPhotoBrowser (~> 1.0.2)
@@ -109,7 +106,6 @@ DEPENDENCIES:
   - ShareSDK3/ShareSDKUI
   - SKTagView
   - StreamingKit
-  - TGCameraViewController
   - TYAttributedLabel (~> 2.6.1)
   - UITableView+FDTemplateLayoutCell (~> 1.5.beta)
   - UMengAnalytics
@@ -129,7 +125,6 @@ SPEC CHECKSUMS:
   HexColors: 8b83e3fe90c0d466dae7b98c9d22da95799f99cb
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
   JPFPSStatus: 11de6027b4cbebfeee0c939dfe08f5ec124a0965
-  KVNProgress: 7001d2d16a2755cee5599e8e485befe056f2197b
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJPhotoBrowser: f55e8490231f44a78ca6455105a1c798a142c95f
@@ -144,7 +139,6 @@ SPEC CHECKSUMS:
   SKTagView: 1e89c1ce2292cf890610901d3621c55d1ed82379
   StreamingKit: c329785aaef3ac142d4ae388345bfe1ed23cfd45
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
-  TGCameraViewController: 06bc4b742f2524fbf60f92cade61df595e8b8678
   TYAttributedLabel: 4785820dc8d7935446f49f1de4daa0f99ebcba8a
   UITableView+FDTemplateLayoutCell: 02b508ab1cb4cea16a8c17ac83d2cd1fd72124f9
   UMengAnalytics: 4bf831415146b9c57cb10be65fbd43462ef8cf65
@@ -155,6 +149,6 @@ SPEC CHECKSUMS:
   YYWebImage: 0431ed108e104527669b86f75efd58958425cca2
   ZFPlayer: 80cf92fef7412ff7a31e47c6658c50393351f938
 
-PODFILE CHECKSUM: 3c86a3d484c4fedff5a5cfa97877fd4c95908b9b
+PODFILE CHECKSUM: 2f79277f10522cb5ee193dfaf49a19a04f9f470f
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.beta.2

@@ -549,7 +549,7 @@
     
     UINavigationController  *nav =  [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
     MBOrderInfoTableViewController *infoVc = (MBOrderInfoTableViewController *)nav.viewControllers.firstObject;
-    MMLog(@"%@",_orderListArray[section])
+    MMLog(@"%@",_orderListArray[section]);
     
     
     if ([_orderListArray[section][@"child_orders"] count] > 0) {
@@ -588,7 +588,7 @@
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         
-        
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
         
         
