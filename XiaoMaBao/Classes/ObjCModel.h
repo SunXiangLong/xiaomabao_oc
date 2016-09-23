@@ -33,6 +33,7 @@
 - (void)showGroup:(NSString *)params;
 - (void)showWebView:(NSString *)params :(NSString *)topId;
 
+- (void)call_pay:(NSString *)params :(NSString *)topId  :(NSString *)ssss;
 @end
 @interface ObjCModel : NSObject <JavaScriptObjectiveCDelegate>
 @property (nonatomic, weak) JSContext *jsContext;

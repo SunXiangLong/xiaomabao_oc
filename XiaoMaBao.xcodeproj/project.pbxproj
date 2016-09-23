@@ -94,7 +94,6 @@
 		486D435B1AF23F240025A043 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 486D43591AF23F240025A043 /* Main.storyboard */; };
 		486D435D1AF23F240025A043 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 486D435C1AF23F240025A043 /* Images.xcassets */; };
 		486D43601AF23F240025A043 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 486D435E1AF23F240025A043 /* LaunchScreen.xib */; };
-		486D436C1AF23F240025A043 /* XiaoMaBaoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 486D436B1AF23F240025A043 /* XiaoMaBaoTests.m */; };
 		48742C3A1B2AE0C2000F188F /* MBVoucherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48742C381B2AE0C2000F188F /* MBVoucherTableViewCell.m */; };
 		48742C3B1B2AE0C2000F188F /* MBVoucherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48742C391B2AE0C2000F188F /* MBVoucherTableViewCell.xib */; };
 		487602BC1AF30DB000A2B1F0 /* MBRegisterPhoneVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 487602BB1AF30DB000A2B1F0 /* MBRegisterPhoneVerifyViewController.m */; };
@@ -733,16 +732,6 @@
 		B3C9001AC99E335042846E0A /* libPods-XiaoMaBao.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B55EAB0FEA8B4021C94070 /* libPods-XiaoMaBao.a */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		486D43661AF23F240025A043 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 486D43441AF23F240025A043 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 486D434B1AF23F240025A043;
-			remoteInfo = XiaoMaBao;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		11B0F0141B5BA23F00653309 /* MBUserDataSingalTon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBUserDataSingalTon.h; sourceTree = "<group>"; };
 		11B0F0151B5BA23F00653309 /* MBUserDataSingalTon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBUserDataSingalTon.m; sourceTree = "<group>"; };
@@ -896,9 +885,6 @@
 		486D435A1AF23F240025A043 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		486D435C1AF23F240025A043 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		486D435F1AF23F240025A043 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		486D43651AF23F240025A043 /* XiaoMaBaoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XiaoMaBaoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		486D436A1AF23F240025A043 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		486D436B1AF23F240025A043 /* XiaoMaBaoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XiaoMaBaoTests.m; sourceTree = "<group>"; };
 		48742C371B2AE0C2000F188F /* MBVoucherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBVoucherTableViewCell.h; sourceTree = "<group>"; };
 		48742C381B2AE0C2000F188F /* MBVoucherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBVoucherTableViewCell.m; sourceTree = "<group>"; };
 		48742C391B2AE0C2000F188F /* MBVoucherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBVoucherTableViewCell.xib; sourceTree = "<group>"; };
@@ -1898,13 +1884,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		486D43621AF23F240025A043 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -2427,7 +2406,6 @@
 			isa = PBXGroup;
 			children = (
 				486D434E1AF23F240025A043 /* XiaoMaBao */,
-				486D43681AF23F240025A043 /* XiaoMaBaoTests */,
 				486D434D1AF23F240025A043 /* Products */,
 				28CC10EFC68070D49EAEDCFE /* Frameworks */,
 				A8F6E4E18F65EBC044103A18 /* Pods */,
@@ -2438,7 +2416,6 @@
 			isa = PBXGroup;
 			children = (
 				486D434C1AF23F240025A043 /* XiaoMaBao.app */,
-				486D43651AF23F240025A043 /* XiaoMaBaoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2465,23 +2442,6 @@
 			children = (
 				486D43501AF23F240025A043 /* Info.plist */,
 				486D43511AF23F240025A043 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		486D43681AF23F240025A043 /* XiaoMaBaoTests */ = {
-			isa = PBXGroup;
-			children = (
-				486D436B1AF23F240025A043 /* XiaoMaBaoTests.m */,
-				486D43691AF23F240025A043 /* Supporting Files */,
-			);
-			path = XiaoMaBaoTests;
-			sourceTree = "<group>";
-		};
-		486D43691AF23F240025A043 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				486D436A1AF23F240025A043 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -4002,24 +3962,6 @@
 			productReference = 486D434C1AF23F240025A043 /* XiaoMaBao.app */;
 			productType = "com.apple.product-type.application";
 		};
-		486D43641AF23F240025A043 /* XiaoMaBaoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 486D43721AF23F240025A043 /* Build configuration list for PBXNativeTarget "XiaoMaBaoTests" */;
-			buildPhases = (
-				486D43611AF23F240025A043 /* Sources */,
-				486D43621AF23F240025A043 /* Frameworks */,
-				486D43631AF23F240025A043 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				486D43671AF23F240025A043 /* PBXTargetDependency */,
-			);
-			name = XiaoMaBaoTests;
-			productName = XiaoMaBaoTests;
-			productReference = 486D43651AF23F240025A043 /* XiaoMaBaoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -4032,6 +3974,7 @@
 				TargetAttributes = {
 					486D434B1AF23F240025A043 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 6Q52DP5P8X;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -4040,11 +3983,6 @@
 								enabled = 1;
 							};
 						};
-					};
-					486D43641AF23F240025A043 = {
-						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = 655X4C87TW;
-						TestTargetID = 486D434B1AF23F240025A043;
 					};
 				};
 			};
@@ -4062,7 +4000,6 @@
 			projectRoot = "";
 			targets = (
 				486D434B1AF23F240025A043 /* XiaoMaBao */,
-				486D43641AF23F240025A043 /* XiaoMaBaoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -4297,13 +4234,6 @@
 				941531D81CBF414500B2AB1E /* btn_back_imagePicker@2x.png in Resources */,
 				481D080E1AF4746400BE1994 /* MBEmailRegisterView.xib in Resources */,
 				94E272231CFECF5A00172511 /* MBNewBabyOneTableCell.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		486D43631AF23F240025A043 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4742,23 +4672,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		486D43611AF23F240025A043 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				486D436C1AF23F240025A043 /* XiaoMaBaoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		486D43671AF23F240025A043 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 486D434B1AF23F240025A043 /* XiaoMaBao */;
-			targetProxy = 486D43661AF23F240025A043 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		486D43591AF23F240025A043 /* Main.storyboard */ = {
@@ -5086,48 +5000,6 @@
 			};
 			name = Release;
 		};
-		486D43731AF23F240025A043 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = XiaoMaBaoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dadadaka.auction;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XiaoMaBao.app/XiaoMaBao";
-			};
-			name = Debug;
-		};
-		486D43741AF23F240025A043 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = XiaoMaBaoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dadadaka.auction;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XiaoMaBao.app/XiaoMaBao";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -5145,15 +5017,6 @@
 			buildConfigurations = (
 				486D43701AF23F240025A043 /* Debug */,
 				486D43711AF23F240025A043 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		486D43721AF23F240025A043 /* Build configuration list for PBXNativeTarget "XiaoMaBaoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				486D43731AF23F240025A043 /* Debug */,
-				486D43741AF23F240025A043 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

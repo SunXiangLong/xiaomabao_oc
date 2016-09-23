@@ -217,7 +217,7 @@
         }break;
         case 3: {
             MBWebViewController *VC = [[MBWebViewController alloc] init];
-            VC.url =  [NSURL URLWithString:_bandImageArray[index][@"ad_con"]];
+            VC.url = [NSURL URLWithString:_bandImageArray[index][@"ad_con"]];
             VC.title = _bandImageArray[index][@"ad_name"];
             VC.isloging = YES;
             

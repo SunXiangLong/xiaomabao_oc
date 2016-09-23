@@ -167,7 +167,7 @@ MBProgressHUD *_hud;
     if (indexPath.section == 0 ) {
         return  CGSizeMake((UISCREEN_WIDTH - 16 -15)/2,(UISCREEN_WIDTH - 16 -15)/2*212/344);
     }
-    return  CGSizeMake(UISCREEN_WIDTH,UISCREEN_WIDTH*180/750);
+    return  CGSizeMake(UISCREEN_WIDTH,95);
     
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{

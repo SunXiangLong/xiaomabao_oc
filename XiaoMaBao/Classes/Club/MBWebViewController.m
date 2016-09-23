@@ -23,7 +23,7 @@
     [self show:@"加载中..."];
     _webView.delegate = self;
     _webView.backgroundColor = [UIColor colorR:205 colorG:222 colorB:232];
-
+    
      NSURLRequest *request = [NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
 
     if (self.isloging) {

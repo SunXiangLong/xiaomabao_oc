@@ -53,4 +53,8 @@
      MMLog(@"Js调用了OC的方法，参数为：%@==%@", params,topId);
 
 }
+- (void)call_pay:(NSString *)params :(NSString *)topId :(NSString *)ssss{
+
+    MMLog(@"%@ %@ %@",params,topId,ssss)
+}
 @end
