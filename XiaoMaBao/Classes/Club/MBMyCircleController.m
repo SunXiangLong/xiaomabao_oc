@@ -479,11 +479,19 @@
         }
     }
     
-    NSDictionary *dic = self.recommendArray[indexPath.row];
+    NSDictionary *dic;
+    
     if (indexPath.section ==0) {
         dic = self.myCircleArray[indexPath.row];
+    }else{
+        
+        
+        if (self.recommendArray.count > 0) {
+            dic = self.recommendArray[indexPath.row];
+        }else{
+        MMLog(@"%@",self.recommendArray);
+        }
     }
-  
     cell.indexPath = indexPath;
     cell.indexPath = indexPath;
     cell.user_name.text = dic[@"circle_name"];
@@ -609,9 +617,7 @@
     [att addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} range:NSMakeRange(range.location, range.length )];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    
     UILabel *lable =    [hud valueForKeyPath:@"label"];
-    
     hud.color = RGBCOLOR(219, 171, 171);
     hud.mode = MBProgressHUDModeText;
     hud.labelText = comment_content;
