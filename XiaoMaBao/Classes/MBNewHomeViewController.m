@@ -17,7 +17,10 @@
 #import "MBWebViewController.h"
 #import "MBGroupShopController.h"
 #import "MBNewFreeStoreViewController.h"
-@interface MBNewHomeViewController ()<UIScrollViewDelegate>
+#import "MBNewAffordablePlanetViewController.h"
+#import "DataSigner.h"
+#import "MBMaBaoFeaturesCollectionViewController.h"
+@interface MBNewHomeViewController ()<UIScrollViewDelegate,UnicallDelegate>
 {
     
     UISegmentedControl *_segmentControl;
@@ -38,22 +41,14 @@
     }
     return _titleButtons;
 }
--(void)viewWillDisappear:(BOOL)animated
-{
-    
-    [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBNewHomeViewController"];
-}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     
     [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBNewHomeViewController"];
-    
+
+
     NSDictionary *userInfo = [User_Defaults valueForKeyPath:@"userInfo"];
-    
-    NSLog(@"%@",userInfo);
-    
     if (userInfo) {
         NSString *type = userInfo[@"type"];
         if ([type isEqualToString:@"goods"]) {
@@ -76,66 +71,63 @@
         [User_Defaults setObject:nil forKey:@"userInfo"];
         [User_Defaults synchronize];
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-        return;
+     
     }
     
 
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    [[Unicall singleton] attach:self appKey:UNICALL_APPKEY tenantId:UNICALL_TENANID];
     
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupChildVcs];
     [self setupTitlesView];
     [self setupScrollView];
 }
+
 - (void)setupChildVcs{
   
     
-    MBAffordablePlanetViewController *VC1 = [[MBAffordablePlanetViewController alloc] init];
+    MBNewAffordablePlanetViewController *VC1 = [[MBNewAffordablePlanetViewController alloc] init];
     VC1.title = @"实惠星球";
     [self addChildViewController:VC1];
     
-//    MBFreeStoreViewController *VC2 = [[MBFreeStoreViewController alloc] init];
-//    VC2.title = @"全球闪购";
-//    [self addChildViewController:VC2];
+    MBNewFreeStoreViewController *VC2 = [[MBNewFreeStoreViewController alloc] init];
+    VC2.title = @"全球闪购";
+    [self addChildViewController:VC2];
     
     
-    MBNewFreeStoreViewController *VC3 = [[MBNewFreeStoreViewController alloc] init];
-    VC3.title = @"全球闪购";
+    MBMaBaoFeaturesCollectionViewController *VC3 =   [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBMaBaoFeaturesCollectionViewController"];
+    VC3.title = @"麻包特色";
+    VC3.rootVC = self;
     [self addChildViewController:VC3];
+    
 }
 - (void)setupTitlesView
 {
-    // 标签栏整体
-    UIView *titlesView = [[UIView alloc] init];
-    titlesView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 45);
-    [self.view addSubview:titlesView];
-    UIImageView *banckImage = [[UIImageView  alloc] init];
-    banckImage.frame =CGRectMake(0, 0, titlesView.ml_width, titlesView.ml_height);
-    banckImage.image = [UIImage imageNamed:@"navBackcolor"];
-    [titlesView addSubview:banckImage];
-    
-    self.titlesView = titlesView;
+
     
     NSArray *segmentArray = @[
                              @"实惠星球",
-                             @"全球闪购"
+                             @"全球闪购",
+                             @"麻包特色"
                               ];
-    
     // 初始化UISegmentedControl
     UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:segmentArray];
-    segmentControl.frame = CGRectMake((UISCREEN_WIDTH-200)/2, 10, 200, 25);
-    
     // 设置默认选择项索引
     segmentControl.selectedSegmentIndex = 0;
     segmentControl.tintColor = [UIColor whiteColor];
-
     // 设置指定索引的题目
     [segmentControl addTarget:self action:@selector(didClickSegmentedControlAction:)forControlEvents:UIControlEventValueChanged];
     [segmentControl setTitleTextAttributes:@{NSFontAttributeName:YC_RTWSYueRoud_FONT(15)} forState:UIControlStateNormal];
-    [titlesView addSubview:_segmentControl = segmentControl];
+    [self.navBar addSubview:_segmentControl = segmentControl];
+    [segmentControl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(8);
+        make.centerX.mas_equalTo(0);
+    }];
+    
 
 
 }
@@ -143,7 +135,7 @@
 {
  
     NSInteger idx = segmentControl.selectedSegmentIndex;
-    NSLog(@"%ld", idx);
+  
     CGPoint offset = self.scrollView.contentOffset;
     offset.x = UISCREEN_WIDTH*idx;
     [self.scrollView setContentOffset:offset animated:YES];
@@ -156,7 +148,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIScrollView *scrollView = [[UIScrollView alloc] init];
-    scrollView.frame = CGRectMake(0, 45+TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-45-TOP_Y -49);
+    scrollView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y -49);
     scrollView.backgroundColor = [UIColor colorWithHexString:@"ececef"];
     scrollView.delegate = self;
     scrollView.pagingEnabled = YES;
@@ -168,19 +160,20 @@
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 - (NSString *)rightImage{
-return @"search_image";
+    return @"search_image";
 }
+
 - (void)rightTitleClick{
     MBSearchViewController *searchVc = [[MBSearchViewController alloc] init];
     [self pushViewController:searchVc Animated:YES];
 }
--(NSString *)titleStr{
-return @"小麻包";
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-   
+    MMLog(@"%@",@"收到内存⚠️");
+    SDWebImageManager *mgr = [SDWebImageManager sharedManager];
+    [mgr cancelAll];
+    [mgr.imageCache clearMemory];
 }
 
 #pragma mark - <UIScrollViewDelegate>
@@ -214,5 +207,72 @@ return @"小麻包";
     _segmentControl.selectedSegmentIndex = index;
 }
 
+-(void)getUnicallSignature{
+    NSString *privateKey =  [NSString stringWithFormat:@"%@%@%@%@%@%@%@",
+                             @"MIIBPAIBAAJBAMBrqadzplyUtQUXCP+VuDFWt0p9Kl+s3yrQ8PV+P89Bbt/UqN2/",
+                             @"BzVNPoNgtQ2fI7Ob652limC/jqVf6slzPEUCAwEAAQJAOL7HXnGVqxHTvHeJmM4P",
+                             @"bsVy8k2tNF/nxFmv5cXgjX7sd7BU9jyELGP4os3ID3tItdCHtmMM3KM91lTHYlkk",
+                             @"dQIhAOWKnz0moWISa0S8cBYJI0k0PRoYMv6Xsty5aZpC9WM/AiEA1pmqSthbMUb2",
+                             @"TrmRyJsHswLAYSHotTIS0kzHu655M3sCIQDLdWXUJCuj7EOcd5K6VXsrZdxLBuwc",
+                             @"coYd01LhYzxyrQIhAIsqc6i9zcWTAz/iT4wMHV4VNrTGzKZUpqgCarRnXOnpAiEA",
+                             @"pbZzKKXpVGNp2MMXRlpdzdGCKFMYSeqnqXuwd76iwco="
+                             ];
+    NSString *tenantId = UNICALL_TENANID;
+    NSString *appKey = UNICALL_APPKEY;
+    NSString *time = [self getCurrentTime];
+    NSString *expireTime = @"60000";
+    
+    NSString *stringToSign = [NSString stringWithFormat:@"%@&%@&%@&%@",appKey,expireTime,tenantId,time];
+    id<DataSigner> signer = CreateRSADataSigner(privateKey);
+    
+    NSString *signature = [signer uncallString:stringToSign];
+    NSDictionary *json = @{@"appKey":appKey,@"expireTime":expireTime,@"signature":signature,@"tenantId":tenantId,@"time":time};
+    
+    Unicall *unicall = [Unicall singleton];
+    [unicall UnicallUpdateValidation:json];
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (!sid) {
+        [unicall UnicallUpdateUserInfo:@{@"nickname":@"未注册用户"}];
+    }else{
+        
+        [unicall UnicallUpdateUserInfo:@{@"nickname": string(@"用户的sid:", sid)}];
+    }
+    
+}
+//delegate methods
+-(void)acquireValidation
+{
+    [self getUnicallSignature];
+}
+-(void)messageCountUpdated:(NSNumber*) data
+{
+
+}
+-(void)messageArrived:(NSDictionary*) data
+{
+    NSError* error = nil;
+    NSData* source = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error];
+    NSString* str = [NSJSONSerialization JSONObjectWithData:source options:NSJSONReadingMutableContainers error:&error];
+    MMLog(@"%@%@",@"Unicall message arrived.",str);
+    
+    if([[data objectForKey:@"eventName"] isEqualToString:@"updateNewMessageCount"])
+        MMLog(@"count%@:",data);
+}
+-(UIViewController*) currentViewController
+{
+
+    return self.navigationController.viewControllers.lastObject;
+}
+-(NSString*)getCurrentTime {
+    
+    NSDateFormatter*formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyy-MM-dd'T'HH:mm:ssZZZZZ"];
+    
+    NSString*dateTime = [formatter stringFromDate:[NSDate date]];
+    
+    
+    return dateTime;
+    
+}
 
 @end

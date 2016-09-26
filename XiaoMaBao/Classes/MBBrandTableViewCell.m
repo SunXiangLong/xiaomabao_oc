@@ -15,6 +15,7 @@
 @implementation MBBrandTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
      [self registerNSNotificationCenter];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

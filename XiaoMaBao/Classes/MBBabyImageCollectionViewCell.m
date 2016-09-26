@@ -11,7 +11,7 @@
 @implementation MBBabyImageCollectionViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+  [super awakeFromNib];
 }
 
 @end

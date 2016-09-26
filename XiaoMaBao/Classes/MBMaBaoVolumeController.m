@@ -45,7 +45,7 @@ return @"麻包券";
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/view_ticket"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/view_ticket"];
     if (! sid) {
         return;
     }
@@ -63,7 +63,7 @@ return @"麻包券";
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
     

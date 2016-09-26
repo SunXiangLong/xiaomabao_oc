@@ -12,7 +12,7 @@
 
 -(void)awakeFromNib{
     
-    
+    [super awakeFromNib];
 }
 + (instancetype)instanceView{
     return [[[NSBundle mainBundle] loadNibNamed:@"MBDetailsCircleTableHeadView" owner:nil options:nil] lastObject];

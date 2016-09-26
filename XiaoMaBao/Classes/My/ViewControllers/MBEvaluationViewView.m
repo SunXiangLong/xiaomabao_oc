@@ -59,13 +59,13 @@
 
 }
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
    _bar = [[RatingBar alloc] initWithFrame:CGRectMake(0, 0, 100, self.view.ml_height)];
     [self.view addSubview:_bar];
     
     _photoArray = [NSMutableArray array];
     [_photoArray addObject:[UIImage imageNamed:@"refund_pictures"]];
-    NSLog(@"%f",(UISCREEN_WIDTH-45)/6);
+
     
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];

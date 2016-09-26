@@ -19,7 +19,6 @@ static AFHTTPSessionManager *mgr = nil;
 + (AFHTTPSessionManager *)mgr{
     if (!mgr) {
         mgr = [AFHTTPSessionManager manager];
-        
         AFJSONResponseSerializer *response = [[AFJSONResponseSerializer alloc] init];
         /**
          *  删除json中  <null> 类型的字段  同时也会把key删除
@@ -68,11 +67,10 @@ static AFHTTPSessionManager *mgr = nil;
     url = URLString;
     requestParams = [self stitchingParameter:parameters];
     [self logURL];
-    
-    
+   
     return   [self.mgr POST:URLString parameters:requestParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        MBModel *model = [MBModel objectWithKeyValues:responseObject];
         
+        MBModel *model = [MBModel objectWithKeyValues:responseObject];
         success(task,model);
     } failure:failure];
     
@@ -108,6 +106,7 @@ static AFHTTPSessionManager *mgr = nil;
  *  @return 增加参数后的字典
  */
 + (NSDictionary *)stitchingParameter:(NSDictionary *)parameters{
+    
     NSDictionary *dic = @{@"version":VERSION,@"channel":@"APPStore",@"device":@"ios"};
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict addEntriesFromDictionary:parameters];
@@ -119,6 +118,7 @@ static AFHTTPSessionManager *mgr = nil;
  *  测试用，显示拼接参数后的url
  */
 + (void)logURL{
+    
     NSMutableString *getURL = [NSMutableString stringWithString:url];
     NSMutableString *paramStr = [NSMutableString stringWithString:@"?"];
     
@@ -129,7 +129,7 @@ static AFHTTPSessionManager *mgr = nil;
     paramStr = (NSMutableString *)[paramStr substringToIndex:(paramStr.length-1)];
     
     [getURL appendString:paramStr];
-    NSLog(@"完整的是：  %@", getURL);
+    MMLog(@"完整的是：  %@", getURL);
     
     
 }

@@ -12,8 +12,9 @@
 #import "MBReleaseTopicViewController.h"
 #import "MBLoginViewController.h"
 #import "MBPostDetailsViewController.h"
-
-@interface MBDetailsCircleController ()
+#import "MBDetailsCircleCell.h"
+#import "UITableView+FDTemplateLayoutCell.h"
+@interface MBDetailsCircleController ()<UITableViewDelegate,UITableViewDataSource>
 {
     /**
      *  页数
@@ -33,16 +34,13 @@
 @end
 
 @implementation MBDetailsCircleController
--(void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBDetailsCircleController"];
-    
-}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBDetailsCircleController"];
+    
+    
+    
     if (_isDimiss) {
         _page = 1;
         [self.dataArray removeAllObjects];
@@ -64,14 +62,14 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _tableView.tableHeaderView = [self setTableHeadView];
     _page = 1;
+   [self setData];
+
+    [self.tableView registerNib:    [UINib nibWithNibName:@"MBDetailsCircleCell" bundle:nil] forCellReuseIdentifier:@"MBDetailsCircleCell"];
+ 
     
-    [self setData];
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
-    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
-    footer.refreshingTitleHidden = YES;
-    self.tableView.mj_footer = footer;
+
+  
 }
 /**
  *  请求帖子数据
@@ -79,16 +77,24 @@
 - (void)setData{
 
     [self show];
+    
     NSString *page = s_Integer(_page);
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_circle_info"];
     [MBNetworking   POSTOrigin:url parameters:@{@"circle_id":self.circle_id,@"page":page} success:^(id responseObject) {
         
-//        NSLog(@"%@",responseObject);
+//      MMLog(@"%@",responseObject);
         [self dismiss];
         
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                 [self.dataArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
+                
+                if (_page ==1) {
+                       _tableView.tableHeaderView = [self setTableHeadView];
+                    [self pullOnLoading];
+                    _tableView.delegate = self;
+                    _tableView.dataSource = self;
+                                    }
                 _page++;
                 [_tableView reloadData];
                 [self.tableView .mj_footer endRefreshing];
@@ -106,9 +112,17 @@
         
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
+
+}
+-(void)pullOnLoading{
+
+    
+    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
+    footer.refreshingTitleHidden = YES;
+    self.tableView.mj_footer = footer;
 
 }
 #pragma mark--加入圈子或取消加入圈子
@@ -145,7 +159,7 @@
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
     
@@ -237,36 +251,23 @@
     
     return self.dataArray.count;
 }
-
+- (void)configureCell:(MBDetailsCircleCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    cell.fd_enforceFrameLayout = YES; // Enable to use "-sizeThatFits:"
+   cell.dataDic = _dataArray[indexPath.row];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary  *dic = _dataArray[indexPath.row];
-    NSString *post_content = dic[@"post_content"];
     
-    CGFloat post_content_height = [post_content  sizeWithFont:SYSTEMFONT(14) lineSpacing:3 withMax:UISCREEN_WIDTH-24];
-    if (post_content_height>56) {
-        post_content_height = 56;
-    }
+    return [tableView fd_heightForCellWithIdentifier:@"MBDetailsCircleCell" cacheByIndexPath:indexPath configuration:^(MBDetailsCircleCell *cell) {
+        [self configureCell:cell atIndexPath:indexPath];
+    }];
+
     
-    if ([dic[@"post_imgs"] count]>0) {
-        return 80+(UISCREEN_WIDTH -16*3)/3*133/184+post_content_height;
-    }
-    return 80+post_content_height;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary  *dic = _dataArray[indexPath.row];
-    MBDetailsCircleTbaleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBDetailsCircleTbaleViewCell"];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBDetailsCircleTbaleViewCell"owner:nil options:nil]firstObject];
-    }
-      cell.post_content.text = dic[@"post_content"];
-    cell.array = dic[@"post_imgs"];
-    cell.post_title.text = dic[@"post_title"];
-    cell.post_time.text = dic[@"post_time"];
-    cell.reply_cnt.text = dic[@"reply_cnt"];
-    cell.author_name.text = dic[@"author_name"];
- 
-    cell.post_content.rowspace = 3;
+
+    MBDetailsCircleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBDetailsCircleCell"];
+   [self configureCell:cell atIndexPath:indexPath];
     return cell;
     
 }

@@ -24,15 +24,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBMyServiceChilderViewController"];
-    
     [self setHeadRefresh];
 }
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBMyServiceChilderViewController"];
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -95,7 +89,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/my_product"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/my_product"];
     if (! sid) {
         return;
     }
@@ -104,7 +98,7 @@
                success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
                    ;
-                   //                   NSLog(@"%@",responseObject.data);
+                   //                   MMLog(@"%@",responseObject.data);
                    [self.tableView.mj_header endRefreshing];
                    
                    if ([[responseObject valueForKeyPath:@"data"] count]>0) {
@@ -124,7 +118,7 @@
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    [self.tableView.mj_header endRefreshing];
                    
                }
@@ -142,7 +136,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/my_product"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/my_product"];
     if (! sid) {
         return;
     }
@@ -151,7 +145,7 @@
                success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
                    ;
-//                    NSLog(@"%@",responseObject.data);
+//                    MMLog(@"%@",responseObject.data);
                    
                    if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                        _promptLable.hidden = YES;
@@ -180,7 +174,7 @@
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    [self.tableView .mj_header endRefreshing];
                    
                }

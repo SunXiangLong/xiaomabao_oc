@@ -16,7 +16,7 @@
 @property (nonatomic,strong) NSArray *comment_imgs;
 @property (nonatomic,strong) NSArray *comment_thumb_imgs;
 @property (nonatomic,strong) NSString *user_id;
-@property (nonatomic,strong) BkBaseViewController *VC;
+@property (nonatomic,weak) BkBaseViewController *VC;
 @property (nonatomic,strong) NSString *imageUrl;
 @property (weak, nonatomic) IBOutlet UIImageView *backImage;
 

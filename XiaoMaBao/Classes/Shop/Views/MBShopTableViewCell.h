@@ -14,6 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *evaluationText;
 @property (weak, nonatomic) IBOutlet UICollectionView *evaluationPhoto;
 @property (copy, nonatomic) NSArray *photoArray;
+@property(copy,nonatomic)NSDictionary *dic;
 
--(void)dict:(NSDictionary *)dic;
 @end

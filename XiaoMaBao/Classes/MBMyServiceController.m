@@ -68,7 +68,7 @@
     [self scrollViewDidEndScrollingAnimation:_scrollView];
 }
 - (IBAction)clickButton:(UIButton *)sender {
-//    NSLog(@"%ld",sender.tag);
+//    MMLog(@"%ld",sender.tag);
     if (![sender isEqual:_lastButton]) {
        sender.selected = _lastButton.selected;
         [_lastButton setTitleColor:[UIColor colorWithHexString:@"606060"]forState:UIControlStateNormal];

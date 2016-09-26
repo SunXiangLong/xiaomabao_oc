@@ -9,7 +9,10 @@
 #import "MBCollectionHeadView.h"
 
 @implementation MBCollectionHeadView
-
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.height.constant = 0.5;
+}
 + (instancetype)instanceView{
     return [[[NSBundle mainBundle] loadNibNamed:@"MBCollectionHeadView" owner:nil options:nil] lastObject];
 }

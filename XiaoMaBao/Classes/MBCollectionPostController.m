@@ -25,18 +25,7 @@
 @end
 
 @implementation MBCollectionPostController
--(void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBCollectionPostController"];
-    
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBCollectionPostController"];
-    
-}
+
 -(NSMutableArray *)dataArray{
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];
@@ -71,7 +60,7 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/get_collect_post"];
    
     [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict,@"page":page} success:^(id responseObject) {
-//        NSLog(@"%@",responseObject);
+//        MMLog(@"%@",responseObject);
         [self dismiss];
         
         if (responseObject) {
@@ -95,7 +84,7 @@
         
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
     
@@ -145,17 +134,13 @@
     return 70+post_content_height;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary  *dic = _dataArray[indexPath.row];
+
     MBDetailsCircleTbaleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBDetailsCircleTbaleViewCell"];
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBDetailsCircleTbaleViewCell"owner:nil options:nil]firstObject];
     }
-    cell.array = dic[@"post_imgs"];
-    cell.post_title.text = dic[@"post_title"];
-    cell.post_time.text = dic[@"post_time"];
-    cell.reply_cnt.text = dic[@"reply_cnt"];
-    cell.author_name.text = dic[@"author_name"];
-    cell.post_content.text = dic[@"post_content"];
+    cell.dataDic = _dataArray[indexPath.row];
+
     
     return cell;
     

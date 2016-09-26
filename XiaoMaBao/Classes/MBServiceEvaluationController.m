@@ -58,7 +58,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self showProgress];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/post_comment"] parameters:@{@"session":sessiondict,@"content":_textView.text,@"order_id":self.order_id} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/post_comment"] parameters:@{@"session":sessiondict,@"content":_textView.text,@"order_id":self.order_id} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         UIImage *image = [[UIImage alloc] init];
         if (_photoArray.count>1) {
             for (int i = 0; i<_photoArray.count-1; i++) {
@@ -91,7 +91,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
       
@@ -294,7 +294,7 @@
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
-    // NSLog(@"%@",image);
+    // MMLog(@"%@",image);
     
     [self dismissViewControllerAnimated:YES completion:^{
         

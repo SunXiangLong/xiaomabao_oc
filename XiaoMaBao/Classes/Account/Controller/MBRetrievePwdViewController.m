@@ -12,10 +12,7 @@
 #import "MBRegisterFieldRightViewButton.h"
 #import "MBRegisterField.h"
 #import "PooCodeView.h"
-#import "MBNetworking.h"
 #import "MBMessageCheckViewController.h"
-#import "NSString+BQ.h"
-#import "MobClick.h"
 @interface MBRetrievePwdViewController () <UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet MBRegisterField *accountField;
 @property (weak, nonatomic) IBOutlet MBRegisterField *verifyField;
@@ -25,16 +22,6 @@
 @end
 
 @implementation MBRetrievePwdViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBRetrievePwdViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBRetrievePwdViewController"];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -63,11 +50,11 @@
 }
 
 - (IBAction)nextStep {
-
+    [self.accountField resignFirstResponder];
+    [self.verifyField resignFirstResponder];
     NSString *changeString = self.codeView.changeString;
     NSString *verifyString = self.verifyField.text;
     NSString *accountString = self.accountField.text;
-    NSLog(@"%@",accountString);
     if ([self checkTel:accountString]) {
     
         if ([changeString caseInsensitiveCompare:verifyString] == NSOrderedSame) {
@@ -81,11 +68,11 @@
 
 - (void)phoneVerification
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/signed"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/checkuser"];
     NSString *userText = self.accountField.text;
     [self show];
     [MBNetworking POST:url parameters:@{@"name":userText,@"type":@"1"} success:^(NSURLSessionDataTask *asdf, MBModel *responseObject) {
-        [self dismiss];
+        
         NSDictionary *status = responseObject.status;
         
         
@@ -93,28 +80,38 @@
       
             [self getsss:userText];
         }else{
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"亲，您的手机号码还未注册" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [self dismiss];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[status valueForKey:@"error_desc"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
-    } failure:^(NSURLSessionDataTask *asdfg, NSError *asdfgh) {
-                 [self show:@"请求失败！" time:1];
+    } failure:^(NSURLSessionDataTask *asdfg, NSError *error) {
+        MMLog(@"%@",error);
+        [self show:@"请求失败！" time:1];
     }];
     
    }
 - (void)getsss:(NSString *)userText{
-    NSString *url2 = [NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/phoneCode"];
+    NSString *url2 = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/phoneCode"];
     [MBNetworking POST:url2 parameters:@{@"name":userText,@"type":@"1"} success:^(NSURLSessionDataTask *asd, MBModel *responseObject) {
-        NSLog(@"---------%@-----------",responseObject.data);
+        [self dismiss];
+        MMLog(@"%@",responseObject.data);
         self.phoneCodeMd5 = [responseObject.data valueForKey:@"phoneCode"];
+        if ([responseObject.status[@"succeed"] integerValue] == 1) {
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message: [NSString stringWithFormat:@"已发短信至手机号:%@请注意查收", self.accountField.text] delegate:self cancelButtonTitle:@"下一步" otherButtonTitles:nil, nil];
+            alert.tag = 1010;
+            MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
+            user.phoneNumber = userText;
+            [alert show];
+        }else{
         
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message: [NSString stringWithFormat:@"已发短信至手机号:%@请注意查收", self.accountField.text] delegate:self cancelButtonTitle:@"下一步" otherButtonTitles:nil, nil];
-        alert.tag = 1010;
-        MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
-        user.phoneNumber = userText;
-        [alert show];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message: responseObject.data[@"info"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
         
     } failure:^(NSURLSessionDataTask *asdf, NSError *asdfg) {
-        NSLog(@"%@",asdfg);
+      [self dismiss];
+        
     }];
 
 
@@ -128,46 +125,23 @@
         return NO;
     }
     
-    NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
-    
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-    
-    BOOL isMatch = [pred evaluateWithObject:str];
-    
-    if (!isMatch) {
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输正确的手机号码" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        return NO;
-    }
     return YES;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-   
-    
-    
     if (alertView.tag == 1010) {
-        
-        
         [self performSegueWithIdentifier:@"PushMBMessageCheckViewController" sender:nil];
-        
-        
     }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-   
-    
     
     if ([segue.identifier isEqualToString:@"PushMBMessageCheckViewController"]) {
         MBMessageCheckViewController *controller = segue.destinationViewController;
         controller.phoneNumber = self.accountField.text;
         controller.phoneMd5 = self.phoneCodeMd5;
-        
-        NSLog(@"%@",self.phoneCodeMd5);
-        
-        
+        MMLog(@"%@",self.phoneCodeMd5);
     }
 }
 

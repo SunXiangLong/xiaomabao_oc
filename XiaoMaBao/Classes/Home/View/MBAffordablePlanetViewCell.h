@@ -11,17 +11,12 @@
 @interface MBAffordablePlanetViewCell : UICollectionViewCell
 @property (nonatomic,strong) NSArray *dataArr;
 @property (nonatomic,assign) NSInteger count;
-@property (nonatomic,strong) BkBaseViewController *VC;
+@property (nonatomic,weak) BkBaseViewController *VC;
 @property (nonatomic,strong) NSString *act_name;
 @property (nonatomic,strong) NSString *act_id;
-
+@property (weak, nonatomic) IBOutlet UICollectionView *collerctionView;
+@property (weak, nonatomic) IBOutlet UIImageView *showImage;
 
 @end
 
 
-
-/** 5.24工作总结   技术部－－孙祥龙
- *  1.修复app服务详情中用户评价点击查看其他评价为空的bug
-    2.完成改版购物界面实惠星球界面的UI
-    3.完成改版购物界面全球闪购界面的UI
- */

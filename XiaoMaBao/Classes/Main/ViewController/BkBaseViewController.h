@@ -88,5 +88,6 @@
 /**
  *  进度值
  */
-@property (nonatomic,assign) float progress;;
+@property (nonatomic,assign) float progress;
+
 @end

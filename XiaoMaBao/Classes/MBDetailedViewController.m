@@ -90,7 +90,7 @@
     }
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        NSLog(@"%@ ",responseObject);
+        MMLog(@"%@ ",responseObject);
         
         [self.collectionView .mj_footer endRefreshing];
         if (responseObject) {
@@ -114,7 +114,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
 
@@ -133,7 +133,7 @@
     }
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        NSLog(@"%@ ",responseObject);
+        MMLog(@"%@ ",responseObject);
         
            [self.collectionView .mj_footer endRefreshing];
         if (responseObject) {
@@ -157,7 +157,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
@@ -179,7 +179,7 @@
         [self setData:_meunArray[indexPath.item]];
  
     }
-       NSLog(@"%ld",(long)indexPath.item);
+       MMLog(@"%ld",(long)indexPath.item);
 }
 
 

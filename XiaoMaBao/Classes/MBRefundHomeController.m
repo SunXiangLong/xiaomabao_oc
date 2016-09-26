@@ -13,7 +13,7 @@
 #import "MBDeliveryInformationViewController.h"
 #import "MobClick.h"
 #import "MBRefundScheduleViewController.h"
-#import "MBOrderInfoViewController.h"
+#import "MBOrderInfoTableViewController.h"
 @interface MBRefundHomeController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     NSArray *_titles;
@@ -258,7 +258,7 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/list"] parameters:@{@"session":sessiondict,@"page":page,@"size":@"5"}success:^(NSURLSessionDataTask *operation, id responseObject) {
          [self dismiss];
-       // NSLog(@"成功获取全部可退换货订单---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+       // MMLog(@"成功获取全部可退换货订单---responseObject%@",[responseObject valueForKeyPath:@"data"]);
     
         
         NSArray * arr =  [responseObject valueForKeyPath:@"data"];
@@ -281,7 +281,7 @@
     
        }failure:^(NSURLSessionDataTask *operation, NSError *error) {
                  [self show:@"请求失败！" time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    
                }
      ];
@@ -299,7 +299,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/search"] parameters:@{@"session":sessiondict,@"order_sn":str}success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        //NSLog(@"成功获取搜索退换货订单信息---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+        //MMLog(@"成功获取搜索退换货订单信息---responseObject%@",[responseObject valueForKeyPath:@"data"]);
         NSArray *arr = [responseObject valueForKeyPath:@"data"];
         
         [_orderArray addObjectsFromArray:arr];
@@ -311,7 +311,7 @@
         
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
    [self show:@"请求失败！" time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         
     }
      ];
@@ -327,7 +327,7 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/applyList"] parameters:@{@"session":sessiondict,@"page":page,@"size":@"5"}success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        //NSLog(@"成功获取全部已申请退换货订单---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+        //MMLog(@"成功获取全部已申请退换货订单---responseObject%@",[responseObject valueForKeyPath:@"data"]);
        
         NSArray * arr =  [responseObject valueForKeyPath:@"data"];
         if (arr.count>0) {
@@ -345,7 +345,7 @@
         
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
     [self show:@"请求失败！" time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         
     }
      ];
@@ -363,16 +363,16 @@
         VC.order_sn = _orderArray[button.tag][@"order_sn"];
         VC.order_id =  _orderArray[button.tag][@"order_id"];
         [self.navigationController pushViewController:VC animated:YES];
-        NSLog(@"申请退款/换货");
+        MMLog(@"申请退款/换货");
     }else if ([button.titleLabel.text isEqualToString:@"进度查询"]){
         MBRefundScheduleViewController *VC = [[MBRefundScheduleViewController alloc] init];
         VC.orderid = _orderArray[button.tag][@"order_id"];
         VC.order_sn = _orderArray[button.tag][@"order_sn"];
         [self.navigationController pushViewController:VC animated:YES];
-        NSLog(@"进度查询");
+        MMLog(@"进度查询");
     }else if ([button.titleLabel.text isEqualToString:@"重新申请"]){
         
-        NSLog(@"重新申请");
+        MMLog(@"重新申请");
         MBAfterSalesServiceViewController *VC = [[MBAfterSalesServiceViewController alloc] init];
         VC.type = @"0";
         VC.section = button.tag;
@@ -392,7 +392,7 @@
         VC.order_sn = _orderArray[button.tag][@"order_sn"];
         VC.section = button.tag;
         [self.navigationController pushViewController:VC animated:YES];
-        NSLog(@"填写运单号");
+        MMLog(@"填写运单号");
         
     }
     
@@ -619,13 +619,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"点我");
+    MMLog(@"点我");
     
-    MBOrderInfoViewController *infoVc = [[MBOrderInfoViewController alloc] init];
+    UINavigationController  *nav =  [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
+    MBOrderInfoTableViewController *infoVc = (MBOrderInfoTableViewController *)nav.viewControllers.firstObject;
+   
+    
     //单号和时间
-    NSString *order_id = [_orderArray[indexPath.section] valueForKeyPath:@"order_id"];
-    infoVc.order_id = order_id;
-    [self.navigationController pushViewController:infoVc animated:YES];
+    NSString *order_id = [_orderArray[indexPath.section] valueForKeyPath:@"parent_order_sn"];
+    infoVc.parent_order_sn = order_id;
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark --UITextFideldDelegate（点击键盘搜索触发事件）

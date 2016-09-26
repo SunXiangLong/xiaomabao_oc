@@ -10,13 +10,9 @@
 #import "MBShopAddressTableViewCell.h"
 #import "MBNewAddressViewController.h"
 @interface MBShopAddresViewController ()<UITableViewDelegate,UITableViewDataSource,MBShopAddressTableViewDelgate>
-
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic)NSArray *addressListArr;
-
-
 @end
-
 @implementation MBShopAddresViewController
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -31,15 +27,11 @@
     
 }
 
-    
-    
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    _tableView.tableFooterView = [[UIView  alloc ] init];
     _tableView.delegate   = self;
     _tableView.dataSource = self;
-  
-   
 }
 -(void)updateReloadData
 {
@@ -66,24 +58,15 @@ return @"收货地址";
         
         [self dismiss];
         _addressListArr = [responseObject valueForKeyPath:@"data"];
-     
-        
-       NSLog(@"%@",_addressListArr);
-        
-
-     
         [_tableView reloadData];
-        
-        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-   
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
 
@@ -94,7 +77,7 @@ return @"收货地址";
     return _addressListArr.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 126;
+    return 116;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dic = _addressListArr[indexPath.row];
@@ -102,6 +85,7 @@ return @"收货地址";
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBShopAddressTableViewCell" owner:nil options:nil]firstObject];
     }
+    [self setUIEdgeInsetsZero:cell];
     cell.name.text = dic[@"consignee"];
     cell.photo.text = dic[@"mobile"];
     cell.address.text = [NSString stringWithFormat:@"%@-%@-%@-%@",dic[@"province_name"],dic[@"city_name"],dic[@"district_name"],dic[@"address"]];
@@ -116,17 +100,24 @@ return @"收货地址";
     return cell;
 
 }
+
+/**
+ *  让cell地下的边线挨着左边界
+ */
+- (void)setUIEdgeInsetsZero:(UITableViewCell *)cell{
+    cell.separatorInset = UIEdgeInsetsZero;
+    cell.layoutMargins = UIEdgeInsetsZero;
+    cell.preservesSuperviewLayoutMargins   = false;
+    
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-   
     if (!self.PersonalCenter) {
-        
         [self popViewControllerAnimated:YES];
         NSDictionary *dict = [_addressListArr objectAtIndex:indexPath.row];
         //创建通知
         NSNotification *notification =[NSNotification notificationWithName:@"AddressNOtifition" object:nil userInfo:dict];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
-       
        
     }
     

@@ -15,9 +15,10 @@
 #import "MBGroupShopController.h"
 #import "MBDetailsCircleController.h"
 #import "MBLoginViewController.h"
-#import "MBCheckInViewController.h"
-#import "MBSharkViewController.h"
 #import "MBCollectionPostController.h"
+#import "MBVoiceViewController.h"
+#import "MBArticleViewController.h"
+#import "MBArticleCollectViewController.h"
 @interface MBMyCircleController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     
@@ -43,16 +44,17 @@
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBMyCircleController"];
+    
     _isDimiss    = YES;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBMyCircleController"];
+    
     if (_isDimiss) {
         
         [self.recommendArray removeAllObjects];
+        
         [self.myCircleArray removeAllObjects];
       
          [self setData];
@@ -88,9 +90,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
+    self.tableView.tableFooterView = [[UIView alloc] init];
+
     [self setShufflingFigureData];
     @weakify(self);
     [[self.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *num) {
@@ -104,6 +105,8 @@
             [self setData];
         }
     }];
+   
+    
 }
 /**
  *  广告轮播图UI
@@ -112,8 +115,8 @@
  */
 - (UIView *)setHeaderView{
     UIView *view =[[UIView alloc] init];
-    view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_WIDTH*35/75+ UISCREEN_WIDTH/4*204/160);
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH,UISCREEN_WIDTH*33/75) delegate:self     placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
+    view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_WIDTH*35/75+ 90);
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH,UISCREEN_WIDTH*35/75) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
     NSMutableArray *imaageUrlArr = [NSMutableArray array];
     for (NSDictionary *dic in _bandImageArray) {
         [imaageUrlArr addObject:dic[@"ad_img"]];
@@ -124,51 +127,49 @@
     [view addSubview:cycleScrollView];
     
     MBMyCircleViewTo *view1 = [MBMyCircleViewTo instanceView];
-    view1.frame = CGRectMake(0, MaxY(cycleScrollView), UISCREEN_WIDTH, UISCREEN_WIDTH/4*204/160);
+    view1.frame = CGRectMake(0, MaxY(cycleScrollView), UISCREEN_WIDTH, 90);
     [view addSubview:view1];
     
     @weakify(self);
     [[view1.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *number) {
+        
+        NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+       
        
         @strongify(self);
         switch ([number integerValue]) {
             case 0:
             {
-                
-                UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                MBCheckInViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBCheckInViewController"];
-                
-                
-                [self pushViewController:myView Animated:YES];
-                
-                
-            }
-                
-                
-                break;
+                MBArticleViewController *Vc  = [[MBArticleViewController alloc] init];
+                [self pushViewController:Vc Animated:YES];
+               
+            }break;
             case 1:{
                 
+                MBVoiceViewController *Vc  = [[MBVoiceViewController alloc] init];
+                [self pushViewController:Vc Animated:YES];
                 
-                UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                MBSharkViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBSharkViewController"];
-                [self pushViewController:myView Animated:YES];
-                
-            }
-                break;
+            }break;
             case 2: {
-            
-                MBWebViewController *VC = [[MBWebViewController alloc] init];
-                VC.url = URL(@"http://api.xiaomabao.com/circle/raffle");
-                VC.title =@"抽大奖";
-                VC.isloging = YES;
-                [self pushViewController:VC Animated:YES];
-            }
+                if (!sid) {
+                    [ self  loginClicksss];
+                    return ;
+                }
                 
-                break;
+                
+                
+                MBArticleCollectViewController *VC = [[MBArticleCollectViewController alloc] init];
+                [self pushViewController:VC Animated:YES];
+            }break;
             case 3:
             {
+                if (!sid) {
+                [ self  loginClicksss];
+                return ;
+            }
                 MBCollectionPostController *VC = [[MBCollectionPostController alloc] init];
-                [self pushViewController:VC Animated:YES]; } break;
+                [self pushViewController:VC Animated:YES];
+            } break;
                 
             default:
                 break;
@@ -189,8 +190,6 @@
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-                NSLog(@"%@",responseObject);
-        
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                 _bandImageArray = [responseObject valueForKeyPath:@"data"];
@@ -203,7 +202,7 @@
         [self show:@"没有相关数据" time:1];
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
@@ -220,13 +219,12 @@
         
         [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
             [self dismiss];
-//                 NSLog(@"%@",responseObject);
             if (responseObject) {
                 [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
                 
                 _tableView.tableHeaderView = [self setHeaderView];
-                
-                [_tableView reloadData];
+               
+                [self.tableView reloadData];
                 return ;
                 
             }
@@ -234,7 +232,7 @@
             [self show:@"没有相关数据" time:1];
             
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            NSLog(@"%@",error);
+            MMLog(@"%@",error);
             [self show:@"请求失败" time:1];
         }];
         
@@ -242,28 +240,24 @@
         NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/get_user_circle"];
         
         [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict} success:^(id responseObject) {
-            [self dismiss];
-//                        NSLog(@"%@",responseObject);
-            
+           [self dismiss];
+//          MMLog(@"%@",responseObject);
             if (responseObject) {
                 
                 [self.myCircleArray addObjectsFromArray:[responseObject valueForKeyPath:@"user_circle"]];
                 [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
                 _tableView.tableHeaderView = [self setHeaderView];
                 [self myCircleDefaults];
-                [_tableView reloadData];
-                
+                [self.tableView reloadData];
                 return ;
                 
             }
             
             [self show:@"没有相关数据" time:1];
-            
-            
-            
+
         }failure:^(NSURLSessionDataTask *operation, NSError *error) {
             [self show:@"请求失败 " time:1];
-            NSLog(@"%@",error);
+            MMLog(@"%@",error);
         }];
         
     }
@@ -308,7 +302,7 @@
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
     
@@ -316,7 +310,8 @@
 #pragma mark -- 跳转登陆页
 - (void)loginClicksss{
     //跳转到登录页
-    
+   
+
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
     myView.vcType = @"mabao";
@@ -379,18 +374,18 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if (section==0) {
-        if (_myCircleArray.count ==0) {
+        if (self.myCircleArray.count ==0) {
             NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
             if (sid) {
                 return 1;
             }
         }
        
-        return  _myCircleArray.count;
+        return  self.myCircleArray.count;
         
         
     }else{
-        return _recommendArray.count;
+        return self.recommendArray.count;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -398,7 +393,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section==0) {
-        if (_myCircleArray.count == 0) {
+        if (self.myCircleArray.count == 0) {
             NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
             if (sid) {
                 return 41;
@@ -409,7 +404,7 @@
         return 41;
     }
     
-    if (_recommendArray.count == 0) {
+    if (self.recommendArray.count == 0) {
         return 0;
     }
     return 41;
@@ -475,29 +470,33 @@
     
     if (indexPath.section ==1) {
         cell.user_button.selected = NO;
-        
     }else{
         cell.user_button.selected = YES;
         if (_myCircleArray.count==0) {
             cell.noLable.hidden = NO;
-            cell.selectionStyle =  UITableViewCellSelectionStyleNone;
             cell.exclusiveTouch = NO;
             return cell;
         }
     }
-    NSDictionary *dic = _recommendArray[indexPath.row] ;
+    
+    NSDictionary *dic;
+    
     if (indexPath.section ==0) {
-        dic = _myCircleArray[indexPath.row];
+        dic = self.myCircleArray[indexPath.row];
+    }else{
+        
+        
+        if (self.recommendArray.count > 0) {
+            dic = self.recommendArray[indexPath.row];
+        }else{
+        MMLog(@"%@",self.recommendArray);
+        }
     }
-  
     cell.indexPath = indexPath;
     cell.indexPath = indexPath;
     cell.user_name.text = dic[@"circle_name"];
     cell.user_center.text = dic[@"circle_desc"];
     [cell.user_image sd_setImageWithURL:[NSURL URLWithString:dic[@"circle_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-    
- 
-    
     @weakify(self);
     [[cell.myCircleCellSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSIndexPath *indexPath) {
         @strongify(self);
@@ -515,10 +514,7 @@
         }else{
        
              [self setJoin_circle:_recommendArray[indexPath.row][@"circle_id"] indexPath:indexPath];
-            
         }
-       
-        
     }];
     
     return cell;
@@ -526,6 +522,12 @@
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (_myCircleArray.count==0) {
+    
+        return;
+    
+    }
     _isDimiss = YES;
     NSDictionary *dic;
     if (indexPath.section == 0) {
@@ -615,9 +617,7 @@
     [att addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} range:NSMakeRange(range.location, range.length )];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    
     UILabel *lable =    [hud valueForKeyPath:@"label"];
-    
     hud.color = RGBCOLOR(219, 171, 171);
     hud.mode = MBProgressHUDModeText;
     hud.labelText = comment_content;

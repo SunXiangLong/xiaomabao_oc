@@ -68,15 +68,15 @@
     
     
     [formatter setTimeStyle:NSDateFormatterMediumStyle];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *comps = [[NSDateComponents alloc] init];
-    NSInteger unitFlags = NSYearCalendarUnit |
-    NSMonthCalendarUnit |
-    NSDayCalendarUnit |
-    NSWeekdayCalendarUnit |
-    NSHourCalendarUnit |
-    NSMinuteCalendarUnit |
-    NSSecondCalendarUnit;
+    NSInteger unitFlags = NSCalendarUnitYear |
+    NSCalendarUnitMonth |
+    NSCalendarUnitDay |
+    NSCalendarUnitWeekday |
+    NSCalendarUnitHour |
+    NSCalendarUnitMinute |
+    NSCalendarUnitSecond;
     comps = [calendar components:unitFlags fromDate:mydate];
     
      NSDateComponents *monthComps = [calendar components:unitFlags fromDate:datetime];
@@ -206,7 +206,7 @@
             CGFloat btnX = col * (btnW + margin) + margin + 10;
             CGFloat btnY = row * btnH - 20;
             CGRect frame = CGRectMake(btnX, btnY, btnW, btnH);
-            [[NSString stringWithFormat:@"%d",index] drawInRect:frame withAttributes:dict];
+            [[NSString stringWithFormat:@"%ld",(long)index] drawInRect:frame withAttributes:dict];
             [self.dateFrames addObject:[NSValue valueWithCGRect:frame]];
         }
     }

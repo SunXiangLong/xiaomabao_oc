@@ -94,21 +94,23 @@
         [self show:@"两次密码不一致" time:1];
         return;
     }
-    
+    [self.pwd2 resignFirstResponder];
+    [self.pwd1 resignFirstResponder];
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/modPassword"]
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/modpassword"]
         parameters:@{@"session":sessiondict,@"old_password":[self.oldFld.text md5],@"new_password":[self.pwd1.text md5]}
         success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
             NSDictionary * status_dict = [responseObject valueForKey:@"status"];
-            NSLog(@"success:%@",status_dict);
+            MMLog(@"success:%@",status_dict);
             [self dismiss];
             if([[status_dict valueForKeyPath:@"succeed"] isEqualToNumber:@0]){
                 [self show:[status_dict valueForKeyPath:@"error_desc"] time:1];
             }else{
                 [self show:@"修改密码成功" time:1];
+                
                 [self SavePassword:_pwd2.text];
                 //退出并跳转到登录页
                 
@@ -133,17 +135,7 @@
 - (NSString *)titleStr{
     return @"修改密码";
 }
-- (void)deletePasswordAndUserName{
-    
-    NSError *error;
-    BOOL UserNameDeleted;
-    BOOL Password;
-    Password = [SFHFKeychainUtils   deleteItemForUsername:@"Password" andServiceName:@"com.xiaomabo.Password" error:&error];
-    
-    if (!UserNameDeleted&&!Password) {
-        NSLog(@"删除成功");
-    }
-}
+
 #pragma mark --   保存密码账号到本地
 - (void )SavePassword:(NSString *)password{
     NSError *errors;
@@ -151,9 +143,9 @@
     BOOL pass = [SFHFKeychainUtils storeUsername:@"Password" andPassword:password forServiceName:@"com.xiaomabao.Password" updateExisting:YES error:&errors];
     
     if (!pass) {
-        NSLog(@"❌Keychain保存密码时出错：%@",errors);
+        MMLog(@"❌Keychain保存密码时出错：%@",errors);
     }else{
-        NSLog(@"✅Keychain保存密码成功！");
+        MMLog(@"✅Keychain保存密码成功！");
     }
     
 }

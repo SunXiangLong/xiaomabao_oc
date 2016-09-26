@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -15,14 +15,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FDV-l6-Vvs">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                        <rect key="frame" x="10" y="5" width="300" height="38.5"/>
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="FDV-l6-Vvs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="K8d-Cu-mij"/>
+                    <constraint firstItem="FDV-l6-Vvs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="K8d-Cu-mij"/>
                     <constraint firstAttribute="bottom" secondItem="FDV-l6-Vvs" secondAttribute="bottom" id="QZ5-kJ-va1"/>
-                    <constraint firstAttribute="trailing" secondItem="FDV-l6-Vvs" secondAttribute="trailing" id="fv6-PC-sd0"/>
-                    <constraint firstItem="FDV-l6-Vvs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="qwJ-E7-rFu"/>
+                    <constraint firstAttribute="trailing" secondItem="FDV-l6-Vvs" secondAttribute="trailing" constant="10" id="fv6-PC-sd0"/>
+                    <constraint firstItem="FDV-l6-Vvs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="qwJ-E7-rFu"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

@@ -32,16 +32,7 @@
 @end
 
 @implementation MBRegisterViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBRegister"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBRegister"];
-}
+
 - (MBEmailRegisterView *)emailRegisterView{
     if (!_emailRegisterView) {
         MBEmailRegisterView *emailRegisterView = [MBEmailRegisterView instanceXibView];
@@ -179,49 +170,32 @@
         return NO;
     }
     
-//    NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,3-9]))\\d{8}$";
-//    
-//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-//    
-//    BOOL isMatch = [pred evaluateWithObject:str];
-//    
-//    if (!isMatch) {
-//        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入正确的手机号码" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [alert show];
-//        return NO;
-//    }
+
     
-    NSString *postUrl = [NSString stringWithFormat:@"%@%@",BASE_URL,@"user/valid"];
+    NSString *postUrl = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/regphonecode"];
     
     
     [self show];
-    [MBNetworking POST:postUrl parameters:@{@"name":str,@"type":@"1"} success:^(NSURLSessionDataTask *asdf, MBModel *responseObject) {
-        [self dismiss];
-        NSDictionary * status = responseObject.status;
-        
-        
-        if([status[@"succeed"] isEqualToNumber:@1]){
-            
-            NSDictionary * data = responseObject.data;
-            self.md5Encryption = data[@"phoneCode"];
-            
-            NSLog(@"%@",self.md5Encryption);
-            
-            
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认验证码" message:[NSString stringWithFormat:@"我们已向您的手机：%@ 发送了验证码，请查收",self.PhoneField.text] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"下一步", nil];
-            alertView.delegate = self;
-            
-            [alertView show];
+    [MBNetworking POSTOrigin:postUrl parameters:@{@"name":str,@"type":@"1"}  success:^(id responseObject) {
+        MMLog(@"%@",responseObject);
+           [self dismiss];
+         NSString *succeed = [NSString stringWithFormat:@"%@",responseObject[@"status"][@"succeed"]];
+        if ([succeed isEqualToString:@"1"]) {
+            [self show:@"短信已发送，请注意查收" time:1];
+            self.md5Encryption = responseObject[@"data"][@"phoneCode"];
+            [self performSegueWithIdentifier:@"pushMBRegisterPhoneVerifyViewController" sender:nil];
         }else{
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:status[@"error_desc"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
-            [alert show];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:responseObject[@"data"][@"info"] delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+                [alert show];
+        
         }
         
-    } failure:^(NSURLSessionDataTask *asdfg, NSError *asdfgh) {
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self dismiss];
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请求失败，请重试" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请求失败，请重试" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
         [alert show];
     }];
+
     
     return YES;
 }
@@ -236,24 +210,8 @@
         if([self.PhoneField.text isEqualToString:registNumber])
             return [self show:@"此号码已经登录" time:1 ];
         
-//         //跳转短信验证控制器
-//        NSString *phoneNumber = self.PhoneField.text;
-//        NSString *phoneRegex = @"^(0|86|17951)?(13[0-9]|15[012356789]|17[6789]|18[0-9]|14[57])[0-9]{8}$";  
-//        NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegex];
-//        BOOL matches = [test evaluateWithObject:phoneNumber];
-//        if (matches) {
-//            [KVNProgress showWithStatus:@"正在验证..."];
-//            [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/phoneCode"] parameters:@{@"name":phoneNumber, @"type":@"1",@"requesttype":@"100"} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-//                [KVNProgress dismiss];
-//                
-//                self.md5Encryption = [responseObject.data valueForKey:@"phoneCode"];
-//                [self performSegueWithIdentifier:@"pushMBRegisterPhoneVerifyViewController" sender:nil];
-//            } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-//                [KVNProgress showErrorWithStatus:@"验证失败"];
-//            }];
-//        }
         
-        [self performSegueWithIdentifier:@"pushMBRegisterPhoneVerifyViewController" sender:nil];
+        
     }
 }
 

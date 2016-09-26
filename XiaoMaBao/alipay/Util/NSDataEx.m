@@ -156,7 +156,7 @@ static char encodingTable[64] = {
 //	char *hex = "0123456789ABCDEF";
 //	unsigned char* data = (unsigned char*)[self bytes];
 //	int len = [self length];
-//	//NSLog(@"len = %d", len);
+//	//MMLog(@"len = %d", len);
 //	NSMutableString* s = [NSMutableString string];
 //	for(int i = 0;i<len;i++){
 //		unsigned char c = data[i];
@@ -170,7 +170,7 @@ static char encodingTable[64] = {
 //		} else {
 //			[s appendString:@"%"];
 //			char ts1 = hex[c >> 4];
-//		//	NSLog(@"ts = %c", ts1);
+//		//	MMLog(@"ts = %c", ts1);
 //			NSString* ts = [[NSString alloc] initWithCString:&ts1 length:1];
 //			[s appendString:ts];
 //			[ts release];

@@ -17,6 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *service_num;
 @property (weak, nonatomic) IBOutlet UILabel *service_price;
 @property (weak, nonatomic) IBOutlet UIButton *button;
-@property (nonatomic,strong) BkBaseViewController *vc;
+@property (nonatomic,weak) BkBaseViewController *vc;
 @property(strong,nonatomic)NSDictionary *dataDic;
 @end

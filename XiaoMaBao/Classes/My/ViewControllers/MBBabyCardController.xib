@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="RTWSYueRoudGoG0v1-Regular.ttf">
+            <string>RTWSYueRoudGoG0v1-Regular</string>
+            <string>RTWSYueRoudGoG0v1-Regular</string>
+            <string>RTWSYueRoudGoG0v1-Regular</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MBBabyCardController">
+            <connections>
+                <outlet property="tableView" destination="pbK-fW-ftU" id="0gV-zw-v7B"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noBabyCard" translatesAutoresizingMaskIntoConstraints="NO" id="Xqd-DL-QIo">
+                    <rect key="frame" x="80" y="105" width="160" height="106.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Xqd-DL-QIo" secondAttribute="height" multiplier="405:269" id="Szx-Kr-RQL"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="很遗憾" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3AT-X9-kAK">
+                    <rect key="frame" x="133" y="255" width="54" height="18"/>
+                    <fontDescription key="fontDescription" name="RTWSYueRoudGoG0v1-Regular" family="RTWS YueRoundedGothic G0v1" pointSize="18"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="你暂时没有可以使用的小麻包卡" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TX0-xR-iom">
+                    <rect key="frame" x="83" y="284" width="154" height="11"/>
+                    <fontDescription key="fontDescription" name="RTWSYueRoudGoG0v1-Regular" family="RTWS YueRoundedGothic G0v1" pointSize="11"/>
+                    <color key="textColor" red="0.69411764705882351" green="0.69411764705882351" blue="0.69411764705882351" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pbK-fW-ftU">
+                    <rect key="frame" x="0.0" y="64" width="320" height="366"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="NvH-X5-efV"/>
+                        <outlet property="delegate" destination="-1" id="NCy-Bo-uMb"/>
+                    </connections>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BgD-eQ-ukE">
+                    <rect key="frame" x="5" y="430" width="310" height="40"/>
+                    <color key="backgroundColor" red="0.91372549020000005" green="0.40784313729999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="hFJ-gO-JB2"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="RTWSYueRoudGoG0v1-Regular" family="RTWS YueRoundedGothic G0v1" pointSize="15"/>
+                    <state key="normal" title=" 使 用">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="bindUses:" destination="-1" eventType="touchUpInside" id="oHz-wW-G0a"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="3AT-X9-kAK" firstAttribute="top" secondItem="Xqd-DL-QIo" secondAttribute="bottom" constant="44" id="0ce-Nc-Yvw"/>
+                <constraint firstAttribute="trailing" secondItem="pbK-fW-ftU" secondAttribute="trailing" id="4Od-w9-t5A"/>
+                <constraint firstItem="Xqd-DL-QIo" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="4Pw-2e-qsx"/>
+                <constraint firstItem="BgD-eQ-ukE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="5" id="7QY-n4-Dp1"/>
+                <constraint firstItem="3AT-X9-kAK" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="7w5-9f-rZ4"/>
+                <constraint firstItem="BgD-eQ-ukE" firstAttribute="top" secondItem="pbK-fW-ftU" secondAttribute="bottom" id="9IR-gd-8gy"/>
+                <constraint firstAttribute="bottom" secondItem="BgD-eQ-ukE" secondAttribute="bottom" constant="10" id="WFD-7P-IvL"/>
+                <constraint firstItem="TX0-xR-iom" firstAttribute="top" secondItem="3AT-X9-kAK" secondAttribute="bottom" constant="11" id="a6g-ta-uuT"/>
+                <constraint firstItem="Xqd-DL-QIo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="105" id="aSw-AI-qZt"/>
+                <constraint firstItem="pbK-fW-ftU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cl4-am-ygz"/>
+                <constraint firstItem="TX0-xR-iom" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="hoe-he-GYf"/>
+                <constraint firstAttribute="trailing" secondItem="BgD-eQ-ukE" secondAttribute="trailing" constant="5" id="kFX-mL-Ous"/>
+                <constraint firstItem="pbK-fW-ftU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="lNZ-Nt-2jz"/>
+                <constraint firstAttribute="trailing" secondItem="Xqd-DL-QIo" secondAttribute="trailing" constant="80" id="wzA-nk-vTX"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="217" y="183"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="noBabyCard" width="202" height="134"/>
+    </resources>
+</document>

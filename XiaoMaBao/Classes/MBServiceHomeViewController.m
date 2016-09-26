@@ -15,6 +15,7 @@
 @interface MBServiceHomeViewController ()
 {
     NSInteger _page;
+    
     NSMutableArray *_storeData;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -22,17 +23,7 @@
 @end
 
 @implementation MBServiceHomeViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBServiceHomeViewController"];
-}
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBServiceHomeViewController"];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,11 +35,7 @@
 }
 - (void)setRefresh{
     
-    
-    
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setheadData)];
-    //    footer.triggerAutomaticallyRefreshPercent = 0.5;
-    
     footer.refreshingTitleHidden = YES;
     self.tableView.mj_footer = footer;
     
@@ -60,8 +47,8 @@
     [self show];
     
     
-    //    NSString *page = [NSString stringWithFormat:@"%ld",_page];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/shop_list"];
+    NSString *page = [NSString stringWithFormat:@"%ld",_page];
+    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/service/shop_list/",page];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         
@@ -74,14 +61,15 @@
             [self.tableView reloadData];
             // 拿到当前的上拉刷新控件，结束刷新状态
             [self.tableView .mj_footer endRefreshing];
-            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+
+           
         }else{
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
             return ;
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     

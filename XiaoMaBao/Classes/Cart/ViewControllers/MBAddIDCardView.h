@@ -12,7 +12,7 @@
 typedef void(^AddIDCard)(BOOL isbool);
 @interface MBAddIDCardView : UIView
 
-@property (nonatomic,strong) BkBaseViewController *VC;
+@property (nonatomic,weak) BkBaseViewController *VC;
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *idCard;
 @property (nonatomic,copy)  NSMutableArray    *photoArray;

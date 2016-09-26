@@ -13,6 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *store_name;
 @property (weak, nonatomic) IBOutlet UILabel *store_adress;
 @property (nonatomic,strong) NSString *shop_id;
-@property (nonatomic,strong) BkBaseViewController *VC;
+@property (nonatomic,weak) BkBaseViewController *VC;
 + (instancetype)instanceView;
 @end

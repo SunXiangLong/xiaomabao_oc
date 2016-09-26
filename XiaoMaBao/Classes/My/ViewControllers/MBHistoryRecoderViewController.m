@@ -55,13 +55,13 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/goods_history_record"] parameters:@{@"session":sessiondict,@"count":@"20",@"page":@"1"}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/history"] parameters:@{@"session":sessiondict,@"count":@"20",@"page":@"1"}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
-                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//                   MMLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    [self dismiss];
                    _array= [responseObject valueForKeyPath:@"data"];
                   
-                   NSLog(@"%@",_array);
+                 
                    
                    if (_array.count>0) {
                           [self tableView];
@@ -72,7 +72,7 @@
              
                    
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    [self show:@"请求失败" time:1];
                }];
     
@@ -87,15 +87,15 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/user/goods_history_record_clean"] parameters:@{@"session":sessiondict}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/chistory"] parameters:@{@"session":sessiondict}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
-                   NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//                   MMLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    [self dismiss];
                    _array = @[];
                    [_tableView reloadData];
                     self.stateStr = @"暂无浏览记录";
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    [self show:@"请求失败" time:1];
                }];
 
@@ -127,9 +127,5 @@
 - (NSString *)titleStr{
     return @"浏览记录";
 }
-- (void)registerClick{
 
-    NSLog(@".........");
-
-}
 @end

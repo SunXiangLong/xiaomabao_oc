@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.height.constant = 0.5f;
 }
 - (IBAction)default:(id)sender {
     if (!self.isDefault) {
@@ -29,7 +30,7 @@
             }
           
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            NSLog(@"%@",error);
+            MMLog(@"%@",error);
         }];
         
     }
@@ -77,7 +78,7 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"失败");
+        MMLog(@"失败");
     }];
 
 }

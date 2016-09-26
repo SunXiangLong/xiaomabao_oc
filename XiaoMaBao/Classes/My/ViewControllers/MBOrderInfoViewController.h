@@ -35,6 +35,6 @@
 @property(copy,nonatomic)NSString *order_amount_formatted;
 @property(copy,nonatomic)NSString *saving_money_formatted;
 @property(copy,nonatomic)NSString *shipping_fee_formatted;
-
+@property(copy,nonatomic)NSString *surplus_formatted;
 
 @end

@@ -17,16 +17,7 @@
 @end
 
 @implementation MBRegisterPhoneDoneViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBRegisterPhoneDoneViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBRegisterPhoneDoneViewController"];
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

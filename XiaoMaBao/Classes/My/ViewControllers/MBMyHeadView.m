@@ -14,6 +14,7 @@
     return [[[NSBundle mainBundle] loadNibNamed:@"MBMyHeadView" owner:nil options:nil] lastObject];
 }
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.back_image .contentMode =  UIViewContentModeScaleAspectFill;
     self.back_image .autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.back_image .clipsToBounds  = YES;

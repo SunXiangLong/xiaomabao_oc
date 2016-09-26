@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Its-5n-h1A" customClass="MBNewMyViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Its-5n-h1A" id="jMa-am-6Nd">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="V12-gR-X3g">
+                        <rect key="frame" x="15" y="10" width="24.5" height="24.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="V12-gR-X3g" secondAttribute="height" multiplier="55:53" id="jWq-gb-vj8"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天气提醒" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l18-HK-yXh">
+                        <rect key="frame" x="49" y="13" width="60" height="18"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <color key="textColor" red="0.4431372549" green="0.4431372549" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="400-0053-830" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVz-zy-iu3">
+                        <rect key="frame" x="115" y="14" width="106" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jiantou" translatesAutoresizingMaskIntoConstraints="NO" id="tRJ-gY-2qa">
+                        <rect key="frame" x="297" y="18.5" width="8" height="9"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="8" id="OIy-mw-vH9"/>
+                            <constraint firstAttribute="width" secondItem="tRJ-gY-2qa" secondAttribute="height" multiplier="14:15" id="S8I-GW-gLa"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="l18-HK-yXh" firstAttribute="centerY" secondItem="V12-gR-X3g" secondAttribute="centerY" id="3Kx-UW-SBI"/>
+                    <constraint firstItem="kVz-zy-iu3" firstAttribute="bottom" secondItem="l18-HK-yXh" secondAttribute="bottom" constant="1" id="Gfx-Ii-vOL"/>
+                    <constraint firstItem="V12-gR-X3g" firstAttribute="leading" secondItem="jMa-am-6Nd" secondAttribute="leading" constant="15" id="HaX-gw-PQP"/>
+                    <constraint firstItem="tRJ-gY-2qa" firstAttribute="centerY" secondItem="jMa-am-6Nd" secondAttribute="centerY" id="Jmm-NS-iMh"/>
+                    <constraint firstAttribute="bottom" secondItem="V12-gR-X3g" secondAttribute="bottom" constant="10" id="QBd-EA-UV1"/>
+                    <constraint firstItem="V12-gR-X3g" firstAttribute="top" secondItem="jMa-am-6Nd" secondAttribute="top" constant="10" id="ZBy-Il-1t4"/>
+                    <constraint firstItem="l18-HK-yXh" firstAttribute="leading" secondItem="V12-gR-X3g" secondAttribute="trailing" constant="10" id="dSk-NE-TP4"/>
+                    <constraint firstAttribute="trailing" secondItem="tRJ-gY-2qa" secondAttribute="trailing" constant="15" id="r1K-lz-0Ee"/>
+                    <constraint firstItem="kVz-zy-iu3" firstAttribute="leading" secondItem="l18-HK-yXh" secondAttribute="trailing" constant="6" id="uT8-na-6qa"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="user_image" destination="V12-gR-X3g" id="gwe-ww-xvT"/>
+                <outlet property="user_photo" destination="kVz-zy-iu3" id="nIc-Yo-9uW"/>
+                <outlet property="user_tiele" destination="l18-HK-yXh" id="TLZ-Do-rGn"/>
+            </connections>
+            <point key="canvasLocation" x="152" y="155.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="jiantou" width="7" height="7"/>
+        <image name="placeholder_num2" width="66" height="66"/>
+    </resources>
+</document>

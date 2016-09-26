@@ -1,131 +1,62 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MBMyCircleViewTo">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxf-lF-3eX">
-                    <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mbq_signin" translatesAutoresizingMaskIntoConstraints="NO" id="72n-Bk-qEJ">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FcY-4f-mwu">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
-                            <connections>
-                                <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="C2I-lE-vcf"/>
-                            </connections>
-                        </button>
-                    </subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FcY-4f-mwu">
                     <constraints>
-                        <constraint firstItem="FcY-4f-mwu" firstAttribute="top" secondItem="hxf-lF-3eX" secondAttribute="top" id="2VB-Vc-Yl6"/>
-                        <constraint firstItem="72n-Bk-qEJ" firstAttribute="top" secondItem="hxf-lF-3eX" secondAttribute="top" id="8Dk-kn-4BJ"/>
-                        <constraint firstItem="72n-Bk-qEJ" firstAttribute="leading" secondItem="hxf-lF-3eX" secondAttribute="leading" id="ES3-PS-KHq"/>
-                        <constraint firstAttribute="bottom" secondItem="FcY-4f-mwu" secondAttribute="bottom" id="Jom-Ze-tNH"/>
-                        <constraint firstAttribute="bottom" secondItem="72n-Bk-qEJ" secondAttribute="bottom" id="UEe-3Y-NBb"/>
-                        <constraint firstAttribute="trailing" secondItem="72n-Bk-qEJ" secondAttribute="trailing" id="VKb-gs-KSz"/>
-                        <constraint firstItem="FcY-4f-mwu" firstAttribute="leading" secondItem="hxf-lF-3eX" secondAttribute="leading" id="gFL-H1-GZJ"/>
-                        <constraint firstAttribute="trailing" secondItem="FcY-4f-mwu" secondAttribute="trailing" id="svX-Op-SIb"/>
+                        <constraint firstAttribute="width" id="qhg-bv-hZO"/>
                     </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iLi-eV-DWg">
-                    <rect key="frame" x="80" y="0.0" width="80" height="100"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mbq_shake" translatesAutoresizingMaskIntoConstraints="NO" id="rpp-4e-UEO">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
-                        </imageView>
-                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kax-iL-MkS">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
-                            <connections>
-                                <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="6n7-kH-RYL"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <constraints>
-                        <constraint firstAttribute="bottom" secondItem="rpp-4e-UEO" secondAttribute="bottom" id="0BM-ct-njw"/>
-                        <constraint firstAttribute="trailing" secondItem="Kax-iL-MkS" secondAttribute="trailing" id="2R8-pr-YRK"/>
-                        <constraint firstAttribute="trailing" secondItem="rpp-4e-UEO" secondAttribute="trailing" id="2Ut-0X-GGv"/>
-                        <constraint firstItem="Kax-iL-MkS" firstAttribute="top" secondItem="iLi-eV-DWg" secondAttribute="top" id="3Nk-iS-bRx"/>
-                        <constraint firstItem="rpp-4e-UEO" firstAttribute="top" secondItem="iLi-eV-DWg" secondAttribute="top" id="6Dj-tK-uZ2"/>
-                        <constraint firstAttribute="bottom" secondItem="Kax-iL-MkS" secondAttribute="bottom" id="PTj-e9-tVV"/>
-                        <constraint firstItem="Kax-iL-MkS" firstAttribute="leading" secondItem="iLi-eV-DWg" secondAttribute="leading" id="TeZ-ac-7Yt"/>
-                        <constraint firstItem="rpp-4e-UEO" firstAttribute="leading" secondItem="iLi-eV-DWg" secondAttribute="leading" id="uQf-IG-hbg"/>
-                    </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NaF-qA-0cX">
-                    <rect key="frame" x="160" y="0.0" width="80" height="100"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mbq_raffle" translatesAutoresizingMaskIntoConstraints="NO" id="I1A-LN-bb5">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
-                        </imageView>
-                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZ5-pt-bs1">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
-                            <connections>
-                                <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="H7z-Fu-wNg"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="NZ5-pt-bs1" firstAttribute="top" secondItem="NaF-qA-0cX" secondAttribute="top" id="8Mg-gh-W4c"/>
-                        <constraint firstAttribute="trailing" secondItem="I1A-LN-bb5" secondAttribute="trailing" id="9Ab-FG-mKU"/>
-                        <constraint firstAttribute="bottom" secondItem="NZ5-pt-bs1" secondAttribute="bottom" id="MWY-QW-QPP"/>
-                        <constraint firstAttribute="trailing" secondItem="NZ5-pt-bs1" secondAttribute="trailing" id="Q4Q-cq-83w"/>
-                        <constraint firstItem="I1A-LN-bb5" firstAttribute="leading" secondItem="NaF-qA-0cX" secondAttribute="leading" id="usp-Pe-Rv1"/>
-                        <constraint firstAttribute="bottom" secondItem="I1A-LN-bb5" secondAttribute="bottom" id="usr-DB-bCb"/>
-                        <constraint firstItem="NZ5-pt-bs1" firstAttribute="leading" secondItem="NaF-qA-0cX" secondAttribute="leading" id="v1C-ks-5Pp"/>
-                        <constraint firstItem="I1A-LN-bb5" firstAttribute="top" secondItem="NaF-qA-0cX" secondAttribute="top" id="vLu-pJ-OTU"/>
-                    </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9VQ-je-sE0">
-                    <rect key="frame" x="240" y="0.0" width="80" height="100"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mbq_collection" translatesAutoresizingMaskIntoConstraints="NO" id="2v6-Jy-zvN">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
-                        </imageView>
-                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhS-CJ-Ac7">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
-                            <connections>
-                                <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="gNV-A0-Uqo"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="2v6-Jy-zvN" firstAttribute="top" secondItem="9VQ-je-sE0" secondAttribute="top" id="7i9-88-1c4"/>
-                        <constraint firstAttribute="trailing" secondItem="2v6-Jy-zvN" secondAttribute="trailing" id="Jbx-5R-ix4"/>
-                        <constraint firstItem="NhS-CJ-Ac7" firstAttribute="top" secondItem="9VQ-je-sE0" secondAttribute="top" id="JzB-ED-Mad"/>
-                        <constraint firstItem="2v6-Jy-zvN" firstAttribute="leading" secondItem="9VQ-je-sE0" secondAttribute="leading" id="QID-gy-RZm"/>
-                        <constraint firstAttribute="bottom" secondItem="NhS-CJ-Ac7" secondAttribute="bottom" id="Y9k-38-wbq"/>
-                        <constraint firstItem="NhS-CJ-Ac7" firstAttribute="leading" secondItem="9VQ-je-sE0" secondAttribute="leading" id="bt8-MX-hKP"/>
-                        <constraint firstAttribute="bottom" secondItem="2v6-Jy-zvN" secondAttribute="bottom" id="f8Z-wc-wb0"/>
-                        <constraint firstAttribute="trailing" secondItem="NhS-CJ-Ac7" secondAttribute="trailing" id="jLP-Yb-haH"/>
-                    </constraints>
-                </view>
+                    <state key="normal" image="mm_voiceanswers"/>
+                    <connections>
+                        <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="C2I-lE-vcf"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kax-iL-MkS">
+                    <state key="normal" image="mm_expertarticle"/>
+                    <connections>
+                        <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="6n7-kH-RYL"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhS-CJ-Ac7">
+                    <state key="normal" image="mm_postcollect"/>
+                    <connections>
+                        <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="gNV-A0-Uqo"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZ5-pt-bs1">
+                    <state key="normal" image="mm_articleCollect"/>
+                    <connections>
+                        <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="H7z-Fu-wNg"/>
+                    </connections>
+                </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="9VQ-je-sE0" firstAttribute="width" secondItem="hxf-lF-3eX" secondAttribute="width" id="0hX-XK-l88"/>
-                <constraint firstItem="hxf-lF-3eX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="35o-LN-n3u"/>
-                <constraint firstItem="NaF-qA-0cX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="5Po-DP-cIf"/>
-                <constraint firstItem="9VQ-je-sE0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="DQ2-8q-DQT"/>
-                <constraint firstItem="iLi-eV-DWg" firstAttribute="width" secondItem="hxf-lF-3eX" secondAttribute="width" id="M4v-f8-TyG"/>
-                <constraint firstItem="hxf-lF-3eX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="MXA-TT-4fO"/>
-                <constraint firstItem="iLi-eV-DWg" firstAttribute="leading" secondItem="hxf-lF-3eX" secondAttribute="trailing" id="OKN-81-bzJ"/>
-                <constraint firstAttribute="bottom" secondItem="iLi-eV-DWg" secondAttribute="bottom" id="OsO-uP-e2R"/>
-                <constraint firstItem="9VQ-je-sE0" firstAttribute="leading" secondItem="NaF-qA-0cX" secondAttribute="trailing" id="QFr-pk-reZ"/>
-                <constraint firstAttribute="bottom" secondItem="hxf-lF-3eX" secondAttribute="bottom" id="S3H-1s-6O0"/>
-                <constraint firstItem="NaF-qA-0cX" firstAttribute="width" secondItem="hxf-lF-3eX" secondAttribute="width" id="oGj-sm-r3d"/>
-                <constraint firstAttribute="bottom" secondItem="NaF-qA-0cX" secondAttribute="bottom" id="oiJ-Qk-Yzy"/>
-                <constraint firstAttribute="bottom" secondItem="9VQ-je-sE0" secondAttribute="bottom" id="pbB-9j-J3h"/>
-                <constraint firstItem="iLi-eV-DWg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="u9e-xc-x6Y"/>
-                <constraint firstAttribute="trailing" secondItem="9VQ-je-sE0" secondAttribute="trailing" id="yKX-Ni-hzM"/>
-                <constraint firstItem="NaF-qA-0cX" firstAttribute="leading" secondItem="iLi-eV-DWg" secondAttribute="trailing" id="yuV-ob-tFK"/>
+                <constraint firstItem="FcY-4f-mwu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3IG-OK-0Bi"/>
+                <constraint firstAttribute="bottom" secondItem="FcY-4f-mwu" secondAttribute="bottom" id="7vN-Nj-w3s"/>
+                <constraint firstItem="NhS-CJ-Ac7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="83q-6O-TPy"/>
+                <constraint firstAttribute="bottom" secondItem="Kax-iL-MkS" secondAttribute="bottom" id="88O-2j-qj8"/>
+                <constraint firstAttribute="bottom" secondItem="NZ5-pt-bs1" secondAttribute="bottom" id="B34-Qw-iPG"/>
+                <constraint firstItem="NZ5-pt-bs1" firstAttribute="width" secondItem="Kax-iL-MkS" secondAttribute="width" id="FnM-Uv-ZWE"/>
+                <constraint firstItem="NhS-CJ-Ac7" firstAttribute="leading" secondItem="NZ5-pt-bs1" secondAttribute="trailing" id="Vzl-pF-aAd"/>
+                <constraint firstItem="Kax-iL-MkS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="X6a-WN-iI4"/>
+                <constraint firstItem="Kax-iL-MkS" firstAttribute="leading" secondItem="FcY-4f-mwu" secondAttribute="trailing" id="XL4-TT-BqL"/>
+                <constraint firstAttribute="bottom" secondItem="NhS-CJ-Ac7" secondAttribute="bottom" id="YMB-je-p7j"/>
+                <constraint firstItem="NZ5-pt-bs1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="aT7-iV-IUd"/>
+                <constraint firstItem="FcY-4f-mwu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="h3S-2U-iHV"/>
+                <constraint firstAttribute="trailing" secondItem="NhS-CJ-Ac7" secondAttribute="trailing" id="hvy-lg-DxN"/>
+                <constraint firstItem="NZ5-pt-bs1" firstAttribute="leading" secondItem="Kax-iL-MkS" secondAttribute="trailing" id="p3e-bx-5ul"/>
+                <constraint firstItem="NhS-CJ-Ac7" firstAttribute="width" secondItem="Kax-iL-MkS" secondAttribute="width" id="tug-Hz-O5W"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -133,9 +64,9 @@
         </view>
     </objects>
     <resources>
-        <image name="mbq_collection" width="80" height="102"/>
-        <image name="mbq_raffle" width="80" height="102"/>
-        <image name="mbq_shake" width="80" height="102"/>
-        <image name="mbq_signin" width="80" height="101"/>
+        <image name="mm_articleCollect" width="50" height="55"/>
+        <image name="mm_expertarticle" width="50" height="55"/>
+        <image name="mm_postcollect" width="50" height="55"/>
+        <image name="mm_voiceanswers" width="50" height="55"/>
     </resources>
 </document>

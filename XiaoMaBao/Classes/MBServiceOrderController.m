@@ -21,17 +21,7 @@
 @end
 
 @implementation MBServiceOrderController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBServiceOrderController"];
-}
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBServiceOrderController"];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,12 +33,12 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/order_info"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/order_info"];
     if (! sid) {
         return;
     }
     [MBNetworking POSTOrigin:url parameters:@{@"session":sessiondict,@"order_id":self.order_id} success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         if (responseObject) {
             _dataDic = responseObject;
             
@@ -56,7 +46,7 @@
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
 }
@@ -84,7 +74,7 @@
     switch (indexPath.section) {
         case 0: return 95;
         case 1: return 40;
-        default:  return 360;
+        default:  return 380;
           
     }
 }
@@ -156,6 +146,7 @@
             cell.oredr_time.text = [NSString stringWithFormat:@"购买手机号：%@",orderDic[@"pay_time"]];
             cell.order_num.text = [NSString stringWithFormat:@"数量：%@",orderDic[@"product_number"]];
             cell.order_price.text = [NSString stringWithFormat:@"总价：%@元",orderDic[@"order_amount"]];
+             cell.surplus.text = [NSString stringWithFormat:@"麻包卡：%@",orderDic[@"surplus"]];
             return cell;}
             
     }
