@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="MBNewBabyOneTableCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="64.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="H5Y-v2-KRr">
+                        <rect key="frame" x="16" y="15" width="34.5" height="34.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="H5Y-v2-KRr" secondAttribute="height" multiplier="1:1" id="WPR-gr-cSJ"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天气提醒" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Teb-Cx-YRF">
+                        <rect key="frame" x="60" y="15" width="60" height="18"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <color key="textColor" red="0.44313725490196076" green="0.44313725490196076" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jiantou" translatesAutoresizingMaskIntoConstraints="NO" id="kVU-uc-kcD">
+                        <rect key="frame" x="295" y="39" width="9.5" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="kVU-uc-kcD" secondAttribute="height" multiplier="14:15" id="KRz-GL-UV3"/>
+                            <constraint firstAttribute="height" constant="10" id="ilA-Nf-1wC"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天天气不是好的的的的时代时尚舒适放松舒服舒服是舒服舒服" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzD-Po-Adf">
+                        <rect key="frame" x="60" y="36" width="227.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="kVU-uc-kcD" firstAttribute="leading" secondItem="xzD-Po-Adf" secondAttribute="trailing" constant="8" id="8Ck-ec-gE2"/>
+                    <constraint firstItem="H5Y-v2-KRr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="API-q4-kIg"/>
+                    <constraint firstItem="Teb-Cx-YRF" firstAttribute="leading" secondItem="H5Y-v2-KRr" secondAttribute="trailing" constant="10" id="F2P-Rv-H8j"/>
+                    <constraint firstItem="xzD-Po-Adf" firstAttribute="leading" secondItem="Teb-Cx-YRF" secondAttribute="leading" id="LqH-Hz-1Si"/>
+                    <constraint firstAttribute="bottom" secondItem="H5Y-v2-KRr" secondAttribute="bottom" constant="15" id="TCC-ZC-YlT"/>
+                    <constraint firstItem="kVU-uc-kcD" firstAttribute="centerY" secondItem="xzD-Po-Adf" secondAttribute="centerY" id="XUh-sS-PUk"/>
+                    <constraint firstAttribute="trailing" secondItem="kVU-uc-kcD" secondAttribute="trailing" constant="15" id="eOl-7F-bhR"/>
+                    <constraint firstItem="H5Y-v2-KRr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="iWF-H2-S71"/>
+                    <constraint firstItem="Teb-Cx-YRF" firstAttribute="top" secondItem="H5Y-v2-KRr" secondAttribute="top" id="n56-PB-CIR"/>
+                    <constraint firstItem="xzD-Po-Adf" firstAttribute="top" secondItem="Teb-Cx-YRF" secondAttribute="bottom" constant="3" id="wfo-lZ-qdL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="showImage" destination="H5Y-v2-KRr" id="4Be-0G-BCf"/>
+                <outlet property="summary" destination="xzD-Po-Adf" id="it7-mX-xru"/>
+                <outlet property="title" destination="Teb-Cx-YRF" id="F66-vU-UUu"/>
+            </connections>
+            <point key="canvasLocation" x="152" y="257.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="jiantou" width="7" height="7"/>
+        <image name="placeholder_num2" width="66" height="66"/>
+    </resources>
+</document>

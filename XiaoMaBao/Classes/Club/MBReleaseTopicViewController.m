@@ -168,10 +168,12 @@
         }
     } progress:^(NSProgress *progress) {
         self.progress = progress.fractionCompleted;
+        MMLog(@"%f",progress.fractionCompleted);
+        
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         
         if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
-            [self show:@"发表成功" time:1];
+           
             
             
             [self popViewControllerAnimated:YES];
@@ -181,7 +183,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
     
@@ -337,7 +339,7 @@
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
-    // NSLog(@"%@",image);
+    // MMLog(@"%@",image);
     
     [self dismissViewControllerAnimated:YES completion:^{
         

@@ -20,19 +20,7 @@
 @end
 
 @implementation MBBabyManagementViewController
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBBabyManagementViewController"];
-    
-    
-    
-}
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBBabyManagementViewController"];
-    
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setCollerctonView];
@@ -49,8 +37,6 @@
     flowLayout.itemSize = CGSizeMake((UISCREEN_WIDTH-60)/3,(UISCREEN_WIDTH-60)/3);
     
     flowLayout.sectionInset = UIEdgeInsetsMake(5, 15, 5, 15);
-//    flowLayout.minimumInteritemSpacing =5;
-//    flowLayout.minimumLineSpacing =5;
     _collectionView.collectionViewLayout = flowLayout;
      _collectionView.alwaysBounceVertical = YES;
     _collectionView.delegate = self;
@@ -101,7 +87,7 @@ return @"dian_image";
                    if(1 == [[responseObject valueForKey:@"status"]  intValue]){
                     
                        NSDictionary *userData = [responseObject valueForKeyPath:@"status"];
-                       NSLog(@"%@",userData);
+                       MMLog(@"%@",userData);
                     
                        self.block(self.indexPath);
                        [self popViewControllerAnimated:YES];
@@ -110,7 +96,7 @@ return @"dian_image";
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    [self show:@"请求失败 " time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    
                }
      ];
@@ -132,7 +118,13 @@ return @"dian_image";
             UICollectionReusableView *reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView1" forIndexPath:indexPath];
             MBUserDataSingalTon  *userInfo = [MBSignaltonTool getCurrentUserInfo];
             [reusableview addSubview:_headView];
-            [_HeadPhotoImageView sd_setImageWithURL:[NSURL URLWithString:userInfo.user_baby_info[@"photo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+            if ([_image isKindOfClass:[NSString class]]) {
+                [_HeadPhotoImageView sd_setImageWithURL:[NSURL URLWithString:_image] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+            }else {
+            
+                _HeadPhotoImageView.image = _image;
+            }
+            
             _nameLable.text = userInfo.user_baby_info[@"nickname"];
             
             [_headView mas_makeConstraints:^(MASConstraintMaker *make) {

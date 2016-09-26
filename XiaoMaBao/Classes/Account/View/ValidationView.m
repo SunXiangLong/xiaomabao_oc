@@ -16,6 +16,7 @@
 }
 
 - (void)awakeFromNib{
+    [super awakeFromNib];
     // 账号/密码
     MBRegisterFieldRightViewButton *accountFieldLeftView = [[MBRegisterFieldRightViewButton alloc] init];
     MBRegisterFieldRightViewButton *pwdFieldLeftView = [[MBRegisterFieldRightViewButton alloc] init];

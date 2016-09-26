@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -10,7 +10,6 @@
                 <outlet property="bottom" destination="oV4-ee-w1y" id="dbp-qs-bya"/>
                 <outlet property="collectionView" destination="3qR-OE-VOG" id="v4a-nr-Jey"/>
                 <outlet property="lable" destination="W01-7u-PaQ" id="5dH-p6-SD1"/>
-                <outlet property="tableView" destination="8to-cb-lNU" id="UmK-rG-rkL"/>
                 <outlet property="textView" destination="ErZ-a4-H4n" id="Ogl-Wu-gOQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="N6J-d9-TaD"/>
                 <outlet property="width" destination="s0z-oG-c6k" id="ifY-LX-9zX"/>
@@ -52,17 +51,6 @@
                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </collectionViewFlowLayout>
                         </collectionView>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8to-cb-lNU">
-                            <rect key="frame" x="0.0" y="195" width="320" height="100"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="100" id="bQh-F3-IK9"/>
-                            </constraints>
-                            <connections>
-                                <outlet property="dataSource" destination="-1" id="xV7-1f-vcz"/>
-                                <outlet property="delegate" destination="-1" id="Fsk-6G-Usc"/>
-                            </connections>
-                        </tableView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QWL-M5-5PD">
                             <rect key="frame" x="0.0" y="0.0" width="15" height="80"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -92,7 +80,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="ErZ-a4-H4n" firstAttribute="top" secondItem="QWL-M5-5PD" secondAttribute="top" id="2yK-n1-qUS"/>
                         <constraint firstItem="QWL-M5-5PD" firstAttribute="leading" secondItem="ec3-Q3-zaC" secondAttribute="leading" id="5OM-Vw-pWu"/>
@@ -106,9 +94,6 @@
                         <constraint firstItem="3qR-OE-VOG" firstAttribute="trailing" secondItem="ErZ-a4-H4n" secondAttribute="trailing" id="O4z-1x-Ygy"/>
                         <constraint firstAttribute="trailing" secondItem="a06-Fn-Io8" secondAttribute="trailing" id="SB7-Qr-XW9"/>
                         <constraint firstItem="dck-iV-ooe" firstAttribute="top" secondItem="ErZ-a4-H4n" secondAttribute="top" id="VGJ-KP-bNM"/>
-                        <constraint firstItem="8to-cb-lNU" firstAttribute="leading" secondItem="3qR-OE-VOG" secondAttribute="leading" constant="-15" id="a0f-3m-d0I"/>
-                        <constraint firstItem="8to-cb-lNU" firstAttribute="top" secondItem="3qR-OE-VOG" secondAttribute="bottom" constant="15" id="aoa-9r-7v5"/>
-                        <constraint firstItem="8to-cb-lNU" firstAttribute="trailing" secondItem="3qR-OE-VOG" secondAttribute="trailing" constant="15" id="d63-Sa-iZS"/>
                         <constraint firstAttribute="trailing" secondItem="ErZ-a4-H4n" secondAttribute="trailing" constant="15" id="eLF-K2-JD4"/>
                         <constraint firstItem="Ojb-nf-erz" firstAttribute="leading" secondItem="ec3-Q3-zaC" secondAttribute="leading" id="erf-lD-MRY"/>
                         <constraint firstItem="ErZ-a4-H4n" firstAttribute="bottom" secondItem="QWL-M5-5PD" secondAttribute="bottom" id="f0Y-m3-o6Q"/>
@@ -124,7 +109,7 @@
                     </connections>
                 </scrollView>
             </subviews>
-            <color key="backgroundColor" red="0.89803921568627454" green="0.91764705882352937" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="ec3-Q3-zaC" secondAttribute="trailing" id="97Z-1y-NQK"/>
                 <constraint firstAttribute="bottom" secondItem="ec3-Q3-zaC" secondAttribute="bottom" id="KPf-72-m3I"/>

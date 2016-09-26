@@ -15,27 +15,15 @@
 #import "MBLoginViewController.h"
 @interface MBWebViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-
 @end
-
 @implementation MBWebViewController
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBWebViewController"];
-    
-}
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBWebViewController"];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     [self show:@"加载中..."];
     _webView.delegate = self;
     _webView.backgroundColor = [UIColor colorR:205 colorG:222 colorB:232];
-
+    
      NSURLRequest *request = [NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
 
     if (self.isloging) {
@@ -46,6 +34,7 @@
     [_webView loadRequest:request];
     
 }
+
 /**
  *   删除cookie
  */
@@ -117,19 +106,14 @@
                     VC.act_id = dic[@"params"];;
                     [self pushViewController:VC Animated:YES];
                 }else if ([dic[@"type"] isEqualToString:@"showGroup"]){
-                    
                     MBGroupShopController *VC = [[MBGroupShopController alloc] init];
                     [self pushViewController:VC Animated:YES];
-                    
                 }
-
             });
-            
-            
-                   }];
+        }];
         context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
             context.exception = exceptionValue;
-            NSLog(@"异常信息：%@", exceptionValue);
+            MMLog(@"异常信息：%@", exceptionValue);
         };
     }
     
@@ -138,7 +122,7 @@
 }
 -(void)webView:(UIWebView*)webView DidFailLoadWithError:(NSError*)error{
     //当在请求加载中发生错误时，得到通知。会提供一个NSSError对象，以标识所发生错误类
-    NSLog(@"%@",error);
+    MMLog(@"%@",error);
     [self show:error.userInfo[@"NSLocalizedDescription"] time:1];
 }
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{

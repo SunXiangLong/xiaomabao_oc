@@ -80,14 +80,12 @@
 - (void)setheadData{
     
     [self show];
-    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_SHERVICE,@"service/shop_detail_info/",self.shop_id];
+    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/service/shop_detail_info/",self.shop_id];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        
-        
         if ([responseObject count]>0) {
             
-            NSLog(@"%@",responseObject);
+            MMLog(@"%@",responseObject);
             _dataDic = responseObject;
             self.tableView.tableHeaderView = [self setTableHeadView];
             _dataArr = @[_dataDic[@"products"],_dataDic[@"comment"],_dataDic[@"other_shop"]];
@@ -101,7 +99,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     

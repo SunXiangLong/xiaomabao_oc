@@ -13,5 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *tishi;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *height;
 
 @end

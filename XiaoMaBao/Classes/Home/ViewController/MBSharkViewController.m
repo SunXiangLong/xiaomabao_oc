@@ -13,9 +13,7 @@
 #import "UIImageView+WebCache.h"
 #import "MBSwing.h"
 #import "MJExtension.h"
-#import <KVNProgress/KVNProgress.h>
 #import <AVFoundation/AVFoundation.h>
-#import "MobClick.h"
 @interface MBSharkViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *tipLbl;
 @property (weak,nonatomic) UIView *maskView;
@@ -46,35 +44,20 @@
     }
     return _maskView;
 }
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    
-    [MobClick beginLogPageView:@"MBShark"];
-    
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBShark"];
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self getSwingTimes];//获取摇奖次数
+    self.automaticallyAdjustsScrollViewInsets = YES;
+    [self getSwingTimes:NO];//获取摇奖次数
     [self getPrizeUser];//获取中奖信息
-    
-
 }
-
 - (void)getPrizeUser{
     MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
     
     if (userInfo != nil && [userInfo valueForKey:@"uid"] != nil) {
         NSDictionary *dict = @{@"uid":[userInfo valueForKey:@"uid"],@"sid":[userInfo valueForKey:@"sid"]};
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"index/swing/new_prize"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/get_remote_reward"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
             NSString* header_img = [responseObject.data valueForKey:@"header_img"];
             if (![header_img isKindOfClass:[NSNull class]]) {
                 [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:header_img]];
@@ -95,24 +78,43 @@
     }
 }
 
-- (void)getSwingTimes{
+- (void)getSwingTimes:(BOOL )isonce{
+    [self show];
+    if (isonce) {
+          AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    }
+    
     MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
     if (userInfo != nil && [userInfo valueForKey:@"uid"] != nil) {
         NSDictionary *dict = @{@"uid":[userInfo valueForKey:@"uid"],@"sid":[userInfo valueForKey:@"sid"]};
-        [MBNetworking POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL,@"index/swing/times"] parameters:@{@"session":dict} success:^(id responseObject) {
+        [MBNetworking POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/get_remain_swing"] parameters:@{@"session":dict} success:^(id responseObject) {
+            if (!isonce) {
+                [self dismiss];
+            }
             if ([responseObject isKindOfClass:[NSDictionary class]]) {
                 NSDictionary* dic = (NSDictionary*)responseObject ;
                 NSDictionary* dDate = [dic objectForKey:@"data"];
                 int rest_count = (int)[dDate[@"rest_count"] integerValue];
                 self.tipLbl.text = [NSString stringWithFormat:@"还可以摇%d次",rest_count];
                 self.swingCount = rest_count ;
+                if (isonce) {
+                    [self startSwing];
+                }
+               
             }
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            
+            [self dismiss];
         }];
     }
 }
-
+-(NSString *)leftImage{
+    return @"nav_back";
+    
+}
+-(void)leftTitleClick{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
 - (void)showSharkWinning:(BOOL)winning{
     UIView *sharkView = [[UIView alloc] init];
     sharkView.backgroundColor = [UIColor whiteColor];
@@ -192,7 +194,7 @@
 - (void)closeDialog{
     if(_maskView){
         [_maskView removeFromSuperview ];
-        [self getSwingTimes];
+        [self getSwingTimes:YES];
     }
 }
 
@@ -206,20 +208,20 @@
 #pragma mark - 摇一摇相关方法
 // 摇一摇开始摇动
 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    NSLog(@"开始摇动");
+    MMLog(@"开始摇动");
     return;
 }
 
 // 摇一摇取消摇动
 - (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    NSLog(@"取消摇动");
+    MMLog(@"取消摇动");
     return;
 }
 
 // 摇一摇摇动结束
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (event.subtype == UIEventSubtypeMotionShake) { // 判断是否是摇动结束
-        [self startSwing];
+        [self getSwingTimes:YES];
     }
     return;
 }
@@ -230,21 +232,21 @@
 }
 
 - (void)startSwing{
-    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-    [self getSwingTimes];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [KVNProgress dismiss];
+
+ 
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    
         
         if (self.swingCount <= 0) {
             [self show:@"您今天的次数已经用光了~" time:1];
             return ;
         }
         
-        [self show:@"正在摇一摇中~"];
+   
         MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
         if (userInfo != nil && [userInfo valueForKey:@"uid"] != nil) {
             NSDictionary *dict = @{@"uid":[userInfo valueForKey:@"uid"],@"sid":[userInfo valueForKey:@"sid"]};
-            [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"index/swing"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
+            [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/swing"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                  [self dismiss];
                 self.swing = [MBSwing objectWithKeyValues:responseObject.data];
                 if ([[responseObject.data allValues] count] == 0) {
@@ -259,7 +261,7 @@
             }];
         }
         
-    });
+//    });
     
     
 }

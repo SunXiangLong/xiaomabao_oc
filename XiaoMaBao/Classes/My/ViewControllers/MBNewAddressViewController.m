@@ -43,16 +43,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     [self getCityList:@"1"];
+    [self getCityList:@"1"];
     self.bottom.constant = UISCREEN_HEIGHT-TOP_Y;
-    
     self.maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_HEIGHT)];
     self.maskView.backgroundColor = [UIColor blackColor];
     self.maskView.alpha = 0;
     [self.maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMyPicker)]];
-    
     self.pickerBgView.ml_width = UISCREEN_WIDTH;
-    
     if (self.address_dic) {
         _name.text = self.address_dic[@"consignee"];
         _photo.text = self.address_dic[@"mobile"];
@@ -63,28 +60,73 @@
 #pragma mark -- 选着通讯录联系人
 - (IBAction)selectTheContact:(id)sender {
     
-    ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
-    //判断授权状态
-    
-    if (status == kABAuthorizationStatusNotDetermined) {
+    if (!iOS_9) {
+        ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
+        //判断授权状态
         
-        ABAddressBookRef book = ABAddressBookCreateWithOptions(NULL, NULL);
-        
-        ABAddressBookRequestAccessWithCompletion(book, ^(bool granted, CFErrorRef error) {
+        if (status == kABAuthorizationStatusNotDetermined) {
             
-            if (granted) {
-                //查找所有联系人
-                 [self selectTheContact];
-            }else
-            {
-                NSLog(@"授权失败");
-            }
-        });
-    }else if (status == kABAuthorizationStatusAuthorized)
-    {
-        //已授权
-        [self selectTheContact];
+            ABAddressBookRef book = ABAddressBookCreateWithOptions(NULL, NULL);
+            
+            ABAddressBookRequestAccessWithCompletion(book, ^(bool granted, CFErrorRef error) {
+                
+                if (granted) {
+                    //查找所有联系人
+                    [self selectTheContact];
+                }else
+                {
+                    MMLog(@"授权失败");
+                }
+            });
+        }else if (status == kABAuthorizationStatusAuthorized)
+        {
+            //已授权
+            [self selectTheContact];
+        }
+
+    }else{
+    
+        CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+        //判断授权状态
+        
+        if (status == CNAuthorizationStatusNotDetermined) {
+            
+            CNContactStore *book = [[CNContactStore alloc] init];
+            [book requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                
+                if (granted) {
+                    //查找所有联系人
+                    [self selectTheContact];
+                }else
+                {
+                    [self show:@"授权失败" time:1];
+                
+                }
+            }];
+            
+        }else if (status == CNAuthorizationStatusAuthorized)
+        {
+            //已授权
+            [self selectTheContact];
+        }else if(status == CNAuthorizationStatusDenied){
+        
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                                     message:@"请前往－设置－隐私－通讯录设置"
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel
+                                           
+                                                                 handler:^(UIAlertAction * action) {}];
+            
+            
+            [alertController addAction:cancelAction];
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+
+        }
+
+    
     }
+    
     
 }
 - (void)selectTheContact{
@@ -171,8 +213,10 @@
 -(void)getCityList:(NSString *)parent_id
 {
     
-    
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"region"] parameters:@{@"parent_id":parent_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/get_regions"] parameters:@{@"parent_id":parent_id,@"session":dict} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         
         if (responseObject != nil) {
@@ -209,7 +253,7 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         
     }];
     
@@ -349,7 +393,7 @@
          
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
                        
-//                       NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//                       MMLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                        
                        if ([addressDict[@"default_address"] isEqualToString:@"1"]) {
                            
@@ -364,7 +408,7 @@
                        
                    }
                    failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                       NSLog(@"%@",error);
+                       MMLog(@"%@",error);
                        [self show:@"请求失败" time:1];
                    }
          ];
@@ -385,7 +429,7 @@
                         
                     }
                     failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                        NSLog(@"失败");
+                        MMLog(@"失败");
                         [self show:@"请求失败" time:1];
                     }
          ];
@@ -409,7 +453,7 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"失败");
+        MMLog(@"失败");
     }];
     
 }
@@ -433,7 +477,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
 
     
@@ -543,7 +587,7 @@
 //        // 2.2.2.获取电话号码
 //        NSString *phoneValue = (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(phones, i);
 //        
-//        NSLog(@"%@ %@", phoneLabel, phoneValue);
+//        MMLog(@"%@ %@", phoneLabel, phoneValue);
 //    }
 //    
     // 注意:管理内存
@@ -553,7 +597,7 @@
 // 当用户选中某一个联系人的某一个属性时会执行该方法,并且选中属性后会退出控制器
 - (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker didSelectPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
 {
-    NSLog(@"%s", __func__);
+    MMLog(@"%s", __func__);
 }
 
 #pragma mark - <CNContactPickerDelegate>
@@ -582,7 +626,7 @@
 //        CNPhoneNumber *phoneNumer = labeledValue.value;
 //        NSString *phoneValue = phoneNumer.stringValue;
 //        
-//        NSLog(@"%@",phoneValue);
+//        MMLog(@"%@",phoneValue);
 //    }
 }
 

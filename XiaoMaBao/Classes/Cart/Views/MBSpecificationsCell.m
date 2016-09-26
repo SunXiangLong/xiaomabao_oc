@@ -14,11 +14,7 @@
     UIButton *_lastButton;
     CGFloat  _offtY;
 }
-- (void)awakeFromNib {
 
-   
-
-}
 -(void)setUI{
 
     UILabel *sepceLbl = [[UILabel alloc] init];

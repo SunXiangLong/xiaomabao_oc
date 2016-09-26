@@ -1,1 +1,0 @@
-../../../TGCameraViewController/TGCameraViewController/Classes/Helper/TGCameraColor.h

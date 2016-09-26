@@ -23,16 +23,7 @@
 @end
 
 @implementation MBTopCargoController
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBTopCargoController"];
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBTopCargoController"];
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navBar removeFromSuperview];
@@ -62,7 +53,7 @@
 }
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    NSLog(@"%ld",index);
+    MMLog(@"%ld",index);
     
 }
 

@@ -9,11 +9,8 @@
 #import "MBShoppingCartViewController.h"
 #import "MBFireOrderViewController.h"
 #import "MBSignaltonTool.h"
-#import "MBNetworking.h"
 #import "MBShoppingCartTableViewCell.h"
-#import "UIImageView+WebCache.h"
 #import "MBShopingViewController.h"
-#import <math.h>
 #import "MBLoginViewController.h"
 #import "MBRealNameAuthViewController.h"
 @interface MBShoppingCartViewController () <UITableViewDataSource,UITableViewDelegate,MBShoppingCartTableViewdelegate>
@@ -24,7 +21,7 @@
     UIButton *_submitButton;
     
 }
-@property (weak,nonatomic) UIView *maskView;
+@property (strong,nonatomic)  UIView *maskView;
 @property (strong,nonatomic) UILabel *totalLbl;
 @property (strong,nonatomic)UITableView *mytableView;
 @property (strong,nonatomic)NSMutableArray *goodnumberArray;
@@ -40,8 +37,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"PageOne"];
-    
     
     MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
     
@@ -55,17 +50,11 @@
         [self maskView];
     }
 }
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"PageOne"];
-}
-
 
 - (void)viewDidLoad{
     [super viewDidLoad];
     _selectCountNumber = 0;
-    self.view.backgroundColor = BG_COLOR;
+//    self.view.backgroundColor = BG_COLOR;
 
     self.CartinfoDict = [NSMutableArray array];
     self.total = [NSDictionary dictionary];
@@ -150,7 +139,7 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/is_selected_all"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        NSLog(@"获取是否全部选中成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+        MMLog(@"获取是否全部选中成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
         
         
         NSDictionary *dict = [responseObject valueForKeyPath:@"data"];
@@ -160,14 +149,13 @@
         }
         if (_isAllselectDict) {
             
-            
             [self getCartInfo:0 type:nil];
         }
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         
-        NSLog(@"失败");
+        MMLog(@"失败");
     }];
     
 }
@@ -198,8 +186,7 @@
 }
 //减少一个
 - (void)reduceShop:(NSDictionary *)dic{
-    
-    
+
     //如果选中，则更新购物车
     NSString * selected =dic[@"selected"];
     if([selected isEqualToString:@"1"]){
@@ -221,7 +208,7 @@
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/update_cart"] parameters:@{@"session":dict,@"rec_id":rec_id,@"new_number":new_number,@"flow_order":flow_number} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-//        NSLog(@"更新购物车成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
+//        MMLog(@"更新购物车成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
         NSDictionary * dict = [responseObject valueForKeyPath:@"status"];
         if([[dict valueForKeyPath:@"succeed"] isEqualToNumber:@1]){
             
@@ -236,7 +223,7 @@
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败" time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
 }
@@ -254,7 +241,7 @@
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/select_all_or_zero"] parameters:@{@"session":dict}success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         
-//        NSLog(@"更新购物车成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
+//        MMLog(@"更新购物车成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
         NSDictionary * dict = [responseObject valueForKeyPath:@"status"];
         if([[dict valueForKeyPath:@"succeed"] isEqualToNumber:@1]){
             [self getCartInfo:0 type:nil];
@@ -262,7 +249,7 @@
         }
     }
                failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   NSLog(@"%@",error.localizedDescription);
+                   MMLog(@"%@",error.localizedDescription);
                    [self show:@"请求失败！" time:1];
                }
      ];
@@ -281,7 +268,7 @@
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/cart"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, id responseObject) {
 //        [self dismiss];
-        NSLog(@"%@",[responseObject valueForKeyPath:@"data"]);
+        MMLog(@"%@",[responseObject valueForKeyPath:@"data"]);
         
         
         self.CartinfoDict = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_list"];
@@ -355,7 +342,7 @@
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         
         [self show:@"请求失败！" time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         
         
     }];
@@ -509,7 +496,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/checkout"] parameters:@{@"session":sessiondict}success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-        NSLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
+        MMLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
 
         NSMutableArray * infoDict = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_list"];
         
@@ -526,7 +513,7 @@
         fireOrderVc.goods_amount = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_amount"];
         fireOrderVc.goods_amount_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_amount_formatted"];
         fireOrderVc.discount_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"discount_formatted"];
-        
+        fireOrderVc.surplus = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"surplus"];
         fireOrderVc.goodnumber = self.goodnumberArray;
         fireOrderVc.goodselectArray = self.goodSelectArray;
         fireOrderVc.consignee = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"consignee"] ;
@@ -546,7 +533,7 @@
      
                failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    [self show:@"请求失败！" time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    
                }
      ];
@@ -583,13 +570,12 @@
     if (num == 0) {//删除
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/del_cart"] parameters:@{@"session":session,@"rec_id":rec_id}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
-                       
-                       NSLog(@"删除成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+
                        
                        [self getCartInfo:row type:@"dele"];
                        
                    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                       NSLog(@"失败");
+                       MMLog(@"失败");
                    }];
         
     }else {//收藏
@@ -597,7 +583,7 @@
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/collect_goods"] parameters:@{@"session":session,@"goods_id":rec_id}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
                        
-                       if ([[responseObject valueForKeyPath:@"status"][@"succeed"]isEqualToString:@"1"]) {
+                       if ([[responseObject valueForKeyPath:@"status"][@"succeed"]isEqualToNumber:@1]) {
                            [self show:@"收藏成功" time:1];
                            
                        }else{
@@ -609,7 +595,7 @@
                        NSIndexPath *indexpath = [NSIndexPath indexPathForRow:row inSection:0];
                        [_mytableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
                    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                       NSLog(@"%@",error);
+                       MMLog(@"%@",error);
                        [self show:@"请求失败！" time:1];
                    }];
     }
@@ -635,17 +621,13 @@
     MBShoppingCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (self.CartinfoDict.count>0) {
         
-        cell.Goods_price.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"subtotal"];
-        cell.Market_Price.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"market_price"];
+        cell.Goods_price.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"goods_price_formatted"];
+        cell.Market_Price.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"market_price_formatted"];
         cell.goods_number.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"goods_number"];
         NSString * nameStr = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"goods_name"];
         cell.row = indexPath.row;
         cell.delegate =self;
-//        NSInteger minLen = MIN(28, [nameStr length]);
-
         cell.GoodsDescribe.text = [NSString stringWithFormat:@"%@",nameStr];
-        
-        
         cell.goodID = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"goods_id"];
         cell.rec_id = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"rec_id"];
         NSString *urlstr = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"goods_img"];
@@ -747,8 +729,5 @@
     return@[deleteRowAction,moreRowAction];
     
 }
-
-
-
 
 @end

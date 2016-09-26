@@ -1,0 +1,23 @@
+{
+  "images" : [
+   {
+      "idiom" : "universal",
+      "scale" : "1x",
+      "filename" : "backTady.png"
+   },
+   {
+      "idiom" : "universal",
+      "scale" : "2x",
+      "filename" : "backTady@2x.png"
+   },
+   {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "filename" : "backTady@3x.png"
+   }
+ ],
+  "info" : {
+     "version" : 1,
+     "author" : "xcode"
+ }
+}

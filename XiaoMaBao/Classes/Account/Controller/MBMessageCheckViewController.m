@@ -57,13 +57,15 @@
         NSString *Md5 = [self.verifyField.text md5];
         NSString *phoneMd5 = self.phoneMd5;
         
+        MMLog(@"%@  == %@",Md5,phoneMd5);
         
         if ([phoneMd5 isEqualToString:Md5]) {
             
         [self performSegueWithIdentifier:@"PushMBResetPwdViewController" sender:nil];
+            
         }else {
         
-            UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:nil delegate:self cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
+            UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"验证码输入错误" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
             [alerView show];
         }
     }

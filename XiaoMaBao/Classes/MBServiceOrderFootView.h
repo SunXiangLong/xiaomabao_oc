@@ -10,7 +10,7 @@
 #import "BkBaseViewController.h"
 @interface MBServiceOrderFootView : UIView
 @property (nonatomic,strong) NSString *order_id;
-@property (nonatomic,strong) BkBaseViewController *vc;
+@property (nonatomic,weak) BkBaseViewController *vc;
 @property(strong,nonatomic)NSDictionary *dataDic;
 
 + (instancetype)instanceView;

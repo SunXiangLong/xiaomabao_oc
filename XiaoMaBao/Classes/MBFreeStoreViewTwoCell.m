@@ -17,7 +17,7 @@
 @implementation MBFreeStoreViewTwoCell
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
     [_collectionView registerNib:[UINib nibWithNibName:@"MBAffordablePlanetTwoChildOneCell" bundle:nil] forCellWithReuseIdentifier:@"MBAffordablePlanetTwoChildOneCell"];
     _collectionView.delegate = self;
     _collectionView.dataSource  = self;

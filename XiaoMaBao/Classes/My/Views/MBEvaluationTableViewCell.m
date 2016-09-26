@@ -20,7 +20,7 @@
 
 - (void)awakeFromNib {
     
-    
+    [super awakeFromNib];
 }
 -(void)setinit{
     _bar = [[RatingBar alloc] initWithFrame:CGRectMake(UISCREEN_WIDTH-20-200, 0, 200,30)];
@@ -148,7 +148,7 @@
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
-   // NSLog(@"%@",image);
+   // MMLog(@"%@",image);
     
     [self.ViewControlle dismissViewControllerAnimated:YES completion:^{
         

@@ -10,8 +10,6 @@
 
 @implementation MBMyCollectionCollectionViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
+
 
 @end

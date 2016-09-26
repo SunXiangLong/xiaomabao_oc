@@ -17,4 +17,7 @@
  *  帖子ID
  */
 @property (nonatomic,strong) NSString *post_id;
+
+@property (nonatomic,strong) void(^successEvaluation)();
+
 @end

@@ -72,7 +72,7 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/process"] parameters:@{@"session":sessiondict,@"order_id":_orderid}success:^(NSURLSessionDataTask *operation, id responseObject) {
          [self dismiss];
-      //NSLog(@"退款进度查询成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+      //MMLog(@"退款进度查询成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
 
         NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
         if (![dic[@"refund_type"] isEqualToString:@"退货"]) {
@@ -92,7 +92,7 @@
         
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
        [self show:@"请求失败！" time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         
     }
      ];
@@ -145,7 +145,7 @@
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{
     NSArray *VCArray = self.navigationController.viewControllers;
   
-    NSLog(@"%@",VCArray);
+    MMLog(@"%@",VCArray);
     
     
     

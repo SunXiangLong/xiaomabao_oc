@@ -5,10 +5,8 @@
 //  Created by 张磊 on 15/5/29.
 //  Copyright (c) 2015年 MakeZL. All rights reserved.
 //
-
 #import "MBShopingViewController.h"
 #import "MBJoinCartViewController.h"
-#import "NSString+BQ.h"
 #import "MBShoppingBtn.h"
 #import "MBShopCommon.h"
 #import "MBShopCommonFrame.h"
@@ -18,7 +16,6 @@
 #import "MBUserDataSingalTon.h"
 #import "MBSignaltonTool.h"
 #import "MBLoginViewController.h"
-#import <KVNProgress/KVNProgress.h>
 #import "UIImageView+WebCache.h"
 #import "MBShoppingCartViewController.h"
 #import "MobClick.h"
@@ -27,7 +24,7 @@
 #import "MBShopTableViewCell.h"
 #import "MBNavigationViewController.h"
 #import "DataSigner.h"
-@interface MBShopingViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,UnicallDelegate>{
+@interface MBShopingViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate>{
     
     NSTimer   *myTimer;
     NSInteger lettTimes;
@@ -40,31 +37,30 @@
     NSInteger _lesss;
     MBNavigationViewController *_nav;
 }
-@property (weak,nonatomic) UIScrollView *contentScrollView;
-@property (weak,nonatomic) UIView *shopTitleView;
-@property (weak,nonatomic) UIScrollView *headerScrollview;
-@property (weak,nonatomic) UIView *shopTimeView;
-@property (weak,nonatomic) UIView *shopDescView;
-@property (weak,nonatomic) UILabel *shopDiscount;
-@property (weak,nonatomic) UIView *shopFreightView;
-@property (weak,nonatomic) UIView *shopPackageView;
-@property (weak,nonatomic) UIView *shopInfoView;
-@property (weak,nonatomic) UIView *tabbarView;
+@property (strong,nonatomic) UIScrollView *contentScrollView;
+@property (strong,nonatomic) UIView *shopTitleView;
+@property (strong,nonatomic) UIScrollView *headerScrollview;
+@property (strong,nonatomic) UIView *shopTimeView;
+@property (strong,nonatomic) UIView *shopDescView;
+@property (strong,nonatomic) UILabel *shopDiscount;
+@property (strong,nonatomic) UIView *shopFreightView;
+@property (strong,nonatomic) UIView *shopPackageView;
+@property (strong,nonatomic) UIView *shopInfoView;
+@property (strong,nonatomic) UIView *tabbarView;
 @property (strong,nonatomic) UIView*briefView;
 @property (strong,nonatomic) NSMutableArray *infoItemViews;
 @property (strong,nonatomic) UIView *infoItemLineView;
-
-@property (weak,nonatomic) UIView *item0BriefView;
-@property (weak,nonatomic) UIView *item1BriefView;
-@property (weak,nonatomic) UIView *item2BriefView;
+@property (strong,nonatomic) UIView *item0BriefView;
+@property (strong,nonatomic) UIView *item1BriefView;
+@property (strong,nonatomic) UIView *item2BriefView;
 @property (strong,nonatomic) UITableView *tableView;
 @property (strong,nonatomic) NSMutableArray *shops;
 @property (strong,nonatomic) NSArray        *googBrandArray;
 @property (strong,nonatomic) NSDictionary   *commentsdict;
 @property (strong,nonatomic) UIPageControl  *pagecontrol;
-@property (nonatomic) NSInteger length;
+@property (nonatomic,assign) NSInteger length;
 @property (nonatomic,strong) UITableView *_shopTableView;
-@property (nonatomic,strong)NSMutableArray *_shopImageArrat;
+@property (nonatomic,strong) NSMutableArray *_shopImageArrat;
 /**
  *  用来装top的scrollView
  */
@@ -93,7 +89,7 @@
 {
     [super viewWillDisappear:animated];
     [myTimer invalidate];
-    myTimer = nil;
+     myTimer = nil;
     [MobClick endLogPageView:@"MBShopingViewController"];
 }
 - (void)viewDidAppear:(BOOL)animated{
@@ -101,18 +97,19 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     //更新购物车数量
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/list_count"] parameters:@{@"session":session}
-     
+    if (!uid) {
+        return;
+    }
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/list_count"] parameters:@{@"session":session}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
-                   // NSLog(@"成功：%@",[responseObject valueForKeyPath:@"data"]);
                    NSInteger status = [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] integerValue];
                    if(status == 1){
-                       NSString * list_count =[[responseObject valueForKeyPath:@"data"] valueForKey:@"list_count"];
+                       NSString * list_count = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKey:@"list_count"]];
                        
                        if(list_count != nil){
                            if ([list_count integerValue]>0) {
-                                [self.badge autoBadgeSizeWithString:list_count];
-                               self.badge.hidden = NO;
+                            [self.badge autoBadgeSizeWithString:list_count];
+                             self.badge.hidden = NO;
                            }else{
                            self.badge.hidden = YES;
                            }
@@ -126,7 +123,7 @@
                    
                    
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   NSLog(@"失败");
+                   MMLog(@"失败");
                    
                }];
 }
@@ -134,8 +131,7 @@
 - (void)viewDidLoad{
 
     [super viewDidLoad];
-    
-    [[Unicall singleton] attach:self appKey:UNICALL_APPKEY tenantId:UNICALL_TENANID];
+  
     [self.navigationController.navigationItem.rightBarButtonItem setImage:[UIImage imageNamed:@"address_add"]];
     self.view.backgroundColor = [UIColor whiteColor];
     [self getGoosInfo];
@@ -219,7 +215,7 @@
 
     [self show];
     
-    NSLog(@"%@",self.GoodsId);
+
     if (self.GoodsId == nil) {
         
         return ;
@@ -233,11 +229,11 @@
 
     
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsInfo"] parameters:@{@"session":session,@"goods_id":self.GoodsId,@"act_id":self.actId} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        NSLog(@"成功");
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsinfo"] parameters:@{@"session":session,@"goods_id":self.GoodsId,@"act_id":self.actId} success:^(NSURLSessionDataTask *operation, id responseObject) {
+       
          [self dismiss];
         self.GoodsDict = [responseObject valueForKeyPath:@"data"];
-      NSLog(@"商品详情---%@",self.GoodsDict);
+//      MMLog(@"商品详情---%@",self.GoodsDict);
         
         
         NSArray *arr = [self.GoodsDict valueForKeyPath:@"goods_gallery"];
@@ -266,7 +262,7 @@
         
         self.carriage_fee = [self.GoodsDict valueForKeyPath:@"carriage_fee"];
         self.salesnum = [self.GoodsDict valueForKeyPath:@"salesnum"];
-       // NSLog(@"self.goods_desc---%@",self.goods_desc);
+       // MMLog(@"self.goods_desc---%@",self.goods_desc);
         dispatch_async(dispatch_get_main_queue(), ^{
             
             // 商品内容ScrollView
@@ -278,12 +274,6 @@
             [self setupShopTitleView];
             // 商品时间/标签
             [self setupShopTimeView];
-            // 商品简介
-            [self setupShopDescView];
-            // 商品优惠信息
-            [self setupShopDiscountView];
-            // 商品运费/销量/库存量
-            [self setupShopFreightView];
             // 商品套餐分类
             [self setupShopPackageView];
             // 商品介绍/规格参数/口碑
@@ -294,9 +284,9 @@
         
        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"失败");
-         [KVNProgress dismiss];
-        
+        MMLog(@"%@",error);
+      
+        [self show:@"请求失败" time:1];
           
        
         
@@ -364,43 +354,69 @@
 }
 - (void)setupShopTitleView{
     UIView *shopTitleView = [[UIView alloc] init];
-  
-    [self.contentScrollView addSubview:_shopTitleView = _shopTitleView = shopTitleView];
+    NSInteger height = [self.goods_name sizeWithFont:[UIFont boldSystemFontOfSize:13]  withMaxSize:CGSizeMake(UISCREEN_WIDTH-16, MAXFLOAT)].height;
+    shopTitleView.frame = CGRectMake(0, CGRectGetMaxY(self.headerScrollview.frame) + 35, self.view.ml_width, 35+height);
+
+    [self.contentScrollView addSubview:_shopTitleView  = shopTitleView];
     
     UILabel *titleLbl = [[UILabel alloc] init];
     titleLbl.textColor = [UIColor colorWithHexString:@"e8465e"];
     titleLbl.numberOfLines = 0;
     titleLbl.text = self.goods_name;
     titleLbl.font = [UIFont boldSystemFontOfSize:13];
-
-    NSInteger height = [titleLbl.text sizeWithFont:titleLbl.font  withMaxSize:CGSizeMake(UISCREEN_WIDTH-16, MAXFLOAT)].height;
-    titleLbl.frame = CGRectMake(8, 0, UISCREEN_WIDTH-16,height );
     [shopTitleView addSubview:titleLbl];
-      shopTitleView.frame = CGRectMake(0, CGRectGetMaxY(self.headerScrollview.frame) + 35, self.view.ml_width, 35+height);
-    // 原价
-    UILabel *originalPriceLbl = [[UILabel alloc] init];
-    originalPriceLbl.textColor = [UIColor colorWithHexString:@"b2b2b2"];
-    originalPriceLbl.text = self.market_price_formatted;
-    originalPriceLbl.font = [UIFont systemFontOfSize:13];
-    CGSize originalPriceTextSize = [originalPriceLbl.text boundingRectWithSize:CGSizeMake(self.view.ml_width, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:originalPriceLbl.font} context:nil].size;
-    originalPriceLbl.frame = CGRectMake(self.view.ml_width - 8 - originalPriceTextSize.width, height, self.view.ml_width, 35);
-    [shopTitleView addSubview:originalPriceLbl];
+
     
     // 现价
     UILabel *currentPriceLbl = [[UILabel alloc] init];
     currentPriceLbl.textColor = [UIColor colorWithHexString:@"e8465e"];
     currentPriceLbl.text = self.shop_price_formatted;
     currentPriceLbl.font = [UIFont boldSystemFontOfSize:22];
-    CGSize currentPriceTextSize = [currentPriceLbl.text boundingRectWithSize:CGSizeMake(self.view.ml_width, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:currentPriceLbl.font} context:nil].size;
-    currentPriceLbl.frame = CGRectMake(self.view.ml_width - 8 - currentPriceTextSize.width - originalPriceTextSize.width, height, self.view.ml_width, 35);
     [shopTitleView addSubview:currentPriceLbl];
+    
+    // 原价
+    UILabel *originalPriceLbl = [[UILabel alloc] init];
+    originalPriceLbl.textColor = [UIColor colorWithHexString:@"b2b2b2"];
+    originalPriceLbl.text = self.market_price_formatted;
+    originalPriceLbl.font = [UIFont systemFontOfSize:13];
+    [shopTitleView addSubview:originalPriceLbl];
+   // 库存
+    UILabel *desclbl = [[UILabel alloc] init];
+    desclbl.font = [UIFont systemFontOfSize:16];
+    desclbl.textAlignment = NSTextAlignmentCenter;
+    desclbl.textColor = [UIColor colorWithHexString:@"b2b2b2"];
+    desclbl.text = [NSString stringWithFormat:@"库存: %d件",[self.goods_number intValue]];
+    [shopTitleView addSubview:desclbl];
+    
+    [titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(0);
+        make.left.mas_equalTo(8);
+        make.right.mas_equalTo(-8);
+        
+    }];
+    [currentPriceLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(titleLbl.mas_bottom).offset(0);
+        make.left.mas_equalTo(10);
+        make.height.mas_equalTo(35);
+        
+    }];
+    [originalPriceLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(currentPriceLbl.mas_bottom);
+        make.left.equalTo(currentPriceLbl.mas_right).offset(3);
+        make.height.mas_equalTo(35);
+        
+    }];
+    [desclbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(currentPriceLbl.mas_bottom);
+        make.right.mas_equalTo(-8);
+        make.height.mas_equalTo(35);
+    }];
+    
     
 }
 
 - (void)setupShopTimeView{
-    
 
-    
     UIView *shopTimeView = [[UIView alloc] init];
     shopTimeView.frame = CGRectMake(0, CGRectGetMaxY(self.shopTitleView.frame), self.view.ml_width, 35);
     [self.contentScrollView addSubview:_shopTimeView = shopTimeView];
@@ -413,8 +429,6 @@
     timeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);
     [timeBtn setImage:[UIImage imageNamed:@"clock"] forState:UIControlStateNormal];
     NSInteger leftdays = lettTimes/(24*60*60);
-    
-    
     NSInteger hour = (lettTimes-leftdays*24*3600)/3600;
     NSInteger minute = (lettTimes - hour*3600-leftdays*24*3600)/60;
     NSInteger second = (lettTimes - hour *3600 - 60*minute-leftdays*24*3600);
@@ -429,7 +443,7 @@
     timeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [timeBtn setTitle:leftmessage forState:UIControlStateNormal];
     timeBtn.frame = CGRectMake(8, 0, 140, shopTimeView.ml_height);
-    if (lettTimes !=0) {
+    if (lettTimes != 0) {
           [shopTimeView addSubview: _button = timeBtn];
     }
   
@@ -474,48 +488,7 @@
     btn.layer.cornerRadius = 3.0f;
 }
 
-- (void)setupShopDescView{
-    UIView *shopDescView = [[UIView alloc] init];
-    shopDescView.backgroundColor = [UIColor whiteColor];
-    shopDescView.frame = CGRectMake(0, CGRectGetMaxY(self.shopTimeView.frame), self.view.ml_width, 150);
-    [self.contentScrollView addSubview:_shopDescView = shopDescView];
-    
-    NSArray *contents = @[
-                          self.goods_brief
-                          ];
-    for (NSInteger i = 0; i < contents.count; i++) {
-        
-        UIFont *font = [UIFont systemFontOfSize:15];
-        
-        CGSize contentSize = [contents[i] sizeWithFont:font withMaxSize:CGSizeMake(self.view.ml_width - 120, MAXFLOAT)];
-        
-        UILabel *titleLbl = [[UILabel alloc] init];
-//        titleLbl.text = self.goods_brief;
-        titleLbl.font = font;
-        titleLbl.frame = CGRectMake(0, CGRectGetMaxY([[shopDescView.subviews lastObject] frame]), 120, 30);
-        
-        UILabel *descLbl = [[UILabel alloc] init];
-        descLbl.textColor = [UIColor colorWithHexString:@"b2b2b2"];
-        
-        descLbl.numberOfLines = 0;
-        descLbl.text = self.goods_brief;
-        descLbl.font = font;
-        descLbl.frame = CGRectMake(10, CGRectGetHeight([[shopDescView.subviews lastObject] frame]), self.view.ml_width-20, contentSize.height + MARGIN_8);
-        
-        [shopDescView addSubview:titleLbl];
-        [shopDescView addSubview:descLbl];
-        
-        if (i == 0) {
-            descLbl.ml_y = 0;
-            titleLbl.ml_y = 0;
-        }
-    }
-    
-    shopDescView.ml_height = CGRectGetMaxY([[shopDescView.subviews lastObject] frame]);
-    
-    // 添加分割线
-    [self addBottomLineView:shopDescView];
-}
+
 
 - (BOOL) isBlankString:(NSString *)string type:(NSInteger)type{
     if (string == nil || string == NULL)
@@ -536,73 +509,11 @@
     return NO;
 }
 
-- (void)setupShopDiscountView{
-//    if([self isBlankString:self.preferential_info type:1]){
-//        return;
-//    }
-    
-    NSString * info = self.preferential_info;
-    
-    UILabel *shopDiscount = [[UILabel alloc] init];
-    shopDiscount.textColor = [UIColor colorWithHexString:@"e8465e"];
-    shopDiscount.text = [NSString stringWithFormat:@"优惠信息：%@",info];
-    shopDiscount.backgroundColor = [UIColor whiteColor];
-    shopDiscount.frame = CGRectMake(MARGIN_8, CGRectGetMaxY(self.shopDescView.frame), self.view.ml_width, 40);
-    [self.contentScrollView addSubview:_shopDiscount = shopDiscount];
-    
-    // 添加分割线
-    [self addBottomLineView:shopDiscount];
-}
-
-#pragma mark 运费
-- (void)setupShopFreightView{
-    UIView *shopFreightView = [[UIView alloc] init];
-    shopFreightView.backgroundColor = [UIColor whiteColor];
-    shopFreightView.frame = CGRectMake(0, CGRectGetMaxY(self.shopDiscount.frame), self.view.ml_width, 50);
-    [self.contentScrollView addSubview:_shopFreightView = shopFreightView];
-    
-
-    
-    NSArray *titleArray = @[   /*[NSString stringWithFormat:@"运费: %.2f元",[self.carriage_fee floatValue]],*/[NSString stringWithFormat:@"%@",@""/*[self.salesnum intValue]*/],[NSString stringWithFormat:@"库存: %d件",[self.goods_number intValue]]];
-      CGFloat width = shopFreightView.ml_width / titleArray.count;
-    for (NSInteger i = 0 ; i < titleArray.count; i++) {
-        UIView *view = [[UIView alloc] init];
-        view.frame = CGRectMake(i * width, 0, width, shopFreightView.ml_height);
-        [shopFreightView addSubview:view];
-        
-        UILabel *lbl = [[UILabel alloc] init];
-        lbl.font = [UIFont systemFontOfSize:12];
-        lbl.textAlignment = NSTextAlignmentCenter;
-        lbl.textColor = [UIColor colorWithHexString:@"b2b2b2"];
-        lbl.text = @"北京 至 北京";
-        lbl.frame = CGRectMake(0, 0, width, view.ml_height * 0.5);
-//        [view addSubview:lbl];
-        
-        UILabel *desclbl = [[UILabel alloc] init];
-        desclbl.font = [UIFont systemFontOfSize:16];
-        desclbl.textAlignment = NSTextAlignmentCenter;
-        desclbl.textColor = [UIColor colorWithHexString:@"b2b2b2"];
-        desclbl.text = titleArray[i];
-        desclbl.frame = CGRectMake(0, lbl.ml_height, width, view.ml_height * 0.2);
-        [view addSubview:desclbl];
-        
-        if (i != 3) {
-            UIView *lineView = [[UIView alloc] init];
-            lineView.frame = CGRectMake(view.ml_width - PX_ONE, 10, PX_ONE, view.ml_height - 20);
-            lineView.backgroundColor = [UIColor colorWithHexString:@"898989"];
-            [view addSubview:lineView];
-        }
-    }
-    
-    // 添加分割线
-    [self addBottomLineView:shopFreightView];
-}
-
 - (void)setupShopPackageView{
     UILabel *shopPackageView = [[UILabel alloc] init];
     shopPackageView.textColor = [UIColor colorWithHexString:@"323232"];
     shopPackageView.text = @"选择：套餐分类、规格";
-    shopPackageView.frame = CGRectMake(MARGIN_8, CGRectGetMaxY(self.shopFreightView.frame), self.view.ml_width, 40);
+    shopPackageView.frame = CGRectMake(MARGIN_8, CGRectGetMaxY(self.shopTimeView.frame), self.view.ml_width, 40);
     UIImageView *imageview = [[UIImageView alloc] init];
     UIImage *image = [UIImage imageNamed:@"next"];
     imageview.image = image;
@@ -620,7 +531,7 @@
 #pragma -mark 选择规格
 -(void)GuigeClick:(UITapGestureRecognizer *)ger
 {
-    NSLog(@"选择规格参数");
+  
     MBJoinCartViewController *joinCartVc = [[MBJoinCartViewController alloc] init];
     joinCartVc.isBuy = NO;
     joinCartVc.isSelectGuige = YES;
@@ -702,16 +613,14 @@
     [self show];
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
     NSDictionary *pagination =[NSDictionary dictionaryWithObjectsAndKeys:page,@"page",@"10",@"count", nil];;
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"comments"] parameters:@{@"goods_id":self.GoodsId,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, id responseObject) {
-            
-//            NSLog(@"获取评论成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/comments"] parameters:@{@"goods_id":self.GoodsId,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, id responseObject) {
+//            MMLog(@"获取评论成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
             [self dismiss];
             
             NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
                  _commentsdict = [responseObject valueForKeyPath:@"data"];
             [_evaluationArray addObjectsFromArray:dic[@"comments_list"]];
             if ([dic isEqualToDictionary:_dic ]) {
-//                self.contentScrollView.mj_footer.ignoredScrollViewContentInsetBottom = 100;
                 [ self.contentScrollView.mj_footer endRefreshingWithNoMoreData];
                 return ;
             }
@@ -721,6 +630,7 @@
             
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
        
+            MMLog(@"%@",error);
             [self show:@"请求失败" time:1];
             [self addItem2View];
         }];
@@ -786,9 +696,10 @@
     }
     
     self.contentScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(_item0BriefView.frame));
-    NSLog(@"---------%f ",self.contentScrollView.contentSize.height);
+   
     
-}- (void)addItem1View
+}
+- (void)addItem1View
 {
     if (self.contentScrollView.mj_footer) {
         [self.contentScrollView.mj_footer removeFromSuperview];
@@ -1012,7 +923,7 @@
     //加入购物车
     [shopingCartBtn addTarget:self action:@selector(goJoinCart) forControlEvents:UIControlEventTouchUpInside];
 }
-#pragma mark --小能客服
+#pragma mark --云客服
 - (void)service{
     
     
@@ -1028,7 +939,7 @@
     
     
    [self getUnicallSignature];
-    return;
+
     
 
 }
@@ -1056,33 +967,16 @@
 
     Unicall *unicall = [Unicall singleton];
     [unicall UnicallUpdateValidation:json];
-    [unicall UnicallUpdateUserInfo:@{@"nickname":@"Someone"}];
-}
-//delegate methods
--(void)acquireValidation
-{
-   [self getUnicallSignature];
-}
--(void)messageCountUpdated:(NSNumber*) data
-{
-    NSLog(@"count%@:",data);
-
-}
--(void)messageArrived:(NSDictionary*) data
-{
-    NSError* error = nil;
-    NSData* source = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error];
-    NSString* str = [NSJSONSerialization JSONObjectWithData:source options:NSJSONReadingMutableContainers error:&error];
-    NSLog(@"%@%@",@"Unicall message arrived.",str);
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+       if (!sid) {
+     [unicall UnicallUpdateUserInfo:@{@"nickname":@"未注册用户"}];
+       }else{
+          
+       [unicall UnicallUpdateUserInfo:@{@"nickname": string(@"用户的sid:", sid)}];
+       }
     
-    if([[data objectForKey:@"eventName"] isEqualToString:@"updateNewMessageCount"])
-         NSLog(@"count%@:",data);
 }
--(UIViewController*) currentViewController
-{
-        NSLog(@"%@",@"22222222");
-    return self;
-}
+
 -(NSString*)getCurrentTime {
     
     NSDateFormatter*formatter = [[NSDateFormatter alloc]init];
@@ -1122,12 +1016,12 @@
         NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
         
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":dict, @"goods_id":self.GoodsId,@"number":@"1",@"spec":@""} success:^(NSURLSessionDataTask *operation, id responseObject) {
-           // NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/addtocart"] parameters:@{@"session":dict, @"goods_id":self.GoodsId,@"number":@"1",@"spec":@""} success:^(NSURLSessionDataTask *operation, id responseObject) {
+           // MMLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
             
             
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            NSLog(@"失败");
+            MMLog(@"失败");
         }];
         
         joinCartVc.isBuy = YES;
@@ -1172,14 +1066,14 @@
     }
     NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/collect/create"] parameters:@{@"session":session,@"goods_id":self.GoodsId}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/collect_goods"] parameters:@{@"session":session,@"goods_id":self.GoodsId}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
         
       
                    [self show:@"加入收藏成功" time:1];
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
     
@@ -1193,10 +1087,10 @@
     }else{
     
         [self show];
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsProperties"] parameters:@{@"goods_id":self.GoodsId}
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsproperty"] parameters:@{@"goods_id":self.GoodsId}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
                        [self dismiss];
-//                       NSLog(@"规格参数成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//                       MMLog(@"规格参数成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                        _googBrandArray = [responseObject valueForKeyPath:@"data"];
                        [self addItem1View];
                        
@@ -1223,7 +1117,7 @@
     [self.navigationController pushViewController:shoppingCartVc animated:YES];
 }
 -(void)timeFireMethod:(NSTimer *)timer{
-    //    NSLog(@"倒计时-1");
+    //    MMLog(@"倒计时-1");
     //倒计时-1
     
     lettTimes--;
@@ -1265,12 +1159,11 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBShopTableViewCell" owner:self options:nil]firstObject];
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    NSDictionary *dic = _evaluationArray[indexPath.row];
-    [cell dict:dic];
+    
+   cell.dic = _evaluationArray[indexPath.row];
+ 
     return cell;
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dic =_evaluationArray[indexPath.row];
     NSString *str = dic[@"content"];
@@ -1285,6 +1178,4 @@
     
     return 50+height;
 }
-
-
 @end

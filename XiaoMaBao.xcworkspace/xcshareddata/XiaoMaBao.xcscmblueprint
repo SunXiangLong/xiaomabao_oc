@@ -1,16 +1,19 @@
 {
   "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "6A59DF58C7C7FB82E436643DD02BEBD08DF6D69D",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
-    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++7317" : {
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++7883" : {
 
     },
-    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++7883" : {
+    "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++7317" : {
 
     },
     "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++516" : {
 
     },
     "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++5475" : {
+
+    },
+    "151a885f-3fcc-f34a-a0f5-f20a7b2803b9++1274" : {
 
     },
     "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++4784" : {
@@ -24,6 +27,7 @@
     "F52F2092D484FB4C0846925691967D1B24A2ACAB" : 0,
     "6A59DF58C7C7FB82E436643DD02BEBD08DF6D69D" : 0,
     "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++5475" : 0,
+    "151a885f-3fcc-f34a-a0f5-f20a7b2803b9++1274" : 0,
     "C591FB2FCA337E85FF621873FDA392F985525B29" : 0,
     "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++4784" : 0,
     "B5A0AC63F586F9370D68B087415DD842E029FA3B" : 0
@@ -36,6 +40,7 @@
     "F52F2092D484FB4C0846925691967D1B24A2ACAB" : "XiaoMaBao",
     "6A59DF58C7C7FB82E436643DD02BEBD08DF6D69D" : "xiaomabao_oc\/",
     "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++5475" : "xiamabao_ios\/",
+    "151a885f-3fcc-f34a-a0f5-f20a7b2803b9++1274" : "..\/PerformanceMonitor-master\/PerformanceMonitor\/CrashReporter.framework",
     "C591FB2FCA337E85FF621873FDA392F985525B29" : "XiaoMaBao2",
     "9d25e9ef-e59d-4bd4-9e9d-25c4536e413e++4784" : "xioamabao_ios_2.17\/",
     "B5A0AC63F586F9370D68B087415DD842E029FA3B" : "XiaoMaBao_v2"
@@ -44,6 +49,11 @@
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "XiaoMaBao.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/tc-svn.tencent.com\/tr\/tr_qqmaster_rep",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "151a885f-3fcc-f34a-a0f5-f20a7b2803b9++1274"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SunXiangLong\/xiaomabao_oc.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",

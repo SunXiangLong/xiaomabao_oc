@@ -97,7 +97,7 @@
      url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/topic/info/",self.act_id,page,_type];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        NSLog(@"%@ ",responseObject);
+        MMLog(@"%@ ",responseObject);
         
         [self.collectionView .mj_footer endRefreshing];
         if (responseObject) {
@@ -121,7 +121,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
@@ -137,7 +137,7 @@
      url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/topic/info/",self.act_id,page,type];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        NSLog(@"%@ ",responseObject);
+//        MMLog(@"%@ ",responseObject);
         
         [self.collectionView .mj_footer endRefreshing];
         if (responseObject) {
@@ -163,7 +163,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
@@ -171,7 +171,7 @@
 }
 -(NSString *)titleStr{
     
-    return self.title?:@"";
+    return self.title?:@"专题活动";
 }
 -(void)timeFireMethod:(NSTimer *)timer{
     _lettTimes--;
@@ -257,7 +257,7 @@
                     make.bottom.left.mas_equalTo(0);
                     make.top.equalTo(imageView.mas_bottom).offset(0);
                     make.right.mas_equalTo(-5);
-                    make.left.mas_equalTo(5);
+             
                     
                 }];
             }

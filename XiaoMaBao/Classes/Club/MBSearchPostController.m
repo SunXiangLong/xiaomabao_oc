@@ -125,7 +125,7 @@
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-         NSLog(@"%@",responseObject);
+         MMLog(@"%@",responseObject);
         
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
@@ -139,7 +139,7 @@
         [self show:@"没有相关数据" time:1];
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
@@ -258,7 +258,7 @@
         
         [MBNetworking   POSTOrigin:str parameters:@{@"page":page,@"keyword":self.searchString} success:^(id responseObject) {
             [self dismiss];
-            NSLog(@"%@",responseObject);
+            MMLog(@"%@",responseObject);
             if (responseObject) {
                 if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                     if (_page ==1) {
@@ -287,7 +287,7 @@
             
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
             [self show:@"请求失败 " time:1];
-            NSLog(@"%@",error);
+            MMLog(@"%@",error);
         }];
     }
 
@@ -312,12 +312,9 @@
     
     NSArray *subViews;
     
-    if (iOS_7) {
-        subViews = [(_SearchBar.subviews[0]) subviews];
-    }
-    else {
-        subViews = _SearchBar.subviews;
-    }
+    
+    subViews = [(_SearchBar.subviews[0]) subviews];
+    
     
     for (id view in subViews) {
         if ([view isKindOfClass:[UIButton class]]) {
@@ -388,17 +385,13 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary  *dic = _dataArray[indexPath.row];
+
     MBDetailsCircleTbaleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBDetailsCircleTbaleViewCell"];
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBDetailsCircleTbaleViewCell"owner:nil options:nil]firstObject];
     }
-    cell.array = dic[@"post_imgs"];
-    cell.post_title.text = dic[@"post_title"];
-    cell.post_time.text = dic[@"post_time"];
-    cell.reply_cnt.text = dic[@"reply_cnt"];
-    cell.author_name.text = dic[@"author_name"];
-    cell.post_content.text = dic[@"post_content"];
+    cell.dataDic = _dataArray[indexPath.row];
+
     
     return cell;
 

@@ -80,7 +80,7 @@
         NSIndexPath *indexPath = notificat.userInfo[@"indexPath"];
         NSString *image_height =  notificat.userInfo[@"image_height"];
         _heightArray[indexPath.row] = image_height;
-//        NSLog(@"%ld",(long)indexPath.row);
+//        MMLog(@"%ld",(long)indexPath.row);
         if (_isReload) {
             if (indexPath.row >= _oldRow) {
                [self.rmdTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
@@ -259,12 +259,7 @@
     //加入购物车
     [shopingCartBtn addTarget:self action:@selector(goJoinCart) forControlEvents:UIControlEventTouchUpInside];
 }
-#pragma mark --小能客服
-- (void)service{
-   
-    
-    
-}
+
 
 #pragma -mark  加入购物车
 - (void)goJoinCart{
@@ -313,14 +308,14 @@
     }
     NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/collect/create"] parameters:@{@"session":session,@"goods_id":self.GoodsId}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/collect_goods"] parameters:@{@"session":session,@"goods_id":self.GoodsId}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
                    
                    
                    [self show:@"加入收藏成功" time:1];
                    
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    [self show:@"请求失败！" time:1];
                }];
     
@@ -343,11 +338,11 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsInfo"] parameters:@{@"session":session,@"goods_id":self.GoodsId,@"act_id":self.actId} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsinfo"] parameters:@{@"session":session,@"goods_id":self.GoodsId,@"act_id":self.actId} success:^(NSURLSessionDataTask *operation, id responseObject) {
   
         [self dismiss];
         self.GoodsDict = [responseObject valueForKeyPath:@"data"];
-//        NSLog(@"商品详情---%@",self.GoodsDict);
+//        MMLog(@"商品详情---%@",self.GoodsDict);
         
         
         NSArray *arr = [self.GoodsDict valueForKeyPath:@"goods_gallery"];
@@ -384,8 +379,8 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"失败");
-        [KVNProgress dismiss];
+        MMLog(@"失败");
+        [self show:@"请求失败" time:1];
         
         
         
@@ -399,7 +394,7 @@
     [self show ];
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
     NSDictionary *pagination =[NSDictionary dictionaryWithObjectsAndKeys:page,@"page",@"10",@"count", nil];;
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"comments"] parameters:@{@"goods_id":self.GoodsId,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/comments"] parameters:@{@"goods_id":self.GoodsId,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         [self dismiss];
         NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
@@ -431,10 +426,10 @@
     
     
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsProperties"] parameters:@{@"goods_id":self.GoodsId}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsproperty"] parameters:@{@"goods_id":self.GoodsId}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
                    [self dismiss];
-                   NSLog(@"规格参数成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+                   MMLog(@"规格参数成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    _googBrandArray = [responseObject valueForKeyPath:@"data"];
                    
                    [self.infoTableView reloadData];
@@ -671,9 +666,9 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle]loadNibNamed:@"MBShopTableViewCell" owner:self options:nil]firstObject];
         }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        NSDictionary *dic = _evaluationArray[indexPath.row];
-        [cell dict:dic];
+        
+       cell.dic = _evaluationArray[indexPath.row];
+
         return cell;
     }
     static NSString *str = @"ssss";

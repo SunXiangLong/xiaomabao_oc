@@ -13,5 +13,6 @@
 @property (nonatomic,strong) NSString *type;
 /***快递单号*/
 @property (nonatomic,strong) NSString *postid;
-
+/***是否是订单详情界面进入*/
+@property (nonatomic,assign) BOOL isOrderDetails;
 @end

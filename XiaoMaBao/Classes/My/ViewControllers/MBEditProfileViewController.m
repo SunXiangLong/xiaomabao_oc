@@ -7,9 +7,9 @@
 //
 
 #import "MBEditProfileViewController.h"
-#import "MBNetworking.h"
-#import "TGCameraViewController.h"
-@interface MBEditProfileViewController () <UIAlertViewDelegate,UITextFieldDelegate,UIPickerViewDelegate,TGCameraDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+#import "STPhotoKitController.h"
+#import "UIImagePickerController+ST.h"
+@interface MBEditProfileViewController () <UIAlertViewDelegate,UITextFieldDelegate,UIPickerViewDelegate,UINavigationControllerDelegate,STPhotoKitDelegate,UIImagePickerControllerDelegate>
 @property (strong,nonatomic) UITextField *nicknameText;
 @property (strong,nonatomic) UIButton *birthdayBtn;
 @property (strong,nonatomic) UIButton *preProductBtn;
@@ -29,18 +29,6 @@
 @end
 
 @implementation MBEditProfileViewController
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBEditProfileViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBEditProfileViewController"];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -90,42 +78,7 @@
             _nicknameText.font = [UIFont systemFontOfSize:14];
             [fieldView addSubview:_nicknameText];
             _nicknameText.delegate = self;
-//        }else if(i == 1){
-//            _birthdayBtn = [[UIButton alloc] init];
-//            _birthdayBtn.frame = CGRectMake(CGRectGetMaxX(nameLbl.frame), nameLbl.ml_y, self.view.ml_width - CGRectGetMaxX(nameLbl.frame), nameLbl.ml_height);
-//            [_birthdayBtn setTitle:@"--请选择--" forState:UIControlStateNormal];
-//            _birthdayBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-////            _birthdayBtn.titleLabel.frame.size.width = 100;
-//            [_birthdayBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//            _birthdayBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//            _birthdayBtn.tag = i;
-//            [_birthdayBtn addTarget:self action:@selector(selectBirthday2:) forControlEvents:UIControlEventTouchUpInside];
-//            [fieldView addSubview:_birthdayBtn];
-//            
-//        }else if(i == 2){
-//            _preProductBtn = [[UIButton alloc] init];
-//            _preProductBtn.frame = CGRectMake(CGRectGetMaxX(nameLbl.frame), nameLbl.ml_y, self.view.ml_width - CGRectGetMaxX(nameLbl.frame), nameLbl.ml_height);
-//            [_preProductBtn setTitle:@"--请选择--" forState:UIControlStateNormal];
-//            _preProductBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-//            [_preProductBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//            _preProductBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//            
-//            [_preProductBtn addTarget:self action:@selector(selectBirthday2:) forControlEvents:UIControlEventTouchUpInside];
-//            _preProductBtn.tag = i;
-//            [fieldView addSubview:_preProductBtn];
-//        }else if(i == 3){
-//            
-//            _babyGender = [[UIButton alloc] init];
-//            _babyGender.frame = CGRectMake(CGRectGetMaxX(nameLbl.frame), nameLbl.ml_y, self.view.ml_width - CGRectGetMaxX(nameLbl.frame), nameLbl.ml_height);
-//            [_babyGender setTitle:@"--请选择--" forState:UIControlStateNormal];
-//            _babyGender.titleLabel.font = [UIFont systemFontOfSize:14];
-//            [_babyGender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//            _babyGender.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//            
-//            [_babyGender addTarget:self action:@selector(selectBabyGender:) forControlEvents:UIControlEventTouchUpInside];
-//            _babyGender.tag = i;
-//            [fieldView addSubview:_babyGender];
-//            
+           
       }
         else{
             
@@ -169,7 +122,7 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/info"] parameters:@{@"session":sessiondict}
                 success:^(NSURLSessionDataTask *operation, id responseObject) {
-                    NSLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+                    MMLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                     [self dismiss];
                     
                     
@@ -207,7 +160,7 @@
                     
 
                 } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                    NSLog(@"%@",error);
+                    MMLog(@"%@",error);
                  [self show:@"请求失败！" time:1];
                 }
      ];
@@ -233,7 +186,7 @@
                                            }
                                        }
                                      cancelBlock:^(ActionSheetStringPicker *picker) {
-                                         NSLog(@"Block Picker Canceled");
+                                         MMLog(@"Block Picker Canceled");
                                      }
                                           origin:sender];
     // You can also use self.view if you don't have a sender
@@ -258,7 +211,7 @@
                                            }
                                        }
                                      cancelBlock:^(ActionSheetStringPicker *picker) {
-                                         NSLog(@"Block Picker Canceled");
+                                         MMLog(@"Block Picker Canceled");
                                      }
                                           origin:sender];
     // You can also use self.view if you don't have a sender
@@ -352,29 +305,60 @@
              
          }
      }
-     else{
-         if(buttonIndex == 2){
-             //拍照
-             TGCameraNavigationController *navigationController =
-            [TGCameraNavigationController newWithCameraDelegate:self];
-             
-            [self presentViewController:navigationController animated:YES completion:nil];
-         }else if(buttonIndex == 1){
-             //从相册选择
-             UIImagePickerController *pickerController =
-             [TGAlbum imagePickerControllerWithDelegate:self];
-             
-             [self presentViewController:pickerController animated:YES completion:nil];
-         }
-     }
+//     else{
+//         if(buttonIndex == 2){
+//             //拍照
+//             TGCameraNavigationController *navigationController =
+//            [TGCameraNavigationController newWithCameraDelegate:self];
+//             
+//            [self presentViewController:navigationController animated:YES completion:nil];
+//         }else if(buttonIndex == 1){
+//             //从相册选择
+//             UIImagePickerController *pickerController =
+//             [TGAlbum imagePickerControllerWithDelegate:self];
+//             
+//             [self presentViewController:pickerController animated:YES completion:nil];
+//         }
+//     }
     
     
 }
-
+#pragma mark - --- event response 事件相应 ---
+- (void)editImageSelected
+{
+    UIAlertController *alertController = [[UIAlertController alloc]init];
+    
+    UIAlertAction *action0 = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIImagePickerController *controller = [UIImagePickerController imagePickerControllerWithSourceType:UIImagePickerControllerSourceTypeCamera];
+        
+        if ([controller isAvailableCamera] && [controller isSupportTakingPhotos]) {
+            [controller setDelegate:self];
+            [self presentViewController:controller animated:YES completion:nil];
+        }else {
+            MMLog(@"%s %@", __FUNCTION__, @"相机权限受限");
+        }
+    }];
+    
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"从相册获取" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIImagePickerController *controller = [UIImagePickerController imagePickerControllerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        [controller setDelegate:self];
+        if ([controller isAvailablePhotoLibrary]) {
+            [self presentViewController:controller animated:YES completion:nil];
+        }    }];
+    
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    
+    [alertController addAction:action0];
+    [alertController addAction:action1];
+    [alertController addAction:action2];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 -(void)setBirthday:(id)sender
 {
     NSDate *selected = [_babyBirthdayDate date];
-    NSLog(@"date: %@", selected);
+    MMLog(@"date: %@", selected);
 }
 
 - (void)saveProfile:(UIButton *)sender{
@@ -399,7 +383,7 @@
         [self popViewControllerAnimated:YES];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
 
@@ -424,81 +408,105 @@
 
 - (void)takePhotoTapped:(UIImageView *)sender
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"设置头像" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"从相册选择", @"拍照",nil];
-    alert.tag = 101;
-    [alert show];
-
+    [self editImageSelected];
 }
-
-#pragma mark - TGCameraDelegate optional
-
-- (void)cameraWillTakePhoto
+- (void)photoKitController:(STPhotoKitController *)photoKitController resultImage:(UIImage *)resultImage
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-}
-
-- (void)cameraDidSavePhotoAtPath:(NSURL *)assetURL
-{
-    // When this method is implemented, an image will be saved on the user's device
-    NSLog(@"%s album path: %@", __PRETTY_FUNCTION__, assetURL);
-}
-
-- (void)cameraDidSavePhotoWithError:(NSError *)error
-{
-    NSLog(@"%s error: %@", __PRETTY_FUNCTION__, error);
-}
-
-#pragma mark - TGCameraDelegate required
-
-- (void)cameraDidCancel
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)cameraDidTakePhoto:(UIImage *)image
-{
-    _headProfile.image = image;
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)cameraDidSelectAlbumPhoto:(UIImage *)image
-{
-    _headProfile.image = image;
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - UIImagePickerControllerDelegate
-
-- (void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    _headProfile.image = [TGAlbum imageWithMediaInfo:info];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-- (UIImage*)imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize)newSize
-{
+    _headProfile.image = resultImage;
     
-    if ([[UIScreen mainScreen] scale]==2.0) {
-        UIGraphicsBeginImageContextWithOptions(newSize, NO, 2.0);
-    }else{
     
-      UIGraphicsBeginImageContext(newSize);
-    }
-    // Create a graphics image context
-  
-    // new size
-    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-    // Get the new image from the context
-    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
     
-    // End the context
-    UIGraphicsEndImageContext();
-    // Return the new image.
-    return newImage;
 }
+#pragma mark - 2.UIImagePickerController的委托
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        UIImage *imageOriginal = [info objectForKey:UIImagePickerControllerOriginalImage];
+        STPhotoKitController *photoVC = [[STPhotoKitController alloc] init];
+        [photoVC setDelegate:self];
+        [photoVC setImageOriginal:imageOriginal];
+        
+        [photoVC setSizeClip:CGSizeMake(300, 300)];
+        
+        [self presentViewController:photoVC animated:YES completion:nil];
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:^(){
+        
+    }];
+}
+//#pragma mark - TGCameraDelegate optional
+//
+//- (void)cameraWillTakePhoto
+//{
+//    MMLog(@"%s", __PRETTY_FUNCTION__);
+//}
+//
+//- (void)cameraDidSavePhotoAtPath:(NSURL *)assetURL
+//{
+//    // When this method is implemented, an image will be saved on the user's device
+//    MMLog(@"%s album path: %@", __PRETTY_FUNCTION__, assetURL);
+//}
+//
+//- (void)cameraDidSavePhotoWithError:(NSError *)error
+//{
+//    MMLog(@"%s error: %@", __PRETTY_FUNCTION__, error);
+//}
+//
+//#pragma mark - TGCameraDelegate required
+//
+//- (void)cameraDidCancel
+//{
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
+//
+//- (void)cameraDidTakePhoto:(UIImage *)image
+//{
+//    _headProfile.image = image;
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
+//
+//- (void)cameraDidSelectAlbumPhoto:(UIImage *)image
+//{
+//    _headProfile.image = image;
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
+//
+//#pragma mark - UIImagePickerControllerDelegate
+//
+//- (void)imagePickerController:(UIImagePickerController *)picker
+//didFinishPickingMediaWithInfo:(NSDictionary *)info
+//{
+//    _headProfile.image = [TGAlbum imageWithMediaInfo:info];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
+//
+//- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+//{
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
+//- (UIImage*)imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize)newSize
+//{
+//    
+//    if ([[UIScreen mainScreen] scale]==2.0) {
+//        UIGraphicsBeginImageContextWithOptions(newSize, NO, 2.0);
+//    }else{
+//    
+//      UIGraphicsBeginImageContext(newSize);
+//    }
+//    // Create a graphics image context
+//  
+//    // new size
+//    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+//    // Get the new image from the context
+//    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+//    
+//    // End the context
+//    UIGraphicsEndImageContext();
+//    // Return the new image.
+//    return newImage;
+//}
 @end

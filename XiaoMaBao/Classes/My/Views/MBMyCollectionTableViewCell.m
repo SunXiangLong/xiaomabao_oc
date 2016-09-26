@@ -11,9 +11,6 @@
 #import "MBSignaltonTool.h"
 @implementation MBMyCollectionTableViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
@@ -29,11 +26,11 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        NSLog(@"取消删除");
+        MMLog(@"取消删除");
         
     }else if(buttonIndex == 1)
     {
-        NSLog(@"确认删除");
+        MMLog(@"确认删除");
         [self goJoinCart];
     }
 }
@@ -45,8 +42,8 @@
     if (self.goodsNum == nil) {
         self.goodsNum = @"1";
     }
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":dict, @"goods_id":self.goods_id,@"number":self.goodsNum,@"spec":@""} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/addtocart"] parameters:@{@"session":dict, @"goods_id":self.goods_id,@"number":self.goodsNum,@"spec":@""} success:^(NSURLSessionDataTask *operation, id responseObject) {
+//        MMLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
         NSDictionary * status = (NSDictionary *)[responseObject valueForKey:@"status"];
         
         if (status[@"succeed"]) {
@@ -57,7 +54,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"失败");
+        MMLog(@"失败");
     }];
     
 }

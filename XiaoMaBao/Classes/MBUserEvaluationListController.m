@@ -62,13 +62,13 @@
 
     
     NSString *page = [NSString stringWithFormat:@"%ld",_page];
-    NSString *url =[NSString stringWithFormat:@"%@%@%@/%@",BASE_URL_SHERVICE,@"service/user_comments/",_user_id,page];
+    NSString *url =[NSString stringWithFormat:@"%@%@%@/%@",BASE_URL_root,@"/service/user_comments/",_user_id,page];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         
         
         if ([[responseObject valueForKey:@"data"]count]>0) {
-            NSLog(@"%@",responseObject);
+            MMLog(@"%@",responseObject);
             
             [_commentsArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
             _page++;
@@ -81,7 +81,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     

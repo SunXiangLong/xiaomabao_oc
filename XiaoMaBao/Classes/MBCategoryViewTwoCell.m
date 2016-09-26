@@ -11,6 +11,7 @@
 @implementation MBCategoryViewTwoCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.showImageVIew .contentMode =  UIViewContentModeScaleAspectFill;
     self.showImageVIew .autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.showImageVIew .clipsToBounds  = YES;

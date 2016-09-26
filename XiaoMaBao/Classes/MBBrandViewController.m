@@ -73,7 +73,7 @@
                    if(1 == [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] intValue]){
                        [self dismiss];
                        NSDictionary *userData = [responseObject valueForKeyPath:@"data"];
-//                       NSLog(@"%@",userData);
+//                       MMLog(@"%@",userData);
                        _end_time = userData[@"end_time"];
                        _mid_banner = userData[@"mid_banner"];
                        _mid_link = userData[@"mid_link"];
@@ -87,14 +87,14 @@
                    }else{
                        
                        NSString *errStr =[[responseObject valueForKey:@"status"] valueForKey:@"error_desc"];
-                       NSLog(@"%@",errStr);
+                       MMLog(@"%@",errStr);
                        [self show:errStr time:1];
                    }
                    
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    
                    
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    
                }
      ];

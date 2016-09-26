@@ -17,6 +17,7 @@
 @implementation MBPostDetailsHeadView
 
 -(void)awakeFromNib{
+    [super awakeFromNib];
     _lastButton = _allButton;
     
 }

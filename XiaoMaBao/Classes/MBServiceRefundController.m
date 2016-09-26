@@ -79,13 +79,13 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/return_order_info"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/return_order_info"];
     if (! sid) {
         [self show:@"账号已过期，请重新登录" time:1];
         return;
     }
     [MBNetworking POSTOrigin:url parameters:@{@"session":sessiondict,@"order_id":self.order_id} success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         [self dismiss];
         if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
             _dataDic = responseObject;
@@ -101,7 +101,7 @@
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
 }
@@ -111,7 +111,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_SHERVICE,@"service/submit_return_order"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/submit_return_order"];
     if (! sid) {
         [self show:@"账号已过期，请重新登录" time:1];
         return;
@@ -124,18 +124,18 @@
         if ([str isEqualToString:@"1"]) {
             if (ticket_ids.length>0) {
                 [ticket_ids appendFormat:@"|"];
-                [ticket_ids appendFormat:str1];
+                [ticket_ids appendFormat:@"%@", str1];
             }else{
                 ticket_ids = [NSMutableString stringWithFormat:@"%@",str1];
 
             }
         }
     }
-    NSLog(@"%@",ticket_ids);
+    MMLog(@"%@",ticket_ids);
     
     
     [MBNetworking POSTOrigin:url parameters:@{@"session":sessiondict,@"order_id":self.order_id,@"ticket_ids":ticket_ids,@"reason":@"测试"} success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         
         
         [self dismiss];
@@ -150,7 +150,7 @@
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
 }

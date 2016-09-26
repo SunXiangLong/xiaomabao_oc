@@ -244,7 +244,7 @@
 - (void)submit:(NSNotification *)notif{
     
     
-    if (!_ProblemDescriptionTextView.text.length >0) {
+    if (!(_ProblemDescriptionTextView.text.length >0)) {
         [self show:@"请添加问题描述" time:1];
         return;
     }
@@ -370,7 +370,7 @@
         [self show:[responseObject valueForKeyPath:@"status"][@"error_desc"] time:1];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
 
@@ -396,7 +396,7 @@
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/info"] parameters:@{@"session":sessiondict,@"order_id":self.order_id}success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         
-        NSLog(@"成功获取退货信息---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+        MMLog(@"成功获取退货信息---responseObject%@",[responseObject valueForKeyPath:@"data"]);
       
         _refunDic = [responseObject valueForKeyPath:@"data"];
         NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
@@ -450,7 +450,7 @@
         [_tableView reloadData];
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
       [self show:@"请求失败！" time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         
     }
      ];
@@ -631,7 +631,7 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
       
     }];
     
@@ -684,7 +684,7 @@
      
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
        
     }];
 
@@ -693,7 +693,7 @@
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
-//    NSLog(@"%@",image);
+//    MMLog(@"%@",image);
     
     [self dismissViewControllerAnimated:YES completion:^{
         

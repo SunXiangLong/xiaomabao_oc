@@ -22,18 +22,6 @@
 @end
 
 @implementation MBCategoryViewController
--(void)viewWillDisappear:(BOOL)animated
-{
-    
-    [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBCategoryViewController"];
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    
-    [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBCategoryViewController"];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView1"];
@@ -63,7 +51,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",url,self.cat_id];
     [MBNetworking newGET:urlStr parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        NSLog(@"%@ ",responseObject);
+       // MMLog(@"%@ ",responseObject);
         
         
         if (responseObject) {
@@ -78,7 +66,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
@@ -95,7 +83,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@%@/%@",url,self.cat_id,page];
     [MBNetworking newGET:urlStr parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        NSLog(@"%@ ",responseObject);
+        MMLog(@"%@ ",responseObject);
         
           [self.collectionView .mj_footer endRefreshing];
         if (responseObject) {
@@ -116,7 +104,7 @@
         }
        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     

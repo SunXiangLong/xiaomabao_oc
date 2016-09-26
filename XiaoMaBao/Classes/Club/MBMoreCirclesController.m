@@ -194,7 +194,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
@@ -303,7 +303,7 @@
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
    
 
@@ -324,7 +324,7 @@
     
     [MBNetworking   POSTOrigin:str parameters:@{@"session":sessiondict,@"keyword":searcText} success:^(id responseObject) {
         [self dismiss];
-        NSLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         if (responseObject) {
             
             _searchArray = [NSMutableArray arrayWithArray:[responseObject valueForKeyPath:@"data"]];
@@ -362,7 +362,7 @@
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
 }
 #pragma mark -- 跳转登陆页
@@ -394,7 +394,7 @@
 - (UISearchBar *)SearchBar{
     if (!_SearchBar) {
        
-        _SearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,TOP_Y+45, UISCREEN_WIDTH , 55)];
+        _SearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,TOP_Y, UISCREEN_WIDTH , 55)];
         _SearchBar.backgroundImage =  [UIImage saImageWithSingleColor:[UIColor whiteColor]];
         _SearchBar.translucent = YES;
         _SearchBar.tintColor = UIcolor(@"a8a8b0");
@@ -415,7 +415,7 @@
         
         // 把监听到的通知转换信号
         [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardDidHideNotification object:nil] subscribeNext:^(id x) {
-            NSLog(@"键盘收回");
+            MMLog(@"键盘收回");
           
                 [self searchBarCancelButtonClicked:_SearchBar];
 
@@ -464,12 +464,9 @@
     
     NSArray *subViews;
     
-    if (iOS_7) {
-        subViews = [(_SearchBar.subviews[0]) subviews];
-    }
-    else {
-        subViews = _SearchBar.subviews;
-    }
+   
+    subViews = [(_SearchBar.subviews[0]) subviews];
+   
     
     for (id view in subViews) {
         if ([view isKindOfClass:[UIButton class]]) {
@@ -493,7 +490,7 @@
     if ([searchBar isFirstResponder]) {
     
         [UIView animateWithDuration:0.2 animations:^{
-            _SearchBar.frame = CGRectMake(0, TOP_Y+31, UISCREEN_WIDTH, 55);
+            _SearchBar.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 55);
             _searchTableView.hidden = YES;
             
         }];

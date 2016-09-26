@@ -10,8 +10,6 @@
 #import "PhotoCollectionViewCell.h"
 #import "LGPhotoPickerViewController.h"
 #import "LGPhoto.h"
-#import "MBWeatherTableViewCell.h"
-#import "MBWeatherAndMoodViewController.h"
 @interface MBPostReplyController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SDPhotoBrowserDelegate,PhotoCollectionViewCellDelegate,LGPhotoPickerViewControllerDelegate>
 {
     /**
@@ -174,7 +172,7 @@
                         LGPhotoAssets *photo = _photoArray [i];
                         image = photo.thumbImage;
                     }
-                    NSData * data = [UIImage reSizeImageData:image maxImageSize:800 maxSizeWithKB:800];
+                    NSData *data = UIImageJPEGRepresentation(image, 0.5f);
                     if(data != nil){
                         [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"photo[]"] fileName:[NSString stringWithFormat:@"photo%d.jpg",i]mimeType:@"image/jpeg"];
                     }
@@ -189,13 +187,14 @@
             if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
                 
                 [self dismiss];
+                self.successEvaluation();
                 [self popViewControllerAnimated:YES];
             }else{
                 
                 [self show:@"保存失败" time:1];
             }
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            NSLog(@"%@",error);
+            MMLog(@"%@",error);
             [self show:@"请求失败！" time:1];
         }];
     
@@ -297,11 +296,9 @@
     
     
     
-    UICollectionViewCell *cell = [_collectionView cellForItemAtIndexPath:indexPath];
     browser = [[SDPhotoBrowser alloc] init];
     browser.currentImageIndex =indexPath.row;
-    //        browser.isremove = YES;
-    browser.sourceImagesContainerView = cell.contentView;
+    browser.sourceImagesContainerView = _collectionView;
     browser.imageCount = _photoArray.count-1;
     browser.delegate = self;
     [browser show];
@@ -317,7 +314,7 @@
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
-    // NSLog(@"%@",image);
+    // MMLog(@"%@",image);
     
     [self dismissViewControllerAnimated:YES completion:^{
         

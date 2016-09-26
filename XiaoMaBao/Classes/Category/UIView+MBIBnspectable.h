@@ -20,5 +20,6 @@ IB_DESIGNABLE
 // set background hex color
 @property (assign,nonatomic) IBInspectable NSString  *hexRgbColor;
 @property (assign,nonatomic) IBInspectable BOOL      onePx;
-
+@property (assign,nonatomic) IBInspectable UIViewAutoresizing  resizingMask;
+@property (assign,nonatomic) IBInspectable BOOL      toBounds;
 @end

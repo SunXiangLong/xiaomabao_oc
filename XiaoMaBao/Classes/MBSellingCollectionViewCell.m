@@ -16,7 +16,7 @@
 @implementation MBSellingCollectionViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    [super awakeFromNib];
     [self registerNSNotificationCenter];
 }
 -(void)loadData:(id)data indexPath:(NSIndexPath *)indexPath{

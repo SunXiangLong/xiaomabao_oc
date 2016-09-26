@@ -17,4 +17,6 @@ typedef void(^Block)(NSIndexPath *indexPath);
 @property (nonatomic,strong) NSString *addtime;
 @property (nonatomic,strong) NSIndexPath *indexPath;
 @property (nonatomic, copy) Block block;
+@property (nonatomic,strong) id image;
+
 @end

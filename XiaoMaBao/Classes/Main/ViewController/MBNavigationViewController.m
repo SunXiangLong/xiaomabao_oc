@@ -11,6 +11,7 @@
 #import "MBNavigationViewController.h"
 #import "BkBaseViewController.h"
 #import "BkNavigationBarView.h"
+#import "MBOrderInfoTableViewController.h"
 #define BG_IMAGEVIEW_X -[[UIScreen mainScreen] bounds].size.width/2
 
 
@@ -24,25 +25,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (iOS_7) {
-        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] init];
-        //  用KVC取出target和action
-        NSArray *internalTargets = [self.interactivePopGestureRecognizer valueForKey:@"targets"];
-        id internalTarget = [internalTargets.firstObject valueForKey:@"target"];
-        SEL internalAction = NSSelectorFromString(@"handleNavigationTransition:");
-        pan.delegate = self;
-        [pan addTarget:internalTarget action:internalAction];
-        self.interactivePopGestureRecognizer.enabled = NO;
-        [self.view addGestureRecognizer:pan];
-
-    }
+    
+    self.pan = [[UIPanGestureRecognizer alloc] init];
+    //  用KVC取出target和action
+    NSArray *internalTargets = [self.interactivePopGestureRecognizer valueForKey:@"targets"];
+    id internalTarget = [internalTargets.firstObject valueForKey:@"target"];
+    SEL internalAction = NSSelectorFromString(@"handleNavigationTransition:");
+    self.pan .delegate = self;
+    [self.pan  addTarget:internalTarget action:internalAction];
+    self.interactivePopGestureRecognizer.enabled = NO;
+    [self.view addGestureRecognizer: self.pan];
+        
+    
     
 }
+
+
 #pragma mark - UIGestureRecognizerDelegate方法
 // 是否触发手势
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-   
+    
     // 根控制器下不要触发手势,让手势不起作用
     return self.childViewControllers.count > 1 ;
 }
@@ -57,30 +60,21 @@
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     [viewController.navigationController.navigationBar removeFromSuperview];
     
-       if (self.viewControllers.count > 0) {
-        /**
-         *  pus到新的界面 隐藏底部的tabbar
-         */
-        viewController.hidesBottomBarWhenPushed = YES;
-        BkBaseViewController *vc = (BkBaseViewController *) viewController;
-           vc.back = YES;
-    }
-    [super pushViewController:viewController animated:animated];
-   
-}
-
-- (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion{
-    [super presentViewController:viewControllerToPresent animated:flag completion:completion];
-  
     if (self.viewControllers.count > 0) {
         /**
          *  pus到新的界面 隐藏底部的tabbar
          */
-       
-        BkBaseViewController *vc = (BkBaseViewController *) viewControllerToPresent;
-        vc.back = YES;
+        viewController.hidesBottomBarWhenPushed = YES;
+        if ([viewController isKindOfClass:[BkBaseViewController class] ]) {
+            BkBaseViewController *vc = (BkBaseViewController *) viewController;
+            vc.back = YES;
+
+        }
     }
+    [super pushViewController:viewController animated:animated];
+    
 }
+
 
 
 

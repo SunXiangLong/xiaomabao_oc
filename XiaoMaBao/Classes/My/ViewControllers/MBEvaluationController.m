@@ -26,17 +26,7 @@
 @end
 
 @implementation MBEvaluationController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBEvaluationController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBEvaluationController"];
-   
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -145,7 +135,7 @@
  */
 -(void)SubmitEvaluation:(NSInteger)row{
     NSMutableDictionary *dic = _evaluationArray[row];
-    //NSLog(@"%@",dic);
+    //MMLog(@"%@",dic);
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
@@ -171,7 +161,7 @@
     
     [self showProgress];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/act_comment"] parameters:parmeters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_comment"] parameters:parmeters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         for (int i = 0; i<photoArray.count; i++) {
             NSData * data;
             if ([photoArray[i]isKindOfClass:[UIImage class]] ) {
@@ -206,7 +196,7 @@
             
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
     

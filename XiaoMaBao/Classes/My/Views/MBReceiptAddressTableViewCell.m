@@ -41,13 +41,13 @@
         NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/setDefault"] parameters:@{@"session":dict,@"address_id":self.address_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
-            NSLog(@"成功---responseObject%@",responseObject);
+//            MMLog(@"成功---responseObject%@",responseObject);
             
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateDefaultAddress" object:nil];
             
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            NSLog(@"失败");
+            MMLog(@"失败");
         }];
 
     }else{
@@ -94,11 +94,11 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        NSLog(@"取消删除");
+        MMLog(@"取消删除");
         
     }else if(buttonIndex == 1)
     {
-        NSLog(@"确认删除");
+        MMLog(@"确认删除");
         [self deletemyaddressWithUrl:@"address/delete"];
     }
 }
@@ -113,13 +113,13 @@
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/delete"] parameters:@{@"session":sessiondict,@"address_id":self.address_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
-        NSLog(@"self.cellIndex%ld",self.cellIndex);
+//        MMLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+        MMLog(@"self.cellIndex%ld",self.cellIndex);
         [[NSNotificationCenter defaultCenter] postNotificationName:@"deleteAddress" object:nil userInfo:nil];
 
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"失败");
+        MMLog(@"失败");
     }];
     
 }

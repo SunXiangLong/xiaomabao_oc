@@ -7,147 +7,252 @@
 		<key>AFNetworking.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
 		<key>ActionSheetPicker-3.0.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>1</integer>
+		</dict>
+		<key>Appirater 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>33</integer>
+		</dict>
+		<key>Appirater-Appirater 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>34</integer>
 		</dict>
 		<key>Appirater-Appirater.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>4</integer>
 		</dict>
 		<key>Appirater.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>3</integer>
 		</dict>
 		<key>DZNEmptyDataSet.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>6</integer>
 		</dict>
-		<key>FMDB.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>12</integer>
-		</dict>
-		<key>HexColors.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>13</integer>
-		</dict>
-		<key>KVNProgress.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
-		</dict>
-		<key>MBProgressHUD.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>15</integer>
-		</dict>
-		<key>MJPhotoBrowser.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>16</integer>
-		</dict>
-		<key>MJRefresh.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>17</integer>
-		</dict>
-		<key>Masonry.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>14</integer>
-		</dict>
-		<key>Pods.xcscheme</key>
+		<key>DateTools.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
+		<key>FMDB.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>FreeStreamer.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>HexColors.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>JPFPSStatus.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
+		<key>MBProgressHUD 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>36</integer>
+		</dict>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
+		<key>MJPhotoBrowser 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>37</integer>
+		</dict>
+		<key>MJPhotoBrowser.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
+		<key>MJRefresh 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>38</integer>
+		</dict>
+		<key>MJRefresh.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
+		<key>Masonry 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>35</integer>
+		</dict>
+		<key>Masonry.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
+		</dict>
+		<key>Pods-XiaoMaBao.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
 		<key>PureLayout.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>17</integer>
+		</dict>
+		<key>Reachability 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>39</integer>
 		</dict>
 		<key>Reachability.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>18</integer>
 		</dict>
+		<key>ReactiveCocoa 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>40</integer>
+		</dict>
 		<key>ReactiveCocoa.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>19</integer>
+		</dict>
+		<key>SDCycleScrollView 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>41</integer>
 		</dict>
 		<key>SDCycleScrollView.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>20</integer>
 		</dict>
+		<key>SDWebImage 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>42</integer>
+		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>21</integer>
+		</dict>
+		<key>SKTagView 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>43</integer>
 		</dict>
 		<key>SKTagView.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>22</integer>
 		</dict>
+		<key>SVProgressHUD 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>44</integer>
+		</dict>
 		<key>SVProgressHUD.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>23</integer>
-		</dict>
-		<key>TGCameraViewController.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>7</integer>
-		</dict>
-		<key>WMPageController.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>8</integer>
-		</dict>
-		<key>YLGIFImage.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>24</integer>
 		</dict>
+		<key>StreamingKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>23</integer>
+		</dict>
+		<key>TYAttributedLabel.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>25</integer>
+		</dict>
+		<key>UITableView+FDTemplateLayoutCell.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>26</integer>
+		</dict>
+		<key>WMPageController.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>27</integer>
+		</dict>
+		<key>YLGIFImage 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>45</integer>
+		</dict>
+		<key>YLGIFImage.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>28</integer>
+		</dict>
+		<key>YYCache.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>29</integer>
+		</dict>
+		<key>YYImage.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>30</integer>
+		</dict>
+		<key>YYWebImage.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>31</integer>
+		</dict>
+		<key>ZFPlayer.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>32</integer>
+		</dict>
 		<key>iCarousel.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>10</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>02E5573A89BB2B82EA19A516179FE819</key>
+		<key>134CE6127675D4C1965B9804217B76FF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>06B2232CE73059846F04E5C3DFEE0D38</key>
+		<key>1C5144E1DDFE2C5BB8D4A256B31BDDCB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>13CCB52815E0C543DF7CFE494A5C1351</key>
+		<key>1EC289C3EF58A258C75E04C9E44C8806</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>30EB9A5794594E13EF2A52FC0ADFE880</key>
+		<key>31FF44B5E2FF8CF00090950A8B67AFF6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4800982B7342F39DA364DB8BFE42A444</key>
+		<key>3A2D682B595E92828EF15CBC30DB4A9D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -162,27 +267,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5155BD7DB61C13752895F01DC70F8F5C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>53480ED0BE09FF49E34B1702D485CAAB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>55680BD16F28725323BC534AC2932FDD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5CEFEEF14256CD4D0AE30D6E89F3D0BD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6704D504029BD157CFC13CBF82CFEE80</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -192,17 +277,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7CF857C3F7EEFDF0F7822A2733D7FAFD</key>
+		<key>744F7CD12F8BBD9F25362CDAD590D524</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>821F67E914762512F3AA7B3C610DBE81</key>
+		<key>848625A6F610C8FE68E2AA80ADE372BE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8711F40B1E954949780CE6D538C5FBE4</key>
+		<key>8DB6B7D2DE556369A1DDCC12B0002349</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -222,6 +307,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9767D6D882DB6A27CFB6804991A9A7B6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9F12FB4A63E20F601CFB2E64A65B57C1</key>
 		<dict>
 			<key>primary</key>
@@ -237,12 +327,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AE2EDDE95A9417391C1CEA0A24A39AE0</key>
+		<key>A27BB0845B76D3EC30A2776B910AFD15</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B74B2C85343CAD1A70FAF758CB56B919</key>
+		<key>BBCF140951362A81D6B044E2491851D4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C175F54B05B61BBDBD1590AFA5400E2E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -252,7 +347,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DED80652FE2F1589A91DA32410D6A037</key>
+		<key>CEF34B149E78E20107B14EB41DA6FFC8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D462F578C143725FB3F0531B930D6240</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA5031B739E0701A67146E751C513B86</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DB9267A921EC9A17098996C028A8F134</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DD3CFC920B62C5474140682F82F16729</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -262,17 +377,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ED78A21F9151A9B9418EAD665643EE0C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>EDC12519E74CCF180C1A3F6DC7BA7734</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EFFA5540F1E017D7BE3206CD670D0012</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -115,16 +115,16 @@
 #pragma mark -- 请求规格数据
 -(void)specificationsData{
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsSpecifications"] parameters:@{@"goods_id":self.goods_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsspecs"] parameters:@{@"goods_id":self.goods_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
          [self dismiss];
-        NSLog(@"%@",[responseObject valueForKey:@"data"]);
+        MMLog(@"%@",[responseObject valueForKey:@"data"]);
         _specificationsDic  = [responseObject valueForKey:@"data"];
         if (_specificationsDic) {
             [self setupGoodsView];
             _lastview = _goodsView;
             _specificationsArray = _specificationsDic[@"goods_specs"];
             
-            NSLog(@"%@",_specificationsArray);
+           
             
             if (_specificationsArray.count>0) {
                 UITableView *tableview = [[UITableView alloc] init];
@@ -183,7 +183,7 @@
        
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
 
@@ -390,22 +390,14 @@
             attr = [NSString stringWithFormat:@"%@,%@",attr,str];
         }
     }
-    
     if (!attr) {
-        
         attr = @"";
     }
 
-    
+    #warning 下个版本提示后台把这个接口（获取数组的去掉） 
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     NSString *goodnumber = self.numberFld.text;
-    
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":dict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":arrs} success:^(NSURLSessionDataTask *operation, id responseObject) {
-     
-        
-        
-        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
-        
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/addtocart"] parameters:@{@"session":dict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":attr} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         NSString *status = [NSString stringWithFormat:@"%@",[responseObject valueForKeyPath:@"status"][@"succeed"]];
         
@@ -423,7 +415,7 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
          [self show:@"请求失败！" time:1];
     }];
 
@@ -459,33 +451,36 @@
     }
     
     NSArray *arrs  = [arr sortedArrayUsingSelector:@selector(compare:)];
+    
     NSString *attr;
+    
     for (int i =0; i<arrs.count; i++) {
         NSString *str = arrs[i];
         if (i==0) {
             attr = [NSString stringWithFormat:@"%@",str];
         }else{
-            
             attr = [NSString stringWithFormat:@"%@,%@",attr,str];
         }
     }
+   
     
     if (!attr) {
         attr = @"";
     }
     
     NSString *goodnumber = self.numberFld.text;
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/create"] parameters:@{@"session":sessiondict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":attr} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        NSLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/addtocart"] parameters:@{@"session":sessiondict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":attr} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-         NSString *status = [NSString stringWithFormat:@"%@",[responseObject valueForKeyPath:@"status"][@"succeed"]];
+        NSString *status = [NSString stringWithFormat:@"%@",[responseObject valueForKeyPath:@"status"][@"succeed"]];
+        
+        MMLog(@"%@",[responseObject valueForKeyPath:@"status"]);
+        
         if ([status isEqualToString:@"1"]) {
             MBShoppingCartViewController *payVc = [[MBShoppingCartViewController alloc] init];
             payVc.showBottomBar = @"yes";
             [self.navigationController pushViewController:payVc animated:YES];
         }else{
             
-            //[self.navigationController popViewControllerAnimated:YES];
             [self show:[responseObject valueForKeyPath:@"status"][@"error_desc"] time:1];
         }
 
@@ -493,7 +488,7 @@
         
          
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败..." time:1];
     }];
     
@@ -541,7 +536,7 @@
 }
 #pragma mark --MBSpecificationsCelldelegate
 -(void)getDic:(NSDictionary *)dic{
-   // NSLog(@"%@",dic);
+
     _specificationsMutableArray[[dic[@"row"] integerValue]]=dic;
     
     [self setData];
@@ -549,7 +544,7 @@
 }
 -(void)setData{
     
-   // NSLog(@"-------%@",_specificationsMutableArray);
+
     NSMutableArray *arr = [NSMutableArray array];
     for (id dic in _specificationsMutableArray) {
         if ([dic isKindOfClass:[NSDictionary class]]) {
@@ -573,9 +568,9 @@
     
     
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"home/getGoodsSpecificationInfo"] parameters:@{@"goods_id":self.goods_id,@"attr":attr,@"number":_numberFld.text} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsspecinfos"] parameters:@{@"goods_id":self.goods_id,@"attr":attr,@"number":_numberFld.text} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        NSLog(@"%@",[responseObject valueForKey:@"data"]);
+//        MMLog(@"%@",[responseObject valueForKey:@"data"]);
         NSDictionary *dic = [responseObject valueForKey:@"data"];
         if (dic) {
             
@@ -591,7 +586,7 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     

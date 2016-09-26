@@ -8,6 +8,7 @@
 
 #import "MBServiceDetailsViewController.h"
 #import "MBSubmitOrdersController.h"
+#import "MBLoginViewController.h"
 @interface MBServiceDetailsViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIButton *button;
@@ -32,7 +33,7 @@
       [self show:@"加载中..."];
     self.button.hidden   = YES;
      _webView.scalesPageToFit = YES;
-    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_SHERVICE,@"service/product_preview/",self.product_id];
+    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/service/product_preview/",self.product_id];
 
     NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];//创建NSURLRequest
     [_webView loadRequest:request];//加载
@@ -40,11 +41,29 @@
 
 }
 - (IBAction)buy:(id)sender {
+    
+    
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (! sid) {
+        
+        [self loginClicksss];
+        return;
+    }
+    
     MBSubmitOrdersController *VC = [[MBSubmitOrdersController alloc] init];
     VC.product_id = self.product_id;
     [self pushViewController:VC Animated:YES];
 }
-
+#pragma mark -- 跳转登陆页
+- (void)loginClicksss{
+    //跳转到登录页
+    
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
+    myView.vcType = @"mabao";
+    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
+    [self presentViewController:VC animated:YES completion:nil];
+}
 - (NSString *)titleStr{
    return @"产品详情";
 
@@ -88,7 +107,7 @@
 }
 -(void)webView:(UIWebView*)webView DidFailLoadWithError:(NSError*)error{
     //当在请求加载中发生错误时，得到通知。会提供一个NSSError对象，以标识所发生错误类
-    NSLog(@"%@",error);
+    MMLog(@"%@",error);
     [self show:@"加载失败" time:1];
 }
 

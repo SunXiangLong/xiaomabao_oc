@@ -10,9 +10,9 @@
 #import "BkBaseViewController.h"
 @interface MBOrderCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *orderTableView;
-@property(nonatomic,strong)NSArray *array;
-@property(nonatomic,strong)NSArray *imageUrlArray;
+@property(nonatomic,strong)NSArray *goods_listArray;
 @property(nonatomic,strong)NSString *order_sn;
-@property (nonatomic,strong) BkBaseViewController *VC;
+@property(nonatomic,strong)NSString *order_status;
 
+@property (nonatomic,weak) BkBaseViewController *VC;
 @end

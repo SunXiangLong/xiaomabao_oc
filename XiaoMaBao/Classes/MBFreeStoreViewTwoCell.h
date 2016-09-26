@@ -11,6 +11,6 @@
 @interface MBFreeStoreViewTwoCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic,strong) NSArray *dataArray;
-@property (nonatomic,strong) BkBaseViewController *VC;
+@property (nonatomic,weak) BkBaseViewController *VC;
 
 @end

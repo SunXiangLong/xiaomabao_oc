@@ -19,6 +19,7 @@
 #import "orderFootView.h"
 #import "orderHeadView.h"
 #import "MBAddIDCardView.h"
+#import "MBBabyCardController.h"
 @interface MBFireOrderViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
    
@@ -41,10 +42,12 @@
     NSString *_hongbaoMoney;
     NSString *_strCoupon;
     NSString *_strHongbao;
-    
+    NSString *_babyCardStr;
     
     NSArray *_array;
     NSString *_address_id;
+    
+
 
 }
 @property (weak,nonatomic) UIButton *addVouchersBtn;
@@ -52,23 +55,24 @@
 @property (strong,nonatomic)NSMutableArray *numarr;
 @property (strong,nonatomic) UILabel *couponLbl;
 @property (strong,nonatomic) UILabel *bonusLbl;
+@property (strong,nonatomic) UILabel *babycard;
 @property (strong,nonatomic) UILabel *totalLabel;
 @property (strong,nonatomic) NSString *couponId;
 @property (strong,nonatomic) NSArray *photoArr;
 @property (assign,nonatomic) BOOL isCard;
+/**
+ *  麻包卡密码  多个的话用 ，分开
+ */
+
+@property (copy,nonatomic) NSMutableString *cards;
 @end
 
 @implementation MBFireOrderViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBFireOrderViewController"];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBFireOrderViewController"];
+-(NSMutableString *)cards{
+    if (!_cards) {
+        _cards = [NSMutableString string];
+    }
+    return _cards;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -79,8 +83,7 @@
     //选择地址
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selsectaddress:) name:@"AddressNOtifition" object:nil];
     
-    //选择优惠券
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectCoupon:) name:@"AddCouponNotification" object:nil];
+
     
     _numarr = [NSMutableArray array];
     for (NSDictionary *dict in self.goodselectArray ) {
@@ -96,7 +99,7 @@
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tableView registerNib:[UINib nibWithNibName:@"MBFireOrderTableViewCell" bundle:nil] forCellReuseIdentifier:@"MBFireOrderTableViewCell"];
     
-    tableView.backgroundColor = [UIColor clearColor];
+
     tableView.dataSource = self,tableView.delegate = self;
 
     tableView.frame = CGRectMake(0, TOP_Y, self.view.ml_width, self.view.ml_height - TOP_Y - 35);
@@ -141,22 +144,8 @@
 
     
 }
--(void)selectCoupon:(NSNotification *)notif
-{
-    NSDictionary * coupon = [notif userInfo];
-    self.couponId = [coupon valueForKey:@"bonus_id"];
-   _strCoupon   = [coupon valueForKeyPath:@"type_name"];
-    //更新底部价格
-    float totalMoney = self.order_amount.floatValue;
-    float type_money = [[coupon valueForKey:@"type_money"] floatValue];
-    _couponMoney = [coupon valueForKey:@"type_money"];
-     _tableView.tableFooterView = [self tableViewFooterView];
-    float money = totalMoney - type_money;
-    if(money < 0)
-        money = 0;
-    self.totalLabel.text = [NSString stringWithFormat:@"应付金额：￥%.2lf",money];
-    
-}
+
+
 #pragma mark -- 更换地址从新获取订单数据－－更改运费（不同地点运费不同）
 -(void)BeforeCreateOrder
 {
@@ -166,7 +155,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/checkout"] parameters:@{@"session":sessiondict,@"address_id":_address_id}success:^(NSURLSessionDataTask *operation, id responseObject) {
-           NSLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
+//           MMLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
         
         [self dismiss];
         if ([[responseObject valueForKeyPath:@"status"][@"succeed"] isEqualToNumber:@1]) {
@@ -203,7 +192,7 @@
         
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    [self show:@"请求失败！" time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    
                }
      ];
@@ -328,7 +317,7 @@
     if (![self.is_cross_border isEqualToString:@"0"]) {
         UIView *footerView = [[UIView alloc] init];
         footerView.backgroundColor = [UIColor whiteColor];
-        footerView.frame = CGRectMake(0, 0, self.view.ml_width, 330);
+        footerView.frame = CGRectMake(0, 0, self.view.ml_width, 390);
         
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 110)];
         if (![_is_black isEqualToString:@"0"]) {
@@ -338,7 +327,7 @@
         if(![_is_over_sea isEqualToString:@"0"]){
         
             view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 290);
-            footerView.frame = CGRectMake(0, 0, self.view.ml_width, 330+180);
+            footerView.frame = CGRectMake(0, 0, self.view.ml_width, 390+180);
             
          
         }
@@ -553,15 +542,11 @@
         
         UILabel *vouchersLbl = [[UILabel alloc] init];
         vouchersLbl.font = [UIFont systemFontOfSize:14];
-        if (_couponMoney ) {
-            vouchersLbl.text = [NSString stringWithFormat:@"专场优惠：-%@",_couponMoney];
-        }else if(_hongbaoMoney ){
-            vouchersLbl.text = [NSString stringWithFormat:@"专场优惠：-%@",_hongbaoMoney];
+        
+        
+        vouchersLbl.text = _discount_formatted?[NSString stringWithFormat:@"专场优惠：%@",_discount_formatted]:@"¥0.00";
             
-        }else{
-            vouchersLbl.text = [NSString stringWithFormat:@"专场优惠：%@",@"0"];
-            
-        }
+        
         
         vouchersLbl.frame = CGRectMake(8, CGRectGetMaxY(freightLbl.frame) + MARGIN_5, self.view.ml_width, 15);
         
@@ -588,7 +573,7 @@
         //添加优惠券和红包选择
         UIView * couponView = [self setBonusView:remarkLbl margin:MARGIN_10 text:@"使用代金券" type:0];
         UIView * bonusView = [self setBonusView:couponView margin:0 text:@"使用红包或兑换券" type:1];
-        
+        UIView * babyCard = [self setBonusView:bonusView margin:0 text:@"使用麻包卡" type:2];
         [footerView addSubview:totalLbl];
         [footerView addSubview:freightLbl];
         [footerView addSubview:rateLbl];
@@ -600,22 +585,30 @@
         //红包
         [footerView addSubview:couponView];
         [footerView addSubview:bonusView];
-        
-        couponView.userInteractionEnabled = YES;
+        [footerView addSubview:babyCard];
+       
         UITapGestureRecognizer *ger1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(couponClick:)];
         [couponView addGestureRecognizer:ger1];
         
-        bonusView.userInteractionEnabled = YES;
+ 
         UITapGestureRecognizer *ger2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bonusClick:)];
         [bonusView addGestureRecognizer:ger2];
               [self addBottomLineView:footerView];
         
         
+        UITapGestureRecognizer *ger3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(babyCardClick:)];
+        [babyCard addGestureRecognizer:ger3];
+        
+
+        [self addBottomLineView:footerView];
+        
         return footerView;
+        
     }else{
+        
         UIView *footerView = [[UIView alloc] init];
         footerView.backgroundColor = [UIColor whiteColor];
-        footerView.frame = CGRectMake(0, 0, self.view.ml_width, 220);
+        footerView.frame = CGRectMake(0, 0, self.view.ml_width, 280);
         UILabel *totalLbl = [[UILabel alloc] init];
         totalLbl.font = [UIFont systemFontOfSize:14];
         
@@ -629,15 +622,8 @@
         
         UILabel *vouchersLbl = [[UILabel alloc] init];
         vouchersLbl.font = [UIFont systemFontOfSize:14];
-        if (_couponMoney ) {
-         vouchersLbl.text = [NSString stringWithFormat:@"专场优惠：-%@",_couponMoney];
-        }else if(_hongbaoMoney ){
-        vouchersLbl.text = [NSString stringWithFormat:@"专场优惠：-%@",_hongbaoMoney];
-        
-        }else{
-        vouchersLbl.text = [NSString stringWithFormat:@"专场优惠：%@",@"0"];
-        
-        }
+        vouchersLbl.text = [NSString stringWithFormat:@"专场优惠：%@",_discount_formatted];
+ 
        
         vouchersLbl.frame = CGRectMake(8, CGRectGetMaxY(freightLbl.frame) + MARGIN_5, self.view.ml_width, 15);
         
@@ -667,6 +653,8 @@
         UIView * couponView = [self setBonusView:remarkLbl margin:MARGIN_10 text:@"使用代金券" type:0];
         UIView * bonusView = [self setBonusView:couponView margin:0 text:@"使用红包或兑换券" type:1];
         
+         UIView * babyCard = [self setBonusView:bonusView margin:0 text:@"使用麻包卡" type:2];
+        
         [footerView addSubview:totalLbl];
         [footerView addSubview:freightLbl];
         [footerView addSubview:rateLbl];
@@ -678,15 +666,23 @@
         //红包
         [footerView addSubview:couponView];
         [footerView addSubview:bonusView];
+        [footerView addSubview:babyCard];
         
-        couponView.userInteractionEnabled = YES;
+
         UITapGestureRecognizer *ger1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(couponClick:)];
         [couponView addGestureRecognizer:ger1];
         
-        bonusView.userInteractionEnabled = YES;
+
         UITapGestureRecognizer *ger2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bonusClick:)];
         [bonusView addGestureRecognizer:ger2];
+        
+        
+        UITapGestureRecognizer *ger3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(babyCardClick:)];
+        [babyCard addGestureRecognizer:ger3];
+        
+        
         [self addBottomLineView:footerView];
+        
         return footerView;
 
     
@@ -839,15 +835,15 @@
 - (UIView *)setBonusView:(UIView *)preView margin:(NSInteger)margin text:(NSString *)text type:(NSInteger)type{
     UIView *headerView = [[UIView alloc] init];
     headerView.backgroundColor = BG_COLOR;
-    headerView.frame = CGRectMake(0, CGRectGetMaxY(preView.frame)+margin, self.view.ml_width, 60);
+    headerView.frame = CGRectMake(0, CGRectGetMaxY(preView.frame)+margin, UISCREEN_WIDTH, 60);
     UIView *headerBoxView = [[UIView alloc] init];
     headerBoxView.backgroundColor = [UIColor whiteColor];
-    headerBoxView.frame = CGRectMake(0, MARGIN_10, self.view.ml_width, 50);
+    headerBoxView.frame = CGRectMake(0, MARGIN_10, UISCREEN_WIDTH, 50);
     
     UIImage *Image = [UIImage imageNamed:@"next"] ;
     UIImageView *imageview = [[UIImageView alloc ]init];
     imageview.image = Image;
-    imageview.frame = CGRectMake(CGRectGetWidth(headerBoxView.frame) -Image.size.width *2, 14, 20, 20);
+    imageview.frame = CGRectMake(CGRectGetWidth(headerBoxView.frame) -Image.size.width *2, 18, 16, 16);
     
     [headerBoxView addSubview:imageview];
     
@@ -873,7 +869,7 @@
        
         _couponLbl.textAlignment = NSTextAlignmentRight;
         [headerBoxView addSubview:_couponLbl];
-    }else {
+    }else  if(type  == 1    ){
         //红包获取内容
         _bonusLbl = [[UILabel alloc] init];
         _bonusLbl.frame = CGRectMake(consigneeLabel.ml_width+8, 0,self.view.ml_width-Image.size.width*2-8-consigneeLabel.ml_width, 50);
@@ -886,6 +882,20 @@
      
         _bonusLbl.textAlignment = NSTextAlignmentRight;
         [headerBoxView addSubview:_bonusLbl];
+    }else{
+        //可使用麻包卡金额
+        _babycard = [[UILabel alloc] init];
+        _babycard.frame = CGRectMake(consigneeLabel.ml_width+8, 0,self.view.ml_width-Image.size.width*2-8-consigneeLabel.ml_width, 50);
+        _babycard.font = [UIFont systemFontOfSize:14];
+        if (self.surplus) {
+            
+            
+            _babycard.text = self.surplus;
+        }
+        
+        _babycard.textAlignment = NSTextAlignmentRight;
+        [headerBoxView addSubview:_babycard];
+    
     }
     
     [headerBoxView addSubview:consigneeLabel];
@@ -918,18 +928,130 @@
 -(void)couponClick:(UITapGestureRecognizer *)ger{
     if (_bonus_id) {
         UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已使用了红包或兑货券不可以在使用代金券" delegate: self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        
         [alerView show];
+        
     }else{
         MBVoucherViewController *vc = [[MBVoucherViewController alloc] init];
         vc.is_fire = @"yes";
         vc.order_money = self.order_amount;
+    
+        @weakify(self);
+        [[vc.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDictionary *coupon) {
+            @strongify(self);
+      
+            self.couponId = coupon [@"bonus_id"];
+            _strCoupon   =  coupon [@"type_name"];
+            //更新底部价格
+            float totalMoney = self.order_amount.floatValue;
+            float type_money = [coupon [@"type_money"] floatValue];
+            _couponMoney =      coupon[@"type_money"];
+            _tableView.tableFooterView = [self tableViewFooterView];
+            float money = totalMoney - type_money;
+            if(money < 0)
+                money = 0;
+            self.totalLabel.text = [NSString stringWithFormat:@"应付金额：￥%.2lf",money];
+            
+        }];
         [self.navigationController pushViewController:vc animated:YES];
     
     }
    
 }
+/**
+ *  麻包卡点击事件
+ *
+ *  @param ger 点按手势
+ */
 
+-(void)babyCardClick:(UITapGestureRecognizer *)ger{
+    _cards = nil;
+    MBBabyCardController *VC = [[MBBabyCardController alloc] init];
+    @weakify(self);
+    
+    [[VC.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSArray *arr) {
+    @strongify(self);
 
+        
+        
+        for (NSDictionary *dic in arr) {
+            if ([dic isEqualToDictionary:arr.firstObject]) {
+                
+                [self.cards appendString:dic[@"card_no"]];
+                
+            }else{
+                
+                
+            [self.cards appendString:@","];
+            [self.cards appendString:dic[@"card_no"]];
+                
+                
+            }
+        }
+        
+        MMLog(@"%@",_cards);
+        
+        
+        [self beforeCreateOrder];
+       
+        
+    }];
+    [self pushViewController:VC Animated:YES];
+}
+//根据产品sid(session_id)、uid生成订单前的订单确认接口
+-(void)beforeCreateOrder
+{
+    [self show];
+  
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/checkout"] parameters:@{@"session":sessiondict,@"cards":self.cards}success:^(NSURLSessionDataTask *operation, id responseObject) {
+        
+//        MMLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
+        
+        NSMutableArray * infoDict = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_list"];
+        
+        
+        
+        self.total = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"total"];
+       
+        self.CartinfoDict = infoDict;
+        self.cartinfoArray = self.CartinfoDict;
+        self.order_amount = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"order_amount"];
+        self.order_amount_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"order_amount_formatted"];
+        self.cross_border_tax = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"cross_border_tax"];
+        self.shipping_fee_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"shipping_fee_formatted"];
+        self.goods_amount = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_amount"];
+        self.goods_amount_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_amount_formatted"];
+        self.discount_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"discount_formatted"];
+        
+        self.surplus = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"surplus"];
+
+        self.consignee = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"consignee"] ;
+        
+        NSString *str  = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"real_name"]];
+        NSString *str1 = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"is_over_sea"]];
+        
+        self.is_cross_border = str;
+        self.is_over_sea = str1;
+        self.CartDict =  [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"s_goods_list"];
+        [self dismiss];
+         [self setupTabbarView];
+        [_tableView reloadData];
+         _tableView.tableFooterView = [self tableViewFooterView];
+
+    }
+     
+     
+               failure:^(NSURLSessionDataTask *operation, NSError *error) {
+                   [self show:@"请求失败！" time:1];
+                   MMLog(@"%@",error);
+                   
+               }
+     ];
+    
+}
 #pragma mark --底部提交按钮
 - (void)setupTabbarView{
     CGFloat tabbarHeight = 35;
@@ -938,6 +1060,7 @@
     bottomView.frame = CGRectMake(0, self.view.ml_height - tabbarHeight, self.view.ml_width, tabbarHeight);
     [self.view addSubview:bottomView];
     
+    [self addTopLineView:bottomView];
     _totalLabel = [[UILabel alloc] init];
     _totalLabel.font = [UIFont systemFontOfSize:14];
     _totalLabel.frame = CGRectMake(20, 0, 200, bottomView.ml_height);
@@ -978,7 +1101,7 @@
     NSArray *arr = [_name.text componentsSeparatedByString:@"："];
     NSString *name = arr[1];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/done"]parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":@"0",@"inv_content":@"",@"inv_payee" :@"",@"real_name":name,@"identity_card":_identity_card}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/done_new"]parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":@"0",@"inv_content":@"",@"inv_payee" :@"",@"real_name":name,@"identity_card":_identity_card,@"cards":self.cards}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
                  
                    [self dismiss];
@@ -987,11 +1110,8 @@
                    
                    if ([responseObject valueForKeyPath:@"data"]) {
                        VC.orderInfo = [responseObject valueForKeyPath:@"data"][@"order_info"];
-                   
-                       
-                       
+                       MMLog(@"%@",VC.orderInfo);
                        VC.type = @"1";
-//                       VC.is_cross_border = VC.orderInfo[@"order_info"][@"is_cross_border"];
                        [self.navigationController pushViewController:VC animated:YES];
                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCart" object:nil];
                        
@@ -1001,7 +1121,7 @@
                    }
                    
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   NSLog(@"----%@",error);
+                   MMLog(@"----%@",error);
                  [self show:@"请求失败！" time:1];
                   
                    
@@ -1143,7 +1263,7 @@
                    
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    [self show:@"使用失败" time:1];
-                   NSLog(@"%@",error);
+                   MMLog(@"%@",error);
                    
                }];
     
@@ -1224,10 +1344,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     params = @{@"real_name":name, @"identity_card":_cardTextField.text,@"uid":uid,@"sid":sid,@"session":sessiondict};
         [MBNetworking POST:url parameters:params success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-        
-     
-            
-            
+   
             NSString *str = [responseObject valueForKeyPath:@"msg"];
             if ([str isEqualToString:@"绑定成功"]) {
                 [self show:str time:1];
@@ -1245,7 +1362,7 @@
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         
         
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         
         [self show:@"验证失败" time:1];
         

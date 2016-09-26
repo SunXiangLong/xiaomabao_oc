@@ -75,7 +75,7 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/get_notification"];
     
     [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict,@"page":page} success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+//        MMLog(@"%@",responseObject);
         [self dismiss];
         
         if (responseObject) {
@@ -100,7 +100,7 @@
         
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
     
     
@@ -122,11 +122,11 @@
      NSDictionary *dic = self.dataArray[indexPath.row];
     NSString *str  = dic[@"notify_content"];
     NSString *str1 = dic[@"notify_base_content"];
-    CGFloat height = [str1 sizeWithFont:SYSTEMFONT(12) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
+    CGFloat height = [str1 sizeWithFont:SYSTEMFONT(12) withMaxSize:CGSizeMake(UISCREEN_WIDTH-80, MAXFLOAT)].height;
     if (height>30) {
         height = 30+16;
     }else{
-        height += 16;
+        height += 20;
     }
     return 73+[str sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height+height;
 }
@@ -143,7 +143,8 @@
     cell.notify_content.text = dic[@"notify_content"];
     cell.notify_base_content.text = dic[@"notify_base_content"];
     NSString *str1 = dic[@"notify_base_content"];
-    CGFloat height = [str1 sizeWithFont:SYSTEMFONT(12) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
+    CGFloat height = [str1 sizeWithFont:SYSTEMFONT(12) withMaxSize:CGSizeMake(UISCREEN_WIDTH-80, MAXFLOAT)].height;
+    
     if (height>30) {
        cell.height.constant  = 30+16;
     }else{

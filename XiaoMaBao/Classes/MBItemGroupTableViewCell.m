@@ -15,6 +15,7 @@
 @implementation MBItemGroupTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     [self registerNSNotificationCenter];
     // Initialization code
 }

@@ -19,18 +19,7 @@
 @end
 
 @implementation MBSearchShowViewController
--(void)viewWillDisappear:(BOOL)animated
-{
-   
-    [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBSearchShowViewController"];
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    
-    [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBSearchShowViewController"];
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self refreshLoading];

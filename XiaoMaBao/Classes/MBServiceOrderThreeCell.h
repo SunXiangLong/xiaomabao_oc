@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *store_adress;
 @property (weak, nonatomic) IBOutlet UILabel *store_phone;
 
+@property (weak, nonatomic) IBOutlet UILabel *surplus;
 
 @property (weak, nonatomic) IBOutlet UILabel *order_number;
 @property (weak, nonatomic) IBOutlet UILabel *order_phone;

@@ -10,9 +10,6 @@
 
 @implementation MBMyCollectionViewCell
 
-- (void)awakeFromNib {
-    // Initialization codec
-    
-}
+
 
 @end

@@ -12,48 +12,38 @@
 #define IS_TEST 0
 //  服务器地址
 #if IS_TEST
-    static NSString *BASE_URL_ROOT = @"http://115.29.250.136:8087/";
-    static NSString *BASE_URL = @"http://115.29.250.136:8087/mobile/?url=/";
-    static NSString *BASE_URL_QUANZI = @"http://115.29.250.136:8088/mobile/?url=/";
 #else
-/***  线上后台 */
+///***  线上后台 */
     static NSString  *BASE_PHP =       @"http://api.xiaomabao.com/discovery";
-    static NSString  *BASE_URL_ROOT =  @"http://api.xiaomabao.com/";
-    static NSString *BASE_URL =       @"http://api.xiaomabao.com/mobile/?url=/";
-    static NSString *BASE_URL_root =  @"http://api.xiaomabao.com";
-    static NSString *BASE_PHP_test =  @"http://api.xiaomabao.com/babyInfo/inforecord";
-   static NSString *BASE_URL_SHERVICE = @"http://api.xiaomabao.com/";
+    static NSString *BASE_URL =        @"http://api.xiaomabao.com/mobile/?url=/";
+    static NSString *BASE_URL_root =   @"http://api.xiaomabao.com";
+    static NSString *BASE_PHP_test =   @"http://api.xiaomabao.com/babyInfo/inforecord";
 /***  军哥后台 */
-//   static NSString *BASE_URL =      @"http://172.16.1.122/mobile/?url=/";
-//   static NSString *BASE_URL_root = @"http://172.16.1.122";
-//   static NSString *BASE_URL_ROOT = @"http://172.16.1.122/";
-//   static NSString *BASE_PHP =      @"http://172.16.1.122/discovery";
-//   static NSString *BASE_PHP_test = @"http://172.16.1.122/babyinfo/inforecord";
+//   static NSString *BASE_URL =      @"http://192.168.11.36/mobile/?url=/";
+//   static NSString *BASE_URL_root = @"http://192.168.11.36";
+//   static NSString *BASE_PHP =      @"http://192.168.11.36/discovery";
+//   static NSString *BASE_PHP_test = @"http://192.168.11.36/babyinfo/inforecord";
 
 /***  辉哥后台 */
-//     static NSString *BASE_URL = @"http://123.57.173.254/mobile/?url=/";
-//     static NSString *BASE_URL = @"http://172.16.1.182/mobile/mobile/?url=/";
-    static NSString *BASE_URL_QUANZI = @"http://115.29.250.136:8088/mobile/?url=/";
-//     static NSString *BASE_URL_SHARE = @"http://172.16.1.182/mobile/index.php/Discovery";
-//      static NSString *BASE_URL_SHERVICE = @"http://172.16.1.182/mobile/index.php/";
-//     static NSString *BASE_PHP =       @"http://172.16.1.182/Discovery";
-
-//    #define BASE_URL @"http://121.41.129.109"
-
+//static NSString  *BASE_PHP =       @"http://192.168.11.62/discovery";
+//static NSString  *BASE_URL_ROOT =  @"http://192.168.11.62/";
+//static NSString *BASE_URL =        @"http://192.168.11.62/mobile/?url=/";
+//static NSString *BASE_URL_root =   @"http://192.168.11.62";
+//static NSString *BASE_PHP_test =   @"http://192.168.11.62/babyInfo/inforecord";
 #define NOTIFICATION_TIME_CELL  @"NotificationTimeCell"
 #endif
 
 #define DEBUG_LOG 1
 /** Log*/
 #if DEBUG_LOG
-#define MKLOG(fmt, ...) NSLog((@"[LOG] " fmt), ##__VA_ARGS__);
+#define MKLOG(fmt, ...) MMLog((@"[LOG] " fmt), ##__VA_ARGS__);
 #else
 #define MKLOG(fmt, ...)
 #endif
 
 
 /***** 云客服APPKEY和客服id */
-#define UNICALL_APPKEY  @"4D9A9F50-AF0F-495A-96A2-268CE6E868B0"
+#define UNICALL_APPKEY  @"985DC5D9-E6A2-4B82-8673-404B47CC4A19"
 #define UNICALL_TENANID  @"xiaomabao.yunkefu.com"
 /*****  友盟ios－－APPKEY */
 #define UMENG_APPKEY @"561f3d13e0f55ae1c60026cf"
@@ -72,14 +62,17 @@
 #define NavBar_Color [UIColor colorWithHexString:@"d66263"]
 #define LINE_COLOR [UIColor colorWithHexString:@"e2e2e2"]
 #define TEXT_COLOR [UIColor whiteColor]
-#define iOS_7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
-#define iOS_8 ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0f)
-#define iOS_9 ([UIDevice currentDevice].systemVersion.floatValue >= 9.0f)
+
+#define iOS_10 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0)
+#define iOS_9 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
+#define iOS_8 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+
+
 /**
  *  默认占为图
  */
 #define PLACEHOLDER_DEFAULT_IMG [UIImage imageNamed:@"placeholder_num2"]
-#define VERSION @"2.6"
+#define VERSION  [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"]
 /**
  *  宽度与高度
  */
@@ -89,8 +82,8 @@
 #define UISCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 #define UISCREEN_KeyWindow [UIApplication sharedApplication].keyWindow
 #define NAV_H 44
-#define TOP_Y (iOS_7 ? 64 : NAV_H)
-#define TOP_TABLE_VIEW_H ((iOS_7 ? 64 : NAV_H) + NAV_H)
+#define TOP_Y 64
+#define TOP_TABLE_VIEW_H (64 + NAV_H)
 
 #define NAV_BAR_HEIGHT 44
 #define NAV_BAR_Y 20
@@ -130,10 +123,14 @@
  *  @return 弱应用的视图控制器
  */
 #define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
-#ifdef DEBUG
-#define XBLog(...) NSLog(__VA_ARGS__)
+#if DEBUG
+
+#define MMLog(FORMAT, ...) fprintf(stderr, "[%s:%d行] %s\n", [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+
 #else
-#define XBLog(...)
+
+#define MMLog(FORMAT, ...) nil
+
 #endif
 /**
  *  用户沙盒信息

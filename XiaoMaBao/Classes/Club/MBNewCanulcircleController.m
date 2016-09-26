@@ -13,8 +13,9 @@
 #import "MBShopDetailsViewController.h"
 #import "MBMyCircleController.h"
 #import "MBNewsCircleController.h"
-#import "APService.h"
+#import "JPUSHService.h"
 #import "MBLoginViewController.h"
+
 @interface MBNewCanulcircleController ()<UIScrollViewDelegate>
 {
 
@@ -59,8 +60,9 @@
     }
     if (_isDismiss) {
         
-          MBMyCircleController    *myCircleView = self.childViewControllers[0];
+        MBMyCircleController    *myCircleView = self.childViewControllers[0];
         myCircleView.isDimiss = YES;
+        
         _isDismiss = !_isDismiss;
     }
     
@@ -104,12 +106,11 @@
     dispatch_once(&pred, ^{
         
         NSSet *sets = [NSSet setWithObject:uid];
-        [APService setTags:sets alias:@"sunxianglong" callbackSelector:nil object:self];
+        [ JPUSHService setTags:sets alias:@"sunxianglong" callbackSelector:nil object:self];
         
     });
     
     [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict} success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
         [self dismiss];
         if ([[responseObject valueForKeyPath:@"number"] integerValue]>0) {
             [self.messageBadge autoBadgeSizeWithString:s_str([responseObject valueForKeyPath:@"number"])];
@@ -123,7 +124,7 @@
         
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
     }];
 
     
@@ -147,16 +148,6 @@
 - (void)setupTitlesView
 {
 
-    // 标签栏整体
-    UIView *titlesView = [[UIView alloc] init];
-    titlesView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 45);
-    [self.view addSubview:titlesView];
-    UIImageView *banckImage = [[UIImageView  alloc] init];
-    banckImage.frame =CGRectMake(0, 0, titlesView.ml_width, titlesView.ml_height);
-    banckImage.image = [UIImage imageNamed:@"navBackcolor"];
-    [titlesView addSubview:banckImage];
-    
-    self.titlesView = titlesView;
     
     NSArray *segmentArray = @[
                               @"我的圈",
@@ -166,7 +157,7 @@
     
     // 初始化UISegmentedControl
     UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:segmentArray];
-    segmentControl.frame = CGRectMake((UISCREEN_WIDTH-200)/2, 10, 200, 25);
+    segmentControl.frame = CGRectMake((UISCREEN_WIDTH-200)/2, 27, 200, 25);
     
     // 设置默认选择项索引
     segmentControl.selectedSegmentIndex = 0;
@@ -175,15 +166,13 @@
     // 设置指定索引的题目
     [segmentControl addTarget:self action:@selector(didClickSegmentedControlAction:)forControlEvents:UIControlEventValueChanged];
     [segmentControl setTitleTextAttributes:@{NSFontAttributeName:YC_RTWSYueRoud_FONT(15)} forState:UIControlStateNormal];
-    [titlesView addSubview:_segmentControl = segmentControl];
+    [self.navBar addSubview:_segmentControl = segmentControl];
 
 }
 - (void)didClickSegmentedControlAction:(UISegmentedControl *)segmentControl
 {
     
     NSInteger idx = segmentControl.selectedSegmentIndex;
-    NSLog(@"%ld", idx);
-   
     MBMoreCirclesController *moreCirclesView = self.childViewControllers[2];
     MBMyCircleController    *myCircleView = self.childViewControllers[0];
     
@@ -209,7 +198,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIScrollView *scrollView = [[UIScrollView alloc] init];
-    scrollView.frame = CGRectMake(0, 45+TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-45-TOP_Y -49);
+    scrollView.frame = CGRectMake(0,TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y -49);
     scrollView.backgroundColor = [UIColor colorWithHexString:@"ececef"];
     scrollView.delegate = self;
     scrollView.pagingEnabled = YES;
@@ -232,8 +221,9 @@
 
 - (void)rightTitleClick{
     
-   
+
     MBSearchPostController *searchVc = [[MBSearchPostController alloc] init];
+    
     [self pushViewController:searchVc Animated:YES];
     
 }
@@ -262,10 +252,7 @@
     MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
     [self presentViewController:VC animated:YES completion:nil];
 }
--(NSString *)titleStr{
-    
-    return @"麻包圈";
-}
+
 -(NSString *)leftStr{
     
     return @"";
@@ -284,23 +271,19 @@
  */
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
+    
     // 取出对应的子控制器
     int index = scrollView.contentOffset.x / scrollView.ml_width;
     UIViewController *willShowChildVc = self.childViewControllers[index];
-    
     // 如果控制器的view已经被创建过，就直接返回
     if (willShowChildVc.isViewLoaded) return;
-    
-    
     // 添加子控制器的view到scrollView身上
     if (index ==2) {
         MBMoreCirclesController *view = (MBMoreCirclesController *)willShowChildVc;
         view.MinView = self.view;
-        
     }
     willShowChildVc.view.frame = scrollView.bounds;
     [scrollView addSubview:willShowChildVc.view];
-    
     
 }
 

@@ -38,12 +38,7 @@
     [self setImages:refreshingImages forState:MJRefreshStatePulling];
     
     NSMutableArray *startImages = [NSMutableArray array];
-//    for (NSUInteger i = 50; i<= 75; i++) {
-//        NSString *imageName = [NSString stringWithFormat:@"loading_0%02zd", i];
-//        UIImage *image = [UIImage imageNamed:imageName];
-//        UIImage *newImage = [image imageByScalingToSize:CGSizeMake(40, 40)];
-//        [startImages addObject:newImage];
-//    }
+
     for (NSUInteger i = 50; i<= 95; i++) {
         NSString *imageName = [NSString stringWithFormat:@"loading_0%02zd", i];
         UIImage *image = [UIImage imageNamed:imageName];

@@ -10,42 +10,55 @@
 #import "PhotoCollectionViewCell.h"
 #import "LGPhotoPickerViewController.h"
 #import "LGPhoto.h"
-#import "MBWeatherTableViewCell.h"
-#import "MBWeatherAndMoodViewController.h"
+
 @interface MBPublishedViewController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SDPhotoBrowserDelegate,PhotoCollectionViewCellDelegate,LGPhotoPickerViewControllerDelegate>
 {
     NSMutableArray *_photoArray;
     SDPhotoBrowser *browser;
-    
-    NSArray *_array;
-    UIImage *_tianqi;
-    UIImage *_xinqing;
-    NSString *_weather;
-    NSString *_mood;
+
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UILabel *lable;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *width;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+/**
+ *  精度
+ */
+@property (nonatomic,strong) NSString *longitude;
+/**
+ *   纬度
+ */
+@property (nonatomic,strong) NSString *latitude;
 @property (nonatomic, assign) LGShowImageType showType;
 
 @end
 
 @implementation MBPublishedViewController
-- (void)viewWillDisappear:(BOOL)animated{
+- (RACSubject *)myCircleViewSubject {
     
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBCanulPublishedViewController"];
+    if (!_myCircleViewSubject) {
+        
+        _myCircleViewSubject = [RACSubject subject];
+    }
     
-    
-    
+    return _myCircleViewSubject;
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBCanulPublishedViewController"];
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    [DXLocationManager getlocationWithBlock:^(double longitude, double latitude) {
+        weakSelf.longitude = [NSString stringWithFormat:@"%f",longitude];
+        weakSelf.latitude = [NSString stringWithFormat:@"%f" , latitude];
+        if (weakSelf.longitude) {
+            
+        }else{
+            [self show:@"位置获取失败" time:1];
+        }
+        
+    }];
+ 
     
 }
 - (void)viewDidLoad {
@@ -79,7 +92,7 @@
 - (void)presentPhotoPickerViewControllerWithStyle:(LGShowImageType)style {
     LGPhotoPickerViewController *pickerVc = [[LGPhotoPickerViewController alloc] initWithShowType:style];
     pickerVc.status = PickerViewShowStatusCameraRoll;
-    pickerVc.maxCount = 6;   // 最多能选9张图片
+    pickerVc.maxCount = 6;   // 最多能选6张图片
     pickerVc.delegate = self;
     self.showType = style;
     [pickerVc showPickerVc:self];
@@ -126,7 +139,10 @@
         [self presentViewController:alertController animated:YES completion:nil];
     }
 }
+-(NSString *)titleStr{
+    return  self.title?:@"记录宝宝";
 
+}
 -(NSString *)rightStr{
     return @"发表";
 }
@@ -136,13 +152,13 @@
         [self show:@"输入内容不能为空" time:1];
         return;
     }
-    if (!_mood) {
-        _mood = @"-10";
+   
+    if (_latitude&&_longitude) {
+        [self getsubData];
     }
-    if (!_weather) {
-        _weather = @"-10";
-    }
-    [self getsubData];
+ 
+
+  
 }
 -(void)getsubData
 {
@@ -150,7 +166,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self showProgress];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/diaryadd"] parameters:@{@"session":sessiondict,@"content":_textView.text,@"longitude":self.longitude,@"latitude":self.latitude,@"weather":_weather,@"mood":_mood} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/diaryadd"] parameters:@{@"session":sessiondict,@"content":_textView.text,@"longitude":_longitude,@"latitude":_latitude} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         UIImage *image = [[UIImage alloc] init];
         if (_photoArray.count>1) {
             for (int i = 0; i<_photoArray.count-1; i++) {
@@ -175,14 +191,15 @@
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
             
-            
-            self.block();
+            [self show:@"发表成功" time:1];
+            [self.myCircleViewSubject sendNext:@1];
+
             [self popViewControllerAnimated:YES];
             
             
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@",error);
+        MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
 
@@ -311,7 +328,7 @@
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
-    // NSLog(@"%@",image);
+    // MMLog(@"%@",image);
     
     [self dismissViewControllerAnimated:YES completion:^{
         
@@ -382,77 +399,5 @@
     [self presentViewController:alertController animated:YES completion:nil];
     
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
-}
--(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MBWeatherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBWeatherTableViewCell"];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBWeatherTableViewCell" owner:nil options:nil]firstObject];
-    }
-    if (indexPath.row==0) {
-        if (_xinqing) {
-            cell.showImageView.image = [UIImage imageNamed:@"mood1_image1"];
-            cell.labletext.text = @"今天心情如何？";
-            cell.biaoziImageView.image = _xinqing;
-            
-        }else{
-            cell.showImageView.image = [UIImage imageNamed:@"mood_image1"];
-            cell.labletext.text = @"今天心情如何？";
-        }
-
-    }else{
-        if (_tianqi) {
-            cell.showImageView.image = [UIImage imageNamed:@"mmweather1_image"];
-            cell.labletext.text = @"今天天气如何？";
-            cell.biaoziImageView.image = _tianqi;
-            
-        }else{
-            cell.showImageView.image = [UIImage imageNamed:@"mmweather_image"];
-            cell.labletext.text = @"今天天气如何？";
-        }
-    
-    
-    }
-    
-    
-    return  cell;
-}
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-  
-        
-    MBWeatherAndMoodViewController *VC = [[MBWeatherAndMoodViewController alloc] init];
-    
-    VC.block= ^(UIImage *image,MBType type ,NSString *row){
-        if (type==0) {
-               _tianqi = image;
-               _weather = row  ;
-        }else{
-               _xinqing = image;
-               _mood = row;
-        }
-     
-        [self.tableView reloadData];
-    
-    };
-  
-   
-        [self pushViewController:VC Animated:YES];
-    if (indexPath.row==0) {
-           VC.title = @"心情";
-           VC.type = MBmoodType ;
-    
-    }else{
-    
-        VC.title = @"天气";
-        VC.type = MBWeatherType;
-    
-    }
-}
-
 
 @end
