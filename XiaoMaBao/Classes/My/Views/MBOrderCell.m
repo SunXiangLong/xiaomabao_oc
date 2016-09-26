@@ -66,7 +66,7 @@
     sectionView.backgroundColor = [UIColor whiteColor];
     
     UILabel *section_order_sn = [[UILabel alloc] init];
-    section_order_sn.textColor = [UIColor blackColor];
+    section_order_sn.textColor = UIcolor(@"2c2c2c");
     section_order_sn.text = [NSString stringWithFormat:@"子订单号：%@",_order_sn];
     section_order_sn.frame = CGRectMake(10, 0, self.ml_width - 100, sectionView.ml_height);
     section_order_sn.font = [UIFont systemFontOfSize:14];

@@ -220,7 +220,7 @@
     [view addSubview:topImage];
     //订时间
     UILabel *order_time = [[UILabel alloc] init];
-    order_time.textColor = [UIColor blackColor];
+    order_time.textColor = UIcolor(@"2c2c2c");
     order_time.text = s_str(dic[@"order_time"]);
     order_time.font = [UIFont systemFontOfSize:13];
     [view addSubview:order_time];
@@ -336,7 +336,7 @@
             }];
             
         }else if([order_status isEqualToString:@"finished"]){
-            NSArray *arr =_orderListArray[section];
+            NSArray *arr =_orderListArray[section][@"goods_list"];
             BOOL isEvaluation = NO;
             for (NSDictionary *dic in arr) {
                 if ([dic[@"is_comment"]isEqualToString:@"0"]) {
@@ -549,9 +549,7 @@
     
     UINavigationController  *nav =  [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
     MBOrderInfoTableViewController *infoVc = (MBOrderInfoTableViewController *)nav.viewControllers.firstObject;
-    MMLog(@"%@",_orderListArray[section]);
-    
-    
+
     if ([_orderListArray[section][@"child_orders"] count] > 0) {
        infoVc.parent_order_sn =  _orderListArray[section][@"parent_order_sn"];
         
@@ -596,7 +594,7 @@
 }
 -(void)comment:(UIButton *)button{
     
-    NSArray *arr = _orderListArray[button.tag];
+    NSArray *arr = _orderListArray[button.tag][@"goods_list"];
     NSMutableArray *array = [NSMutableArray array];
     for (NSDictionary *dic in arr) {
         if ([dic[@"is_comment"]isEqualToString:@"0"]) {

@@ -24,15 +24,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBMyServiceChilderViewController"];
-    
     [self setHeadRefresh];
 }
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBMyServiceChilderViewController"];
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];

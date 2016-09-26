@@ -130,7 +130,7 @@
 
 #pragma mark -BkTabBarViewDelegate 点击控制器跳转
 - (void)tabBar:(BkTabBarView *)tabBar didSelectButtonFrom:(NSInteger)from to:(NSInteger)to{
-    MMLog(@"主视图控制器--------%ld",to);
+    
     self.selectedIndex = to;
     
 }
