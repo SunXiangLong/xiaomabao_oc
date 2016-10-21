@@ -489,8 +489,6 @@
 		947CBE551C4E26E00011BD77 /* MBTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 947CBE541C4E26E00011BD77 /* MBTimeModel.m */; };
 		947E0DBE1CFBD9380025594A /* MBNewBabyController.h in Headers */ = {isa = PBXBuildFile; fileRef = 947E0DBC1CFBD9380025594A /* MBNewBabyController.h */; };
 		947E0DBF1CFBD9380025594A /* MBNewBabyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E0DBD1CFBD9380025594A /* MBNewBabyController.m */; };
-		947E0DC31CFBEA8F0025594A /* LTInfiniteScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 947E0DC11CFBEA8F0025594A /* LTInfiniteScrollView.h */; };
-		947E0DC41CFBEA8F0025594A /* LTInfiniteScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E0DC21CFBEA8F0025594A /* LTInfiniteScrollView.m */; };
 		947E0DC81CFC03E30025594A /* MBNewBabyCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 947E0DC51CFC03E30025594A /* MBNewBabyCell.h */; };
 		947E0DC91CFC03E30025594A /* MBNewBabyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E0DC61CFC03E30025594A /* MBNewBabyCell.m */; };
 		947E0DCA1CFC03E30025594A /* MBNewBabyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947E0DC71CFC03E30025594A /* MBNewBabyCell.xib */; };
@@ -1403,8 +1401,6 @@
 		947CBE541C4E26E00011BD77 /* MBTimeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTimeModel.m; sourceTree = "<group>"; };
 		947E0DBC1CFBD9380025594A /* MBNewBabyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBNewBabyController.h; sourceTree = "<group>"; };
 		947E0DBD1CFBD9380025594A /* MBNewBabyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBNewBabyController.m; sourceTree = "<group>"; };
-		947E0DC11CFBEA8F0025594A /* LTInfiniteScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTInfiniteScrollView.h; sourceTree = "<group>"; };
-		947E0DC21CFBEA8F0025594A /* LTInfiniteScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTInfiniteScrollView.m; sourceTree = "<group>"; };
 		947E0DC51CFC03E30025594A /* MBNewBabyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBNewBabyCell.h; sourceTree = "<group>"; };
 		947E0DC61CFC03E30025594A /* MBNewBabyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBNewBabyCell.m; sourceTree = "<group>"; };
 		947E0DC71CFC03E30025594A /* MBNewBabyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBNewBabyCell.xib; sourceTree = "<group>"; };
@@ -2423,7 +2419,6 @@
 		486D434E1AF23F240025A043 /* XiaoMaBao */ = {
 			isa = PBXGroup;
 			children = (
-				9F0351AE1D9220850006102A /* XiaoMaBao.entitlements */,
 				94A783681C0BF4B4007D18A0 /* image */,
 				42891E3E1BB0E649008CF062 /* www */,
 				948CA98E1BFECBB400318EAE /* alipay */,
@@ -2440,6 +2435,7 @@
 		486D434F1AF23F240025A043 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9F0351AE1D9220850006102A /* XiaoMaBao.entitlements */,
 				486D43501AF23F240025A043 /* Info.plist */,
 				486D43511AF23F240025A043 /* main.m */,
 			);
@@ -3034,15 +3030,6 @@
 				944DBD121D140205009B3869 /* MBabyRecordFiveCell.xib */,
 			);
 			name = View;
-			sourceTree = "<group>";
-		};
-		947E0DC01CFBEA650025594A /* 左右滑动选择日期 */ = {
-			isa = PBXGroup;
-			children = (
-				947E0DC11CFBEA8F0025594A /* LTInfiniteScrollView.h */,
-				947E0DC21CFBEA8F0025594A /* LTInfiniteScrollView.m */,
-			);
-			name = "左右滑动选择日期";
 			sourceTree = "<group>";
 		};
 		948CA98E1BFECBB400318EAE /* alipay */ = {
@@ -3752,7 +3739,6 @@
 				420BF65A1BB537BB00C89C3C /* XiaoMaBao-Prefix.pch */,
 				48162F321AF2866900E61D5C /* Main(基类) */,
 				94BE35DF1CFFC920004F099E /* Switch */,
-				947E0DC01CFBEA650025594A /* 左右滑动选择日期 */,
 				94E9A4491C8FB4280002E15E /* XWCatergoryView */,
 				94DB1E191CE5E69B00ADAE9D /* 自定义键盘View */,
 				940329F21CE49B5F00E0C5FA /* JSAndOC交互 */,
@@ -3912,7 +3898,6 @@
 				943F79A51D34F19A00AA9D3A /* MBDetailsCircleCell.h in Headers */,
 				9428D5F81D6D53D40055CCFC /* UIView+ST.h in Headers */,
 				9424062A1D6EC1ED0061C777 /* MBPhoneticDetailViewController.h in Headers */,
-				947E0DC31CFBEA8F0025594A /* LTInfiniteScrollView.h in Headers */,
 				9F9CFACB1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.h in Headers */,
 				94243BA91D66EFA300540440 /* MBCatalogTableViewController.h in Headers */,
 				946ECDFA1D1B6EDD00778EF6 /* MBBabyCardController.h in Headers */,
@@ -4568,7 +4553,6 @@
 				9428D5F31D6D53D40055CCFC /* STConst.m in Sources */,
 				947E0DBF1CFBD9380025594A /* MBNewBabyController.m in Sources */,
 				421D99141BAFA43A00AA841A /* MKNumberBadgeView.m in Sources */,
-				947E0DC41CFBEA8F0025594A /* LTInfiniteScrollView.m in Sources */,
 				944BB06A1CAD3BF400D16E19 /* MBServiceShopsOneCell.m in Sources */,
 				481FC0DC1B246125000E6864 /* MBMyItem.m in Sources */,
 				94E3DE111CA11E6B00A94317 /* MBShopDetailsViewController.m in Sources */,

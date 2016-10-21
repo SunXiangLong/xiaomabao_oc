@@ -14,7 +14,6 @@
 #import "MBSignaltonTool.h"
 #import "MBShopAddresViewController.h"
 #import "MBVoucherViewController.h"
-#import "MobClick.h"
 #import "MBRealNameAuthViewController.h"
 #import "orderFootView.h"
 #import "orderHeadView.h"
@@ -24,7 +23,7 @@
 {
    
     UITextField *_beizhu;
-    UILabel *_name;
+
     UILabel*_address;
     UILabel *_nameLabel;
     UITextField *_cardTextField;
@@ -288,7 +287,7 @@
         NSString *address = [_consignee valueForKeyPath:@"address"];
         addressLabel.text = [NSString stringWithFormat:@"收货地址：%@%@%@",province_name,district_name,address];
         _address.text = addressLabel.text;
-        [headerBoxView addSubview: _name =consigneeLabel];
+        [headerBoxView addSubview: consigneeLabel];
         [headerBoxView addSubview:phoneLabel];
         [headerBoxView addSubview:addressLabel];
         
@@ -1085,6 +1084,8 @@
     [self show];
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    NSString *name = [_consignee valueForKeyPath:@"consignee"];
     if (!_identity_card) {
         _identity_card = @"";
         _real_name = @"";
@@ -1097,9 +1098,11 @@
         _bonus_id = @"";
     }
   
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    NSArray *arr = [_name.text componentsSeparatedByString:@"："];
-    NSString *name = arr[1];
+    if (!name) {
+        [self show:@"收货人姓名不能为空" time:1];
+        return;
+    }
+    
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/done_new"]parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":@"0",@"inv_content":@"",@"inv_payee" :@"",@"real_name":name,@"identity_card":_identity_card,@"cards":self.cards}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
@@ -1112,6 +1115,7 @@
                        VC.orderInfo = [responseObject valueForKeyPath:@"data"][@"order_info"];
                        MMLog(@"%@",VC.orderInfo);
                        VC.type = @"1";
+                       VC.order_sn = VC.orderInfo[@"order_sn"];
                        [self.navigationController pushViewController:VC animated:YES];
                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCart" object:nil];
                        
@@ -1336,38 +1340,39 @@
 }
 #pragma mark -- 验证身份证
 - (void)authentication{
-    NSString *url = [NSString stringWithFormat:@"%@/idcard/add",BASE_URL_root];
+    [self show];
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSString *name = [_consignee valueForKeyPath:@"consignee"];
-    NSDictionary * params = @{};
+    
+    NSString *name = _consignee [@"consignee"];
+    
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    params = @{@"real_name":name, @"identity_card":_cardTextField.text,@"uid":uid,@"sid":sid,@"session":sessiondict};
-        [MBNetworking POST:url parameters:params success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-   
-            NSString *str = [responseObject valueForKeyPath:@"msg"];
-            if ([str isEqualToString:@"绑定成功"]) {
-                [self show:str time:1];
-               _identity_card = _cardTextField.text;
-                _is_black = @"0";
-               _tableView.tableFooterView = [self tableViewFooterView];
-                
+    if (!name) {
+        [self show:@"收货人姓名不能为空" time:1];
+        return;
+    }
+    [MBNetworking POSTOrigin:[NSString stringWithFormat:@"%@/idcard/add",BASE_URL_root] parameters:@{@"real_name":name, @"identity_card":_cardTextField.text,@"session":sessiondict} success:^(id responseObject) {
+        [self dismiss];
+        if ([s_str(responseObject[@"status"]) isEqualToString:@"1"]) {
+            [self show:responseObject[@"msg"] time:1];
+            _identity_card = _cardTextField.text;
+            _is_black = @"0";
+            _tableView.tableFooterView = [self tableViewFooterView];
+        }else{
+            if (responseObject[@"msg"]) {
+                [self show:responseObject[@"msg"] time:1];
             }else{
             
-                [self show:str time:1];
+                [self show:@"绑定失败" time:1];
             }
-
-        
-        
+            
+        }
+ 
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        
-        
         MMLog(@"%@",error);
         
-        [self show:@"验证失败" time:1];
-        
-    }
-     ];
+        [self show:@"请求失败" time:1];
+    }];
     
 }
 

@@ -13,21 +13,28 @@
 #import "MBDetailedViewController.h"
 @interface MBCategoryViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 {
-    NSMutableArray *_dataArray;
+    
     NSInteger _page;
     
 }
+@property (copy, nonatomic) NSMutableArray *dataArray;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 
 @implementation MBCategoryViewController
+-(NSMutableArray *)dataArray{
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray arrayWithCapacity:2];
+    }
+    return _dataArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView1"];
    [_collectionView registerNib:[UINib nibWithNibName:@"MBCategoryViewOneCell" bundle:nil] forCellWithReuseIdentifier:@"MBCategoryViewOneCell"];
     [_collectionView registerNib:[UINib nibWithNibName:@"MBCategoryViewTwoCell" bundle:nil] forCellWithReuseIdentifier:@"MBCategoryViewTwoCell"];
-    _dataArray = [NSMutableArray array];
+
     [self setData];
     
     _page = 2;
@@ -59,8 +66,8 @@
             NSMutableArray *category = [NSMutableArray arrayWithArray:[responseObject valueForKey:@"category"]];
              NSMutableArray *goods_list = [NSMutableArray arrayWithArray:[responseObject valueForKey:@"goods_list"]];
             
-            [_dataArray addObject:category];
-              [_dataArray addObject:goods_list];
+              [self.dataArray addObject:category];
+              [self.dataArray addObject:goods_list];
             _collectionView.delegate = self;
             _collectionView.dataSource = self;
         }

@@ -9,11 +9,11 @@
 #import "BkBaseViewController.h"
 
 @interface MBFireOrderViewController : BkBaseViewController
-@property(strong,nonatomic)NSArray *CartinfoDict;
-@property(strong,nonatomic)NSDictionary *total;
+@property(copy,nonatomic)NSArray *CartinfoDict;
+@property(copy,nonatomic)NSDictionary *total;
 @property(nonatomic,copy)NSString *totalPrice;
-@property(nonatomic,strong)NSArray *goodnumber;
-@property(nonatomic,strong)NSArray *goodselectArray;
+@property(nonatomic,copy)NSArray *goodnumber;
+@property(nonatomic,copy)NSArray *goodselectArray;
 //@property (strong,nonatomic)NSDictionary *defaultAddressdict;
 //@property (strong,nonatomic)NSDictionary *addressdict;
 
@@ -27,8 +27,8 @@
 @property(nonatomic,copy)NSString *is_cross_border;
 @property(nonatomic,copy)NSString *is_over_sea;
 @property(nonatomic,copy)NSString *surplus;
-@property(strong,nonatomic)NSMutableDictionary *CartDict;
-@property(strong,nonatomic)NSDictionary *consignee;
-@property(nonatomic,strong) NSArray *cartinfoArray;
+@property(copy,nonatomic)NSMutableDictionary *CartDict;
+@property(copy,nonatomic)NSDictionary *consignee;
+@property(nonatomic,copy) NSArray *cartinfoArray;
 
 @end

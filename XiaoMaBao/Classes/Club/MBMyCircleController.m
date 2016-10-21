@@ -140,8 +140,14 @@
         switch ([number integerValue]) {
             case 0:
             {
-                MBArticleViewController *Vc  = [[MBArticleViewController alloc] init];
-                [self pushViewController:Vc Animated:YES];
+//                MBArticleViewController *Vc  = [[MBArticleViewController alloc] init];
+//                [self pushViewController:Vc Animated:YES];
+                MBWebViewController *VC = [[MBWebViewController alloc] init];
+                VC.url =  [NSURL URLWithString:string(BASE_URL_root, @"/discovery/story")];
+                VC.isloging = YES;
+                VC.title = @"麻包故事";
+                [self pushViewController:VC Animated:YES];
+
                
             }break;
             case 1:{

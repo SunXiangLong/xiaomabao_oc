@@ -206,13 +206,18 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary *dic = _recommend_goods[indexPath.item];
+    NSDictionary *dic;
+    if (_recommend_goods.count > 0) {
+        dic = _recommend_goods[indexPath.item];
+    }else{
+        return nil;
+    }
     
-        MBCategoryViewTwoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBCategoryViewTwoCell" forIndexPath:indexPath];
-        [cell.showImageVIew sd_setImageWithURL:[NSURL URLWithString:dic[@"goods_thumb"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+    MBCategoryViewTwoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBCategoryViewTwoCell" forIndexPath:indexPath];
+    [cell.showImageVIew sd_setImageWithURL:[NSURL URLWithString:dic[@"goods_thumb"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
         cell.describeLabel.text = dic[@"goods_name"];
-        cell.shop_price.text = [NSString stringWithFormat:@"¥ %@",dic[@"goods_price"]];
-        return cell;
+    cell.shop_price.text = [NSString stringWithFormat:@"¥ %@",dic[@"goods_price"]];
+    return cell;
 
 }
 

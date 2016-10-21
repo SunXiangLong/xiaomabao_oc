@@ -219,7 +219,11 @@
     return [UIScreen mainScreen].applicationFrame.size.height ;
 }
 -(void)show{
-    _nav.pan.enabled = NO;
+    
+    if (_nav) {
+        _nav.pan.enabled = NO;
+    }
+    
 
     UIView *view = [[UIApplication   sharedApplication] keyWindow];
     HUD = [[MBProgressHUD alloc] initWithView:view];
@@ -231,7 +235,10 @@
    
 }
 -(void)show:(NSString *)str{
-    _nav.pan.enabled = NO;
+    if (_nav) {
+        _nav.pan.enabled = NO;
+    }
+    
     UIView *view = [[UIApplication   sharedApplication] keyWindow];
     HUD = [[MBProgressHUD alloc] initWithView:view];
     [self.navigationController.view addSubview:HUD];
@@ -243,7 +250,10 @@
 }
 
 -(void)show:(NSString *)str time:(NSInteger)timer{
-       _nav.pan.enabled = NO;
+    
+    if (_nav) {
+        _nav.pan.enabled = NO;
+    }
     UIView *view = [[UIApplication   sharedApplication] keyWindow];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeText;
@@ -256,7 +266,10 @@
 
 }
 - ( void)showProgress{
-    _nav.pan.enabled = NO;
+    
+    if (_nav) {
+        _nav.pan.enabled = NO;
+    }
     HUD= [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     HUD.mode = MBProgressHUDModeAnnularDeterminate;
     HUD.progress = self.progress;
@@ -279,7 +292,10 @@
 
 }
 -(void)dismiss{
-    _nav.pan.enabled = YES;
+    
+    if (_nav) {
+        _nav.pan.enabled = YES;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         [HUD hide:YES];
     });

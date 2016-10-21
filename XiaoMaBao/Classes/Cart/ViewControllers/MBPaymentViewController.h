@@ -12,6 +12,10 @@
 
 
 /**
+ *  订单号
+ */
+@property (nonatomic,copy) NSString *order_sn;
+/**
  *  商品订单信息
  */
 @property(strong,nonatomic)NSDictionary *orderInfo;

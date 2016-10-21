@@ -32,6 +32,7 @@
 - (void)showTopic:(NSString *)params;
 - (void)showGroup:(NSString *)params;
 - (void)showWebView:(NSString *)params :(NSString *)topId;
+- (void)showShare:(NSString *)imageUrl :(NSString *)title :(NSString *)center :(NSString *)sharUrl;
 @end
 @interface ObjCModel : NSObject <JavaScriptObjectiveCDelegate>
 @property (nonatomic, weak) JSContext *jsContext;

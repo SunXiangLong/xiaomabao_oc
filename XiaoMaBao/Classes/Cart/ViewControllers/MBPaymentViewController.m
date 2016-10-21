@@ -94,7 +94,7 @@
     orderLbl.frame = CGRectMake(MARGIN_8, 0, self.view.ml_width, promptLbl.ml_height);
     orderLbl.textColor = [UIColor colorWithHexString:@"323232"];
     orderLbl.font = [UIFont systemFontOfSize:14];
-    orderLbl.text =  string(@"订单号：", _orderInfo[@"order_sn"]);
+    orderLbl.text =  string(@"订单号：", _order_sn);
     if (!orderLbl.text) {
         orderLbl.text = @"订单号";
     }
@@ -298,7 +298,7 @@
     //将商品信息赋予AlixPayOrder的成员变量
     order.partner = partner;
     order.seller = seller;
-    order.tradeNO = [self.orderInfo valueForKeyPath:@"order_sn"]; //订单ID（由商家自行制定）
+    order.tradeNO = _order_sn; //订单ID（由商家自行制定）
     if (self.service_data) {
         order.tradeNO =  self.service_data[@"product_sn"];
     }
@@ -372,9 +372,12 @@
     //================================
     srand( (unsigned)time(0));
     NSString *noncestr  = [NSString stringWithFormat:@"%d", rand()];
-    NSString *orderno   =  [self.orderInfo valueForKeyPath:@"order_sn"]; //[NSString stringWithFormat:@"%ld",time(0)];
+    NSString *orderno   =  _order_sn; //[NSString stringWithFormat:@"%ld",time(0)];
     if (self.service_data) {
         order_name = self.service_data[@"desc"];
+        if (!order_name) {
+            order_name = @"小麻包购买服务";
+        }
         order_price =  [NSString stringWithFormat:@"%.0f",[self.service_data[@"order_amount"] doubleValue]*100];
         orderno = self.service_data[@"product_sn"];
     }
@@ -396,7 +399,7 @@
     //获取prepayId（预支付交易会话标识）
     NSString *prePayid;
     prePayid            = [req sendPrepay:packageParams];
-    
+    MMLog(@"%@",prePayid)
     
     if ( prePayid != nil) {
         //获取到prepayid后进行第二次签名

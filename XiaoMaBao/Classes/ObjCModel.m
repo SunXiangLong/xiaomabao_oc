@@ -53,5 +53,14 @@
      MMLog(@"Js调用了OC的方法，参数为：%@==%@", params,topId);
 
 }
+- (void)showShare:(NSString *)imageUrl :(NSString *)title :(NSString *)center :(NSString *)sharUrl{
+    MMLog(@"Js调用了OC的方法，参数为：%@==%@==%@==%@", imageUrl,sharUrl,title,center);
+    [self.myCircleViewSubject sendNext:@{@"imageUrl":imageUrl,
+                                         @"title":title,
+                                         @"center":center,
+                                         @"sharUrl":sharUrl,
+                                         @"type":@"showShare"
+                                         }];
 
+}
 @end
