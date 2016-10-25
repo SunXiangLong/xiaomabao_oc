@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -267,90 +266,12 @@
             </objects>
             <point key="canvasLocation" x="-3552" y="-1851"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="FSv-zx-ZVN">
-            <objects>
-                <viewController id="4KZ-n9-XZc" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="4BD-ak-q6i"/>
-                        <viewControllerLayoutGuide type="bottom" id="vjZ-dM-KGg"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="6vd-M6-bLf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="r4p-5N-hcC">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="l74-de-XOu">
-                                    <size key="itemSize" width="341" height="416"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="zak-dp-kr4">
-                                        <rect key="frame" x="17" y="0.0" width="341" height="416"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="416"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u6j-5D-5UM">
-                                                    <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RRc-Kt-XBu"/>
-                                                    </subviews>
-                                                    <color key="backgroundColor" red="0.89795351028442383" green="0.8981010913848877" blue="0.89792215824127197" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="RRc-Kt-XBu" secondAttribute="bottom" constant="10" id="3bg-sk-lnn"/>
-                                                        <constraint firstAttribute="width" secondItem="u6j-5D-5UM" secondAttribute="height" multiplier="1:1" id="ICC-2C-mmr"/>
-                                                        <constraint firstItem="RRc-Kt-XBu" firstAttribute="leading" secondItem="u6j-5D-5UM" secondAttribute="leading" constant="10" id="Rz5-32-hcS"/>
-                                                        <constraint firstAttribute="trailing" secondItem="RRc-Kt-XBu" secondAttribute="trailing" constant="10" id="owM-q1-Fa5"/>
-                                                        <constraint firstItem="RRc-Kt-XBu" firstAttribute="top" secondItem="u6j-5D-5UM" secondAttribute="top" constant="10" id="uTA-DY-IUF"/>
-                                                    </constraints>
-                                                </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kzg-cT-dbb">
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="【睡前小故事】汉森和格莱特">
-                                                            <attributes>
-                                                                <font key="NSFont" size="16" name="MicrosoftYaHei"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstItem="u6j-5D-5UM" firstAttribute="centerX" secondItem="zak-dp-kr4" secondAttribute="centerX" id="0Hy-Yt-KbU"/>
-                                            <constraint firstItem="kzg-cT-dbb" firstAttribute="leading" secondItem="zak-dp-kr4" secondAttribute="leading" constant="15" id="1kd-WT-RCP"/>
-                                            <constraint firstItem="u6j-5D-5UM" firstAttribute="top" secondItem="zak-dp-kr4" secondAttribute="top" constant="18" id="Gsb-qU-oDU"/>
-                                            <constraint firstItem="u6j-5D-5UM" firstAttribute="width" secondItem="zak-dp-kr4" secondAttribute="width" multiplier="440:682" id="Jju-sf-lhL"/>
-                                            <constraint firstItem="kzg-cT-dbb" firstAttribute="top" secondItem="u6j-5D-5UM" secondAttribute="bottom" constant="20" id="bYh-lo-FxE"/>
-                                        </constraints>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="r4p-5N-hcC" firstAttribute="top" secondItem="4BD-ak-q6i" secondAttribute="bottom" constant="64" id="2yK-2j-oKw"/>
-                            <constraint firstAttribute="trailing" secondItem="r4p-5N-hcC" secondAttribute="trailing" id="HTQ-Zq-W2E"/>
-                            <constraint firstItem="vjZ-dM-KGg" firstAttribute="top" secondItem="r4p-5N-hcC" secondAttribute="bottom" id="c2J-ke-Dh2"/>
-                            <constraint firstItem="r4p-5N-hcC" firstAttribute="leading" secondItem="6vd-M6-bLf" secondAttribute="leading" id="nz7-PB-X4B"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Nfd-4J-cUG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2808.8000000000002" y="-1845.4272863568217"/>
-        </scene>
         <!--萌宝-->
         <scene sceneID="TT5-1N-twi">
             <objects>
                 <navigationController id="cy9-m6-Sr2" userLabel="萌宝" customClass="MBNavigationViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="萌宝" id="XkF-rm-S8T"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NXX-BL-R1U">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="NXX-BL-R1U">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -367,7 +288,7 @@
             <objects>
                 <navigationController id="QVF-dJ-Wa1" customClass="MBNavigationViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="服务" id="cfF-8w-XJ6"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uKl-bz-z3t">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="uKl-bz-z3t">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -969,7 +890,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="O9E-KN-0Ed">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="ZgP-Lv-3P7">
-                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
@@ -1272,7 +1193,7 @@
         <!--Binding Email View Controller-->
         <scene sceneID="Y1j-om-7DF">
             <objects>
-                <viewController id="VWy-Sl-Zzu" customClass="MBBindingEmailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MBBindingEmailViewController" id="VWy-Sl-Zzu" customClass="MBBindingEmailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7x2-yc-vAp"/>
                         <viewControllerLayoutGuide type="bottom" id="CAT-qe-9mn"/>
@@ -1340,7 +1261,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Nt-3H-0hE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1790" y="-364"/>
+            <point key="canvasLocation" x="1874" y="-365"/>
         </scene>
         <!--Shark View Controller-->
         <scene sceneID="Ynz-ci-n7U">
@@ -1442,7 +1363,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="o3l-3c-Rsc" customClass="MBNavigationViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="个人中心" id="vJh-KF-tc6"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="OGp-oB-B5C">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="OGp-oB-B5C">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1483,7 +1404,7 @@
             <objects>
                 <navigationController id="WP9-ud-eil" customClass="MBNavigationViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="购物" id="bEf-J5-XcJ"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="su4-N1-4to">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="su4-N1-4to">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1708,10 +1629,10 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MBOrderInfoTableViewOneCell" rowHeight="76" id="jSh-ee-Yuq" customClass="MBOrderInfoTableViewOneCell">
-                                <rect key="frame" x="0.0" y="119.5" width="375" height="76"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="76"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jSh-ee-Yuq" id="6mo-MZ-51w">
-                                    <frame key="frameInset" width="375" height="75.5"/>
+                                    <frame key="frameInset" width="375" height="75"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mm_address" translatesAutoresizingMaskIntoConstraints="NO" id="bE5-Za-yxr">
@@ -1725,7 +1646,7 @@
                                                 <fragment content="收货人：">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="12" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
@@ -1736,7 +1657,7 @@
                                                 <fragment content="XXX">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="12" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1748,7 +1669,7 @@
                                                 <fragment content="15514509999">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="12" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1760,7 +1681,7 @@
                                                 <fragment content="收货地址：">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="12" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
@@ -1771,7 +1692,7 @@
                                                 <fragment content="xx市xx街道xx号">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="12" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1780,7 +1701,7 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="kUh-wy-fiz" firstAttribute="leading" secondItem="99D-jI-wX4" secondAttribute="trailing" constant="35" id="7Du-T6-hxZ"/>
+                                        <constraint firstAttribute="trailing" secondItem="kUh-wy-fiz" secondAttribute="trailing" constant="17" id="4aj-QT-QID"/>
                                         <constraint firstItem="WeB-Pv-J65" firstAttribute="leading" secondItem="Fi4-JU-Mzd" secondAttribute="leading" id="8nm-5d-qCj"/>
                                         <constraint firstItem="99D-jI-wX4" firstAttribute="leading" secondItem="Fi4-JU-Mzd" secondAttribute="trailing" id="F2z-Yq-xoc"/>
                                         <constraint firstItem="kUh-wy-fiz" firstAttribute="centerY" secondItem="Fi4-JU-Mzd" secondAttribute="centerY" id="JJJ-al-Vr9"/>
@@ -1801,11 +1722,11 @@
                                     <outlet property="mobile" destination="kUh-wy-fiz" id="6Qc-KW-LpE"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MBOrderInfoTableViewTwoCell" rowHeight="176" id="ESv-PS-Lgz" customClass="MBOrderInfoTableViewTwoCell">
-                                <rect key="frame" x="0.0" y="195.5" width="375" height="176"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MBOrderInfoTableViewTwoCell" rowHeight="270" id="ESv-PS-Lgz" customClass="MBOrderInfoTableViewTwoCell">
+                                <rect key="frame" x="0.0" y="196" width="375" height="270"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ESv-PS-Lgz" id="wca-mH-sCt">
-                                    <frame key="frameInset" width="375" height="175.5"/>
+                                    <frame key="frameInset" width="375" height="269"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLx-TT-SX7">
@@ -1813,7 +1734,7 @@
                                                 <fragment content="订单编号：">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="11" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1825,7 +1746,7 @@
                                                 <fragment content="123456789">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="10" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1837,7 +1758,7 @@
                                                 <fragment content="下单时间：">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="11" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1849,7 +1770,7 @@
                                                 <fragment content="付款时间：">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="11" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1858,10 +1779,10 @@
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDL-H2-uys">
                                             <attributedString key="attributedText">
-                                                <fragment content="运费：">
+                                                <fragment content="运       费：">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="11" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1873,7 +1794,7 @@
                                                 <fragment content="应付金额：（含运费）">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="11" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1882,10 +1803,10 @@
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ix-9B-pLo">
                                             <attributedString key="attributedText">
-                                                <fragment content="￥100.00">
+                                                <fragment content="￥0.00">
                                                     <attributes>
                                                         <color key="NSColor" red="0.98431372549019602" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="11" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1894,10 +1815,10 @@
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RuE-dI-dfK">
                                             <attributedString key="attributedText">
-                                                <fragment content="￥100.00">
+                                                <fragment content="￥0.00">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="11" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1909,7 +1830,7 @@
                                                 <fragment content="￥0.00">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="11" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1921,7 +1842,7 @@
                                                 <fragment content="订单金额：">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="11" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1933,7 +1854,7 @@
                                                 <fragment content="123456789">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="10" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1945,7 +1866,103 @@
                                                 <fragment content="无">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="10" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUO-iN-Az4">
+                                            <attributedString key="attributedText">
+                                                <fragment content="专场优惠：">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pag-8h-qnM">
+                                            <attributedString key="attributedText">
+                                                <fragment content="￥0.00">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2V-sy-ucY">
+                                            <attributedString key="attributedText">
+                                                <fragment content="麻包卡金额：">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mbr-Ed-S3j">
+                                            <attributedString key="attributedText">
+                                                <fragment content="￥0.00">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1tJ-fH-h0K">
+                                            <attributedString key="attributedText">
+                                                <fragment content="代金劵优惠：">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sm0-Ub-WZM">
+                                            <attributedString key="attributedText">
+                                                <fragment content="￥0.00">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMS-gh-pvp">
+                                            <attributedString key="attributedText">
+                                                <fragment content="红包优惠：">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxC-rz-jfP">
+                                            <attributedString key="attributedText">
+                                                <fragment content="￥0.00">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1956,29 +1973,46 @@
                                     <constraints>
                                         <constraint firstItem="Ss9-zC-2iR" firstAttribute="centerY" secondItem="fQn-aV-IBr" secondAttribute="centerY" id="0MY-p8-KmX"/>
                                         <constraint firstItem="kPV-tw-kVz" firstAttribute="centerY" secondItem="dDL-H2-uys" secondAttribute="centerY" id="2ca-Fc-evu"/>
-                                        <constraint firstItem="94A-nQ-f5f" firstAttribute="top" secondItem="0Pg-KT-bzb" secondAttribute="bottom" constant="16" id="2ty-e7-Ncd"/>
+                                        <constraint firstItem="cMS-gh-pvp" firstAttribute="leading" secondItem="nLx-TT-SX7" secondAttribute="leading" id="5Do-Ml-eb6"/>
+                                        <constraint firstItem="Mbr-Ed-S3j" firstAttribute="trailing" secondItem="kPV-tw-kVz" secondAttribute="trailing" id="5W0-2U-xyc"/>
+                                        <constraint firstItem="1tJ-fH-h0K" firstAttribute="top" secondItem="z2V-sy-ucY" secondAttribute="bottom" constant="8" id="7eF-cx-wrX"/>
+                                        <constraint firstItem="z2V-sy-ucY" firstAttribute="leading" secondItem="nLx-TT-SX7" secondAttribute="leading" id="7hQ-Rc-gKq"/>
                                         <constraint firstItem="RuE-dI-dfK" firstAttribute="centerY" secondItem="0Pg-KT-bzb" secondAttribute="centerY" id="8yK-ux-KZa"/>
                                         <constraint firstItem="dDL-H2-uys" firstAttribute="leading" secondItem="nLx-TT-SX7" secondAttribute="leading" id="Cc2-ML-0u2"/>
+                                        <constraint firstItem="1tJ-fH-h0K" firstAttribute="leading" secondItem="nLx-TT-SX7" secondAttribute="leading" id="CdZ-l8-QSB"/>
                                         <constraint firstItem="fQn-aV-IBr" firstAttribute="leading" secondItem="nLx-TT-SX7" secondAttribute="leading" id="Cst-sV-hvG"/>
-                                        <constraint firstItem="Ss9-zC-2iR" firstAttribute="leading" secondItem="fQn-aV-IBr" secondAttribute="trailing" id="DdR-xt-zud"/>
+                                        <constraint firstAttribute="trailing" secondItem="7gf-Bl-stu" secondAttribute="trailing" constant="17" id="DGd-rp-Jmb"/>
                                         <constraint firstItem="fQn-aV-IBr" firstAttribute="top" secondItem="Eft-oJ-0q1" secondAttribute="bottom" constant="8" id="FaJ-xO-SGi"/>
                                         <constraint firstItem="0Pg-KT-bzb" firstAttribute="leading" secondItem="nLx-TT-SX7" secondAttribute="leading" id="Gk0-hN-bsL"/>
-                                        <constraint firstItem="MvG-6L-GfV" firstAttribute="leading" secondItem="Eft-oJ-0q1" secondAttribute="trailing" id="HI0-4g-qJn"/>
-                                        <constraint firstItem="7gf-Bl-stu" firstAttribute="leading" secondItem="nLx-TT-SX7" secondAttribute="trailing" id="LqB-Eq-p38"/>
+                                        <constraint firstItem="7gf-Bl-stu" firstAttribute="trailing" secondItem="Ss9-zC-2iR" secondAttribute="trailing" id="IpN-nk-tTg"/>
                                         <constraint firstItem="94A-nQ-f5f" firstAttribute="leading" secondItem="nLx-TT-SX7" secondAttribute="leading" id="M9G-OU-7wW"/>
-                                        <constraint firstItem="0Pg-KT-bzb" firstAttribute="top" secondItem="dDL-H2-uys" secondAttribute="bottom" constant="6" id="MFN-i3-dbN"/>
+                                        <constraint firstItem="0Pg-KT-bzb" firstAttribute="top" secondItem="dDL-H2-uys" secondAttribute="bottom" constant="8" id="MFN-i3-dbN"/>
+                                        <constraint firstItem="z2V-sy-ucY" firstAttribute="top" secondItem="qUO-iN-Az4" secondAttribute="bottom" constant="8" id="MiC-Ny-spC"/>
                                         <constraint firstItem="kPV-tw-kVz" firstAttribute="trailing" secondItem="RuE-dI-dfK" secondAttribute="trailing" id="T0k-gq-d0x"/>
+                                        <constraint firstItem="qUO-iN-Az4" firstAttribute="top" secondItem="0Pg-KT-bzb" secondAttribute="bottom" constant="8" id="UAU-h3-7eE"/>
+                                        <constraint firstItem="qUO-iN-Az4" firstAttribute="leading" secondItem="nLx-TT-SX7" secondAttribute="leading" id="VDc-Iz-bET"/>
                                         <constraint firstItem="3Ix-9B-pLo" firstAttribute="centerY" secondItem="94A-nQ-f5f" secondAttribute="centerY" id="XKM-VE-1KI"/>
                                         <constraint firstItem="nLx-TT-SX7" firstAttribute="top" secondItem="wca-mH-sCt" secondAttribute="top" constant="16" id="aI5-Q8-B8H"/>
+                                        <constraint firstItem="Sm0-Ub-WZM" firstAttribute="centerY" secondItem="1tJ-fH-h0K" secondAttribute="centerY" id="ba5-oR-3zZ"/>
                                         <constraint firstAttribute="trailing" secondItem="kPV-tw-kVz" secondAttribute="trailing" constant="17" id="cSv-gO-agI"/>
+                                        <constraint firstItem="xxC-rz-jfP" firstAttribute="trailing" secondItem="kPV-tw-kVz" secondAttribute="trailing" id="d0x-Fq-Abl"/>
+                                        <constraint firstItem="Sm0-Ub-WZM" firstAttribute="trailing" secondItem="kPV-tw-kVz" secondAttribute="trailing" id="fqb-vt-2OE"/>
+                                        <constraint firstItem="Mbr-Ed-S3j" firstAttribute="centerY" secondItem="z2V-sy-ucY" secondAttribute="centerY" id="gtZ-AY-bIr"/>
                                         <constraint firstItem="3Ix-9B-pLo" firstAttribute="trailing" secondItem="RuE-dI-dfK" secondAttribute="trailing" id="hCQ-GW-tk7"/>
+                                        <constraint firstItem="xxC-rz-jfP" firstAttribute="centerY" secondItem="cMS-gh-pvp" secondAttribute="centerY" id="li3-Rs-U3B"/>
+                                        <constraint firstItem="7gf-Bl-stu" firstAttribute="trailing" secondItem="MvG-6L-GfV" secondAttribute="trailing" id="m0m-D2-gJF"/>
                                         <constraint firstItem="7gf-Bl-stu" firstAttribute="centerY" secondItem="nLx-TT-SX7" secondAttribute="centerY" id="nMZ-5z-hEZ"/>
                                         <constraint firstItem="0Pg-KT-bzb" firstAttribute="top" secondItem="fQn-aV-IBr" secondAttribute="bottom" constant="16" id="rDl-YT-Psb"/>
+                                        <constraint firstItem="xxC-rz-jfP" firstAttribute="centerY" secondItem="cMS-gh-pvp" secondAttribute="centerY" id="rYr-Lp-8H9"/>
                                         <constraint firstItem="Eft-oJ-0q1" firstAttribute="leading" secondItem="nLx-TT-SX7" secondAttribute="leading" id="thZ-kJ-UQP"/>
+                                        <constraint firstItem="pag-8h-qnM" firstAttribute="centerY" secondItem="qUO-iN-Az4" secondAttribute="centerY" id="tr9-5v-6hj"/>
                                         <constraint firstItem="nLx-TT-SX7" firstAttribute="leading" secondItem="wca-mH-sCt" secondAttribute="leading" constant="20" id="twT-3N-rFc"/>
                                         <constraint firstItem="Eft-oJ-0q1" firstAttribute="top" secondItem="nLx-TT-SX7" secondAttribute="bottom" constant="8" id="vcP-23-0hF"/>
                                         <constraint firstItem="MvG-6L-GfV" firstAttribute="centerY" secondItem="Eft-oJ-0q1" secondAttribute="centerY" id="x4e-5D-IAM"/>
                                         <constraint firstItem="dDL-H2-uys" firstAttribute="top" secondItem="fQn-aV-IBr" secondAttribute="bottom" constant="8" id="xvh-90-i9v"/>
+                                        <constraint firstItem="pag-8h-qnM" firstAttribute="trailing" secondItem="kPV-tw-kVz" secondAttribute="trailing" id="z9o-oa-U3L"/>
+                                        <constraint firstItem="cMS-gh-pvp" firstAttribute="top" secondItem="1tJ-fH-h0K" secondAttribute="bottom" constant="8" id="zO4-Y2-KhE"/>
+                                        <constraint firstItem="94A-nQ-f5f" firstAttribute="top" secondItem="cMS-gh-pvp" secondAttribute="bottom" constant="12" id="zYZ-YX-aN7"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
@@ -1988,6 +2022,10 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="add_time_formatted" destination="MvG-6L-GfV" id="4Sb-uS-Aox"/>
+                                    <outlet property="bonus_formatted" destination="xxC-rz-jfP" id="xCu-gG-X1b"/>
+                                    <outlet property="card_fee_formatted" destination="Mbr-Ed-S3j" id="fCl-94-H8K"/>
+                                    <outlet property="coupus_formatted" destination="Sm0-Ub-WZM" id="tb8-mP-bka"/>
+                                    <outlet property="discount_formatted" destination="pag-8h-qnM" id="3NH-1X-wsg"/>
                                     <outlet property="goods_amount_formatted" destination="3Ix-9B-pLo" id="FY8-ph-cSO"/>
                                     <outlet property="order_sn" destination="7gf-Bl-stu" id="7hr-sb-z3b"/>
                                     <outlet property="shipping_fee_formatted" destination="kPV-tw-kVz" id="umo-Ms-csC"/>
@@ -1995,10 +2033,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MBOrderInfoTableViewThreeCell" rowHeight="91" id="8Yn-rF-mF4" customClass="MBOrderInfoTableViewThreeCell">
-                                <rect key="frame" x="0.0" y="371.5" width="375" height="91"/>
+                                <rect key="frame" x="0.0" y="466" width="375" height="91"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Yn-rF-mF4" id="e5T-iK-ovn">
-                                    <frame key="frameInset" width="375" height="90.5"/>
+                                    <frame key="frameInset" width="375" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w7t-Jg-mOJ">
@@ -2011,7 +2049,7 @@
                                                 <fragment content="商品介绍">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="12" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -2023,7 +2061,7 @@
                                                 <fragment content="￥229元 x 1">
                                                     <attributes>
                                                         <color key="NSColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="12" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -2049,10 +2087,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MBOrderInfoTableViewFourCell" rowHeight="68" id="fBh-nj-JRA" customClass="MBOrderInfoTableViewFourCell">
-                                <rect key="frame" x="0.0" y="462.5" width="375" height="68"/>
+                                <rect key="frame" x="0.0" y="557" width="375" height="68"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fBh-nj-JRA" id="PXO-Xo-PHp">
-                                    <frame key="frameInset" width="375" height="67.5"/>
+                                    <frame key="frameInset" width="375" height="67"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7H4-B3-UcJ">
@@ -2060,7 +2098,7 @@
                                                 <fragment content="快递公司：">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="11" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -2072,7 +2110,7 @@
                                                 <fragment content="XX公司">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="11" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -2084,7 +2122,7 @@
                                                 <fragment content="快递单号：">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="11" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -2096,7 +2134,7 @@
                                                 <fragment content="111111111">
                                                     <attributes>
                                                         <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="11" name="MicrosoftYaHei"/>
+                                                        <font key="NSFont" size="14" name="MicrosoftYaHei"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -2113,12 +2151,18 @@
                                                     <fragment content="查看物流">
                                                         <attributes>
                                                             <color key="NSColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="11" name="MicrosoftYaHei"/>
+                                                            <font key="NSFont" size="13" name="MicrosoftYaHei"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
                                                 </attributedString>
                                             </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <integer key="value" value="0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="borderHexRgb" value="555555"/>
+                                            </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="CheckLogistic:" destination="fBh-nj-JRA" eventType="touchUpInside" id="cR5-FS-y2e"/>
                                             </connections>
@@ -2138,6 +2182,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="button" destination="bKr-6o-65l" id="MW8-39-V0B"/>
                                     <outlet property="invoice_no" destination="AVZ-W6-De3" id="yvs-qb-psU"/>
                                     <outlet property="shipping_name" destination="90F-lc-KgF" id="zai-Q3-gtE"/>
                                 </connections>
@@ -2152,7 +2197,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NE2-p7-nKP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2133" y="-3783"/>
+            <point key="canvasLocation" x="-2133.5999999999999" y="-3783.0584707646181"/>
         </scene>
         <!--图书-->
         <scene sceneID="Sh0-4D-iFX">
@@ -2214,10 +2259,10 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MBCatalogTableViewCell" rowHeight="45" id="kTz-w6-GUn">
-                                <rect key="frame" x="0.0" y="229.5" width="375" height="45"/>
+                                <rect key="frame" x="0.0" y="230" width="375" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kTz-w6-GUn" id="p1l-Up-OSt">
-                                    <frame key="frameInset" width="375" height="44.5"/>
+                                    <frame key="frameInset" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 一个前端🐶的死亡故事" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rrJ-R9-fce">
@@ -2725,7 +2770,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MBOrderInfoTableViewController" automaticallyAdjustsScrollViewInsets="NO" id="KxN-JL-WJb" customClass="MBNavigationViewController" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GsP-DC-If0">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GsP-DC-If0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -374,7 +374,7 @@
                 make.width.mas_equalTo(60);
             }];
             [detailsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(footerMainView.mas_left).offset(-5);
+                make.right.equalTo(logisticServiceBtn.mas_left).offset(-5);
                 make.centerY.mas_equalTo(0);
                 make.width.mas_equalTo(45);
             }];
@@ -404,7 +404,7 @@
                 make.width.mas_equalTo(60);
             }];
             [detailsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(footerMainView.mas_left).offset(-5);
+                make.right.equalTo(logisticServiceBtn.mas_left).offset(-5);
                 make.centerY.mas_equalTo(0);
                 make.width.mas_equalTo(45);
             }];

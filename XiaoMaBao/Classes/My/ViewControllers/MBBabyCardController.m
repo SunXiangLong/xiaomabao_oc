@@ -50,8 +50,10 @@
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
     footer.refreshingTitleHidden = YES;
     self.tableView.mj_footer = footer;
-    self.navBar.rightButton.titleLabel.font = YC_RTWSYueRoud_FONT(10);
-    
+    self.navBar.rightButton.titleLabel.font = YC_RTWSYueRoud_FONT(15);
+    self.navBar.rightButton.mj_w = 90;
+    self.navBar.rightButton.mj_x = UISCREEN_WIDTH - 90;
+    self.navBar.rightButton.mj_y = 23;
     _tableView.tableFooterView = [[UIView alloc] init];
     
 }
@@ -62,7 +64,7 @@
 
 -(NSString *)rightStr{
 
- return @"绑定新卡";
+  return @"绑定新卡";
 }
 -(void)rightTitleClick{
     

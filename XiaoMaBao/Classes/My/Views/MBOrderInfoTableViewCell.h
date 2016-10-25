@@ -22,6 +22,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *goods_amount_formatted;
 
 @property (weak, nonatomic) IBOutlet UILabel *total_fee_formatted;
+@property (weak, nonatomic) IBOutlet UILabel *card_fee_formatted;
+@property (weak, nonatomic) IBOutlet UILabel *discount_formatted;
+@property (weak, nonatomic) IBOutlet UILabel *coupus_formatted;
+@property (weak, nonatomic) IBOutlet UILabel *bonus_formatted;
 
 @property(copy,nonatomic)NSDictionary *dataDic;
 @end
@@ -38,6 +42,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *invoice_no;
 @property (nonatomic,assign) MBOrderInfoTableViewController *VC;
+@property (weak, nonatomic) IBOutlet UIButton *button;
 
 @property(copy,nonatomic)NSDictionary *dataDic;
 @end

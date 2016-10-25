@@ -26,6 +26,12 @@
     _shipping_fee_formatted.text = _dataDic[@"shipping_fee_formatted"];
     _goods_amount_formatted.text = _dataDic[@"goods_amount_formatted"];
     _total_fee_formatted.text = _dataDic[@"total_fee_formatted"];
+    _card_fee_formatted.text = _dataDic[@"card_fee_formatted"];
+    _discount_formatted.text = _dataDic[@"discount_formatted"];
+    _coupus_formatted.text = _dataDic[@"coupus_formatted"];
+    _bonus_formatted.text = _dataDic[@"bonus_formatted"];
+    
+    
 }
 
 
@@ -41,7 +47,10 @@
 
 @end
 @implementation MBOrderInfoTableViewFourCell
-
+-(void)awakeFromNib{
+    [super awakeFromNib];
+_button.layer.borderWidth = PX_ONE;
+}
 -(void)setDataDic:(NSDictionary *)dataDic{
     _dataDic = dataDic;
     _shipping_name.text = dataDic[@"shipping_name"];

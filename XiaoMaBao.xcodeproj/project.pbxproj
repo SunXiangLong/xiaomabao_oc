@@ -4750,7 +4750,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PROVISIONING_PROFILE = "a1cdb9e5-60e2-4092-be47-7a4d6f99ac84";
+				PROVISIONING_PROFILE = "8684f268-c825-4df6-920a-ccf244230476";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;

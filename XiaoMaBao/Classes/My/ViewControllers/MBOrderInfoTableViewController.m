@@ -55,6 +55,7 @@
         NSDictionary * status = [responseObject valueForKeyPath:@"status"];
         if([status[@"succeed"] isEqualToNumber:@1]){
            _dataDic = [responseObject valueForKeyPath:@"data"];
+            MMLog(@"%@",_dataDic);
             [self.tableView reloadData];
             
         }
@@ -105,13 +106,13 @@
 
     switch (indexPath.section) {
     case 0:
-            return 76;
+            return 80;
     case 1:
-            return 176;
+            return 270;
     case 2:
-            return 91;
+            return 100;
     default:
-            return 68;
+            return 70;
     }
 
 }

@@ -399,7 +399,7 @@
     //获取prepayId（预支付交易会话标识）
     NSString *prePayid;
     prePayid            = [req sendPrepay:packageParams];
-    MMLog(@"%@",prePayid)
+    
     
     if ( prePayid != nil) {
         //获取到prepayid后进行第二次签名
