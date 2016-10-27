@@ -41,7 +41,7 @@
 #define MKLOG(fmt, ...)
 #endif
 
-
+#define VERSION  [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 /***** 云客服APPKEY和客服id */
 #define UNICALL_APPKEY  @"985DC5D9-E6A2-4B82-8673-404B47CC4A19"
 #define UNICALL_TENANID  @"xiaomabao.yunkefu.com"
@@ -72,7 +72,7 @@
  *  默认占为图
  */
 #define PLACEHOLDER_DEFAULT_IMG [UIImage imageNamed:@"placeholder_num2"]
-#define VERSION  [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"]
+#define VERSION_1  [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"]
 /**
  *  宽度与高度
  */

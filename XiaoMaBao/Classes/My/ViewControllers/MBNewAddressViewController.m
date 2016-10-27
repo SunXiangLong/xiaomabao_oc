@@ -279,7 +279,7 @@
                                        
                                                              handler:^(UIAlertAction * action) {}];
         UIAlertAction* fromPhotoAction = [UIAlertAction actionWithTitle:@"删除该地址" style:UIAlertActionStyleDestructive                                                                 handler:^(UIAlertAction * action) {
-           [self setDelete];
+           [self delete];
             
         }];
         UIAlertAction* fromPhotoAction1 = [UIAlertAction actionWithTitle:@"保存修改地址" style:UIAlertActionStyleDestructive                                                                 handler:^(UIAlertAction * action) {
@@ -390,9 +390,8 @@
     if ([url isEqualToString:@"/address/address_edit"]) {
         [self show:@"正在更新..."];
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_edit"] parameters:@{@"session":sessiondict,@"address_id":self.address_dic[@"address_id"],@"address":addressDict}
-         
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
-                       
+                       [self dismiss];
 //                       MMLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                        
                        if ([addressDict[@"default_address"] isEqualToString:@"1"]) {
@@ -436,14 +435,18 @@
     }
     
 }
-- (void)setDelete{
+- (void)delete{
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    MMLog(@"%@",self.address_dic);
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/delete"] parameters:@{@"session":sessiondict,@"address_id":self.address_dic[@"id"]} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        
+    
+    
+    [self show];
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/delete"] parameters:@{@"session":sessiondict,@"address_id":self.address_dic[@"address_id"]} success:^(NSURLSessionDataTask *operation, id responseObject) {
+        [self dismiss];
         if( [[responseObject valueForKey:@"status"][@"succeed"]isEqualToNumber:@1]){
             
             

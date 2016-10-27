@@ -5,7 +5,6 @@
 //  Created by xiaomabao on 16/9/19.
 //  Copyright © 2016年 HuiBei. All rights reserved.
 //
-
 #import "MBMaBaoFeaturesCollectionViewController.h"
 #import "MBMaBaoFeaturesBrandCell.h"
 #import "MBMaBaoFeaturesShopCell.h"

@@ -11,6 +11,7 @@
 #import "DXAlertView.h"
 #import "MBGuidePage.h"
 #import "MJExtension.h"
+#import "MBUpdateView.h"
 @implementation MBLogOperation
 
 + (void)loginAuthentication:(NSDictionary *)params success:(void (^)())success
@@ -43,18 +44,35 @@
     }
 }
 + (void)promptUpdate{
-
-    [MBNetworking POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/common/check_update"] parameters:@{@"device":@"ios"} success:^(id responseObject) {
+    MBUpdateView *view = [MBUpdateView instanceView];
+    view.frame = CGRectMake(0, -UISCREEN_HEIGHT, UISCREEN_WIDTH, UISCREEN_HEIGHT);
+    
+    
+    [MBNetworking POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/common/update"] parameters:@{@"device":@"ios"} success:^(id responseObject) {
         NSDictionary *dic =responseObject;
         
-        if ([dic[@"can_update"]isEqualToNumber:@1]) {
-            NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+        
+        
+        if (dic) {
             
-            if ([version floatValue] < [dic[@"lastest_version"] floatValue]) {
-                [self promptUpdate:dic];
+            if ([dic[@"latest_version"] compare:VERSION_1 options:NSNumericSearch] == NSOrderedDescending) {
+                view.dataDic = dic;
+                [[UIApplication sharedApplication].keyWindow addSubview:view];
+                
+                [UIView animateWithDuration:.3  animations:^{
+                    
+                    view.ml_y = 0;
+                    
+                }];
+               
             }
-            
         }
+       
+            
+            
+        
+            
+        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         MMLog(@"%@",error);
     }];
@@ -221,29 +239,7 @@
     }
 }
 
-/**
- *  提醒更新弹出视图
- *
- *  @param dic 更新内容
- */
-+ (void)promptUpdate:(NSDictionary *)dic{
-    
-    
-    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示更新" contentText:dic[@"version_description"] leftButtonTitle:@"下次" rightButtonTitle:@"现在更新"];
-    [alert show];
-    alert.leftBlock = ^() {
-        MMLog(@"left button clicked");
-    };
-    alert.rightBlock = ^() {
-        MMLog(@"right button clicked");
-        
-        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/xiao-ma-bao/id1049237132?mt=8"]];
-    };
-    alert.dismissBlock = ^() {
-        MMLog(@"Do something interesting after dismiss block");
-    };
-    
-}
+
 
 #pragma mark --   保存密码账号到本地
 + (void )savelogInformation:(NSDictionary *)params{

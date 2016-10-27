@@ -74,8 +74,6 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [_hud show:YES];
     });
-    
-    
 }
 -(void)show:(NSString *)str time:(NSInteger)timer{
     

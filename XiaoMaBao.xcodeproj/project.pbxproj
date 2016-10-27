@@ -712,6 +712,9 @@
 		94FDD0B41C57565C007B2A42 /* MBBabyImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDD0B21C57565C007B2A42 /* MBBabyImageCollectionViewCell.m */; };
 		94FDD0B51C57565C007B2A42 /* MBBabyImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FDD0B31C57565C007B2A42 /* MBBabyImageCollectionViewCell.xib */; };
 		9F2546D01BC8B75C00BA0076 /* MBHomeCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F2546CF1BC8B75C00BA0076 /* MBHomeCategoryCell.xib */; };
+		9F4248431DC0C2A0001D5BAE /* MBUpdateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4248421DC0C2A0001D5BAE /* MBUpdateView.xib */; };
+		9F4248461DC0C2BE001D5BAE /* MBUpdateView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F4248441DC0C2BE001D5BAE /* MBUpdateView.h */; };
+		9F4248471DC0C2BE001D5BAE /* MBUpdateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4248451DC0C2BE001D5BAE /* MBUpdateView.m */; };
 		9F9CFAC71D8F7A590033681D /* MBMaBaoFeaturesCollectionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9CFAC51D8F7A590033681D /* MBMaBaoFeaturesCollectionViewController.h */; };
 		9F9CFAC81D8F7A590033681D /* MBMaBaoFeaturesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9CFAC61D8F7A590033681D /* MBMaBaoFeaturesCollectionViewController.m */; };
 		9F9CFACB1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9CFAC91D8F840E0033681D /* MBMaBaoFeaturesBrandCell.h */; };
@@ -1818,6 +1821,9 @@
 		94FDD0B31C57565C007B2A42 /* MBBabyImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBBabyImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		9F0351AE1D9220850006102A /* XiaoMaBao.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XiaoMaBao.entitlements; sourceTree = "<group>"; };
 		9F2546CF1BC8B75C00BA0076 /* MBHomeCategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBHomeCategoryCell.xib; sourceTree = "<group>"; };
+		9F4248421DC0C2A0001D5BAE /* MBUpdateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBUpdateView.xib; sourceTree = "<group>"; };
+		9F4248441DC0C2BE001D5BAE /* MBUpdateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBUpdateView.h; sourceTree = "<group>"; };
+		9F4248451DC0C2BE001D5BAE /* MBUpdateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBUpdateView.m; sourceTree = "<group>"; };
 		9F9CFAC51D8F7A590033681D /* MBMaBaoFeaturesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMaBaoFeaturesCollectionViewController.h; sourceTree = "<group>"; };
 		9F9CFAC61D8F7A590033681D /* MBMaBaoFeaturesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMaBaoFeaturesCollectionViewController.m; sourceTree = "<group>"; };
 		9F9CFAC91D8F840E0033681D /* MBMaBaoFeaturesBrandCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMaBaoFeaturesBrandCell.h; sourceTree = "<group>"; };
@@ -3542,6 +3548,9 @@
 				9FB1BD801D8FD7E60033D12B /* MBBrandDetailsCollectionViewCell.m */,
 				9FB1BD831D8FD8310033D12B /* MBBrandDetailsCollectionViewReusableView.h */,
 				9FB1BD841D8FD8310033D12B /* MBBrandDetailsCollectionViewReusableView.m */,
+				9F4248441DC0C2BE001D5BAE /* MBUpdateView.h */,
+				9F4248451DC0C2BE001D5BAE /* MBUpdateView.m */,
+				9F4248421DC0C2A0001D5BAE /* MBUpdateView.xib */,
 			);
 			name = View;
 			path = ..;
@@ -3896,6 +3905,7 @@
 				943F1CE61D10FFEF00CEA790 /* MBCollectionViewFlowLayout.h in Headers */,
 				9428D5F41D6D53D40055CCFC /* STUI.h in Headers */,
 				943F79A51D34F19A00AA9D3A /* MBDetailsCircleCell.h in Headers */,
+				9F4248461DC0C2BE001D5BAE /* MBUpdateView.h in Headers */,
 				9428D5F81D6D53D40055CCFC /* UIView+ST.h in Headers */,
 				9424062A1D6EC1ED0061C777 /* MBPhoneticDetailViewController.h in Headers */,
 				9F9CFACB1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.h in Headers */,
@@ -4000,6 +4010,7 @@
 				94684F831CE1E14A0068670F /* MBPostDetailsOneCell.xib in Resources */,
 				941BA96A1CB390A600421BF6 /* MBUserEvaluationListTableHeadView.xib in Resources */,
 				94DB179C1C520E9500D1F482 /* MBVaccineViewController.xib in Resources */,
+				9F4248431DC0C2A0001D5BAE /* MBUpdateView.xib in Resources */,
 				94892D6E1CB4FA4000668A98 /* MBServiceOrderOneCell.xib in Resources */,
 				94DB24791CD21B4300B1F153 /* MBMycircleTableViewCell.xib in Resources */,
 				944DBD151D140205009B3869 /* MBabyRecordFiveCell.xib in Resources */,
@@ -4629,6 +4640,7 @@
 				9424062F1D6EE4230061C777 /* MBArticleDetailViewController.m in Sources */,
 				48162F3C1AF2866900E61D5C /* MBLoginViewController.m in Sources */,
 				11B0F0161B5BA23F00653309 /* MBUserDataSingalTon.m in Sources */,
+				9F4248471DC0C2BE001D5BAE /* MBUpdateView.m in Sources */,
 				482FE0221B883DF600EE221C /* ZLDateView.m in Sources */,
 				9463A2DB1C7C2E0000B30892 /* orderFootView.m in Sources */,
 				9FB1BD821D8FD7E60033D12B /* MBBrandDetailsCollectionViewCell.m in Sources */,
@@ -4836,7 +4848,7 @@
 				CODE_SIGN_ENTITLEMENTS = XiaoMaBao/XiaoMaBao.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: lianqi liu (2H49VWW5ME)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: lianqi liu (2H49VWW5ME)";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6Q52DP5P8X;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4897,8 +4909,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaomabao.APPxiaomabao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8684f268-c825-4df6-920a-ccf244230476";
-				PROVISIONING_PROFILE_SPECIFIER = "Pus-APPxioamabao";
+				PROVISIONING_PROFILE = "ab8d13c8-98f8-4699-b793-2e97c9bf4c2a";
+				PROVISIONING_PROFILE_SPECIFIER = xiaomabao_Development;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -4977,8 +4989,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaomabao.APPxiaomabao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a1cdb9e5-60e2-4092-be47-7a4d6f99ac84";
-				PROVISIONING_PROFILE_SPECIFIER = "pus-fabuxiaomabo";
+				PROVISIONING_PROFILE = "03a512db-6845-4aea-9d92-8fc7b8072f10";
+				PROVISIONING_PROFILE_SPECIFIER = xiaomabao;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};

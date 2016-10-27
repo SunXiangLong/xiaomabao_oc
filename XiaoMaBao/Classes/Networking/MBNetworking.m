@@ -107,7 +107,7 @@ static AFHTTPSessionManager *mgr = nil;
  */
 + (NSDictionary *)stitchingParameter:(NSDictionary *)parameters{
     
-    NSDictionary *dic = @{@"version":VERSION,@"channel":@"APPStore",@"device":@"ios"};
+    NSDictionary *dic = @{@"version":VERSION_1,@"channel":@"APPStore",@"device":@"ios"};
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict addEntriesFromDictionary:parameters];
     [dict addEntriesFromDictionary:dic];
