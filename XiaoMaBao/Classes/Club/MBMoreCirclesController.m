@@ -40,7 +40,8 @@
 /**
  *  搜索列表
  */
-@property (strong, nonatomic) UITableView *searchTableView;
+@property (strong, nonatomic) IBOutlet UITableView *searchTableView;
+
 /**
  *  搜索框
  */
@@ -65,17 +66,12 @@
 
 @implementation MBMoreCirclesController
 
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBMoreCirclesController"];
-    
-}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     
     [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBMoreCirclesController"];
+    
     /**
      *  获取保存在本地的我的圈数据
      */
@@ -102,50 +98,40 @@
     return _searchArray;
 
 }
-
-- (RACSubject *)myCircleViewSubject {
-    
-    if (!_myCircleViewSubject) {
-        
-        _myCircleViewSubject = [RACSubject subject];
-    }
-    
-    return _myCircleViewSubject;
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     /**
      *  移除navBarView
      */
     [self.navBar removeFromSuperview];
-    self.navBar = nil;
-    
+    self.tableViewOne.tableFooterView = [[UIView alloc] init];
+    self.tableViewTwo.tableFooterView = [[UIView alloc] init];
+    self.searchTableView.tableFooterView = [[UIView alloc] init];
     [self.MinView addSubview:self.SearchBar];
+    
+    self.searchTableView.frame = CGRectMake(0, 75, UISCREEN_WIDTH, UISCREEN_HEIGHT-75-49);
     [self.MinView addSubview:self.searchTableView];
     [self setCircleData];
+    WS(weakSelf)
+    self.block = ^(NSInteger num){
     
-    
-    @weakify(self);
-    [[self.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *num) {
-        @strongify(self);
-    
-        if ([num integerValue] == 0) {
-            self.SearchBar.hidden = YES;
+        if (num  == 0) {
+            weakSelf.SearchBar.hidden = YES;
         }else{
-            self.SearchBar.hidden = NO;
+            weakSelf.SearchBar.hidden = NO;
             /**
              *  获取保存在本地的我的圈数据
              */
-            if (self.is_joinArray.count >0 ) {
+            if (weakSelf.is_joinArray.count >0 ) {
                 NSArray *myCircleArr = [User_Defaults objectForKey:@"myCircle"];
-                self.myCircleArray  = [NSMutableArray arrayWithArray:myCircleArr];
-                [self.is_joinArray removeAllObjects];
-                [self setCircleData];
+                weakSelf.myCircleArray  = [NSMutableArray arrayWithArray:myCircleArr];
+                [weakSelf.is_joinArray removeAllObjects];
+                [weakSelf setCircleData];
             }
-           
-            
-        }
-    }];
+    
+    }
+    
+    };
 }
 #pragma mark -- 请求圈子数据
 - (void)setCircleData{
@@ -375,22 +361,7 @@
     MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
     [self presentViewController:VC animated:YES completion:nil];
 }
-- (UITableView *)searchTableView{
-    if (!_searchTableView) {
-        UITableView *tableview = [[UITableView alloc] init];
-        tableview.separatorStyle  =  UITableViewCellSeparatorStyleNone;
-        tableview.tableFooterView = [[UIView alloc] init];
-        tableview.frame = CGRectMake(0, 75, UISCREEN_WIDTH, UISCREEN_HEIGHT-75-49);
-        tableview.delegate = self;
-        tableview.dataSource = self;
-        tableview.hidden = YES;
-        tableview.backgroundColor = [UIColor whiteColor];
-        _searchTableView = tableview;
-    }
-    
-    return  _searchTableView;
 
-}
 - (UISearchBar *)SearchBar{
     if (!_SearchBar) {
        
@@ -435,10 +406,7 @@
     [User_Defaults setObject:myCircleArr forKey:@"myCircle"];
     [User_Defaults synchronize];
     
-//    /**
-//     *   加入圈子或取消圈子   通知我的圈数据也改变
-//     */
-//    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"MBMyCircleArrayNOtifition" object:nil userInfo:nil]];
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -556,17 +524,48 @@
     if ([tableView isEqual:_tableViewOne]) {
         return 40;
     }
-    return 64;
+    
+    return [tableView fd_heightForCellWithIdentifier:@"MBMycircleTableViewCell" cacheByIndexPath:indexPath configuration:^(MBMycircleTableViewCell *cell) {
+        [self configureCell:cell atIndexPath:indexPath];
+        
+    }];
+}
+
+- (void)configureCell:(MBMycircleTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    
+    cell.fd_enforceFrameLayout = YES;
+    cell.indexPath = indexPath;
+    
+    
+    WS(weakSelf)
+    cell.buttonClick =  ^(NSIndexPath *indexPath){
+        if (_isSearchTableView) {
+            if ([_search_is_joinArray[indexPath.row] isEqualToNumber:@1]) {
+                [weakSelf prompt:indexPath];
+            }else{
+                NSString *ID = _searchArray[indexPath.row][@"circle_id"];
+                [weakSelf setJoin_circle:ID indexPath:indexPath is_join:YES];
+            }
+        }else{
+            if ([_is_joinArray[_number][indexPath.row] isEqualToNumber:@1]) {
+                [weakSelf prompt:indexPath];
+                
+            }else{
+                NSString *ID = _OneLevel[_number][@"child_cats"][indexPath.row][@"circle_id"];
+                [weakSelf setJoin_circle:ID indexPath:indexPath is_join:YES];
+                
+                
+            }
+        }
+        
+    };
 }
 #pragma mark UITableViewDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([tableView isEqual:_tableViewOne]) {
 
-        MBMoreCirclesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBMoreCirclesCell"];
-        
-        if (!cell) {
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBMoreCirclesCell"owner:nil options:nil]firstObject];
-        }
+        MBMoreCirclesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBMoreCirclesCell" forIndexPath:indexPath];
+
            cell.name.text = _OneLevel[indexPath.row][@"cat_name"];
      
         if (_number == indexPath.row) {
@@ -574,7 +573,8 @@
         }else{
              cell.name.textColor = UIcolor(@"575c65");
         }
-    return cell;
+        [cell removeUIEdgeInsetsZero];
+        return cell;
     }
     
     NSDictionary *dic = _OneLevel[_number][@"child_cats"][indexPath.row];
@@ -590,50 +590,20 @@
         }
         
     }
-    MBMycircleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBMycircleTableViewCell"];
+    MBMycircleTableViewCell *cell =  [tableView dequeueReusableCellWithIdentifier:@"MBMycircleTableViewCell" forIndexPath:indexPath];
     
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBMycircleTableViewCell"owner:nil options:nil]firstObject];
-    }
-    cell.indexPath = indexPath;
-    [cell.user_button setBackgroundColor:[UIColor whiteColor]];
-    cell.user_name.text = dic[@"circle_name"];
-    cell.user_center.text = dic[@"circle_desc"];
-    [cell.user_image sd_setImageWithURL:[NSURL URLWithString:dic[@"circle_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-    
-    
-    
+     [self configureCell:cell atIndexPath:indexPath];
+    cell.dataDic = dic;
+        
     if (is_Join) {
         cell.user_button.selected = YES;
-
+        
     }else{
         cell.user_button.selected = NO;
         
     }
-  
-    @weakify(self);
-    [[cell.myCircleCellSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSIndexPath *indexPath) {
-        @strongify(self);
-        if (_isSearchTableView) {
-            if ([_search_is_joinArray[indexPath.row] isEqualToNumber:@1]) {
-                    [self prompt:indexPath];
-            }else{
-                NSString *ID = _searchArray[indexPath.row][@"circle_id"];
-             [self setJoin_circle:ID indexPath:indexPath is_join:YES];
-            }
-        }else{
-            if ([_is_joinArray[_number][indexPath.row] isEqualToNumber:@1]) {
-                [self prompt:indexPath];
-                
-            }else{
-                NSString *ID = _OneLevel[_number][@"child_cats"][indexPath.row][@"circle_id"];
-                [self setJoin_circle:ID indexPath:indexPath is_join:YES];
-                
-                
-            }
-        }
-        
-    }];
+
+    [cell uiedgeInsetsZero];
     return cell;
     
 }

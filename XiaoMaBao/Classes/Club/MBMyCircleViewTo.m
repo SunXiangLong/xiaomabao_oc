@@ -15,17 +15,4 @@
     return [[[NSBundle mainBundle] loadNibNamed:@"MBMyCircleViewTo" owner:nil options:nil] lastObject];
 }
 
-- (IBAction)touch:(UIButton *)sender {
-    [self.myCircleViewSubject  sendNext:@(sender.tag)];
-}
-- (RACSubject *)myCircleViewSubject {
-    
-    if (!_myCircleViewSubject) {
-        
-        _myCircleViewSubject = [RACSubject subject];
-    }
-    
-    return _myCircleViewSubject;
-}
-
 @end

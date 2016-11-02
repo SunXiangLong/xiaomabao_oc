@@ -26,9 +26,11 @@
      *  轮播图数组
      */
     NSArray *_bandImageArray;
-    
+    NSInteger _numberOfSections;
     
 }
+@property (weak, nonatomic) IBOutlet SDCycleScrollView *shufflingView;
+@property (weak, nonatomic) IBOutlet UIView *tableHeadView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /**
  *  推荐麻包圈数组
@@ -79,110 +81,85 @@
     return _myCircleArray;
 
 }
-- (RACSubject *)myCircleViewSubject {
-    
-    if (!_myCircleViewSubject) {
-        
-        _myCircleViewSubject = [RACSubject subject];
-    }
-    
-    return _myCircleViewSubject;
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navBar removeFromSuperview];
+    [self headerView];
     self.tableView.tableFooterView = [[UIView alloc] init];
 
     [self setShufflingFigureData];
-    @weakify(self);
-    [[self.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *num) {
-        @strongify(self);
-        
-        if ([num integerValue] == 1) {
-            [self.recommendArray removeAllObjects];
-            [self.myCircleArray removeAllObjects];
-            
-            
-            [self setData];
+    WS(weakSelf)
+    self.block = ^(NSInteger num){
+        if (num  == 1) {
+            [weakSelf.recommendArray removeAllObjects];
+            [weakSelf.myCircleArray removeAllObjects];
+            [weakSelf setData];
         }
-    }];
-   
     
+    };
+       
 }
 /**
  *  广告轮播图UI
  *
  *  @return
  */
-- (UIView *)setHeaderView{
-    UIView *view =[[UIView alloc] init];
-    view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_WIDTH*35/75+ 90);
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH,UISCREEN_WIDTH*35/75) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
-    NSMutableArray *imaageUrlArr = [NSMutableArray array];
-    for (NSDictionary *dic in _bandImageArray) {
-        [imaageUrlArr addObject:dic[@"ad_img"]];
-    }
-    cycleScrollView.imageURLStringsGroup = imaageUrlArr;
-    cycleScrollView.autoScrollTimeInterval = 3.0f;
-    cycleScrollView.delegate = self;
-    [view addSubview:cycleScrollView];
+- (void)headerView{
     
-    MBMyCircleViewTo *view1 = [MBMyCircleViewTo instanceView];
-    view1.frame = CGRectMake(0, MaxY(cycleScrollView), UISCREEN_WIDTH, 90);
-    [view addSubview:view1];
-    
-    @weakify(self);
-    [[view1.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *number) {
-        
-        NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-       
-       
-        @strongify(self);
-        switch ([number integerValue]) {
-            case 0:
-            {
-//                MBArticleViewController *Vc  = [[MBArticleViewController alloc] init];
-//                [self pushViewController:Vc Animated:YES];
-                MBWebViewController *VC = [[MBWebViewController alloc] init];
-                VC.url =  [NSURL URLWithString:string(BASE_URL_root, @"/discovery/story")];
-                VC.isloging = YES;
-                VC.title = @"麻包故事";
-                [self pushViewController:VC Animated:YES];
+    self.tableHeadView.ml_height = UISCREEN_WIDTH*35/75 + 90;
+    self.shufflingView.delegate = self;
+    self.shufflingView.placeholderImage = [UIImage imageNamed:@"placeholder_num3"];
+    self.shufflingView.autoScrollTimeInterval = 5.0f;
+}
 
-               
-            }break;
-            case 1:{
-                
-                MBVoiceViewController *Vc  = [[MBVoiceViewController alloc] init];
-                [self pushViewController:Vc Animated:YES];
-                
-            }break;
-            case 2: {
-                if (!sid) {
-                    [ self  loginClicksss];
-                    return ;
-                }
-                
-                
-                
-                MBArticleCollectViewController *VC = [[MBArticleCollectViewController alloc] init];
-                [self pushViewController:VC Animated:YES];
-            }break;
-            case 3:
-            {
-                if (!sid) {
+- (IBAction)buttonClick:(UIButton *)sender {
+   NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
+    switch (sender.tag) {
+        case 0:
+        {
+            // MBArticleViewController *Vc  = [[MBArticleViewController alloc] init];
+            // [self pushViewController:Vc Animated:YES];
+            MBWebViewController *VC = [[MBWebViewController alloc] init];
+            VC.url =  [NSURL URLWithString:string(BASE_URL_root, @"/discovery/story")];
+            VC.isloging = YES;
+            VC.title = @"麻包故事";
+            [self pushViewController:VC Animated:YES];
+            
+            
+        }break;
+        case 1:{
+            
+            MBVoiceViewController *Vc  = [[MBVoiceViewController alloc] init];
+            [self pushViewController:Vc Animated:YES];
+            
+        }break;
+        case 2: {
+            if (!sid) {
                 [ self  loginClicksss];
                 return ;
             }
-                MBCollectionPostController *VC = [[MBCollectionPostController alloc] init];
-                [self pushViewController:VC Animated:YES];
-            } break;
-                
-            default:
-                break;
-        }
-    }];
-    return view;
+            
+            
+            
+            MBArticleCollectViewController *VC = [[MBArticleCollectViewController alloc] init];
+            [self pushViewController:VC Animated:YES];
+        }break;
+        case 3:
+        {
+            if (!sid) {
+                [ self  loginClicksss];
+                return ;
+            }
+            MBCollectionPostController *VC = [[MBCollectionPostController alloc] init];
+            [self pushViewController:VC Animated:YES];
+        } break;
+            
+        default:
+            break;
+    }
 }
+
 /**
  *  广告轮播图数据
  *
@@ -199,6 +176,12 @@
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                 _bandImageArray = [responseObject valueForKeyPath:@"data"];
+                NSMutableArray *imaageUrlArr = [NSMutableArray array];
+                for (NSDictionary *dic in _bandImageArray) {
+                    [imaageUrlArr addObject:dic[@"ad_img"]];
+                }
+                self.shufflingView.delegate = self;
+                self.shufflingView.imageURLStringsGroup = imaageUrlArr;
                 [self setData];
                 return ;
             }
@@ -216,23 +199,20 @@
 }
 #pragma mark -- 推荐麻包圈数据数据
 - (void)setData{
+    
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     if (!sid) {
-        
         NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_recommend_cat"];
-        
         [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
             [self dismiss];
             if (responseObject) {
                 [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
-                
-                _tableView.tableHeaderView = [self setHeaderView];
-               
+                _numberOfSections = 1;
+                self.tableHeadView.hidden = NO;
                 [self.tableView reloadData];
-                return ;
-                
+                return;
             }
             
             [self show:@"没有相关数据" time:1];
@@ -252,8 +232,9 @@
                 
                 [self.myCircleArray addObjectsFromArray:[responseObject valueForKeyPath:@"user_circle"]];
                 [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
-                _tableView.tableHeaderView = [self setHeaderView];
+                _numberOfSections = 2;
                 [self myCircleDefaults];
+                self.tableHeadView.hidden = NO;
                 [self.tableView reloadData];
                 return ;
                 
@@ -272,18 +253,13 @@
 }
 #pragma mark--加入圈子或取消加入圈子
 - (void)setJoin_circle:(NSString *)circle_id indexPath:(NSIndexPath *)indexPath {
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    if (!sid) {
-        [self loginClicksss];
-        return;
-    }
     [self show];
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/join_circle"];
     
-  
     [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict,@"circle_id":circle_id} success:^(id responseObject) {
       [self dismiss];
         if ([[responseObject  valueForKeyPath:@"status"]isEqualToNumber:@1]) {
@@ -300,7 +276,7 @@
                 [self show:@"成功加入 " and:_recommendArray[indexPath.row][@"circle_name"] time:1];
                 [_myCircleArray addObject:_recommendArray[indexPath.row]];
                 [_recommendArray removeObjectAtIndex:indexPath.row];
-                
+
                  [self myCircleDefaults];
                 [self.tableView reloadData];
             }
@@ -372,183 +348,169 @@
     }
     
 }
+
+- (void)configureCell:(MBMycircleTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+     NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
+    cell.fd_enforceFrameLayout = YES;
+    NSDictionary *dic;
+    if (indexPath.section ==0&&sid) {
+        dic = self.myCircleArray[indexPath.row];
+    }else{
+        
+        if (self.recommendArray.count > 0) {
+            dic = self.recommendArray[indexPath.row];
+        }
+    }
+    
+    cell.indexPath = indexPath;
+    cell.dataDic = dic;
+    WS(weakSelf)
+    cell.buttonClick = ^(NSIndexPath *indexPath){
+        
+        NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+        if (!sid) {
+            [weakSelf loginClicksss];
+            return ;
+        }
+        
+        
+        if (indexPath.section == 0) {
+            [weakSelf prompt:indexPath];
+            
+        }else{
+            
+            [weakSelf setJoin_circle:_recommendArray[indexPath.row][@"circle_id"] indexPath:indexPath];
+        }
+    };
+}
 #pragma mark -- UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 2;
+    
+    return _numberOfSections;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    if (section==0) {
-        if (self.myCircleArray.count ==0) {
-            NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-            if (sid) {
+
+    NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (section == 0) {
+        if (sid) {
+            if (self.myCircleArray.count ==0) {
+                
                 return 1;
             }
+            
+            return self.myCircleArray.count;
         }
-       
-        return  self.myCircleArray.count;
         
-        
-    }else{
         return self.recommendArray.count;
-    }
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 64;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section==0) {
-        if (self.myCircleArray.count == 0) {
-            NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-            if (sid) {
-                return 41;
-            }
-            return 0;
-        }
         
-        return 41;
+
     }
     
-    if (self.recommendArray.count == 0) {
-        return 0;
+    return self.recommendArray.count;
+
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (indexPath.section == 0 && self.myCircleArray.count == 0 && sid) {
+    return 64;
     }
+    
+    return [tableView fd_heightForCellWithIdentifier:@"MBMycircleTableViewCell" cacheByIndexPath:indexPath configuration:^(MBMycircleTableViewCell *cell) {
+        [self configureCell:cell atIndexPath:indexPath];
+        
+    }];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.00001;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
     return 41;
 }
 
 #pragma mark -- UITableViewDelegate
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    return [[UIView alloc] init];
+}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc] init];
-    view.backgroundColor = [UIColor whiteColor];
-    view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 41);
-    UIView *backTopView = [[UIView alloc] init];
-    backTopView.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 10);
-    backTopView.backgroundColor = BACKColor;
-    [view addSubview:backTopView];
-    UILabel *lable = [[UILabel alloc] init];
-    lable.font =  YC_YAHEI_FONT(16);
-    lable.textColor = UIcolor(@"575c65");
-    [view addSubview:lable];
-    [lable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(8);
-        make.centerY.mas_equalTo(5);
-    }];
-    
-    NSString *numStr = s_Integer(_myCircleArray.count);
-    NSString *comment_content = [NSString stringWithFormat:@"我的麻包圈( %@ )",numStr];
-    
-    
-    NSRange range = [comment_content rangeOfString:numStr];
-    
-    NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:comment_content];
-    [att addAttributes:@{NSForegroundColorAttributeName:UIcolor(@"d66263")}  range:NSMakeRange(range.location, range.length)];
-    [att addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} range:NSMakeRange(range.location, range.length )];
-    
-    
-    if (section == 0) {
-        lable.text = comment_content;
-        lable.attributedText  = att;
-        
+    NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
+    UIView *headerInView = [[UIView alloc] init];
+    headerInView.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 41);
+    MBMyCircleViewTo *tableViewHeader = [MBMyCircleViewTo instanceView];
+    tableViewHeader.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 41);
+    [headerInView addSubview:tableViewHeader];
+    if (sid&&section == 0) {
+        NSString *numStr = s_Integer(_myCircleArray.count);
+        tableViewHeader.myNumberLabel.text = numStr;
+        tableViewHeader.myCircleLabel.text = @"我的麻包圈（ ";
+        tableViewHeader.endLable.text = @" ）";
+        tableViewHeader.myNumberLabel.hidden = NO;
+        tableViewHeader.endLable.hidden = NO;
     }else{
-        lable.text = @"推荐麻包圈";
+        tableViewHeader.myCircleLabel.text = @"推荐麻包圈";
+        tableViewHeader.myNumberLabel.hidden = YES;
+        tableViewHeader.endLable.hidden = YES;
     }
     
-    UIImageView *image = [[UIImageView alloc] init];
-    image.backgroundColor = UIcolor(@"eaeaea");
-    [view addSubview:image];
-    [image mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(0);
-        make.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(0);
-        make.height.mas_equalTo(1);
-    }];
+    return headerInView;
     
-    
-    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-   
-    MBMycircleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBMycircleTableViewCell"];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBMycircleTableViewCell"owner:nil options:nil]firstObject];
-    }
+    NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (indexPath.section == 0 && self.myCircleArray.count == 0 && sid) {
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBMycircleTableViewCellTo" forIndexPath:indexPath];
+        [cell uiedgeInsetsZero];
     
-    if (indexPath.section ==1) {
-        cell.user_button.selected = NO;
-    }else{
-        cell.user_button.selected = YES;
-        if (_myCircleArray.count==0) {
-            cell.noLable.hidden = NO;
-            cell.exclusiveTouch = NO;
-            return cell;
-        }
-    }
-    
-    NSDictionary *dic;
-    
-    if (indexPath.section ==0) {
-        dic = self.myCircleArray[indexPath.row];
+        return cell;
     }else{
         
-        
-        if (self.recommendArray.count > 0) {
-            dic = self.recommendArray[indexPath.row];
+        NSDictionary *dic;
+        if (indexPath.section ==0&&sid) {
+            dic = self.myCircleArray[indexPath.row];
         }else{
-        MMLog(@"%@",self.recommendArray);
-        }
-    }
-    cell.indexPath = indexPath;
-    cell.indexPath = indexPath;
-    cell.user_name.text = dic[@"circle_name"];
-    cell.user_center.text = dic[@"circle_desc"];
-    [cell.user_image sd_setImageWithURL:[NSURL URLWithString:dic[@"circle_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-    @weakify(self);
-    [[cell.myCircleCellSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSIndexPath *indexPath) {
-        @strongify(self);
-        
-        NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-        if (!sid) {
-            [self loginClicksss];
-            return ;
-        }
-        
-      
-        if (indexPath.section == 0) {
-            [self prompt:indexPath];
             
-        }else{
-       
-             [self setJoin_circle:_recommendArray[indexPath.row][@"circle_id"] indexPath:indexPath];
+            if (self.recommendArray.count > 0) {
+                dic = self.recommendArray[indexPath.row];
+            }
         }
-    }];
+
+        
+        MBMycircleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBMycircleTableViewCell" forIndexPath:indexPath];
+         [self configureCell:cell atIndexPath:indexPath];
+        [cell uiedgeInsetsZero];
+        return cell;
     
-    return cell;
+    }
     
+
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (indexPath.section == 0 && self.myCircleArray.count == 0 && sid) {
     
-    if (_myCircleArray.count==0) {
-    
+        
         return;
     
     }
     _isDimiss = YES;
     NSDictionary *dic;
-    if (indexPath.section == 0) {
+    NSString *str  = @"0";
+    if (indexPath.section == 0&&sid) {
         dic = _myCircleArray[indexPath.row];
-        
-    }else{
-        dic = _recommendArray[indexPath.row];
-        
-    }
-    NSString *str ;
-    if (indexPath.section == 0) {
         str = @"1";
     }else{
-        str = @"0";
+        if (self.recommendArray.count > 0) {
+            dic = self.recommendArray[indexPath.row];
+        }
+        
     }
+    
     MBDetailsCircleController *VC = [[MBDetailsCircleController alloc] init];
     VC.circle_id = dic[@"circle_id"];
     VC.circle_user_cnt = dic[@"circle_post_cnt"];
@@ -598,21 +560,6 @@
     [self presentViewController:alertCancel animated:YES completion:nil];
 }
 
-#pragma mark ---让tabview的headview跟随cell一起滑动
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-    if (scrollView == self.tableView)
-    {
-        CGFloat sectionHeaderHeight = 41;
-        if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
-            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-        } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
-            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
-        }
-    }
-    _tableView.editing = NO;
-    
-}
 -(void)show:(NSString *)str1 and:(NSString *)str2 time:(NSInteger)timer{
     
     NSString *comment_content = [NSString stringWithFormat:@"%@ %@",str1,str2];

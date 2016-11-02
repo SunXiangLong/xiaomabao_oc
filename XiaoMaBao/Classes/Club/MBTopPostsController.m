@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navBar removeFromSuperview];
-    self.navBar = nil;
+    self.tableView.tableFooterView = [[UIView alloc] init];
     _page = 1;
     [self setData];
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
@@ -46,24 +46,29 @@
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-//      MMLog(@"%@",responseObject);
+        [self.tableView .mj_footer endRefreshing];
+        //      MMLog(@"%@",responseObject);
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
+                
                 [self.dataArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
-                _page++;
+                
+                //                [[_tableView fd_indexPathHeightCache] invalidateAllHeightCache];
+                
                 [_tableView reloadData];
-                 [self.tableView .mj_footer endRefreshing];
-            
+                
+                
+                _page++;
             }else{
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
                 return ;
             }
-           
+            
         }else{
-         [self show:@"没有相关数据" time:1];
+            [self show:@"没有相关数据" time:1];
         }
         
-       
+        
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         MMLog(@"%@",error);
@@ -75,7 +80,11 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-   
+    
+}
+- (void)configureCell:(MBTopPostCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    cell.fd_enforceFrameLayout = YES;
+    cell.dataDic = self.dataArray[indexPath.row];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
@@ -87,47 +96,23 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSDictionary *dic = _dataArray[indexPath.row];
-    NSString *post_title = dic[@"post_title"];
-      NSString *post_content = dic[@"post_content"];
-    CGFloat post_title_height = [post_title sizeWithFont:SYSTEMFONT(15) lineSpacing:2 withMax:UISCREEN_WIDTH - 24];
-    
-    CGFloat post_content_height = [post_content sizeWithFont:SYSTEMFONT(14) lineSpacing:6 withMax:UISCREEN_WIDTH - 24];
-    if (post_content_height>56) {
-        post_content_height = 56+20;
-    }else{
-        post_content_height += 5;
-    }
-    
-    if ([dic[@"post_imgs"] count]>0) {
-        return 65+(UISCREEN_WIDTH -16*3)/3*133/184+post_title_height+post_content_height;
-    }
-    
-    return 60+post_title_height+post_content_height;
+    return [tableView fd_heightForCellWithIdentifier:@"MBTopPostCell" cacheByIndexPath:indexPath configuration:^(MBTopPostCell *cell) {
+        [self configureCell:cell atIndexPath:indexPath];
+        
+    }];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary *dic = _dataArray[indexPath.row];
     
-    MBTopPostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBTopPostCell"];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBTopPostCell"owner:nil options:nil]firstObject];
-    }
-    cell.array = dic[@"post_imgs"];
-    [cell.user_image sd_setImageWithURL:[NSURL URLWithString:dic[@"author_userhead"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-    cell.user_name.text = dic[@"author_name"];
-    cell.circle_name.text = dic[@"circle_name"];
-    cell.post_title.text = dic[@"post_title"];
-    cell.post_content.text = dic[@"post_content"];
     
-    [cell.post_title rowSpace:2];
-    cell.post_content.rowspace   = 6;
-
-    
+    MBTopPostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBTopPostCell" forIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath];
+    [cell uiedgeInsetsZero];
     return cell;
+    
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-     NSDictionary *dic = _dataArray[indexPath.row];
+    NSDictionary *dic = _dataArray[indexPath.row];
     MBPostDetailsViewController *VC = [[MBPostDetailsViewController   alloc] init];
     VC.post_id = dic[@"post_id"];
     [self pushViewController:VC Animated:YES];

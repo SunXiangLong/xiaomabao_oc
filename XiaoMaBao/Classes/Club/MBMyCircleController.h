@@ -9,7 +9,8 @@
 #import "BkBaseViewController.h"
 
 @interface MBMyCircleController : BkBaseViewController
-@property (nonatomic, strong) RACSubject *myCircleViewSubject;
+
+@property (copy ,nonatomic) void (^block)(NSInteger num);
 /**
  *  是否从下一个界面返回
  */

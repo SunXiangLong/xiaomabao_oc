@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.noLable.hidden = YES;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -21,17 +21,31 @@
 
     // Configure the view for the selected state
 }
+-(void)setDataDic:(NSDictionary *)dataDic{
+    _dataDic = dataDic;
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (sid&&_indexPath.section == 0 ) {
+        self.user_button.selected = YES;
+    }else{
+        self.user_button.selected = NO;
+    }
+    self.user_name.text = dataDic[@"circle_name"];
+    self.user_center.text = dataDic[@"circle_desc"];
+    [self.user_image sd_setImageWithURL:[NSURL URLWithString:dataDic[@"circle_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+}
 - (IBAction)touch:(id)sender {
     
-        [self.myCircleCellSubject  sendNext:_indexPath];
+    
+    self.buttonClick(_indexPath);
+   
 }
-- (RACSubject *)myCircleCellSubject {
+-(void)cellButtonClick:(void (^)(NSIndexPath *))index{
+
+    index(_indexPath);
+}
+- (CGSize)sizeThatFits:(CGSize)size {
+  
     
-    if (!_myCircleCellSubject) {
-        
-        _myCircleCellSubject = [RACSubject subject];
-    }
-    
-    return _myCircleCellSubject;
+    return CGSizeMake(size.width, 64);
 }
 @end

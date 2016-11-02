@@ -78,7 +78,6 @@
     [super viewDidLoad];
     
     [self.navBar removeFromSuperview];
-    
     [self setData];
     
 }
@@ -165,7 +164,8 @@
             });
             
 
-            [_tableView reloadData];
+            self.tableView.delegate = self;
+            self.tableView.dataSource = self;
 
         }
         

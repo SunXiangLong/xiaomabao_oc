@@ -138,8 +138,6 @@
     return footerView;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
     MBArticleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBArticleViewCell"];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;

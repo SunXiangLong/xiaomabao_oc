@@ -35,6 +35,7 @@
     #import "Unicall.h"
     #import "iCarousel.h"
     #import "DateTools.h"
+#import "UITableViewCell+MBBottomLine.h"
 #import <ShareSDK/ShareSDK.h>
 #import <JSPatch/JSPatch.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>

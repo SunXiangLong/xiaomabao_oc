@@ -17,7 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *image1;
 @property (weak, nonatomic) IBOutlet UIImageView *image2;
 @property (weak, nonatomic) IBOutlet UIImageView *image3;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeight;
 @property (nonatomic,strong) NSArray *imageArray;
 @property (nonatomic,strong) NSArray *array;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeight;
+@property(copy,nonatomic)NSDictionary *dataDic;
 @end

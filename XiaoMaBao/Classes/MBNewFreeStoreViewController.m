@@ -51,7 +51,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navBar removeFromSuperview];
-   
+    
 
     [_collectionView registerNib:[UINib nibWithNibName:@"MBAffordablePlanetViewCell" bundle:nil] forCellWithReuseIdentifier:@"MBAffordablePlanetViewCell"];
     [_collectionView registerNib:[UINib nibWithNibName:@"MBMBAffordablePlanetOneChildeOneCell" bundle:nil] forCellWithReuseIdentifier:@"MBMBAffordablePlanetOneChildeOneCell"];

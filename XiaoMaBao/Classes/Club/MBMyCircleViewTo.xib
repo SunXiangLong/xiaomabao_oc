@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -8,63 +8,82 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MBMyCircleViewTo">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+        <view contentMode="scaleToFill" id="sdk-7x-mOi" customClass="MBMyCircleViewTo">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="41"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FcY-4f-mwu">
-                    <state key="normal" image="mm_story"/>
-                    <connections>
-                        <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="C2I-lE-vcf"/>
-                    </connections>
-                </button>
-                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kax-iL-MkS">
-                    <state key="normal" image="mm_expertarticle"/>
-                    <connections>
-                        <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="6n7-kH-RYL"/>
-                    </connections>
-                </button>
-                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhS-CJ-Ac7">
-                    <state key="normal" image="mm_postcollect"/>
-                    <connections>
-                        <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="gNV-A0-Uqo"/>
-                    </connections>
-                </button>
-                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZ5-pt-bs1">
-                    <state key="normal" image="mm_articleCollect"/>
-                    <connections>
-                        <action selector="touch:" destination="iN0-l3-epB" eventType="touchUpInside" id="H7z-Fu-wNg"/>
-                    </connections>
-                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XZC-Nc-SeI">
+                    <color key="backgroundColor" red="0.92549019610000005" green="0.92941176469999998" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="10" id="iTF-SJ-WAn"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ga-qo-gwV">
+                    <attributedString key="attributedText">
+                        <fragment content="我的麻包圈（ ">
+                            <attributes>
+                                <color key="NSColor" red="0.3411764705882353" green="0.36078431372549019" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="16" name="MicrosoftYaHei"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSb-Gv-hL0">
+                    <attributedString key="attributedText">
+                        <fragment content="0">
+                            <attributes>
+                                <color key="NSColor" red="0.83921568627450982" green="0.38431372549019605" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="16" name="MicrosoftYaHei"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvH-Dg-tHc">
+                    <attributedString key="attributedText">
+                        <fragment content=" ）">
+                            <attributes>
+                                <color key="NSColor" red="0.3411764705882353" green="0.36078431372549019" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="16" name="MicrosoftYaHei"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GDM-sO-hpK">
+                    <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Ned-vI-sFZ"/>
+                    </constraints>
+                </imageView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="FcY-4f-mwu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3IG-OK-0Bi"/>
-                <constraint firstAttribute="bottom" secondItem="FcY-4f-mwu" secondAttribute="bottom" id="7vN-Nj-w3s"/>
-                <constraint firstItem="NhS-CJ-Ac7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="83q-6O-TPy"/>
-                <constraint firstAttribute="bottom" secondItem="Kax-iL-MkS" secondAttribute="bottom" id="88O-2j-qj8"/>
-                <constraint firstAttribute="bottom" secondItem="NZ5-pt-bs1" secondAttribute="bottom" id="B34-Qw-iPG"/>
-                <constraint firstItem="Kax-iL-MkS" firstAttribute="width" secondItem="FcY-4f-mwu" secondAttribute="width" id="C5u-Ui-dJn"/>
-                <constraint firstItem="NZ5-pt-bs1" firstAttribute="width" secondItem="Kax-iL-MkS" secondAttribute="width" id="FnM-Uv-ZWE"/>
-                <constraint firstItem="NhS-CJ-Ac7" firstAttribute="leading" secondItem="NZ5-pt-bs1" secondAttribute="trailing" id="Vzl-pF-aAd"/>
-                <constraint firstItem="Kax-iL-MkS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="X6a-WN-iI4"/>
-                <constraint firstItem="Kax-iL-MkS" firstAttribute="leading" secondItem="FcY-4f-mwu" secondAttribute="trailing" id="XL4-TT-BqL"/>
-                <constraint firstAttribute="bottom" secondItem="NhS-CJ-Ac7" secondAttribute="bottom" id="YMB-je-p7j"/>
-                <constraint firstItem="NZ5-pt-bs1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="aT7-iV-IUd"/>
-                <constraint firstItem="FcY-4f-mwu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="h3S-2U-iHV"/>
-                <constraint firstAttribute="trailing" secondItem="NhS-CJ-Ac7" secondAttribute="trailing" id="hvy-lg-DxN"/>
-                <constraint firstItem="NZ5-pt-bs1" firstAttribute="leading" secondItem="Kax-iL-MkS" secondAttribute="trailing" id="p3e-bx-5ul"/>
-                <constraint firstItem="NhS-CJ-Ac7" firstAttribute="width" secondItem="Kax-iL-MkS" secondAttribute="width" id="tug-Hz-O5W"/>
+                <constraint firstItem="gvH-Dg-tHc" firstAttribute="centerY" secondItem="1Ga-qo-gwV" secondAttribute="centerY" id="4PF-ge-QFj"/>
+                <constraint firstItem="gSb-Gv-hL0" firstAttribute="leading" secondItem="1Ga-qo-gwV" secondAttribute="trailing" id="Box-GV-uLr"/>
+                <constraint firstAttribute="trailing" secondItem="XZC-Nc-SeI" secondAttribute="trailing" id="G1M-ej-KeQ"/>
+                <constraint firstItem="1Ga-qo-gwV" firstAttribute="leading" secondItem="sdk-7x-mOi" secondAttribute="leading" constant="10" id="K5y-QE-WNT"/>
+                <constraint firstItem="1Ga-qo-gwV" firstAttribute="centerY" secondItem="sdk-7x-mOi" secondAttribute="centerY" constant="5" id="UTn-z2-8WC"/>
+                <constraint firstAttribute="bottom" secondItem="GDM-sO-hpK" secondAttribute="bottom" id="YpG-ah-i61"/>
+                <constraint firstItem="gSb-Gv-hL0" firstAttribute="centerY" secondItem="1Ga-qo-gwV" secondAttribute="centerY" id="Zk4-74-iwG"/>
+                <constraint firstItem="XZC-Nc-SeI" firstAttribute="top" secondItem="sdk-7x-mOi" secondAttribute="top" id="fmh-zX-YpU"/>
+                <constraint firstItem="gvH-Dg-tHc" firstAttribute="leading" secondItem="gSb-Gv-hL0" secondAttribute="trailing" id="j2D-S4-EiV"/>
+                <constraint firstAttribute="trailing" secondItem="GDM-sO-hpK" secondAttribute="trailing" id="oyF-xB-ffu"/>
+                <constraint firstItem="XZC-Nc-SeI" firstAttribute="leading" secondItem="sdk-7x-mOi" secondAttribute="leading" id="u8o-yF-wKC"/>
+                <constraint firstItem="GDM-sO-hpK" firstAttribute="leading" secondItem="sdk-7x-mOi" secondAttribute="leading" id="xVr-35-xbI"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="324" y="-25"/>
+            <connections>
+                <outlet property="endLable" destination="gvH-Dg-tHc" id="JEU-UD-eCh"/>
+                <outlet property="myCircleLabel" destination="1Ga-qo-gwV" id="wa5-MG-Z1I"/>
+                <outlet property="myNumberLabel" destination="gSb-Gv-hL0" id="9W6-Ge-OHh"/>
+            </connections>
+            <point key="canvasLocation" x="-2823.1999999999998" y="-2224.1379310344828"/>
         </view>
     </objects>
-    <resources>
-        <image name="mm_articleCollect" width="50" height="55"/>
-        <image name="mm_expertarticle" width="50" height="55"/>
-        <image name="mm_postcollect" width="50" height="55"/>
-        <image name="mm_story" width="50" height="55"/>
-    </resources>
 </document>

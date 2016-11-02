@@ -586,7 +586,8 @@
     
     
 }
-
+- (void)service{
+}
 #pragma mark - <UICollectionViewDataSource>
 - (void)catergoryView:(XWCatergoryView *)catergoryView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {

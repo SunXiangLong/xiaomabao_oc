@@ -19,7 +19,7 @@
 #import "MBNewFreeStoreViewController.h"
 #import "MBNewAffordablePlanetViewController.h"
 #import "DataSigner.h"
-#import "MBMaBaoFeaturesCollectionViewController.h"
+#import "MBMaBaoFeaturesViewController.h"
 @interface MBNewHomeViewController ()<UIScrollViewDelegate,UnicallDelegate>
 {
     
@@ -99,7 +99,7 @@
     [self addChildViewController:VC2];
     
     
-    MBMaBaoFeaturesCollectionViewController *VC3 =   [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBMaBaoFeaturesCollectionViewController"];
+    MBMaBaoFeaturesViewController *VC3 =   [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBMaBaoFeaturesViewController"];
     VC3.title = @"麻包特色";
     VC3.rootVC = self;
     [self addChildViewController:VC3];
@@ -149,7 +149,7 @@
     
     UIScrollView *scrollView = [[UIScrollView alloc] init];
     scrollView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y -49);
-    scrollView.backgroundColor = [UIColor colorWithHexString:@"ececef"];
+    scrollView.backgroundColor = [UIColor whiteColor];
     scrollView.delegate = self;
     scrollView.pagingEnabled = YES;
     scrollView.showsHorizontalScrollIndicator = NO;

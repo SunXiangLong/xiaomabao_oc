@@ -41,14 +41,11 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBNewCanulcircleController"];
     _isDismiss = YES;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBNewCanulcircleController"];
-    
     NSString *messageNumber = [User_Defaults objectForKey:@"messageNumber"];
     
     
@@ -131,16 +128,16 @@
     
 }
 - (void)setupChildVcs{
+    MBMyCircleController *VC3 =   [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBMyCircleController"];
     
-    MBMyCircleController *VC3 = [[MBMyCircleController alloc] init];
     VC3.title = @"我的圈";
     [self addChildViewController:VC3];
     
-    MBTopPostsController *VC1 = [[MBTopPostsController alloc] init];
+    MBTopPostsController *VC1 =  [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBTopPostsController"];
     VC1.title = @"热帖";
     [self addChildViewController:VC1];
     
-    MBMoreCirclesController *VC2 = [[MBMoreCirclesController alloc] init];
+    MBMoreCirclesController *VC2 = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBMoreCirclesController"];
     VC2.title = @"更多圈";
     [self addChildViewController:VC2];
     
@@ -177,16 +174,23 @@
     MBMyCircleController    *myCircleView = self.childViewControllers[0];
     
     if (idx==2) {
-        
-        [moreCirclesView.myCircleViewSubject  sendNext:@1];
+        if (moreCirclesView.block) {
+             moreCirclesView.block(1);
+        }
+       
+       
     }else{
         if (moreCirclesView.isViewLoaded) {
-            [moreCirclesView.myCircleViewSubject  sendNext:@0];
+             moreCirclesView.block(0);
+            
         }
     }
     
     if (idx == 0) {
-        [myCircleView.myCircleViewSubject  sendNext:@1];
+        if (myCircleView.block) {
+            myCircleView.block(1);
+        }
+        
     }
     CGPoint offset = self.scrollView.contentOffset;
     offset.x = UISCREEN_WIDTH*idx;
@@ -195,17 +199,17 @@
 - (void)setupScrollView
 {
     // 不要自动调整scrollView的contentInset
-    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIScrollView *scrollView = [[UIScrollView alloc] init];
-    scrollView.frame = CGRectMake(0,TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y -49);
-    scrollView.backgroundColor = [UIColor colorWithHexString:@"ececef"];
+    scrollView.frame = CGRectMake(0,TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y-49);
+    scrollView.backgroundColor = [UIColor whiteColor];
     scrollView.delegate = self;
     scrollView.pagingEnabled = YES;
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.contentSize = CGSizeMake(self.childViewControllers.count * UISCREEN_WIDTH, 0);
     [self.view addSubview:scrollView];
-    self.scrollView                   = scrollView;
+    self.scrollView            = scrollView;
     
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
@@ -283,6 +287,7 @@
         view.MinView = self.view;
     }
     willShowChildVc.view.frame = scrollView.bounds;
+    
     [scrollView addSubview:willShowChildVc.view];
     
 }

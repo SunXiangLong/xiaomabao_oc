@@ -10,6 +10,6 @@
 
 @interface MBMoreCirclesController : BkBaseViewController
 @property (nonatomic ,strong) UIView *MinView;
+@property (copy ,nonatomic) void (^block)(NSInteger num);
 
-@property (nonatomic, strong) RACSubject *myCircleViewSubject;
 @end

@@ -16,5 +16,8 @@
  */
 + (instancetype)instanceView;
 
-@property (nonatomic, strong) RACSubject *myCircleViewSubject;
+
+@property (weak, nonatomic) IBOutlet UILabel *myCircleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *myNumberLabel;
+@property (weak, nonatomic) IBOutlet UILabel *endLable;
 @end
