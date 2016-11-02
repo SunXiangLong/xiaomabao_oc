@@ -12,6 +12,7 @@
 #import "MBPayResultsFootView.h"
 #import "MBServiceShopsViewController.h"
 #import "MBServiceOrderController.h"
+#import "MBMyServiceController.h"
 @interface MBPayResultsController ()
 {
     NSDictionary *_dataDic;
@@ -116,7 +117,7 @@ return @"完成";
 -(void)rightTitleClick{
     
     for (BkBaseViewController *VC in self.navigationController.viewControllers) {
-        if ([VC isKindOfClass:[MBServiceShopsViewController class]]) {
+        if ([VC isKindOfClass:[MBServiceShopsViewController class]] || [VC isKindOfClass:[MBMyServiceController class]]) {
             [self.navigationController popToViewController:VC animated:YES];
             
             NSNotification *notification =[NSNotification notificationWithName:@"HYTPopViewControllerNotification" object:nil userInfo:nil];

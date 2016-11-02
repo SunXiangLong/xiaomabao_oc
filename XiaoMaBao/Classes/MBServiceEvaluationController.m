@@ -82,7 +82,7 @@
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
             [self show:@"发表成功" time:1];
-            MBEvaluationSuccessController *VC = [[MBEvaluationSuccessController alloc] init];
+            MBEvaluationSuccessController *VC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBEvaluationSuccessController"];
             
             [self pushViewController:VC Animated:YES];
         }else{

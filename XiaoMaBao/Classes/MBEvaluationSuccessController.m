@@ -22,21 +22,10 @@
 @end
 
 @implementation MBEvaluationSuccessController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBEvaluationSuccessController"];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBEvaluationSuccessController"];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     _storeData = [NSMutableArray array];
+    self.tabelView.tableFooterView = [[UIView alloc] init];
     _page = 1;
     [self setheadData];
     [self setRefresh];
@@ -115,8 +104,10 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
-    return 2;
+    if (_storeData.count >0 ) {
+        return 2;
+    }
+    return 0;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section==0 ) {
@@ -127,32 +118,35 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
    
     if (indexPath.section == 0) {
-        return 179;
+        return [tableView fd_heightForCellWithIdentifier:@"MBEvaluationSuccessCell" cacheByIndexPath:indexPath configuration:^(MBEvaluationSuccessCell *cell) {
+            [self configureCell:cell atIndexPath:indexPath];
+            
+        }];
     }
-    NSDictionary    *dic = _storeData[indexPath.row];
-    NSString *str = dic[@"shop_desc"];
-    CGFloat strHeight = [str sizeWithFont:[UIFont systemFontOfSize:14] withMaxSize:CGSizeMake(UISCREEN_WIDTH-62, MAXFLOAT)].height;
-    return 80+strHeight;
+    return [tableView fd_heightForCellWithIdentifier:@"MBServiceHomeCell" cacheByIndexPath:indexPath configuration:^(MBServiceHomeCell *cell) {
+        [self configureCell:cell atIndexPath:indexPath];
+        
+    }];
+}
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    cell.fd_enforceFrameLayout = YES;
+    if (indexPath.section != 0) {
+        MBServiceHomeCell *newcell = (MBServiceHomeCell *)cell;
+        newcell.dataDic = _storeData[indexPath.row];
+
+    }
+    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 0) {
-        MBEvaluationSuccessCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBEvaluationSuccessCell"];
-        if (!cell) {
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBEvaluationSuccessCell" owner:nil options:nil]firstObject];
-        }
+        MBEvaluationSuccessCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBEvaluationSuccessCell" forIndexPath:indexPath];
+        [self configureCell:cell atIndexPath:indexPath];
         return cell;
     }
-    NSDictionary    *dic = _storeData[indexPath.row];
-    MBServiceHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceHomeCell"];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBServiceHomeCell" owner:nil options:nil]firstObject];
-    }
-    [cell.user_image sd_setImageWithURL:[NSURL URLWithString:dic[@"shop_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-    cell.name.text = dic[@"shop_name"];
-    cell.neirong.text = dic[@"shop_desc"];
-    cell.adress.text = dic[@"shop_nearby_subway"];
-    
+    MBServiceHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceHomeCell" forIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath];
+    [cell uiedgeInsetsZero];
     return cell;
     
 }

@@ -208,9 +208,7 @@
 		941BA9581CB362CA00421BF6 /* MBServiceEvaluationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941BA9561CB362CA00421BF6 /* MBServiceEvaluationController.m */; };
 		941BA9591CB362CA00421BF6 /* MBServiceEvaluationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 941BA9571CB362CA00421BF6 /* MBServiceEvaluationController.xib */; };
 		941BA95D1CB370B800421BF6 /* MBEvaluationSuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941BA95B1CB370B800421BF6 /* MBEvaluationSuccessController.m */; };
-		941BA95E1CB370B800421BF6 /* MBEvaluationSuccessController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 941BA95C1CB370B800421BF6 /* MBEvaluationSuccessController.xib */; };
 		941BA9621CB3843900421BF6 /* MBEvaluationSuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 941BA9601CB3843900421BF6 /* MBEvaluationSuccessCell.m */; };
-		941BA9631CB3843900421BF6 /* MBEvaluationSuccessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 941BA9611CB3843900421BF6 /* MBEvaluationSuccessCell.xib */; };
 		941BA9671CB38E2600421BF6 /* MBUserEvaluationListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941BA9651CB38E2600421BF6 /* MBUserEvaluationListController.m */; };
 		941BA9681CB38E2600421BF6 /* MBUserEvaluationListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 941BA9661CB38E2600421BF6 /* MBUserEvaluationListController.xib */; };
 		941BA96A1CB390A600421BF6 /* MBUserEvaluationListTableHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 941BA9691CB390A600421BF6 /* MBUserEvaluationListTableHeadView.xib */; };
@@ -359,17 +357,14 @@
 		944AFCBF1CBBA2D800E66535 /* MBServiceRefundFootCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 944AFCBD1CBBA2D800E66535 /* MBServiceRefundFootCell.m */; };
 		944AFCC01CBBA2D800E66535 /* MBServiceRefundFootCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944AFCBE1CBBA2D800E66535 /* MBServiceRefundFootCell.xib */; };
 		944BB0511CAD0FCE00D16E19 /* MBServiceHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 944BB04F1CAD0FCE00D16E19 /* MBServiceHomeCell.m */; };
-		944BB0521CAD0FCE00D16E19 /* MBServiceHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944BB0501CAD0FCE00D16E19 /* MBServiceHomeCell.xib */; };
 		944BB0561CAD187900D16E19 /* MBServiceDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944BB0541CAD187900D16E19 /* MBServiceDetailsViewController.m */; };
 		944BB0571CAD187900D16E19 /* MBServiceDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944BB0551CAD187900D16E19 /* MBServiceDetailsViewController.xib */; };
 		944BB05B1CAD287000D16E19 /* MBServiceShopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944BB0591CAD287000D16E19 /* MBServiceShopsViewController.m */; };
-		944BB05C1CAD287000D16E19 /* MBServiceShopsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944BB05A1CAD287000D16E19 /* MBServiceShopsViewController.xib */; };
 		944BB05F1CAD2ACE00D16E19 /* MBServiceShopsHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944BB05E1CAD2ACE00D16E19 /* MBServiceShopsHeadView.m */; };
 		944BB0611CAD2AE100D16E19 /* MBServiceShopsHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944BB0601CAD2AE100D16E19 /* MBServiceShopsHeadView.xib */; };
 		944BB0641CAD398000D16E19 /* MBServiceShopsTableHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944BB0631CAD398000D16E19 /* MBServiceShopsTableHeadView.m */; };
 		944BB0661CAD399000D16E19 /* MBServiceShopsTableHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944BB0651CAD399000D16E19 /* MBServiceShopsTableHeadView.xib */; };
 		944BB06A1CAD3BF400D16E19 /* MBServiceShopsOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 944BB0681CAD3BF400D16E19 /* MBServiceShopsOneCell.m */; };
-		944BB06B1CAD3BF400D16E19 /* MBServiceShopsOneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944BB0691CAD3BF400D16E19 /* MBServiceShopsOneCell.xib */; };
 		944BB06E1CAD3E1500D16E19 /* MBServiceShopsTableFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944BB06D1CAD3E1500D16E19 /* MBServiceShopsTableFootView.m */; };
 		944BB0701CAD3E2400D16E19 /* MBServiceShopsTableFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944BB06F1CAD3E2400D16E19 /* MBServiceShopsTableFootView.xib */; };
 		944BBB601CF53AE300B9492E /* MBAffordablePlanetViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 944BBB5D1CF53AE300B9492E /* MBAffordablePlanetViewCell.h */; };
@@ -1049,10 +1044,8 @@
 		941BA9571CB362CA00421BF6 /* MBServiceEvaluationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBServiceEvaluationController.xib; sourceTree = "<group>"; };
 		941BA95A1CB370B800421BF6 /* MBEvaluationSuccessController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEvaluationSuccessController.h; sourceTree = "<group>"; };
 		941BA95B1CB370B800421BF6 /* MBEvaluationSuccessController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBEvaluationSuccessController.m; sourceTree = "<group>"; };
-		941BA95C1CB370B800421BF6 /* MBEvaluationSuccessController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBEvaluationSuccessController.xib; sourceTree = "<group>"; };
 		941BA95F1CB3843900421BF6 /* MBEvaluationSuccessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEvaluationSuccessCell.h; sourceTree = "<group>"; };
 		941BA9601CB3843900421BF6 /* MBEvaluationSuccessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBEvaluationSuccessCell.m; sourceTree = "<group>"; };
-		941BA9611CB3843900421BF6 /* MBEvaluationSuccessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBEvaluationSuccessCell.xib; sourceTree = "<group>"; };
 		941BA9641CB38E2600421BF6 /* MBUserEvaluationListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBUserEvaluationListController.h; sourceTree = "<group>"; };
 		941BA9651CB38E2600421BF6 /* MBUserEvaluationListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBUserEvaluationListController.m; sourceTree = "<group>"; };
 		941BA9661CB38E2600421BF6 /* MBUserEvaluationListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBUserEvaluationListController.xib; sourceTree = "<group>"; };
@@ -1235,13 +1228,11 @@
 		944AFCBE1CBBA2D800E66535 /* MBServiceRefundFootCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBServiceRefundFootCell.xib; sourceTree = "<group>"; };
 		944BB04E1CAD0FCE00D16E19 /* MBServiceHomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceHomeCell.h; sourceTree = "<group>"; };
 		944BB04F1CAD0FCE00D16E19 /* MBServiceHomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceHomeCell.m; sourceTree = "<group>"; };
-		944BB0501CAD0FCE00D16E19 /* MBServiceHomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBServiceHomeCell.xib; sourceTree = "<group>"; };
 		944BB0531CAD187900D16E19 /* MBServiceDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceDetailsViewController.h; sourceTree = "<group>"; };
 		944BB0541CAD187900D16E19 /* MBServiceDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceDetailsViewController.m; sourceTree = "<group>"; };
 		944BB0551CAD187900D16E19 /* MBServiceDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBServiceDetailsViewController.xib; sourceTree = "<group>"; };
 		944BB0581CAD287000D16E19 /* MBServiceShopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceShopsViewController.h; sourceTree = "<group>"; };
 		944BB0591CAD287000D16E19 /* MBServiceShopsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceShopsViewController.m; sourceTree = "<group>"; };
-		944BB05A1CAD287000D16E19 /* MBServiceShopsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBServiceShopsViewController.xib; sourceTree = "<group>"; };
 		944BB05D1CAD2ACE00D16E19 /* MBServiceShopsHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceShopsHeadView.h; sourceTree = "<group>"; };
 		944BB05E1CAD2ACE00D16E19 /* MBServiceShopsHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceShopsHeadView.m; sourceTree = "<group>"; };
 		944BB0601CAD2AE100D16E19 /* MBServiceShopsHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBServiceShopsHeadView.xib; sourceTree = "<group>"; };
@@ -1250,7 +1241,6 @@
 		944BB0651CAD399000D16E19 /* MBServiceShopsTableHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBServiceShopsTableHeadView.xib; sourceTree = "<group>"; };
 		944BB0671CAD3BF400D16E19 /* MBServiceShopsOneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceShopsOneCell.h; sourceTree = "<group>"; };
 		944BB0681CAD3BF400D16E19 /* MBServiceShopsOneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceShopsOneCell.m; sourceTree = "<group>"; };
-		944BB0691CAD3BF400D16E19 /* MBServiceShopsOneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBServiceShopsOneCell.xib; sourceTree = "<group>"; };
 		944BB06C1CAD3E1500D16E19 /* MBServiceShopsTableFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceShopsTableFootView.h; sourceTree = "<group>"; };
 		944BB06D1CAD3E1500D16E19 /* MBServiceShopsTableFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceShopsTableFootView.m; sourceTree = "<group>"; };
 		944BB06F1CAD3E2400D16E19 /* MBServiceShopsTableFootView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBServiceShopsTableFootView.xib; sourceTree = "<group>"; };
@@ -2633,7 +2623,6 @@
 				944AFCBA1CBB996200E66535 /* MBServiceHomeViewController.m */,
 				944BB0581CAD287000D16E19 /* MBServiceShopsViewController.h */,
 				944BB0591CAD287000D16E19 /* MBServiceShopsViewController.m */,
-				944BB05A1CAD287000D16E19 /* MBServiceShopsViewController.xib */,
 				944BB0531CAD187900D16E19 /* MBServiceDetailsViewController.h */,
 				944BB0541CAD187900D16E19 /* MBServiceDetailsViewController.m */,
 				944BB0551CAD187900D16E19 /* MBServiceDetailsViewController.xib */,
@@ -2648,7 +2637,6 @@
 				941BA9571CB362CA00421BF6 /* MBServiceEvaluationController.xib */,
 				941BA95A1CB370B800421BF6 /* MBEvaluationSuccessController.h */,
 				941BA95B1CB370B800421BF6 /* MBEvaluationSuccessController.m */,
-				941BA95C1CB370B800421BF6 /* MBEvaluationSuccessController.xib */,
 				941BA9641CB38E2600421BF6 /* MBUserEvaluationListController.h */,
 				941BA9651CB38E2600421BF6 /* MBUserEvaluationListController.m */,
 				941BA9661CB38E2600421BF6 /* MBUserEvaluationListController.xib */,
@@ -2682,7 +2670,6 @@
 			children = (
 				944BB04E1CAD0FCE00D16E19 /* MBServiceHomeCell.h */,
 				944BB04F1CAD0FCE00D16E19 /* MBServiceHomeCell.m */,
-				944BB0501CAD0FCE00D16E19 /* MBServiceHomeCell.xib */,
 				944BB05D1CAD2ACE00D16E19 /* MBServiceShopsHeadView.h */,
 				944BB05E1CAD2ACE00D16E19 /* MBServiceShopsHeadView.m */,
 				944BB0601CAD2AE100D16E19 /* MBServiceShopsHeadView.xib */,
@@ -2694,7 +2681,6 @@
 				944BB06F1CAD3E2400D16E19 /* MBServiceShopsTableFootView.xib */,
 				944BB0671CAD3BF400D16E19 /* MBServiceShopsOneCell.h */,
 				944BB0681CAD3BF400D16E19 /* MBServiceShopsOneCell.m */,
-				944BB0691CAD3BF400D16E19 /* MBServiceShopsOneCell.xib */,
 				943E81341CAE266E00DDD09C /* MBUserEvaluationCell.h */,
 				943E81351CAE266E00DDD09C /* MBUserEvaluationCell.m */,
 				943E81361CAE266E00DDD09C /* MBUserEvaluationCell.xib */,
@@ -2702,7 +2688,6 @@
 				941BA9531CB355FD00421BF6 /* WLZ_ChangeCountView.m */,
 				941BA95F1CB3843900421BF6 /* MBEvaluationSuccessCell.h */,
 				941BA9601CB3843900421BF6 /* MBEvaluationSuccessCell.m */,
-				941BA9611CB3843900421BF6 /* MBEvaluationSuccessCell.xib */,
 				941BA96B1CB390B700421BF6 /* MBUserEvaluationListTableHeadView.h */,
 				941BA96C1CB390B700421BF6 /* MBUserEvaluationListTableHeadView.m */,
 				941BA9691CB390A600421BF6 /* MBUserEvaluationListTableHeadView.xib */,
@@ -4014,10 +3999,8 @@
 				9F2546D01BC8B75C00BA0076 /* MBHomeCategoryCell.xib in Resources */,
 				948E1B931C3B8FFE00D19097 /* btn_close_normal.png in Resources */,
 				9463A2D31C7C2B4D00B30892 /* orderHeadView.xib in Resources */,
-				941BA9631CB3843900421BF6 /* MBEvaluationSuccessCell.xib in Resources */,
 				9480D6161C47A0FA00C4A891 /* coupon_disable.jpg in Resources */,
 				944BB0571CAD187900D16E19 /* MBServiceDetailsViewController.xib in Resources */,
-				944BB05C1CAD287000D16E19 /* MBServiceShopsViewController.xib in Resources */,
 				945B4C841D1A403F00BBBD00 /* MBNewAffordablePlanetViewController.xib in Resources */,
 				941BA9721CB3AB7600421BF6 /* MBUserEvaluationListCell.xib in Resources */,
 				94D77CA91C994AC000748227 /* MBFreeStoreViewController.xib in Resources */,
@@ -4124,7 +4107,6 @@
 				9478D3F01D1B7A7E0059D9C2 /* MBDindingBabyCardController.xib in Resources */,
 				94FA706C1CE0314A00BCC364 /* MBDetailsCircleController.xib in Resources */,
 				944BB0611CAD2AE100D16E19 /* MBServiceShopsHeadView.xib in Resources */,
-				944BB06B1CAD3BF400D16E19 /* MBServiceShopsOneCell.xib in Resources */,
 				946AE54A1CA50A1D00F3F66C /* MyAddressManager_delete_new@2x.png in Resources */,
 				944BBB621CF53AE300B9492E /* MBAffordablePlanetViewCell.xib in Resources */,
 				944BBB681CF5400C00B9492E /* MBAffordablePlanetMoreCell.xib in Resources */,
@@ -4139,7 +4121,6 @@
 				941CCD311CB3D1CC0056890C /* MBMBMyServiceChilderCell.xib in Resources */,
 				94DD62AE1C33A87F00060C35 /* MBEvaluationTableViewCell.xib in Resources */,
 				943ED8101CCF7655005AF4D9 /* MBIDCardCell.xib in Resources */,
-				941BA95E1CB370B800421BF6 /* MBEvaluationSuccessController.xib in Resources */,
 				9496D3BF1CA3E0C400743586 /* MBNewAddressViewController.xib in Resources */,
 				94DB1E121CE5718000ADAE9D /* MBSearchPostController.xib in Resources */,
 				94EBB0101C328D7600466E92 /* MBEvaluationViewView.xib in Resources */,
@@ -4170,7 +4151,6 @@
 				94E272171CFEB1F000172511 /* MBNewBabyHeadView.xib in Resources */,
 				943227421C9A738E00E352AB /* MBFreeStoreViewOnechildCell.xib in Resources */,
 				941D8EA21D378CCD00E60972 /* MBPostDetailsFooterTwo.xib in Resources */,
-				944BB0521CAD0FCE00D16E19 /* MBServiceHomeCell.xib in Resources */,
 				941BCEAE1D64083D00B4C67E /* MBArticleViewCell.xib in Resources */,
 				94CD32A31CC5E97A00D1D763 /* succes_image@2x.png in Resources */,
 				941BCEB41D64394D00B4C67E /* MBVoiceViewCell.xib in Resources */,

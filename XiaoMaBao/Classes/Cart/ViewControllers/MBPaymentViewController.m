@@ -5,6 +5,7 @@
 //  Created by 张磊 on 15/6/2.
 //  Copyright (c) 2015年 MakeZL. All rights reserved.
 //
+
 #import "MBPaymentViewController.h"
 #import "MBSignaltonTool.h"
 #import "MBNetworking.h"
@@ -446,6 +447,9 @@
         [WXApi sendReq:req];
         
     }
+}
+-(NSString *)titleStr{
+    return @"支付方式";
 }
 
 -(void)AlipayPay:(NSNotification *)notif

@@ -12,23 +12,26 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.user_image .contentMode =  UIViewContentModeScaleAspectFill;
-    self.user_image .autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.user_image .clipsToBounds  = YES;
-    
-    self.user_city .contentMode =  UIViewContentModeScaleAspectFill;
-    self.user_city .autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.user_city .clipsToBounds  = YES;
-    
-    self.user_adressImage .contentMode =  UIViewContentModeScaleAspectFill;
-    self.user_adressImage .autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.user_adressImage .clipsToBounds  = YES;
+
 }
+-(void)setDataDic:(NSDictionary *)dataDic{
+    _dataDic = dataDic;
+    [self.shop_logo sd_setImageWithURL:[NSURL URLWithString:dataDic[@"shop_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+    self.shop_name.text = dataDic[@"shop_name"];
+    self.shop_desc.text = dataDic[@"shop_desc"];
+    self.shop_address.text = dataDic[@"shop_nearby_subway"];
+    self.shop_city.text  = dataDic[@"shop_city"];
+    self.shop_desc.rowspace = 6;
+}
+- (CGSize)sizeThatFits:(CGSize)size {
+    CGFloat totalHeight = 0;
+    
+    totalHeight += [self.shop_name sizeThatFits:size].height;
+    totalHeight += [self.shop_desc sizeThatFits:size].height;
+    totalHeight += [self.shop_city sizeThatFits:size].height;
+    totalHeight += 50;
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    return CGSizeMake(size.width, totalHeight);
 }
 
 @end

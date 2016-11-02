@@ -26,20 +26,11 @@
 @end
 
 @implementation MBServiceShopsViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBServiceShopsViewController"];
-}
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBServiceShopsViewController"];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.tableFooterView = [[UIView alloc] init];
     [self setheadData];
     
     
@@ -85,7 +76,7 @@
         [self dismiss];
         if ([responseObject count]>0) {
             
-            MMLog(@"%@",responseObject);
+//            MMLog(@"%@",responseObject);
             _dataDic = responseObject;
             self.tableView.tableHeaderView = [self setTableHeadView];
             _dataArr = @[_dataDic[@"products"],_dataDic[@"comment"],_dataDic[@"other_shop"]];
@@ -155,7 +146,10 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.section) {
-        case 0: return 85;
+        case 0:  { return [tableView fd_heightForCellWithIdentifier:@"MBServiceShopsOneCell" cacheByIndexPath:indexPath configuration:^(MBServiceShopsOneCell *cell) {
+            [self configureCell:cell atIndexPath:indexPath];
+            
+        }];}
         case 1:{
             
             NSString *str = _dataDic[@"comment"][indexPath.row][@"comment_content"];
@@ -173,11 +167,12 @@
             return 71+strHeight+imageHeight;
         }
         default:{
-            NSDictionary    *dic = _dataDic[@"other_shop"][indexPath.row];
-            NSString *str = dic[@"shop_desc"];
-            CGFloat strHeight = [str sizeWithFont:[UIFont systemFontOfSize:14] withMaxSize:CGSizeMake(UISCREEN_WIDTH-62, MAXFLOAT)].height;
-            
-            return 80+strHeight;}
+            return [tableView fd_heightForCellWithIdentifier:@"MBServiceHomeCell" cacheByIndexPath:indexPath configuration:^(MBServiceHomeCell *cell) {
+                [self configureCell:cell atIndexPath:indexPath];
+                
+            }];
+
+        }
     }
     
 }
@@ -258,16 +253,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-        MBServiceShopsOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceShopsOneCell"];
-        if (!cell) {
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBServiceShopsOneCell" owner:nil options:nil]firstObject];
-        }
-        cell.shop_name.text = _dataDic[@"products"][indexPath.row][@"product_name"];
-        cell.price.text =  [NSString stringWithFormat:@"门市价：%@",_dataDic[@"products"][indexPath.row][@"product_market_price"]];
-        cell.shop_price.text = [NSString stringWithFormat:@"¥ %@",_dataDic[@"products"][indexPath.row][@"product_shop_price"]];
-        [cell.showImageViw sd_setImageWithURL:[NSURL URLWithString:_dataDic[@"products"][indexPath.row][@"product_img"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-        cell .autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        cell .clipsToBounds  = YES;
+        MBServiceShopsOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceShopsOneCell" forIndexPath:indexPath];
+        [self configureCell:cell atIndexPath:indexPath];
+        [cell removeUIEdgeInsetsZero];
         return cell;
     }else if(indexPath.section==1){
         MBUserEvaluationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBUserEvaluationCell"];
@@ -287,19 +275,29 @@
         return cell;
         
     }
-    NSDictionary    *dic = _dataDic[@"other_shop"][indexPath.row];
-    MBServiceHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceHomeCell"];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBServiceHomeCell" owner:nil options:nil]firstObject];
-    }
-    [cell.user_image sd_setImageWithURL:[NSURL URLWithString:dic[@"shop_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-    cell.name.text = dic[@"shop_name"];
-    cell.neirong.text = dic[@"shop_desc"];
-    cell.adress.text = dic[@"shop_nearby_subway"];
     
+    MBServiceHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceHomeCell" forIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath];
+    [cell uiedgeInsetsZero];
     return cell;
     
+    
 }
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        MBServiceShopsOneCell *cells = (MBServiceShopsOneCell *)cell;
+        cells.dataDic = _dataDic[@"products"][indexPath.row];
+    }else if(indexPath.section == 2){
+        MBServiceHomeCell *cells = (MBServiceHomeCell *)cell;
+        cells.fd_enforceFrameLayout = YES;
+        cells.dataDic = _dataDic[@"other_shop"][indexPath.row];
+
+    }else{
+    
+    
+    }
+   }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.section) {
         case 0:{

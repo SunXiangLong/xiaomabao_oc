@@ -14,5 +14,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *shop_name;
 @property (weak, nonatomic) IBOutlet UILabel *shop_price;
 @property (weak, nonatomic) IBOutlet UILabel *price;
-
+@property(copy,nonatomic)NSDictionary *dataDic;
 @end

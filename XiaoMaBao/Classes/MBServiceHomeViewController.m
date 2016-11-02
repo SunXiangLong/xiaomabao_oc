@@ -9,25 +9,26 @@
 #import "MBServiceHomeViewController.h"
 #import "MBServiceHomeCell.h"
 #import "MBServiceShopsViewController.h"
-
-
-
 @interface MBServiceHomeViewController ()
 {
     NSInteger _page;
-    
-    NSMutableArray *_storeData;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (copy, nonatomic) NSMutableArray *storeData;
 @end
 
 @implementation MBServiceHomeViewController
 
-
+-(NSMutableArray *)storeData{
+    if (!_storeData) {
+        _storeData  = [NSMutableArray array];
+    }
+    return _storeData;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _storeData = [NSMutableArray array];
+    
+    self.tableView.tableFooterView = [[UIView alloc] init];
     _page = 1;
     [self setheadData];
     [self setRefresh];
@@ -53,10 +54,10 @@
         [self dismiss];
         
         NSArray *arr = [responseObject valueForKeyPath:@"data"];
-       
+//        MMLog(@"%@",arr);
         if ([arr count]>0) {
             
-            [_storeData addObjectsFromArray:arr];
+            [self.storeData addObjectsFromArray:arr];
             _page++;
             [self.tableView reloadData];
             // 拿到当前的上拉刷新控件，结束刷新状态
@@ -78,11 +79,13 @@
 -(NSString *)titleStr{
     return @"麻包服务";
 }
-- (void)rightTitleClick{
-    
-    
-  
-    
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+   
+    MBServiceShopsViewController *VC = (MBServiceShopsViewController *)segue.destinationViewController;
+    NSIndexPath *indexPath = (NSIndexPath *)sender;
+    NSDictionary *dic = self.storeData[indexPath.row];
+    VC.shop_id = dic[@"shop_id"];
+    VC.title = dic[@"shop_name"];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -95,34 +98,29 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return _storeData.count;
+    return self.storeData.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary    *dic = _storeData[indexPath.row];
-    NSString *str = dic[@"shop_desc"];
-    CGFloat strHeight = [str sizeWithFont:[UIFont systemFontOfSize:14] withMaxSize:CGSizeMake(UISCREEN_WIDTH-62, MAXFLOAT)].height;
-    return 80+strHeight;
+    return [tableView fd_heightForCellWithIdentifier:@"MBServiceHomeCell" cacheByIndexPath:indexPath configuration:^(MBServiceHomeCell *cell) {
+        [self configureCell:cell atIndexPath:indexPath];
+        
+    }];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary    *dic = _storeData[indexPath.row];
-    MBServiceHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceHomeCell"];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBServiceHomeCell" owner:nil options:nil]firstObject];
-    }
-    [cell.user_image sd_setImageWithURL:[NSURL URLWithString:dic[@"shop_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-    cell.name.text = dic[@"shop_name"];
-    cell.neirong.text = dic[@"shop_desc"];
-    cell.adress.text = dic[@"shop_nearby_subway"];
-    cell.user_city.text  = dic[@"shop_city"];
+    MBServiceHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceHomeCell" forIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath];
+    [cell uiedgeInsetsZero];
     return cell;
     
+    
+    
+}
+- (void)configureCell:(MBServiceHomeCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    cell.fd_enforceFrameLayout = YES;
+    cell.dataDic = self.storeData[indexPath.row];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary    *dic = _storeData[indexPath.row];
-    MBServiceShopsViewController *VC = [[MBServiceShopsViewController alloc] init];
-    VC.shop_id = dic[@"shop_id"];
-    VC.title = dic[@"shop_name"];
-    [self pushViewController:VC Animated:YES];
+    [self performSegueWithIdentifier:@"MBServiceShopsViewController" sender:indexPath];
 }
 
 

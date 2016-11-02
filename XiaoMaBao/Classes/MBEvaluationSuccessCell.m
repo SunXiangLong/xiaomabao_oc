@@ -20,5 +20,9 @@
 
     // Configure the view for the selected state
 }
+- (CGSize)sizeThatFits:(CGSize)size {
+    
 
+    return CGSizeMake(size.width, 180);
+}
 @end
