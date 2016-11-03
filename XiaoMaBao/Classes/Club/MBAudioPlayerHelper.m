@@ -7,7 +7,7 @@
 //
 
 #import "MBAudioPlayerHelper.h"
-#import <AVFoundation/AVAudioSession.h>
+#import <AVFoundation/AVFoundation.h>
 
 @implementation MBAudioPlayerHelper
 - (void)managerAudioWithFileName:(NSString*)amrName toID:(NSString *)ID {

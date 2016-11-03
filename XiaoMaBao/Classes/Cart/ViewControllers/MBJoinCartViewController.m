@@ -394,7 +394,7 @@
         attr = @"";
     }
 
-    #warning 下个版本提示后台把这个接口（获取数组的去掉） 
+     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     NSString *goodnumber = self.numberFld.text;
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/addtocart"] parameters:@{@"session":dict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":attr} success:^(NSURLSessionDataTask *operation, id responseObject) {
