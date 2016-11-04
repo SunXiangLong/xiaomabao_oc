@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,14 +12,12 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="234"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navBackcolor.png" translatesAutoresizingMaskIntoConstraints="NO" id="Tqj-RQ-smZ">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navBackcolor" translatesAutoresizingMaskIntoConstraints="NO" id="Tqj-RQ-smZ">
                     <constraints>
                         <constraint firstAttribute="height" constant="65" id="WF4-Fy-BfO"/>
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="zCB-OU-1ym">
-                    <rect key="frame" x="110" y="10" width="100" height="93"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="93" id="HZp-bc-dnq"/>
                         <constraint firstAttribute="width" constant="100" id="PIz-xM-jg1"/>
@@ -34,88 +33,79 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3GQ-R4-cEe">
-                    <rect key="frame" x="160" y="103" width="0.0" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="3XE-hk-maT"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" red="0.56470588235294117" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.56470588235294117" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="af9-b2-FcS">
-                    <rect key="frame" x="5" y="148" width="310" height="70"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hS6-eD-iSn">
-                            <rect key="frame" x="0.0" y="0.0" width="77" height="70"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <inset key="titleEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="-40"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="-18" maxX="-55" maxY="0.0"/>
                             <state key="normal" title="我的订单" image="reminders">
-                                <color key="titleColor" red="0.56470588235294117" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="0.56470588235294117" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
                                 <action selector="button:" destination="m4f-xD-GF2" eventType="touchUpInside" id="eRm-4m-R9d"/>
                             </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hDW-je-aK0">
-                            <rect key="frame" x="77" y="0.0" width="1" height="70"/>
-                            <color key="backgroundColor" red="0.67450980392156867" green="0.67843137254901964" blue="0.68235294117647061" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.67450980392156867" green="0.67843137254901964" blue="0.68235294117647061" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="LrE-pD-PjV"/>
                             </constraints>
                         </imageView>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7xG-Xu-P9n">
-                            <rect key="frame" x="155" y="0.0" width="76.5" height="70"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <inset key="titleEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="-40"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="-18" maxX="-46" maxY="0.0"/>
-                            <state key="normal" title="麻布袋" image="servers">
-                                <color key="titleColor" red="0.56470588235294117" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="购物车" image="servers">
+                                <color key="titleColor" red="0.56470588235294117" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
                                 <action selector="button:" destination="m4f-xD-GF2" eventType="touchUpInside" id="RhP-HU-rma"/>
                             </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VEk-NU-vr1">
-                            <rect key="frame" x="154" y="0.0" width="1" height="70"/>
-                            <color key="backgroundColor" red="0.67450980392156867" green="0.67843137254901964" blue="0.68235294117647061" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.67450980392156867" green="0.67843137254901964" blue="0.68235294117647061" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="wnZ-B9-p3c"/>
                             </constraints>
                         </imageView>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDm-cB-JDu">
-                            <rect key="frame" x="78" y="0.0" width="76.5" height="70"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <inset key="titleEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="-40"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="-18" maxX="-65" maxY="0.0"/>
                             <state key="normal" title="服务订单" image="carrybag">
-                                <color key="titleColor" red="0.56470588235294117" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="0.56470588235294117" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
                                 <action selector="button:" destination="m4f-xD-GF2" eventType="touchUpInside" id="NZU-gG-OAF"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kVQ-bw-mqa">
-                            <rect key="frame" x="233" y="0.0" width="77" height="70"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <inset key="titleEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="-40"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="-18" maxX="-55" maxY="0.0"/>
                             <state key="normal" title="我的收藏" image="star">
-                                <color key="titleColor" red="0.56470588235294117" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="0.56470588235294117" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
                                 <action selector="button:" destination="m4f-xD-GF2" eventType="touchUpInside" id="4V4-uJ-ILf"/>
                             </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CKa-Nu-qjH">
-                            <rect key="frame" x="232" y="0.0" width="1" height="70"/>
-                            <color key="backgroundColor" red="0.67450980392156867" green="0.67843137254901964" blue="0.68235294117647061" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.67450980392156867" green="0.67843137254901964" blue="0.68235294117647061" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="ciU-ya-1IH"/>
                             </constraints>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" red="0.89803921568627454" green="0.90196078431372551" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.89803921568627454" green="0.90196078431372551" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="CKa-Nu-qjH" secondAttribute="bottom" id="6nG-tS-ad4"/>
                         <constraint firstItem="hDW-je-aK0" firstAttribute="top" secondItem="af9-b2-FcS" secondAttribute="top" id="82U-ia-P5O"/>
@@ -146,27 +136,25 @@
                     </constraints>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xwk-KY-dID">
-                    <rect key="frame" x="0.0" y="233" width="320" height="1"/>
-                    <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="3AY-87-R7B"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rlu-Jh-VK3">
-                    <rect key="frame" x="110" y="103" width="100" height="40"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="4u2-wz-Fuw"/>
                         <constraint firstAttribute="height" constant="40" id="DE7-Rz-MjI"/>
                     </constraints>
                     <state key="normal" title="注册／登录">
-                        <color key="titleColor" red="0.56470588235294117" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" red="0.56470588235294117" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="login:" destination="m4f-xD-GF2" eventType="touchUpInside" id="Siy-C5-L9V"/>
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Xwk-KY-dID" firstAttribute="top" secondItem="af9-b2-FcS" secondAttribute="bottom" constant="15" id="1ST-ub-egp"/>
                 <constraint firstItem="af9-b2-FcS" firstAttribute="top" secondItem="rlu-Jh-VK3" secondAttribute="bottom" constant="5" id="5te-uP-Wdc"/>
@@ -197,7 +185,7 @@
     </objects>
     <resources>
         <image name="carrybag" width="27" height="26"/>
-        <image name="navBackcolor.png" width="375" height="45"/>
+        <image name="navBackcolor" width="375" height="45"/>
         <image name="placeholder_num2" width="66" height="66"/>
         <image name="reminders" width="27" height="26"/>
         <image name="servers" width="27" height="26"/>

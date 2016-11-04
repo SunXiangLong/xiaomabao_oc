@@ -18,10 +18,8 @@
      *    搜索框
      */
     UISearchBar *_SearchBar;
-    /**
-     *   搜索结果列表
-     */
-    UITableView *_tabView;
+    
+   
     /**
      *  表头view 显示大家都在搜数据
      */
@@ -43,6 +41,10 @@
   
     
 }
+/**
+ *   搜索结果列表
+ */
+@property (strong, nonatomic) IBOutlet UITableView *tabView;
 /**
  *  更改_SearchBar里面的searchField
  */
@@ -70,17 +72,7 @@
 @end
 
 @implementation MBSearchPostController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBSearchPostController"];
-    
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBSearchPostController"];
-}
+
 -(NSMutableArray *)dataArray{
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];
@@ -104,12 +96,8 @@
     [view addSubview:_lable3 = lable];
     
     _topView = [[UIView alloc] init];
-    
-    [view addSubview:_topView];
-    
-   
 
-    
+    [view addSubview:_topView];
     return view;
 }
 /**
@@ -171,19 +159,20 @@
     }
     
 
-    _tabView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_SearchBar.frame), UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y-55)];
-    _tabView.backgroundColor = [UIColor whiteColor];
-    _tabView.tableHeaderView=[self headView];
-    _tabView.tableFooterView = [[UIView alloc] init];
-    _tabView.delegate =self;
-    _tabView.dataSource = self;
-    [self.view addSubview:_tabView];
+    self.tabView.frame = CGRectMake(0, CGRectGetMaxY(_SearchBar.frame), UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y-55);
+    
+    self.tabView.tableHeaderView=[self headView];
+    self.tabView.tableFooterView = [[UIView alloc] init];
+    self.tabView.delegate =self;
+    self.tabView.dataSource = self;
+   
+    [self.view addSubview:self.tabView];
     [self setupTagView];
     
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setSearchCircleData)];
     footer.refreshingTitleHidden = YES;
-   _tabView.mj_footer = footer;
+   self.tabView.mj_footer = footer;
     
 }
 - (void)setupTagView
@@ -194,7 +183,6 @@
         view.padding    = UIEdgeInsetsMake(10, 10, 0, 0);
         view.insets    = 6;
         view.lineSpace = 10;
-        
         view.didClickTagAtIndex = ^(NSUInteger index){
             
 
@@ -227,10 +215,9 @@
          tag.bgColor = [UIColor colorWithHexString:self.colorPool[idx % self.colorPool.count]];
          tag.cornerRadius = 5;
          [self.tagView addTag:tag];
-         
-         
-         
+
      }];
+    
     [_lable3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@12);
         make.left.equalTo(@10);
@@ -337,7 +324,9 @@
         _SearchBar.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 55);
         _tabView.frame = CGRectMake(0, CGRectGetMaxY(_SearchBar.frame), UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y-55);
         [self.dataArray removeAllObjects];
-        [self setHeacView];
+        self.tabView.tableHeaderView=[self headView];
+        [self setupTagView];
+        [self.tabView reloadData];
     
     }];
     
@@ -364,48 +353,39 @@
 }
 #pragma mark --UItableDelegate
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-   return self.dataArray.count;
+    return 1;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary  *dic = _dataArray[indexPath.row];
-    NSString *post_content = dic[@"post_content"];
-    CGFloat post_content_height = [post_content sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake(UISCREEN_WIDTH - 24, MAXFLOAT)].height;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (post_content_height>51) {
-        post_content_height = 51+10;
-    }else{
-        post_content_height +=5;
-    }
-    if ([dic[@"post_imgs"] count]>0) {
-        return 70+(UISCREEN_WIDTH -16*3)/3*133/184+post_content_height;
-    }
-    return 70+post_content_height;
+    return self.dataArray.count;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    MBDetailsCircleTbaleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBDetailsCircleTbaleViewCell"];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBDetailsCircleTbaleViewCell"owner:nil options:nil]firstObject];
-    }
-    cell.dataDic = _dataArray[indexPath.row];
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [tableView fd_heightForCellWithIdentifier:@"MBDetailsCircleTbaleViewCell" cacheByIndexPath:indexPath configuration:^(MBDetailsCircleTbaleViewCell *cell) {
+        [self configureCell:cell atIndexPath:indexPath];
+        
+    }];
+}
+- (void)configureCell:(MBDetailsCircleTbaleViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    
+    cell.fd_enforceFrameLayout = YES;
+    cell.dataDic = self.dataArray[indexPath.row];
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    MBDetailsCircleTbaleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBDetailsCircleTbaleViewCell" forIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
-
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     NSDictionary *dic = _dataArray[indexPath.row];
     MBPostDetailsViewController *VC = [[MBPostDetailsViewController   alloc] init];
     VC.post_id = dic[@"post_id"];
     [self pushViewController:VC Animated:YES];
-
-  
-    
 }
 
 

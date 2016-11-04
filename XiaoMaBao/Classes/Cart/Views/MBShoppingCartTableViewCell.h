@@ -29,12 +29,14 @@
 @property(strong,nonatomic)NSString * isSelect;
 @property(weak,nonatomic)BkBaseViewController * viewController;
 @property (weak, nonatomic) IBOutlet UIButton *Reduction;
+
+@property (weak, nonatomic) IBOutlet UIView *maskView;
+
 @property(assign,nonatomic)NSInteger row;
 @property(weak,nonatomic)id<MBShoppingCartTableViewdelegate>delegate;
 @property(assign,nonatomic)int deleteOrSaveTag;
 - (IBAction)reduce:(id)sender;
 - (IBAction)Add:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *selectbutton;
 @property (nonatomic,strong) NSArray *imageArray;
-
+@property(copy,nonatomic)NSDictionary *dataDic;
 @end

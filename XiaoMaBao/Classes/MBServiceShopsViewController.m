@@ -30,6 +30,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     self.tableView.tableFooterView = [[UIView alloc] init];
     [self setheadData];
     
@@ -52,9 +54,7 @@
     
 }
 - (void)callPhone:(id)sender {
-    
-    
-   
+
     if (_dataDic) {
     
         NSString *str = _dataDic[@"shop_info"][@"shop_phone"];
@@ -107,11 +107,20 @@
 }
 #pragma mark -- 其它评价
 - (void)otherEvaluation{
-    MBUserEvaluationController *VC = [[MBUserEvaluationController alloc] init];
-    VC.shop_id = _dataDic[@"comment"][0][@"shop_id"];
     
-    [self pushViewController:VC Animated:YES];
+    [self performSegueWithIdentifier:@"MBUserEvaluationController" sender:_dataDic[@"comment"][0][@"shop_id"]];
     
+//    MBUserEvaluationController *VC = [[MBUserEvaluationController alloc] init];
+//    VC.shop_id = _dataDic[@"comment"][0][@"shop_id"];
+//    [self pushViewController:VC Animated:YES];
+    
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"MBUserEvaluationController"]) {
+        MBUserEvaluationController *controller = segue.destinationViewController;
+        controller.shop_id = (NSString *)sender;
+        
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -146,25 +155,17 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.section) {
-        case 0:  { return [tableView fd_heightForCellWithIdentifier:@"MBServiceShopsOneCell" cacheByIndexPath:indexPath configuration:^(MBServiceShopsOneCell *cell) {
+        case 0:  {
+            return [tableView fd_heightForCellWithIdentifier:@"MBServiceShopsOneCell" cacheByIndexPath:indexPath configuration:^(MBServiceShopsOneCell *cell) {
             [self configureCell:cell atIndexPath:indexPath];
             
-        }];}
+        }];
+        }
         case 1:{
-            
-            NSString *str = _dataDic[@"comment"][indexPath.row][@"comment_content"];
-            NSArray *arr =  _dataDic[@"comment"][indexPath.row][@"comment_imgs"];
-            CGFloat strHeight = [str sizeWithFont:[UIFont systemFontOfSize:14] withMaxSize:CGSizeMake(UISCREEN_WIDTH-62, MAXFLOAT)].height;
-            CGFloat imageHeight = 0;
-            if (arr.count != 0)  {
-                if (arr.count>3) {
-                    imageHeight =  (UISCREEN_WIDTH -32)/3*2+3*8;
-                }else{
-                    imageHeight =  (UISCREEN_WIDTH -32)/3+2*8;
-                }
-            }
-            
-            return 71+strHeight+imageHeight;
+           return [tableView fd_heightForCellWithIdentifier:@"MBUserEvaluationCell" cacheByIndexPath:indexPath configuration:^(MBUserEvaluationCell *cell) {
+                [self configureCell:cell atIndexPath:indexPath];
+
+            }];
         }
         default:{
             return [tableView fd_heightForCellWithIdentifier:@"MBServiceHomeCell" cacheByIndexPath:indexPath configuration:^(MBServiceHomeCell *cell) {
@@ -183,6 +184,46 @@
     
     return 41;
 }
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section==0) {
+        MBServiceShopsOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceShopsOneCell" forIndexPath:indexPath];
+        [self configureCell:cell atIndexPath:indexPath];
+        [cell removeUIEdgeInsetsZero];
+        return cell;
+    }else if(indexPath.section==1){
+        
+        MBUserEvaluationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBUserEvaluationCell" forIndexPath:indexPath];
+        [self configureCell:cell atIndexPath:indexPath];
+        [cell uiedgeInsetsZero];
+        return cell;
+        
+    }
+    
+    MBServiceHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceHomeCell" forIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath];
+    [cell uiedgeInsetsZero];
+    return cell;
+    
+    
+}
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    cell.fd_enforceFrameLayout = YES;
+    if (indexPath.section == 0) {
+        MBServiceShopsOneCell *cells = (MBServiceShopsOneCell *)cell;
+        cells.dataDic = _dataDic[@"products"][indexPath.row];
+    }else if(indexPath.section == 1){
+        MBUserEvaluationCell *cells = (MBUserEvaluationCell *)cell;
+        cells.dataDic = _dataDic[@"comment"][indexPath.row];
+        cells.VC = self;
+
+    }else{
+        MBServiceHomeCell *cells = (MBServiceHomeCell *)cell;
+        cells.dataDic = _dataDic[@"other_shop"][indexPath.row];
+    
+    }
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] init];
     
@@ -194,7 +235,7 @@
         footView.frame = view.bounds;
         [view addSubview:footView];
         if (num>0) {
-          
+            
             if (_iSmoreService) {
                 num = 0;
                 footView.name.text = [NSString stringWithFormat:@"查看其它%ld个服务",num];
@@ -204,7 +245,7 @@
                 footView.image.image = [UIImage imageNamed:@"down_image"];
             }
             [footView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moreService)]];
-          
+            
             
         }else{
             footView.name.text = @"暂无更多服务";
@@ -250,54 +291,6 @@
     
     
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (indexPath.section==0) {
-        MBServiceShopsOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceShopsOneCell" forIndexPath:indexPath];
-        [self configureCell:cell atIndexPath:indexPath];
-        [cell removeUIEdgeInsetsZero];
-        return cell;
-    }else if(indexPath.section==1){
-        MBUserEvaluationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBUserEvaluationCell"];
-        if (!cell) {
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBUserEvaluationCell" owner:nil options:nil]firstObject];
-        }
-        cell.user_name.text = _dataDic[@"comment"][indexPath.row][@"user_name"];
-        cell.user_time.text = _dataDic[@"comment"][indexPath.row][@"comment_date"];
-        cell.user_center.text = _dataDic[@"comment"][indexPath.row][@"comment_content"];
-        cell.comment_imgs = _dataDic[@"comment"][indexPath.row][@"comment_imgs"];
-        cell.comment_thumb_imgs = _dataDic[@"comment"][indexPath.row][@"comment_thumb_imgs"];
-        cell.user_id =  _dataDic[@"comment"][indexPath.row][@"user_id"];
-        cell.imageUrl   = _dataDic[@"comment"][indexPath.row][@"header_img"];
-        cell.VC = self;
-        cell.backImage.hidden = YES;
-        [cell.showImageView sd_setImageWithURL:[NSURL URLWithString:cell.imageUrl ] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-        return cell;
-        
-    }
-    
-    MBServiceHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceHomeCell" forIndexPath:indexPath];
-    [self configureCell:cell atIndexPath:indexPath];
-    [cell uiedgeInsetsZero];
-    return cell;
-    
-    
-}
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 0) {
-        MBServiceShopsOneCell *cells = (MBServiceShopsOneCell *)cell;
-        cells.dataDic = _dataDic[@"products"][indexPath.row];
-    }else if(indexPath.section == 2){
-        MBServiceHomeCell *cells = (MBServiceHomeCell *)cell;
-        cells.fd_enforceFrameLayout = YES;
-        cells.dataDic = _dataDic[@"other_shop"][indexPath.row];
-
-    }else{
-    
-    
-    }
-   }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.section) {
         case 0:{
@@ -308,9 +301,8 @@
             [self pushViewController:VC Animated:YES];
         }break;
         case 1:{
-            MBUserEvaluationController *VC = [[MBUserEvaluationController alloc] init];
-            VC.shop_id = _dataDic[@"comment"][indexPath.row][@"shop_id"];
-            [self pushViewController:VC Animated:YES];
+            [self performSegueWithIdentifier:@"MBUserEvaluationController" sender:_dataDic[@"comment"][indexPath.row][@"shop_id"]];
+
             
         }break;
         default:{

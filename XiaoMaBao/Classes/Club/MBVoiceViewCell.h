@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *user_title;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *view_height;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *user_title_top;
+
+
 @property (weak, nonatomic) IBOutlet UILabel *atype;
 @property(copy,nonatomic)NSDictionary *dataDic;
 @end

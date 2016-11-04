@@ -140,8 +140,6 @@
                 return ;
             }
             
-            
-            
             MBArticleCollectViewController *VC = [[MBArticleCollectViewController alloc] init];
             [self pushViewController:VC Animated:YES];
         }break;
@@ -151,8 +149,9 @@
                 [ self  loginClicksss];
                 return ;
             }
-            MBCollectionPostController *VC = [[MBCollectionPostController alloc] init];
-            [self pushViewController:VC Animated:YES];
+//            MBCollectionPostController *VC = [[MBCollectionPostController alloc] init];
+//            [self pushViewController:VC Animated:YES];
+             [self performSegueWithIdentifier:@"MBCollectionPostController" sender:nil];
         } break;
             
         default:

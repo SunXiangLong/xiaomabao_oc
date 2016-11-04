@@ -35,6 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
      _page = 1;
+    self.tableView.tableFooterView = [[UIView alloc] init];
     [self setData];
    
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
@@ -62,7 +63,6 @@
     [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict,@"page":page} success:^(id responseObject) {
 //        MMLog(@"%@",responseObject);
         [self dismiss];
-        
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                 [self.dataArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
@@ -110,43 +110,56 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 1;
+    return self.dataArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return self.dataArray.count;
+    return 1;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.00001;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        return 0.00001;
+    }
+    return 10;
+    
+}
+
+#pragma mark -- UITableViewDelegate
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    return [[UIView alloc] init];
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor colorWithHexString:@"eaeaea"];
+    return view;
+    
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary  *dic = _dataArray[indexPath.row];
-    NSString *post_content = dic[@"post_content"];
-    CGFloat post_content_height = [post_content sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake(UISCREEN_WIDTH - 24, MAXFLOAT)].height;
+    return [tableView fd_heightForCellWithIdentifier:@"MBDetailsCircleTbaleViewCell" cacheByIndexPath:indexPath configuration:^(MBDetailsCircleTbaleViewCell *cell) {
+        [self configureCell:cell atIndexPath:indexPath];
+        
+    }];
+}
+- (void)configureCell:(MBDetailsCircleTbaleViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     
-    if (post_content_height>51) {
-        post_content_height = 51+10;
-    }else{
-        post_content_height +=5;
-    }
-    if ([dic[@"post_imgs"] count]>0) {
-        return 70+(UISCREEN_WIDTH -16*3)/3*133/184+post_content_height;
-    }
-    return 70+post_content_height;
+    cell.fd_enforceFrameLayout = YES;
+    cell.dataDic = self.dataArray[indexPath.section];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    MBDetailsCircleTbaleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBDetailsCircleTbaleViewCell"];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBDetailsCircleTbaleViewCell"owner:nil options:nil]firstObject];
-    }
-    cell.dataDic = _dataArray[indexPath.row];
-
-    
+    MBDetailsCircleTbaleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBDetailsCircleTbaleViewCell" forIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath];
     return cell;
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary *dic = _dataArray[indexPath.row];
+    NSDictionary *dic = _dataArray[indexPath.section];
     MBPostDetailsViewController *VC = [[MBPostDetailsViewController   alloc] init];
     VC.post_id = dic[@"post_id"];
     [self pushViewController:VC Animated:YES];

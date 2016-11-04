@@ -8,19 +8,19 @@
 
 #import "MBPaymentViewController.h"
 #import "MBSignaltonTool.h"
-#import "MBNetworking.h"
 #import "MBOrderInfoTableViewController.h"
 #import "Order.h"
 #import "APAuthV2Info.h"
 #import "DataSigner.h"
 #import <AlipaySDK/AlipaySDK.h>
-#import "MobClick.h"
 #import "WXApi.h"
 #import "payRequsestHandler.h"
 #import "MBPayResultsController.h"
 #import "MBPaySuccessView.h"
 #import "MBOrderListViewController.h"
 #import "MBServiceShopsViewController.h"
+#import "MBNewHomeViewController.h"
+#import "MBNewMyViewController.h"
 @interface MBPaymentViewController ()<UIAlertViewDelegate>
 {
     NSString *_creatOrderId;
@@ -496,9 +496,8 @@
     
 }
 - (void)shop{
-    UIViewController *mainVc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
-    [UIApplication sharedApplication].keyWindow.rootViewController = mainVc;
-    
+
+    [self popViewControllerAnimated:YES];
 }
 - (void)order{
     
@@ -508,28 +507,38 @@
     
 }
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{
-    
+    BkBaseViewController *rootVC  = nil;
     if ([_type isEqualToString:@"1"]) {
-        UIViewController *mainVc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
-        [UIApplication sharedApplication].keyWindow.rootViewController = mainVc;
-        return nil;
-    }else if([_type  isEqualToString:@"2"]){
+        for (BkBaseViewController *VC in self.navigationController.viewControllers) {
+            if ([VC isKindOfClass:[MBNewHomeViewController class]]||[VC isKindOfClass:[MBNewMyViewController class]]) {
+            
+                rootVC = VC;
+            }
+        }
+    }
+    if([_type  isEqualToString:@"2"]){
         
         for (BkBaseViewController *VC in self.navigationController.viewControllers) {
             if ([VC isKindOfClass:[MBServiceShopsViewController class]]) {
                 
                 
-                [self.navigationController popToViewController:VC animated:YES];
-                
-                NSNotification *notification =[NSNotification notificationWithName:@"HYTPopViewControllerNotification" object:nil userInfo:nil];
-                //通过通知中心发送通知
-                [[NSNotificationCenter defaultCenter] postNotification:notification];
+               rootVC = VC;
                 
             }
         }
         
         
         
+    }
+    
+   
+    
+    if (rootVC) {
+        [self.navigationController popToViewController:rootVC animated:YES];
+        
+        NSNotification *notification =[NSNotification notificationWithName:@"HYTPopViewControllerNotification" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }else{
         return [self.navigationController popViewControllerAnimated:animated];
     }

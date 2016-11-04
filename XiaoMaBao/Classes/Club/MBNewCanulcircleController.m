@@ -226,7 +226,7 @@
 - (void)rightTitleClick{
     
 
-    MBSearchPostController *searchVc = [[MBSearchPostController alloc] init];
+    MBSearchPostController *searchVc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBSearchPostController"];
     
     [self pushViewController:searchVc Animated:YES];
     

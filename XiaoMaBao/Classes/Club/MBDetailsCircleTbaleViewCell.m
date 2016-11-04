@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *post_content;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeight;
 @property (nonatomic,strong) NSArray *imageArray;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHeight;
 
 @end
 
@@ -56,9 +57,11 @@
     
     NSInteger num = array.count;
         if (array.count>0) {
-            self.imageHeight.constant = (UISCREEN_WIDTH -16*3)/3*133/184;
+            self.imageHeight.constant = (UISCREEN_WIDTH -50)/3*133/184;
+            self.topHeight.constant = 10;
         }else{
             self.imageHeight.constant = 0;
+            self.topHeight.constant = 0;
         }
     if (array.count>3) {
         num = 3;
@@ -76,6 +79,15 @@
 
 }
 
-
+- (CGSize)sizeThatFits:(CGSize)size {
+    CGFloat totalHeight = 0;
+    totalHeight += [self.post_title sizeThatFits:size].height;
+    totalHeight += [self.post_content sizeThatFits:size].height;
+    totalHeight += self.imageHeight.constant;
+    totalHeight += self.topHeight.constant;
+    totalHeight += 50;
+    MMLog(@"%f---%f",self.topHeight.constant,self.imageHeight.constant);
+    return CGSizeMake(size.width, totalHeight);
+}
 
 @end

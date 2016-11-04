@@ -7,13 +7,11 @@
 //
 
 #import "MBDetailsCircleController.h"
-#import "MBDetailsCircleTbaleViewCell.h"
 #import "MBDetailsCircleTableHeadView.h"
 #import "MBReleaseTopicViewController.h"
 #import "MBLoginViewController.h"
 #import "MBPostDetailsViewController.h"
 #import "MBDetailsCircleCell.h"
-#import "UITableView+FDTemplateLayoutCell.h"
 @interface MBDetailsCircleController ()<UITableViewDelegate,UITableViewDataSource>
 {
     /**

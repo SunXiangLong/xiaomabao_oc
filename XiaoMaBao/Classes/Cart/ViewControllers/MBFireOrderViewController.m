@@ -1113,7 +1113,7 @@
                    
                    if ([responseObject valueForKeyPath:@"data"]) {
                        VC.orderInfo = [responseObject valueForKeyPath:@"data"][@"order_info"];
-                       MMLog(@"%@",VC.orderInfo);
+//                       MMLog(@"%@",VC.orderInfo);
                        VC.type = @"1";
                        VC.order_sn = VC.orderInfo[@"order_sn"];
                        [self.navigationController pushViewController:VC animated:YES];

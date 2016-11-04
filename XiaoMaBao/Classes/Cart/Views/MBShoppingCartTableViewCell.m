@@ -11,27 +11,19 @@
 #import "MBSignaltonTool.h"
 @implementation MBShoppingCartTableViewCell
 - (void)awakeFromNib {
-   [super awakeFromNib];
-        UIView *view = [[UIView alloc] init];
+    [super awakeFromNib];
     
-        [self addSubview:view];
-        [view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(0);
-            make.left.mas_equalTo(0);
-            make.bottom.mas_equalTo(0);
-            make.right.equalTo(self.Reduction.mas_left).offset(0);
+    [self.maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)]];
     
-        }];
+}
+
+- (CGSize)sizeThatFits:(CGSize)size {
     
-    
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-       
-        [view addGestureRecognizer:tap];
-    
+    return CGSizeMake(size.width, 62);
 }
 -(void)tap:(UITapGestureRecognizer *)gesture{
     
-
+    
     if (self.delegate&&[self.delegate respondsToSelector:@selector(click:)]) {
         [self.delegate click:self.row];
     }
@@ -39,11 +31,53 @@
     
     
 }
-
+-(void)setDataDic:(NSDictionary *)dataDic{
+    _dataDic = dataDic;
+    self.Goods_price.text = dataDic[@"goods_price_formatted"];
+    self.Market_Price.text = dataDic[@"market_price_formatted"];
+    self.goods_number.text = dataDic[@"goods_number"];
+    self.GoodsDescribe.text = dataDic[@"goods_name"];
+    self.goodID = dataDic[@"goods_id"];
+    self.rec_id = dataDic[@"rec_id"];
+    
+    NSInteger flow_order = [dataDic[@"flow_order"] integerValue];
+    if (flow_order == 1) {
+        self.isSelect = @"1";
+        self.selectImageview.image = [UIImage imageNamed:@"icon_true"];
+        
+    }else{
+        self.isSelect = @"0";
+        self.selectImageview.image = [UIImage imageNamed:@"pitch_no"];
+        
+        
+    }
+    NSMutableArray *array = [NSMutableArray array];
+    
+    if ([dataDic[@"is_third"] isEqualToString:@"1"]) {
+        [array addObject:[UIImage imageNamed:@"thrid_goods_icon"]];
+    }
+    if ([dataDic[@"coupon_disable"]isEqualToString:@"1"]) {
+        [array addObject:[UIImage imageNamed:@"coupon_disable"]];
+    }
+    if ([dataDic[@"is_cross_border"]isEqualToString:@"1"]) {
+        [array addObject:[UIImage imageNamed:@"icon_cross_g"]];
+        
+    }
+    if ([dataDic[@"is_group"]isEqualToString:@"1"]) {
+        [array addObject:[UIImage imageNamed:@"icon_group_g"]];
+        
+    }
+    
+    self.imageArray = array;
+    
+    NSURL *url = [NSURL URLWithString:dataDic[@"goods_img"]];
+    
+    [self.Carimageview sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+}
 
 //数量减1
 - (IBAction)reduce:(id)sender {
-  
+    
     NSString * selected = self.isSelect;
     
     //数量减1
@@ -66,14 +100,14 @@
     if (self.delegate &&[self.delegate respondsToSelector:@selector(reduceShop:)]) {
         [self.delegate  reduceShop:reduceNumber];
     }
-
+    
     
 }
 //数量加1
 - (IBAction)Add:(id)sender {
     
     
-        NSString * selected = self.isSelect;
+    NSString * selected = self.isSelect;
     //数量加1
     NSString *number = self.goods_number.text;
     NSInteger goodNumber = [number integerValue];
@@ -94,8 +128,8 @@
     if (self.delegate &&[self.delegate respondsToSelector:@selector(addShop:)]) {
         [self.delegate  addShop:reduceNumber];
     }
-
-
+    
+    
 }
 
 -(NSString *)subwitstring:(NSString *)str
@@ -106,6 +140,11 @@
 }
 
 -(void)setImageArray:(NSArray *)imageArray{
+    
+     self.imageView1.image = nil;
+     self.imageView2.image = nil;
+     self.imageView3.image = nil;
+     self.imageVIew4.image = nil;
     _imageArray = imageArray;
     switch (imageArray.count) {
         case 0:            break;

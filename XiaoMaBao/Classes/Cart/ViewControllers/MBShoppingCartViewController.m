@@ -41,7 +41,7 @@
     MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
     
     if (userInfo.uid != nil) {
-       
+        
         [self getcartIsAllSelect];
         
     }else{
@@ -54,21 +54,9 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     _selectCountNumber = 0;
-//    self.view.backgroundColor = BG_COLOR;
-
     self.CartinfoDict = [NSMutableArray array];
     self.total = [NSDictionary dictionary];
-    
-    if([self.showBottomBar isEqualToString:@"yes"]){
-        
-        [self setupUI2];
-    }else{
-        
-        
-        [self setupUI];
-        
-        
-    }
+    [self setupUI];
     
     
 }
@@ -137,19 +125,21 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    
+    [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/is_selected_all"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        MMLog(@"获取是否全部选中成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//        MMLog(@"获取是否全部选中成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
         
         
         NSDictionary *dict = [responseObject valueForKeyPath:@"data"];
-        _isAllselectDict = [NSMutableDictionary dictionaryWithDictionary:dict];;
-        if ([[_isAllselectDict valueForKey:@"is_selected_all"] integerValue ]==0) {
+        _isAllselectDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+        if ([_isAllselectDict[@"is_selected_all"] integerValue]==0) {
             _selectCountNumber = 0;
         }
         if (_isAllselectDict) {
             
             [self getCartInfo:0 type:nil];
+        }else{
+            [self dismiss];
         }
         
         
@@ -186,7 +176,7 @@
 }
 //减少一个
 - (void)reduceShop:(NSDictionary *)dic{
-
+    
     //如果选中，则更新购物车
     NSString * selected =dic[@"selected"];
     if([selected isEqualToString:@"1"]){
@@ -201,14 +191,14 @@
  *  @param flow_number 是否选中
  */
 - (void)updateCart:(NSString *)rec_id new_number:(NSString *)new_number flow_number:(NSString *)flow_number row:(NSInteger)row{
-    [self show];
+    
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    
+    [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/update_cart"] parameters:@{@"session":dict,@"rec_id":rec_id,@"new_number":new_number,@"flow_order":flow_number} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        [self dismiss];
-//        MMLog(@"更新购物车成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
+        
+        //        MMLog(@"更新购物车成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
         NSDictionary * dict = [responseObject valueForKeyPath:@"status"];
         if([[dict valueForKeyPath:@"succeed"] isEqualToNumber:@1]){
             
@@ -216,7 +206,7 @@
             [self getCartInfo: row type:@"reload"];
             
         }else{
-            
+            [self dismiss];
             [self  show:dict[@"error_desc"] time:1];
             
         }
@@ -239,19 +229,18 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/select_all_or_zero"] parameters:@{@"session":dict}success:^(NSURLSessionDataTask *operation, id responseObject) {
-        [self dismiss];
+                [self dismiss];
         
-//        MMLog(@"更新购物车成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
+        // MMLog(@"更新购物车成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
         NSDictionary * dict = [responseObject valueForKeyPath:@"status"];
         if([[dict valueForKeyPath:@"succeed"] isEqualToNumber:@1]){
             [self getCartInfo:0 type:nil];
             
         }
+    }failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        MMLog(@"%@",error.localizedDescription);
+        [self show:@"请求失败！" time:1];
     }
-               failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   MMLog(@"%@",error.localizedDescription);
-                   [self show:@"请求失败！" time:1];
-               }
      ];
     
 }
@@ -260,19 +249,19 @@
 -(void)getCartInfo:(NSInteger )row type:(NSString *)type
 {
     
-//    [self show];
+    
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/cart"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, id responseObject) {
-//        [self dismiss];
-        MMLog(@"%@",[responseObject valueForKeyPath:@"data"]);
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/cart"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
+        [self dismiss];
+        //        MMLog(@"%@",responseObject.data);
         
+        self.CartinfoDict = responseObject.data[@"goods_list"];
+        self.total = responseObject.data[@"total"];
         
-        self.CartinfoDict = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_list"];
-        self.total = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"total"];
         _goodnumberArray = [NSMutableArray array];
         _goodSelectArray = [NSMutableArray array];
         int i = 0;
@@ -319,18 +308,16 @@
         
         
         
-     
+        
         
         if ([type isEqualToString:@"reload"]) {
             
             NSIndexPath *indexpath = [NSIndexPath indexPathForRow:row inSection:0];
-           
+            
             [_mytableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
             
             
         }else {
-            
-            
             
             
             [_mytableView reloadData];
@@ -349,85 +336,21 @@
     
 }
 
-/**
- *  初始化界面元素
- */
-- (void)setupUI{
-    
-    
-    if (_mytableView) {
-        return;
-    }
-    _mytableView = [[UITableView alloc] init];
-    _mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [_mytableView registerNib:[UINib nibWithNibName:@"MBShoppingCartTableViewCell" bundle:nil] forCellReuseIdentifier:@"MBShoppingCartTableViewCell"];
-    _mytableView.dataSource = self,
-    _mytableView.delegate = self;
-    _mytableView.backgroundColor = [UIColor colorR:249 colorG:249 colorB:249];
-    _mytableView.frame = CGRectMake(0, TOP_Y, self.view.ml_width, self.view.ml_height - self.tabBarController.tabBar.ml_height - TOP_Y - 35);
-    [self.view addSubview:_mytableView];
-    
-    UIView *tableViewFooterView = [[UIView alloc] init];
-    tableViewFooterView.frame = CGRectMake(0, 0, self.view.ml_width, 28);
-    _mytableView.tableFooterView = tableViewFooterView;
-    
-    UIView *bottomLineView = [[UIView alloc] init];
-    bottomLineView.backgroundColor = [UIColor colorWithHexString:@"e8465e"];
-    bottomLineView.frame = CGRectMake(0, self.view.ml_height - self.tabBarController.tabBar.ml_height - 1, self.view.ml_width, 1);
-    [self.view addSubview:bottomLineView];
-    
-    UIView *bottomView = [[UIView alloc] init];
-    bottomView.backgroundColor = [UIColor lightTextColor];
-    bottomView.layer.borderColor = [[UIColor redColor] CGColor];
-    CGFloat tabbarHeight = 35;
-    bottomView.frame = CGRectMake(0, self.view.ml_height - tabbarHeight - self.tabBarController.tabBar.ml_height - 1, self.view.ml_width, tabbarHeight);
-    [self.view addSubview:bottomView];
-    
-    [bottomView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    allSelectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    allSelectBtn.frame = CGRectMake(0, 4, 72, tableViewFooterView.ml_height);
-    allSelectBtn.titleEdgeInsets = UIEdgeInsetsMake(0, MARGIN_20, 0, 0);
-    
-    [allSelectBtn setTitleColor:[UIColor colorWithHexString:@"323232"] forState:UIControlStateNormal];
-    [allSelectBtn setTitle:@"全选" forState:UIControlStateNormal];
-    [allSelectBtn addTarget:self action:@selector(allSelectBtn:) forControlEvents:UIControlEventTouchUpInside];
-    allSelectBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [bottomView addSubview:allSelectBtn];
-    
-    CGFloat submitButtonWidth = 90;
-    
-    if(_totalLbl){
-        [_totalLbl removeFromSuperview];
-    }
-    _totalLbl = [[UILabel alloc] init];
-    _totalLbl.font = [UIFont systemFontOfSize:14];
-    _totalLbl.frame = CGRectMake(CGRectGetMaxX(allSelectBtn.frame) +5, 0, self.view.ml_width - submitButtonWidth, bottomView.ml_height);
-    
-    [bottomView addSubview:_totalLbl];
-    
-    
-    UIButton *submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    submitButton.frame = CGRectMake(self.view.ml_width - submitButtonWidth, 0, submitButtonWidth, bottomView.ml_height);
-    [submitButton setTitle:@"结算" forState:UIControlStateNormal];
-    [bottomView addSubview:_submitButton = submitButton];
-    [submitButton addTarget:self action:@selector(clickSubmit) forControlEvents:UIControlEventTouchUpInside];
-}
 
 /**
  *  初始化界面元素
  */
-- (void)setupUI2{
+- (void)setupUI{
     if (_mytableView) {
         return;
     }
-    _mytableView = [[UITableView alloc] init];
-    _mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _mytableView = [[UITableView alloc] initWithFrame:CGRectMake(0, TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT - TOP_Y - 35) style:UITableViewStylePlain];
+    
     [_mytableView registerNib:[UINib nibWithNibName:@"MBShoppingCartTableViewCell" bundle:nil] forCellReuseIdentifier:@"MBShoppingCartTableViewCell"];
     _mytableView.dataSource = self,
     _mytableView.delegate = self;
-    _mytableView.backgroundColor = [UIColor colorR:249 colorG:249 colorB:249];
-    _mytableView.frame = CGRectMake(0, TOP_Y, self.view.ml_width, self.view.ml_height - TOP_Y - 35);
+    _mytableView.backgroundColor = [UIColor colorWithHexString:@"eaeaea"];
+    
     
     [self.view addSubview:_mytableView];
     
@@ -497,7 +420,7 @@
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/checkout"] parameters:@{@"session":sessiondict}success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         MMLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
-
+        
         NSMutableArray * infoDict = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_list"];
         
         
@@ -570,7 +493,7 @@
     if (num == 0) {//删除
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/del_cart"] parameters:@{@"session":session,@"rec_id":rec_id}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
-
+                       
                        
                        [self getCartInfo:row type:@"dele"];
                        
@@ -587,11 +510,11 @@
                            [self show:@"收藏成功" time:1];
                            
                        }else{
-                       
-                          [self show:[responseObject valueForKeyPath:@"status"][@"error_desc"] time:1];
-                       
+                           
+                           [self show:[responseObject valueForKeyPath:@"status"][@"error_desc"] time:1];
+                           
                        }
-                    
+                       
                        NSIndexPath *indexpath = [NSIndexPath indexPathForRow:row inSection:0];
                        [_mytableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
                    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
@@ -613,89 +536,34 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.CartinfoDict.count;
 }
-
+- (void)configureCell:(MBShoppingCartTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    cell.fd_enforceFrameLayout = YES;
+    cell.viewController = self;
+    cell.delegate = self;
+    cell.row = indexPath.row;
+    cell.dataDic = self.CartinfoDict[indexPath.row];
+}
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    static NSString *ID = @"MBShoppingCartTableViewCell";
     
-    MBShoppingCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (self.CartinfoDict.count>0) {
-        
-        cell.Goods_price.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"goods_price_formatted"];
-        cell.Market_Price.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"market_price_formatted"];
-        cell.goods_number.text = [[self.CartinfoDict objectAtIndex:indexPath.row]  valueForKeyPath:@"goods_number"];
-        NSString * nameStr = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"goods_name"];
-        cell.row = indexPath.row;
-        cell.delegate =self;
-        cell.GoodsDescribe.text = [NSString stringWithFormat:@"%@",nameStr];
-        cell.goodID = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"goods_id"];
-        cell.rec_id = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"rec_id"];
-        NSString *urlstr = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"goods_img"];
-        
-        NSInteger flow_order = [[[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"flow_order"] integerValue];
-        
-        
-        NSString *str = [[self.CartinfoDict objectAtIndex:indexPath.row]valueForKeyPath:@"is_cross_border"];
-        if (![str isEqualToString:@"0"]) {
-            _is_cross_border = str;
-        }else{
-            _is_cross_border = @"0";
-        }
-        if (flow_order == 1) {
-            cell.isSelect = @"1";
-            cell.selectImageview.image = [UIImage imageNamed:@"icon_true"];
-            cell.selectbutton.selected = YES;
-        }else{
-            cell.isSelect = @"0";
-            cell.selectImageview.image = [UIImage imageNamed:@"pitch_no"];
-            cell.selectbutton.selected = NO;
-            
-        }
-        NSMutableArray *array = [NSMutableArray array];
-        NSDictionary *dic = self.CartinfoDict[indexPath.row];
-        if ([dic[@"is_third"] isEqualToString:@"1"]) {
-            [array addObject:[UIImage imageNamed:@"thrid_goods_icon.ipg"]];
-        }
-        if ([dic[@"coupon_disable"]isEqualToString:@"1"]) {
-            [array addObject:[UIImage imageNamed:@"coupon_disable.jpg"]];
-        }
-        if ([dic[@"is_cross_border"]isEqualToString:@"1"]) {
-            [array addObject:[UIImage imageNamed:@"icon_cross_g.jpg"]];
-
-        }
-        if ([dic[@"is_group"]isEqualToString:@"1"]) {
-            [array addObject:[UIImage imageNamed:@"icon_group_g.jpg"]];
-            
-        }
-       
-        cell.imageArray = array;
-        
-        NSURL *url = [NSURL URLWithString:urlstr];
-        [cell.Carimageview sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"placeholder_num2"]completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            cell.Carimageview.alpha = 0.3f;
-            [UIView animateWithDuration:1
-                             animations:^{
-                                 cell.Carimageview.alpha = 1.0f;
-                             }
-                             completion:nil];
-        }];
-        
-    }
+    MBShoppingCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBShoppingCartTableViewCell"];
+    [self configureCell:cell atIndexPath:indexPath];
+    [cell uiedgeInsetsZero];
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.tag = indexPath.row+100;
-    cell.viewController =self;
     return cell;
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 62;
+    return [tableView fd_heightForCellWithIdentifier:@"MBShoppingCartTableViewCell" cacheByIndexPath:indexPath configuration:^(MBShoppingCartTableViewCell *cell) {
+        [self configureCell:cell atIndexPath:indexPath];
+        
+    }];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-
-  
+    
+    
+    
 }
 #pragma mark -- 在滑动手势删除某一行的时候，显示出更多的按钮
 

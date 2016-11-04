@@ -34,7 +34,7 @@
     
     [self loadData];
     
-    [self.tableView registerNib:    [UINib nibWithNibName:@"MBVoiceViewCell" bundle:nil] forCellReuseIdentifier:@"MBVoiceViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"MBVoiceViewCell" bundle:nil] forCellReuseIdentifier:@"MBVoiceViewCell"];
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
     footer.refreshingTitleHidden = YES;
     self.tableView.mj_footer = footer;

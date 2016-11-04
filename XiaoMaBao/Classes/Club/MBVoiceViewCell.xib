@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,17 +12,15 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="249.5"/>
+                <frame key="frameInset" width="320" height="249.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="这是个标题" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvG-Yf-TPM">
-                        <rect key="frame" x="11" y="15" width="80" height="19.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W41-7E-Bvn">
-                        <rect key="frame" x="240" y="13" width="60" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="31y-4R-z1r"/>
                             <constraint firstAttribute="width" constant="60" id="XtB-bF-hKj"/>
@@ -29,7 +28,7 @@
                         <attributedString key="attributedText">
                             <fragment content="短篇">
                                 <attributes>
-                                    <color key="NSColor" red="0.91764705882352937" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="NSColor" red="0.91764705882352937" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <font key="NSFont" size="12" name="MicrosoftYaHei"/>
                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                 </attributes>
@@ -41,7 +40,7 @@
                                 <integer key="value" value="12"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                <color key="value" red="0.91764705882352937" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="value" red="0.91764705882352937" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                 <integer key="value" value="1"/>
@@ -49,11 +48,10 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1C-du-3iF">
-                        <rect key="frame" x="11" y="49.5" width="298" height="33.5"/>
                         <attributedString key="attributedText">
                             <fragment content="啊啊啊大大书法法师大发发发发发发发发发发法师法师法法师发生法萨芬">
                                 <attributes>
-                                    <color key="NSColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="NSColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <font key="NSFont" size="12" name="MicrosoftYaHei"/>
                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                 </attributes>
@@ -62,28 +60,24 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJ0-Zi-VHv">
-                        <rect key="frame" x="11" y="98" width="298" height="115"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ewG-4x-eyh">
-                                <rect key="frame" x="102.5" y="0.0" width="93" height="115"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="toBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aGe-q5-TbR">
-                                <rect key="frame" x="205.5" y="0.0" width="92.5" height="115"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="toBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ktZ-Ph-N4k">
-                                <rect key="frame" x="0.0" y="0.0" width="92.5" height="115"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="toBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="aGe-q5-TbR" secondAttribute="trailing" id="2Zg-BQ-YFN"/>
                             <constraint firstAttribute="bottom" secondItem="aGe-q5-TbR" secondAttribute="bottom" id="6dn-mB-UOk"/>
@@ -101,11 +95,10 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qp4-77-Kam">
-                        <rect key="frame" x="225" y="224" width="84" height="17"/>
                         <attributedString key="attributedText">
                             <fragment content="作者：孙祥龙">
                                 <attributes>
-                                    <color key="NSColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="NSColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <font key="NSFont" size="12" name="MicrosoftYaHei"/>
                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                 </attributes>
@@ -120,10 +113,11 @@
                     <constraint firstItem="TJ0-Zi-VHv" firstAttribute="top" secondItem="a1C-du-3iF" secondAttribute="bottom" constant="15" id="QGx-vw-Jce"/>
                     <constraint firstItem="W41-7E-Bvn" firstAttribute="centerY" secondItem="hvG-Yf-TPM" secondAttribute="centerY" id="UO8-I0-lJ5"/>
                     <constraint firstAttribute="trailing" secondItem="a1C-du-3iF" secondAttribute="trailing" constant="11" id="aUI-li-ImB"/>
-                    <constraint firstItem="hvG-Yf-TPM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="dqy-1f-jbj"/>
+                    <constraint firstItem="hvG-Yf-TPM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="dqy-1f-jbj"/>
                     <constraint firstItem="hvG-Yf-TPM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="kBG-k8-rTD"/>
-                    <constraint firstItem="Qp4-77-Kam" firstAttribute="trailing" secondItem="TJ0-Zi-VHv" secondAttribute="trailing" id="nXL-Aq-7eI"/>
-                    <constraint firstItem="Qp4-77-Kam" firstAttribute="top" secondItem="TJ0-Zi-VHv" secondAttribute="bottom" constant="11" id="pGu-nZ-860"/>
+                    <constraint firstItem="Qp4-77-Kam" firstAttribute="trailing" secondItem="W41-7E-Bvn" secondAttribute="trailing" id="oaC-t9-uwa"/>
+                    <constraint firstItem="Qp4-77-Kam" firstAttribute="top" secondItem="TJ0-Zi-VHv" secondAttribute="bottom" constant="10" id="pGu-nZ-860"/>
+                    <constraint firstItem="W41-7E-Bvn" firstAttribute="leading" secondItem="hvG-Yf-TPM" secondAttribute="trailing" constant="10" id="tyc-WI-ar3"/>
                     <constraint firstItem="a1C-du-3iF" firstAttribute="leading" secondItem="hvG-Yf-TPM" secondAttribute="leading" id="ypM-Kg-SYF"/>
                     <constraint firstItem="TJ0-Zi-VHv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="zGP-a9-rnK"/>
                     <constraint firstAttribute="trailing" secondItem="TJ0-Zi-VHv" secondAttribute="trailing" constant="11" id="zkJ-g4-Bwj"/>
@@ -137,7 +131,7 @@
                 <outlet property="post_image3" destination="aGe-q5-TbR" id="ugY-8R-NWH"/>
                 <outlet property="post_title" destination="hvG-Yf-TPM" id="wKS-Ke-aBQ"/>
                 <outlet property="user_title" destination="Qp4-77-Kam" id="CJd-ZV-kOa"/>
-                <outlet property="user_title_top" destination="pGu-nZ-860" id="kiS-vC-s3W"/>
+                <outlet property="user_title_top" destination="QGx-vw-Jce" id="Jr7-hM-xGk"/>
                 <outlet property="view_height" destination="n35-wl-aC3" id="f7u-bW-Jc0"/>
             </connections>
             <point key="canvasLocation" x="87" y="279"/>

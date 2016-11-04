@@ -18,17 +18,7 @@
 @end
 
 @implementation MBUserEvaluationController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBUserEvaluationController"];
-}
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBUserEvaluationController"];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -94,45 +84,56 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return _commentsArray.count;
     
-    return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return _commentsArray.count;
+    return 1;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary *dic = _commentsArray[indexPath.row];
-    NSString *str = dic[@"comment_content"];
-    NSArray *arr =  dic[@"comment_imgs"];
-    CGFloat strHeight = [str sizeWithFont:[UIFont systemFontOfSize:14] withMaxSize:CGSizeMake(UISCREEN_WIDTH-62, MAXFLOAT)].height;
-    CGFloat imageHeight = 0;
-    if (arr.count!= 0) {
-        if (arr.count>3) {
-            imageHeight =  (UISCREEN_WIDTH -32)/3*2+3*8;
-        }else{
-            imageHeight =  (UISCREEN_WIDTH -32)/3+2*8;
-        }
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section != 0) {
+        return 10;
     }
-   
-    return 81+strHeight+imageHeight;
+    return 0.001;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    
+    return 0.0001;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc] init];
+    
+    view.backgroundColor = [UIColor colorWithHexString:@"eaeaea"];
+    
+    return view;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+
+    return [[UIView alloc] init];
+    
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [tableView fd_heightForCellWithIdentifier:@"MBUserEvaluationCell" cacheByIndexPath:indexPath configuration:^(MBUserEvaluationCell *cell) {
+        [self configureCell:cell atIndexPath:indexPath];
+        
+    }];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-       NSDictionary *dic = _commentsArray[indexPath.row];
-    MBUserEvaluationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBUserEvaluationCell"];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBUserEvaluationCell" owner:nil options:nil]firstObject];
-    }
-    cell.user_name.text = dic[@"user_name"];
-    cell.user_time.text = dic[@"comment_date"];
-    cell.user_center.text = dic[@"comment_content"];
-    cell.comment_imgs = dic[@"comment_imgs"];
-    cell.comment_thumb_imgs = dic[@"comment_thumb_imgs"];
-    cell.user_id   =    dic[@"user_id"];
-    cell.imageUrl  = dic[@"header_img"];
-    cell.VC = self;
-    [cell.showImageView sd_setImageWithURL:[NSURL URLWithString:cell.imageUrl ] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+    MBUserEvaluationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBUserEvaluationCell" forIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath];
+    [cell removeUIEdgeInsetsZero];
     return cell;
+    
+}
+- (void)configureCell:(MBUserEvaluationCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    
+    cell.fd_enforceFrameLayout = YES;
+    cell.dataDic = _commentsArray[indexPath.section];
+    cell.VC = self;
+        
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

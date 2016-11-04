@@ -16,6 +16,15 @@
     
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIImageView *showImageView;
+@property (weak, nonatomic) IBOutlet UILabel *user_name;
+@property (weak, nonatomic) IBOutlet UILabel *user_time;
+@property (weak, nonatomic) IBOutlet UILabel *user_center;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewTop;
+@property (nonatomic,strong) NSArray *comment_imgs;
+@property (nonatomic,strong) NSArray *comment_thumb_imgs;
+@property (nonatomic,strong) NSString *user_id;
 @end
 @implementation MBUserEvaluationCell
 
@@ -26,16 +35,50 @@
     self.showImageView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.showImageView .clipsToBounds  = YES;
     self.showImageView.userInteractionEnabled = YES;
-    
-    [_collectionView registerNib:[UINib nibWithNibName:@"MBMBAffordablePlanetOneChildeOneCell" bundle:nil] forCellWithReuseIdentifier:@"MBMBAffordablePlanetOneChildeOneCell"];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+    [_collectionView registerNib:[UINib nibWithNibName:@"MBMBAffordablePlanetOneChildeOneCell" bundle:nil] forCellWithReuseIdentifier:@"MBMBAffordablePlanetOneChildeOneCell"];
+    
+    [self.showImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dianji:)]];
 }
-- (IBAction)dianji:(id)sender {
+-(void)setDataDic:(NSDictionary *)dataDic{
+    _dataDic = dataDic;
+    self.user_name.text = _dataDic[@"user_name"];
+    self.user_time.text = _dataDic[@"comment_date"];
+    [self.collectionView    reloadData];
+    self.user_center.text = _dataDic[@"comment_content"];
+    self.comment_imgs = _dataDic[@"comment_imgs"];
+    self.comment_thumb_imgs = _dataDic[@"comment_thumb_imgs"];
+    self.user_id =  _dataDic[@"user_id"];
+    [self.showImageView sd_setImageWithURL:[NSURL URLWithString:_dataDic[@"header_img"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+    
+    
+    if (self.comment_imgs.count > 0) {
+        self.collectionViewTop.constant = 10;
+        self.collectionViewHeight.constant = (UISCREEN_WIDTH -32)/3+2*8;
+    }else{
+        self.collectionViewTop.constant = 0;
+        self.collectionViewHeight.constant = 0;
+    }
+    if (self.comment_imgs.count > 3){
+        self.collectionViewHeight.constant = (UISCREEN_WIDTH -32)/3*2+3*8;
+    }
+
+}
+- (CGSize)sizeThatFits:(CGSize)size {
+    CGFloat totalHeight = 0;
+    totalHeight += 50;
+    totalHeight += [self.user_name sizeThatFits:size].height;
+    totalHeight += [self.user_center sizeThatFits:size].height;
+    totalHeight += self.collectionViewHeight.constant;
+    totalHeight += self.collectionViewTop.constant;
+    return CGSizeMake(size.width, totalHeight);
+}
+- (void)dianji:(UITapGestureRecognizer *)sender {
     MBUserEvaluationListController *VC = [[MBUserEvaluationListController alloc] init];
     VC.user_id = self.user_id;
     VC.user_name = self.user_name.text;
-    VC.user_imageURl = self.imageUrl;
+    VC.user_imageURl = _dataDic[@"header_img"];
     VC.title = string(self.user_name.text, @"的全部评价");
     [self.VC  pushViewController:VC Animated:YES ];
 }

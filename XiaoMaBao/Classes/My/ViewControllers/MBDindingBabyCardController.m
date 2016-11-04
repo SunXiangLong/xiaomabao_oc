@@ -70,19 +70,22 @@
 }
 - (IBAction)binding:(id)sender {
     
-    if (_textfieldOne.text.length<4 ||_textfieldThree.text.length<4 || _textfieldTwo.text.length<4|| _textfieldFour.text.length<4) {
-        [_textfieldOne becomeFirstResponder];
+    _card_pass = [NSString stringWithFormat:@"%@%@%@%@",_textfieldOne.text,_textfieldTwo.text,_textfieldThree.text,_textfieldFour.text];
+    if (_card_pass.length != 16) {
+        
+        [self show:@"请输入完整的麻包卡密码" time:.5];
         _lable .hidden = NO;
+        
         return;
     }
      _lable .hidden = YES;
-    _card_pass = [NSString stringWithFormat:@"%@%@%@%@",_textfieldOne.text,_textfieldTwo.text,_textfieldThree.text,_textfieldFour.text];
+    
     [self setData];
     
 }
 -(NSString *)titleStr{
 
-return @"绑定新卡";
+   return @"绑定新卡";
 }
 
 - (void)setData{
@@ -96,7 +99,7 @@ return @"绑定新卡";
     
     [self show];
     
-    [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/mcard/madd") parameters:@{@"session":session,@"card_pass":_card_pass} success:^(id responseObject) {
+    [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/mcard/madd") parameters:@{@"session":session,@"card_pass":[_card_pass uppercaseString]} success:^(id responseObject) {
         [self dismiss];
 
         
@@ -125,12 +128,6 @@ return @"绑定新卡";
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-   textField.text = [textField.text uppercaseString];
-    string = [string uppercaseString];
-    MMLog(@"%@",string);
-    
- 
-    
         switch (textField.tag) {
             case 0:{
                 if (range.location>3) {//限制只允许输入4位
@@ -161,7 +158,7 @@ return @"绑定新卡";
             case 3:{
                 
                 if (range.location>3) {//限制只允许输入4位
-                    [_textfieldFour    resignFirstResponder];
+                    
                     return NO;
                     
                 }

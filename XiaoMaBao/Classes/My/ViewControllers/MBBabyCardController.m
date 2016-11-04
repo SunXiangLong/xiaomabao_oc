@@ -59,7 +59,7 @@
 }
 -(NSString *)titleStr{
 
-   return @"麻包卡";
+   return @"选择使用的麻包卡";
 }
 
 -(NSString *)rightStr{

@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.view_height.constant = (UISCREEN_WIDTH - 42)/3;
+    self.view_height.constant = (UISCREEN_WIDTH - 40)/3;
 
 }
 - (void)setDataDic:(NSDictionary *)dataDic{
@@ -31,12 +31,18 @@
     }
     NSArray *imageArr = @[_post_image1,_post_image2,_post_image3];
     NSInteger num = 0;
-    if ([_dataDic[@"imgs"] count] == 0) {
-        self.view_height.constant = 0;
-    }else if([_dataDic[@"imgs"] count] >3){
-        num = 3;
-    }else{
+    if ([_dataDic[@"imgs"] count] > 0) {
         num = [_dataDic[@"imgs"] count];
+        self.view_height.constant = (UISCREEN_WIDTH - 40)/3;
+        self.user_title_top.constant = 10;
+    }else{
+        self.view_height.constant = 0;
+        self.user_title_top.constant = 0;
+    }
+        
+        
+   if([_dataDic[@"imgs"] count] >3){
+        num = 3;
     }
     
     for (NSInteger i = 0; i<num; i++) {
@@ -54,10 +60,10 @@
     CGFloat totalHeight = 0;
     totalHeight += [self.post_title sizeThatFits:size].height;
     totalHeight += [self.post_center sizeThatFits:size].height;
-    totalHeight += [_dataDic[@"imgs"] count]>0?(UISCREEN_WIDTH - 42)/3:0;
+    totalHeight += [_dataDic[@"imgs"] count]>0?(UISCREEN_WIDTH - 40)/3:0;
     totalHeight += [self.user_title sizeThatFits:size].height;
     
-    totalHeight += [_dataDic[@"imgs"] count]>0?69:58;
+    totalHeight += [_dataDic[@"imgs"] count]>0?65:50;
     
     return CGSizeMake(size.width, totalHeight);
 }

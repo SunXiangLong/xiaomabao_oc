@@ -570,8 +570,9 @@
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/info_new"] parameters:@{@"session":dict,@"order_sn":[_orderListArray[row] valueForKeyPath:@"parent_order_sn"]} success:^(NSURLSessionDataTask *operation, MBModel *model) {
         [self dismiss];
         if([model.status[@"succeed"] isEqualToNumber:@1]){
-             MMLog(@"%@",model.data);
+//             MMLog(@"%@",model.data);
             MBPaymentViewController *payVc = [[MBPaymentViewController alloc] init];
+            
             payVc.orderInfo = model.data;
             payVc.order_sn = model.data[@"parent_order_sn"];
             [self pushViewController:payVc Animated:YES];
