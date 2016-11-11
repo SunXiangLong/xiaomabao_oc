@@ -1,29 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-<<<<<<< HEAD
-   LastUpgradeVersion = "0800"
-=======
    LastUpgradeVersion = "0700"
->>>>>>> 2.6
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
-<<<<<<< HEAD
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F18AD88971877C11A72E4656A766D73A"
-               BuildableName = "libSVProgressHUD.a"
-               BlueprintName = "SVProgressHUD"
-               ReferencedContainer = "container:Pods.xcodeproj">
-=======
             buildForAnalyzing = "YES"
             buildForTesting = "YES"
             buildForRunning = "YES"
@@ -35,33 +18,19 @@
                BlueprintName = 'SVProgressHUD'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libSVProgressHUD.a'>
->>>>>>> 2.6
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-<<<<<<< HEAD
-      buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
-=======
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
->>>>>>> 2.6
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-<<<<<<< HEAD
-      buildConfiguration = "Debug"
-=======
->>>>>>> 2.6
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -69,47 +38,17 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-<<<<<<< HEAD
-      allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F18AD88971877C11A72E4656A766D73A"
-            BuildableName = "libSVProgressHUD.a"
-            BlueprintName = "SVProgressHUD"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-=======
       buildConfiguration = "Debug"
       allowLocationSimulation = "YES">
->>>>>>> 2.6
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-<<<<<<< HEAD
-      buildConfiguration = "Release"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      savedToolIdentifier = ""
-      useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F18AD88971877C11A72E4656A766D73A"
-            BuildableName = "libSVProgressHUD.a"
-            BlueprintName = "SVProgressHUD"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-=======
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
       buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES">
->>>>>>> 2.6
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

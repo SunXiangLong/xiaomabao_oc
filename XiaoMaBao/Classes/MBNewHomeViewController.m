@@ -164,8 +164,17 @@
 }
 
 - (void)rightTitleClick{
-    MBSearchViewController *searchVc = [[MBSearchViewController alloc] init];
-    [self pushViewController:searchVc Animated:YES];
+    MBSearchViewController *searchViewController = [[MBSearchViewController alloc] init];
+    searchViewController.hotSearches = @[@"美德乐", @"花王", @"跨境购", @"婴儿车", @"玩具",@"围巾", @"尿不湿",@"诺优能",@"特福芬",@"麦婴",@"奶瓶",@"行李箱",@"智高chicco"];
+    searchViewController.hotSearchStyle =  PYHotSearchStyleColorfulTag;
+    searchViewController.searchBar.placeholder = @"请输入要搜索商品名称";
+    searchViewController.hotSearchHeader.text = @"大家都在搜";
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBack"] forBarMetrics:UIBarMetricsDefault];
+    nav.navigationBar.tintColor = [UIColor whiteColor];
+    [self presentViewController:nav  animated:NO completion:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -80,7 +80,7 @@
                 
 
             }else{
-                if (responseObject[@"status"][@"error_desc"]&&[responseObject[@"status"][@"error_desc"] isEqualToString:@""]) {
+                if (responseObject[@"status"][@"error_desc"]&&![responseObject[@"status"][@"error_desc"] isEqualToString:@""]) {
                     [self show:responseObject[@"status"][@"error_desc"] time:1];
                 }else{
                     [self show:@"未知错误" time:1];

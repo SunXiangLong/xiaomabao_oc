@@ -21,16 +21,18 @@
     self.shop_desc.text = dataDic[@"shop_desc"];
     self.shop_address.text = dataDic[@"shop_nearby_subway"];
     self.shop_city.text  = dataDic[@"shop_city"];
-    self.shop_desc.rowspace = 6;
+//    self.shop_desc.rowspace = 6;
 }
 - (CGSize)sizeThatFits:(CGSize)size {
     CGFloat totalHeight = 0;
     
     totalHeight += [self.shop_name sizeThatFits:size].height;
-    totalHeight += [self.shop_desc sizeThatFits:size].height;
+//    totalHeight += [self.shop_desc sizeThatFits:size].height;
     totalHeight += [self.shop_city sizeThatFits:size].height;
-    totalHeight += 50;
-
+    totalHeight += 40;
+    CGFloat strHeight = [self.shop_desc.text sizeWithFont:[UIFont systemFontOfSize:14] withMaxSize:CGSizeMake(UISCREEN_WIDTH-70, MAXFLOAT)].height;
+    totalHeight += strHeight;
+    
     return CGSizeMake(size.width, totalHeight);
 }
 

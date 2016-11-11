@@ -7,7 +7,6 @@
 //
 
 #import "MBSearchPostController.h"
-#import "MBSearchShowViewController.h"
 #import "MobClick.h"
 #import "SKTagView.h"
 #import "MBDetailsCircleTbaleViewCell.h"

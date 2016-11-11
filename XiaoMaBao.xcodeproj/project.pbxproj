@@ -98,7 +98,6 @@
 		487602BF1AF3139B00A2B1F0 /* MBSettingPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 487602BE1AF3139B00A2B1F0 /* MBSettingPwdViewController.m */; };
 		487602C21AF3162F00A2B1F0 /* MBRegisterPhoneDoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 487602C11AF3162F00A2B1F0 /* MBRegisterPhoneDoneViewController.m */; };
 		488200B91B04536D00556CB2 /* PooCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 488200B81B04536D00556CB2 /* PooCodeView.m */; };
-		488EB5D41B897EC700115E40 /* MBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 488EB5D31B897EC700115E40 /* MBSearchViewController.m */; };
 		489ED3231B214A1000BB0547 /* MBCartItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 489ED3221B214A1000BB0547 /* MBCartItemButton.m */; };
 		489ED3311B217EC200BB0547 /* MBShoppingBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 489ED3301B217EC200BB0547 /* MBShoppingBtn.m */; };
 		48B32A3E1B340EA2003A8F9E /* MBOrderInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48B32A3D1B340EA2003A8F9E /* MBOrderInfoViewController.m */; };
@@ -130,8 +129,6 @@
 		940329F51CE49B8A00E0C5FA /* ObjCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 940329F41CE49B8A00E0C5FA /* ObjCModel.m */; };
 		9404884F1C9F8D38008C7938 /* MBActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9404884D1C9F8D38008C7938 /* MBActivityViewController.m */; };
 		940488501C9F8D38008C7938 /* MBActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9404884E1C9F8D38008C7938 /* MBActivityViewController.xib */; };
-		940488541C9FA469008C7938 /* MBSearchShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940488521C9FA469008C7938 /* MBSearchShowViewController.m */; };
-		940488551C9FA469008C7938 /* MBSearchShowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 940488531C9FA469008C7938 /* MBSearchShowViewController.xib */; };
 		9404885A1C9FCE4F008C7938 /* timeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 940488591C9FCE4F008C7938 /* timeView.xib */; };
 		9404885D1C9FCE6D008C7938 /* timeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9404885C1C9FCE6D008C7938 /* timeView.m */; };
 		940507D11BF9D8C600CA02F5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 940507D01BF9D8C600CA02F5 /* CFNetwork.framework */; };
@@ -431,8 +428,6 @@
 		9465B5971C0DA31700D25B43 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9465B5951C0DA31700D25B43 /* PhotoCollectionViewCell.m */; };
 		9465B5981C0DA31700D25B43 /* PhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9465B5961C0DA31700D25B43 /* PhotoCollectionViewCell.xib */; };
 		9468468A1C7168F500D6881B /* DXLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 946846891C7168F500D6881B /* DXLocationManager.m */; };
-		94684F6F1CE1ABC10068670F /* MBMyCircleViewTo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94684F6E1CE1ABC10068670F /* MBMyCircleViewTo.xib */; };
-		94684F721CE1ABDB0068670F /* MBMyCircleViewTo.m in Sources */ = {isa = PBXBuildFile; fileRef = 94684F711CE1ABDB0068670F /* MBMyCircleViewTo.m */; };
 		94684F761CE1D44E0068670F /* MBPostDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94684F741CE1D44E0068670F /* MBPostDetailsViewController.m */; };
 		94684F771CE1D44E0068670F /* MBPostDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94684F751CE1D44E0068670F /* MBPostDetailsViewController.xib */; };
 		94684F7B1CE1D4CC0068670F /* MBPostDetailsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94684F791CE1D4CC0068670F /* MBPostDetailsViewCell.m */; };
@@ -678,6 +673,18 @@
 		94FDD0B41C57565C007B2A42 /* MBBabyImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDD0B21C57565C007B2A42 /* MBBabyImageCollectionViewCell.m */; };
 		94FDD0B51C57565C007B2A42 /* MBBabyImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FDD0B31C57565C007B2A42 /* MBBabyImageCollectionViewCell.xib */; };
 		9F2546D01BC8B75C00BA0076 /* MBHomeCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F2546CF1BC8B75C00BA0076 /* MBHomeCategoryCell.xib */; };
+		9F3300661DD59A2A0031248A /* PYSearch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9F33005A1DD59A2A0031248A /* PYSearch.bundle */; };
+		9F3300671DD59A2A0031248A /* PYSearch.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F33005B1DD59A2A0031248A /* PYSearch.h */; };
+		9F3300681DD59A2A0031248A /* PYSearchConst.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F33005C1DD59A2A0031248A /* PYSearchConst.h */; };
+		9F3300691DD59A2A0031248A /* PYSearchConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F33005D1DD59A2A0031248A /* PYSearchConst.m */; };
+		9F33006A1DD59A2A0031248A /* PYSearchSuggestionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F33005E1DD59A2A0031248A /* PYSearchSuggestionViewController.h */; };
+		9F33006B1DD59A2A0031248A /* PYSearchSuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F33005F1DD59A2A0031248A /* PYSearchSuggestionViewController.m */; };
+		9F33006C1DD59A2A0031248A /* PYSearchViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F3300601DD59A2A0031248A /* PYSearchViewController.h */; };
+		9F33006D1DD59A2A0031248A /* PYSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3300611DD59A2A0031248A /* PYSearchViewController.m */; };
+		9F33006E1DD59A2A0031248A /* UIColor+PYExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F3300621DD59A2A0031248A /* UIColor+PYExtension.h */; };
+		9F33006F1DD59A2A0031248A /* UIColor+PYExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3300631DD59A2A0031248A /* UIColor+PYExtension.m */; };
+		9F3300701DD59A2A0031248A /* UIView+PYExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F3300641DD59A2A0031248A /* UIView+PYExtension.h */; };
+		9F3300711DD59A2A0031248A /* UIView+PYExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3300651DD59A2A0031248A /* UIView+PYExtension.m */; };
 		9F4248431DC0C2A0001D5BAE /* MBUpdateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4248421DC0C2A0001D5BAE /* MBUpdateView.xib */; };
 		9F4248461DC0C2BE001D5BAE /* MBUpdateView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F4248441DC0C2BE001D5BAE /* MBUpdateView.h */; };
 		9F4248471DC0C2BE001D5BAE /* MBUpdateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4248451DC0C2BE001D5BAE /* MBUpdateView.m */; };
@@ -687,6 +694,8 @@
 		9F9CFACC1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9CFACA1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.m */; };
 		9F9CFACF1D8F84250033681D /* MBMaBaoFeaturesShopCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9CFACD1D8F84250033681D /* MBMaBaoFeaturesShopCell.h */; };
 		9F9CFAD01D8F84250033681D /* MBMaBaoFeaturesShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9CFACE1D8F84250033681D /* MBMaBaoFeaturesShopCell.m */; };
+		9FAE0ACF1DD16325000CFF31 /* MBConfirmAnOrderViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FAE0ACD1DD16325000CFF31 /* MBConfirmAnOrderViewController.h */; };
+		9FAE0AD01DD16325000CFF31 /* MBConfirmAnOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAE0ACE1DD16325000CFF31 /* MBConfirmAnOrderViewController.m */; };
 		9FB1BD7D1D8FD72B0033D12B /* MBBrandDetailsCollectionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FB1BD7B1D8FD72B0033D12B /* MBBrandDetailsCollectionViewController.h */; };
 		9FB1BD7E1D8FD72B0033D12B /* MBBrandDetailsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB1BD7C1D8FD72B0033D12B /* MBBrandDetailsCollectionViewController.m */; };
 		9FB1BD811D8FD7E60033D12B /* MBBrandDetailsCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FB1BD7F1D8FD7E60033D12B /* MBBrandDetailsCollectionViewCell.h */; };
@@ -695,6 +704,9 @@
 		9FB1BD861D8FD8310033D12B /* MBBrandDetailsCollectionViewReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB1BD841D8FD8310033D12B /* MBBrandDetailsCollectionViewReusableView.m */; };
 		9FB1BD891D8FE9E80033D12B /* MBBrandDetailsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FB1BD871D8FE9E80033D12B /* MBBrandDetailsViewController.h */; };
 		9FB1BD8A1D8FE9E80033D12B /* MBBrandDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB1BD881D8FE9E80033D12B /* MBBrandDetailsViewController.m */; };
+		9FC74C9A1DD5D2330001724A /* MBSearchViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FC74C971DD5D2330001724A /* MBSearchViewController.h */; };
+		9FC74C9B1DD5D2330001724A /* MBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC74C981DD5D2330001724A /* MBSearchViewController.m */; };
+		9FC74C9C1DD5D2330001724A /* MBSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FC74C991DD5D2330001724A /* MBSearchViewController.xib */; };
 		9FF38BC31DC74DCA005223BC /* MBMaBaoFeaturesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FF38BC11DC74DCA005223BC /* MBMaBaoFeaturesViewController.h */; };
 		9FF38BC41DC74DCA005223BC /* MBMaBaoFeaturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF38BC21DC74DCA005223BC /* MBMaBaoFeaturesViewController.m */; };
 		AA9F03CF1B8EEA110072D39A /* MBSignRoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9F03CE1B8EEA110072D39A /* MBSignRoleView.m */; };
@@ -863,8 +875,6 @@
 		487602C11AF3162F00A2B1F0 /* MBRegisterPhoneDoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBRegisterPhoneDoneViewController.m; sourceTree = "<group>"; };
 		488200B71B04536D00556CB2 /* PooCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PooCodeView.h; sourceTree = "<group>"; };
 		488200B81B04536D00556CB2 /* PooCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PooCodeView.m; sourceTree = "<group>"; };
-		488EB5D21B897EC700115E40 /* MBSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBSearchViewController.h; path = Home/ViewController/MBSearchViewController.h; sourceTree = "<group>"; };
-		488EB5D31B897EC700115E40 /* MBSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBSearchViewController.m; path = Home/ViewController/MBSearchViewController.m; sourceTree = "<group>"; };
 		489ED3211B214A1000BB0547 /* MBCartItemButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBCartItemButton.h; sourceTree = "<group>"; };
 		489ED3221B214A1000BB0547 /* MBCartItemButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCartItemButton.m; sourceTree = "<group>"; };
 		489ED32F1B217EC200BB0547 /* MBShoppingBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBShoppingBtn.h; sourceTree = "<group>"; };
@@ -875,7 +885,7 @@
 		48B97A901B28A13D00F4B641 /* MBReceiptAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBReceiptAddressTableViewCell.m; sourceTree = "<group>"; };
 		48C6DF591B649E0B00781665 /* MBReceiptAddressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBReceiptAddressTableViewCell.xib; sourceTree = "<group>"; };
 		48C7E2F71B1D4D8100853117 /* MBFireOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFireOrderViewController.h; sourceTree = "<group>"; };
-		48C7E2F81B1D4D8100853117 /* MBFireOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFireOrderViewController.m; sourceTree = "<group>"; };
+		48C7E2F81B1D4D8100853117 /* MBFireOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MBFireOrderViewController.m; sourceTree = "<group>"; usesTabs = 0; };
 		48C7E2FA1B1D516500853117 /* MBPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPaymentViewController.h; sourceTree = "<group>"; };
 		48C7E2FB1B1D516500853117 /* MBPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPaymentViewController.m; sourceTree = "<group>"; };
 		48E6E47B1B254C9100B3556E /* MBOrderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBOrderListViewController.h; sourceTree = "<group>"; };
@@ -923,9 +933,6 @@
 		9404884C1C9F8D38008C7938 /* MBActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBActivityViewController.h; sourceTree = "<group>"; };
 		9404884D1C9F8D38008C7938 /* MBActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBActivityViewController.m; sourceTree = "<group>"; };
 		9404884E1C9F8D38008C7938 /* MBActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBActivityViewController.xib; sourceTree = "<group>"; };
-		940488511C9FA469008C7938 /* MBSearchShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSearchShowViewController.h; sourceTree = "<group>"; };
-		940488521C9FA469008C7938 /* MBSearchShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSearchShowViewController.m; sourceTree = "<group>"; };
-		940488531C9FA469008C7938 /* MBSearchShowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBSearchShowViewController.xib; sourceTree = "<group>"; };
 		940488591C9FCE4F008C7938 /* timeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = timeView.xib; sourceTree = "<group>"; };
 		9404885B1C9FCE6D008C7938 /* timeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timeView.h; sourceTree = "<group>"; };
 		9404885C1C9FCE6D008C7938 /* timeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = timeView.m; sourceTree = "<group>"; };
@@ -1304,9 +1311,6 @@
 		9465B5961C0DA31700D25B43 /* PhotoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoCollectionViewCell.xib; sourceTree = "<group>"; };
 		946846881C7168F500D6881B /* DXLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXLocationManager.h; sourceTree = "<group>"; };
 		946846891C7168F500D6881B /* DXLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXLocationManager.m; sourceTree = "<group>"; };
-		94684F6E1CE1ABC10068670F /* MBMyCircleViewTo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBMyCircleViewTo.xib; sourceTree = "<group>"; };
-		94684F701CE1ABDB0068670F /* MBMyCircleViewTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMyCircleViewTo.h; sourceTree = "<group>"; };
-		94684F711CE1ABDB0068670F /* MBMyCircleViewTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMyCircleViewTo.m; sourceTree = "<group>"; };
 		94684F731CE1D44E0068670F /* MBPostDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBPostDetailsViewController.h; path = ../MBPostDetailsViewController.h; sourceTree = "<group>"; };
 		94684F741CE1D44E0068670F /* MBPostDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBPostDetailsViewController.m; path = ../MBPostDetailsViewController.m; sourceTree = "<group>"; };
 		94684F751CE1D44E0068670F /* MBPostDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MBPostDetailsViewController.xib; path = ../MBPostDetailsViewController.xib; sourceTree = "<group>"; };
@@ -1755,6 +1759,18 @@
 		94FDD0B31C57565C007B2A42 /* MBBabyImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBBabyImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		9F0351AE1D9220850006102A /* XiaoMaBao.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XiaoMaBao.entitlements; sourceTree = "<group>"; };
 		9F2546CF1BC8B75C00BA0076 /* MBHomeCategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBHomeCategoryCell.xib; sourceTree = "<group>"; };
+		9F33005A1DD59A2A0031248A /* PYSearch.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PYSearch.bundle; sourceTree = "<group>"; };
+		9F33005B1DD59A2A0031248A /* PYSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearch.h; sourceTree = "<group>"; };
+		9F33005C1DD59A2A0031248A /* PYSearchConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearchConst.h; sourceTree = "<group>"; };
+		9F33005D1DD59A2A0031248A /* PYSearchConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYSearchConst.m; sourceTree = "<group>"; };
+		9F33005E1DD59A2A0031248A /* PYSearchSuggestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearchSuggestionViewController.h; sourceTree = "<group>"; };
+		9F33005F1DD59A2A0031248A /* PYSearchSuggestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYSearchSuggestionViewController.m; sourceTree = "<group>"; };
+		9F3300601DD59A2A0031248A /* PYSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearchViewController.h; sourceTree = "<group>"; };
+		9F3300611DD59A2A0031248A /* PYSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYSearchViewController.m; sourceTree = "<group>"; };
+		9F3300621DD59A2A0031248A /* UIColor+PYExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+PYExtension.h"; sourceTree = "<group>"; };
+		9F3300631DD59A2A0031248A /* UIColor+PYExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+PYExtension.m"; sourceTree = "<group>"; };
+		9F3300641DD59A2A0031248A /* UIView+PYExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+PYExtension.h"; sourceTree = "<group>"; };
+		9F3300651DD59A2A0031248A /* UIView+PYExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PYExtension.m"; sourceTree = "<group>"; };
 		9F4248421DC0C2A0001D5BAE /* MBUpdateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBUpdateView.xib; sourceTree = "<group>"; };
 		9F4248441DC0C2BE001D5BAE /* MBUpdateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBUpdateView.h; sourceTree = "<group>"; };
 		9F4248451DC0C2BE001D5BAE /* MBUpdateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBUpdateView.m; sourceTree = "<group>"; };
@@ -1764,6 +1780,8 @@
 		9F9CFACA1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMaBaoFeaturesBrandCell.m; sourceTree = "<group>"; };
 		9F9CFACD1D8F84250033681D /* MBMaBaoFeaturesShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMaBaoFeaturesShopCell.h; sourceTree = "<group>"; };
 		9F9CFACE1D8F84250033681D /* MBMaBaoFeaturesShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMaBaoFeaturesShopCell.m; sourceTree = "<group>"; };
+		9FAE0ACD1DD16325000CFF31 /* MBConfirmAnOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBConfirmAnOrderViewController.h; sourceTree = "<group>"; };
+		9FAE0ACE1DD16325000CFF31 /* MBConfirmAnOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBConfirmAnOrderViewController.m; sourceTree = "<group>"; };
 		9FB1BD7B1D8FD72B0033D12B /* MBBrandDetailsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBrandDetailsCollectionViewController.h; sourceTree = "<group>"; };
 		9FB1BD7C1D8FD72B0033D12B /* MBBrandDetailsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBrandDetailsCollectionViewController.m; sourceTree = "<group>"; };
 		9FB1BD7F1D8FD7E60033D12B /* MBBrandDetailsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBrandDetailsCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1772,6 +1790,9 @@
 		9FB1BD841D8FD8310033D12B /* MBBrandDetailsCollectionViewReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBrandDetailsCollectionViewReusableView.m; sourceTree = "<group>"; };
 		9FB1BD871D8FE9E80033D12B /* MBBrandDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBrandDetailsViewController.h; sourceTree = "<group>"; };
 		9FB1BD881D8FE9E80033D12B /* MBBrandDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBrandDetailsViewController.m; sourceTree = "<group>"; };
+		9FC74C971DD5D2330001724A /* MBSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSearchViewController.h; sourceTree = "<group>"; };
+		9FC74C981DD5D2330001724A /* MBSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSearchViewController.m; sourceTree = "<group>"; };
+		9FC74C991DD5D2330001724A /* MBSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBSearchViewController.xib; sourceTree = "<group>"; };
 		9FF38BC11DC74DCA005223BC /* MBMaBaoFeaturesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMaBaoFeaturesViewController.h; sourceTree = "<group>"; };
 		9FF38BC21DC74DCA005223BC /* MBMaBaoFeaturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMaBaoFeaturesViewController.m; sourceTree = "<group>"; };
 		AA9F03CD1B8EEA110072D39A /* MBSignRoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSignRoleView.h; sourceTree = "<group>"; };
@@ -1866,6 +1887,7 @@
 		420BF6011BB537BA00C89C3C /* Other(第三方) */ = {
 			isa = PBXGroup;
 			children = (
+				9F3300591DD59A2A0031248A /* PYSearch */,
 				943DFA5F1CEED6DD006A3924 /* UnicallSDK */,
 				94E9A46A1C9047340002E15E /* SDPhotoBrowser */,
 				940507CB1BF9D86800CA02F5 /* 极光推送 */,
@@ -2299,6 +2321,8 @@
 				485486351B19AB0E008C68C0 /* MBShoppingCartViewController.m */,
 				48C7E2F71B1D4D8100853117 /* MBFireOrderViewController.h */,
 				48C7E2F81B1D4D8100853117 /* MBFireOrderViewController.m */,
+				9FAE0ACD1DD16325000CFF31 /* MBConfirmAnOrderViewController.h */,
+				9FAE0ACE1DD16325000CFF31 /* MBConfirmAnOrderViewController.m */,
 				48C7E2FA1B1D516500853117 /* MBPaymentViewController.h */,
 				48C7E2FB1B1D516500853117 /* MBPaymentViewController.m */,
 				943ED8071CCF6B24005AF4D9 /* MBAddIDCardView.h */,
@@ -2771,9 +2795,6 @@
 			children = (
 				94DB24751CD21B4300B1F153 /* MBMycircleTableViewCell.h */,
 				94DB24761CD21B4300B1F153 /* MBMycircleTableViewCell.m */,
-				94684F701CE1ABDB0068670F /* MBMyCircleViewTo.h */,
-				94684F711CE1ABDB0068670F /* MBMyCircleViewTo.m */,
-				94684F6E1CE1ABC10068670F /* MBMyCircleViewTo.xib */,
 				94FA70631CE027D900BCC364 /* MBTopPostCell.h */,
 				94FA70641CE027D900BCC364 /* MBTopPostCell.m */,
 				94FA70721CE03FA900BCC364 /* MBDetailsCircleTbaleViewCell.h */,
@@ -3367,15 +3388,13 @@
 				9404884C1C9F8D38008C7938 /* MBActivityViewController.h */,
 				9404884D1C9F8D38008C7938 /* MBActivityViewController.m */,
 				9404884E1C9F8D38008C7938 /* MBActivityViewController.xib */,
-				940488511C9FA469008C7938 /* MBSearchShowViewController.h */,
-				940488521C9FA469008C7938 /* MBSearchShowViewController.m */,
-				940488531C9FA469008C7938 /* MBSearchShowViewController.xib */,
-				488EB5D21B897EC700115E40 /* MBSearchViewController.h */,
-				488EB5D31B897EC700115E40 /* MBSearchViewController.m */,
 				485006781B085BB1002520CB /* MBSharkViewController.h */,
 				485006791B085BB1002520CB /* MBSharkViewController.m */,
 				480F7B771B09B00600913727 /* MBCheckInViewController.h */,
 				480F7B781B09B00600913727 /* MBCheckInViewController.m */,
+				9FC74C971DD5D2330001724A /* MBSearchViewController.h */,
+				9FC74C981DD5D2330001724A /* MBSearchViewController.m */,
+				9FC74C991DD5D2330001724A /* MBSearchViewController.xib */,
 			);
 			name = VC;
 			path = ..;
@@ -3723,6 +3742,25 @@
 			name = "MJRefresh封装";
 			sourceTree = "<group>";
 		};
+		9F3300591DD59A2A0031248A /* PYSearch */ = {
+			isa = PBXGroup;
+			children = (
+				9F33005A1DD59A2A0031248A /* PYSearch.bundle */,
+				9F33005B1DD59A2A0031248A /* PYSearch.h */,
+				9F33005C1DD59A2A0031248A /* PYSearchConst.h */,
+				9F33005D1DD59A2A0031248A /* PYSearchConst.m */,
+				9F33005E1DD59A2A0031248A /* PYSearchSuggestionViewController.h */,
+				9F33005F1DD59A2A0031248A /* PYSearchSuggestionViewController.m */,
+				9F3300601DD59A2A0031248A /* PYSearchViewController.h */,
+				9F3300611DD59A2A0031248A /* PYSearchViewController.m */,
+				9F3300621DD59A2A0031248A /* UIColor+PYExtension.h */,
+				9F3300631DD59A2A0031248A /* UIColor+PYExtension.m */,
+				9F3300641DD59A2A0031248A /* UIView+PYExtension.h */,
+				9F3300651DD59A2A0031248A /* UIView+PYExtension.m */,
+			);
+			path = PYSearch;
+			sourceTree = "<group>";
+		};
 		A8F6E4E18F65EBC044103A18 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -3757,8 +3795,12 @@
 				94833A8A1D05162500CF4DF2 /* MBabyRecordOneCell.h in Headers */,
 				948E7ED31D012E0A00ECEB7D /* MBSetBabyInformationController.h in Headers */,
 				94743C1D1D07C5AA003A262B /* MBNewMyViewController.h in Headers */,
+				9FC74C9A1DD5D2330001724A /* MBSearchViewController.h in Headers */,
+				9FAE0ACF1DD16325000CFF31 /* MBConfirmAnOrderViewController.h in Headers */,
 				941D8EA51D378CFA00E60972 /* MBPostDetailsFooterOne.h in Headers */,
 				945B4C871D1A54A400BBBD00 /* MBAffordableCategoryCell.h in Headers */,
+				9F3300671DD59A2A0031248A /* PYSearch.h in Headers */,
+				9F33006A1DD59A2A0031248A /* PYSearchSuggestionViewController.h in Headers */,
 				941687C41D0554EB00F069AE /* MBabyRecordFourCell.h in Headers */,
 				94E272211CFECF5A00172511 /* MBNewBabyOneTableCell.h in Headers */,
 				941BCED61D647C9F00B4C67E /* MBVideoDetailsViewCell.h in Headers */,
@@ -3780,10 +3822,12 @@
 				9FB1BD811D8FD7E60033D12B /* MBBrandDetailsCollectionViewCell.h in Headers */,
 				9F9CFACF1D8F84250033681D /* MBMaBaoFeaturesShopCell.h in Headers */,
 				9424062E1D6EE4230061C777 /* MBArticleDetailViewController.h in Headers */,
+				9F3300681DD59A2A0031248A /* PYSearchConst.h in Headers */,
 				94E2722D1CFEDA4100172511 /* MBNewBabyThreeTableCell.h in Headers */,
 				9FF38BC31DC74DCA005223BC /* MBMaBaoFeaturesViewController.h in Headers */,
 				94BBF9561D6D784B00C80D37 /* MBPhoneticDetailTableViewController.h in Headers */,
 				941687981D05217200F069AE /* UIImagePickerController+ST.h in Headers */,
+				9F33006E1DD59A2A0031248A /* UIColor+PYExtension.h in Headers */,
 				947E0DC81CFC03E30025594A /* MBNewBabyCell.h in Headers */,
 				9414ABE51D65A14400EE78C2 /* MBOrderInfoTableViewCell.h in Headers */,
 				9452BCB61D2251DC00368533 /* MBShare.h in Headers */,
@@ -3803,6 +3847,7 @@
 				9428D5F41D6D53D40055CCFC /* STUI.h in Headers */,
 				943F79A51D34F19A00AA9D3A /* MBDetailsCircleCell.h in Headers */,
 				9F4248461DC0C2BE001D5BAE /* MBUpdateView.h in Headers */,
+				9F33006C1DD59A2A0031248A /* PYSearchViewController.h in Headers */,
 				9428D5F81D6D53D40055CCFC /* UIView+ST.h in Headers */,
 				9424062A1D6EC1ED0061C777 /* MBPhoneticDetailViewController.h in Headers */,
 				9F9CFACB1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.h in Headers */,
@@ -3817,6 +3862,7 @@
 				944DBD131D140205009B3869 /* MBabyRecordFiveCell.h in Headers */,
 				947E0DBE1CFBD9380025594A /* MBNewBabyController.h in Headers */,
 				941687BE1D05507200F069AE /* MBabyRecordThreeCell.h in Headers */,
+				9F3300701DD59A2A0031248A /* UIView+PYExtension.h in Headers */,
 				945B4C821D1A403F00BBBD00 /* MBNewAffordablePlanetViewController.h in Headers */,
 				94743C2A1D07D1A7003A262B /* MBNewMyViewHeadView.h in Headers */,
 				941687AF1D05394000F069AE /* MBabyRecordHeadView.h in Headers */,
@@ -3933,7 +3979,6 @@
 				943D22241D767F10004ECC02 /* MBArticleCollectViewController.xib in Resources */,
 				9432272E1C9A53C900E352AB /* MBAffordablePlanetTwoChildOneCell.xib in Resources */,
 				947468E71C7701A900F10FD2 /* MBHealthViewController.xib in Resources */,
-				940488551C9FA469008C7938 /* MBSearchShowViewController.xib in Resources */,
 				94F4192D1C5761EB000592DE /* MBPublishedViewController.xib in Resources */,
 				9496D3B31CA3BD6C00743586 /* MBShopAddresViewController.xib in Resources */,
 				94E3DE121CA11E6B00A94317 /* MBShopDetailsViewController.xib in Resources */,
@@ -3973,6 +4018,7 @@
 				9465B5981C0DA31700D25B43 /* PhotoCollectionViewCell.xib in Resources */,
 				94D0BB261C3A114E000B8943 /* MBImageTableViewCell.xib in Resources */,
 				941BCED81D647C9F00B4C67E /* MBVideoDetailsViewCell.xib in Resources */,
+				9FC74C9C1DD5D2330001724A /* MBSearchViewController.xib in Resources */,
 				941531DA1CBF414500B2AB1E /* checkbox_pic@2x.png in Resources */,
 				941687C01D05507200F069AE /* MBabyRecordThreeCell.xib in Resources */,
 				944BB0661CAD399000D16E19 /* MBServiceShopsTableHeadView.xib in Resources */,
@@ -4005,7 +4051,6 @@
 				944DCD221C9BF6C0003B5CC2 /* MBDetailedViewController.xib in Resources */,
 				949725C41CB60A5A00804098 /* MBMBServiceRefundTwoCell.xib in Resources */,
 				940488501C9F8D38008C7938 /* MBActivityViewController.xib in Resources */,
-				94684F6F1CE1ABC10068670F /* MBMyCircleViewTo.xib in Resources */,
 				94A3AEDB1C0EC4B800084AF1 /* RefundWayTableViewCell.xib in Resources */,
 				94D77CA41C994A9900748227 /* MBAffordablePlanetViewController.xib in Resources */,
 				94892D641CB49F5A00668A98 /* MBServiceOrderController.xib in Resources */,
@@ -4020,6 +4065,7 @@
 				944BBB681CF5400C00B9492E /* MBAffordablePlanetMoreCell.xib in Resources */,
 				941161961C46560500EE8B9A /* MBMoreBrandsCollectionViewCell.xib in Resources */,
 				48E6E4921B25FBC900B3556E /* MBHistoryRecoderTableViewCell.xib in Resources */,
+				9F3300661DD59A2A0031248A /* PYSearch.bundle in Resources */,
 				481FC0D91B23046E000E6864 /* MBMyTableViewCell.xib in Resources */,
 				48C6DF5A1B649E0B00781665 /* MBReceiptAddressTableViewCell.xib in Resources */,
 				943F79A71D34F19A00AA9D3A /* MBDetailsCircleCell.xib in Resources */,
@@ -4207,6 +4253,7 @@
 				48F9F4F01B01F71200ED4A5D /* BkTabBarButton.m in Sources */,
 				48ED9FC11AF774BB0076A4CD /* MBRegisterFieldRightViewButton.m in Sources */,
 				94E9A45B1C8FB4280002E15E /* UIColor+XWAdd.m in Sources */,
+				9FAE0AD01DD16325000CFF31 /* MBConfirmAnOrderViewController.m in Sources */,
 				48B97A921B28A13D00F4B641 /* MBReceiptAddressTableViewCell.m in Sources */,
 				941309DF1CEC17A00056379A /* MBAdvert.m in Sources */,
 				48E6E4951B25FED400B3556E /* MBRealNameAuthViewController.m in Sources */,
@@ -4275,8 +4322,10 @@
 				944BBB611CF53AE300B9492E /* MBAffordablePlanetViewCell.m in Sources */,
 				94892D721CB4FF4100668A98 /* MBServiceOrderThreeCell.m in Sources */,
 				944AFCBF1CBBA2D800E66535 /* MBServiceRefundFootCell.m in Sources */,
+				9F3300711DD59A2A0031248A /* UIView+PYExtension.m in Sources */,
 				94E24FC51CBD16C200C8D6B6 /* LGPhotoPickerCollectionViewCell.m in Sources */,
 				948CA9F91BFECBB400318EAE /* NSDataEx.m in Sources */,
+				9F33006B1DD59A2A0031248A /* PYSearchSuggestionViewController.m in Sources */,
 				481D08151AF4DD1200BE1994 /* MBRetrievePwdViewController.m in Sources */,
 				487602BF1AF3139B00A2B1F0 /* MBSettingPwdViewController.m in Sources */,
 				94FA70751CE03FA900BCC364 /* MBDetailsCircleTbaleViewCell.m in Sources */,
@@ -4305,6 +4354,7 @@
 				944364F11CBCE0C60085E006 /* MBPaySuccessView.m in Sources */,
 				94A3AEDA1C0EC4B800084AF1 /* RefundWayTableViewCell.m in Sources */,
 				94F4192C1C5761EB000592DE /* MBPublishedViewController.m in Sources */,
+				9FC74C9B1DD5D2330001724A /* MBSearchViewController.m in Sources */,
 				420BF6621BB537BB00C89C3C /* MJFoundation.m in Sources */,
 				941BA96D1CB390B700421BF6 /* MBUserEvaluationListTableHeadView.m in Sources */,
 				94E24FC81CBD16C200C8D6B6 /* LGPhotoPickerImageView.m in Sources */,
@@ -4326,6 +4376,7 @@
 				944BB0561CAD187900D16E19 /* MBServiceDetailsViewController.m in Sources */,
 				48FAFD5E1B1FFAD6002D8DEC /* MBJoinCartViewController.m in Sources */,
 				944BBB671CF5400C00B9492E /* MBAffordablePlanetMoreCell.m in Sources */,
+				9F33006D1DD59A2A0031248A /* PYSearchViewController.m in Sources */,
 				9428A48F1CB778FB002D2A53 /* MBPayResultsHeadView.m in Sources */,
 				94DB1E171CE5A59D00ADAE9D /* MBCollectionPostController.m in Sources */,
 				948E7ED41D012E0A00ECEB7D /* MBSetBabyInformationController.m in Sources */,
@@ -4334,7 +4385,6 @@
 				941CCD261CB3B5D50056890C /* MBMyServiceController.m in Sources */,
 				944BBB6D1CF5458400B9492E /* MBNewFreeStoreViewController.m in Sources */,
 				94892D631CB49F5A00668A98 /* MBServiceOrderController.m in Sources */,
-				94684F721CE1ABDB0068670F /* MBMyCircleViewTo.m in Sources */,
 				48C7E2F91B1D4D8100853117 /* MBFireOrderViewController.m in Sources */,
 				420BF6691BB537BB00C89C3C /* NSObject+MJKeyValue.m in Sources */,
 				94E24FBF1CBD16C200C8D6B6 /* LGPhotoPickerDatas.m in Sources */,
@@ -4377,6 +4427,7 @@
 				486D234D1B24A3870035EE1A /* MBEditProfileViewController.m in Sources */,
 				9432273C1C9A615000E352AB /* MBFreeStoreViewThreeCell.m in Sources */,
 				48162F3D1AF2866900E61D5C /* MBRegisterViewController.m in Sources */,
+				9F33006F1DD59A2A0031248A /* UIColor+PYExtension.m in Sources */,
 				420BF6681BB537BB00C89C3C /* NSObject+MJCoding.m in Sources */,
 				48E6E4841B25676A00B3556E /* MBMyCollectionTableViewCell.m in Sources */,
 				94FA70611CE0272200BCC364 /* MBTopPostsController.m in Sources */,
@@ -4402,7 +4453,7 @@
 				48ED9FAF1AF6FE810076A4CD /* MBMessageCheckViewController.m in Sources */,
 				9424061A1D6E92620061C777 /* XHMessageVoiceFactory.m in Sources */,
 				94990AFD1C058339003979E7 /* MBRefundHomeController.m in Sources */,
-				488EB5D41B897EC700115E40 /* MBSearchViewController.m in Sources */,
+				9F3300691DD59A2A0031248A /* PYSearchConst.m in Sources */,
 				941CCD2B1CB3CC7B0056890C /* MBMyServiceChilderViewController.m in Sources */,
 				48E6E4801B25656300B3556E /* MBMyCollectionViewController.m in Sources */,
 				94892D801CB50B0F00668A98 /* MBServiceOrderFootView.m in Sources */,
@@ -4494,7 +4545,6 @@
 				94E24FC91CBD16C200C8D6B6 /* UIView+Layout.m in Sources */,
 				941BCED71D647C9F00B4C67E /* MBVideoDetailsViewCell.m in Sources */,
 				94E272281CFED70D00172511 /* MBNewBabyTwoTableCell.m in Sources */,
-				940488541C9FA469008C7938 /* MBSearchShowViewController.m in Sources */,
 				420BF65D1BB537BB00C89C3C /* BadgeStyle.m in Sources */,
 				48162F401AF2866900E61D5C /* UIView+MBIBnspectable.m in Sources */,
 				944BB05B1CAD287000D16E19 /* MBServiceShopsViewController.m in Sources */,

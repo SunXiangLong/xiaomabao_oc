@@ -88,7 +88,7 @@
     [JSPatch sync];
 #if defined(DEBUG)||defined(_DEBUG)
     [JSPatch setupDevelopment];
-//    [[JPFPSStatus sharedInstance] open];
+    [[JPFPSStatus sharedInstance] open];
 #endif
     
     

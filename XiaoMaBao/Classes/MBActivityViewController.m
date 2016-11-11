@@ -11,7 +11,8 @@
 #import "MBCategoryViewTwoCell.h"
 #import "MBShopingViewController.h"
 #import "timeView.h"
-@interface MBActivityViewController ()<XWCatergoryViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>{
+#import "MBSearchViewController.h"
+@interface MBActivityViewController ()<XWCatergoryViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate>{
 
     NSInteger _page;
     NSString *_type;
@@ -50,6 +51,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self searchUI];
     [self setTopView];
 
     [_collectionView registerNib:[UINib nibWithNibName:@"MBCategoryViewTwoCell" bundle:nil] forCellWithReuseIdentifier:@"MBCategoryViewTwoCell"];
@@ -61,6 +63,13 @@
     _recommend_goods = [NSMutableArray array];
     [self setData:_meunArray.firstObject];
     [self refreshLoading];
+}
+- (void)searchUI{
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(64 , 26.5, UISCREEN_WIDTH - 64*2, 30)];
+    searchBar.placeholder = @"请输入要搜索商品名称";
+    searchBar.backgroundImage = [UIImage imageNamed:@"PYSearch.bundle/clearImage"];
+    searchBar.delegate = self;
+    [self.navBar addSubview:searchBar];
 }
 - (void)setTopView{
     
@@ -300,5 +309,20 @@
         return CGSizeMake(UISCREEN_WIDTH, UISCREEN_WIDTH*35/75+33);
    
 
+}
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    
+    MBSearchViewController *searchViewController = [[MBSearchViewController alloc] init];
+    searchViewController.hotSearches = @[@"美德乐", @"花王", @"跨境购", @"婴儿车", @"玩具",@"围巾", @"尿不湿",@"诺优能",@"特福芬",@"麦婴",@"奶瓶",@"行李箱",@"智高chicco"];
+    searchViewController.hotSearchStyle =  PYHotSearchStyleColorfulTag;
+    searchViewController.searchBar.placeholder = @"请输入要搜索商品名称";
+    searchViewController.hotSearchHeader.text = @"大家都在搜";
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBack"] forBarMetrics:UIBarMetricsDefault];
+    nav.navigationBar.tintColor = [UIColor whiteColor];
+    [self presentViewController:nav  animated:NO completion:nil];
+    
+    return NO;
 }
 @end

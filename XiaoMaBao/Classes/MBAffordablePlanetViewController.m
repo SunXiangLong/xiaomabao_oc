@@ -76,18 +76,10 @@
         }
        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        
-
          MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
-        
-
     }];
-    
-    
 }
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

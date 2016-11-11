@@ -212,10 +212,11 @@
 - (void)xwp_interpolationForBottomLineWithRatio:(CGFloat)ratio{
     if (!_bottomLineEable || !_data.count) return;
     CGFloat x = [self xwp_interpolationFromValue:_fromModel.cellFrame.origin.x toValue:_toModel.cellFrame.origin.x ratio:ratio - (int)ratio];
-    CGFloat y = CGRectGetMaxY(_fromModel.cellFrame) + _bottomLineSpacingFromTitleBottom;
+//    CGFloat y = CGRectGetMaxY(_fromModel.cellFrame) + _bottomLineSpacingFromTitleBottom;
     CGFloat width = [self xwp_interpolationFromValue:_fromModel.cellFrame.size.width toValue:_toModel.cellFrame.size.width ratio:ratio - (int)ratio];
     CGFloat height = _bottomLineWidth;
-    _bottomLine.frame = CGRectMake(x, y, width, height);
+   
+    _bottomLine.frame = CGRectMake(x, 34 - _bottomLineWidth, width, height);
 }
 
 /**插值backEllipse*/

@@ -7,7 +7,6 @@
 //
 
 #import "MBMyCircleController.h"
-#import "MBMyCircleViewTo.h"
 #import "MBMycircleTableViewCell.h"
 #import "MBShopingViewController.h"
 #import "MBActivityViewController.h"
@@ -410,6 +409,8 @@
 
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
     NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
     if (indexPath.section == 0 && self.myCircleArray.count == 0 && sid) {
     return 64;
@@ -436,25 +437,55 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
-    UIView *headerInView = [[UIView alloc] init];
-    headerInView.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 41);
-    MBMyCircleViewTo *tableViewHeader = [MBMyCircleViewTo instanceView];
-    tableViewHeader.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 41);
-    [headerInView addSubview:tableViewHeader];
+
+    
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor whiteColor];
+    view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 41);
+    UIView *backTopView = [[UIView alloc] init];
+    backTopView.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 10);
+    backTopView.backgroundColor = BACKColor;
+    [view addSubview:backTopView];
+    UILabel *lable = [[UILabel alloc] init];
+    lable.font =  YC_YAHEI_FONT(16);
+    lable.textColor = UIcolor(@"575c65");
+    [view addSubview:lable];
+    [lable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(8);
+        make.centerY.mas_equalTo(5);
+    }];
+    
+    NSString *numStr = s_Integer(_myCircleArray.count);
+    NSString *comment_content = [NSString stringWithFormat:@"我的麻包圈( %@ )",numStr];
+    
+    
+    NSRange range = [comment_content rangeOfString:numStr];
+    
+    NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:comment_content];
+    [att addAttributes:@{NSForegroundColorAttributeName:UIcolor(@"d66263")}  range:NSMakeRange(range.location, range.length)];
+    [att addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} range:NSMakeRange(range.location, range.length )];
+    
+    
     if (sid&&section == 0) {
-        NSString *numStr = s_Integer(_myCircleArray.count);
-        tableViewHeader.myNumberLabel.text = numStr;
-        tableViewHeader.myCircleLabel.text = @"我的麻包圈（ ";
-        tableViewHeader.endLable.text = @" ）";
-        tableViewHeader.myNumberLabel.hidden = NO;
-        tableViewHeader.endLable.hidden = NO;
+        lable.text = comment_content;
+        lable.attributedText  = att;
+        
     }else{
-        tableViewHeader.myCircleLabel.text = @"推荐麻包圈";
-        tableViewHeader.myNumberLabel.hidden = YES;
-        tableViewHeader.endLable.hidden = YES;
+        lable.text = @"推荐麻包圈";
     }
     
-    return headerInView;
+    UIImageView *image = [[UIImageView alloc] init];
+    image.backgroundColor = UIcolor(@"eaeaea");
+    [view addSubview:image];
+    [image mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(0);
+        make.height.mas_equalTo(1);
+    }];
+    
+    
+    return view;
     
 }
 

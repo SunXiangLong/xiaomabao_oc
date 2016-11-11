@@ -11,7 +11,8 @@
 #import "MBCategoryViewOneCell.h"
 #import "MBShopingViewController.h"
 #import "MBDetailedViewController.h"
-@interface MBCategoryViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+#import "MBSearchViewController.h"
+@interface MBCategoryViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UISearchBarDelegate>
 {
     
     NSInteger _page;
@@ -31,6 +32,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self searchUI];
+    
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView1"];
    [_collectionView registerNib:[UINib nibWithNibName:@"MBCategoryViewOneCell" bundle:nil] forCellWithReuseIdentifier:@"MBCategoryViewOneCell"];
     [_collectionView registerNib:[UINib nibWithNibName:@"MBCategoryViewTwoCell" bundle:nil] forCellWithReuseIdentifier:@"MBCategoryViewTwoCell"];
@@ -49,6 +53,13 @@
     
     // 设置footer
     self.collectionView.mj_footer = footer;
+}
+- (void)searchUI{
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(64 , 26.5, UISCREEN_WIDTH - 64*2, 30)];
+    searchBar.placeholder = @"请输入要搜索商品名称";
+    searchBar.backgroundImage = [UIImage imageNamed:@"PYSearch.bundle/clearImage"];
+    searchBar.delegate = self;
+    [self.navBar addSubview:searchBar];
 }
 #pragma mark -- 请求数据
 - (void)setData{
@@ -117,14 +128,12 @@
     
     
 }
--(NSString *)titleStr{
 
-    return self.title?:@"";
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 #pragma mark --UICollectionViewdelegate
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (section==0) {
@@ -245,5 +254,20 @@
     }
     return CGSizeMake(0, 0);
     
+}
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+
+    MBSearchViewController *searchViewController = [[MBSearchViewController alloc] init];
+    searchViewController.hotSearches = @[@"美德乐", @"花王", @"跨境购", @"婴儿车", @"玩具",@"围巾", @"尿不湿",@"诺优能",@"特福芬",@"麦婴",@"奶瓶",@"行李箱",@"智高chicco"];
+    searchViewController.hotSearchStyle =  PYHotSearchStyleColorfulTag;
+    searchViewController.searchBar.placeholder = @"请输入要搜索商品名称";
+    searchViewController.hotSearchHeader.text = @"大家都在搜";
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBack"] forBarMetrics:UIBarMetricsDefault];
+    nav.navigationBar.tintColor = [UIColor whiteColor];
+    [self presentViewController:nav  animated:NO completion:nil];
+
+    return NO;
 }
 @end

@@ -1146,7 +1146,7 @@
                 if (_identity_card) {
                     /***  是否是海外直邮*/
                     if (![_is_over_sea isEqualToString:@"0"]) {
-                        /***海外直邮身份证是否上场、传*/
+                        /***海外直邮身份证是否上传*/
                         if (_isCard) {
                             [self getDingdanINfo:payVc];
                         }else{
