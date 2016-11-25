@@ -12,9 +12,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.showImageView .contentMode =  UIViewContentModeScaleAspectFill;
-    self.showImageView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.showImageView .clipsToBounds  = YES;
+//    self.showImageView .contentMode =  UIViewContentModeScaleAspectFill;
+//    self.showImageView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//    self.showImageView .clipsToBounds  = YES;
 }
 -(void)setImageUrl:(NSString *)str{
     __unsafe_unretained __typeof(self) weakSelf = self;

@@ -11,7 +11,7 @@
 #import "MBCategoryViewOneCell.h"
 #import "MBShopingViewController.h"
 #import "MBDetailedViewController.h"
-#import "MBSearchViewController.h"
+#import "MBGoodSSearchViewController.h"
 @interface MBCategoryViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UISearchBarDelegate>
 {
     
@@ -66,7 +66,7 @@
     
     [self show];
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/AffordablePlanet/child_category_index2/"];
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@",url,self.cat_id];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@",url,self.model.cat_id];
     [MBNetworking newGET:urlStr parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
        // MMLog(@"%@ ",responseObject);
@@ -98,7 +98,7 @@
     
     
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/AffordablePlanet/get_category_goods/"];
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@/%@",url,self.cat_id,page];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@/%@",url,self.model.cat_id,page];
     [MBNetworking newGET:urlStr parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         MMLog(@"%@ ",responseObject);
@@ -257,14 +257,14 @@
 }
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
 
-    MBSearchViewController *searchViewController = [[MBSearchViewController alloc] init];
+    MBGoodSSearchViewController *searchViewController = [[MBGoodSSearchViewController alloc] init];
     searchViewController.hotSearches = @[@"美德乐", @"花王", @"跨境购", @"婴儿车", @"玩具",@"围巾", @"尿不湿",@"诺优能",@"特福芬",@"麦婴",@"奶瓶",@"行李箱",@"智高chicco"];
     searchViewController.hotSearchStyle =  PYHotSearchStyleColorfulTag;
     searchViewController.searchBar.placeholder = @"请输入要搜索商品名称";
     searchViewController.hotSearchHeader.text = @"大家都在搜";
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
-    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBack"] forBarMetrics:UIBarMetricsDefault];
+    MBNavigationViewController *nav = [[MBNavigationViewController alloc] initWithRootViewController:searchViewController];
+    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"mm_navGroundImage"] forBarMetrics:UIBarMetricsDefault];
     nav.navigationBar.tintColor = [UIColor whiteColor];
     [self presentViewController:nav  animated:NO completion:nil];
 

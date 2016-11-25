@@ -58,7 +58,7 @@
      */
      id _images;
     
-    NSString *_oldUid;
+    
     
     /**
      *  是在怀孕状态 还是宝宝已出生  yes 是怀孕  no 宝宝出生后
@@ -123,8 +123,9 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *is_baby_add = [MBSignaltonTool getCurrentUserInfo].is_baby_add;
+    MMLog(@"%@---%@",sid,_oldSid);
     /**
      *  判断用户是否登陆和设置过宝宝信息
      */
@@ -134,7 +135,8 @@
         /**
          *  判断是不是第二次进入这个界面 且用户状态没发生改变 就不在重请求数据
          */
-        if (![uid isEqualToString:_oldUid]){
+        
+        if (![sid isEqualToString:_oldSid]){
             
         /**
          *  第二次进入界面且登陆状态改变 上一次进入是否请求到数据 有就清空
@@ -145,7 +147,7 @@
         _babyGenderView.hidden = YES;
         _myStateView.hidden = YES;
         [self setToolkit:NO date:nil];
-        _oldUid = uid;
+        _oldSid = sid;
             
         }else{
 
@@ -179,10 +181,6 @@
     [super viewDidLoad];
     
     _tableView.bounces = NO;
-    
-    
-   
-
     MBCollectionViewFlowLayout *flowLayout = ({
         MBCollectionViewFlowLayout *flowLayout =  [[MBCollectionViewFlowLayout alloc] init];
         flowLayout.itemSize = CGSizeMake((UISCREEN_WIDTH-90)/3,45);

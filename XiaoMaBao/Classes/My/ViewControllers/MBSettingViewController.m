@@ -13,9 +13,9 @@
 #import "MBServiceProvisionViewController.h"
 #import "MBAboutViewController.h"
 #import "UIImageView+WebCache.h"
-#import "MobClick.h"
 #import "SFHFKeychainUtils.h"
 #import "MBLogOperation.h"
+#import "MBNewBabyController.h"
 @interface MBSettingViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 @property (strong,nonatomic) NSArray *lists;
 @property (strong,nonatomic) UITableView *tableView;
@@ -113,8 +113,6 @@
         }
         
         cell.rightLbl.text = cacheSize;
-    }else if(indexPath.row == 5){
-        cell.rightLbl.text = @"当前版本：v1.0";
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -178,6 +176,10 @@
     MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
     
     [user clearUserInfo];
+    MBNavigationViewController *nav =   self.tabBarController.childViewControllers.firstObject ;
+    MBNewBabyController *VC = nav.childViewControllers.firstObject;
+    
+    VC.oldSid = nil;
     [MBLogOperation deletePasswordAndUserName];
     [MobClick profileSignOff];
     [self.navigationController popViewControllerAnimated:YES];

@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MBBrandDetailModel.h"
 @interface MBBrandDetailsCollectionViewReusableView : UICollectionReusableView
 @property (weak, nonatomic) IBOutlet UIImageView *brand_logo;
-@property (weak, nonatomic) IBOutlet UILabel *brand_name;
-@property (weak, nonatomic) IBOutlet UILabel *brand_desc;
-@property(copy,nonatomic)NSDictionary *dataDic;
+@property (weak, nonatomic) IBOutlet YYLabel *brand_name;
+@property (weak, nonatomic) IBOutlet YYLabel *brand_desc;
+@property(copy,nonatomic)BrandModel *model;
 @end

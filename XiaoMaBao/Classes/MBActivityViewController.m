@@ -11,7 +11,7 @@
 #import "MBCategoryViewTwoCell.h"
 #import "MBShopingViewController.h"
 #import "timeView.h"
-#import "MBSearchViewController.h"
+#import "MBGoodSSearchViewController.h"
 @interface MBActivityViewController ()<XWCatergoryViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate>{
 
     NSInteger _page;
@@ -24,12 +24,9 @@
     NSTimer *_myTimer;
     NSInteger _lettTimes;
     timeView *_timeView;
-    
-
 }
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-
 
 @end
 
@@ -39,7 +36,6 @@
     [_myTimer invalidate];
     _myTimer = nil;
     [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBActivityViewController"];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -47,10 +43,11 @@
         _myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeFireMethod:) userInfo:nil repeats:YES];
     }
     [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBActivityViewController"];
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self searchUI];
     [self setTopView];
 
@@ -87,7 +84,7 @@
     catergoryView.titleColor = [UIColor colorWithHexString:@"333333"];
     catergoryView.titleSelectColor = [UIColor colorWithHexString:@"c86a66"];
     [self.topView addSubview:catergoryView];
-    
+    [catergoryView xw_realoadData];
 }
 #pragma mark -- 上拉加载
 - (void)refreshLoading{
@@ -101,7 +98,7 @@
 - (void)setRefre{
     [self show];
     NSString *url;
-    NSString *page = [NSString stringWithFormat:@"%ld",_page];
+    NSString *page = [NSString stringWithFormat:@"%ld",(long)_page];
 
      url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/topic/info/",self.act_id,page,_type];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
@@ -141,7 +138,7 @@
     _type = type;
     [self show];
     NSString *url;
-    NSString *page = [NSString stringWithFormat:@"%ld",_page];
+    NSString *page = [NSString stringWithFormat:@"%ld",(long)_page];
 
      url =[NSString stringWithFormat:@"%@%@%@/%@/%@",BASE_URL_root,@"/topic/info/",self.act_id,page,type];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
@@ -178,10 +175,6 @@
     
     
 }
--(NSString *)titleStr{
-    
-    return self.title?:@"专题活动";
-}
 -(void)timeFireMethod:(NSTimer *)timer{
     _lettTimes--;
     if (_lettTimes>0) {
@@ -189,10 +182,10 @@
         NSInteger hour = (_lettTimes-leftdays*24*3600)/3600;
         NSInteger minute = (_lettTimes - hour*3600-leftdays*24*3600)/60;
         NSInteger second = (_lettTimes - hour *3600 - 60*minute-leftdays*24*3600);
-        _timeView.day.text = leftdays>10?[NSString stringWithFormat:@"%ld",leftdays]:[NSString stringWithFormat:@"0%ld",leftdays];
-        _timeView.hours.text = hour>10?[NSString stringWithFormat:@"%ld",hour]:[NSString stringWithFormat:@"0%ld",hour];
-        _timeView.points.text =  minute>10?[NSString stringWithFormat:@"%ld",minute]:[NSString stringWithFormat:@"0%ld",minute];
-        _timeView.second.text = second>10?[NSString stringWithFormat:@"%ld",second]:[NSString stringWithFormat:@"0%ld",second];
+        _timeView.day.text = leftdays>10?[NSString stringWithFormat:@"%ld",(long)leftdays]:[NSString stringWithFormat:@"0%ld",(long)leftdays];
+        _timeView.hours.text = hour>10?[NSString stringWithFormat:@"%ld",(long)hour]:[NSString stringWithFormat:@"0%ld",(long)hour];
+        _timeView.points.text =  minute>10?[NSString stringWithFormat:@"%ld",(long)minute]:[NSString stringWithFormat:@"0%ld",(long)minute];
+        _timeView.second.text = second>10?[NSString stringWithFormat:@"%ld",(long)second]:[NSString stringWithFormat:@"0%ld",(long)second];
     }
     
     if(_lettTimes==0){
@@ -255,10 +248,10 @@
             
             if (!_timeView) {
                 timeView *View = [timeView instanceView];
-                View.day.text = leftdays>10?[NSString stringWithFormat:@"%ld",leftdays]:[NSString stringWithFormat:@"0%ld",leftdays];
-                View.hours.text = hour>10?[NSString stringWithFormat:@"%ld",hour]:[NSString stringWithFormat:@"0%ld",hour];
-                View.points.text =  minute>10?[NSString stringWithFormat:@"%ld",minute]:[NSString stringWithFormat:@"0%ld",minute];
-                View.second.text = second>10?[NSString stringWithFormat:@"%ld",second]:[NSString stringWithFormat:@"0%ld",second];
+                View.day.text = leftdays>10?[NSString stringWithFormat:@"%ld",(long)leftdays]:[NSString stringWithFormat:@"0%ld",(long)leftdays];
+                View.hours.text = hour>10?[NSString stringWithFormat:@"%ld",(long)hour]:[NSString stringWithFormat:@"0%ld",(long)hour];
+                View.points.text =  minute>10?[NSString stringWithFormat:@"%ld",(long)minute]:[NSString stringWithFormat:@"0%ld",(long)minute];
+                View.second.text = second>10?[NSString stringWithFormat:@"%ld",(long)second]:[NSString stringWithFormat:@"0%ld",(long)second];
                 
                 
                 [reusableview   addSubview:_timeView = View];
@@ -312,14 +305,14 @@
 }
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     
-    MBSearchViewController *searchViewController = [[MBSearchViewController alloc] init];
+    MBGoodSSearchViewController *searchViewController = [[MBGoodSSearchViewController alloc] init];
     searchViewController.hotSearches = @[@"美德乐", @"花王", @"跨境购", @"婴儿车", @"玩具",@"围巾", @"尿不湿",@"诺优能",@"特福芬",@"麦婴",@"奶瓶",@"行李箱",@"智高chicco"];
     searchViewController.hotSearchStyle =  PYHotSearchStyleColorfulTag;
     searchViewController.searchBar.placeholder = @"请输入要搜索商品名称";
     searchViewController.hotSearchHeader.text = @"大家都在搜";
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
-    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBack"] forBarMetrics:UIBarMetricsDefault];
+    MBNavigationViewController *nav = [[MBNavigationViewController alloc] initWithRootViewController:searchViewController];
+    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"mm_navGroundImage"] forBarMetrics:UIBarMetricsDefault];
     nav.navigationBar.tintColor = [UIColor whiteColor];
     [self presentViewController:nav  animated:NO completion:nil];
     

@@ -7,8 +7,8 @@
 //
 
 #import "BkBaseViewController.h"
-
+#import "MBAffordablePlanetModel.h"
 @interface MBCategoryViewController : BkBaseViewController
-@property (nonatomic,strong) NSString *cat_id;
+@property (nonatomic,strong) CategoryModel *model;
 
 @end

@@ -86,7 +86,6 @@
     totalHeight += self.imageHeight.constant;
     totalHeight += self.topHeight.constant;
     totalHeight += 50;
-    MMLog(@"%f---%f",self.topHeight.constant,self.imageHeight.constant);
     return CGSizeMake(size.width, totalHeight);
 }
 

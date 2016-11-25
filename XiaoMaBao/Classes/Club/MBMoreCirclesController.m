@@ -642,31 +642,7 @@
         
     
 }
--(void)show:(NSString *)str1 and:(NSString *)str2 time:(NSInteger)timer{
-    
-    NSString *comment_content = [NSString stringWithFormat:@"%@ %@",str1,str2];
-    NSRange range = [comment_content rangeOfString:str2];
-    
-    NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:comment_content];
-    [att addAttributes:@{NSForegroundColorAttributeName:UIcolor(@"d66263")}  range:NSMakeRange(range.location, range.length)];
-    [att addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} range:NSMakeRange(range.location, range.length )];
-    
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    
-    UILabel *lable =    [hud valueForKeyPath:@"label"];
-    
-    hud.color = RGBCOLOR(219, 171, 171);
-    hud.mode = MBProgressHUDModeText;
-    hud.labelText = comment_content;
-    hud.labelColor = UIcolor(@"575c65");
-    lable.attributedText = att;
-    hud.margin = 10.f;
-    hud.removeFromSuperViewOnHide = YES;
-    hud.minSize = CGSizeMake(235, 70);
-    [hud hide:YES afterDelay:timer];
-    [self dismiss];
-    
-}
+
 - (void)prompt:(NSIndexPath *)indexPath{
     
     NSString *str = _OneLevel[_number][@"child_cats"][indexPath.row][@"circle_name"];

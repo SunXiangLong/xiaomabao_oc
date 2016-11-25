@@ -137,7 +137,7 @@
         
         [self.dateFrames removeAllObjects];
         
-        NSArray *month = @[@"日",@"一",@"二",@"三",@"四",@"五",@"六"];
+//        NSArray *month = @[@"日",@"一",@"二",@"三",@"四",@"五",@"六"];
         // 30天
         // 生成30个日期的控件View
         // 每行展示7个

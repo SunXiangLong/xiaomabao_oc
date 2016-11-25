@@ -7,18 +7,16 @@
 //
 
 #import "MBNewHomeViewController.h"
-#import "MBAffordablePlanetViewController.h"
-#import "MBFreeStoreViewController.h"
-#import "MBSearchViewController.h"
+#import "DataSigner.h"
+#import "MBGoodSSearchViewController.h"
 #import "MBShopDetailsViewController.h"
-#import "MBTopCargoController.h"
 #import "MBShopingViewController.h"
 #import "MBActivityViewController.h"
 #import "MBWebViewController.h"
 #import "MBGroupShopController.h"
-#import "MBNewFreeStoreViewController.h"
-#import "MBNewAffordablePlanetViewController.h"
-#import "DataSigner.h"
+
+#import "MBAffordablePlanetViewController.h"
+#import "MBFreeStoreViewController.h"
 #import "MBMaBaoFeaturesViewController.h"
 @interface MBNewHomeViewController ()<UIScrollViewDelegate,UnicallDelegate>
 {
@@ -90,18 +88,16 @@
 - (void)setupChildVcs{
   
     
-    MBNewAffordablePlanetViewController *VC1 = [[MBNewAffordablePlanetViewController alloc] init];
+    MBAffordablePlanetViewController *VC1 =   [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBAffordablePlanetViewController"];
     VC1.title = @"实惠星球";
     [self addChildViewController:VC1];
     
-    MBNewFreeStoreViewController *VC2 = [[MBNewFreeStoreViewController alloc] init];
+    MBFreeStoreViewController *VC2 = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBFreeStoreViewController"];
     VC2.title = @"全球闪购";
     [self addChildViewController:VC2];
     
-    
     MBMaBaoFeaturesViewController *VC3 =   [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBMaBaoFeaturesViewController"];
     VC3.title = @"麻包特色";
-    VC3.rootVC = self;
     [self addChildViewController:VC3];
     
 }
@@ -164,15 +160,17 @@
 }
 
 - (void)rightTitleClick{
-    MBSearchViewController *searchViewController = [[MBSearchViewController alloc] init];
+    MBGoodSSearchViewController *searchViewController = [[MBGoodSSearchViewController alloc] init];
     searchViewController.hotSearches = @[@"美德乐", @"花王", @"跨境购", @"婴儿车", @"玩具",@"围巾", @"尿不湿",@"诺优能",@"特福芬",@"麦婴",@"奶瓶",@"行李箱",@"智高chicco"];
     searchViewController.hotSearchStyle =  PYHotSearchStyleColorfulTag;
     searchViewController.searchBar.placeholder = @"请输入要搜索商品名称";
     searchViewController.hotSearchHeader.text = @"大家都在搜";
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
-    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBack"] forBarMetrics:UIBarMetricsDefault];
+    MBNavigationViewController *nav = [[MBNavigationViewController alloc] initWithRootViewController:searchViewController];
+    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"mm_navGroundImage"] forBarMetrics:UIBarMetricsDefault];
+
     nav.navigationBar.tintColor = [UIColor whiteColor];
+    
     [self presentViewController:nav  animated:NO completion:nil];
     
 }

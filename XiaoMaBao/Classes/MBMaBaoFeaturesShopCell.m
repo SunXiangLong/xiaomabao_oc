@@ -11,23 +11,31 @@
 @implementation MBMaBaoFeaturesShopCell
 -(void)awakeFromNib{
     [super awakeFromNib];
-    _height.constant = 0.5;
-    _goods_thumb.contentMode =  UIViewContentModeScaleAspectFill;
-    _goods_thumb.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    _goods_thumb.clipsToBounds  = YES;
+    _goods_name.numberOfLines = 2;
+    _goods_name.displaysAsynchronously = YES;
+//    _goods_name.ignoreCommonProperties = YES;
+    _goods_price.displaysAsynchronously = YES;
+//    _goods_price.ignoreCommonProperties = YES;
+    _market_price.displaysAsynchronously = YES;
+//    _market_price.ignoreCommonProperties = YES;
+    
+   
+    
 }
--(void)setDataDic:(NSDictionary *)dataDic{
-    _dataDic = dataDic;
-
-    [_goods_thumb sd_setImageWithURL:URL(_dataDic[@"goods_thumb"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-    _goods_name.text = _dataDic[@"goods_name"];
-    _goods_price.text = _dataDic[@"goods_price"];
-    _market_price.text = string(@"市场价：",_dataDic[@"market_price"] );
+-(void)setModel:(GoodModel *)model{
+    _model = model;
+    
+    [_goods_thumb sd_setImageWithURL:model.goods_thumb placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+    _goods_name.text = model.goods_name;
+    _goods_price.text = model.goods_price;
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string(@"市场价：",model.market_price)];
+    YYTextDecoration *textDec = [[YYTextDecoration alloc] init];
+    textDec.color  = UIcolor(@"999999");
+    text.yy_color = UIcolor(@"999999");
+    text.yy_textStrikethrough = textDec;
+    _market_price.attributedText = text;
     
     
 }
 
-- (IBAction)event:(UIButton *)sender {
-    
-}
 @end

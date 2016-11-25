@@ -29,12 +29,8 @@
     
 }
 - (void)setRefresh{
-    
-    
-    
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setheadData)];
     //    footer.triggerAutomaticallyRefreshPercent = 0.5;
-    
     footer.refreshingTitleHidden = YES;
     self.tableView.mj_footer = footer;
     

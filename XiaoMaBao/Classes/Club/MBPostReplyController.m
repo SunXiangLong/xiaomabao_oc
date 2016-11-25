@@ -160,8 +160,9 @@
         
         NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/add_comment"];
 
-        [self showProgress];
         
+        
+        [self show];
         [MBNetworking POST:url parameters:@{@"session":sessiondict,@"post_id":self.post_id,@"comment_reply_id":self.comment_reply_id,@"comment_content":comment_content} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             UIImage *image = [[UIImage alloc] init];
             if (_photoArray.count>1) {
@@ -182,7 +183,7 @@
                 
             }
         } progress:^(NSProgress *progress) {
-            self.progress = progress.fractionCompleted;
+//            self.progress = progress.fractionCompleted;
         } success:^(NSURLSessionDataTask *task, id responseObject) {
             if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
                 

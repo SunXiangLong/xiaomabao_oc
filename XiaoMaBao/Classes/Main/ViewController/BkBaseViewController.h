@@ -15,12 +15,8 @@
  *  标题
  */
 @property (nonatomic,copy) NSString *titleStr;
-
 @property (nonatomic,strong) CustomBadge *badge;
 @property (nonatomic,strong) CustomBadge *messageBadge;
-
-
-
 /**
  * 是否有返回按钮
  */
@@ -75,19 +71,6 @@
 
 // 是否登录
 - (BOOL)isLogin;
--(CGFloat)screenWidth;
--(CGFloat)screenHeight;
 //是否显示搜索框
 - (BOOL)isSearch;
-//HUD提示
--(void)show;
--(void)showProgress;
--(void)show:(NSString *)str;
--(void)show:(NSString *)str time:(NSInteger)timer;
--(void)dismiss;
-/**
- *  进度值
- */
-@property (nonatomic,assign) float progress;
-
 @end

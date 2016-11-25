@@ -87,16 +87,12 @@
     [self.navigationController.navigationBar removeFromSuperview];
 
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     // 导航栏点击事件
     [self setupClickEvent];
     _nav = (MBNavigationViewController *)self.navigationController;
-
-    
     self.navBar.back = self.back;
-    
-
-    
     
 }
 
@@ -212,94 +208,7 @@
 - (BOOL)isSearch{
     return NO;
 }
--(CGFloat)screenWidth{
-    return [UIScreen mainScreen].applicationFrame.size.width ;
-}
--(CGFloat)screenHeight{
-    return [UIScreen mainScreen].applicationFrame.size.height ;
-}
--(void)show{
-    
-    if (_nav) {
-        _nav.pan.enabled = NO;
-    }
-    
 
-    UIView *view = [[UIApplication   sharedApplication] keyWindow];
-    HUD = [[MBProgressHUD alloc] initWithView:view];
-    [self.navigationController.view addSubview:HUD];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [HUD show:YES];
-    });
-
-   
-}
--(void)show:(NSString *)str{
-    if (_nav) {
-        _nav.pan.enabled = NO;
-    }
-    
-    UIView *view = [[UIApplication   sharedApplication] keyWindow];
-    HUD = [[MBProgressHUD alloc] initWithView:view];
-    [self.navigationController.view addSubview:HUD];
-    HUD.labelText = str;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [HUD show:YES];
-    });
-
-}
-
--(void)show:(NSString *)str time:(NSInteger)timer{
-    
-    if (_nav) {
-        _nav.pan.enabled = NO;
-    }
-    UIView *view = [[UIApplication   sharedApplication] keyWindow];
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.mode = MBProgressHUDModeText;
-    hud.labelText = str;
-    hud.removeFromSuperViewOnHide = YES;
-    dispatch_async(dispatch_get_main_queue(), ^{
-          [hud hide:YES afterDelay:timer];
-           [self dismiss];
-    });
-
-}
-- ( void)showProgress{
-    
-    if (_nav) {
-        _nav.pan.enabled = NO;
-    }
-    HUD= [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    HUD.mode = MBProgressHUDModeAnnularDeterminate;
-    HUD.progress = self.progress;
-    dispatch_async(dispatch_get_main_queue(), ^{
-       [HUD show:YES];
-    });
-    
-    
-
-}
--(void)setProgress:(float)progress{
-    _progress = progress;
-    HUD.progress = progress;
-    if (progress==1) {
-        [self dismiss];
-  
-
-       
-    }
-
-}
--(void)dismiss{
-    
-    if (_nav) {
-        _nav.pan.enabled = YES;
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [HUD hide:YES];
-    });
-}
 -(void)dealloc{
    
     MMLog(@"%@销毁了",[NSString stringWithUTF8String:object_getClassName(self)]);

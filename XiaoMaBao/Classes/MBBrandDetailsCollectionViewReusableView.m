@@ -11,17 +11,20 @@
 @implementation MBBrandDetailsCollectionViewReusableView
 -(void)awakeFromNib{
     [super awakeFromNib];
-    
-    _brand_logo.contentMode =  UIViewContentModeScaleAspectFill;
-    _brand_logo.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    _brand_logo.clipsToBounds  = YES;
+    _brand_desc.displaysAsynchronously = YES;
+    _brand_desc.ignoreCommonProperties = YES;
+    _brand_name.displaysAsynchronously = YES;
+    _brand_name.ignoreCommonProperties = YES;
 }
--(void)setDataDic:(NSDictionary *)dataDic{
-    [_brand_logo sd_setImageWithURL:URL(dataDic[@"brand_logo"]) placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
-    _brand_name.text = dataDic[@"brand_name"];
-    _brand_desc.text = dataDic[@"brand_desc"];
-    
-    [_brand_desc rowSpace:2];
-    
+- (void)setModel:(BrandModel *)model{
+    _model = model;
+    [_brand_logo sd_setImageWithURL:model.brand_logo placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
+    _brand_name.text = model.brand_name;
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:model.brand_desc];
+    text.yy_lineSpacing = 2;
+    text.yy_font = YC_YAHEI_FONT(14);
+    text.yy_color= UIcolor(@"777777");
+    _brand_desc.attributedText = text;
+
 }
 @end

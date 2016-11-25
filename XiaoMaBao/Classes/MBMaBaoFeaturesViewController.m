@@ -11,15 +11,10 @@
 #import "MBMaBaoFeaturesShopCell.h"
 #import "MBShopingViewController.h"
 #import "MBBrandDetailsViewController.h"
-@interface MBMaBaoFeaturesViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
-    {
-    
-    
-    }
-    
+#import "MBMaBaoFeaturesModel.h"
+@interface MBMaBaoFeaturesViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (nonatomic,copy)NSArray *goodsArray;
-@property (nonatomic,copy)NSArray *brandArray;
+@property (strong, nonatomic) MaBaoFeaturesModel *model;
 @end
 
 @implementation MBMaBaoFeaturesViewController
@@ -27,70 +22,97 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navBar removeFromSuperview];
-    
+    [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerIdentifier"];
     [self requestData];
 }
 - (void)requestData{
+    
     [self show];
+    
+    
     [MBNetworking newGET:@"http://api.xiaomabao.com/feature/index" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         [self dismiss];
-        // MMLog(@"%@",responseObject);
-        _goodsArray = responseObject[@"hot_goods"];
-        _brandArray = responseObject[@"feature"];
-        self.collectionView.delegate = self;
-        self.collectionView.dataSource = self;
+        
+        _model = [MaBaoFeaturesModel yy_modelWithJSON:responseObject];
+        [self.collectionView reloadData];
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
 }
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    MBBrandDetailsViewController *VC = (MBBrandDetailsViewController *)segue.destinationViewController;
+    FeatureModel *model = (FeatureModel *)sender;
+    VC.type = model.type;
+    VC.ID = model.ID;
+    
+    
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 #pragma mark <UICollectionViewDataSource>
-    
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     
-    return 2;
+    return _model?2:0;
 }
-    
-    
+
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (section == 0) {
-        return _brandArray.count;
+        return _model.feature.count;
     }else{
         
-        return _goodsArray.count;
+        return _model.hot_goods.count;
     }
     
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-    {
-        if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-            if (indexPath.section == 1) {
-                UICollectionReusableView *reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"MBMaBaoFeaturesReusableView" forIndexPath:indexPath];
-                
-                return reusableview;
-                
-            }
+{
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        if (indexPath.section == 1) {
+            UICollectionReusableView *reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerIdentifier" forIndexPath:indexPath];
+            reusableview.backgroundColor = [UIColor whiteColor];
+            [self addTopLineView:reusableview];
+            [self addBottomLineView:reusableview];
+            YYLabel *lable = [[YYLabel alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 45)];
+            lable.font = YC_RTWSYueRoud_FONT(15);
+            lable.textAlignment = 1;
+            lable.textColor = [UIColor colorWithHexString:@"999999"];
+            lable.text = @"精选商品";
+            [reusableview addSubview:lable];
+            
+            
+            return reusableview;
             
         }
         
-        return [[UICollectionReusableView alloc] init];
     }
+    
+    return [[UICollectionReusableView alloc] init];
+}
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
         MBMaBaoFeaturesBrandCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBMaBaoFeaturesBrandCell" forIndexPath:indexPath];
-        cell.imgUrl = _brandArray[indexPath.row][@"img"];
+        cell.imgUrl = _model.feature[indexPath.row].img;
         return cell;
     }
     
     MBMaBaoFeaturesShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBMaBaoFeaturesShopCell" forIndexPath:indexPath];
-    cell.dataDic = _goodsArray[indexPath.row];
+    cell.model = _model.hot_goods[indexPath.row];
+    [self addBottomLineView:cell];
     return cell;
     
 }
@@ -99,15 +121,12 @@
     if (indexPath.section == 1) {
         
         MBShopingViewController *shopDetailVc = [[MBShopingViewController alloc] init];
-        shopDetailVc.GoodsId = _goodsArray[indexPath.row][@"goods_id"];
-        [self.navigationController pushViewController:shopDetailVc animated:YES];
+        shopDetailVc.GoodsId = _model.hot_goods[indexPath.row].goods_id;
+        [self pushViewController: shopDetailVc Animated:YES];
         
     }else{
-        MBBrandDetailsViewController *VC = [[MBBrandDetailsViewController alloc] init];
-        VC.type = _brandArray[indexPath.row][@"type"];
-        VC.ID = _brandArray[indexPath.row][@"id"];
-        [self.navigationController pushViewController:VC animated:YES];
         
+        [self performSegueWithIdentifier:@"MBBrandDetailsViewController" sender:_model.feature[indexPath.row]];
         
     }
     
@@ -124,13 +143,13 @@
     return 10;
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-    {
-        if (section==0) {
-            return UIEdgeInsetsMake(10, 8, 10, 8);
-        }
-        return UIEdgeInsetsMake(0, 0, 0, 0);
-        
+{
+    if (section==0) {
+        return UIEdgeInsetsMake(10, 8, 10, 8);
     }
+    return UIEdgeInsetsMake(0, 0, 0, 0);
+    
+}
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0 ) {
         return  CGSizeMake((UISCREEN_WIDTH - 16 -15)/2,(UISCREEN_WIDTH - 16 -15)/2*212/344);
@@ -143,7 +162,7 @@
         return CGSizeMake(UISCREEN_WIDTH, 45);
     }
     return CGSizeMake(0, 0);
-
+    
 }
 
 @end

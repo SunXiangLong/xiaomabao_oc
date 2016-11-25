@@ -12,16 +12,13 @@
 #import "MBEmailRegisterView.h"
 #import "MBRegisterFieldRightViewButton.h"
 #import "MBRegisterField.h"
-#import "PureLayout.h"
 #import "MBSignaltonTool.h"
-#import "MBNetworking.h"
-#import "MobClick.h"
 #import "MBServiceProvisionViewController.h"
 @interface MBRegisterViewController () <UIAlertViewDelegate,MBEmailRegisterViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *photoRegisterView;
 @property (weak,nonatomic) MBEmailRegisterView *emailRegisterView;
-@property (weak,nonatomic) MBRegisterTabButton *phoneBtn;
-@property (weak,nonatomic) MBRegisterTabButton *emailBtn;
+//@property (weak,nonatomic) MBRegisterTabButton *phoneBtn;
+//@property (weak,nonatomic) MBRegisterTabButton *emailBtn;
 - (IBAction)nextBtnClick;
 @property (weak, nonatomic) IBOutlet MBRegisterField *countryField;
 @property (weak, nonatomic) IBOutlet MBRegisterField *PhoneField;
@@ -124,19 +121,19 @@
 //    [self performSegueWithIdentifier:@"pushMBCountryCityViewController" sender:nil];
 }
 
-- (void)photoBtnClick:(MBRegisterTabButton *)btn{
-    self.emailBtn.selectedStatus = NO;
-    self.photoRegisterView.hidden = NO;
-    self.emailRegisterView.hidden = YES;
-    btn.selectedStatus = YES;
-}
-
-- (void)emailBtnClick:(MBRegisterTabButton *)btn{
-    self.phoneBtn.selectedStatus = NO;
-    self.photoRegisterView.hidden = YES;
-    self.emailRegisterView.hidden = NO;
-    btn.selectedStatus = YES;
-}
+//- (void)photoBtnClick:(MBRegisterTabButton *)btn{
+//    self.emailBtn.selectedStatus = NO;
+//    self.photoRegisterView.hidden = NO;
+//    self.emailRegisterView.hidden = YES;
+//    btn.selectedStatus = YES;
+//}
+//
+//- (void)emailBtnClick:(MBRegisterTabButton *)btn{
+//    self.phoneBtn.selectedStatus = NO;
+//    self.photoRegisterView.hidden = YES;
+//    self.emailRegisterView.hidden = NO;
+//    btn.selectedStatus = YES;
+//}
 
 - (NSString *)titleStr{
     return @"注册";

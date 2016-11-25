@@ -2,7 +2,7 @@
 //  MBFreeStoreViewController.h
 //  XiaoMaBao
 //
-//  Created by liulianqi on 16/3/16.
+//  Created by xiaomabao on 2016/11/24.
 //  Copyright © 2016年 HuiBei. All rights reserved.
 //
 

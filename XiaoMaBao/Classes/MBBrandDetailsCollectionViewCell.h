@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MBAffordablePlanetModel.h"
 @interface MBBrandDetailsCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *goods_thumb;
-@property (weak, nonatomic) IBOutlet UILabel *goods_price;
-@property (weak, nonatomic) IBOutlet UILabel *goods_name;
-@property (weak, nonatomic) IBOutlet UILabel *market_price;
-@property(copy,nonatomic)NSDictionary *dataDic;
+@property (weak, nonatomic) IBOutlet YYLabel *goods_price;
+@property (weak, nonatomic) IBOutlet YYLabel *goods_name;
+@property (weak, nonatomic) IBOutlet YYLabel *market_price;
+@property(copy,nonatomic) GoodModel *model;
 @end

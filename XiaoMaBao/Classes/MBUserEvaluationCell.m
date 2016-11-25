@@ -31,9 +31,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.showImageView .contentMode =  UIViewContentModeScaleAspectFill;
-    self.showImageView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.showImageView .clipsToBounds  = YES;
+//    self.showImageView .contentMode =  UIViewContentModeScaleAspectFill;
+//    self.showImageView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//    self.showImageView .clipsToBounds  = YES;
     self.showImageView.userInteractionEnabled = YES;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;

@@ -47,7 +47,6 @@
 }
 #pragma mark --上拉加载
 - (void)setFootRefres{
-    
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setheadData)];
     

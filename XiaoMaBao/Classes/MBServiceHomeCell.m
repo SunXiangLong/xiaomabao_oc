@@ -12,25 +12,61 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-
+    _shopName.displaysAsynchronously = YES;
+//    _shopName.ignoreCommonProperties = YES;
+    _shopDesc.displaysAsynchronously = YES;
+//    _shopDesc.ignoreCommonProperties = YES;
+    _shopCity.displaysAsynchronously = YES;
+//    _shopCity.ignoreCommonProperties = YES;
+    _shopAddress.displaysAsynchronously = YES;
+//    _shopAddress.ignoreCommonProperties = YES;
 }
+
 -(void)setDataDic:(NSDictionary *)dataDic{
     _dataDic = dataDic;
-    [self.shop_logo sd_setImageWithURL:[NSURL URLWithString:dataDic[@"shop_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-    self.shop_name.text = dataDic[@"shop_name"];
-    self.shop_desc.text = dataDic[@"shop_desc"];
-    self.shop_address.text = dataDic[@"shop_nearby_subway"];
-    self.shop_city.text  = dataDic[@"shop_city"];
-//    self.shop_desc.rowspace = 6;
+    [self.shopLogo sd_setImageWithURL:[NSURL URLWithString:dataDic[@"shop_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+     ;
+    
+    self.shopName.text = dataDic[@"shop_name"];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:dataDic[@"shop_desc"]];
+    text.yy_lineSpacing = 2;
+    text.yy_font = YC_YAHEI_FONT(14);
+    text.yy_color= UIcolor(@"a9a9a9");
+    self.shopDesc.attributedText = text;
+   
+    NSMutableAttributedString *shopAddresstext = [[NSMutableAttributedString alloc] init];
+     UIImage *addressImage = [UIImage imageNamed:@"ditie"];
+    NSMutableAttributedString *attachText = [NSMutableAttributedString yy_attachmentStringWithContent:addressImage contentMode:UIViewContentModeCenter attachmentSize:CGSizeMake(9, 10) alignToFont:YC_YAHEI_FONT(13) alignment:YYTextVerticalAlignmentBottom];
+    NSString *title = string(@"  ", dataDic[@"shop_nearby_subway"]) ;
+    [shopAddresstext appendAttributedString:attachText];
+    [shopAddresstext appendAttributedString:[[NSAttributedString alloc] initWithString:title attributes:nil]];
+    shopAddresstext.yy_color = UIcolor(@"606060");
+    shopAddresstext.yy_font = YC_YAHEI_FONT(13);
+    self.shopAddress.attributedText = shopAddresstext;
+    self.shopAddress.textVerticalAlignment = YYTextVerticalAlignmentCenter;
+    
+    NSMutableAttributedString *shopCityText = [[NSMutableAttributedString alloc] init];
+    UIImage *cityImage = [UIImage imageNamed:@"city_image"];
+    NSMutableAttributedString *cityText = [NSMutableAttributedString yy_attachmentStringWithContent:cityImage contentMode:UIViewContentModeCenter attachmentSize:CGSizeMake(9, 10) alignToFont:YC_YAHEI_FONT(13) alignment:YYTextVerticalAlignmentBottom];
+    NSString *cityTitle = string(@"  ",dataDic[@"shop_city"]) ;
+    [shopCityText appendAttributedString:cityText];
+    
+    [shopCityText appendAttributedString:[[NSAttributedString alloc] initWithString:cityTitle attributes:nil]];
+    shopCityText.yy_color = UIcolor(@"606060");
+    shopCityText.yy_font = YC_YAHEI_FONT(13);
+    shopCityText.yy_alignment = NSTextAlignmentRight;
+    self.shopCity.attributedText = shopCityText;
+
+    
+   
+    
 }
 - (CGSize)sizeThatFits:(CGSize)size {
     CGFloat totalHeight = 0;
     
-    totalHeight += [self.shop_name sizeThatFits:size].height;
-//    totalHeight += [self.shop_desc sizeThatFits:size].height;
-    totalHeight += [self.shop_city sizeThatFits:size].height;
-    totalHeight += 40;
-    CGFloat strHeight = [self.shop_desc.text sizeWithFont:[UIFont systemFontOfSize:14] withMaxSize:CGSizeMake(UISCREEN_WIDTH-70, MAXFLOAT)].height;
+
+    CGFloat strHeight = [self.shopDesc.text sizeWithFont:[UIFont systemFontOfSize:14] withMaxSize:CGSizeMake(UISCREEN_WIDTH-70, MAXFLOAT)].height;
+    totalHeight += 80;
     totalHeight += strHeight;
     
     return CGSizeMake(size.width, totalHeight);

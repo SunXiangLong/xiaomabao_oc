@@ -16,5 +16,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *goodsNumbei;
 @property (nonatomic,strong) NSString *goodsNumber;
 @property (nonatomic,assign) NSInteger row;
-
+@property (nonatomic,weak) UIViewController *VC;
 @end

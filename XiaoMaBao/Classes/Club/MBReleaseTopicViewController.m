@@ -142,7 +142,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
     
-    [self showProgress];
+    [self show];
     
     
     
@@ -167,11 +167,11 @@
             
         }
     } progress:^(NSProgress *progress) {
-        self.progress = progress.fractionCompleted;
-        MMLog(@"%f",progress.fractionCompleted);
+//        self.progress = progress.fractionCompleted;
+//        MMLog(@"%f",progress.fractionCompleted);
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        
+        [self dismiss];
         if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
            
             

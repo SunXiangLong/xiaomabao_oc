@@ -16,16 +16,6 @@
 @end
 
 @implementation MBRealNameAuthViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBRealNameAuthViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBRealNameAuthViewController"];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     

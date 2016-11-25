@@ -141,8 +141,9 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    
+    [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/set_pic_wall"] parameters:@{@"session":sessiondict,@"img_index":s_Integer(index +1)} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
         NSData * data =  UIImageJPEGRepresentation(_imageArr[index], 1.0);
         if(data != nil){
             [formData appendPartWithFileData:data name:@"pic_wall_img" fileName:[NSString stringWithFormat:@"pic_wall_img%ld.jpg",index] mimeType:@"image/jpeg"];
@@ -151,6 +152,8 @@
     } progress:^(NSProgress *progress) {
         
     } success:^(NSURLSessionDataTask *task, MBModel *responseObject) {
+        [self dismiss];
+        
        [self show:@"设置成功" time:1];
   
         
@@ -169,10 +172,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-//    if (_imageArr&&_resultArray) {
-//           return 2;
-//    }
-//    return 0;
+
     return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

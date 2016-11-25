@@ -31,16 +31,6 @@
     }
     return _tableView;
 }
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBHistoryRecoderViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBHistoryRecoderViewController"];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     

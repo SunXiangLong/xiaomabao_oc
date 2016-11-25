@@ -9,5 +9,6 @@
 #import "BkBaseViewController.h"
 
 @interface MBNewBabyController : BkBaseViewController
+@property (nonatomic,strong) NSString *oldSid;
 
 @end

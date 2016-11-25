@@ -7,6 +7,7 @@
 //
 
 #import "MBPaymentViewController.h"
+#import "MBGoodSSearchViewController.h"
 #import "MBSignaltonTool.h"
 #import "MBOrderInfoTableViewController.h"
 #import "Order.h"
@@ -508,8 +509,10 @@
 }
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{
     BkBaseViewController *rootVC  = nil;
+    
+    
     if ([_type isEqualToString:@"1"]) {
-        for (BkBaseViewController *VC in self.navigationController.viewControllers) {
+        for (BkBaseViewController *VC in self.navigationController.viewControllers ) {
             if ([VC isKindOfClass:[MBNewHomeViewController class]]||[VC isKindOfClass:[MBNewMyViewController class]]) {
             
                 rootVC = VC;
@@ -520,18 +523,17 @@
         
         for (BkBaseViewController *VC in self.navigationController.viewControllers) {
             if ([VC isKindOfClass:[MBServiceShopsViewController class]]) {
-                
-                
+            
                rootVC = VC;
                 
             }
         }
-        
-        
-        
     }
-    
-   
+
+    if ([self.navigationController.viewControllers.firstObject isKindOfClass:[MBGoodSSearchViewController class]]) {
+        
+        rootVC = self.navigationController.viewControllers.firstObject;
+    }
     
     if (rootVC) {
         [self.navigationController popToViewController:rootVC animated:YES];

@@ -11,11 +11,9 @@
 @implementation MBMaBaoFeaturesBrandCell
 -(void)awakeFromNib{
     [super awakeFromNib];
-    _img.contentMode =  UIViewContentModeScaleAspectFill;
-    _img.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    _img.clipsToBounds  = YES;
+    
 }
--(void)setImgUrl:(NSString *)imgUrl{
-    [_img sd_setImageWithURL:URL(imgUrl) placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
+-(void)setImgUrl:(NSURL *)imgUrl{
+    [_img sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"placeholder_num4"]];
 }
 @end

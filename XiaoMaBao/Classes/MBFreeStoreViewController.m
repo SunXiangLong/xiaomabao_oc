@@ -2,123 +2,116 @@
 //  MBFreeStoreViewController.m
 //  XiaoMaBao
 //
-//  Created by liulianqi on 16/3/16.
+//  Created by xiaomabao on 2016/11/24.
 //  Copyright © 2016年 HuiBei. All rights reserved.
 //
 
 #import "MBFreeStoreViewController.h"
-#import "MBCollectionHeadView.h"
-#import "MBFreeStoreViewOneCell.h"
-#import "MBFreeStoreViewTwoCell.h"
-#import "MBFreeStoreViewThreeCell.h"
-#import "MBActivityViewController.h"
-#import "MBShopingViewController.h"
+#import "MBAffordablePlanetTabCell.h"
+#import "MBAffordablePlanetCVCell.h"
 #import "MBWebViewController.h"
+#import "MBSharkViewController.h"
+#import "MBCheckInViewController.h"
+#import "MBActivityViewController.h"
+#import "MBCategoryViewController.h"
+#import "MBShopingViewController.h"
 #import "MBGroupShopController.h"
-@interface MBFreeStoreViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
-{
-    NSArray *_brandAarray;
-    NSArray *_today_recommend_bot;
-    NSArray *_categoryArray;
-    NSMutableArray *_recommend_goods;
 
-}
+@interface MBFreeStoreViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,SDCycleScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UIView *headView;
+@property (weak, nonatomic) IBOutlet SDCycleScrollView *shufflingView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (strong, nonatomic) FreeStoreModel *model;
+@property (copy, nonatomic) NSMutableDictionary *contentOffsetDictionary;
 @end
 
 @implementation MBFreeStoreViewController
-
+-(NSMutableDictionary *)contentOffsetDictionary{
+    if (!_contentOffsetDictionary) {
+        _contentOffsetDictionary = [NSMutableDictionary dictionary];
+    }
+    
+    return _contentOffsetDictionary;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-      [self.navBar removeFromSuperview];
-    _recommend_goods = [NSMutableArray   array];
-
-    [self setData];
+    [self requestData];
+    
 }
-
 #pragma mark -- 请求数据
-- (void)setData{
+- (void)requestData{
     
     [self show];
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/TaxfreeStore/index"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/TaxfreeStore/index2"];
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
-        [self dismiss];
-
         
+        [self dismiss];
         
         if (responseObject) {
-            _brandAarray = [responseObject valueForKey:@"today_recommend_top"];
-            _today_recommend_bot = [responseObject valueForKey:@"today_recommend_bot"];
-            _categoryArray = [responseObject valueForKey:@"category"];
-            [_recommend_goods addObjectsFromArray:[responseObject   valueForKey:@"recommend_goods"]];
-            _tableView.delegate = self;
-            _tableView.dataSource = self;
-            _tableView.tableHeaderView = [self setShufflingFigure];
+            _model = [FreeStoreModel yy_modelWithJSON:responseObject];
+            NSMutableArray *urlImageArray= [NSMutableArray array];
+            [_model.today_recommend_top enumerateObjectsUsingBlock:^(TodayRecommendTopModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [urlImageArray addObject:obj.ad_img];
+            }];
+            _headView.mj_h = UISCREEN_WIDTH *35/75;
+            _shufflingView.delegate = self;
+            _shufflingView.backgroundColor = [UIColor whiteColor];
+            _shufflingView.autoScrollTimeInterval = 5.0f;
+            _shufflingView.imageURLStringsGroup = urlImageArray;
+            _shufflingView.placeholderImage = [UIImage imageNamed:@"placeholder_num3"];
+            _headView.hidden = false;
+            
+            [self.tableView reloadData];
+            
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
+        
+        
     }];
     
     
 }
-/**
- *  广告轮播图
- *
- *  @return
- */
-- (UIView *)setShufflingFigure{
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH,UISCREEN_WIDTH*33/75) delegate:self     placeholderImage:[UIImage imageNamed:@"placeholder_num3"]];
-    NSMutableArray *urimageArray = [NSMutableArray array];
-    for (NSDictionary *dic  in _brandAarray) {
-        [urimageArray addObject:dic[@"ad_img"]];
-    }
-    cycleScrollView.imageURLStringsGroup = urimageArray;
-    cycleScrollView.autoScrollTimeInterval = 3.0f;
-    return cycleScrollView;
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
-#pragma mark --SDCycleScrollViewDelegate
+#pragma mark ----- SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     
-    
-    
-    
-    NSInteger ad_type = [_brandAarray[index][@"ad_type"] integerValue];
+    NSInteger ad_type = [_model.today_recommend_top[index].ad_type integerValue];
     
     
     switch (ad_type) {
         case 1: {
             MBActivityViewController *VC = [[MBActivityViewController alloc] init];
-            VC.act_id = _brandAarray[index][@"act_id"];
-            VC.title = _brandAarray[index][@"ad_name"];
+            VC.act_id = _model.today_recommend_top[index].act_id;
+            
             [self pushViewController:VC Animated:YES];
         }break;
         case 2: {
             
             MBShopingViewController *VC = [[MBShopingViewController alloc] init];
-            VC.GoodsId = _brandAarray[index][@"ad_con"];
-            VC.title = _brandAarray[index][@"ad_name"];
+            VC.GoodsId  = _model.today_recommend_top[index].ad_con;
+            VC.title = _model.today_recommend_top[index].ad_name;
             [self pushViewController:VC Animated:YES];
         }break;
         case 3: {
             MBWebViewController *VC = [[MBWebViewController alloc] init];
-            VC.url =  [NSURL URLWithString:_brandAarray[index][@"ad_con"]];
-            VC.title = _brandAarray[index][@"ad_name"];
+            VC.url =  [NSURL URLWithString:_model.today_recommend_top[index].ad_con];
+            VC.title = _model.today_recommend_top[index].ad_name;
+            VC.isloging = YES;
+            
             [self pushViewController:VC Animated:YES];
             
         }break;
         case 4: {
             
             MBGroupShopController *VC = [[MBGroupShopController alloc] init];
-            VC.title = _brandAarray[index][@"ad_name"];
-            
+            VC.title = _model.today_recommend_top[index].ad_name;
             [self pushViewController:VC Animated:YES];
             
         }break;
@@ -128,106 +121,183 @@
         default: break;
     }
     
-
-
 }
-#pragma mark --UITableViewDataSource
+#pragma mark --UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
-}
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section==2) {
-        return _today_recommend_bot.count;
+    
+    if (_model) {
+        return  3;
     }
+    return 0;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (section == 2) {
+        return _model.today_recommend_bot.count;
+    }
+    
     return 1;
+    
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 31;
+    return  50;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section ==0) {
-        return 162;
-    }else if (indexPath.section == 1){
-        return (UISCREEN_WIDTH/4+21)*2+1;
-    }else{
-        return UISCREEN_WIDTH*33/75+10;
-    }
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return  0.001;
     
 }
-#pragma mark --- UITableViewDelegate
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        return  170;
+    }
+    if (indexPath.section == 1) {
+        NSInteger cont = _model.category.count/2;
+        NSInteger num = _model.category.count%2;
+        if (num != 0) {
+            cont ++;
+        }
+        return   (UISCREEN_WIDTH - 15 - 16) / 2 * 213 / 348 *cont  + (cont+1) * 15;
+    }
+    
+    return UISCREEN_WIDTH * 35/75 + 170;
+}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-   
-    UIView *view = [[UIView alloc] init];
-    view.ml_size = CGSizeMake(UISCREEN_WIDTH, 31);
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 50)];
+    headView.backgroundColor = [UIColor whiteColor];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 5)];
+    view.backgroundColor = UIcolor(@"ececec");
+    [headView addSubview:view];
     
-    MBCollectionHeadView *childView = [MBCollectionHeadView instanceView];
-    if (section ==0) {
-        childView.tishi.text = @"麻包推荐";
-    }else if    (section==1){
-         childView.tishi.text = @"国家馆";
-    }else{
-         childView.tishi.text = @"HIGH逛全球";
+    YYLabel *lable = [[YYLabel alloc] initWithFrame:CGRectMake(0, 5, UISCREEN_WIDTH, 45)];
+    lable.font = YC_RTWSYueRoud_FONT(15);
+    lable.backgroundColor = [UIColor whiteColor];
+    lable.textColor = UIcolor(@"999999");
+    lable.textAlignment = 1;
+    lable.text = @"- 麻包推荐 -";
+    [headView addSubview:lable];
+    [self addBottomLineView:headView];
+    if (section == 1) {
+        lable.text = @"- 国家馆 -";
     }
-    [view addSubview:childView];
-    [childView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.bottom.mas_equalTo(0);
-    }];
-    return view;
+    if (section == 2) {
+        lable.text = @"- 精选活动 -";
+    }
+    
+    return headView;
+    
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    if (indexPath.section==0) {
-        MBFreeStoreViewOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBFreeStoreViewOneCell"];
-        if (!cell) {
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBFreeStoreViewOneCell" owner:nil options:nil]firstObject];
-        }
-        cell.dataArray = _recommend_goods;
-        cell.VC = self;
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        MBFreeStoreTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBFreeStoreTabCell" forIndexPath:indexPath];
+        cell.contentOffsetDictionary = self.contentOffsetDictionary;
         return cell;
-    }else if(indexPath.section ==1){
-        MBFreeStoreViewTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBFreeStoreViewTwoCell"];
-        if (!cell) {
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBFreeStoreViewTwoCell" owner:nil options:nil]firstObject];
-        }
-        cell.VC =self;
-        cell.dataArray = _categoryArray;
-         return cell;
+    }
+    if (indexPath.section == 1) {
+        MBAffordablePlanetTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBAffordablePlanetTabCell" forIndexPath:indexPath];
+        return cell;
+    }
+    MBAffordablePlanetTabToCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBAffordablePlanetTabToCell" forIndexPath:indexPath];
+    cell.indexPath = indexPath;
+    
+    cell.contentOffsetDictionary = self.contentOffsetDictionary;
+    cell.model = _model.today_recommend_bot[indexPath.row];
+    return cell;
+    
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    MBActivityViewController *categoryVc = [[MBActivityViewController alloc] init];
+    
+    categoryVc.act_id =  _model.today_recommend_bot[indexPath.row].act_id;
+    [self pushViewController:categoryVc Animated:YES];
+    
+    
+}
+#pragma mark --UICollectionViewDelegate
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    if (_model) {
+        return 1;
+    }
+    return 0;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    if (collectionView.tag == 0) {
+        return  _model.recommend_goods.count;
+    }
+    if (collectionView.tag == 1) {
+       return _model.category.count;
+    }
+    MBAffordablePlanetCV *CV = (MBAffordablePlanetCV *)collectionView;
+    return _model.today_recommend_bot[CV.indexPath.row].goods.count;
+    
+    
+    
+}
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    MBAffordablePlanetCV *CV = (MBAffordablePlanetCV *)collectionView;
+    
+    
+    if (collectionView.tag == 1) {
+        MBAffordablePlanetCVCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBAffordablePlanetCVCell" forIndexPath:indexPath];
+        cell.countrieModel = _model.category[indexPath.item];
+        return cell;
+    }
+    GoodModel *model =  nil;
+    if (collectionView.tag == 0) {
+        model = _model.recommend_goods[indexPath.item];
+    }
+    if (collectionView.tag == 2) {
+        model = _model.today_recommend_bot[CV.indexPath.row].goods[indexPath.item];
+    }
+    MBAffordablePlanetCVToCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBAffordablePlanetCVToCell" forIndexPath:indexPath];
+    cell.model = model;
+    return cell;
+}
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+//    if (collectionView.tag == 0) {
+//        
+//        MBCategoryViewController *VC = [[MBCategoryViewController alloc] init];
+//        VC.model = _model.category[indexPath.item];
+//        [self pushViewController:VC Animated:YES];
+//    }else{
+//        MBAffordablePlanetCV *CV = (MBAffordablePlanetCV *)collectionView;
+//        MBShopingViewController *shopDetailVc = [[MBShopingViewController alloc] init];
+//        shopDetailVc.GoodsId =  _model.today_recommend_bot[CV.indexPath.row].goods[indexPath.item].goods_id;
+//        shopDetailVc.title = _model.today_recommend_bot[CV.indexPath.row].goods[indexPath.item].goods_name;
+//        [self pushViewController:shopDetailVc Animated:YES];
+//    }
+    
+}
+
+#pragma mark --UIScrollViewDelegate
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (![scrollView isKindOfClass:[UICollectionView class]]) return;
+    
+    CGFloat horizontalOffset = scrollView.contentOffset.x;
+    
+    MBAffordablePlanetCV *collectionView = (MBAffordablePlanetCV *)scrollView;
+   
+    if (scrollView.tag == 0) {
+    self.contentOffsetDictionary[@"top"] = @(horizontalOffset);
     }else{
-        MBFreeStoreViewThreeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBFreeStoreViewThreeCell"];
-        if (!cell) {
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBFreeStoreViewThreeCell" owner:nil options:nil]firstObject];
-        }
-        [cell.showImageView sd_setImageWithURL:[NSURL URLWithString:_today_recommend_bot[indexPath.row][@"ad_img"]] placeholderImage:[UIImage imageNamed:@"placeholder_num1"]];
-         return cell;
+     NSInteger index = collectionView.indexPath.row;
+    self.contentOffsetDictionary[[@(index) stringValue]] = @(horizontalOffset);
+    }
     
-    }
+    
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section==2) {
-        MBActivityViewController *categoryVc = [[MBActivityViewController alloc] init];
-        
-      
-        categoryVc.title = _today_recommend_bot[indexPath.row][@"act_name"];
-        categoryVc.act_id = _today_recommend_bot[indexPath.row][@"act_id"];
-        [self pushViewController:categoryVc Animated:YES];
-    }
+/*
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
-
-#pragma mark ---让tabview的headview跟随cell一起滑动
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-    if (scrollView == self.tableView)
-    {
-        CGFloat sectionHeaderHeight = 31;
-        if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
-            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-        } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
-            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
-        }
-    }
-    _tableView.editing = NO;
-    
-}
+*/
 
 @end

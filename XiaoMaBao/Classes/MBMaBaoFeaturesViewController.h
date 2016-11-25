@@ -9,5 +9,4 @@
 #import "BkBaseViewController.h"
 
 @interface MBMaBaoFeaturesViewController : BkBaseViewController
-@property (nonatomic,assign) id rootVC;
 @end

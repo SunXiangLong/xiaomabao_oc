@@ -10,6 +10,6 @@
 
 @interface MBMaBaoFeaturesBrandCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *img;
-@property (nonatomic,strong) NSString *imgUrl;
+@property (nonatomic,strong) NSURL *imgUrl;
 
 @end

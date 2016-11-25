@@ -330,7 +330,7 @@
     NSDictionary *parmeters = @{@"session":sessiondict,@"order_id":order_id,@"refund_type":_refund_type,@"refund_way":str4,@"refund_reason":_ProblemDescriptionTextView.text,@"consignee":str1,@"mobile":str2,@"address":str3,@"province":_provinceID,@"city":_cityID,@"district":_districtID,@"refund_goods":refund_goods};
     
     
-    [self showProgress];
+    [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/apply"] parameters:parmeters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         for (int i = 0; i<_photoArray.count-1; i++) {
             NSData * data;
@@ -345,7 +345,7 @@
             
         }
     } progress:^(NSProgress *progress) {
-        self.progress = progress.fractionCompleted;
+//        self.progress = progress.fractionCompleted;
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         [self dismiss];
 #pragma mark -- 通知前一个界面改变进度状态
@@ -865,7 +865,7 @@
                 [cell.goodsImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"icon_nav03_press"]];
             }
             
-            
+            cell.VC = self;
             cell.row =  indexPath.row;
         }
         

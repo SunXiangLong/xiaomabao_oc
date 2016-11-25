@@ -22,9 +22,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.showImageView .contentMode =  UIViewContentModeScaleAspectFill;
-    self.showImageView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.showImageView .clipsToBounds  = YES;
+//    self.showImageView .contentMode =  UIViewContentModeScaleAspectFill;
+//    self.showImageView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//    self.showImageView .clipsToBounds  = YES;
     self.showImageView.userInteractionEnabled = YES;
     
     [_collectionView registerNib:[UINib nibWithNibName:@"MBMBAffordablePlanetOneChildeOneCell" bundle:nil] forCellWithReuseIdentifier:@"MBMBAffordablePlanetOneChildeOneCell"];

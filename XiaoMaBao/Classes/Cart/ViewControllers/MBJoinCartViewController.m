@@ -40,16 +40,6 @@
 @end
 
 @implementation MBJoinCartViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBJoinCartViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBJoinCartViewController"];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     

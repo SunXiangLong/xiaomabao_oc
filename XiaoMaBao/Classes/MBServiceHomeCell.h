@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface MBServiceHomeCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *shop_logo;
-@property (weak, nonatomic) IBOutlet UILabel *shop_name;
-@property (weak, nonatomic) IBOutlet UILabel *shop_city;
-@property (weak, nonatomic) IBOutlet UILabel *shop_address;
-@property (weak, nonatomic) IBOutlet UILabel *shop_desc;
-
+@property (weak, nonatomic) IBOutlet UIImageView *shopLogo;
+@property (weak, nonatomic) IBOutlet YYLabel *shopName;
+@property (weak, nonatomic) IBOutlet YYLabel *shopCity;
+@property (weak, nonatomic) IBOutlet YYLabel *shopAddress;
+@property (weak, nonatomic) IBOutlet YYLabel *shopDesc;
 @property(copy,nonatomic)NSDictionary *dataDic;
 @end

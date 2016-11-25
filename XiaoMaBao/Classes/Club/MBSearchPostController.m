@@ -7,7 +7,6 @@
 //
 
 #import "MBSearchPostController.h"
-#import "MobClick.h"
 #import "SKTagView.h"
 #import "MBDetailsCircleTbaleViewCell.h"
 #import "MBPostDetailsViewController.h"
@@ -67,7 +66,8 @@
 /**
  *   搜索帖子结果数据
  */
- @property (copy, nonatomic) NSMutableArray *dataArray;
+@property (copy, nonatomic) NSMutableArray *dataArray;
+
 @end
 
 @implementation MBSearchPostController

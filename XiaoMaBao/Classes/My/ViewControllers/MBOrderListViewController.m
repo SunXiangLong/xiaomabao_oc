@@ -9,25 +9,24 @@
 #import "MBOrderListViewController.h"
 #import "MBOrderInfoTableViewController.h"
 #import "MBSignaltonTool.h"
-#import "MBNetworking.h"
 #import "MBAfterServiceTableViewCell.h"
-#import "UIImageView+WebCache.h"
 #import "MBPaymentViewController.h"
-#import "MobClick.h"
 #import "MBAfterServiceCell.h"
 #import "MBOrderCell.h"
 #import "MBEvaluationController.h"
 #import "MBLogisticsViewController.h"
 #import "MBShopingViewController.h"
+#import "WNXRefresgHeader.h"
 @interface MBOrderListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UIButton *_lastButton;
     UILabel *_promptLable;
+    NSString *_type;
+    NSInteger _page;
 }
 @property (strong,nonatomic) UIView *menuView;
 @property (weak,nonatomic) UIView *menuLineView;
 @property (strong,nonatomic) UITableView *tableView;
-@property (strong,nonatomic) NSArray *orderSections;
 @property (strong,nonatomic) NSMutableArray *orderListArray;
 @property (strong,nonatomic) NSArray *types;
 @property (strong,nonatomic) NSArray *titles;
@@ -35,19 +34,17 @@
 
 @implementation MBOrderListViewController
 
-- (NSArray *)orderSections{
-    if (!_orderSections) {
-        _orderSections = @[];
+- (NSMutableArray *)orderListArray{
+    if (!_orderListArray) {
+        _orderListArray = [NSMutableArray array];
     }
-    return _orderSections;
+    return _orderListArray;
 }
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
-    
-    
+
     _types = @[
                @"all",
                @"await_pay",
@@ -63,16 +60,60 @@
                 @"待收货",
                 @"已完成"
                 ];
-    
+    _page = 1;
     [self setupMenuView];
-    if(self.order_status_tag){
+    [self setupTableView];
+    [self setFootRefres];
+    if(self.order_status_tag)
+    {
         [self tabMenuClick:_order_status_tag];
     }else{
-        [self getOrderListInfo:@"all"];
+        _type = _types.firstObject;
+        [self getOrderListInfo];
     }
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(MBEvaluationController:) name:@"MBEvaluationController" object:nil];
     
 }
+
+#pragma mark --上拉加载
+- (void)setFootRefres{
+    
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(getOrderListInfo)];
+    
+    // 当上拉刷新控件出现50%时（出现一半），就会自动刷新。这个值默认是1.0（也就是上拉刷新100%出现时，才会自动刷新）
+    //    footer.triggerAutomaticallyRefreshPercent = 0.5;
+    
+    // 隐藏刷新状态的文字
+    footer.refreshingTitleHidden = YES;
+    
+    // 设置footer
+    self.tableView.mj_footer = footer;
+    
+    
+    
+}
+
+//#pragma mark --下拉刷新
+//- (void)setHeadRefresh
+//{
+//    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+//    WNXRefresgHeader *header = [WNXRefresgHeader headerWithRefreshingTarget:self refreshingAction:@selector(setRefreshData)];
+//    
+//    // 隐藏时间
+//    header.lastUpdatedTimeLabel.hidden = YES;
+//    
+//    // 隐藏状态
+//    header.stateLabel.hidden = YES;
+//    
+//    // 马上进入刷新状态
+//    [header beginRefreshing];
+//    
+//    // 设置header
+//    self.tableView.mj_header = header;
+//}
 - (void)MBEvaluationController:(NSNotification *)notificat{
     
     NSDictionary *dic = notificat.userInfo[@"dic"];
@@ -95,7 +136,8 @@
         CGFloat width = self.view.ml_width / _titles.count;
         self.menuLineView.ml_x = tag * width;
         //重新请求服务器数据
-        [self getOrderListInfo:_types[tag]];
+        _type = _types[tag];
+        [self getOrderListInfo];
     }];
 }
 
@@ -132,22 +174,33 @@
     }
     
 }
--(void)getOrderListInfo:(NSString *)type
+-(void)getOrderListInfo
 {
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    NSDictionary *paginationDict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"page",@"100",@"count",nil];
-    
+    NSDictionary *paginationDict = @{@"page":s_Integer(_page),@"count":@"10"};
     
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_list_new"] parameters:@{@"session":sessiondict,@"pagination":paginationDict,@"type":type}success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_list_new"] parameters:@{@"session":sessiondict,@"pagination":paginationDict,@"type":_type}success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         [self dismiss];
-        
-        _orderListArray =[NSMutableArray arrayWithArray: [responseObject valueForKeyPath:@"data"]];
-        
-        if (_orderListArray.count == 0) {
+        if ([[responseObject valueForKeyPath:@"data"] count] > 0) {
+            [self.orderListArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
+            _page++;
+            [_tableView reloadData];
+            [self.tableView .mj_footer endRefreshing];
+            
+        }else{
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            if (self.orderListArray.count == 0) {
+                _promptLable.hidden  = NO;
+                _promptLable.text = [NSString stringWithFormat:@"还没有%@的订单",_lastButton.titleLabel.text];
+                
+            }
+            return ;
+        }
+        if (self.orderListArray.count == 0) {
             _promptLable.hidden  = NO;
             _promptLable.text = [NSString stringWithFormat:@"还没有%@的订单",_lastButton.titleLabel.text];
             
@@ -157,7 +210,7 @@
         }
         
         
-        [self setupTableView];
+        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败" time:1];
         MMLog(@"%@",error);
@@ -427,7 +480,7 @@
     return footerMainView;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _orderListArray.count;
+    return self.orderListArray.count;
     
 }
 
@@ -531,7 +584,9 @@
         [_orderListArray removeAllObjects];
         [self.tableView reloadData];
         //重新请求服务器数据
-        [self getOrderListInfo:_types[btn.tag]];
+        _page = 1;
+        _type = _types[btn.tag];
+        [self getOrderListInfo];
     }];
 }
 

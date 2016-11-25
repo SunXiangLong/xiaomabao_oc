@@ -18,5 +18,7 @@
 - (NSString *)signString:(NSString *)string {
 	return @"";
 }
-
+- (NSString *)uncallString:(NSString *)string{
+    return @"";
+}
 @end

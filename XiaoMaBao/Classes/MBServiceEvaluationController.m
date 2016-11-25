@@ -27,18 +27,6 @@
 @end
 
 @implementation MBServiceEvaluationController
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBServiceEvaluationController"];
-    
-    
-    
-}
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBServiceEvaluationController"];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.bottom.constant = UISCREEN_HEIGHT - 136 - TOP_Y;
@@ -57,7 +45,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [self showProgress];
+    [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/post_comment"] parameters:@{@"session":sessiondict,@"content":_textView.text,@"order_id":self.order_id} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         UIImage *image = [[UIImage alloc] init];
         if (_photoArray.count>1) {
@@ -78,8 +66,9 @@
             
         }
     } progress:^(NSProgress *progress) {
-        self.progress = progress.fractionCompleted;
+//        self.progress = progress.fractionCompleted;
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        [self dismiss];
         if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
             [self show:@"发表成功" time:1];
             MBEvaluationSuccessController *VC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBEvaluationSuccessController"];

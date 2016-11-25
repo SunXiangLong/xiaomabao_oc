@@ -9,6 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MBBaseTableViewController : UITableViewController
--(void)show;
--(void)dismiss;
+
 @end

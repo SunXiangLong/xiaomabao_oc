@@ -63,11 +63,11 @@
     
     // Configure for text only and offset down
     hud.mode = MBProgressHUDModeText;
-    hud.labelText = str;
+    hud.label.text = str;
     hud.margin = 10.f;
     hud.removeFromSuperViewOnHide = YES;
     
-    [hud hide:YES afterDelay:timer];
+    [hud hideAnimated:true afterDelay:timer];
     
 }
 @end

@@ -19,18 +19,6 @@
 @end
 
 @implementation MBUserEvaluationListController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBUserEvaluationListController"];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBUserEvaluationListController"];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     _commentsArray = [NSMutableArray array];
@@ -41,16 +29,10 @@
     
 }
 - (void)setRefresh{
-    
-    
-    
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setheadData)];
     //    footer.triggerAutomaticallyRefreshPercent = 0.5;
-    
     footer.refreshingTitleHidden = YES;
     self.tableView.mj_footer = footer;
-    
-    
 }
 -(NSString *)titleStr{
     return self.title?:@"个人全部评价";

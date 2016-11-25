@@ -7,8 +7,6 @@
 //
 
 #import "MBRegisterTabButton.h"
-#import "PureLayout.h"
-
 @interface MBRegisterTabButton ()
 @property (weak,nonatomic) UIView *selectedStatusLineView;
 @end
@@ -43,11 +41,14 @@
     _selectedStatus = selectedStatus;
     
     if (selectedStatus) {
-        [self.selectedStatusLineView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self];
-        [self.selectedStatusLineView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
-        [self.selectedStatusLineView autoSetDimension:ALDimensionHeight toSize:2];
-        [self.selectedStatusLineView autoPinEdgeToSuperviewEdge:ALEdgeRight];
-        [self.selectedStatusLineView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
+        [self.selectedStatusLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+        }];
+//        [self.selectedStatusLineView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self];
+//        [self.selectedStatusLineView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
+//        [self.selectedStatusLineView autoSetDimension:ALDimensionHeight toSize:2];
+//        [self.selectedStatusLineView autoPinEdgeToSuperviewEdge:ALEdgeRight];
+//        [self.selectedStatusLineView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
     }
     
     self.selectedStatusLineView.hidden = !(selectedStatus);

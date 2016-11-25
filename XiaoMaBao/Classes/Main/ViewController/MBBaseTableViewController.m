@@ -36,7 +36,7 @@
 - (void)setNavigationBar{
     self.navigationController.navigationBar.shadowImage  = [[UIImage alloc] init];
     [self.navigationController.navigationBar setBackgroundColor:UIcolor(@"ffffff")];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBack"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"mm_navGroundImage"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.tintColor = UIcolor(@"ffffff");
     NSDictionary* dict= @{NSForegroundColorAttributeName:UIcolor(@"ffffff"),NSFontAttributeName:YC_RTWSYueRoud_FONT(17)};
     self.navigationController.navigationBar.titleTextAttributes= dict;
@@ -60,22 +60,4 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)show{
-   
-    
-    UIView *view = [[UIApplication   sharedApplication] keyWindow];
-    HUD = [[MBProgressHUD alloc] initWithView:view];
-    [self.navigationController.view addSubview:HUD];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [HUD show:YES];
-    });
-    
-    
-}
--(void)dismiss{
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [HUD hide:YES];
-    });
-}
 @end

@@ -101,7 +101,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [self.VC showProgress];
+    [self.VC show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/idcard/update"] parameters:@{@"session":sessiondict,@"real_name":self.name,@"identity_card":self.idCard,} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         UIImage *image = [[UIImage alloc] init];
         for (int i = 0; i<_photoArray.count-1; i++) {
@@ -122,8 +122,9 @@
         }
         
     } progress:^(NSProgress *progress) {
-        self.VC.progress = progress.fractionCompleted;
+//        self.VC.progress = progress.fractionCompleted;
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        [self.VC dismiss];
         if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
             
             [self.VC show:@"提交成功" time:1];

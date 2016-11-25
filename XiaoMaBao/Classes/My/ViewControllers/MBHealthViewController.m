@@ -13,17 +13,6 @@
 @end
 
 @implementation MBHealthViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBHealthViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBHealthViewController"];
-    
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self show:@"加载中..."];

@@ -70,8 +70,7 @@
 + (instancetype)navigationBarView{
     BkNavigationBarView *navBar = [[BkNavigationBarView alloc] init];
 
-    navBar.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 0);
-    navBar.ml_height = 64;
+    navBar.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 64);
     UIImageView *banckImage = [[UIImageView  alloc] init];
     banckImage.frame =CGRectMake(0, 0, navBar.ml_width, navBar.ml_height);
     banckImage.image = [UIImage imageNamed:@"navBack"];

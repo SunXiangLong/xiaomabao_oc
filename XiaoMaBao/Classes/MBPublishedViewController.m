@@ -165,7 +165,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [self showProgress];
+    [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/diaryadd"] parameters:@{@"session":sessiondict,@"content":_textView.text,@"longitude":_longitude,@"latitude":_latitude} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         UIImage *image = [[UIImage alloc] init];
         if (_photoArray.count>1) {
@@ -187,8 +187,9 @@
         }
         
     } progress:^(NSProgress *progress) {
-        self.progress = progress.fractionCompleted;
+//        self.progress = progress.fractionCompleted;
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        [self dismiss];
         if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
             
             [self show:@"发表成功" time:1];

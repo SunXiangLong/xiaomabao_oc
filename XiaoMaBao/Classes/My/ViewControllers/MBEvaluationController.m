@@ -159,7 +159,7 @@
     
     NSDictionary *parmeters =@{@"session":sessiondict,@"order_id":self.order_id,@"goods_id":_shopArray[row][@"goods_id"],@"xinde":dic[@"xinde"],@"comment_rank":dic[@"comment_rank"],@"fileNames":fileNames};
     
-    [self showProgress];
+    [self show];
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_comment"] parameters:parmeters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         for (int i = 0; i<photoArray.count; i++) {
@@ -174,8 +174,9 @@
             
         }
     } progress:^(NSProgress *progress) {
-        self.progress = progress.fractionCompleted;
+//        self.progress = progress.fractionCompleted;
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        [self dismiss];
         if ([dic[@"succeed"]isEqualToNumber:@1]) {
             [self dismiss];
             [_evaluationArray removeObjectAtIndex:row];
