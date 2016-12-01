@@ -14,7 +14,7 @@
    [self.myCircleViewSubject sendNext:@{@"type":@"showLogin"}];
 }
 - (void)refreshToolkit{
-
+    MMLog(@"%@",@"11111");
  [self.myCircleViewSubject sendNext:@{@"type":@"refreshTool"}];
 }
 - (void)finishView{

@@ -1,6 +1,13 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
+        "file": "plugins/cordova-plugin-device/www/device.js",
+        "id": "cordova-plugin-device.device",
+        "clobbers": [
+            "device"
+        ]
+    },
+    {
         "file": "plugins/com.meteor.cordova-update/www/CordovaUpdate.js",
         "id": "com.meteor.cordova-update.CordovaUpdate",
         "clobbers": [
@@ -19,13 +26,6 @@ module.exports = [
         "id": "cordova-plugin-console.console",
         "clobbers": [
             "console"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-device/www/device.js",
-        "id": "cordova-plugin-device.device",
-        "clobbers": [
-            "device"
         ]
     },
     {
@@ -182,33 +182,32 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-unicall-app/www/unicallAppInfo.js",
-        "id": "cordova-plugin-unicall-app.UnicallAppInfo",
-        "merges": [
-            "navigator.unicallAppInfo"
-        ]
-    },
-    {
         "file": "plugins/ionic-plugin-keyboard/www/ios/keyboard.js",
         "id": "ionic-plugin-keyboard.keyboard",
         "clobbers": [
             "cordova.plugins.Keyboard"
         ],
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-unicall-app/www/unicallAppInfo.js",
+        "id": "cordova-plugin-unicall-app.UnicallAppInfo",
+        "merges": [
+            "navigator.unicallAppInfo"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
+    "cordova-plugin-device": "1.0.1",
+    "cordova-plugin-legacy-whitelist": "1.1.0",
     "com.meteor.cordova-update": "0.0.1",
     "cordova-plugin-console": "1.0.1",
-    "cordova-plugin-crosswalk-webview": "1.6.1",
-    "cordova-plugin-device": "1.0.1",
     "cordova-plugin-file": "4.1.0",
-    "cordova-plugin-legacy-whitelist": "1.1.0",
     "cordova-plugin-statusbar": "2.1.2",
-    "cordova-plugin-unicall-app": "0.0.2",
-    "ionic-plugin-keyboard": "2.0.1"
+    "ionic-plugin-keyboard": "2.0.1",
+    "cordova-plugin-unicall-app": "0.0.2"
 }
 // BOTTOM OF METADATA
 });

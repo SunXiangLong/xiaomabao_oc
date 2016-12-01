@@ -88,7 +88,7 @@
         if ([status isEqualToString:@"1"]) {
             [MBLogOperation loginAuthentication:nil success:^{
                 [self dismiss];
-                [self popViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:true];
             } failure:^(NSString *error_desc, NSError *error) {
                 if (error_desc) {
         

@@ -9,11 +9,21 @@
 #import "MBGoodSSearchViewController.h"
 #import "MBCategoryViewTwoCell.h"
 #import "MBShopingViewController.h"
-@interface MBGoodSSearchViewController (){
+@interface MBGoodSSearchViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>{
   
     NSArray *_keywordArray;
+     NSArray *_meunArray;
+    UIButton *_lastBtn;
+    BOOL _isOnePriceBtn;
+    NSString *_priceSorted;
+    NSString *_type;
 }
+
+@property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIView *sortView;
+@property (weak, nonatomic) IBOutlet UIButton *defaultBtn;
+@property (weak, nonatomic) IBOutlet UIButton *priceBtn;
 @property (assign, nonatomic) NSInteger page;
 @property (strong,nonatomic) NSString *searchText;
 @property (strong, nonatomic) NSMutableArray *recommend_goods;
@@ -26,22 +36,26 @@
     }
     return _recommend_goods;
 }
-//-(void)viewWillDisappear:(BOOL)animated{
-//    [super viewWillDisappear:animated];
-//    self.navigationController.navigationBarHidden = YES;
-//}
-//
-//-(void)viewWillAppear:(BOOL)animated{
-//    [super viewWillAppear:animated];
-//    self.navigationController.navigationBarHidden = NO;
-//    
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navBar removeFromSuperview];
-    [self refreshData];
+     [self.navBar removeFromSuperview];
+    [self addBottomLineView:_sortView];
+    _lastBtn = _defaultBtn;
+    _priceSorted = @"";
+    _meunArray = @[@"stock",@"salesnum",@"new"];
+    _type = _meunArray.firstObject;
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.sectionInset = UIEdgeInsetsMake(3, 3, 3, 3);
+    layout.minimumLineSpacing = 3;
+    layout.minimumInteritemSpacing = 3;
+    layout.itemSize =  CGSizeMake((UISCREEN_WIDTH-9)/2,(UISCREEN_WIDTH-9-29)/2+98);
+    self.collectionView.collectionViewLayout = layout;
     [_collectionView registerNib:[UINib nibWithNibName:@"MBCategoryViewTwoCell" bundle:nil] forCellWithReuseIdentifier:@"MBCategoryViewTwoCell"];
+    
+   
+    [self refreshData];
+    
     [self refreshLoading];
     WS(weakSelf)
     self.didSearchBlock =  ^(MBSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
@@ -51,9 +65,55 @@
         [weakSelf.collectionView reloadData];
         [weakSelf searchData];
     };
+
+}
+- (IBAction)btn:(UIButton *)sender {
+    
+    if (sender.tag == 3 ) {
+        _lastBtn.selected = false;
+        _lastBtn = nil;
+        if (!_isOnePriceBtn) {
+            _isOnePriceBtn = true;
+            [_priceBtn setImage:[UIImage imageNamed:@"priceSortedUP"] forState:UIControlStateNormal];
+            _priceSorted = @"asc";
+        }else{
+            if (sender.selected) {
+                sender.selected = false;
+                _priceSorted = @"asc";
+            }else{
+                sender.selected = true;
+                _priceSorted = @"desc";
+            }
+            
+        }
+        _page = 1;
+        [_recommend_goods removeAllObjects];
+        _type = @"price";
+        [self searchData];
+    }else{
+        [_priceBtn setImage:[UIImage imageNamed:@"priceSortedDefault"] forState:UIControlStateNormal];
+        _priceBtn.selected = false;
+        _isOnePriceBtn = false;
+        _priceSorted = @"";
+        if ([_lastBtn isEqual:sender]) {
+            return;
+        }
+        sender.selected = true;
+        if (_lastBtn) {
+            _lastBtn.selected = false;
+        }
+        _lastBtn = sender;
+        if (![_type isEqualToString:_meunArray[sender.tag]]) {
+            _page = 1;
+            [_recommend_goods removeAllObjects];
+            _type = _meunArray[sender.tag];
+            [self searchData];
+            
+        }
+    }
+    
     
 }
-
 -(void)refreshData{
     [self show];
     
@@ -64,15 +124,11 @@
         
         
         if (responseObject) {
-           
-            
-            
-             self.hotSearches = responseObject[@"keywords"];
+
+            self.hotSearches = responseObject[@"keywords"];
             self.hotSearchStyle =  PYHotSearchStyleColorfulTag;
             self.searchBar.placeholder = @"请输入要搜索商品名称";
             self.hotSearchHeader.text = @"大家都在搜";
-           
-            
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
@@ -91,14 +147,16 @@
 - (void)searchData{
     {//搜索数据
         NSString *page = [NSString stringWithFormat:@"%ld",(long)_page];
-        NSDictionary *params = @{@"keywords":self.searchText,@"having_goods":@"false"};
+        NSDictionary *params = @{@"keywords":self.searchText,@"having_goods":@"false",@"orderby":_type,@"sort":_priceSorted};
         NSDictionary *pagination = @{@"count":@"10",@"page":page};
         [self show];
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/search/index"] parameters:@{@"filter":params,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
             [self dismiss];
             NSArray *arr = [responseObject valueForKeyPath:@"data"];
             [self.collectionView .mj_footer endRefreshing];
-            [self.view bringSubviewToFront:self.collectionView];
+            [self.view bringSubviewToFront:self.topView];
+            
+            
             if (arr.count==0) {
                 [_collectionView.mj_footer endRefreshingWithNoMoreData];
                 
@@ -123,20 +181,7 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark --UICollectionViewdelegate
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    
-    return 3;
-}
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-    
-    return 3;
-}
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    
-    return   UIEdgeInsetsMake(3, 3, 3, 3);
-    
-}
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
@@ -166,10 +211,5 @@
     
     
 }
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    return  CGSizeMake((UISCREEN_WIDTH-9)/2,(UISCREEN_WIDTH-9-29)/2+98);
-    
-}
+
 @end

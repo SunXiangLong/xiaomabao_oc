@@ -12,9 +12,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.showImagaeView .contentMode =  UIViewContentModeScaleAspectFill;
-    self.showImagaeView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.showImagaeView .clipsToBounds  = YES;
+//    self.showImagaeView .contentMode =  UIViewContentModeScaleAspectFill;
+//    self.showImagaeView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//    self.showImagaeView .clipsToBounds  = YES;
 }
 
 @end

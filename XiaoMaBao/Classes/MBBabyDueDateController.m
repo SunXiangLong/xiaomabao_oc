@@ -39,6 +39,9 @@
     
    
 }
+-(NSString *)titleStr{
+return @"预产期";
+}
 #pragma mark--设置宝宝信息
 - (void)setData{
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
@@ -68,7 +71,7 @@
     
             [MBLogOperation loginAuthentication:nil success:^{
                 [self dismiss];
-                [self popViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:true];
             } failure:^(NSString *error_desc, NSError *error) {
                 if (error_desc) {
                     

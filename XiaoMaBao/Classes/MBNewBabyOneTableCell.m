@@ -24,7 +24,13 @@
     _dataDic = dataDic;
     _title.text = _dataDic[@"title"];
     _summary.text = _dataDic[@"summary"];
-   
+    if ([_dataDic[@"icon"] isKindOfClass:[UIImage class]]) {
+        _showImage.image = _dataDic[@"icon"] ;
+        _title.font = YC_RTWSYueRoud_FONT(15);
+        _summary.font = YC_RTWSYueRoud_FONT(12);
+        return;
+    }
+    
     [_showImage sd_setImageWithURL:URL(_dataDic[@"icon"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
  
 

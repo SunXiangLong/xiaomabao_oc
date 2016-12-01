@@ -32,7 +32,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+   
     [self searchUI];
     
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView1"];
@@ -65,8 +65,9 @@
 - (void)setData{
     
     [self show];
+    
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/AffordablePlanet/child_category_index2/"];
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@",url,self.model.cat_id];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@",url,self.ID];
     [MBNetworking newGET:urlStr parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
        // MMLog(@"%@ ",responseObject);
@@ -98,7 +99,7 @@
     
     
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/AffordablePlanet/get_category_goods/"];
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@/%@",url,self.model.cat_id,page];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@/%@",url,self.ID,page];
     [MBNetworking newGET:urlStr parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         MMLog(@"%@ ",responseObject);

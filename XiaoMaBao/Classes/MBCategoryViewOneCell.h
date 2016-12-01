@@ -10,6 +10,6 @@
 
 @interface MBCategoryViewOneCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *showImagaeView;
-@property (weak, nonatomic) IBOutlet UILabel *name;
+
 
 @end

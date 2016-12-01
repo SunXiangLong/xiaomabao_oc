@@ -26,7 +26,6 @@
 +(Unicall*)singleton;
 
 -(void) attach:(id) parent appKey:(NSString*) theKey tenantId:(NSString*) theTenantId;
-
 -(void) UnicallUpdateValidation:(NSDictionary*) data;
 -(void) UnicallSendValidation;
 -(void) UnicallUpdateUserInfo:(NSDictionary*) data;

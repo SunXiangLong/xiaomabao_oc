@@ -927,12 +927,12 @@
 - (void)service{
     
     
-
+    NSArray *imgarr =  self.GoodsDict[@"goods_gallery"];
 
     NSDictionary *itemInfo = @{
                                @"title" : self.GoodsDict[@"goods_name"],
                                @"desc" : self.goods_brief,
-                               @"iconUrl" : @"http://www.xiaomabao.com/images/20160224/20165902241620595989.jpg",
+                               @"iconUrl" : imgarr.firstObject,
                                @"url" : [NSString stringWithFormat:@"http://www.xiaomabao.com/goods-%@.html",self.GoodsDict[@"goods_id"]]
                                };
     [[Unicall singleton] UnicallShowView:itemInfo];
@@ -967,7 +967,7 @@
 
     Unicall *unicall = [Unicall singleton];
     [unicall UnicallUpdateValidation:json];
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].uid;
        if (!sid) {
      [unicall UnicallUpdateUserInfo:@{@"nickname":@"未注册用户"}];
        }else{

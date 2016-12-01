@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -16,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MTg-af-jhp">
-                        <rect key="frame" x="10" y="0.0" width="93.5" height="192"/>
+                        <rect key="frame" x="10" y="0.0" width="93.5" height="190.5"/>
                         <subviews>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="amengBaoLeft" translatesAutoresizingMaskIntoConstraints="NO" id="hDU-BM-1xD">
                                 <rect key="frame" x="0.0" y="0.0" width="93.5" height="93.5"/>
@@ -29,7 +33,7 @@
                                 </connections>
                             </imageView>
                             <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="amengBaoLeft" translatesAutoresizingMaskIntoConstraints="NO" id="S53-cP-ggL">
-                                <rect key="frame" x="0.0" y="98.5" width="93.5" height="93.5"/>
+                                <rect key="frame" x="0.0" y="97.5" width="93.5" height="93"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="S53-cP-ggL" secondAttribute="height" multiplier="1:1" id="wpa-IK-efP"/>
@@ -51,10 +55,10 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLZ-Vi-SEq">
-                        <rect key="frame" x="113.5" y="0.0" width="93" height="192"/>
+                        <rect key="frame" x="113.5" y="0.0" width="93" height="190.5"/>
                         <subviews>
                             <imageView tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="amengBaoMiddle" translatesAutoresizingMaskIntoConstraints="NO" id="lhn-W8-uq6">
-                                <rect key="frame" x="0.0" y="0.0" width="93" height="192"/>
+                                <rect key="frame" x="0.0" y="0.0" width="93" height="190.5"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="5Fa-YI-Cdq" appends="YES" id="7a9-eq-TKM"/>
@@ -69,7 +73,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RzV-eY-hzO">
-                        <rect key="frame" x="216.5" y="0.0" width="93.5" height="192"/>
+                        <rect key="frame" x="216.5" y="0.0" width="93.5" height="190.5"/>
                         <subviews>
                             <imageView tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="amengBaoLeft" translatesAutoresizingMaskIntoConstraints="NO" id="h4n-c6-d1D">
                                 <rect key="frame" x="0.0" y="0.0" width="93.5" height="93.5"/>
@@ -82,7 +86,7 @@
                                 </connections>
                             </imageView>
                             <imageView tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="amengBaoLeft" translatesAutoresizingMaskIntoConstraints="NO" id="5vY-Zd-fQk">
-                                <rect key="frame" x="0.0" y="98" width="93.5" height="93.5"/>
+                                <rect key="frame" x="0.0" y="97.5" width="93.5" height="93"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="5vY-Zd-fQk" secondAttribute="height" multiplier="1:1" id="ffE-K1-8gL"/>
@@ -103,14 +107,14 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="马上晒晒宝宝照片吧，给你的宝宝制作个性的照片墙吧" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gV-xq-tgH">
-                        <rect key="frame" x="4" y="207" width="312" height="16"/>
+                        <rect key="frame" x="1" y="205.5" width="319" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gML-pc-0hc">
-                        <rect key="frame" x="0.0" y="238" width="320" height="0.5"/>
-                        <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="0.0" y="236.5" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="3ff-Iu-S09"/>
                         </constraints>
@@ -135,7 +139,7 @@
                     <constraint firstItem="RzV-eY-hzO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vF6-DV-cgS"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
                 <outlet property="image0" destination="hDU-BM-1xD" id="l0t-XY-fsU"/>
                 <outlet property="image1" destination="S53-cP-ggL" id="RvL-LD-s5z"/>

@@ -84,10 +84,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navBar removeFromSuperview];
+    
+    
     [self headerView];
     self.tableView.tableFooterView = [[UIView alloc] init];
-
-    [self setShufflingFigureData];
+    dispatch_group_t group =  dispatch_group_create();
+    [self show];
+    dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+         [self setShufflingFigureData];
+    });
+    
+    dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self setData];
+        
+    });
+    
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        // 等前面的异步操作都执行完毕后，回到主线程...
+        [self dismiss];
+    });
+   
     WS(weakSelf)
     self.block = ^(NSInteger num){
         if (num  == 1) {
@@ -166,7 +183,7 @@
 #pragma mark -- 我的圈轮播图数据
 - (void)setShufflingFigureData{
     
-    [self show];
+    
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_circle_ads"];
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
@@ -180,7 +197,7 @@
                 }
                 self.shufflingView.delegate = self;
                 self.shufflingView.imageURLStringsGroup = imaageUrlArr;
-                [self setData];
+                
                 return ;
             }
             
@@ -204,7 +221,7 @@
     if (!sid) {
         NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_recommend_cat"];
         [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
-            [self dismiss];
+            
             if (responseObject) {
                 [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
                 _numberOfSections = 1;
@@ -231,9 +248,9 @@
                 [self.myCircleArray addObjectsFromArray:[responseObject valueForKeyPath:@"user_circle"]];
                 [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
                 _numberOfSections = 2;
-                [self myCircleDefaults];
                 self.tableHeadView.hidden = NO;
                 [self.tableView reloadData];
+                [self myCircleDefaults];
                 return ;
                 
             }

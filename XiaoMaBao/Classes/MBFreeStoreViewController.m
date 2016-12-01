@@ -13,7 +13,7 @@
 #import "MBSharkViewController.h"
 #import "MBCheckInViewController.h"
 #import "MBActivityViewController.h"
-#import "MBCategoryViewController.h"
+#import "MBDetailedViewController.h"
 #import "MBShopingViewController.h"
 #import "MBGroupShopController.h"
 
@@ -171,7 +171,7 @@
     YYLabel *lable = [[YYLabel alloc] initWithFrame:CGRectMake(0, 5, UISCREEN_WIDTH, 45)];
     lable.font = YC_RTWSYueRoud_FONT(15);
     lable.backgroundColor = [UIColor whiteColor];
-    lable.textColor = UIcolor(@"999999");
+    lable.textColor = UIcolor(@"8e8e8e");
     lable.textAlignment = 1;
     lable.text = @"- 麻包推荐 -";
     [headView addSubview:lable];
@@ -257,18 +257,28 @@
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-//    if (collectionView.tag == 0) {
-//        
-//        MBCategoryViewController *VC = [[MBCategoryViewController alloc] init];
-//        VC.model = _model.category[indexPath.item];
-//        [self pushViewController:VC Animated:YES];
-//    }else{
-//        MBAffordablePlanetCV *CV = (MBAffordablePlanetCV *)collectionView;
-//        MBShopingViewController *shopDetailVc = [[MBShopingViewController alloc] init];
-//        shopDetailVc.GoodsId =  _model.today_recommend_bot[CV.indexPath.row].goods[indexPath.item].goods_id;
-//        shopDetailVc.title = _model.today_recommend_bot[CV.indexPath.row].goods[indexPath.item].goods_name;
-//        [self pushViewController:shopDetailVc Animated:YES];
-//    }
+    if (collectionView.tag == 1) {
+        
+        MBDetailedViewController *VC = [[MBDetailedViewController alloc] init];
+        VC.cat_id = _model.category[indexPath.item].c_id;
+        VC.countries  = true;
+        [self pushViewController:VC Animated:YES];
+    }else{
+        MBAffordablePlanetCV *CV = (MBAffordablePlanetCV *)collectionView;
+        GoodModel *model =  nil;
+        if (collectionView.tag == 0) {
+            model = _model.recommend_goods[indexPath.item];
+        }
+        if (collectionView.tag == 2) {
+            model = _model.today_recommend_bot[CV.indexPath.row].goods[indexPath.item];
+        }
+        
+        
+        MBShopingViewController *shopDetailVc = [[MBShopingViewController alloc] init];
+        shopDetailVc.GoodsId =  model.goods_id;
+        shopDetailVc.title = model.goods_name;
+        [self pushViewController:shopDetailVc Animated:YES];
+    }
     
 }
 

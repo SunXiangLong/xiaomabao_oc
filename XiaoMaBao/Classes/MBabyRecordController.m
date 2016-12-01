@@ -195,7 +195,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 48 + (UISCREEN_WIDTH -30 )/3*435/212;
+        return 48 + (UISCREEN_WIDTH - 40)/3*218/126;
     }
 
     
@@ -224,7 +224,9 @@
     MBabyRecordHeadView *headView = [MBabyRecordHeadView instanceView];
     headView.frame =  CGRectMake(0, 0, UISCREEN_WIDTH, 40);
     [view addSubview:headView];
-    
+    if (section == 1) {
+        headView.tishi.text = @"- 日记 -";
+    }
     return view;
    
     
@@ -356,7 +358,7 @@
           [photoVC setSizeClip:CGSizeMake((UISCREEN_WIDTH -40)/3 *2, (UISCREEN_WIDTH -40)/3 *2)];
         }else{
         
-        [photoVC setSizeClip:CGSizeMake((UISCREEN_WIDTH -40)/3 *2,(UISCREEN_WIDTH -40)/3*2*435/212)];
+        [photoVC setSizeClip:CGSizeMake((UISCREEN_WIDTH -40)/3 *2,(UISCREEN_WIDTH -40)/3*2*218/126)];
         }
         
         [self presentViewController:photoVC animated:YES completion:nil];

@@ -10,9 +10,9 @@
 
 @interface MBDetailedViewController : BkBaseViewController
 /**
- *   若存在，表示从国家管界面来的
+ *   yes表示从国家管界面来的
  */
-@property (nonatomic,strong) NSString *countries;
+@property (nonatomic,assign) BOOL countries;
 
 @property (nonatomic,strong) NSString *cat_id;
 

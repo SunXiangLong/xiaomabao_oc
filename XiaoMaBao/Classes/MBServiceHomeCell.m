@@ -31,7 +31,7 @@
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:dataDic[@"shop_desc"]];
     text.yy_lineSpacing = 2;
     text.yy_font = YC_YAHEI_FONT(14);
-    text.yy_color= UIcolor(@"a9a9a9");
+    text.yy_color= UIcolor(@"8e8e8e");
     self.shopDesc.attributedText = text;
    
     NSMutableAttributedString *shopAddresstext = [[NSMutableAttributedString alloc] init];
@@ -40,7 +40,7 @@
     NSString *title = string(@"  ", dataDic[@"shop_nearby_subway"]) ;
     [shopAddresstext appendAttributedString:attachText];
     [shopAddresstext appendAttributedString:[[NSAttributedString alloc] initWithString:title attributes:nil]];
-    shopAddresstext.yy_color = UIcolor(@"606060");
+    shopAddresstext.yy_color = UIcolor(@"575757");
     shopAddresstext.yy_font = YC_YAHEI_FONT(13);
     self.shopAddress.attributedText = shopAddresstext;
     self.shopAddress.textVerticalAlignment = YYTextVerticalAlignmentCenter;
@@ -52,7 +52,7 @@
     [shopCityText appendAttributedString:cityText];
     
     [shopCityText appendAttributedString:[[NSAttributedString alloc] initWithString:cityTitle attributes:nil]];
-    shopCityText.yy_color = UIcolor(@"606060");
+    shopCityText.yy_color = UIcolor(@"575757");
     shopCityText.yy_font = YC_YAHEI_FONT(13);
     shopCityText.yy_alignment = NSTextAlignmentRight;
     self.shopCity.attributedText = shopCityText;

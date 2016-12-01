@@ -24,19 +24,11 @@
 #import "STPhotoKitController.h"
 #import "UIImagePickerController+ST.h"
 #import "MBPostDetailsViewController.h"
+
 @interface MBNewBabyController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource,STPhotoKitDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
    
     
-    NSInteger _row;
-    /**
-     *  宝宝状态 yes已出生  no怀孕中
-     */
-    BOOL _babyState;
-    /**
-     *  宝宝性别  @“1”男  @“0”女
-     */
-    NSString *_babyGender;
     
     NSDate *_current_date;
     NSDate *_start_date;
@@ -57,7 +49,7 @@
      *  宝宝头像
      */
      id _images;
-    
+    NSInteger _row;
     
     
     /**
@@ -82,27 +74,30 @@
  *  底层展示控件
  */
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-/**
- *  妈妈状态选择view
- */
-@property (weak, nonatomic) IBOutlet UIView *myStateView;
-/**
- *  宝宝性别选择view
- */
-@property (weak, nonatomic) IBOutlet UIView *babyGenderView;
+@property (weak, nonatomic) IBOutlet UITableView *babyStatleTableVIew;
+
+@property (weak, nonatomic) IBOutlet UIView *babtStatle;
 
 @property (copy, nonatomic) NSMutableArray *dataArray;
 @property (copy, nonatomic) NSMutableArray *dateArray;
-
 @property (weak, nonatomic) IBOutlet UIButton *reftButton;
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
 /**
  *  宝宝id
  */
 @property (nonatomic, copy)  NSString *baby_id;
+@property (nonatomic,copy) NSArray *datArr;
 @end
 
 @implementation MBNewBabyController
+-(NSArray *)datArr{
+    if (!_datArr) {
+        _datArr = @[@{@"title":@"我在怀孕中",@"summary":@"怀胎十月，关爱母婴健康",@"icon": [UIImage imageNamed:@"babyUnborn"]},
+                     @{@"title":@"宝宝以出生",@"summary":@"产后调养与恢复，和宝宝共同健康成长",@"icon": [UIImage imageNamed:@"babyBorn"]}
+                     ];
+    }
+    return _datArr;
+}
 -(NSMutableArray *)dataArray{
     
     if (!_dataArray) {
@@ -121,11 +116,14 @@
     
     return _dateArray;
 }
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *is_baby_add = [MBSignaltonTool getCurrentUserInfo].is_baby_add;
-    MMLog(@"%@---%@",sid,_oldSid);
+    _babtStatle.hidden = true;
+    self.navBar.title = @"";
     /**
      *  判断用户是否登陆和设置过宝宝信息
      */
@@ -144,8 +142,7 @@
             [self.dataArray removeAllObjects];
             [self.dateArray removeAllObjects];
             
-        _babyGenderView.hidden = YES;
-        _myStateView.hidden = YES;
+        
         [self setToolkit:NO date:nil];
         _oldSid = sid;
             
@@ -161,9 +158,9 @@
         }
        
     }else{
-           
-        _babyGenderView.hidden = NO;
-        _myStateView.hidden = NO;
+        self.navBar.title = @"宝宝状态";
+        _babyStatleTableVIew.tableFooterView = [[UIView alloc] init];
+        _babtStatle.hidden = false;
         _reftButton.hidden = YES;
         _leftButton.hidden = YES;
         _beginParentingButton.hidden = YES;
@@ -177,6 +174,7 @@
     }
     
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -208,78 +206,10 @@
           [self setData:[self setDate:_current_date]];
         sender.hidden= YES;
         
-    }else{
-        _babyGenderView.hidden = NO;
-    
-    
     }
 }
 
-- (IBAction)touchs:(UITapGestureRecognizer *)sender {
-    
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    if (!sid) {
-        [self loginClicksss];
-        return;
-    }
-    switch (sender.view.tag) {
-            
-        case 0:{
-            _babyGenderView.hidden = YES;
-            _babyGender = @"0";
-        }  break;
-        case 1:{
-            _babyGenderView.hidden = YES;
-            _babyGender = @"1";
-        }  break;
-        default: break;
-            
-            
-    }
-    MBSetBabyInformationController *VC = [[MBSetBabyInformationController alloc] init];
-    
-    VC.babyGender = _babyGender;
-    [self pushViewController:VC Animated:YES];
-}
 
-- (IBAction)touch:(id)sender {
-    
-    UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
-    
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    if (!sid) {
-        [self loginClicksss];
-        return;
-    }
-    switch (tap.view.tag) {
-        case 0: {
-            
-            
-            _babyState = NO;
-            _babyGenderView.hidden = YES;
-            _myStateView.hidden = YES;
-            MBBabyDueDateController *VC = [[MBBabyDueDateController alloc] init];
-            
-            [self pushViewController:VC Animated:YES];
-            
-            
-            return;
-            
-            
-        }
-        case 1: {
-            _babyState = YES;
-            _myStateView.hidden = YES;
-            
-            return;
-        } break;
-            
-        default: break;
-            
-    }
-    
-    
-}
 
 
 
@@ -322,6 +252,7 @@
     
     
 }
+
 /**
  *  请求工具数据
  */
@@ -648,8 +579,8 @@
     MBNewBabyCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBNewBabyCell" forIndexPath:indexPath];
     NSDate *date = _dateArray[indexPath.item];
     
-    cell.date.text = [NSString stringWithFormat:@"%ld月%ld日", date.month,date.day];
-    cell.time.text = [NSString stringWithFormat:@"%ld天", [date daysFrom:_start_date]+1];
+    cell.date.text = [NSString stringWithFormat:@"%ld月%ld日", (long)date.month,(long)date.day];
+    cell.time.text = [NSString stringWithFormat:@"%d天", [date daysFrom:_start_date]];
     cell.date.font = SYSTEMFONT(16);
     cell.time.font = SYSTEMFONT(12);
     
@@ -666,11 +597,16 @@
 }
 #pragma mark ---UITableViewDelagate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (tableView.tag == 1) {
+        return 1;
+    }
     
     return self.dataArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
+    if (tableView.tag == 1) {
+        return self.datArr.count;
+    }
     
     if (section==1) {
         
@@ -681,6 +617,9 @@
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView.tag == 1) {
+        return 75;
+    }
     
     switch (indexPath.section) {
         case 0:  return 65;;
@@ -707,6 +646,10 @@
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (tableView.tag == 1) {
+        return 0;
+    }
+   
     if (section == 0) {
         if ([_dataArray[section] count]==0) {
             return 0;
@@ -716,7 +659,9 @@
     return 50;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    
+    if (tableView.tag == 1) {
+        return 0;
+    }
     if (section == 2 || section == 3) {
         
         return 60;
@@ -725,6 +670,10 @@
     return 0.00001;
 }
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (tableView.tag == 1) {
+        return nil;
+    }
+    
     UIView *View = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 50)];
     MBCollectionHeadView  *headView = [MBCollectionHeadView instanceView];
     headView.frame = View.frame;
@@ -742,7 +691,9 @@
     
 }
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    
+    if (tableView.tag == 1) {
+        return nil;
+    }
     UIView *view = [[UIView alloc] init];
     view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 60);
     UIImageView *imageView = [[UIImageView alloc] init];
@@ -775,7 +726,16 @@
     return view;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (tableView.tag == 1) {
+        MBNewBabyOneTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBNewBabyOneTableCell"];
+        
+        if (!cell) {
+            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyOneTableCell"owner:nil options:nil]firstObject];
+        }
+        cell.dataDic = _datArr[indexPath.row];
+        [cell uiedgeInsetsZero];
+        return cell;
+    }
     switch (indexPath.section) {
         case 0: {
             
@@ -785,7 +745,7 @@
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyOneTableCell"owner:nil options:nil]firstObject];
             }
             
-            [self setUIEdgeInsetsZero:cell];
+            [cell uiedgeInsetsZero];
             cell.dataDic = _dataArray[indexPath.section][indexPath.row];
             return cell;
         }
@@ -796,7 +756,7 @@
                 if (!cell) {
                     cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyTwoTableCell"owner:nil options:nil]firstObject];
                 }
-                [self setUIEdgeInsetsZero:cell];
+                [cell uiedgeInsetsZero];
                 return cell;
             }
             
@@ -806,7 +766,7 @@
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"MBBabyToolCell"owner:nil options:nil]firstObject];
             }
             cell.dataDic = _dataArray[indexPath.section][indexPath.row];
-            [self setUIEdgeInsetsZero:cell];
+            [cell uiedgeInsetsZero];
             return cell;
         }
         case 2: {
@@ -815,7 +775,7 @@
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyThreeTableCell"owner:nil options:nil]firstObject];
             }
             cell.dataDic = _dataArray[indexPath.section][indexPath.row];
-            [self setUIEdgeInsetsZero:cell];
+            [cell uiedgeInsetsZero];
             return cell;
         }
             
@@ -826,7 +786,7 @@
             }
             cell.VC = self;
             cell.dataArr = _dataArray[indexPath.section][0];
-            [self setUIEdgeInsetsZero:cell];
+            [cell uiedgeInsetsZero];
             return cell;
         }
             
@@ -845,25 +805,20 @@
     
     }
 }
-/**
- *  让cell地下的边线挨着左边界
- */
-- (void)setUIEdgeInsetsZero:(UITableViewCell *)cell{
-    cell.separatorInset = UIEdgeInsetsZero;
-    cell.layoutMargins = UIEdgeInsetsZero;
-    cell.preservesSuperviewLayoutMargins   = false;
-    
-}
-/**
- *  移除cell最下的线
- */
-- (void)setRemoveUIEdgeInsetsZero:(UITableViewCell *)cell{
-    cell.separatorInset = UIEdgeInsetsMake(0, 10000, 0, 0);
-    cell.layoutMargins = UIEdgeInsetsMake(0, 10000, 0, 0);
-    
-}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-   
+    if (tableView.tag ==1) {
+        
+        if (indexPath.row == 0) {
+            MBBabyDueDateController *VC = [[MBBabyDueDateController alloc] init];
+            
+            [self pushViewController:VC Animated:YES];
+        }else{
+            
+            [self performSegueWithIdentifier:@"sunxianglong" sender:nil];
+        }
+        return;
+    }
     switch (indexPath.section) {
         case 0: {
             MBBabyWebController *VC = [[MBBabyWebController alloc] init];

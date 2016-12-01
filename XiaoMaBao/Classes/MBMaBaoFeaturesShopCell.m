@@ -30,8 +30,8 @@
     _goods_price.text = model.goods_price;
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string(@"市场价：",model.market_price)];
     YYTextDecoration *textDec = [[YYTextDecoration alloc] init];
-    textDec.color  = UIcolor(@"999999");
-    text.yy_color = UIcolor(@"999999");
+    textDec.color  = UIcolor(@"8e8e8e");
+    text.yy_color = UIcolor(@"8e8e8e");
     text.yy_textStrikethrough = textDec;
     _market_price.attributedText = text;
     

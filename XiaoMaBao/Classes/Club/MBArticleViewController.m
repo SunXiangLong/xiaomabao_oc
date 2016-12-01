@@ -8,7 +8,6 @@
 
 #import "MBArticleViewController.h"
 #import "MBArticleViewCell.h"
-#import "MBVideoDetailsViewController.h"
 #import "MBSearchArticleViewController.h"
 #import "MBPhoneticDetailViewController.h"
 @interface MBArticleViewController ()<UISearchBarDelegate>
@@ -91,12 +90,7 @@
         searchField.layer.masksToBounds = YES;
     }
 }
--(void)rightTitleClick{
-    
-    MBVideoDetailsViewController *VC = [[MBVideoDetailsViewController alloc] init];
-    [self pushViewController:VC Animated:YES];
 
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

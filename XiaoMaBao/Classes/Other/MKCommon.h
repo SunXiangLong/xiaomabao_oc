@@ -14,10 +14,10 @@
 #if IS_TEST
 #else
 ///***  线上后台 */
-    static NSString  *BASE_PHP =       @"http://api.xiaomabao.com/discovery";
-    static NSString *BASE_URL =        @"http://api.xiaomabao.com/mobile/?url=/";
-    static NSString *BASE_URL_root =   @"http://api.xiaomabao.com";
-    static NSString *BASE_PHP_test =   @"http://api.xiaomabao.com/babyInfo/inforecord";
+    static NSString  *BASE_PHP =       @"https://api.xiaomabao.com/discovery";
+    static NSString *BASE_URL =        @"https://api.xiaomabao.com/mobile/?url=/";
+    static NSString *BASE_URL_root =   @"https://api.xiaomabao.com";
+    static NSString *BASE_PHP_test =   @"https://api.xiaomabao.com/babyInfo/inforecord";
 /***  军哥后台 */
 //   static NSString *BASE_URL =      @"http://192.168.11.36/mobile/?url=/";
 //   static NSString *BASE_URL_root = @"http://192.168.11.36";

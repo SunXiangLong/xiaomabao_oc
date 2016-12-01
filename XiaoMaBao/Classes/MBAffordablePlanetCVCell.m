@@ -30,17 +30,17 @@
     if (self) {
         _goodsPrice = [[YYLabel alloc] initWithFrame:CGRectMake(10, 140, 100, 15)];
         _goodsPrice.displaysAsynchronously = true;
-        _goodsPrice.ignoreCommonProperties = true;
+//        _goodsPrice.ignoreCommonProperties = true;
         _goodsPrice.textAlignment = 1;
         _goodsPrice.textColor = UIcolor(@"b66263");
         _goodsPrice.font = [UIFont systemFontOfSize:10];
         [self.contentView addSubview:_goodsPrice];
         _goodsName = [[YYLabel alloc] initWithFrame:CGRectMake(10, 105, 100, 35)];
         _goodsName.displaysAsynchronously = true;
-        _goodsName.ignoreCommonProperties = true;
+//        _goodsName.ignoreCommonProperties = true;
         _goodsName.textAlignment = 1;
         _goodsName.numberOfLines = 2;
-        _goodsName.textColor = UIcolor(@"575c65");
+        _goodsName.textColor = UIcolor(@"575757");
         _goodsName.font = [UIFont systemFontOfSize:13];
         [self.contentView addSubview:_goodsName];
         

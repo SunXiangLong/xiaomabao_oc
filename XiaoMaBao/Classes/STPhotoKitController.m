@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *buttonBack;
 /** 6.修剪的位置 */
 @property (nonatomic, assign) CGRect rectClip;
-
+@property (nonatomic, strong) UIImageView *dashedBoxView;
 @end
 
 NS_ASSUME_NONNULL_END
@@ -45,7 +45,6 @@ NS_ASSUME_NONNULL_END
     [super viewDidLoad];
     [self.viewOverlay setHollowWithCenterFrame:self.rectClip];
     // 虚线框
-    
     UIImageView *dashedBoxView  = [[UIImageView alloc] initWithFrame: self.rectClip];
     dashedBoxView.image = [UIImage imageNamed:@"caijian_bg"];
     dashedBoxView.center = self.view.center;
@@ -56,7 +55,7 @@ NS_ASSUME_NONNULL_END
     [self.view addSubview:self.buttonCancel];
     [self.view addSubview:self.buttonConfirm];
     [self.view addSubview:self.buttonBack];
-     [self.view addSubview:dashedBoxView];
+    [self.view addSubview:_dashedBoxView = dashedBoxView];
     [self addGestureRecognizerToView:self.view];
 
 }
@@ -160,7 +159,7 @@ NS_ASSUME_NONNULL_END
  */
 - (UIImage *)getResultImage
 {
-
+    _dashedBoxView.hidden  = true;
     UIImage *image = [self.view imageFromSelfView];
     return [image croppedImage:self.rectClip];
 }

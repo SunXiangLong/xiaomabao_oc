@@ -12,6 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MBActivityViewController">
             <connections>
                 <outlet property="collectionView" destination="1GB-o4-V40" id="5Pd-uw-m5D"/>
+                <outlet property="defaultBtn" destination="yzg-Pm-lhX" id="Pyu-U3-eCQ"/>
+                <outlet property="priceBtn" destination="GmG-Fb-6ZH" id="1vi-pZ-Hfh"/>
                 <outlet property="topView" destination="xIO-gB-LjO" id="wAF-fH-uWH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,21 +26,80 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xIO-gB-LjO">
                     <rect key="frame" x="0.0" y="64" width="375" height="35"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xjK-rJ-MIK">
-                            <rect key="frame" x="0.0" y="34" width="375" height="1"/>
-                            <color key="backgroundColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.77647058820000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="drS-nV-p7T"/>
-                                <constraint firstAttribute="height" constant="1" id="pXs-vj-bM7"/>
-                            </constraints>
-                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yzg-Pm-lhX">
+                            <rect key="frame" x="0.0" y="0.0" width="94" height="35"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <state key="normal" title="综合">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="selected">
+                                <color key="titleColor" red="0.78431372549019607" green="0.41568627450980389" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="btn:" destination="-1" eventType="touchUpInside" id="e9W-Jw-NPd"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0Q-T4-mJb">
+                            <rect key="frame" x="94" y="0.0" width="93.5" height="35"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <state key="normal" title="销量">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="selected">
+                                <color key="titleColor" red="0.78431372549019607" green="0.41568627450980389" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="btn:" destination="-1" eventType="touchUpInside" id="rnx-76-t7q"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YbG-kX-fFU">
+                            <rect key="frame" x="187.5" y="0.0" width="94" height="35"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <state key="normal" title="最新">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="selected">
+                                <color key="titleColor" red="0.78431372549019607" green="0.41568627450980389" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="btn:" destination="-1" eventType="touchUpInside" id="Ej0-ve-e37"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GmG-Fb-6ZH">
+                            <rect key="frame" x="281.5" y="0.0" width="93.5" height="35"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <inset key="titleEdgeInsets" minX="-10" minY="0.0" maxX="10" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="35" minY="0.0" maxX="-35" maxY="0.0"/>
+                            <state key="normal" title="价格" image="priceSortedDefault">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="selected" image="priceSortedDown"/>
+                            <state key="highlighted" image="priceSortedUP"/>
+                            <state key="focused" image="priceSortedUP"/>
+                            <connections>
+                                <action selector="btn:" destination="-1" eventType="touchUpInside" id="nbt-6Y-LyJ"/>
+                            </connections>
+                        </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.92549019610000005" green="0.92941176469999998" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.93323183059692383" green="0.9333917498588562" blue="0.93322181701660156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="xjK-rJ-MIK" secondAttribute="trailing" id="53k-b5-O72"/>
-                        <constraint firstAttribute="bottom" secondItem="xjK-rJ-MIK" secondAttribute="bottom" id="dav-Wp-1Gc"/>
-                        <constraint firstItem="xjK-rJ-MIK" firstAttribute="leading" secondItem="xIO-gB-LjO" secondAttribute="leading" id="dc4-eV-Nxj"/>
+                        <constraint firstAttribute="bottom" secondItem="YbG-kX-fFU" secondAttribute="bottom" id="8NH-4n-LV8"/>
+                        <constraint firstItem="GmG-Fb-6ZH" firstAttribute="leading" secondItem="YbG-kX-fFU" secondAttribute="trailing" id="97n-N0-YbJ"/>
+                        <constraint firstItem="GmG-Fb-6ZH" firstAttribute="width" secondItem="yzg-Pm-lhX" secondAttribute="width" id="E7h-Un-0PT"/>
+                        <constraint firstAttribute="bottom" secondItem="N0Q-T4-mJb" secondAttribute="bottom" id="EZd-vR-CKQ"/>
+                        <constraint firstItem="GmG-Fb-6ZH" firstAttribute="top" secondItem="xIO-gB-LjO" secondAttribute="top" id="Opg-ZI-KFI"/>
+                        <constraint firstItem="N0Q-T4-mJb" firstAttribute="top" secondItem="xIO-gB-LjO" secondAttribute="top" id="SCg-VH-Cqr"/>
+                        <constraint firstItem="N0Q-T4-mJb" firstAttribute="leading" secondItem="yzg-Pm-lhX" secondAttribute="trailing" id="Yvd-z0-dAg"/>
+                        <constraint firstItem="YbG-kX-fFU" firstAttribute="leading" secondItem="N0Q-T4-mJb" secondAttribute="trailing" id="aLs-x0-wKd"/>
+                        <constraint firstAttribute="bottom" secondItem="GmG-Fb-6ZH" secondAttribute="bottom" id="aMC-T2-Xbb"/>
+                        <constraint firstItem="N0Q-T4-mJb" firstAttribute="width" secondItem="yzg-Pm-lhX" secondAttribute="width" id="atI-vh-kXq"/>
+                        <constraint firstAttribute="bottom" secondItem="yzg-Pm-lhX" secondAttribute="bottom" id="hJH-qO-D9o"/>
+                        <constraint firstItem="YbG-kX-fFU" firstAttribute="top" secondItem="xIO-gB-LjO" secondAttribute="top" id="oLl-62-M8v"/>
+                        <constraint firstItem="yzg-Pm-lhX" firstAttribute="leading" secondItem="xIO-gB-LjO" secondAttribute="leading" id="u3U-wl-M2B"/>
+                        <constraint firstItem="yzg-Pm-lhX" firstAttribute="top" secondItem="xIO-gB-LjO" secondAttribute="top" id="wcP-23-ns7"/>
                         <constraint firstAttribute="height" constant="35" id="xw6-rJ-2iH"/>
+                        <constraint firstItem="YbG-kX-fFU" firstAttribute="width" secondItem="yzg-Pm-lhX" secondAttribute="width" id="yBj-kA-hRx"/>
+                        <constraint firstAttribute="trailing" secondItem="GmG-Fb-6ZH" secondAttribute="trailing" id="zbq-ln-bO3"/>
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="1GB-o4-V40">
@@ -57,12 +118,17 @@
                 <constraint firstItem="xIO-gB-LjO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2QP-OR-Xwb"/>
                 <constraint firstItem="1GB-o4-V40" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6OR-8H-AU3"/>
                 <constraint firstItem="1GB-o4-V40" firstAttribute="top" secondItem="xIO-gB-LjO" secondAttribute="bottom" id="Hdu-Co-u7B"/>
+                <constraint firstAttribute="trailing" secondItem="xIO-gB-LjO" secondAttribute="trailing" id="IUf-La-vSU"/>
                 <constraint firstItem="xIO-gB-LjO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="IjQ-bE-1vs"/>
                 <constraint firstAttribute="bottom" secondItem="1GB-o4-V40" secondAttribute="bottom" id="cVr-XQ-a3d"/>
                 <constraint firstAttribute="trailing" secondItem="1GB-o4-V40" secondAttribute="trailing" id="fR9-3m-a9R"/>
-                <constraint firstAttribute="trailing" secondItem="xIO-gB-LjO" secondAttribute="trailing" id="ndt-uL-yf6"/>
             </constraints>
-            <point key="canvasLocation" x="236" y="197"/>
+            <point key="canvasLocation" x="-239" y="102"/>
         </view>
     </objects>
+    <resources>
+        <image name="priceSortedDefault" width="5" height="9"/>
+        <image name="priceSortedDown" width="5" height="9"/>
+        <image name="priceSortedUP" width="5" height="9"/>
+    </resources>
 </document>

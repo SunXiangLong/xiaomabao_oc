@@ -54,6 +54,7 @@
         case 1:{
             UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
             MBSharkViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBSharkViewController"];
+        
             [self presentViewController:myView animated:YES completion:nil];
             
         }
@@ -89,7 +90,8 @@
             [_model.today_recommend_top enumerateObjectsUsingBlock:^(TodayRecommendTopModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [urlImageArray addObject:obj.ad_img];
             }];
-            _headView.mj_h = UISCREEN_WIDTH *35/75 + UISCREEN_HEIGHT*190/1335;
+           
+            _headView.mj_h = UISCREEN_WIDTH *35/75 + 95;
             _shufflingView.delegate = self;
             _shufflingView.backgroundColor = [UIColor whiteColor];
             _shufflingView.autoScrollTimeInterval = 5.0f;
@@ -203,7 +205,7 @@
     YYLabel *lable = [[YYLabel alloc] initWithFrame:CGRectMake(0, 5, UISCREEN_WIDTH, 45)];
     lable.font = YC_RTWSYueRoud_FONT(15);
     lable.backgroundColor = [UIColor whiteColor];
-    lable.textColor = UIcolor(@"999999");
+    lable.textColor = UIcolor(@"8e8e8e");
     lable.textAlignment = 1;
     lable.text = @"- 全部分类 -";
     [headView addSubview:lable];
@@ -273,7 +275,7 @@
     if (collectionView.tag == 0) {
         
         MBCategoryViewController *VC = [[MBCategoryViewController alloc] init];
-        VC.model = _model.category[indexPath.item];
+        VC.ID = _model.category[indexPath.item].cat_id;
         [self pushViewController:VC Animated:YES];
     }else{
         MBAffordablePlanetCV *CV = (MBAffordablePlanetCV *)collectionView;

@@ -137,8 +137,8 @@
     
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    CGFloat height = [_model.brand.brand_desc sizeWithFont:SYSTEMFONT(12) lineSpacing:2 withMax:UISCREEN_WIDTH- 40];
-    return CGSizeMake(UISCREEN_WIDTH, 90 + height );
+    CGFloat height = [_model.brand.brand_desc sizeWithFont:SYSTEMFONT(14) lineSpacing:2 withMax:UISCREEN_WIDTH- 40];
+    return CGSizeMake(UISCREEN_WIDTH, 65 + height );
 }
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     

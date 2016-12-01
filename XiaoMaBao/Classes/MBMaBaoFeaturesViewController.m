@@ -89,7 +89,9 @@
             YYLabel *lable = [[YYLabel alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 45)];
             lable.font = YC_RTWSYueRoud_FONT(15);
             lable.textAlignment = 1;
-            lable.textColor = [UIColor colorWithHexString:@"999999"];
+            lable.displaysAsynchronously = true;
+            lable.ignoreCommonProperties = true;
+            lable.textColor = [UIColor colorWithHexString:@"8e8e8e"];
             lable.text = @"精选商品";
             [reusableview addSubview:lable];
             
