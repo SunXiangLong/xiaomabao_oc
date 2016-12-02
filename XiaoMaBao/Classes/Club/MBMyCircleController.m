@@ -13,7 +13,6 @@
 #import "MBWebViewController.h"
 #import "MBGroupShopController.h"
 #import "MBDetailsCircleController.h"
-#import "MBLoginViewController.h"
 #import "MBCollectionPostController.h"
 #import "MBVoiceViewController.h"
 #import "MBArticleViewController.h"
@@ -42,27 +41,6 @@
 @end
 
 @implementation MBMyCircleController
--(void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    
-    _isDimiss    = YES;
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    if (_isDimiss) {
-        
-        [self.recommendArray removeAllObjects];
-        
-        [self.myCircleArray removeAllObjects];
-      
-         [self setData];
-        
-        _isDimiss   = !_isDimiss;
-    }
-}
 -(NSMutableArray *)recommendArray{
     
     if (!_recommendArray) {
@@ -85,11 +63,11 @@
     [super viewDidLoad];
     [self.navBar removeFromSuperview];
     
-    
+    [self show];
     [self headerView];
     self.tableView.tableFooterView = [[UIView alloc] init];
     dispatch_group_t group =  dispatch_group_create();
-    [self show];
+   
     dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
          [self setShufflingFigureData];
@@ -104,17 +82,9 @@
         // 等前面的异步操作都执行完毕后，回到主线程...
         [self dismiss];
     });
-   
-    WS(weakSelf)
-    self.block = ^(NSInteger num){
-        if (num  == 1) {
-            [weakSelf.recommendArray removeAllObjects];
-            [weakSelf.myCircleArray removeAllObjects];
-            [weakSelf setData];
-        }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(circleState) name:@"circleState" object:nil];
+
     
-    };
-       
 }
 /**
  *  广告轮播图UI
@@ -129,6 +99,13 @@
     self.shufflingView.autoScrollTimeInterval = 5.0f;
 }
 
+- (void)circleState{
+    [self.recommendArray removeAllObjects];
+    [self.myCircleArray removeAllObjects];
+    [self setData];
+
+
+}
 - (IBAction)buttonClick:(UIButton *)sender {
    NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
     switch (sender.tag) {
@@ -152,7 +129,7 @@
         }break;
         case 2: {
             if (!sid) {
-                [ self  loginClicksss];
+                [self  loginClicksss:@"mabao"];
                 return ;
             }
             
@@ -162,11 +139,10 @@
         case 3:
         {
             if (!sid) {
-                [ self  loginClicksss];
+                [self  loginClicksss:@"mabao"];
                 return ;
             }
-//            MBCollectionPostController *VC = [[MBCollectionPostController alloc] init];
-//            [self pushViewController:VC Animated:YES];
+
              [self performSegueWithIdentifier:@"MBCollectionPostController" sender:nil];
         } break;
             
@@ -187,10 +163,11 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_circle_ads"];
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
-        
+        MMLog(@"%@",responseObject);
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                 _bandImageArray = [responseObject valueForKeyPath:@"data"];
+               
                 NSMutableArray *imaageUrlArr = [NSMutableArray array];
                 for (NSDictionary *dic in _bandImageArray) {
                     [imaageUrlArr addObject:dic[@"ad_img"]];
@@ -203,11 +180,11 @@
             
         }
         
-        [self show:@"没有相关数据" time:1];
+//        [self show:@"没有相关数据" time:1];
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         MMLog(@"%@",error);
-        [self show:@"请求失败" time:1];
+//        [self show:@"请求失败" time:1];
     }];
     
     
@@ -227,21 +204,21 @@
                 _numberOfSections = 1;
                 self.tableHeadView.hidden = NO;
                 [self.tableView reloadData];
-                return;
+                
             }
             
-            [self show:@"没有相关数据" time:1];
+//            [self show:@"没有相关数据" time:1];
             
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
             MMLog(@"%@",error);
-            [self show:@"请求失败" time:1];
+//            [self show:@"请求失败" time:1];
         }];
         
     }else{
         NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/get_user_circle"];
         
         [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict} success:^(id responseObject) {
-           [self dismiss];
+           
 //          MMLog(@"%@",responseObject);
             if (responseObject) {
                 
@@ -251,14 +228,14 @@
                 self.tableHeadView.hidden = NO;
                 [self.tableView reloadData];
                 [self myCircleDefaults];
-                return ;
+               
                 
             }
             
-            [self show:@"没有相关数据" time:1];
+            
 
         }failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            [self show:@"请求失败 " time:1];
+//            [self show:@"请求失败 " time:1];
             MMLog(@"%@",error);
         }];
         
@@ -304,17 +281,7 @@
     
     
 }
-#pragma mark -- 跳转登陆页
-- (void)loginClicksss{
-    //跳转到登录页
-   
 
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-    myView.vcType = @"mabao";
-    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
-    [self presentViewController:VC animated:YES completion:nil];
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -384,7 +351,7 @@
         
         NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
         if (!sid) {
-            [weakSelf loginClicksss];
+            [weakSelf  loginClicksss:@"mabao"];
             return ;
         }
         
@@ -460,48 +427,32 @@
     view.backgroundColor = [UIColor whiteColor];
     view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 41);
     UIView *backTopView = [[UIView alloc] init];
-    backTopView.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 10);
+    backTopView.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 5);
     backTopView.backgroundColor = BACKColor;
     [view addSubview:backTopView];
-    UILabel *lable = [[UILabel alloc] init];
-    lable.font =  YC_YAHEI_FONT(16);
-    lable.textColor = UIcolor(@"575c65");
+    YYLabel *lable = [[YYLabel alloc] init];
     [view addSubview:lable];
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(8);
-        make.centerY.mas_equalTo(5);
+        make.centerY.mas_equalTo(3);
     }];
-    
-    NSString *numStr = s_Integer(_myCircleArray.count);
-    NSString *comment_content = [NSString stringWithFormat:@"我的麻包圈( %@ )",numStr];
-    
-    
-    NSRange range = [comment_content rangeOfString:numStr];
-    
-    NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:comment_content];
-    [att addAttributes:@{NSForegroundColorAttributeName:UIcolor(@"d66263")}  range:NSMakeRange(range.location, range.length)];
-    [att addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} range:NSMakeRange(range.location, range.length )];
-    
     
     if (sid&&section == 0) {
-        lable.text = comment_content;
+        NSString *numStr = s_Integer(_myCircleArray.count);
+        NSString *comment_content = [NSString stringWithFormat:@"我的麻包圈( %@ )",numStr];
+        NSRange range = [comment_content rangeOfString:numStr];
+        NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:comment_content];
+        att.yy_font = YC_RTWSYueRoud_FONT(15);
+        att.yy_color = UIcolor(@"575757");
+        [att yy_setColor:UIcolor(@"d66263") range:range];
         lable.attributedText  = att;
-        
     }else{
-        lable.text = @"推荐麻包圈";
+        NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:@"推荐麻包圈"];
+        att.yy_font = YC_RTWSYueRoud_FONT(15);
+        att.yy_color = UIcolor(@"575757");
+        lable.attributedText  = att;
     }
-    
-    UIImageView *image = [[UIImageView alloc] init];
-    image.backgroundColor = UIcolor(@"eaeaea");
-    [view addSubview:image];
-    [image mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(0);
-        make.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(0);
-        make.height.mas_equalTo(1);
-    }];
-    
-    
+    [self addBottomLineView:view];
     return view;
     
 }
@@ -545,7 +496,6 @@
         return;
     
     }
-    _isDimiss = YES;
     NSDictionary *dic;
     NSString *str  = @"0";
     if (indexPath.section == 0&&sid) {

@@ -14,11 +14,10 @@
 #import "MBMyCircleController.h"
 #import "MBNewsCircleController.h"
 #import "JPUSHService.h"
-#import "MBLoginViewController.h"
 @interface MBNewCanulcircleController ()<UIScrollViewDelegate>
 {
 
-    BOOL     _isDismiss;
+    
     UISegmentedControl *_segmentControl;
 }
 @property (nonatomic,strong) UIView *titlesView;
@@ -37,11 +36,6 @@
     }
     return _titleButtons;
 }
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    _isDismiss = YES;
-}
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -54,13 +48,7 @@
     }else{
         self.messageBadge.hidden = YES;
     }
-    if (_isDismiss) {
-        
-        MBMyCircleController    *myCircleView = self.childViewControllers[0];
-        myCircleView.isDimiss = YES;
-        
-        _isDismiss = !_isDismiss;
-    }
+    
     
 }
 - (void)viewDidLoad {
@@ -107,7 +95,6 @@
     });
     
     [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict} success:^(id responseObject) {
-        [self dismiss];
         if ([[responseObject valueForKeyPath:@"number"] integerValue]>0) {
             [self.messageBadge autoBadgeSizeWithString:s_str([responseObject valueForKeyPath:@"number"])];
             self.messageBadge.hidden = NO;
@@ -170,7 +157,7 @@
     
     NSInteger idx = segmentControl.selectedSegmentIndex;
     MBMoreCirclesController *moreCirclesView = self.childViewControllers[2];
-    MBMyCircleController    *myCircleView = self.childViewControllers[0];
+    
     
     if (idx==2) {
         if (moreCirclesView.block) {
@@ -185,12 +172,7 @@
         }
     }
     
-    if (idx == 0) {
-        if (myCircleView.block) {
-            myCircleView.block(1);
-        }
-        
-    }
+    
     CGPoint offset = self.scrollView.contentOffset;
     offset.x = UISCREEN_WIDTH*idx;
     [self.scrollView setContentOffset:offset animated:YES];
@@ -234,7 +216,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     if (! sid) {
         
-        [self loginClicksss];
+        [self  loginClicksss:@"mabao"];
         return;
     }
     
@@ -245,16 +227,7 @@
     [self pushViewController:searchVc Animated:YES];
     
 }
-#pragma mark -- 跳转登陆页
-- (void)loginClicksss{
-    //跳转到登录页
-    
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-    myView.vcType = @"mabao";
-    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
-    [self presentViewController:VC animated:YES completion:nil];
-}
+
 
 -(NSString *)leftStr{
     

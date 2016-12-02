@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *showImageView;
 @property (weak, nonatomic) IBOutlet UILabel *user_name;
 @property (weak, nonatomic) IBOutlet UILabel *user_time;
-@property (weak, nonatomic) IBOutlet UILabel *user_center;
+@property (weak, nonatomic) IBOutlet YYLabel *user_center;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewTop;
 @property (nonatomic,strong) NSArray *comment_imgs;
@@ -46,7 +46,11 @@
     self.user_name.text = _dataDic[@"user_name"];
     self.user_time.text = _dataDic[@"comment_date"];
     [self.collectionView    reloadData];
-    self.user_center.text = _dataDic[@"comment_content"];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:_dataDic[@"comment_content"]];
+    text.yy_lineSpacing = 2;
+    text.yy_font = YC_YAHEI_FONT(14);
+    text.yy_color= UIcolor(@"8e8e8e");
+    self.user_center.attributedText = text;
     self.comment_imgs = _dataDic[@"comment_imgs"];
     self.comment_thumb_imgs = _dataDic[@"comment_thumb_imgs"];
     self.user_id =  _dataDic[@"user_id"];
@@ -67,9 +71,10 @@
 }
 - (CGSize)sizeThatFits:(CGSize)size {
     CGFloat totalHeight = 0;
-    totalHeight += 50;
+    totalHeight += 40;
     totalHeight += [self.user_name sizeThatFits:size].height;
-    totalHeight += [self.user_center sizeThatFits:size].height;
+    CGFloat strHeight = [self.user_center.text sizeWithFont:[UIFont systemFontOfSize:14] withMaxSize:CGSizeMake(UISCREEN_WIDTH-70, MAXFLOAT)].height;
+    totalHeight += strHeight;
     totalHeight += self.collectionViewHeight.constant;
     totalHeight += self.collectionViewTop.constant;
     return CGSizeMake(size.width, totalHeight);

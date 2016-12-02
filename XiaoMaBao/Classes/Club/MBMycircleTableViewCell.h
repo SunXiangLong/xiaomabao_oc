@@ -10,9 +10,9 @@
 
 typedef void (^cellButtonClick)(NSIndexPath *indexPath);
 @interface MBMycircleTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *user_name;
+@property (weak, nonatomic) IBOutlet YYLabel *user_name;
 @property (weak, nonatomic) IBOutlet UIImageView *user_image;
-@property (weak, nonatomic) IBOutlet UILabel *user_center;
+@property (weak, nonatomic) IBOutlet YYLabel *user_center;
 @property (weak, nonatomic) IBOutlet UIButton *user_button;
 @property (nonatomic,strong) NSIndexPath *indexPath;
 @property(copy,nonatomic)NSDictionary *dataDic;

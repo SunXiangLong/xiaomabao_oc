@@ -7,7 +7,6 @@
 //
 
 #import "MBVoucherViewController.h"
-#import "MBLoginViewController.h"
 #import "MBVoucherTableViewCell.h"
 #import "MBFireOrderViewController.h"
 #import "MobClick.h"
@@ -68,11 +67,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     
     if (sid == nil && uid == nil) {
-        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        
-        MBLoginViewController *myViewVc = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-        myViewVc.vcType = @"shop";
-        [self.navigationController pushViewController:myViewVc animated:YES];
+         [self loginClicksss:@"shop"];
         return;
     }
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
@@ -112,11 +107,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     
     if (sid == nil && uid == nil) {
-        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        
-        MBLoginViewController *myViewVc = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-        myViewVc.vcType = @"shop";
-        [self.navigationController pushViewController:myViewVc animated:YES];
+         [self loginClicksss:@"shop"];
         return;
     }
     [self show];

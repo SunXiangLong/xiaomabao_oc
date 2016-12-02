@@ -12,6 +12,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
 }
 + (instancetype)instanceView{
     return [[[NSBundle mainBundle] loadNibNamed:@"MBServiceShopsHeadView" owner:nil options:nil] lastObject];

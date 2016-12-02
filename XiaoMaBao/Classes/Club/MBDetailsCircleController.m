@@ -9,7 +9,6 @@
 #import "MBDetailsCircleController.h"
 #import "MBDetailsCircleTableHeadView.h"
 #import "MBReleaseTopicViewController.h"
-#import "MBLoginViewController.h"
 #import "MBPostDetailsViewController.h"
 #import "MBDetailsCircleCell.h"
 @interface MBDetailsCircleController ()<UITableViewDelegate,UITableViewDataSource>
@@ -128,7 +127,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     if (!sid) {
-        [self loginClicksss];
+        [self  loginClicksss:@"mabao"];
         return;
     }
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
@@ -139,6 +138,7 @@
     
     [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict,@"circle_id":self.circle_id} success:^(id responseObject) {
         [self dismiss];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"circleState" object:nil];
         [self show:@"加入圈子成功" time:1];
         if ([[responseObject  valueForKeyPath:@"status"]isEqualToNumber:@1]) {
         self.is_join = @"1";
@@ -206,16 +206,7 @@
     return tableHeadView;
 
 }
-#pragma mark -- 跳转登陆页
-- (void)loginClicksss{
-    //跳转到登录页
-    
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-    myView.vcType = @"mabao";
-    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
-    [self presentViewController:VC animated:YES completion:nil];
-}
+
 -(NSString *)titleStr{
 
     return self.title?:@"全部帖子";

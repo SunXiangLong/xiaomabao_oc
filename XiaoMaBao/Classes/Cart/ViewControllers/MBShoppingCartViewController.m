@@ -11,7 +11,6 @@
 #import "MBSignaltonTool.h"
 #import "MBShoppingCartTableViewCell.h"
 #import "MBShopingViewController.h"
-#import "MBLoginViewController.h"
 #import "MBRealNameAuthViewController.h"
 @interface MBShoppingCartViewController () <UITableViewDataSource,UITableViewDelegate,MBShoppingCartTableViewdelegate>
 {
@@ -466,13 +465,7 @@
 - (void)goToDaySale{
     MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
     if (userInfo.uid == nil) {
-        //获取storyboard: 通过bundle根据storyboard的名字来获取我们的storyboard,
-        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        //由storyboard根据myView的storyBoardID来获取我们要切换的视图
-        MBLoginViewController *myViewVc = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-        //由navigationController推向我们要推向的view
-        myViewVc.vcType = @"shop";
-        [self.navigationController pushViewController:myViewVc animated:YES];
+         [self loginClicksss:@"shop"];
         return;
     }else{
         UIViewController *mainVc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];

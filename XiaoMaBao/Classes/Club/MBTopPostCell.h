@@ -10,14 +10,15 @@
 
 @interface MBTopPostCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *user_image;
-@property (weak, nonatomic) IBOutlet UILabel *circle_name;
-@property (weak, nonatomic) IBOutlet UILabel *post_title;
-@property (weak, nonatomic) IBOutlet UILabel *post_content;
-@property (weak, nonatomic) IBOutlet UILabel *user_name;
+@property (weak, nonatomic) IBOutlet YYLabel *circle_name;
+@property (weak, nonatomic) IBOutlet YYLabel *post_title;
+@property (weak, nonatomic) IBOutlet YYLabel *post_content;
+@property (weak, nonatomic) IBOutlet YYLabel *user_name;
 @property (weak, nonatomic) IBOutlet UIImageView *image1;
 @property (weak, nonatomic) IBOutlet UIImageView *image2;
 @property (weak, nonatomic) IBOutlet UIImageView *image3;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *post_contentheight;
 @property (nonatomic,strong) NSArray *imageArray;
 @property (nonatomic,strong) NSArray *array;
 @property(copy,nonatomic)NSDictionary *dataDic;

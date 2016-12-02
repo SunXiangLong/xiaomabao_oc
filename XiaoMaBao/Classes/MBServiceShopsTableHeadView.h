@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface MBServiceShopsTableHeadView : UIView
-@property (weak, nonatomic) IBOutlet UILabel *name;
-@property (weak, nonatomic) IBOutlet UILabel *number;
+@property (weak, nonatomic) IBOutlet YYLabel *name;
+@property (weak, nonatomic) IBOutlet YYLabel *number;
 
 + (instancetype)instanceView;
 @end

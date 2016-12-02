@@ -176,11 +176,11 @@
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 51;
+    return 45;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    return 41;
+    return 40;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -224,7 +224,6 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] init];
-    
     if (section == 0) {
         
         NSArray *arr = _dataArr[section];
@@ -284,6 +283,7 @@
         default:{headView.number.text = @"";
             headView.name.text = @"更多商家";} break;
     }
+    [self addBottomLineView:view];
     
     return view;
     
@@ -304,9 +304,8 @@
             
         }break;
         default:{
-            
             NSDictionary    *dic = _dataDic[@"other_shop"][indexPath.row];
-            MBServiceShopsViewController *VC = [[MBServiceShopsViewController alloc] init];
+            MBServiceShopsViewController *VC =  [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBServiceShopsViewController"];
             VC.shop_id = dic[@"shop_id"];
             VC.title = dic[@"shop_name"];
             [self pushViewController:VC Animated:YES];
@@ -314,5 +313,6 @@
         }break;
     }
 }
+
 
 @end

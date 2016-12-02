@@ -15,10 +15,8 @@
 #import "UIImageView+WebCache.h"
 #import "MBUserDataSingalTon.h"
 #import "MBSignaltonTool.h"
-#import "MBLoginViewController.h"
 #import "UIImageView+WebCache.h"
 #import "MBShoppingCartViewController.h"
-#import "MobClick.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "MBShopTableViewCell.h"
@@ -1057,11 +1055,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     if (sid == nil && uid == nil) {
-        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-
-        MBLoginViewController *myViewVc = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-        myViewVc.vcType = @"shop";
-        [self.navigationController pushViewController:myViewVc animated:YES];
+         [self loginClicksss:@"shop"];
         return;
     }
     NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];

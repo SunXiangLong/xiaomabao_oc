@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MBServiceShopsTableFootView : UIView
-@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet YYLabel *name;
 @property (weak, nonatomic) IBOutlet UIImageView *image;
-@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *dianji;
-
 + (instancetype)instanceView;
 @end

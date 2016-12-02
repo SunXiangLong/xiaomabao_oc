@@ -10,7 +10,6 @@
 #import "MBPostDetailsOneCell.h"
 #import "MBPostDetailsTwoCell.h"
 #import "MBPostDetailsHeadView.h"
-#import "MBLoginViewController.h"
 #import "MBCollectionPostController.h"
 #import "MBPostReplyController.h"
 #import "MBPostDetailsViewCell.h"
@@ -302,7 +301,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     if (!sid) {
-        [self loginClicksss];
+        [self  loginClicksss:@"mabao"];
         return;
     }
     [self show];
@@ -330,16 +329,7 @@
     }];
     
 }
-#pragma mark -- 跳转登陆页
-- (void)loginClicksss{
-    //跳转到登录页
-    
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-    myView.vcType = @"mabao";
-    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
-    [self presentViewController:VC animated:YES completion:nil];
-}
+
 -(NSString *)rightImage{
     
     return @"dian_image";
@@ -412,7 +402,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     
     if (!sid) {
-        [self loginClicksss];
+        [self  loginClicksss:@"mabao"];
         return;
     }
     
@@ -425,7 +415,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     
     if (!sid) {
-        [self loginClicksss];
+        [self  loginClicksss:@"mabao"];
         return;
     }
     _isDismiass = YES;
@@ -573,7 +563,7 @@
             NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
 
             if (!sid) {
-                [self loginClicksss];
+                [self  loginClicksss:@"mabao"];
                 return;
             }
             MBPostReplyController *VC = [[MBPostReplyController alloc] init];

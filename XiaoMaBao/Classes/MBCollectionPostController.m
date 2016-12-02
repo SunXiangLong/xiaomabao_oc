@@ -7,7 +7,6 @@
 //
 
 #import "MBCollectionPostController.h"
-#import "MBLoginViewController.h"
 #import "MBDetailsCircleTbaleViewCell.h"
 #import "MBPostDetailsViewController.h"
 @interface MBCollectionPostController ()
@@ -52,7 +51,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     if (!sid) {
-        [self loginClicksss];
+        [self  loginClicksss:@"mabao"];
         return;
     }
     [self show];
@@ -88,16 +87,6 @@
     }];
     
     
-}
-#pragma mark -- 跳转登陆页
-- (void)loginClicksss{
-    //跳转到登录页
-    
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-    myView.vcType = @"mabao";
-    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
-    [self presentViewController:VC animated:YES completion:nil];
 }
 -(NSString *)titleStr{
     

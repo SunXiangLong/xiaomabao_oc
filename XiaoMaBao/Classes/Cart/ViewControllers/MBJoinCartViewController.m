@@ -12,7 +12,6 @@
 #import "MBNetworking.h"
 #import "MBSignaltonTool.h"
 #import "MBPaymentViewController.h"
-#import "MBLoginViewController.h"
 #import "MBFireOrderViewController.h"
 #import "MBShoppingCartViewController.h"
 #import "MobClick.h"
@@ -347,11 +346,8 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     
     if (sid == nil && uid == nil) {
-        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        
-        MBLoginViewController *myViewVc = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-        myViewVc.vcType = @"shop";
-        [self.navigationController pushViewController:myViewVc animated:YES];
+       
+        [self loginClicksss:@"shop"];
         return;
     }
     
@@ -418,11 +414,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
     if (sid == nil && uid == nil) {
-        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        
-        MBLoginViewController *myViewVc = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-        myViewVc.vcType = @"shop";
-        [self.navigationController pushViewController:myViewVc animated:YES];
+        [self loginClicksss:@"shop"];
         return;
     }
     

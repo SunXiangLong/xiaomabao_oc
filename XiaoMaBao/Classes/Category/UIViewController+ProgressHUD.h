@@ -16,6 +16,6 @@
 -(void)show:(NSString *)str time:(NSInteger)timer;
 -(void)show:(NSString *)str1 and:(NSString *)str2 time:(NSInteger)timer;
 -(void)dismiss;
-
+- (void)loginClicksss:(NSString *)type;
 //@property (nonatomic,assign) double progress;
 @end

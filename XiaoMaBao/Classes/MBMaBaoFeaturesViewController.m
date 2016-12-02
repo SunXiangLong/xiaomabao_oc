@@ -91,7 +91,7 @@
             lable.textAlignment = 1;
             lable.displaysAsynchronously = true;
             lable.ignoreCommonProperties = true;
-            lable.textColor = [UIColor colorWithHexString:@"8e8e8e"];
+            lable.textColor = [UIColor colorWithHexString:@"575757"];
             lable.text = @"精选商品";
             [reusableview addSubview:lable];
             

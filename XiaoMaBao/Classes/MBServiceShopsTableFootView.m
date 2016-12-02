@@ -9,7 +9,11 @@
 #import "MBServiceShopsTableFootView.h"
 
 @implementation MBServiceShopsTableFootView
-
+-(void)awakeFromNib{
+    [super awakeFromNib];
+    _name.displaysAsynchronously = true;
+    
+}
 + (instancetype)instanceView{
     return [[[NSBundle mainBundle] loadNibNamed:@"MBServiceShopsTableFootView" owner:nil options:nil] lastObject];
 }

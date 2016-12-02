@@ -35,6 +35,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _headView.ml_height = UISCREEN_WIDTH *35/75;
     [self requestData];
     
 }
@@ -54,7 +55,8 @@
             [_model.today_recommend_top enumerateObjectsUsingBlock:^(TodayRecommendTopModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [urlImageArray addObject:obj.ad_img];
             }];
-            _headView.mj_h = UISCREEN_WIDTH *35/75;
+        
+            
             _shufflingView.delegate = self;
             _shufflingView.backgroundColor = [UIColor whiteColor];
             _shufflingView.autoScrollTimeInterval = 5.0f;
@@ -171,7 +173,7 @@
     YYLabel *lable = [[YYLabel alloc] initWithFrame:CGRectMake(0, 5, UISCREEN_WIDTH, 45)];
     lable.font = YC_RTWSYueRoud_FONT(15);
     lable.backgroundColor = [UIColor whiteColor];
-    lable.textColor = UIcolor(@"8e8e8e");
+    lable.textColor = UIcolor(@"575757");
     lable.textAlignment = 1;
     lable.text = @"- 麻包推荐 -";
     [headView addSubview:lable];

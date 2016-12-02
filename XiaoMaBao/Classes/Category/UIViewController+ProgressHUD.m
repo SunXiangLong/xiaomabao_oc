@@ -7,8 +7,19 @@
 //
 
 #import "UIViewController+ProgressHUD.h"
+#import "MBLoginViewController.h"
 @implementation UIViewController (ProgressHUD)
-
+#pragma mark -- 跳转登陆页
+- (void)loginClicksss:(NSString *)type{
+    //跳转到登录页
+    
+    
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
+    myView.vcType = type;
+    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
+    [self presentViewController:VC animated:YES completion:nil];
+}
 - (void)show{
     
     [self showMessage:nil toView:nil delay:0];

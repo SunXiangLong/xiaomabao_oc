@@ -195,7 +195,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 48 + (UISCREEN_WIDTH - 40)/3*218/126;
+        return 48 + (UISCREEN_WIDTH - 30)/3*218/105;
     }
 
     
@@ -358,7 +358,7 @@
           [photoVC setSizeClip:CGSizeMake((UISCREEN_WIDTH -40)/3 *2, (UISCREEN_WIDTH -40)/3 *2)];
         }else{
         
-        [photoVC setSizeClip:CGSizeMake((UISCREEN_WIDTH -40)/3 *2,(UISCREEN_WIDTH -40)/3*2*218/126)];
+        [photoVC setSizeClip:CGSizeMake((UISCREEN_WIDTH -40)/3 *2,(UISCREEN_WIDTH -40)/3*2*218/105)];
         }
         
         [self presentViewController:photoVC animated:YES completion:nil];

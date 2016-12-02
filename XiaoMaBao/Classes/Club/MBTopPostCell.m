@@ -17,7 +17,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.imageHeight.constant = (UISCREEN_WIDTH - 36)/3*133/184;
+    self.user_name.displaysAsynchronously = true;
+    self.circle_name.displaysAsynchronously = true;
+    self.post_title.displaysAsynchronously = true;
+    self.post_content.displaysAsynchronously = true;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -33,9 +36,12 @@
     self.circle_name.text = dataDic[@"circle_name"];
     self.post_title.text = dataDic[@"post_title"];
     self.post_content.text = dataDic[@"post_content"];
-    
-
-    self.post_content.rowspace   = 6;
+    CGFloat height = [dataDic[@"post_content"] sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake(UISCREEN_WIDTH - 20, MAXFLOAT)].height;
+    MMLog(@"%f",height);
+    if (height > 54) {
+        height = 54;
+    }
+    _post_contentheight.constant = height;
 
 }
 -(NSArray *)imageArray{
@@ -49,7 +55,11 @@
 -(void)setArray:(NSArray *)array{
     _array = array;
     NSInteger num = array.count;
-    
+    self.imageHeight.constant = (UISCREEN_WIDTH - 36)/3*133/184;
+    if (array.count == 0) {
+        self.imageHeight.constant = 0;
+        return;
+    }
     if (array.count>3) {
         num = 3;
     }
@@ -58,8 +68,6 @@
     for (NSInteger i = 0; i<num; i++) {
         UIImageView *imageView = self.imageArray[i];
         imageView .contentMode =  UIViewContentModeScaleAspectFill;
-        imageView .autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        imageView.clipsToBounds  = YES;
         [imageView sd_setImageWithURL:[NSURL URLWithString:array[i]] placeholderImage:[UIImage imageNamed:@"placeholder_num1"]];
     }
     
@@ -68,8 +76,9 @@
     CGFloat totalHeight = 0;
     totalHeight += 40;
     totalHeight += [self.post_title sizeThatFits:size].height;
-    totalHeight += [self.post_content sizeThatFits:size].height;
-    totalHeight += 36;
+    totalHeight += 35;
+    
+    totalHeight += _post_contentheight.constant;
     if (self.imageHeight.constant != 0) {
         totalHeight += self.imageHeight.constant;
        totalHeight += 10;

@@ -10,7 +10,6 @@
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "MBJoinCartViewController.h"
-#import "MBLoginViewController.h"
 #import "XWCatergoryView.h"
 #import "MBTableViewRmbCell.h"
 #import "MBShopTableViewCell.h"
@@ -302,7 +301,7 @@
     NSString *uid         = [MBSignaltonTool getCurrentUserInfo].uid;
     if (sid == nil && uid == nil) {
         
-        [self    loginClicksss];
+       [self  loginClicksss:@"mabao"];
         return;
         
     }
@@ -455,18 +454,7 @@
     shoppingCartVc.showBottomBar = @"yes";//不显示底栏
     [self.navigationController pushViewController:shoppingCartVc animated:YES];
 }
-#pragma mark -- 跳转登陆页
-- (void)loginClicksss{
-    
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    
-    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-    
-    myView.vcType                 = @"mabao";
-    
-    MBNavigationViewController *VC    = [[MBNavigationViewController alloc] initWithRootViewController:myView];
-    [self presentViewController:VC animated:YES completion:nil];
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     

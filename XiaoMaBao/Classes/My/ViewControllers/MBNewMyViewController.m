@@ -10,7 +10,6 @@
 #import "MBNewMyViewCell.h"
 #import "MBNewMyViewHeadView.h"
 #import "MBSettingViewController.h"
-#import "MBLoginViewController.h"
 #import "DataSigner.h"
 #import "MBOrderListViewController.h"
 #import "MBShoppingCartViewController.h"
@@ -84,7 +83,7 @@
                     }  break;
                     case 3:{
                         MBMyCollectionViewController *VC =[[MBMyCollectionViewController alloc] init]; [self pushViewController:VC Animated:YES];}  break;
-                    default:[self loginClicksss];
+                    default:[self  loginClicksss:@"mabao"];
                         
                         break;
                 }
@@ -146,7 +145,7 @@
         [self.navigationController pushViewController:settingVc animated:YES];
     }else{
         
-        [self loginClicksss];
+        [self  loginClicksss:@"mabao"];
         return;
         
     }
@@ -154,16 +153,7 @@
     
     
 }
-#pragma mark -- 跳转登陆页
-- (void)loginClicksss{
-    _isbool  = NO;
-    //跳转到登录页
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-    myView.vcType = @"mabao";
-    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
-    [self presentViewController:VC animated:YES completion:nil];
-}
+
 
 - (void)service{
     [[Unicall singleton] attach:self appKey:UNICALL_APPKEY tenantId:UNICALL_TENANID];
@@ -298,7 +288,7 @@
     switch (indexPath.row) {
         case 0:{
             if (!sid) {
-                [self loginClicksss];
+                [self  loginClicksss:@"mabao"];
                 
                 return;
             }
@@ -311,7 +301,7 @@
         }break;
         case 2:{
             if (!sid) {
-                [self loginClicksss];
+                [self  loginClicksss:@"mabao"];
                 return;
             }
             MBShopAddresViewController *VC = [[MBShopAddresViewController alloc] init];
@@ -326,7 +316,7 @@
             [self pushViewController:VC Animated:YES];}break;
         case 6: {
             if (!sid) {
-                [self loginClicksss];
+                [self  loginClicksss:@"mabao"];
                 
                 return;
             }
@@ -335,7 +325,7 @@
             [self pushViewController:VC Animated:YES];}break;
         default:{
             if (!sid) {
-                [self loginClicksss];
+                [self  loginClicksss:@"mabao"];
                 
                 return;
             }

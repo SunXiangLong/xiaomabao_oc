@@ -12,7 +12,6 @@
 #import "MBShopingViewController.h"
 #import "MBActivityViewController.h"
 #import "MBGroupShopController.h"
-#import "MBLoginViewController.h"
 @interface MBWebViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @end
@@ -96,7 +95,7 @@
             @strongify(self);
             dispatch_async(dispatch_get_main_queue(), ^{
                 if ([dic[@"type"] isEqualToString:@"showLogin"]) {
-                    [self loginClicksss];
+                   [self  loginClicksss:@"mabao"];
                 }else if ([dic[@"type"] isEqualToString:@"showGood"]){
                     MBShopingViewController *VC = [[MBShopingViewController alloc] init];
                     VC.GoodsId = dic[@"params"];
@@ -136,15 +135,7 @@
     return [self.navigationController popViewControllerAnimated:animated];
 }
 
-- (void)loginClicksss{
-    //跳转到登录页
-    
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-    myView.vcType = @"mabao";
-    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
-    [self presentViewController:VC animated:YES completion:nil];
-}
+
 
 -(void)share:(NSDictionary *)dic{
     NSString *post_content = dic[@"center"];

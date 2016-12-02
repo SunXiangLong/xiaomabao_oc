@@ -10,9 +10,6 @@
 
 @interface MBMyCircleController : BkBaseViewController
 
-@property (copy ,nonatomic) void (^block)(NSInteger num);
-/**
- *  是否从下一个界面返回
- */
-@property (nonatomic, assign) BOOL isDimiss;
+
+
 @end

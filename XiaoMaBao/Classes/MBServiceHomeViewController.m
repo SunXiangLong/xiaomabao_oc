@@ -102,8 +102,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    CGFloat strHeight = [self.storeData[indexPath.row][@"shop_desc"] sizeWithFont:[UIFont systemFontOfSize:14] withMaxSize:CGSizeMake(UISCREEN_WIDTH-70, MAXFLOAT)].height;
-//    return strHeight + 80;
+
     return [tableView fd_heightForCellWithIdentifier:@"MBServiceHomeCell" cacheByIndexPath:indexPath configuration:^(MBServiceHomeCell *cell) {
         [self configureCell:cell atIndexPath:indexPath];
         
@@ -112,7 +111,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MBServiceHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceHomeCell" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
-//    cell.dic = self.storeData[indexPath.row];
     [cell uiedgeInsetsZero];
     return cell;
     

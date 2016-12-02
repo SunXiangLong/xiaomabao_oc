@@ -8,7 +8,6 @@
 
 #import "MBMoreCirclesController.h"
 #import "MBMycircleTableViewCell.h"
-#import "MBLoginViewController.h"
 #import "MBDetailsCircleController.h"
 #import "MBMoreCirclesCell.h"
 @interface MBMoreCirclesController ()<UITextFieldDelegate,UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -136,8 +135,6 @@
 #pragma mark -- 请求圈子数据
 - (void)setCircleData{
 
-    
-    
     [self show];
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_all_cat"];
    
@@ -186,7 +183,7 @@
     
     
 }
-#pragma mark -- 加入圈子和取消加入圈子请求数据
+#pragma mark -- 加入圈子和取消加入圈子
 /**
  *  加入圈子和取消加入圈子请求数据
  *
@@ -198,7 +195,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     if (!sid) {
-        [self loginClicksss];
+        [self  loginClicksss:@"mabao"];
         return;
     }
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
@@ -206,82 +203,83 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/UserCircle/join_circle"];
     [self show];
  
-    __unsafe_unretained __typeof(self) weakSelf = self;
+    
     [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict,@"circle_id":circle_id} success:^(id responseObject) {
-        [weakSelf dismiss];
+        [self dismiss];
         if ([[responseObject  valueForKeyPath:@"status"]isEqualToNumber:@1]) {
-         
+           
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"circleState" object:nil];
             if (is_join) {
                 if (_isSearchTableView) {
-                    NSString *str = weakSelf.searchArray[indexPath.row][@"circle_name"];
+                    NSString *str = self.searchArray[indexPath.row][@"circle_name"];
                     [self show:@"成功加入" and:str time:1];
-                     weakSelf.search_is_joinArray[indexPath.row] = @1;
-                    [weakSelf.searchTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                     self.search_is_joinArray[indexPath.row] = @1;
+                    [self.searchTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     /**
                      *    加入到本地数据中
                      */
-                    [weakSelf.myCircleArray addObject:_searchArray[indexPath.row]];
-                    [weakSelf myCircleDefaults];
+                    [self.myCircleArray addObject:_searchArray[indexPath.row]];
+                    [self myCircleDefaults];
                 }else{
                     NSString *str = _OneLevel[_number][@"child_cats"][indexPath.row][@"circle_name"];
-                    [weakSelf show:@"成功加入" and:str time:1];
+                    [self show:@"成功加入" and:str time:1];
                      _is_joinArray[_number][indexPath.row] = @1;
-                    [weakSelf.tableViewTwo reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.tableViewTwo reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     /**
                      *    加入到本地数据中
                      */
-                    [weakSelf.myCircleArray addObject:_OneLevel[_number][@"child_cats"][indexPath.row]];
-                    [weakSelf myCircleDefaults];
+                    [self.myCircleArray addObject:_OneLevel[_number][@"child_cats"][indexPath.row]];
+                    [self myCircleDefaults];
                 }
                 
             }else{
                 if (_isSearchTableView) {
-                     NSString *str = weakSelf.searchArray[indexPath.row][@"circle_name"];
-                    [weakSelf show:@"成功退出 " and:str time:1];
-                    weakSelf.search_is_joinArray[indexPath.row] = @0;
+                     NSString *str = self.searchArray[indexPath.row][@"circle_name"];
+                    [self show:@"成功退出 " and:str time:1];
+                    self.search_is_joinArray[indexPath.row] = @0;
                     [self.searchTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     /**
                      *    从本地数据中移除
                      */
-                    for (NSInteger i = 0; i<weakSelf.myCircleArray.count; i++) {
-                        NSDictionary *dic = weakSelf.myCircleArray[i];
+                    for (NSInteger i = 0; i<self.myCircleArray.count; i++) {
+                        NSDictionary *dic = self.myCircleArray[i];
                         NSString *myCircle_id = dic[@"circle_id"];
-                        NSString *circle_id  = weakSelf.searchArray[indexPath.row][@"circle_id"];
+                        NSString *circle_id  = self.searchArray[indexPath.row][@"circle_id"];
                         
                         if ([myCircle_id isEqualToString:circle_id]) {
-                            [weakSelf.myCircleArray removeObjectAtIndex:i];
+                            [self.myCircleArray removeObjectAtIndex:i];
                             
                             continue;
                         }
                     }
-                     [weakSelf myCircleDefaults];
+                     [self myCircleDefaults];
                     
                 }else{
                     NSString *str = _OneLevel[_number][@"child_cats"][indexPath.row][@"circle_name"];
-                    [weakSelf show:@"成功退出 " and:str time:1];
-                    weakSelf.is_joinArray[_number][indexPath.row] = @0;
-                    [weakSelf.tableViewTwo reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self show:@"成功退出 " and:str time:1];
+                    self.is_joinArray[_number][indexPath.row] = @0;
+                    [self.tableViewTwo reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     
                     
                     /**
                      *    从本地数据中移除
                      */
             
-                    for (NSInteger i = 0; i < weakSelf.myCircleArray.count; i++) {
-                        NSDictionary *dic = weakSelf.myCircleArray[i];
+                    for (NSInteger i = 0; i < self.myCircleArray.count; i++) {
+                        NSDictionary *dic = self.myCircleArray[i];
                         NSString *myCircle_id = dic[@"circle_id"];
                         NSString *circle_id  = _OneLevel[_number][@"child_cats"][indexPath.row][@"circle_id"];
             
                         if ([myCircle_id isEqualToString:circle_id]) {
                             
                             
-                            [weakSelf.myCircleArray removeObjectAtIndex:i];
+                            [self.myCircleArray removeObjectAtIndex:i];
                           
                             continue;
                         }
                     }
 
-                   [weakSelf myCircleDefaults];
+                   [self myCircleDefaults];
                 }
                 
             }
@@ -299,7 +297,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     if (!sid) {
-        [self loginClicksss];
+        [self  loginClicksss:@"mabao"];
         return;
     }
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
@@ -351,16 +349,7 @@
         MMLog(@"%@",error);
     }];
 }
-#pragma mark -- 跳转登陆页
-- (void)loginClicksss{
-    //跳转到登录页
-    
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-    myView.vcType = @"mabao";
-    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
-    [self presentViewController:VC animated:YES completion:nil];
-}
+
 
 - (UISearchBar *)SearchBar{
     if (!_SearchBar) {

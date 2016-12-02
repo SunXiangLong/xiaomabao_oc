@@ -210,7 +210,7 @@
         if ([self.vcType isEqualToString:@"shop"]) {
             
             
-            [self.navigationController popViewControllerAnimated:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
             
             
             
@@ -408,20 +408,20 @@
 }
 -(NSString *)rightStr{
     
-    if ([self.vcType isEqualToString:@"mabao"]) {
-        return @"取消";
-    }
     
-    return @"";
+    return @"取消";
+    
+    
+    
 }
 -(void)rightTitleClick{
     
     
-    if ([self.vcType isEqualToString:@"mabao"]) {
+   
         [_accountField resignFirstResponder];
         [_pwdField resignFirstResponder];
         [self dismissViewControllerAnimated:YES completion:nil];
-    }
+    
     
 }
 @end

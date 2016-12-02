@@ -18,7 +18,6 @@
 #import "MBSetBabyInformationController.h"
 #import "MBabyRecordController.h"
 #import "MBBabyDueDateController.h"
-#import "MBLoginViewController.h"
 #import "MBBabyToolCell.h"
 #import "MBCollectionViewFlowLayout.h"
 #import "STPhotoKitController.h"
@@ -551,16 +550,7 @@
     
     
 }
-#pragma mark -- 跳转登陆页
-- (void)loginClicksss{
-    //跳转到登录页
-    
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-    myView.vcType = @"mabao";
-    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
-    [self presentViewController:VC animated:YES completion:nil];
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -580,7 +570,7 @@
     NSDate *date = _dateArray[indexPath.item];
     
     cell.date.text = [NSString stringWithFormat:@"%ld月%ld日", (long)date.month,(long)date.day];
-    cell.time.text = [NSString stringWithFormat:@"%d天", [date daysFrom:_start_date]];
+    cell.time.text = [NSString stringWithFormat:@"%ld天", (long)[date daysFrom:_start_date]];
     cell.date.font = SYSTEMFONT(16);
     cell.time.font = SYSTEMFONT(12);
     

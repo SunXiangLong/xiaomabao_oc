@@ -34,7 +34,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _headView.ml_height = UISCREEN_WIDTH *35/75 + 90;
     [self requestData];
     
 }
@@ -91,7 +91,7 @@
                 [urlImageArray addObject:obj.ad_img];
             }];
            
-            _headView.mj_h = UISCREEN_WIDTH *35/75 + 95;
+            
             _shufflingView.delegate = self;
             _shufflingView.backgroundColor = [UIColor whiteColor];
             _shufflingView.autoScrollTimeInterval = 5.0f;
@@ -205,7 +205,7 @@
     YYLabel *lable = [[YYLabel alloc] initWithFrame:CGRectMake(0, 5, UISCREEN_WIDTH, 45)];
     lable.font = YC_RTWSYueRoud_FONT(15);
     lable.backgroundColor = [UIColor whiteColor];
-    lable.textColor = UIcolor(@"8e8e8e");
+    lable.textColor = UIcolor(@"575757");
     lable.textAlignment = 1;
     lable.text = @"- 全部分类 -";
     [headView addSubview:lable];

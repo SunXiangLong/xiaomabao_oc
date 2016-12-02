@@ -12,7 +12,6 @@
 #import "MBShopingViewController.h"
 #import "MBActivityViewController.h"
 #import "MBGroupShopController.h"
-#import "MBLoginViewController.h"
 @interface MBBabyWebController ()<UIWebViewDelegate>
 {
     UIWebView *_webView;
@@ -146,13 +145,4 @@
     return [self.navigationController popViewControllerAnimated:animated];
 }
 
-- (void)loginClicksss{
-    //跳转到登录页
-    
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    MBLoginViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
-    myView.vcType = @"mabao";
-    MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
-    [self presentViewController:VC animated:YES completion:nil];
-}
 @end
