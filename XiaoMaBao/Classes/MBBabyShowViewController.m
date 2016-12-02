@@ -11,6 +11,7 @@
 #import "MBBabyDueDateController.h"
 @interface MBBabyShowViewController ()
 @property (copy, nonatomic) NSArray *imageArray;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomheight;
 @property (weak, nonatomic) IBOutlet UITableView *tableVIew;
 @end
 
@@ -28,6 +29,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     
 }
 -(NSString *)titleStr{
@@ -59,7 +61,7 @@ return @"个性定制";
     
     
         if (indexPath.row ==2) {
-            return 888;
+            return 676;
         }
         return 916;
     
@@ -73,24 +75,7 @@ return @"个性定制";
         MBLovelyBabyImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBLovelyBabyImageCell" forIndexPath:indexPath];
         cell.bandImageView.image = self.imageArray[indexPath.row];
         if (indexPath.row ==2) {
-            cell.btn1.hidden = NO;
-            cell.btn2.hidden = NO;
-            WS(weakSelf)
-            cell.btnBlock = ^(){
-                
-                
-                NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-                if (!sid) {
-                    
-                    return;
-                }
-                MBBabyDueDateController *VC = [[MBBabyDueDateController alloc] init];
-                
-                [weakSelf pushViewController:VC Animated:YES];
-            };
-        }else{
-            cell.btn1.hidden = YES;
-            cell.btn2.hidden = YES;
+            _bottomheight.constant = 0 ;
         }
         return cell;
     

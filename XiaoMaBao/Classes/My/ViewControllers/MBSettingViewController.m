@@ -17,6 +17,9 @@
 #import "MBLogOperation.h"
 #import "MBNewBabyController.h"
 @interface MBSettingViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
+{
+    NSString *_cacheSize;
+}
 @property (strong,nonatomic) NSArray *lists;
 @property (strong,nonatomic) UITableView *tableView;
 @end
@@ -53,7 +56,17 @@
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor whiteColor];
-
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // 获取Caches目录路径
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *cachesDir = [paths objectAtIndex:0];
+        _cacheSize = [NSString stringWithFormat:@"%.2fM",[self folderSizeAtPath:cachesDir]];
+        
+        // 回到主线程
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_tableView reloadData];
+        });
+    });
     
     _tableView = [[UITableView alloc] init];
     [_tableView registerNib:[UINib nibWithNibName:@"MBSettingTableViewCell" bundle:nil] forCellReuseIdentifier:@"MBSettingTableViewCell"];
@@ -100,19 +113,14 @@
         
     
     if( indexPath.row == row){
-        // 获取Caches目录路径
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        NSString *cachesDir = [paths objectAtIndex:0];
         
-        
-        NSString * cacheSize = [NSString stringWithFormat:@"%.2fM",[self folderSizeAtPath:cachesDir]];
     
         
-        if ([cacheSize isEqualToString:@"nanM"]) {
-            cacheSize = @"0.00M";
+        if (!_cacheSize || [_cacheSize isEqualToString:@"nanM"]) {
+            _cacheSize = @"0.00M";
         }
         
-        cell.rightLbl.text = cacheSize;
+        cell.rightLbl.text = _cacheSize;
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -158,12 +166,10 @@
             MBAboutViewController *serviceVc = [[MBAboutViewController alloc] init];
             [self.navigationController pushViewController:serviceVc animated:YES];
         }else if (indexPath.row == 3){
-            // 获取Caches目录路径
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-            NSString *cachesDir = [paths objectAtIndex:0];
+            
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                            message:[NSString stringWithFormat:@"缓存大小为：%.2fM，确定要清除缓存吗？",[self folderSizeAtPath:cachesDir]] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                                                            message:[NSString stringWithFormat:@"缓存大小为：%@，确定要清除缓存吗？",_cacheSize] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             [alert show];
 
         }
@@ -214,17 +220,22 @@
     return 0;
 }
 
--(void)clearCache:(NSString *)path{
+-(void)clearCache{
+    [self show];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDir = [paths objectAtIndex:0];
     NSFileManager *fileManager=[NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:path]) {
-        NSArray *childerFiles=[fileManager subpathsAtPath:path];
+    if ([fileManager fileExistsAtPath:cachesDir]) {
+        NSArray *childerFiles=[fileManager subpathsAtPath:cachesDir];
         for (NSString *fileName in childerFiles) {
             //如有需要，加入条件，过滤掉不想删除的文件
-            NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+            NSString *absolutePath=[cachesDir stringByAppendingPathComponent:fileName];
             [fileManager removeItemAtPath:absolutePath error:nil];
         }
     }
     [[SDImageCache sharedImageCache] cleanDisk];
+    _cacheSize = nil;
+    [self dismiss];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -232,9 +243,8 @@
     if(buttonIndex == 1){
         
         // 获取Caches目录路径
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        NSString *cachesDir = [paths objectAtIndex:0];
-        [self clearCache:cachesDir];
+       
+        [self clearCache];
         [self.tableView reloadData];
     }
 

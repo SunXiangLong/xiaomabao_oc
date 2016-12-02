@@ -797,6 +797,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (!sid) {
+        [self loginClicksss:@"mabao"];
+        return;
+    }
     if (tableView.tag ==1) {
         
         if (indexPath.row == 0) {
