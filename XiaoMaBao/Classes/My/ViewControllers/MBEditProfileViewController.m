@@ -47,9 +47,6 @@
     
     NSArray *titles = @[
                         @"昵       称：",
-//                        @"宝宝生日：",
-//                        @"预  产 期：",
-//                        @"宝宝性别：",
                         @"家长性别："
                         ];
     
@@ -120,7 +117,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/info"] parameters:@{@"session":sessiondict}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/info"] parameters:@{@"session":sessiondict}
                 success:^(NSURLSessionDataTask *operation, id responseObject) {
                     MMLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                     [self dismiss];
@@ -136,20 +133,20 @@
 
                    
                     _nicknameText.text = [dict valueForKeyPath:@"nick_name"];
-                    [_birthdayBtn setTitle:[dict valueForKeyPath:@"child_birthday"] forState:UIControlStateNormal];
-                    [_preProductBtn setTitle:[dict valueForKeyPath:@"expected_date"] forState:UIControlStateNormal];
-                    NSString * c_sex = [dict valueForKeyPath:@"child_sex"];
+//                    [_birthdayBtn setTitle:[dict valueForKeyPath:@"child_birthday"] forState:UIControlStateNormal];
+//                    [_preProductBtn setTitle:[dict valueForKeyPath:@"expected_date"] forState:UIControlStateNormal];
+//                    NSString * c_sex = [dict valueForKeyPath:@"child_sex"];
                     NSString * p_sex = [dict valueForKeyPath:@"parent_sex"];
                     int p_tag = p_sex.intValue;
-                    int c_tag = c_sex.intValue;
-                    _babyGender.tag = c_tag;
+//                    int c_tag = c_sex.intValue;
+//                    _babyGender.tag = c_tag;
                     _familyGender.tag = p_tag;
                     
-                    if(_babyGender.tag == 1){
-                        [_babyGender setTitle:@"男" forState:UIControlStateNormal];
-                    }else{
-                        [_babyGender setTitle:@"女" forState:UIControlStateNormal];
-                    }
+//                    if(_babyGender.tag == 1){
+//                        [_babyGender setTitle:@"男" forState:UIControlStateNormal];
+//                    }else{
+//                        [_babyGender setTitle:@"女" forState:UIControlStateNormal];
+//                    }
                     
                     if(_familyGender.tag == 1){
                         [_familyGender setTitle:@"粑粑" forState:UIControlStateNormal];
@@ -214,7 +211,7 @@
                                          MMLog(@"Block Picker Canceled");
                                      }
                                           origin:sender];
-    // You can also use self.view if you don't have a sender
+    
 }
 
 - (BOOL)isiOS8OrAbove {
@@ -370,7 +367,7 @@
     [self show];
     NSString * parent_sex = [NSString stringWithFormat:@"%ld",self.familyGender.tag];
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"user/modInfo"] parameters:@{@"session":dict,@"nick_name":nick_name,@"parent_sex":parent_sex} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/users/modinfo"] parameters:@{@"session":dict,@"nick_name":nick_name,@"parent_sex":parent_sex} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         NSData * data =  [UIImage reSizeImageData:_headProfile.image maxImageSize:300 maxSizeWithKB:300];
         if(data != nil){
             [formData appendPartWithFileData:data name:@"header_img" fileName:@"header_img.jpg" mimeType:@"image/jpeg"];
@@ -379,6 +376,7 @@
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         [self dismiss];
+        MMLog(@"%@",responseObject);
         [self show:@"保存成功" time:1];
         [self popViewControllerAnimated:YES];
         
@@ -413,9 +411,7 @@
 - (void)photoKitController:(STPhotoKitController *)photoKitController resultImage:(UIImage *)resultImage
 {
     _headProfile.image = resultImage;
-    
-    
-    
+
 }
 #pragma mark - 2.UIImagePickerController的委托
 
@@ -438,75 +434,5 @@
         
     }];
 }
-//#pragma mark - TGCameraDelegate optional
-//
-//- (void)cameraWillTakePhoto
-//{
-//    MMLog(@"%s", __PRETTY_FUNCTION__);
-//}
-//
-//- (void)cameraDidSavePhotoAtPath:(NSURL *)assetURL
-//{
-//    // When this method is implemented, an image will be saved on the user's device
-//    MMLog(@"%s album path: %@", __PRETTY_FUNCTION__, assetURL);
-//}
-//
-//- (void)cameraDidSavePhotoWithError:(NSError *)error
-//{
-//    MMLog(@"%s error: %@", __PRETTY_FUNCTION__, error);
-//}
-//
-//#pragma mark - TGCameraDelegate required
-//
-//- (void)cameraDidCancel
-//{
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
-//
-//- (void)cameraDidTakePhoto:(UIImage *)image
-//{
-//    _headProfile.image = image;
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
-//
-//- (void)cameraDidSelectAlbumPhoto:(UIImage *)image
-//{
-//    _headProfile.image = image;
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
-//
-//#pragma mark - UIImagePickerControllerDelegate
-//
-//- (void)imagePickerController:(UIImagePickerController *)picker
-//didFinishPickingMediaWithInfo:(NSDictionary *)info
-//{
-//    _headProfile.image = [TGAlbum imageWithMediaInfo:info];
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
-//
-//- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-//{
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
-//- (UIImage*)imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize)newSize
-//{
-//    
-//    if ([[UIScreen mainScreen] scale]==2.0) {
-//        UIGraphicsBeginImageContextWithOptions(newSize, NO, 2.0);
-//    }else{
-//    
-//      UIGraphicsBeginImageContext(newSize);
-//    }
-//    // Create a graphics image context
-//  
-//    // new size
-//    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-//    // Get the new image from the context
-//    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-//    
-//    // End the context
-//    UIGraphicsEndImageContext();
-//    // Return the new image.
-//    return newImage;
-//}
+
 @end

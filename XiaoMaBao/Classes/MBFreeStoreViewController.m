@@ -17,7 +17,7 @@
 #import "MBShopingViewController.h"
 #import "MBGroupShopController.h"
 
-@interface MBFreeStoreViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,SDCycleScrollViewDelegate>
+@interface MBFreeStoreViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,SDCycleScrollViewDelegate,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *headView;
 @property (weak, nonatomic) IBOutlet SDCycleScrollView *shufflingView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -196,6 +196,8 @@
     }
     if (indexPath.section == 1) {
         MBAffordablePlanetTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBAffordablePlanetTabCell" forIndexPath:indexPath];
+//        cell.collectionView.panGestureRecognizer.delegate = self;
+        
         return cell;
     }
     MBAffordablePlanetTabToCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBAffordablePlanetTabToCell" forIndexPath:indexPath];
@@ -301,6 +303,11 @@
     }
     
     
+}
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    
+    
+    return YES;
 }
 /*
 #pragma mark - Navigation

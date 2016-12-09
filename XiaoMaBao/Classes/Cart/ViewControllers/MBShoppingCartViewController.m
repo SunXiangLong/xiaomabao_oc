@@ -26,7 +26,6 @@
 @property (strong,nonatomic)NSMutableArray *goodnumberArray;
 @property (strong,nonatomic)NSMutableArray *goodSelectArray;
 @property (assign,nonatomic)BOOL iSdelete;
-@property (strong,nonatomic)NSMutableDictionary *isAllselectDict;
 @property(strong,nonatomic)NSArray *CartinfoDict;
 @property (assign,nonatomic)int selectCountNumber;
 @end
@@ -39,9 +38,9 @@
     
     MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
     
-    if (userInfo.uid != nil) {
+    if (userInfo.uid) {
         
-        [self getcartIsAllSelect];
+       [self getCartInfo:0 type:nil];
         
     }else{
         
@@ -118,36 +117,7 @@
     return _maskView;
 }
 
-#pragma -mark 是否全部选中
--(void)getcartIsAllSelect
-{
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/is_selected_all"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, id responseObject) {
-//        MMLog(@"获取是否全部选中成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
-        
-        
-        NSDictionary *dict = [responseObject valueForKeyPath:@"data"];
-        _isAllselectDict = [NSMutableDictionary dictionaryWithDictionary:dict];
-        if ([_isAllselectDict[@"is_selected_all"] integerValue]==0) {
-            _selectCountNumber = 0;
-        }
-        if (_isAllselectDict) {
-            
-            [self getCartInfo:0 type:nil];
-        }else{
-            [self dismiss];
-        }
-        
-        
-    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        
-        MMLog(@"失败");
-    }];
-    
-}
+
 
 //选中和取消选中
 -(void)click:(NSInteger )row{
@@ -196,7 +166,7 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/update_cart"] parameters:@{@"session":dict,@"rec_id":rec_id,@"new_number":new_number,@"flow_order":flow_number} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        
+       
         //        MMLog(@"更新购物车成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
         NSDictionary * dict = [responseObject valueForKeyPath:@"status"];
         if([[dict valueForKeyPath:@"succeed"] isEqualToNumber:@1]){
@@ -226,21 +196,18 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"cart/select_all_or_zero"] parameters:@{@"session":dict}success:^(NSURLSessionDataTask *operation, id responseObject) {
-                [self dismiss];
+    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/cart/select_all_or_zero") parameters:@{@"session":dict} success:^(id responseObject) {
         
-        // MMLog(@"更新购物车成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
-        NSDictionary * dict = [responseObject valueForKeyPath:@"status"];
-        if([[dict valueForKeyPath:@"succeed"] isEqualToNumber:@1]){
+         MMLog(@"更新购物车成功---responseObject%@",responseObject);
+        if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
             [self getCartInfo:0 type:nil];
-            
         }
-    }failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         MMLog(@"%@",error.localizedDescription);
         [self show:@"请求失败！" time:1];
-    }
-     ];
+    }];
+    
     
 }
 

@@ -17,6 +17,11 @@
 #import "MBLogisticsViewController.h"
 #import "MBShopingViewController.h"
 #import "WNXRefresgHeader.h"
+
+#import "MBAfterSalesServiceViewController.h"
+#import "MBDeliveryInformationViewController.h"
+#import "MBRefundScheduleViewController.h"
+#import "MBOrderInfoTableViewController.h"
 @interface MBOrderListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UIButton *_lastButton;
@@ -185,6 +190,7 @@
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_list_new"] parameters:@{@"session":sessiondict,@"pagination":paginationDict,@"type":_type}success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         [self dismiss];
+        MMLog(@"成功获取搜索退换货订单信息---responseObject%@",[responseObject valueForKeyPath:@"data"]);
         if ([[responseObject valueForKeyPath:@"data"] count] > 0) {
             [self.orderListArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
             _page++;
@@ -359,7 +365,7 @@
     detailsBtn.tag = section;
     [detailsBtn setTitle:@"详情" forState:UIControlStateNormal];
     [detailsBtn addTarget:self action:@selector(details:) forControlEvents:UIControlEventTouchUpInside];
-
+    // 退换货
     UIButton *logisticServiceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [logisticServiceBtn setTitleColor:UIcolor(@"555555") forState:UIControlStateNormal];
     logisticServiceBtn.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -367,6 +373,17 @@
     logisticServiceBtn.layer.borderColor = UIcolor(@"555555").CGColor;
     logisticServiceBtn.layer.borderWidth = PX_ONE;
     logisticServiceBtn.tag = section;
+    //
+    UIButton *logisticServiceBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [logisticServiceBtn1 setTitleColor:UIcolor(@"555555") forState:UIControlStateNormal];
+    logisticServiceBtn1.titleLabel.font = [UIFont systemFontOfSize:12];
+    logisticServiceBtn1.layer.cornerRadius = 3.0;
+    logisticServiceBtn1.layer.borderColor = UIcolor(@"555555").CGColor;
+    logisticServiceBtn1.layer.borderWidth = PX_ONE;
+    logisticServiceBtn1.tag = section;
+    
+    
+    
     
     NSString *order_status = [_orderListArray[section] valueForKeyPath:@"order_status"];
     if(order_status != nil && (NSNull *)order_status != [NSNull null]){
@@ -403,31 +420,75 @@
                 [sendServiceBtn setTitle:@"已评价" forState:UIControlStateNormal];
                 
             }
-            [logisticServiceBtn setTitle:@"查看物流" forState:UIControlStateNormal];
-            [logisticServiceBtn addTarget:self action:@selector(realTimeLogistic:) forControlEvents:UIControlEventTouchUpInside];
             
+            NSString *refund_status = s_str(_orderListArray[section][@"refund_status"]);
+            NSString *status1;
+            NSString *status2;
+            if ([refund_status isEqualToString:@"1"]) {
+                status1 = @"申请退款/换货";
+            }else if([refund_status isEqualToString:@"5"]){
+                status1 = @"进度查询";
+                status2 = @"填写运单号";
+            }else if([refund_status isEqualToString:@"3"]){
+                status1 = @"进度查询";
+                status2 = @"重新申请";
+            }else{
+                status1 = @"进度查询";
+            }
             [footerMainView addSubview:sendServiceBtn];
-            [footerMainView addSubview:logisticServiceBtn];
-            [footerMainView addSubview:detailsBtn];
-            [footerMainView addSubview:logisticServiceBtn];
-            
             [sendServiceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.mas_equalTo(-10);
                 make.centerY.mas_equalTo(0);
                 if ([sendServiceBtn.titleLabel.text isEqualToString:@"发表评价"]) {
-                   make.width.mas_equalTo(60);
+                    make.width.mas_equalTo(60);
                 }else{
-                   make.width.mas_equalTo(55);
+                    make.width.mas_equalTo(55);
                 }
-  
+                
             }];
+            UIButton *lastBtn;
+            if (status2) {
+                [logisticServiceBtn setTitle:status1 forState:UIControlStateNormal];
+                [logisticServiceBtn1 setTitle:status2 forState:UIControlStateNormal];
+                [footerMainView addSubview:logisticServiceBtn];
+                [footerMainView addSubview:logisticServiceBtn1];
+                [logisticServiceBtn1 addTarget:self action:@selector(realTimeLogistic:) forControlEvents:UIControlEventTouchUpInside];
+                lastBtn = logisticServiceBtn1;
+                
+            }else{
+                [logisticServiceBtn setTitle:status1 forState:UIControlStateNormal];
+                 [footerMainView addSubview:logisticServiceBtn];
+                lastBtn = logisticServiceBtn;
+            }
+
+            [logisticServiceBtn addTarget:self action:@selector(realTimeLogistic:) forControlEvents:UIControlEventTouchUpInside];
+            
             [logisticServiceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(sendServiceBtn.mas_left).offset(-5);
                 make.centerY.mas_equalTo(0);
-                make.width.mas_equalTo(60);
+                if ([refund_status isEqualToString:@"1"]) {
+                    make.width.mas_equalTo(85);
+                }else if([refund_status isEqualToString:@"5"]) {
+                    make.width.mas_equalTo(65);
+                }else{
+                    make.width.mas_equalTo(60);
+                }
+                
             }];
+            if (status2) {
+                [logisticServiceBtn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(sendServiceBtn.mas_left).offset(-5);
+                    make.centerY.mas_equalTo(0);
+                    make.width.mas_equalTo(60);
+                    
+                }];
+            }
+            
+            [footerMainView addSubview:detailsBtn];
+           
+            
             [detailsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(logisticServiceBtn.mas_left).offset(-5);
+                make.right.equalTo(lastBtn.mas_left).offset(-5);
                 make.centerY.mas_equalTo(0);
                 make.width.mas_equalTo(45);
             }];
@@ -622,10 +683,10 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"order/info_new"] parameters:@{@"session":dict,@"order_sn":[_orderListArray[row] valueForKeyPath:@"parent_order_sn"]} success:^(NSURLSessionDataTask *operation, MBModel *model) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"order/info_new"] parameters:@{@"session":dict,@"order_sn":[_orderListArray[row] valueForKeyPath:@"parent_order_sn"]} success:^(NSURLSessionDataTask *operation, MBModel *model) {
         [self dismiss];
         if([model.status[@"succeed"] isEqualToNumber:@1]){
-//             MMLog(@"%@",model.data);
+             MMLog(@"%@",model.data);
             MBPaymentViewController *payVc = [[MBPaymentViewController alloc] init];
             
             payVc.orderInfo = model.data;
@@ -668,11 +729,43 @@
 - (void)realTimeLogistic:(UIButton *)button{
     
     
-    MBLogisticsViewController *VC = [[MBLogisticsViewController alloc] init];
-    
-    VC.type =[_orderListArray[button.tag] valueForKeyPath:@"shipping_name"];
-    VC.postid =[_orderListArray[button.tag] valueForKeyPath:@"invoice_no"];
-    [self pushViewController:VC Animated:YES];
+    if ([button.titleLabel.text isEqualToString:@"申请退款/换货"]) {
+        MBAfterSalesServiceViewController *VC = [[MBAfterSalesServiceViewController alloc] init] ;
+        VC.type = @"1";
+        VC.section = button.tag;
+        VC.order_sn = _orderListArray[button.tag][@"order_sn"];
+        VC.order_id =  _orderListArray[button.tag][@"order_id"];
+        [self.navigationController pushViewController:VC animated:YES];
+        MMLog(@"申请退款/换货");
+    }else if ([button.titleLabel.text isEqualToString:@"进度查询"]){
+        MBRefundScheduleViewController *VC = [[MBRefundScheduleViewController alloc] init];
+        VC.orderid = _orderListArray[button.tag][@"order_id"];
+        VC.order_sn = _orderListArray[button.tag][@"order_sn"];
+        [self.navigationController pushViewController:VC animated:YES];
+        MMLog(@"进度查询");
+    }else if ([button.titleLabel.text isEqualToString:@"重新申请"]){
+        
+        MMLog(@"重新申请");
+        MBAfterSalesServiceViewController *VC = [[MBAfterSalesServiceViewController alloc] init];
+        VC.type = @"0";
+        VC.section = button.tag;
+        VC.order_sn = _orderListArray[button.tag][@"order_sn"];
+        VC.order_id =  _orderListArray[button.tag][@"order_id"];
+        
+        
+        [self.navigationController pushViewController:VC animated:YES];
+        
+    }else if([button.titleLabel.text isEqualToString:@"填写运单号"]){
+        MBDeliveryInformationViewController *VC = [[MBDeliveryInformationViewController alloc] init];
+        VC.back_tax = _orderListArray[button.tag][@"back_tax"];
+        VC.order_id = _orderListArray[button.tag][@"order_id"];
+        VC.order_sn = _orderListArray[button.tag][@"order_sn"];
+        VC.section = button.tag;
+        [self.navigationController pushViewController:VC animated:YES];
+        MMLog(@"填写运单号");
+        
+    }
+
     
 }
 - (void)shipped:(UIButton *)button{

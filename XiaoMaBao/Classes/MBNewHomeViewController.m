@@ -14,7 +14,7 @@
 #import "MBActivityViewController.h"
 #import "MBWebViewController.h"
 #import "MBGroupShopController.h"
-
+#import "MBNewReleaseTopicViewController.h"
 #import "MBAffordablePlanetViewController.h"
 #import "MBFreeStoreViewController.h"
 #import "MBMaBaoFeaturesViewController.h"
@@ -84,7 +84,11 @@
     [self setupTitlesView];
     [self setupScrollView];
 }
+-(void)leftTitleClick{
+//    MBNewReleaseTopicViewController *vc = [[MBNewReleaseTopicViewController alloc] init];
+//    [self pushViewController:vc Animated:true];
 
+}
 - (void)setupChildVcs{
   
     

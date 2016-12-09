@@ -42,7 +42,7 @@
     NSString *_provinceID;
     NSString *_cityID;
     NSString *_districtID;
- 
+    
     NSString *_province;
     NSString *_city;
     NSString *_district;
@@ -55,7 +55,7 @@
     NSString *_order_total_num;
     
     NSDictionary *_refunDic;
-
+    
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *top;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -71,35 +71,17 @@
 @end
 
 @implementation MBAfterSalesServiceViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBAfterSalesServiceViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBAfterSalesServiceViewController"];
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     [self setInitialize];
-    [self ListeningKeyboard];
     [self initView];
     [self getCityList:@"1"];
     [self getPickerData];
-    
-    
-
-    
-    
-    
-   
+ 
 }
 - (void)setInitialize{
-    self.titleStr = @"申请售后服务";
+   
     
     _top.constant = TOP_Y;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -117,15 +99,18 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(submit:) name:@"refundSubmit" object:nil];
     
     
-     _numArray = [NSMutableArray array];
+    _numArray = [NSMutableArray array];
     _photoArray = [NSMutableArray array];
     
-   
+    
     
     [_photoArray addObject:[UIImage imageNamed:@"refund_pictures"]];
-
+    
 }
-
+-(NSString *)titleStr{
+return @"申请售后服务";
+ 
+}
 #pragma mark - init view
 - (void)initView {
     
@@ -142,10 +127,6 @@
 
 -(void)AddoneGoods:(NSNotification *)notif
 {
-    
-    
-    
-    
     NSInteger row = [notif.userInfo[@"row"]  integerValue  ];
     [_numArray replaceObjectAtIndex:row withObject:notif.userInfo[@"goodsNumber"]];
     NSInteger order_num = 0;
@@ -158,9 +139,9 @@
         if (_refunDic) {
             NSArray *order  =   _refunDic[@"refund_goods_detail"];
             NSString *str1= order[i][@"goods_price"];
-                order_money +=([str integerValue]*[str1 doubleValue]);
+            order_money +=([str integerValue]*[str1 doubleValue]);
         }
-    
+        
     }
     
     
@@ -179,7 +160,7 @@
 #pragma mark 减少一个
 -(void)reduceoneGoods:(NSNotification *)notif
 {
-   
+    
     NSInteger row = [notif.userInfo[@"row"]  integerValue  ];
     [_numArray replaceObjectAtIndex:row withObject:notif.userInfo[@"goodsNumber"]];
     NSInteger order_num = 0;
@@ -208,23 +189,23 @@
 }
 #pragma mark - 退货
 - (void)refund:(NSNotification *)notif{
-   _refund_type = @"1";
+    _refund_type = @"1";
     _view.alpha = 0;
     num = 5;
     _topLayout.constant = 20;
     [_tableView reloadData];
-   
+    
     
     
     
 }
 #pragma mark －换货
 - (void)huan:(NSNotification *)notif{
-      _refund_type = @"2";
-      _topLayout.constant = 200;
-      _view.alpha = 1;
-      num = 4;
-       [_tableView reloadData];
+    _refund_type = @"2";
+    _topLayout.constant = 200;
+    _view.alpha = 1;
+    num = 4;
+    [_tableView reloadData];
 }
 #pragma mark －地址
 - (void)adress:(NSNotification *)notif{
@@ -237,8 +218,8 @@
         self.maskView.alpha = 0.3;
         self.pickerBgView.ml_y = self.pickerBgView.ml_y -self.pickerBgView.ml_height;
     }];
-
-   
+    
+    
 }
 #pragma mark --提交
 - (void)submit:(NSNotification *)notif{
@@ -262,7 +243,7 @@
         
         [self show:@"请选择要退货商品" time:1];
         return;
-
+        
     }
     
     
@@ -285,7 +266,7 @@
 }
 #pragma mark ---提交上传数据
 - (void)submitInformation{
-
+    
     
     
     if ( !_consigneeTectField.text  ) {
@@ -307,10 +288,10 @@
         order_id = _refunDic[@"order_id"];
         for (int i=0;i<arr.count;i++) {
             NSDictionary *dic = arr[i];
-            [tabledic setObject:_numArray[i] forKey:dic[@"goods_id"]];
+            [tabledic setObject:s_str(_numArray[i])  forKey:s_str(dic[@"goods_id"])];
         }
-   }
-    
+    }
+//    MMLog(@"%@",tabledic);
     
     NSString *refund_goods = [NSString stringWithFormat:@"[%@]",[self dictionaryToJson:tabledic]] ;
     
@@ -331,7 +312,7 @@
     
     
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/apply"] parameters:parmeters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/refund/refund_apply"] parameters:parmeters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         for (int i = 0; i<_photoArray.count-1; i++) {
             NSData * data;
             if ([_photoArray[i]isKindOfClass:[UIImage class]] ) {
@@ -345,7 +326,7 @@
             
         }
     } progress:^(NSProgress *progress) {
-//        self.progress = progress.fractionCompleted;
+        //        self.progress = progress.fractionCompleted;
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         [self dismiss];
 #pragma mark -- 通知前一个界面改变进度状态
@@ -373,16 +354,19 @@
         MMLog(@"%@",error);
         [self show:@"请求失败！" time:1];
     }];
-
-
-
-
+    
+    
+    
+    
 }
 #pragma mark ---字典转Json
 - (NSString*)dictionaryToJson:(NSDictionary *)dic
 {
+    
     NSError *parseError = nil;
     NSData  *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
+    
+    
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
@@ -393,11 +377,11 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/info"] parameters:@{@"session":sessiondict,@"order_id":self.order_id}success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/refund/refund_info"] parameters:@{@"session":sessiondict,@"order_id":self.order_id}success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         
-        MMLog(@"成功获取退货信息---responseObject%@",[responseObject valueForKeyPath:@"data"]);
-      
+//        MMLog(@"成功获取退货信息---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+        
         _refunDic = [responseObject valueForKeyPath:@"data"];
         NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
         if (dic) {
@@ -410,13 +394,13 @@
                 [_numArray addObject:dic[@"goods_refund_number"]];
             }
             
-                if ([_refund_type isEqualToString:@"1"]) {
-                    num = 5;
-                }else{
-                    
-                    num = 4;
-                }
-
+            if ([_refund_type isEqualToString:@"1"]) {
+                num = 5;
+            }else{
+                
+                num = 4;
+            }
+            
             
             
             
@@ -444,12 +428,12 @@
             
             [self getOneCityList:dic[@"province"]];
         }
-      
-
+        
+        
         
         [_tableView reloadData];
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
-      [self show:@"请求失败！" time:1];
+        [self show:@"请求失败！" time:1];
         MMLog(@"%@",error);
         
     }
@@ -458,61 +442,7 @@
     
 }
 
-#pragma mark --注册监听键盘的通知
-- (void)ListeningKeyboard{
-    //增加监听，当键盘出现或改变时收出消息
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    //增加监听，当键退出时收出消息
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-    
-    
-        _lable =    [[UILabel alloc] initWithFrame:CGRectMake(0, UISCREEN_HEIGHT, UISCREEN_WIDTH, 30)];
-        _lable.backgroundColor = [UIColor grayColor];
-        _lable.textColor = [UIColor whiteColor];
-        _lable.textAlignment = 2;
-        [self.view addSubview:_lable];
-    
 
-    
-    
-}
-- (void)keyboardWillShow:(NSNotification *)aNotification
-{
-    //获取键盘的高度
-    NSDictionary *userInfo = [aNotification userInfo];
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardRect = [aValue CGRectValue];
-    int height = keyboardRect.size.height;
-    if (_lable) {
-        [self.view addSubview:_lable];
-        [UIView animateWithDuration:.3f animations:^{
-            _lable.frame = CGRectMake(0, UISCREEN_HEIGHT-height-29, UISCREEN_WIDTH, 30);
-        }];
-    }
-    
-}
-
-//当键退出时调用
-- (void)keyboardWillHide:(NSNotification *)aNotification
-{
-    [UIView animateWithDuration:.5f animations:^{
-        _lable.frame = CGRectMake(0, UISCREEN_HEIGHT, UISCREEN_WIDTH, 30);
-    }];
-    [_lable removeFromSuperview];
-}
-- (void)infoAction:(NSNotification *)aNotification
-
-{
-  _lable.text =  _textField.text;
-    
-}
 #pragma mark -- 隐藏pickView
 - (void)hideMyPicker {
     [UIView animateWithDuration:0.3 animations:^{
@@ -525,7 +455,7 @@
 }
 #pragma mark -- 省市联动取消
 - (IBAction)Cancel:(id)sender {
-        [self hideMyPicker];
+    [self hideMyPicker];
 }
 #pragma mark -- 省市联动确定
 - (IBAction)determine:(id)sender {
@@ -543,11 +473,11 @@
     NSString *str = [NSString stringWithFormat:@"%@-%@-%@",sheng,shi,qu];
     _addressTextField.text = str;
     
-
+    
     
     
     [self hideMyPicker];
-
+    
 }
 #pragma maek -- 拍照或从相机获取图片
 - (void)setCamera{
@@ -586,20 +516,15 @@
                                                                           preferredStyle: UIAlertControllerStyleAlert];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         [alertController addAction:cancelAction];
-       [self presentViewController:alertController animated:YES completion:nil];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 #pragma mark --请求三级联动数据
 -(void)getCityList:(NSString *)parent_id
 {
-    
-    
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"region"] parameters:@{@"parent_id":parent_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        
-        
+    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/region/") parameters:@{@"parent_id":parent_id} success:^(id responseObject) {
         if (responseObject != nil) {
-            NSDictionary* d = [responseObject valueForKeyPath:@"data"];
-            
+            NSDictionary* d = (NSDictionary*)responseObject;
             if (_level == 0 ){
                 _provinceArray = d[@"regions"];
                 [self getCityList:_provinceArray[0][@"id"]];
@@ -627,22 +552,18 @@
             
             _level ++;
         }
-        
-        
-        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         MMLog(@"%@",error);
-      
     }];
+    
+    
     
 }
 - (void)getOneCityList:(NSString *)parent_id{
     
-    
-    
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"region"] parameters:@{@"parent_id":parent_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/region/") parameters:@{@"parent_id":parent_id} success:^(id responseObject) {
+        NSDictionary* d = (NSDictionary*)responseObject;
         
-         NSDictionary *d = [responseObject valueForKeyPath:@"data"];
         if (_levels==0) {
             for (NSDictionary *dic in _provinceArray) {
                 NSString *str = [NSString stringWithFormat:@"%@",dic[@"id"]];
@@ -657,43 +578,40 @@
                 
             }
             for (NSDictionary *dic in d[@"regions"]) {
-                 NSString *str = [NSString stringWithFormat:@"%@",dic[@"id"]];
+                NSString *str = [NSString stringWithFormat:@"%@",dic[@"id"]];
                 if ([str isEqualToString:_cityID]) {
                     _city = dic[@"name"];
                     
-                       [_tableView reloadData];
-                  
+                    [_tableView reloadData];
+                    
                 }
             }
-          [self getOneCityList:_refunDic[@"city"]];
+            [self getOneCityList:_refunDic[@"city"]];
         }else {
             for (NSDictionary *dic in d[@"regions"]) {
-                 NSString *str = [NSString stringWithFormat:@"%@",dic[@"id"]];
+                NSString *str = [NSString stringWithFormat:@"%@",dic[@"id"]];
                 if ([str isEqualToString:_districtID]) {
                     _district = dic[@"name"];
-                       [_tableView reloadData];
-       
+                    [_tableView reloadData];
+                    
                 }
             }
-          
-
+            
+            
         }
         _levels ++;
-            
-        
-     
-        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         MMLog(@"%@",error);
-       
     }];
-
-
+    
+    
+    
+    
 }
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
-//    MMLog(@"%@",image);
+    //    MMLog(@"%@",image);
     
     [self dismissViewControllerAnimated:YES completion:^{
         
@@ -706,7 +624,7 @@
         
     }];
     
-
+    
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -730,18 +648,18 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-
-     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCollectionViewCell" forIndexPath:indexPath];
+    
+    PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCollectionViewCell" forIndexPath:indexPath];
     id order = _photoArray[indexPath.item];
-
+    
     if ([order isKindOfClass:[NSString class]] ) {
         [cell.image sd_setImageWithURL:order placeholderImage:[UIImage imageNamed:@"icon_nav03"]];
     }else{
-      cell.image.image = _photoArray[indexPath.item];
+        cell.image.image = _photoArray[indexPath.item];
     }
     
     
-
+    
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -751,17 +669,17 @@
         if (_photoArray.count<4) {
             [self setCamera];
         }else{
-        
+            
             UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"最多上传三张图片" delegate: self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
             [view show];
-        
+            
         }
         
     }else{
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示"
                                                                                  message:@"是否删除图片"
                                                                           preferredStyle: UIAlertControllerStyleAlert];
-       
+        
         UIAlertAction *delete  = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [_photoArray removeObjectAtIndex:indexPath.item];
             [_collectionView reloadData];
@@ -770,7 +688,7 @@
         [alertController addAction:cancelAction];
         [alertController addAction:delete];
         [self presentViewController:alertController animated:YES completion:nil];
-    
+        
     }
 }
 #pragma mark ---UITableViewdelegate
@@ -783,10 +701,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section ==1) {
-       
-            
+        
+        
         return _numArray.count;
-       
+        
     }else {
         return 1;
     }
@@ -807,14 +725,14 @@
         }else{
             return 550;
         }
-    
+        
     }else{
         return 350;
     }
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-   
+    
     if (indexPath.section == 0) {
         
         TopTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TopTableViewCell"];
@@ -822,7 +740,7 @@
             cell = [[[NSBundle mainBundle]loadNibNamed:@"TopTableViewCell" owner:self options:nil]firstObject];
         }
         if (_refunDic) {
-          
+            
             cell.orderNumber.text = _refunDic[@"order_sn"];
             if (_order_total_money&&_order_total_num) {
                 cell.price.text = [NSString stringWithFormat:@"￥%@", _order_total_money];
@@ -838,27 +756,24 @@
         
         cell.selectionStyle =  UITableViewCellSelectionStyleNone;
         return cell ;
-    
+        
     }else if(indexPath.section == 1){
-      
+        
         GoodsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GoodsTableViewCell"];
         if (!cell) {
             cell = [[[NSBundle mainBundle]loadNibNamed:@"GoodsTableViewCell" owner:self options:nil]firstObject];
         }
         
-        
-        
         if (_refunDic) {
             NSDictionary *dic = _refunDic[@"refund_goods_detail"][indexPath.row];
-            
             
             if (dic) {
                 NSString *str = dic[@"goods_price"];
                 cell.name.text = dic[@"goods_name"];
                 cell.price.text = [NSString stringWithFormat:@"￥%@",str];
-                cell.goodsNumber = dic[@"goods_max_refund_number"];
+                cell.goodsNumber = s_str(dic[@"goods_max_refund_number"]);
                 if (_numArray.count>0) {
-                    cell.goodsNumbei.text = _numArray[indexPath.row];
+                    cell.goodsNumbei.text =  s_str(_numArray[indexPath.row]);
                 }
                 cell.tuihuo.text = [NSString stringWithFormat:@"退货数量（最多为%@件）",dic[@"goods_max_refund_number"]];
                 NSURL *url =[NSURL URLWithString:dic[@"goods_img"]];
@@ -870,10 +785,10 @@
         }
         
         
-      
+        
         cell.selectionStyle =  UITableViewCellSelectionStyleNone;
         
-    
+        
         return cell;
     }else if (indexPath.section == 2){
         
@@ -887,13 +802,13 @@
         if (_refunDic) {
             
             if ([str isEqualToString:@"1"]) {
-              cell.refund.selected = YES;
+                cell.refund.selected = YES;
                 
             }else{
-               cell.huan.selected = YES;
-         
+                cell.huan.selected = YES;
+                
             }
-        
+            
             
         }
         if (_refund_type ) {
@@ -905,12 +820,12 @@
             }else{
                 cell.huan.selected = YES;
                 cell.refund.selected = NO;
-            
+                
             }
         }
         
         
-     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
+        cell.selectionStyle =  UITableViewCellSelectionStyleNone;
         
         return cell ;
         
@@ -951,27 +866,27 @@
             _problem = cell.problem;
             
             if (_refunDic) {
-                    _consigneeTectField.text = _refunDic[@"consignee"];
-                    _phoneTextfield.text = _refunDic[@"mobile"];
-                    _detailedAddressTextField.text = _refunDic[@"address"];
-                    if (_ProblemDescriptionText) {
-                        _ProblemDescriptionTextView.text = _ProblemDescriptionText;
-                        if (_ProblemDescriptionText.length>0) {
-                             _problem.placeholder = nil;
-                        }
-                        
-                    }else{
-                     _ProblemDescriptionTextView.text = _refunDic[@"refund_reason"];
-                     _ProblemDescriptionText = _refunDic[@"refund_reason"];
-                        if (_ProblemDescriptionText.length>0) {
-                             _problem.placeholder = nil;
-                        }
+                _consigneeTectField.text = _refunDic[@"consignee"];
+                _phoneTextfield.text = _refunDic[@"mobile"];
+                _detailedAddressTextField.text = _refunDic[@"address"];
+                if (_ProblemDescriptionText) {
+                    _ProblemDescriptionTextView.text = _ProblemDescriptionText;
+                    if (_ProblemDescriptionText.length>0) {
+                        _problem.placeholder = nil;
                     }
-                   
+                    
+                }else{
+                    _ProblemDescriptionTextView.text = _refunDic[@"refund_reason"];
+                    _ProblemDescriptionText = _refunDic[@"refund_reason"];
+                    if (_ProblemDescriptionText.length>0) {
+                        _problem.placeholder = nil;
+                    }
+                }
                 
-                    if (_province) {
-                        _addressTextField.text = [NSString stringWithFormat:@"%@-%@-%@",_province,_city,_district];
-                    }
+                
+                if (_province) {
+                    _addressTextField.text = [NSString stringWithFormat:@"%@-%@-%@",_province,_city,_district];
+                }
                 
                 
             }
@@ -980,7 +895,7 @@
             
             
             return cell ;
-        
+            
         }
         
         
@@ -1017,9 +932,9 @@
             _ProblemDescriptionTextView.text = _refunDic[@"refund_reason"];
             _ProblemDescriptionText = _refunDic[@"refund_reason"];
         }
-      
+        
         if (_ProblemDescriptionTextView.text.length>0) {
-             _problem.placeholder = nil;
+            _problem.placeholder = nil;
         }
         if (num==5) {
             cell.topDistance.constant = 20;
@@ -1027,7 +942,7 @@
         }
         
         cell.selectionStyle =  UITableViewCellSelectionStyleNone;
-
+        
         
         return cell ;
         
@@ -1035,13 +950,13 @@
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
-
+    
     [_consigneeTectField resignFirstResponder];
     [_phoneTextfield resignFirstResponder];
     [_addressTextField resignFirstResponder];
     [_detailedAddressTextField resignFirstResponder];
     [_ProblemDescriptionTextView resignFirstResponder];
-
+    
 }
 #pragma mark -- UIScrollViewdelegate
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
@@ -1091,12 +1006,12 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-
+    
     
     if (component == 0) {
         _level = 1;
-     
-     
+        
+        
         NSString *str = _provinceArray[row][@"id"];
         if (self.provinceArray.count > 0) {
             [self getCityList:str];
@@ -1115,7 +1030,7 @@
         } else {
             self.townArray = nil;
         }
-      
+        
     }
     
     

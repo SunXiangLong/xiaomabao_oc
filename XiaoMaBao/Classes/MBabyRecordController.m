@@ -172,8 +172,10 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-
-    return 2;
+    if (_resultArray.count > 0) {
+        return 2;
+    }
+    return 0;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     

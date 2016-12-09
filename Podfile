@@ -1,8 +1,11 @@
 
 platform :ios, '8.0'
 target 'XiaoMaBao' do
-#pod 'PureLayout', '~> 2.0.6'
 pod 'AFNetworking', '~> 3.1.0'
+#UITableView data is nil 
+pod 'DZNEmptyDataSet'
+#of keyboard sliding up and cover UITextField/UITextView.
+pod 'IQKeyboardManager'
 #pod 'iCarousel'
 #pod 'DZNEmptyDataSet'
 pod 'WMPageController'
@@ -33,6 +36,7 @@ pod 'YYWebImage'
 pod 'YYImage/WebP'
 pod 'ZFPlayer'
 pod 'StreamingKit'
+
 #pod "PromiseKit"
 # 主模块(必须)
 pod 'ShareSDK3'

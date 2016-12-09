@@ -9,9 +9,7 @@
 #import "MBRefundHomeController.h"
 #import "MBAfterServiceTableViewCell.h"
 #import "MBAfterSalesServiceViewController.h"
-#import "UIImageView+WebCache.h"
 #import "MBDeliveryInformationViewController.h"
-#import "MobClick.h"
 #import "MBRefundScheduleViewController.h"
 #import "MBOrderInfoTableViewController.h"
 @interface MBRefundHomeController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
@@ -36,16 +34,7 @@
 @end
 
 @implementation MBRefundHomeController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBRefundHomeController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBRefundHomeController"];
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -188,9 +177,10 @@
         }
         
         UIView *lineView = [[UIView alloc] init];
-        lineView.frame = CGRectMake(0, _menuView.ml_height - 1, width, 2);
+        lineView.frame = CGRectMake(0, 40 - 2, width, 2);
         lineView.backgroundColor = NavBar_Color;
         [_menuView addSubview:_menuLineView = lineView];
+        [self addBottomLineView:_menuView];
     }
     
 }
@@ -218,9 +208,8 @@
     }else{
    
         [_orderArray removeAllObjects];
-         [_tableView.mj_footer resetNoMoreData];
-            [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
-           [_tableView reloadData];
+        
+        [_tableView reloadData];
         _isState = YES;
         _page =1;
         [self applyData];
@@ -256,9 +245,9 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
      NSString *page = [NSString stringWithFormat:@"%d",_page];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/list"] parameters:@{@"session":sessiondict,@"page":page,@"size":@"5"}success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/refund/refund_list"] parameters:@{@"session":sessiondict,@"page":page}success:^(NSURLSessionDataTask *operation, id responseObject) {
          [self dismiss];
-       // MMLog(@"成功获取全部可退换货订单---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//        MMLog(@"成功获取全部可退换货订单---responseObject%@",[responseObject valueForKeyPath:@"data"]);
     
         
         NSArray * arr =  [responseObject valueForKeyPath:@"data"];
@@ -297,9 +286,9 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/search"] parameters:@{@"session":sessiondict,@"order_sn":str}success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/refund/refund_search"] parameters:@{@"session":sessiondict,@"order_sn":str}success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        //MMLog(@"成功获取搜索退换货订单信息---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+        MMLog(@"成功获取搜索退换货订单信息---responseObject%@",[responseObject valueForKeyPath:@"data"]);
         NSArray *arr = [responseObject valueForKeyPath:@"data"];
         
         [_orderArray addObjectsFromArray:arr];
@@ -325,7 +314,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
          NSString *page = [NSString stringWithFormat:@"%d",_page];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/applyList"] parameters:@{@"session":sessiondict,@"page":page,@"size":@"5"}success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/refund/apply_list"] parameters:@{@"session":sessiondict,@"page":page}success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         //MMLog(@"成功获取全部已申请退换货订单---responseObject%@",[responseObject valueForKeyPath:@"data"]);
        
@@ -619,15 +608,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MMLog(@"点我");
+   
     
     UINavigationController  *nav =  [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
     MBOrderInfoTableViewController *infoVc = (MBOrderInfoTableViewController *)nav.viewControllers.firstObject;
    
     
     //单号和时间
-    NSString *order_id = [_orderArray[indexPath.section] valueForKeyPath:@"parent_order_sn"];
-    infoVc.parent_order_sn = order_id;
+    NSString *order_id = [_orderArray[indexPath.section] valueForKeyPath:@"order_id"];
+     MMLog(@"%@",order_id);
+    infoVc.order_id = order_id;
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
@@ -651,45 +641,17 @@
    
 }
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{
-    
     NSNotification *notification =[NSNotification notificationWithName:@"HYTPopViewControllerNotification" object:nil userInfo:nil];
-    
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-    
-    
     return [self.navigationController popViewControllerAnimated:animated];
 }
 
 #pragma mark ---让tabview的headview跟随cell一起滑动
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [_searchTextField resignFirstResponder];
-    if (scrollView == self.tableView)
-    {
-        UITableView *tableview = (UITableView *)scrollView;
-        CGFloat sectionHeaderHeight = 35;
-        CGFloat sectionFooterHeight = 30;
-        CGFloat offsetY = tableview.contentOffset.y;
-        if (offsetY >= 0 && offsetY <= sectionHeaderHeight)
-        {
-            tableview.contentInset = UIEdgeInsetsMake(-offsetY, 0, -sectionFooterHeight, 0);
-        }else if (offsetY >= sectionHeaderHeight && offsetY <= tableview.contentSize.height - tableview.frame.size.height - sectionFooterHeight)
-        {
-            tableview.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, -sectionFooterHeight, 0);
-        }else if (offsetY >= tableview.contentSize.height - tableview.frame.size.height - sectionFooterHeight && offsetY <= tableview.contentSize.height - tableview.frame.size.height)
-        {
-            tableview.contentInset = UIEdgeInsetsMake(-offsetY, 0, -(tableview.contentSize.height - tableview.frame.size.height - sectionFooterHeight), 0);
-        }
-        
-    }
-    _tableView.editing = NO;
-    
-
-
 }
 
 - ( void )scrollViewDidEndDecelerating:( UIScrollView *)scrollView{
-
-
 }
 @end

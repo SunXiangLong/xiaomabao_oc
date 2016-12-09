@@ -81,13 +81,20 @@
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/goods_list"] parameters:@{@"session":session,@"page":page} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         
+        if (_page == 1) {
+            if ([[responseObject valueForKeyPath:@"data"] count] == 0) {
+                self.tableView.mj_footer.hidden = true;
+                self.stateStr = @"暂无收藏商品数据";
+            }
+            
+        }
         if ([[responseObject valueForKeyPath:@"data"] count]>0) {
             [_CartinfoDict addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
             _page ++;
             [self.tableView reloadData];
         }else{
-          [self.tableView.mj_footer endRefreshingWithNoMoreData];
-        self.stateStr = @"暂无收藏商品数据";
+        
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }
         
       

@@ -7,10 +7,11 @@
 //
 
 #import "MBReleaseTopicViewController.h"
-#import "LGPhotoPickerViewController.h"
+
 #import "PhotoCollectionViewCell.h"
 #import "LGPhotoPickerViewController.h"
 #import "LGPhoto.h"
+#import "LGPhotoPickerViewController.h"
 @interface MBReleaseTopicViewController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SDPhotoBrowserDelegate,UICollectionViewDelegate,LGPhotoPickerViewControllerDelegate,PhotoCollectionViewCellDelegate>
 {
 
@@ -48,7 +49,7 @@
 /**
  *  存放图片数组
  */
-@property (copy, nonatomic) NSMutableArray  *photoArray;;
+@property (copy, nonatomic) NSMutableArray  *photoArray;
 @end
 
 @implementation MBReleaseTopicViewController
@@ -87,7 +88,7 @@
         NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
         CGRect keyboardRect = [aValue CGRectValue];
         CGFloat height = keyboardRect.size.height;
-        [UIView animateWithDuration:.3 animations:^{
+        [UIView animateWithDuration:.25 animations:^{
           self.bottom.constant = height;
         }];
       
@@ -99,7 +100,7 @@
       
          @strongify(self);
         if (self.bottom.constant != 0  ) {
-            [UIView animateWithDuration:.3 animations:^{
+            [UIView animateWithDuration:.25 animations:^{
                    self.bottom.constant = 0;
             }];
          
@@ -160,6 +161,7 @@
                 NSData * data = UIImageJPEGRepresentation(image,0.5);
                 if(data != nil){
                     [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"photo[]"] fileName:[NSString stringWithFormat:@"photo%d.jpg",i]mimeType:@"image/jpeg"];
+                    
                 }
                 
             }

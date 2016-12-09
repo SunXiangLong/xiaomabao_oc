@@ -137,6 +137,7 @@
             [self pushViewController:VC Animated:YES];
         }break;
         case 3: {
+            
             MBWebViewController *VC = [[MBWebViewController alloc] init];
             VC.url =  [NSURL URLWithString:_model.today_recommend_top[index].ad_con];
             VC.title = _model.today_recommend_top[index].ad_name;

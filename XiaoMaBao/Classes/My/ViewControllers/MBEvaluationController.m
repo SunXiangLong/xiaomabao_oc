@@ -45,7 +45,6 @@
         [_evaluationArray addObject:dict];
     }
     
-    [self ListeningKeyboard];
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -203,55 +202,6 @@
     
     
     
-}
-
-#pragma mark --注册监听键盘的通知
-- (void)ListeningKeyboard{
-    //增加监听，当键盘出现或改变时收出消息
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    //增加监听，当键退出时收出消息
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-    
-    
-    _lable =    [[UILabel alloc] initWithFrame:CGRectMake(0, UISCREEN_HEIGHT, UISCREEN_WIDTH, 30)];
-    _lable.backgroundColor = [UIColor grayColor];
-    _lable.textColor = [UIColor whiteColor];
-    _lable.textAlignment = 2;
-    [self.view addSubview:_lable];
-    
-    
-    
-    
-}
-- (void)keyboardWillShow:(NSNotification *)aNotification
-{
-    //获取键盘的高度
-    NSDictionary *userInfo = [aNotification userInfo];
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardRect = [aValue CGRectValue];
-    int height = keyboardRect.size.height;
-    if (_lable) {
-        [self.view addSubview:_lable];
-            _lable.frame = CGRectMake(0, UISCREEN_HEIGHT-height-29, UISCREEN_WIDTH, 30);
-        
-    }
-    
-}
-
-//当键退出时调用
-- (void)keyboardWillHide:(NSNotification *)aNotification
-{
-    
-        _lable.frame = CGRectMake(0, UISCREEN_HEIGHT, UISCREEN_WIDTH, 30);
-
-    [_lable removeFromSuperview];
 }
 
 @end

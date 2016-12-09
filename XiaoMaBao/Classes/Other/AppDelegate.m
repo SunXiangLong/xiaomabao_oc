@@ -40,7 +40,7 @@
 #import "MBLogOperation.h"
 #import "MBAPService.h"
 #import "MBShare.h"
-
+#import <IQKeyboardManager.h>
 @interface AppDelegate ()<WXApiDelegate>
 @end
 
@@ -56,6 +56,8 @@
 }
 #pragma  mark --注册
 -(void)registered:(NSDictionary *)launchOptions{
+    //解决键盘遮挡输入框
+    [[IQKeyboardManager sharedManager] setEnable:true];
     //友盟注册
     [MBAPService umengTrack];
     //share第三方登陆分享

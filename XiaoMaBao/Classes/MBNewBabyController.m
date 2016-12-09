@@ -92,7 +92,7 @@
 -(NSArray *)datArr{
     if (!_datArr) {
         _datArr = @[@{@"title":@"我在怀孕中",@"summary":@"怀胎十月，关爱母婴健康",@"icon": [UIImage imageNamed:@"babyUnborn"]},
-                     @{@"title":@"宝宝以出生",@"summary":@"产后调养与恢复，和宝宝共同健康成长",@"icon": [UIImage imageNamed:@"babyBorn"]}
+                     @{@"title":@"宝宝已出生",@"summary":@"产后调养与恢复，和宝宝共同健康成长",@"icon": [UIImage imageNamed:@"babyBorn"]}
                      ];
     }
     return _datArr;

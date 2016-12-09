@@ -221,6 +221,9 @@
                    }
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                    MMLog(@"-----%@",error);
+                   
+              
+                   [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:true];
                                       
                }
      ];

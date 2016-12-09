@@ -312,7 +312,8 @@
             MBBackServiceViewController *VC = [[MBBackServiceViewController alloc] init];
             [self pushViewController:VC Animated:YES];}break;
         case 4: [self service]; break;
-        case 5: {MBHelpServiceViewController *VC = [[MBHelpServiceViewController alloc] init];
+        case 5: {
+            MBHelpServiceViewController *VC = [[MBHelpServiceViewController alloc] init];
             [self pushViewController:VC Animated:YES];}break;
         case 6: {
             if (!sid) {

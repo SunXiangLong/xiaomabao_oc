@@ -8,8 +8,6 @@
 
 #import "MBRefundScheduleViewController.h"
 #import "MBRefundScheduleTableViewCell.h"
-#import "MobClick.h"
-
 @class MBRefundHomeController;
 @interface MBRefundScheduleViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -19,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *top;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *top1;
 
+@property (weak, nonatomic) IBOutlet UIView *showView;
 
 @property (weak, nonatomic) IBOutlet UILabel *order_id;
 @property (weak, nonatomic) IBOutlet UILabel *refund_type;
@@ -31,16 +30,7 @@
 @end
 
 @implementation MBRefundScheduleViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBRefundScheduleViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBRefundScheduleViewController"];
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUI];
@@ -70,32 +60,32 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/process"] parameters:@{@"session":sessiondict,@"order_id":_orderid}success:^(NSURLSessionDataTask *operation, id responseObject) {
-         [self dismiss];
-      //MMLog(@"退款进度查询成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
-
-        NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
-        if (![dic[@"refund_type"] isEqualToString:@"退货"]) {
-            _top1.constant = 10;
-            [_refund_money removeFromSuperview];
-            [_refund_moneys removeFromSuperview];
+    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/refund/refund_process") parameters:@{@"session":sessiondict,@"order_id":_orderid} success:^(id responseObject) {
+        
+        [self dismiss];
+        MMLog(@"退款进度查询成功---responseObject%@",responseObject);
+        if ([responseObject[@"status"][@"succeed"]integerValue] == 1) {
+            NSDictionary *dic = (NSDictionary *)responseObject[@"data"];
+            if (![dic[@"refund_type"] isEqualToString:@"退货"]) {
+                _top1.constant = 10;
+                [_refund_money removeFromSuperview];
+                [_refund_moneys removeFromSuperview];
+            }
+            _refund_type.text =   dic[@"refund_type"];
+            _refund_money.text =  dic[@"refund_money"];
+            _refund_reason.text = dic[@"refund_reason"];
+            
+            _refundScheduleArray = dic[@"process"];
+            
+            [_table reloadData];
+            _showView.hidden = false;
         }
-        _refund_type.text =   dic[@"refund_type"];
-        _refund_money.text =  dic[@"refund_money"];
-        _refund_reason.text = dic[@"refund_reason"];
         
-        _refundScheduleArray = dic[@"process"];
-        
-        
-        [_table reloadData];
-       
-        
-    }failure:^(NSURLSessionDataTask *operation, NSError *error) {
-       [self show:@"请求失败！" time:1];
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"请求失败！" time:1];
         MMLog(@"%@",error);
-        
-    }
-     ];
+    }];
+    
 
 
 
@@ -110,13 +100,8 @@
         return 0;
     }
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
     return 60;
-    
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -144,11 +129,6 @@
 
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{
     NSArray *VCArray = self.navigationController.viewControllers;
-  
-    MMLog(@"%@",VCArray);
-    
-    
-    
     if ([_type isEqualToString:@"1"]) {
                 
         [self.navigationController popToViewController:VCArray[VCArray.count-3] animated:animated];  

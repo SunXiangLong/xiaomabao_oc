@@ -46,8 +46,6 @@
     
     [MBNetworking POST:url parameters:parameters  success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-        
-        
         [self dismiss];
         NSDictionary * status = [responseObject valueForKeyPath:@"status"];
         if([status[@"succeed"] isEqualToNumber:@1]){

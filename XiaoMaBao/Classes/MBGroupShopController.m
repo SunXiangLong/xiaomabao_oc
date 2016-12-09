@@ -34,15 +34,10 @@
 @end
 
 @implementation MBGroupShopController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBGroup"];
-}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBGroup"];
+    
     [_m_timer invalidate];
     _m_timer = nil;
 }
@@ -58,35 +53,31 @@
 }
 - (void)setData{
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/index/group_buy"] parameters:nil
-               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-                   
-                   
-                   if(1 == [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] intValue]){
-                       [self dismiss];
-                       NSDictionary *userData = [responseObject valueForKeyPath:@"data"];
-                       _shuffArray = userData[@"top_ads"];
-//                     MMLog(@"%@",userData);
-                       _shopArray = userData[@"group_goods"];
-                       _brandArray = userData[@"group_topics"];
-                       [self setModel];
-                        [self createTimer];
-                       
-                       
-                   }else{
-                       
-                       NSString *errStr =[[responseObject valueForKey:@"status"] valueForKey:@"error_desc"];
-                         MMLog(@"%@",errStr);
-                         [self show:errStr time:1];
-                   }
-                   
-               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   
-                  [self show:@"请求失败 " time:1];
-                   MMLog(@"%@",error);
-                   
-               }
-     ];
+    [MBNetworking newGET:string(BASE_URL_root, @"/group/index") parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        [self dismiss];
+        if(1 == [responseObject[@"status"][@"succeed"] intValue]){
+            
+            NSDictionary *userData = responseObject [@"data"];
+            _shuffArray = userData[@"top_ads"];
+            MMLog(@"%@",userData);
+            _shopArray = userData[@"group_goods"];
+            _brandArray = userData[@"group_topics"];
+            [self setModel];
+            [self createTimer];
+            
+            
+        }else{
+            
+            NSString *errStr =[[responseObject valueForKey:@"status"] valueForKey:@"error_desc"];
+            MMLog(@"%@",errStr);
+            [self show:errStr time:1];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self show:@"请求失败 " time:1];
+        MMLog(@"%@",error);
+    }];
+   
     
 
 
@@ -167,7 +158,7 @@
 }
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     MBBrandViewController *VC = [[MBBrandViewController alloc] init];
-            VC.goodId =[_shuffArray[index][@"ad_link"]isNSString];
+            VC.goodId = _shuffArray[index][@"id"];
             VC.titles = _shuffArray[index][@"title"];
             [self pushViewController:VC Animated:YES];
 }
@@ -321,7 +312,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (_isbool) {
         MBBrandViewController *VC = [[MBBrandViewController alloc] init];
-        VC.goodId = _brandArray[indexPath.row][@"ad_link"];
+        VC.goodId = _brandArray[indexPath.row][@"id"];
        VC.titles = [_brandArray[indexPath.row][@"title"] isNSString];
         
         
@@ -329,7 +320,7 @@
     }else{
     
         MBShopingViewController *VC = [[MBShopingViewController alloc] init];
-        VC.GoodsId = [_shopArray[indexPath.row][@"id"]isNSString];
+        VC.GoodsId = _shopArray[indexPath.row][@"id"];
         [self pushViewController:VC Animated:YES];
     }
 

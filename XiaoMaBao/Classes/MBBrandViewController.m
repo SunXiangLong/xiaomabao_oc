@@ -66,38 +66,26 @@
 }
 - (void)setData{
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"/group/topic"] parameters:@{@"topic_id":self.goodId}
-               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-                   
-                   
-                   if(1 == [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] intValue]){
-                       [self dismiss];
-                       NSDictionary *userData = [responseObject valueForKeyPath:@"data"];
-//                       MMLog(@"%@",userData);
-                       _end_time = userData[@"end_time"];
-                       _mid_banner = userData[@"mid_banner"];
-                       _mid_link = userData[@"mid_link"];
-                       _top_banner = userData[@"top_banner"];
-                       _hot_goods = userData[@"hot_goods"];
-                       [self setModel];
-                       [self createTimer];
-                       _group_topics = userData[@"group_topics"];
-                       _normal_goods = userData[@"normal_goods"];
-                       
-                   }else{
-                       
-                       NSString *errStr =[[responseObject valueForKey:@"status"] valueForKey:@"error_desc"];
-                       MMLog(@"%@",errStr);
-                       [self show:errStr time:1];
-                   }
-                   
-               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   
-                   
-                   MMLog(@"%@",error);
-                   
-               }
-     ];
+    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/group/topic") parameters:@{@"topic_id":self.goodId} success:^(id responseObject) {
+        [self dismiss];
+        if (responseObject) {
+            NSDictionary *userData = (NSDictionary *)responseObject;
+            MMLog(@"%@",userData);
+            _end_time = userData[@"end_time"];
+            _mid_banner = userData[@"mid_banner"];
+            _mid_link = userData[@"mid_link"];
+            _top_banner = userData[@"top_banner"];
+            _hot_goods = userData[@"hot_goods"];
+            [self setModel];
+            [self createTimer];
+            _group_topics = userData[@"group_topics"];
+            _normal_goods = userData[@"normal_goods"];
+        }
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        MMLog(@"%@",error);
+        [self show:@"请求失败" time:1];
+    }];
+    
     
     
     

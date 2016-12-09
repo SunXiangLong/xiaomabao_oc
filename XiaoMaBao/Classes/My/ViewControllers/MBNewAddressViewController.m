@@ -445,7 +445,7 @@
     
     
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"address/delete"] parameters:@{@"session":sessiondict,@"address_id":self.address_dic[@"address_id"]} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_delete"] parameters:@{@"session":sessiondict,@"address_id":self.address_dic[@"address_id"]} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         if( [[responseObject valueForKey:@"status"][@"succeed"]isEqualToNumber:@1]){
             

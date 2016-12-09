@@ -19,7 +19,9 @@
     layout.minimumLineSpacing = 15;
     layout.minimumInteritemSpacing = 15;
     layout.itemSize = CGSizeMake((UISCREEN_WIDTH - 31)/2, (UISCREEN_WIDTH - 31)/2 * 213/348);
+    
     self.collectionView.collectionViewLayout = layout;
+    self.collectionView.scrollEnabled = NO;
 }
 
 

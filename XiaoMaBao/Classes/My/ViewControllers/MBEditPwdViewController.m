@@ -9,8 +9,6 @@
 #import "MBEditPwdViewController.h"
 #import "MBNetworking.h"
 #import "MBSignaltonTool.h"
-#import "NSString+BQ.h"
-#import "MobClick.h"
 #import "SFHFKeychainUtils.h"
 @interface MBEditPwdViewController ()
 @property (weak,nonatomic) UITextField *oldFld;
@@ -19,16 +17,6 @@
 @end
 
 @implementation MBEditPwdViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBEditPwdViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBEditPwdViewController"];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     

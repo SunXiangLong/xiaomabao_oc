@@ -11,6 +11,7 @@
 #import "MBReleaseTopicViewController.h"
 #import "MBPostDetailsViewController.h"
 #import "MBDetailsCircleCell.h"
+#import "MBNewReleaseTopicViewController.h"
 @interface MBDetailsCircleController ()<UITableViewDelegate,UITableViewDataSource>
 {
     /**
@@ -145,6 +146,10 @@
         _tableView.tableHeaderView = [self setTableHeadView];
             if (isRightButton) {
                 _isDimiss = YES;
+                
+//                MBNewReleaseTopicViewController *VC = [[MBNewReleaseTopicViewController    alloc] init];
+//                VC.circle_id = self.circle_id;
+//                [self pushViewController:VC Animated:YES];
                 MBReleaseTopicViewController *VC = [[MBReleaseTopicViewController    alloc] init];
                 VC.circle_id = self.circle_id;
                 [self pushViewController:VC Animated:YES];

@@ -17,6 +17,7 @@ PODS:
     - AFNetworking/NSURLSession
   - Appirater (2.0.5)
   - DateTools (1.7.0)
+  - DZNEmptyDataSet (1.8.1)
   - FMDB (2.5):
     - FMDB/standard (= 2.5)
   - FMDB/common (2.5)
@@ -25,6 +26,7 @@ PODS:
   - FreeStreamer (3.6.2):
     - Reachability (~> 3.0)
   - HexColors (3.0.0)
+  - IQKeyboardManager (4.0.4)
   - JPFPSStatus (0.0.2)
   - Masonry (0.6.3)
   - MBProgressHUD (1.0.0)
@@ -82,9 +84,11 @@ DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
   - Appirater
   - DateTools
+  - DZNEmptyDataSet
   - FMDB (~> 2.5)
   - FreeStreamer
   - HexColors
+  - IQKeyboardManager
   - JPFPSStatus
   - Masonry
   - MBProgressHUD
@@ -117,9 +121,11 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Appirater: e7c0a47fb67ee5041ce8479e6ba960927fb40264
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   FreeStreamer: 32a59f31065bf10909c329c47c8d6a2e1d9ba559
   HexColors: 8b83e3fe90c0d466dae7b98c9d22da95799f99cb
+  IQKeyboardManager: 4a6f83b540283c2645aaeba2bd8dc0f09b5c77f8
   JPFPSStatus: 11de6027b4cbebfeee0c939dfe08f5ec124a0965
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
@@ -146,6 +152,6 @@ SPEC CHECKSUMS:
   YYWebImage: 0431ed108e104527669b86f75efd58958425cca2
   ZFPlayer: 80cf92fef7412ff7a31e47c6658c50393351f938
 
-PODFILE CHECKSUM: 497082c8c794dcd6b609e4227d95d54f441d4613
+PODFILE CHECKSUM: 9e1d8c7877c6514474c9e2cbd6e5049da3b865b4
 
 COCOAPODS: 1.1.0.beta.2

@@ -29,16 +29,7 @@
 @end
 
 @implementation MBDeliveryInformationViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBDeliveryInformationViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBDeliveryInformationViewController"];
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUI];
@@ -120,9 +111,9 @@
     }
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
      [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL,@"refund/submitLogistics"] parameters:@{@"session":sessiondict,@"order_id":_order_id,@"logistics_no":_CourierNumber.text,@"logistics_cost":str}success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/refund/submit_logistics"] parameters:@{@"session":sessiondict,@"order_id":_order_id,@"logistics_no":_CourierNumber.text,@"logistics_cost":str}success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-       // MMLog(@"填写运单号成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//        MMLog(@"填写运单号成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
  
         
         [self show:[responseObject valueForKeyPath:@"status"][@"error_desc"] time:1];

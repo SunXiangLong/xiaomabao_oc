@@ -17,17 +17,6 @@
 @end
 
 @implementation MBVaccineViewController
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBVaccineViewController"];
-    
-}
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBVaccineViewController"];
-    
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self show:@"加载中..."];
@@ -124,7 +113,7 @@
 
     if (self.isSearch) {
         MBBabySearchViewController *VC = [[MBBabySearchViewController alloc] init];
-        NSString *str = [NSString stringWithFormat:@"%@%@",BASE_PHP,@"/knowledge_search/ios/"];
+        NSString *str = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/discovery/knowledge_search/ios/"];
         VC.url = [NSURL URLWithString:str];
         VC.urlstr = str;
         VC.isSearch = YES;

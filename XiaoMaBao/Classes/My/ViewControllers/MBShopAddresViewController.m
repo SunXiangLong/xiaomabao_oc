@@ -14,37 +14,23 @@
 @property (strong,nonatomic)NSArray *addressListArr;
 @end
 @implementation MBShopAddresViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBShopAddresViewController"];
-    [self getaddressListWithtag];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBShopAddresViewController"];
-    
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     _tableView.tableFooterView = [[UIView  alloc ] init];
-    _tableView.delegate   = self;
-    _tableView.dataSource = self;
-}
--(void)updateReloadData
-{
-
-    [self getaddressListWithtag];
     
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    [self getaddressListWithtag];
 }
 - (IBAction)newaddress:(id)sender {
     MBNewAddressViewController *VC = [[MBNewAddressViewController alloc] init];
     [self pushViewController:VC Animated:YES];
 }
 - (NSString *)titleStr{
-return @"收货地址";
+    return @"收货地址";
 }
 -(void)getaddressListWithtag
 {
@@ -85,7 +71,7 @@ return @"收货地址";
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBShopAddressTableViewCell" owner:nil options:nil]firstObject];
     }
-    [self setUIEdgeInsetsZero:cell];
+    [cell uiedgeInsetsZero];
     cell.name.text = dic[@"consignee"];
     cell.photo.text = dic[@"mobile"];
     cell.address.text = [NSString stringWithFormat:@"%@-%@-%@-%@",dic[@"province_name"],dic[@"city_name"],dic[@"district_name"],dic[@"address"]];
@@ -101,15 +87,7 @@ return @"收货地址";
 
 }
 
-/**
- *  让cell地下的边线挨着左边界
- */
-- (void)setUIEdgeInsetsZero:(UITableViewCell *)cell{
-    cell.separatorInset = UIEdgeInsetsZero;
-    cell.layoutMargins = UIEdgeInsetsZero;
-    cell.preservesSuperviewLayoutMargins   = false;
-    
-}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!self.PersonalCenter) {
         [self popViewControllerAnimated:YES];
@@ -124,7 +102,7 @@ return @"收货地址";
 }
 #pragma mark --MBShopAddressTableViewDelegate
 -(void)MBShopAddressTableView{
-[self getaddressListWithtag];
+  [self getaddressListWithtag];
 }
 
 

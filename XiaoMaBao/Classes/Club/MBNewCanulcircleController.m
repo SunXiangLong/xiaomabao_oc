@@ -16,8 +16,6 @@
 #import "JPUSHService.h"
 @interface MBNewCanulcircleController ()<UIScrollViewDelegate>
 {
-
-    
     UISegmentedControl *_segmentControl;
 }
 @property (nonatomic,strong) UIView *titlesView;
@@ -40,16 +38,12 @@
 {
     [super viewWillAppear:animated];
     NSString *messageNumber = [User_Defaults objectForKey:@"messageNumber"];
-    
-    
     if (messageNumber&&[messageNumber intValue]>0 ) {
         [self.messageBadge autoBadgeSizeWithString:messageNumber];
         self.messageBadge.hidden = NO;
     }else{
         self.messageBadge.hidden = YES;
     }
-    
-    
 }
 - (void)viewDidLoad {
     
@@ -99,17 +93,17 @@
             [self.messageBadge autoBadgeSizeWithString:s_str([responseObject valueForKeyPath:@"number"])];
             self.messageBadge.hidden = NO;
         }else{
-        self.messageBadge.hidden = YES;
+            self.messageBadge.hidden = YES;
         }
         
-            
+        
         
         
     }failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败 " time:1];
         MMLog(@"%@",error);
     }];
-
+    
     
     
 }
@@ -130,7 +124,7 @@
 }
 - (void)setupTitlesView
 {
-
+    
     
     NSArray *segmentArray = @[
                               @"我的圈",
@@ -150,7 +144,7 @@
     [segmentControl addTarget:self action:@selector(didClickSegmentedControlAction:)forControlEvents:UIControlEventValueChanged];
     [segmentControl setTitleTextAttributes:@{NSFontAttributeName:YC_RTWSYueRoud_FONT(15)} forState:UIControlStateNormal];
     [self.navBar addSubview:_segmentControl = segmentControl];
-
+    
 }
 - (void)didClickSegmentedControlAction:(UISegmentedControl *)segmentControl
 {
@@ -161,13 +155,13 @@
     
     if (idx==2) {
         if (moreCirclesView.block) {
-             moreCirclesView.block(1);
+            moreCirclesView.block(1);
         }
-       
-       
+        
+        
     }else{
         if (moreCirclesView.isViewLoaded) {
-             moreCirclesView.block(0);
+            moreCirclesView.block(0);
             
         }
     }
@@ -180,7 +174,7 @@
 - (void)setupScrollView
 {
     // 不要自动调整scrollView的contentInset
-//    self.automaticallyAdjustsScrollViewInsets = NO;
+    //    self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIScrollView *scrollView = [[UIScrollView alloc] init];
     scrollView.frame = CGRectMake(0,TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y-49);
@@ -205,8 +199,6 @@
 }
 
 - (void)rightTitleClick{
-    
-   
     MBSearchPostController *searchVc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBSearchPostController"];
     
     [self pushViewController:searchVc Animated:YES];
@@ -220,7 +212,7 @@
         return;
     }
     
-  [User_Defaults setObject:nil forKey:@"messageNumber"];
+    [User_Defaults setObject:nil forKey:@"messageNumber"];
     [User_Defaults synchronize];
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"messageBadge" object:nil userInfo:nil]];
     MBNewsCircleController *searchVc = [[MBNewsCircleController alloc] init];

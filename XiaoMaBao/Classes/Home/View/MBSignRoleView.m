@@ -52,28 +52,30 @@
         [btnSure setTitle:@"确定" forState:UIControlStateNormal];
         [btnSure setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self addSubview:btnSure];
+        
        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
            make.left.top.right.mas_equalTo(kMargin);
            make.height.mas_equalTo(32);
        }];
+        
         [line mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.mas_equalTo(0);
             make.height.mas_equalTo(3);
-            make.top.mas_equalTo(2);
+            make.top.mas_equalTo(titleLabel.mas_bottom).offset(0);
         }];
         [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(2);
+            make.top.mas_equalTo(line.mas_bottom).offset(2);
             make.left.right.mas_equalTo(kMargin);
             make.height.mas_equalTo(80);
         }];
         [baseline mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.mas_equalTo(kMargin);
-            make.top.mas_equalTo(kMargin);
+            make.top.mas_equalTo(contentLabel.mas_bottom).offset(kMargin);
             make.height.mas_equalTo(2);
             
         }];
         [btnSure mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kMargin);
+            make.top.mas_equalTo(baseline.mas_bottom).offset(kMargin);
             make.left.right.mas_equalTo(kMargin);
             make.bottom.mas_equalTo(0);
             
