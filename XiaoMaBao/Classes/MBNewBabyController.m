@@ -56,6 +56,9 @@
      */
     BOOL  _isPregnant;
     
+    UIImageView *_guideImageView;
+    NSInteger _guideImageIndex;
+    
 }
 /**
  *  顶部view
@@ -194,7 +197,9 @@
     _collectionView.delegate = self;
     [self.collectionView registerNib:[UINib nibWithNibName:@"MBNewBabyCell" bundle:nil] forCellWithReuseIdentifier:@"MBNewBabyCell"];
     
+   
 
+    
 }
 - (IBAction)button:(UIButton *)sender {
     
@@ -289,7 +294,15 @@
     
     
 }
-
+-(void)imageIndex{
+    _guideImageIndex++;
+    if (_guideImageIndex == 5) {
+        _guideImageView.hidden = true;
+        return;
+    }
+    _guideImageView.image = [UIImage imageNamed:string(@"guideImage", s_Integer(_guideImageIndex))];
+    
+}
 /**
  *  请求萌宝数据
  *
@@ -311,8 +324,9 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_index_info"];
     [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
         [self dismiss];
+//        MMLog(@"%@",responseObject);
         _isPregnant = [[responseObject valueForKeyPath:@"type"] isEqualToString:@"pregnant"];
-        MMLog(@"%@",responseObject);
+        
         if (date) {
 
             _day_info = [responseObject valueForKeyPath:@"day_info"];
@@ -329,6 +343,8 @@
             }
  
             [_tableView reloadData];
+            
+            
       
         }else{
             _day_info = [responseObject valueForKeyPath:@"day_info"];
@@ -345,9 +361,23 @@
             _current_date = [self setDateStr:[responseObject valueForKeyPath:@"current_date"]];
             _start_date   =  [self setDateStr:[responseObject valueForKeyPath:@"start_date"]];
             _end_date     = [self setDateStr:[responseObject valueForKeyPath:@"end_date"]];
+            
+            
             [_tableView reloadData];
             [self calculateDate];
             
+            if (![[NSUserDefaults standardUserDefaults] objectForKey:@"isGuide"]) {
+                UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_HEIGHT)];
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageIndex)];
+                image.image = [UIImage imageNamed:string(@"guideImage", s_Integer(_guideImageIndex))];
+                image.userInteractionEnabled = true;
+                [image addGestureRecognizer:tap];
+                [[UIApplication  sharedApplication].keyWindow addSubview:_guideImageView = image];
+                
+                [[NSUserDefaults standardUserDefaults] setObject:@"isGuide" forKey:@"isGuide"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+
+            }
             
             
         }

@@ -188,9 +188,10 @@
                success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    //成功，就把用户信息保存到单列MBUserDataSingalTon中
                    if(1 == [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] intValue]){
+                      
                        NSDictionary *userData = [responseObject valueForKeyPath:@"data"];
                        NSDictionary *sessionDict = [userData valueForKeyPath:@"session"];
-//                       MMLog(@"%@",userData);
+                       MMLog(@"%@",userData);
                        MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
                        userInfo.sid = [sessionDict valueForKeyPath:@"sid"];
                        userInfo.uid = [sessionDict valueForKeyPath:@"uid"];
@@ -205,7 +206,7 @@
                        userInfo.is_baby_add = [NSString stringWithFormat:@"%@", userData[@"user"][@"is_baby_add"]];
                        userInfo.user_baby_info = userData[@"user"][@"user_baby_info"];
                        [MobClick profileSignInWithPUID:userInfo.uid];
-                     
+                     [[NSNotificationCenter defaultCenter] postNotificationName:@"circleState" object:nil];
                        if (isPassword) {
                            
                            [self savelogInformation:params];

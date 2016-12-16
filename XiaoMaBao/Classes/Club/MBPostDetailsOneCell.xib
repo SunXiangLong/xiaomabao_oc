@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -74,26 +74,38 @@
                         <rect key="frame" x="10" y="65" width="300" height="0.0"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.55686274509803924" alpha="0.89658994932432434" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" red="0.18823529411764706" green="0.18823529411764706" blue="0.18823529411764706" alpha="0.89658994932432434" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yHa-yh-64Y">
+                        <rect key="frame" x="0.0" y="56" width="320" height="49"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="qBR-Ra-xxN"/>
+                        </connections>
+                    </webView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="baE-wY-lag" firstAttribute="top" secondItem="ftG-ED-22n" secondAttribute="bottom" constant="9" id="1iD-Vd-9ot"/>
                     <constraint firstItem="CXR-bZ-CUb" firstAttribute="top" secondItem="aSz-8t-PuN" secondAttribute="bottom" constant="6" id="9mh-Zq-FKn"/>
                     <constraint firstItem="aSz-8t-PuN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Cgz-w1-Nx5"/>
+                    <constraint firstItem="yHa-yh-64Y" firstAttribute="leading" secondItem="ftG-ED-22n" secondAttribute="trailing" constant="-320" id="F4R-fe-wub"/>
                     <constraint firstItem="Bve-Re-bcz" firstAttribute="centerY" secondItem="2rx-Ng-xeV" secondAttribute="centerY" id="Ll3-bP-Fb8"/>
+                    <constraint firstItem="yHa-yh-64Y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Onr-mW-bs0"/>
                     <constraint firstItem="aSz-8t-PuN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="QFZ-gL-1c0"/>
                     <constraint firstAttribute="trailing" secondItem="ftG-ED-22n" secondAttribute="trailing" id="T45-Y9-cnD"/>
                     <constraint firstItem="CXR-bZ-CUb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="asW-9S-x9g"/>
+                    <constraint firstItem="yHa-yh-64Y" firstAttribute="top" secondItem="ftG-ED-22n" secondAttribute="bottom" id="c1a-Hd-WVi"/>
                     <constraint firstItem="2rx-Ng-xeV" firstAttribute="leading" secondItem="CXR-bZ-CUb" secondAttribute="trailing" constant="6" id="dZH-gt-sZc"/>
                     <constraint firstItem="Bve-Re-bcz" firstAttribute="leading" secondItem="2rx-Ng-xeV" secondAttribute="trailing" constant="5" id="diS-yy-atB"/>
                     <constraint firstItem="2rx-Ng-xeV" firstAttribute="centerY" secondItem="CXR-bZ-CUb" secondAttribute="centerY" id="hJh-uI-AtC"/>
                     <constraint firstItem="baE-wY-lag" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="hQb-xk-tlH"/>
                     <constraint firstItem="ftG-ED-22n" firstAttribute="top" secondItem="CXR-bZ-CUb" secondAttribute="bottom" constant="8" id="hdO-0P-Huc"/>
                     <constraint firstItem="ftG-ED-22n" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="hfP-XF-TBC"/>
+                    <constraint firstAttribute="bottom" secondItem="yHa-yh-64Y" secondAttribute="bottom" id="iOn-oC-GRs"/>
                     <constraint firstAttribute="trailing" secondItem="baE-wY-lag" secondAttribute="trailing" constant="10" id="pSg-iL-MIG"/>
                     <constraint firstAttribute="trailing" secondItem="aSz-8t-PuN" secondAttribute="trailing" constant="10" id="qGb-mL-DrP"/>
+                    <constraint firstAttribute="trailing" secondItem="yHa-yh-64Y" secondAttribute="trailing" id="xNu-I1-arI"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -101,6 +113,7 @@
                 <outlet property="author_userhead" destination="CXR-bZ-CUb" id="kKc-5m-c9a"/>
                 <outlet property="post_content" destination="baE-wY-lag" id="0Ai-ha-0B9"/>
                 <outlet property="post_title" destination="aSz-8t-PuN" id="GrQ-ey-oHc"/>
+                <outlet property="webView" destination="yHa-yh-64Y" id="Lz5-ZG-vyo"/>
             </connections>
             <point key="canvasLocation" x="192" y="212.5"/>
         </tableViewCell>

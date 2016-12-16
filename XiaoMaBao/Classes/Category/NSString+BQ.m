@@ -148,4 +148,49 @@
     CFRelease(uuidString);
     return result;
 }
++ (NSArray *)htmlString:(NSString *)str AspectRatio:(NSArray *)array{
+    NSMutableArray *arr = [NSMutableArray array];
+    
+    NSArray *strArr = [str componentsSeparatedByString:@"<div>"];
+    
+    for (NSString *string in strArr) {
+        if ([string containsString:@"<img src=\""]) {
+            NSArray *stringArr = [string componentsSeparatedByString:@"<img src=\""];
+            if (stringArr.count == 1) {
+                NSDictionary *dic = @{@"text":@"",@"imageUrl":[stringArr.lastObject componentsSeparatedByString:@"\""].firstObject};
+                [arr addObject:dic];
+            }else{
+                MMLog(@"%@",string);
+                
+                if ([string containsString:@"</div>"]) {
+                    NSDictionary *dic = @{@"text":[stringArr.firstObject componentsSeparatedByString:@"</div>"].firstObject,@"imageUrl":[stringArr.lastObject componentsSeparatedByString:@"\""].firstObject};
+                    [arr addObject:dic];
+                }else{
+                    
+                    
+                    
+                    NSDictionary *dic = @{@"text":[stringArr.firstObject componentsSeparatedByString:@"<br>"].firstObject,@"imageUrl":[stringArr.lastObject componentsSeparatedByString:@"\""].firstObject};
+                    [arr addObject:dic];
+                }
+                
+            }
+        }else{
+            
+            NSDictionary *dic = @{@"text":[string componentsSeparatedByString:@"</div>"].firstObject,@"imageUrl":@"",@"aspectRatio":@""};
+            [arr addObject:dic];
+        }
+        
+    }
+    
+
+    return arr;
+}
++ (NSString *)removeSpaceAndNewline:(NSString *)str
+{
+    NSString *temp = [str stringByReplacingOccurrencesOfString:@"" withString:@""];
+//    temp = [temp stringByReplacingOccurrencesOfString:@" " withString:@""];
+    temp = [temp stringByReplacingOccurrencesOfString:@"'" withString:@""];
+    temp = [temp stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    return temp;
+}
 @end

@@ -107,7 +107,7 @@
     self.tabeleView.tableFooterView = [[UIView alloc] init];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageBadge:) name:@"messageBadge" object:nil];
     _dataArray = @[@{@"image":@"icon1",@"name":@"浏览记录"},
-                 @{@"image":@"icon2",@"name":@"热线电话",@"photo":@"400-136-7282"},
+                 @{@"image":@"icon2",@"name":@"热线电话",@"photo":@"010-85170751"},
                  @{@"image":@"icon3",@"name":@"收货地址"},
                  @{@"image":@"icon4",@"name":@"售后服务"},
                  @{@"image":@"icon5",@"name":@"联系我们"},
@@ -296,7 +296,7 @@
             [self pushViewController:VC Animated:YES];
         }break;
         case 1: {//拨打电话号码
-            NSString * telStr = [NSString stringWithFormat:@"telprompt://%@",@"400-136-728"];
+            NSString * telStr = [NSString stringWithFormat:@"telprompt://%@",@"010-85170751"];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
         }break;
         case 2:{

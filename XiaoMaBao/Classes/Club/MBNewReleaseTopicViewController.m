@@ -145,9 +145,15 @@ UINavigationControllerDelegate,LGPhotoPickerViewControllerDelegate,UIImagePicker
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/userCircle/add_post_v2") parameters:@{@"session":sessiondict,@"post_content":post_content,@"circle_id":self.circle_id,@"post_title":post_title} success:^(id responseObject) {
         [self dismiss];
         MMLog(@"%@",responseObject);
-        
+        if ([responseObject[@"status"] integerValue] == 1) {
+            [self show:responseObject[@"info"] time:.8];
+            self.releaseSuccess();
+            [self popViewControllerAnimated:true];
+        }else{
+            [self show:@"发表失败!" time:.8];
+        }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        
+        [self show:@"请求失败!" time:.8];
     }];
     
     
@@ -384,7 +390,12 @@ UINavigationControllerDelegate,LGPhotoPickerViewControllerDelegate,UIImagePicker
     }
 }
 - (void)webViewDidFinishLoad:(UIWebView*)webView{
-    self.webView.keyboardDisplayRequiresUserAction = NO;
+    self.webView.keyboardDisplayRequiresUserAction = true;
+    
+    
+    NSString *script1 = [self.webView stringByEvaluatingJavaScriptFromString:@"window.showtitle()"];
+    [self.webView stringByEvaluatingJavaScriptFromString:script1];
+    
     NSString *script = [self.webView stringByEvaluatingJavaScriptFromString:@"window.mytitleFocus()"];
     [self.webView stringByEvaluatingJavaScriptFromString:script];
 }

@@ -11,11 +11,13 @@
 @interface UIViewController (ProgressHUD)
 //HUD提示
 -(void)show;
+-(void)showView:(UIView *)view;
 -(void)showProgress;
 -(void)show:(NSString *)str;
 -(void)show:(NSString *)str time:(NSInteger)timer;
 -(void)show:(NSString *)str1 and:(NSString *)str2 time:(NSInteger)timer;
 -(void)dismiss;
+-(void)dismissView:(UIView *)view;
 - (void)loginClicksss:(NSString *)type;
 //@property (nonatomic,assign) double progress;
 @end

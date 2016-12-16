@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,18 +16,20 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navBackcolor" translatesAutoresizingMaskIntoConstraints="NO" id="Tqj-RQ-smZ">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="65" id="WF4-Fy-BfO"/>
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="zCB-OU-1ym">
+                    <rect key="frame" x="115" y="10" width="90" height="90"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="93" id="HZp-bc-dnq"/>
-                        <constraint firstAttribute="width" constant="100" id="PIz-xM-jg1"/>
+                        <constraint firstAttribute="height" constant="90" id="HZp-bc-dnq"/>
+                        <constraint firstAttribute="width" constant="90" id="PIz-xM-jg1"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <integer key="value" value="10"/>
+                            <integer key="value" value="5"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                             <integer key="value" value="2"/>
@@ -33,6 +38,7 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3GQ-R4-cEe">
+                    <rect key="frame" x="160" y="100" width="0.0" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="3XE-hk-maT"/>
                     </constraints>
@@ -41,8 +47,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="af9-b2-FcS">
+                    <rect key="frame" x="5" y="145" width="310" height="70"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hS6-eD-iSn">
+                            <rect key="frame" x="0.0" y="0.0" width="77" height="70"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <inset key="titleEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="-40"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="-18" maxX="-55" maxY="0.0"/>
@@ -54,12 +62,14 @@
                             </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hDW-je-aK0">
+                            <rect key="frame" x="77" y="0.0" width="1" height="70"/>
                             <color key="backgroundColor" red="0.67450980392156867" green="0.67843137254901964" blue="0.68235294117647061" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="LrE-pD-PjV"/>
                             </constraints>
                         </imageView>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7xG-Xu-P9n">
+                            <rect key="frame" x="155.5" y="0.0" width="77" height="70"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <inset key="titleEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="-40"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="-18" maxX="-46" maxY="0.0"/>
@@ -71,12 +81,14 @@
                             </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VEk-NU-vr1">
+                            <rect key="frame" x="154.5" y="0.0" width="1" height="70"/>
                             <color key="backgroundColor" red="0.67450980392156867" green="0.67843137254901964" blue="0.68235294117647061" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="wnZ-B9-p3c"/>
                             </constraints>
                         </imageView>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDm-cB-JDu">
+                            <rect key="frame" x="78" y="0.0" width="76.5" height="70"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <inset key="titleEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="-40"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="-18" maxX="-65" maxY="0.0"/>
@@ -88,6 +100,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kVQ-bw-mqa">
+                            <rect key="frame" x="233.5" y="0.0" width="76.5" height="70"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <inset key="titleEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="-40"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="-18" maxX="-55" maxY="0.0"/>
@@ -99,6 +112,7 @@
                             </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CKa-Nu-qjH">
+                            <rect key="frame" x="232.5" y="0.0" width="1" height="70"/>
                             <color key="backgroundColor" red="0.67450980392156867" green="0.67843137254901964" blue="0.68235294117647061" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="ciU-ya-1IH"/>
@@ -136,12 +150,14 @@
                     </constraints>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xwk-KY-dID">
+                    <rect key="frame" x="0.0" y="230" width="320" height="1"/>
                     <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="3AY-87-R7B"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rlu-Jh-VK3">
+                    <rect key="frame" x="110" y="100" width="100" height="40"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="4u2-wz-Fuw"/>
                         <constraint firstAttribute="height" constant="40" id="DE7-Rz-MjI"/>

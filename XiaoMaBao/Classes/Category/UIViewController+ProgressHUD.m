@@ -121,4 +121,13 @@
     
    
 }
+
+-(void)showView:(UIView *)view{
+    [self showMessage:nil toView:view delay:0];
+
+}
+
+-(void)dismissView:(UIView *)view{
+    [self hideHUDForView:view];
+}
 @end

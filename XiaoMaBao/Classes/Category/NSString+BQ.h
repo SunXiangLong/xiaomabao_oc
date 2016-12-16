@@ -57,4 +57,6 @@ typedef enum {
 - (BOOL)isValidPhone;
 /*** 获取手机的UUID *****/
 + (NSString *)UUID;
++ (NSArray *)htmlString:(NSString *)str AspectRatio:(NSArray *)array;
++ (NSString *)removeSpaceAndNewline:(NSString *)str;
 @end

@@ -9,48 +9,103 @@
 #import "MBPostDetailsOneCell.h"
 
 @interface MBPostDetailsOneCell ()
+{
+    NSString *_inHtmlString;
+    NSInteger _allImageHeight;
+    NSString *_postContent;
+    BOOL _isImage;
+}
 @property (weak, nonatomic) IBOutlet UILabel *post_title;
 @property (weak, nonatomic) IBOutlet UILabel *author_name;
-@property (weak, nonatomic) IBOutlet UILabel *reply_cnt;
-@property (weak, nonatomic) IBOutlet UILabel *circle_name;
 @property (weak, nonatomic) IBOutlet UIImageView *author_userhead;
 @property (weak, nonatomic) IBOutlet UILabel *post_content;
 @property (strong, nonatomic)   UIImageView *oldimageView;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 @end
 @implementation MBPostDetailsOneCell
 
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-   self.contentView.bounds = [UIScreen mainScreen].bounds;
+    self.contentView.bounds = [UIScreen mainScreen].bounds;
+    for (UIView *view in self.webView.subviews) {
+        if ([view isKindOfClass:[UIScrollView class]]) {
+            UIScrollView *scrView =   (UIScrollView *)view;
+            scrView.scrollEnabled = NO;
+            return;
+        }
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 -(void)setDataDic:(NSDictionary *)dataDic{
     _dataDic = dataDic;
     
     self.post_content.text = dataDic[@"post_content"];
-    self.post_title.text = dataDic[@"post_title"];
+    
     self.author_name.text = dataDic[@"author_name"];
-//    self.reply_cnt.text = dataDic[@"reply_cnt"];
-//    self.circle_name.text = dataDic[@"circle_name"];
     [self.author_userhead  sd_setImageWithURL:URL(dataDic[@"author_userhead"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-    [self.post_content rowSpace:6];
-    [self.post_title rowSpace:2];
+   
+    
+    _inHtmlString = dataDic[@"post_content"];
+    NSURL *indexFileURL = [[NSBundle mainBundle] URLForResource:@"richTextEditor" withExtension:@"html"];
     
     
+    NSArray *htmlArr =  [NSString htmlString:dataDic[@"post_content"] AspectRatio:dataDic[@"post_imgs_scale"]];
+   
+    _allImageHeight = 0;
+    for (NSDictionary *dic in htmlArr) {
+       
+       
+        if (![dic[@"text"] isEqualToString:@""]&&![dic[@"text"] isEqualToString:@"<br>"]) {
+            _allImageHeight += 20;
+            _allImageHeight += [dic[@"text"] sizeWithFont:SYSTEMFONT(16) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
+        }
+        if ([dic[@"imageUrl"] containsString:@"http://"]) {
+            _isImage = YES;
+        }
+        
+    }
+    if (_isImage) {
+        _webView.hidden = NO;
+        [self.webView loadRequest:[NSURLRequest requestWithURL:indexFileURL]];
+        for (NSString *scale in dataDic[@"post_imgs_scale"]) {
+            _allImageHeight += 20;
+            _allImageHeight += (UISCREEN_WIDTH-20)/[scale floatValue];
+        }
+    }else{
+        _webView.hidden = YES;
+        [self.post_content rowSpace:6];
+        [self.post_title rowSpace:2];
+        self.post_title.text = dataDic[@"post_title"];
+    }
+    
+    
+}
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    
+    MMLog(@"%@",[NSString removeSpaceAndNewline:_inHtmlString]);
+    NSString *place = [NSString stringWithFormat:@"window.placeHTMLToEditor('%@')",[NSString removeSpaceAndNewline:_inHtmlString]];
+    [webView stringByEvaluatingJavaScriptFromString:place];
+    
+    CGFloat height = [[self.webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
+    MMLog(@"%f",height);
     
 }
 - (CGSize)sizeThatFits:(CGSize)size {
     CGFloat totalHeight = 0;
     totalHeight+= [self.post_title sizeThatFits:size].height;
-    totalHeight+= [self.author_name sizeThatFits:size].height;
-    totalHeight+= [self.dataDic[@"post_content"] sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
-    totalHeight+=65;
+    if (!_isImage) {
+        totalHeight+= [self.dataDic[@"post_content"] sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
+
+    }
+    totalHeight+=45;
+    totalHeight+= _allImageHeight;
+    
     return CGSizeMake(size.width, totalHeight);
 }
 @end

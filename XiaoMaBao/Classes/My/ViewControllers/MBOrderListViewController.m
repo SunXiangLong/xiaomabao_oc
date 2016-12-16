@@ -423,15 +423,13 @@
             
             NSString *refund_status = s_str(_orderListArray[section][@"refund_status"]);
             NSString *status1;
-            NSString *status2;
+            
             if ([refund_status isEqualToString:@"1"]) {
                 status1 = @"申请退款/换货";
             }else if([refund_status isEqualToString:@"5"]){
-                status1 = @"进度查询";
-                status2 = @"填写运单号";
+                status1 = @"填写运单号";
             }else if([refund_status isEqualToString:@"3"]){
-                status1 = @"进度查询";
-                status2 = @"重新申请";
+                status1 = @"重新申请";
             }else{
                 status1 = @"进度查询";
             }
@@ -446,20 +444,13 @@
                 }
                 
             }];
-            UIButton *lastBtn;
-            if (status2) {
+            
                 [logisticServiceBtn setTitle:status1 forState:UIControlStateNormal];
-                [logisticServiceBtn1 setTitle:status2 forState:UIControlStateNormal];
+            
                 [footerMainView addSubview:logisticServiceBtn];
-                [footerMainView addSubview:logisticServiceBtn1];
-                [logisticServiceBtn1 addTarget:self action:@selector(realTimeLogistic:) forControlEvents:UIControlEventTouchUpInside];
-                lastBtn = logisticServiceBtn1;
-                
-            }else{
-                [logisticServiceBtn setTitle:status1 forState:UIControlStateNormal];
-                 [footerMainView addSubview:logisticServiceBtn];
-                lastBtn = logisticServiceBtn;
-            }
+            
+            
+            
 
             [logisticServiceBtn addTarget:self action:@selector(realTimeLogistic:) forControlEvents:UIControlEventTouchUpInside];
             
@@ -475,20 +466,13 @@
                 }
                 
             }];
-            if (status2) {
-                [logisticServiceBtn1 mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.right.equalTo(sendServiceBtn.mas_left).offset(-5);
-                    make.centerY.mas_equalTo(0);
-                    make.width.mas_equalTo(60);
-                    
-                }];
-            }
+            
             
             [footerMainView addSubview:detailsBtn];
            
             
             [detailsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(lastBtn.mas_left).offset(-5);
+                make.right.equalTo(logisticServiceBtn.mas_left).offset(-5);
                 make.centerY.mas_equalTo(0);
                 make.width.mas_equalTo(45);
             }];
@@ -683,7 +667,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"order/info_new"] parameters:@{@"session":dict,@"order_sn":[_orderListArray[row] valueForKeyPath:@"parent_order_sn"]} success:^(NSURLSessionDataTask *operation, MBModel *model) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/pay_info"] parameters:@{@"session":dict,@"order_sn":[_orderListArray[row] valueForKeyPath:@"parent_order_sn"]} success:^(NSURLSessionDataTask *operation, MBModel *model) {
         [self dismiss];
         if([model.status[@"succeed"] isEqualToNumber:@1]){
              MMLog(@"%@",model.data);

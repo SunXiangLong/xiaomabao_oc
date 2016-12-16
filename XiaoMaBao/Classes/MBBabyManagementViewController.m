@@ -25,7 +25,7 @@
     [super viewDidLoad];
     [self setCollerctonView];
     // Do any additional setup after loading the view from its nib.
-    _nameLable.text = self.name;
+    
     _dateLable.text = self.date;
     _timeLable.text = self.addtime;
     _textLable.text  = self.content;
@@ -72,6 +72,9 @@ return @"dian_image";
     [self presentViewController:alertController animated:YES completion:nil];
 
 }
+-(NSString *)titleStr{
+return @"详情";
+}
 -(void)setDeleteRecords{
 
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
@@ -116,7 +119,7 @@ return @"dian_image";
         
         if (indexPath.section == 0) {
             UICollectionReusableView *reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView1" forIndexPath:indexPath];
-            MBUserDataSingalTon  *userInfo = [MBSignaltonTool getCurrentUserInfo];
+            
             [reusableview addSubview:_headView];
             if ([_image isKindOfClass:[NSString class]]) {
                 [_HeadPhotoImageView sd_setImageWithURL:[NSURL URLWithString:_image] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
@@ -125,7 +128,7 @@ return @"dian_image";
                 _HeadPhotoImageView.image = _image;
             }
             
-            _nameLable.text = userInfo.user_baby_info[@"nickname"];
+            _nameLable.text = [MBSignaltonTool getCurrentUserInfo].nick_name;//userInfo.user_baby_info[@"nickname"];
             
             [_headView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(0);
@@ -155,9 +158,9 @@ return @"dian_image";
                          }
                          completion:nil];
     }];
-    cell.showImage.contentMode =  UIViewContentModeScaleAspectFill;
-    cell.showImage.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    cell.showImage.clipsToBounds  = YES;
+//    cell.showImage.contentMode =  UIViewContentModeScaleAspectFill;
+//    cell.showImage.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//    cell.showImage.clipsToBounds  = YES;
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -172,7 +175,10 @@ return @"dian_image";
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    return CGSizeMake( UISCREEN_WIDTH, 106);
+    
+    
+    
+    return CGSizeMake( UISCREEN_WIDTH, 50 + [self.content sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake((UISCREEN_WIDTH - 30), MAXFLOAT)].height);
  
     
 }

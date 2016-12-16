@@ -40,11 +40,12 @@
     
     <body>
         <div id="mytitle" contenteditable="true"  placeholder="请输入标题"></div>
-        <div id="content" contenteditable="true"  placeholder="轻触屏幕开始编辑正文"></div>
+        <div id="content" contenteditable="true"  placeholder="轻触屏幕编辑正文"></div>
         <script>
             var savedRange;
             var editableContent = document.getElementById("content");
             var editableMytitle = document.getElementById("mytitle");
+            hidetitle();
         function hidetitle(){
             document.getElementById('mytitle').style.display = 'none';
         }
@@ -55,6 +56,11 @@
         
           editableMytitle.focus();
         
+        }
+        function editableContentFocus(){
+            
+            editableContent.focus();
+            
         }
         
         function insertImage(imageName, imagePath)
@@ -82,6 +88,7 @@
         
         function placeHTMLToEditor(html)
         {
+            editableContent.contentEditable = false;
             editableContent.innerHTML = html;
         }
         

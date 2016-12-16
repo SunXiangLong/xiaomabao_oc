@@ -41,7 +41,7 @@
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_list"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        
+        MMLog(@"%@",responseObject);
         [self dismiss];
         _addressListArr = [responseObject valueForKeyPath:@"data"];
         [_tableView reloadData];
@@ -76,6 +76,7 @@
     cell.photo.text = dic[@"mobile"];
     cell.address.text = [NSString stringWithFormat:@"%@-%@-%@-%@",dic[@"province_name"],dic[@"city_name"],dic[@"district_name"],dic[@"address"]];
     cell.addressDic = dic;
+    MMLog(@"%@",dic);
     cell.VC =self;
     cell.delagate =self;
     if ([dic[@"is_default"] intValue] == 1) {

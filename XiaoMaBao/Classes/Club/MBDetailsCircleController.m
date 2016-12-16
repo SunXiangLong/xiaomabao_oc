@@ -8,7 +8,6 @@
 
 #import "MBDetailsCircleController.h"
 #import "MBDetailsCircleTableHeadView.h"
-#import "MBReleaseTopicViewController.h"
 #import "MBPostDetailsViewController.h"
 #import "MBDetailsCircleCell.h"
 #import "MBNewReleaseTopicViewController.h"
@@ -19,9 +18,10 @@
      */
     NSInteger _page;
     /**
-     *  是否从下一个界面返回
+     *  是否刷新数据
      */
-    BOOL _isDimiss;
+    BOOL _refreshData;
+   
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /**
@@ -33,20 +33,6 @@
 
 @implementation MBDetailsCircleController
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    
-    
-    if (_isDimiss) {
-        _page = 1;
-        [self.dataArray removeAllObjects];
-        [self setData];
-    
-        _isDimiss   = !_isDimiss;
-    }
-}
 /**
  *   帖子数据源懒加载
  *
@@ -62,7 +48,7 @@
     [super viewDidLoad];
     _page = 1;
    [self setData];
-
+    [self pullOnLoading];
     [self.tableView registerNib:    [UINib nibWithNibName:@"MBDetailsCircleCell" bundle:nil] forCellReuseIdentifier:@"MBDetailsCircleCell"];
  
     
@@ -82,17 +68,17 @@
         
 //      MMLog(@"%@",responseObject);
         [self dismiss];
-        
+        MMLog(@"%ld",[responseObject[@"data"] count]);
+        MMLog(@"%ld",self.dataArray.count);
         if (responseObject) {
-            if ([[responseObject valueForKeyPath:@"data"] count]>0) {
-                [self.dataArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
-                
+            if ([responseObject[@"data"] count]>0) {
+                [self.dataArray addObjectsFromArray:responseObject[@"data"]];
+                MMLog(@"%ld",self.dataArray.count);
                 if (_page ==1) {
-                       _tableView.tableHeaderView = [self setTableHeadView];
-                    [self pullOnLoading];
-                    _tableView.delegate = self;
-                    _tableView.dataSource = self;
-                                    }
+                    _tableView.tableHeaderView = [self setTableHeadView];
+                    
+  
+                }
                 _page++;
                 [_tableView reloadData];
                 [self.tableView .mj_footer endRefreshing];
@@ -145,14 +131,18 @@
         self.is_join = @"1";
         _tableView.tableHeaderView = [self setTableHeadView];
             if (isRightButton) {
-                _isDimiss = YES;
                 
-//                MBNewReleaseTopicViewController *VC = [[MBNewReleaseTopicViewController    alloc] init];
-//                VC.circle_id = self.circle_id;
-//                [self pushViewController:VC Animated:YES];
-                MBReleaseTopicViewController *VC = [[MBReleaseTopicViewController    alloc] init];
+                MBNewReleaseTopicViewController *VC = [[MBNewReleaseTopicViewController    alloc] init];
                 VC.circle_id = self.circle_id;
+                WS(weakSelf);
+                VC.releaseSuccess = ^(){
+                    _page = 1;
+                    [weakSelf.dataArray removeAllObjects];
+                    [weakSelf setData];
+                    
+                };
                 [self pushViewController:VC Animated:YES];
+
             }
      
      
@@ -225,10 +215,20 @@
     if ([self.is_join isEqualToString:@"0"]) {
          [self prompt];
     }else{
-        _isDimiss = YES;
-        MBReleaseTopicViewController *VC = [[MBReleaseTopicViewController    alloc] init];
+        
+        MBNewReleaseTopicViewController *VC = [[MBNewReleaseTopicViewController    alloc] init];
         VC.circle_id = self.circle_id;
+        VC.releaseSuccess = ^(){
+            _page = 1;
+            [self.dataArray removeAllObjects];
+            
+            [self setData];
+        
+        };
         [self pushViewController:VC Animated:YES];
+//        MBReleaseTopicViewController *VC = [[MBReleaseTopicViewController    alloc] init];
+//        VC.circle_id = self.circle_id;
+//        [self pushViewController:VC Animated:YES];
     }
 
 
@@ -239,7 +239,7 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 1;
+    return self.dataArray.count?1:0;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     

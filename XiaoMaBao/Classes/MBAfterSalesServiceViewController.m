@@ -1036,7 +1036,12 @@ return @"申请售后服务";
     
 }
 
+- (void)infoAction:(NSNotification *)aNotification
 
+{
+    _lable.text =  _textField.text;
+    
+}
 #pragma mark --UITextViewDelegate
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     _problem.placeholder = nil;

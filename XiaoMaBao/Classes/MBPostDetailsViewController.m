@@ -16,67 +16,67 @@
 #import "MBPostDetailsFooterOne.h"
 #import "MBPostDetailsFooterTwo.h"
 @interface MBPostDetailsViewController ()<UITableViewDelegate,UITableViewDataSource>
-{
-
-    /**
-     *  titltButton的飙升箭头
-     */
-    UIImageView *_imageView;
-    /**
-     *  筛选view
-     */
-    UIView *_topView;
-    /**
-     *  是否弹出筛选view
-     */
-    BOOL _isbool;
-    /**
-     *  是否被收藏
-     */
-    BOOL _isCollection;
-   
-    NSIndexPath *_dianjiIndexPath;
+    {
+        
+        /**
+         *  titltButton的飙升箭头
+         */
+        UIImageView *_imageView;
+        /**
+         *  筛选view
+         */
+        UIView *_topView;
+        /**
+         *  是否弹出筛选view
+         */
+        BOOL _isbool;
+        /**
+         *  是否被收藏
+         */
+        BOOL _isCollection;
+        
+        NSIndexPath *_dianjiIndexPath;
+        
+        BOOL _isRefresh;
+        
+        
+    }
     
-    BOOL _isRefresh;
-   
-
-}
-
-/**
- *  收藏button
- */
-@property (weak, nonatomic) IBOutlet UIButton *collectionButton;
-/**
- *   底层视图控件
- */
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-/**
- *  存放跟帖用户的相关信息
- */
-@property (copy, nonatomic) NSMutableArray *commentsArray;
-/**
- *  页数
- */
-@property (assign, nonatomic)   NSInteger page;
-/**
- *  楼主id
- */
-@property (copy, nonatomic) NSString *poster;
-/**
- *  筛选帖子的条件 0是默认全部，1是只看楼主，2是只看图片
- */
-@property (copy, nonatomic) NSString *isImage;
-/**
- *   是否是下个界面返回
- */
-
-@property (nonatomic,assign) BOOL isDismiass;
-@end
+    /**
+     *  收藏button
+     */
+    @property (weak, nonatomic) IBOutlet UIButton *collectionButton;
+    /**
+     *   底层视图控件
+     */
+    @property (weak, nonatomic) IBOutlet UITableView *tableView;
+    /**
+     *  存放跟帖用户的相关信息
+     */
+    @property (copy, nonatomic) NSMutableArray *commentsArray;
+    /**
+     *  页数
+     */
+    @property (assign, nonatomic)   NSInteger page;
+    /**
+     *  楼主id
+     */
+    @property (copy, nonatomic) NSString *poster;
+    /**
+     *  筛选帖子的条件 0是默认全部，1是只看楼主，2是只看图片
+     */
+    @property (copy, nonatomic) NSString *isImage;
+    /**
+     *   是否是下个界面返回
+     */
+    
+    @property (nonatomic,assign) BOOL isDismiass;
+    @end
 
 @implementation MBPostDetailsViewController
-
-
-
+    
+    
+    
 - (NSMutableArray *)commentsArray{
     if (!_commentsArray) {
         _commentsArray = [NSMutableArray array];
@@ -89,19 +89,19 @@
     _page =1;
     _poster =  @"1";
     _isImage = @"1";
-   
+    
     
     [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsOneCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsOneCell"];
     [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsTwoCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsTwoCell"];
     [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsViewCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsViewCell"];
     
     [self is_collectionData];
-   [self setData];
+    [self setData];
     
-
-
+    
+    
 }
-
+    
 #pragma mark -- tittButton和帖子筛选分类的View的Ui布局
 - (void)setTitle{
     UILabel *lable = [[UILabel alloc] init];
@@ -152,7 +152,7 @@
         self.isImage = s_str(number);
         self.page = 1;
         [self.tableView.mj_footer resetNoMoreData];
-     
+        
         [self.commentsArray removeAllObjects];
         [self setData];
         [self showTopView];
@@ -179,52 +179,52 @@
     _isbool = !_isbool;
     
 }
-
+    
 #pragma mark -- 帖子数据
 - (void)setData{
     if (_isRefresh) {
-      [_tableView.mj_footer endRefreshingWithNoMoreData];
+        [_tableView.mj_footer endRefreshingWithNoMoreData];
         _isRefresh  = NO;
         return;
     }
     [self show];
     NSString *page = s_Integer(_page);
-      NSString *url = [NSString stringWithFormat:@"%@%@/%@/%@/%@/%@",BASE_URL_root,@"/circle/get_post_detail",self.post_id,page,_isImage,_poster];
+    NSString *url = [NSString stringWithFormat:@"%@%@/%@/%@/%@/%@",BASE_URL_root,@"/circle/get_post_detail",self.post_id,page,_isImage,_poster];
     if (self.comment_id) {
         url = [NSString stringWithFormat:@"%@/%@",url,self.comment_id];
     }
-  
-
+    
+    
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        //        MMLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         [_tableView.mj_footer endRefreshing];
         if (responseObject) {
-            
+           
             if (_isDismiass) {
-              
-                    NSDictionary *dataDic = [[responseObject valueForKeyPath:@"comments"] lastObject];
+                
+                NSDictionary *dataDic = [[responseObject valueForKeyPath:@"comments"] lastObject];
                 
                 
-                    NSDictionary *dic = _commentsArray.lastObject;
+                NSDictionary *dic = self.commentsArray.lastObject;
                 
                 if (!dataDic&&[dic[@"comment_id"]isEqualToString:dataDic[@"comment_id"]]) {
-                     _isDismiass = !_isDismiass;
+                    _isDismiass = !_isDismiass;
                     return ;
                 }
-                    [_commentsArray addObject:dataDic];
+                [self.commentsArray addObject:dataDic];
                 
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:self.commentsArray.count-1];
-                    [self.tableView reloadData];
-                    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-                    _isRefresh =YES;
-                    _isDismiass = !_isDismiass;
-                   return ;
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:self.commentsArray.count-1];
+                [self.tableView reloadData];
+                [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+                _isRefresh =YES;
+                _isDismiass = !_isDismiass;
+                return ;
                 
             }
-           
+            
             if (_page ==1) {
-
+                
                 [self.commentsArray addObject:[responseObject valueForKeyPath:@"post_detail"]];
                 [self.commentsArray addObjectsFromArray:[responseObject valueForKeyPath:@"comments"]];
                 
@@ -232,7 +232,7 @@
                 [self.tableView reloadData];
                 _page++;
                 
-           
+                
                 
             }else{
                 
@@ -329,7 +329,7 @@
     }];
     
 }
-
+    
 -(NSString *)rightImage{
     
     return @"dian_image";
@@ -339,8 +339,8 @@
     [self share];
 }
 -(void)share{
-     NSDictionary *dic = _commentsArray[0];
-     NSString *post_content = dic[@"post_content"];
+    NSDictionary *dic = _commentsArray[0];
+    NSString *post_content = dic[@"post_content"];
     if (post_content.length>50) {
         post_content = [post_content substringToIndex:50];
     }
@@ -389,7 +389,7 @@
                                break;
                            }
                            default:
-                               break;
+                           break;
                        }
                        
                    }];
@@ -419,8 +419,9 @@
         return;
     }
     _isDismiass = YES;
-    MBPostReplyController *VC = [[MBPostReplyController alloc] init];
     
+    
+    MBPostReplyController *VC = [[MBPostReplyController alloc] init];
     VC.title   = [NSString stringWithFormat:@"回复%@:",@"楼主"];
     VC.post_id = self.post_id;
     VC.comment_reply_id  = @"0";
@@ -432,42 +433,30 @@
             if (weakSelf.commentsArray.count<20) {
                 weakSelf.page =1;
             }
+            _isDismiass = YES;
             weakSelf.poster =  @"1";
             weakSelf.isImage = @"1";
             [weakSelf setData];
             
         }
-    
+        
     };
     [self pushViewController:VC Animated:YES];
-   
+    
     
 }
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     cell.fd_enforceFrameLayout = YES;
     NSDictionary *dic = _commentsArray[indexPath.section];
     if (indexPath.section == 0) {
-        if (indexPath.row ==0) {
-            MBPostDetailsOneCell *detailsOneCell = (MBPostDetailsOneCell *)cell;
-            detailsOneCell.dataDic =  dic;
-        }else{
-            MBPostDetailsViewCell *DetailsViewCell = (MBPostDetailsViewCell *)cell;
-            DetailsViewCell.imageUrl = dic[@"post_imgs"][indexPath.row -1];
-            DetailsViewCell.num = [dic[@"post_imgs_scale"][indexPath.row -1 ] floatValue];
-            
-        }
+        MBPostDetailsOneCell *detailsOneCell = (MBPostDetailsOneCell *)cell;
+        detailsOneCell.dataDic =  dic;
+
+        
     }else{
         
-        if (indexPath.row ==0 ) {
-            MBPostDetailsTwoCell *DetailsTwoCell = (MBPostDetailsTwoCell *)cell;
-            DetailsTwoCell.dataDic =  dic;
-            //            DetailsTwoCell.indexPath = indexPath;
-                    }else{
-            MBPostDetailsViewCell *DetailsViewCell = (MBPostDetailsViewCell *)cell;
-            DetailsViewCell.imageUrl = dic[@"comment_imgs"][indexPath.row -1 ];
-            DetailsViewCell.num = [dic[@"comment_imgs_scale"][indexPath.row - 1] floatValue];
-            
-        }
+        MBPostDetailsTwoCell *DetailsTwoCell = (MBPostDetailsTwoCell *)cell;
+        DetailsTwoCell.dataDic =  dic;
         
     }
     
@@ -476,25 +465,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+    
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.commentsArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-      NSDictionary *dic = _commentsArray[section];
-    if (section ==0) {
-        if ([dic[@"post_imgs"] count]>0 ) {
-            return [dic[@"post_imgs"] count]+1;
-        }
-        return 1;
-    }
-    
-    if ([dic[@"comment_imgs"] count]>0 ) {
-        return [dic[@"comment_imgs"] count]+1;
-    }
+   
     return 1;
-
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
@@ -504,37 +483,28 @@
     return 0.00001;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-  
-        if (indexPath.section ==0) {
-            if (indexPath.row ==0) {
-                return [tableView fd_heightForCellWithIdentifier:@"MBPostDetailsOneCell" cacheByIndexPath:indexPath configuration:^(MBPostDetailsOneCell *cell) {
-                    [self configureCell:cell atIndexPath:indexPath];
-                    
-                }];
-
-            }
-            
-            return [tableView fd_heightForCellWithIdentifier:@"MBPostDetailsViewCell" cacheByIndexPath:indexPath configuration:^(MBPostDetailsViewCell *cell) {
-                [self configureCell:cell atIndexPath:indexPath];
-                
-            }];
-        }
-  
-        if (indexPath.row == 0) {
-            return [tableView fd_heightForCellWithIdentifier:@"MBPostDetailsTwoCell" cacheByIndexPath:indexPath configuration:^(MBPostDetailsTwoCell *cell) {
-                [self configureCell:cell atIndexPath:indexPath];
-                
-            }];
-       
-    }
-    return [tableView fd_heightForCellWithIdentifier:@"MBPostDetailsViewCell" cacheByIndexPath:indexPath configuration:^(MBPostDetailsViewCell *cell) {
-        [self configureCell:cell atIndexPath:indexPath];
+    
+    if (indexPath.section ==0) {
         
-    }];
+            return [tableView fd_heightForCellWithIdentifier:@"MBPostDetailsOneCell" cacheByIndexPath:indexPath configuration:^(MBPostDetailsOneCell *cell) {
+                [self configureCell:cell atIndexPath:indexPath];
+                
+            }];
+            
+        
+    }
+    
+    
+    return [tableView fd_heightForCellWithIdentifier:@"MBPostDetailsTwoCell" cacheByIndexPath:indexPath configuration:^(MBPostDetailsTwoCell *cell) {
+            [self configureCell:cell atIndexPath:indexPath];
+            
+        }];
+        
+    
     
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-
+    
     return [[UIView alloc] init];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -550,18 +520,18 @@
         Footer.user_name.text = _commentsArray[section][@"circle_name"];
         
     }else{
-    
-       MBPostDetailsFooterTwo *Footer = [MBPostDetailsFooterTwo instanceView];
+        
+        MBPostDetailsFooterTwo *Footer = [MBPostDetailsFooterTwo instanceView];
         Footer.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 30);
         Footer.indexPath =  [NSIndexPath indexPathForRow:section inSection:0];
         [footerView addSubview:Footer];
         @weakify(self);
         [[Footer.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSIndexPath *indexPath) {
-
+            
             @strongify(self);
             NSDictionary *dic = self.commentsArray[indexPath.row];
             NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-
+            
             if (!sid) {
                 [self  loginClicksss:@"mabao"];
                 return;
@@ -571,10 +541,24 @@
             VC.title   = [NSString stringWithFormat:@"回复%@:",dic[@"user_name"]];
             VC.post_id =self.post_id;
             VC.comment_reply_id  = dic[@"comment_id"];
-
+            WS(weakSelf)
+            VC.successEvaluation = ^(){
+                
+                if (weakSelf.isDismiass) {
+                    
+                    if (weakSelf.commentsArray.count<20) {
+                        weakSelf.page =1;
+                    }
+                    weakSelf.poster =  @"1";
+                    weakSelf.isImage = @"1";
+                    [weakSelf setData];
+                    
+                }
+                
+            };
             [self pushViewController:VC Animated:YES];
         }];
-
+        
         
     }
     
@@ -583,34 +567,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section ==0) {
-        if (indexPath.row ==0) {
-            
-            MBPostDetailsOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsOneCell"];
-            [self configureCell:cell atIndexPath:indexPath];
-
-             return cell;
-            
-        }
-       MBPostDetailsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsViewCell"];
+        MBPostDetailsOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsOneCell"];
         [self configureCell:cell atIndexPath:indexPath];
         
         return cell;
     }
     
-    if (indexPath.row == 0) {
-        
-        MBPostDetailsTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsTwoCell"];
-        [self configureCell:cell atIndexPath:indexPath];
-        return cell;
-        
-    }
-    MBPostDetailsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsViewCell"];
+    MBPostDetailsTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBPostDetailsTwoCell"];
     [self configureCell:cell atIndexPath:indexPath];
-    
     return cell;
     
 }
-
+    
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     
     if (_isbool) {
@@ -623,6 +591,4 @@
     }
     
 }
-
-
 @end

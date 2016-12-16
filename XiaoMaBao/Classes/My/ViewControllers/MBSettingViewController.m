@@ -182,12 +182,16 @@
     MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
     
     [user clearUserInfo];
+    
     MBNavigationViewController *nav =   self.tabBarController.childViewControllers.firstObject ;
     MBNewBabyController *VC = nav.childViewControllers.firstObject;
-    
     VC.oldSid = nil;
     [MBLogOperation deletePasswordAndUserName];
+    //发送通知，改变麻包圈的圈子状态 未登录，显示推荐圈子
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"circleState" object:nil];
+    //清除极光推送 个推的uuid。
     [MobClick profileSignOff];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

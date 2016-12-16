@@ -24,7 +24,7 @@ pod 'SDCycleScrollView','~> 1.6'
 pod 'Appirater'
 pod 'Masonry'
 pod 'FreeStreamer'
-pod 'UMengAnalytics'
+
 pod 'ReactiveCocoa', '~> 2.5'
 pod 'JPFPSStatus'
 pod 'DateTools'
@@ -37,6 +37,8 @@ pod 'YYImage/WebP'
 pod 'ZFPlayer'
 pod 'StreamingKit'
 
+#友盟统计
+pod 'UMengAnalytics'
 #pod "PromiseKit"
 # 主模块(必须)
 pod 'ShareSDK3'

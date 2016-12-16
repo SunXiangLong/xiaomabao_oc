@@ -77,12 +77,12 @@
 #pragma mark -- 请求数据
 - (void)requestData{
     
-    [self show];
+    [self showView:self.view];
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/AffordablePlanet/index2"];
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-        [self dismiss];
+        [self dismissView:self.view];
         
         if (responseObject) {
             _model = [AffordablePlanetModel yy_modelWithJSON:responseObject];
@@ -105,6 +105,7 @@
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         MMLog(@"%@",error);
+        [self dismissView:self.view];
         [self show:@"请求失败" time:1];
         
         

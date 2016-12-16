@@ -68,6 +68,7 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
     [self setShufflingFigureData];
     
+    // 改变麻包圈状态  根据其他界面的在改变去改变（退出登录，加入或退出圈子等）
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(circleState) name:@"circleState" object:nil];
 
     
@@ -88,6 +89,7 @@
 - (void)circleState{
     [self.recommendArray removeAllObjects];
     [self.myCircleArray removeAllObjects];
+    
     [self setData];
 
 
@@ -148,7 +150,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_circle_ads"];
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
-        MMLog(@"%@",responseObject);
+       
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                 _bandImageArray = [responseObject valueForKeyPath:@"data"];
@@ -184,6 +186,7 @@
         NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_recommend_cat"];
         [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
             [self dismiss];
+            
             if (responseObject) {
                 [self.recommendArray addObjectsFromArray:[responseObject valueForKeyPath:@"recommend"]];
                 _numberOfSections = 1;
@@ -204,7 +207,7 @@
         
         [MBNetworking   POSTOrigin:url parameters:@{@"session":sessiondict} success:^(id responseObject) {
             [self dismiss];
-//          MMLog(@"%@",responseObject);
+          
             if (responseObject) {
                 
                 [self.myCircleArray addObjectsFromArray:[responseObject valueForKeyPath:@"user_circle"]];

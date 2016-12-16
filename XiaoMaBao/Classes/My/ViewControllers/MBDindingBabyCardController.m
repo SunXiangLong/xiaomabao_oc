@@ -48,36 +48,37 @@
         NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
         CGRect keyboardRect = [aValue CGRectValue];
         CGFloat height = keyboardRect.size.height;
-      
         self.bottom.constant = height+10;
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.view layoutIfNeeded];
+        } completion:nil];
+        
      
         
         
     }];
     
     // 把监听到的通知转换信号
-    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardDidHideNotification object:nil] subscribeNext:^(id x) {
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] subscribeNext:^(id x) {
         
         @strongify(self);
         if (self.bottom.constant != 0  ) {
-         
-          self.bottom.constant =  10;
+            self.bottom.constant = 10;
+            [UIView animateWithDuration:0.25 animations:^{
+                
+                [self.view layoutIfNeeded];
+            } completion:nil];
           
             
         }
         
     }];
+    
+    
 }
 - (IBAction)binding:(id)sender {
     
     _card_pass = [NSString stringWithFormat:@"%@%@%@%@",_textfieldOne.text,_textfieldTwo.text,_textfieldThree.text,_textfieldFour.text];
-    if (_card_pass.length != 16) {
-        
-        [self show:@"请输入完整的麻包卡密码" time:.5];
-        _lable .hidden = NO;
-        
-        return;
-    }
      _lable .hidden = YES;
     
     [self setData];
@@ -90,7 +91,7 @@
 
 - (void)setData{
     
-    
+    [_recordTextFileld resignFirstResponder];
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
@@ -108,7 +109,7 @@
             [self.myCircleViewSubject sendNext:@1];
             [self popViewControllerAnimated:YES];
         }else{
-        
+            _lable.hidden = NO;
             [self show:[responseObject valueForKeyPath:@"info"] time:1];
        
            
@@ -126,12 +127,18 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)textFieldDidEndEditing:(UITextField *)textField{
 
+    if (textField.text.length > 4) {
+        textField.text = [textField.text substringToIndex:4];
+    }
+
+}
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
         switch (textField.tag) {
             case 0:{
                 if (range.location>3) {//限制只允许输入4位
-                    _textfieldTwo.text = string;
+
                     [_textfieldTwo becomeFirstResponder];
                     return NO;
                     
@@ -140,7 +147,7 @@
             } break;
             case 1: {
                 if (range.location>3) {//限制只允许输入4位
-                    _textfieldThree.text = string;
+
                     [_textfieldThree    becomeFirstResponder];
                     return NO;
                     
@@ -148,7 +155,7 @@
             }break;
             case 2:{
                 if (range.location>3) {//限制只允许输入4位
-                    _textfieldFour.text = string;
+
                     [_textfieldFour    becomeFirstResponder];
                     return NO;
                     

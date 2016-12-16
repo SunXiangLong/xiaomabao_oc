@@ -80,6 +80,7 @@
     }
     //提示用户评价
     [self setAppirater];
+    
     [self.window makeKeyAndVisible];
     //第一次打开应用显示导航
     [MBLogOperation guidePage:self.window];
@@ -171,15 +172,14 @@
     [MBShare onResp:resp];
 }
 
-
 /**
  *  提醒用户评价app  安装应用1天后提醒5次   点击以后提醒 推迟两天提醒评价
  */
 -(void)setAppirater{
     
     [Appirater setAppId:@"1049237132"];
-    [Appirater setDaysUntilPrompt:1];
-    [Appirater setUsesUntilPrompt:5];
+    [Appirater setDaysUntilPrompt:2];
+    [Appirater setUsesUntilPrompt:10];
     [Appirater setSignificantEventsUntilPrompt:-1];
     [Appirater setTimeBeforeReminding:2];
     [Appirater setDebug:NO];

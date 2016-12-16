@@ -44,6 +44,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self getCityList:@"1"];
+    _provinceID = _address_dic[@"province"];
+    _cityID = _address_dic[@"city"];
+    _districtID = _address_dic[@"district"];
     self.bottom.constant = UISCREEN_HEIGHT-TOP_Y;
     self.maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_HEIGHT)];
     self.maskView.backgroundColor = [UIColor blackColor];

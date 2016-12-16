@@ -132,6 +132,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return [tableView fd_heightForCellWithIdentifier:@"MBDetailsCircleTbaleViewCell" cacheByIndexPath:indexPath configuration:^(MBDetailsCircleTbaleViewCell *cell) {
+        
         [self configureCell:cell atIndexPath:indexPath];
         
     }];

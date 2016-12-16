@@ -11,11 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="w5e-k9-YmQ" customClass="MBPostDetailsTwoCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="114" id="w5e-k9-YmQ" customClass="MBPostDetailsTwoCell">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="114"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w5e-k9-YmQ" id="NXO-sP-m2r">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="400" height="113.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="3eo-Wt-aSv">
@@ -39,7 +39,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="沙发" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMu-AX-FxH">
-                        <rect key="frame" x="278" y="16" width="32" height="16"/>
+                        <rect key="frame" x="358" y="16" width="32" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="pVj-67-zhi"/>
                             <constraint firstAttribute="width" constant="32" id="wSq-q5-t7z"/>
@@ -58,7 +58,7 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5u-if-OBw">
-                        <rect key="frame" x="228.5" y="17" width="45.5" height="13"/>
+                        <rect key="frame" x="308.5" y="17" width="45.5" height="13"/>
                         <attributedString key="attributedText">
                             <fragment content="40分钟前">
                                 <attributes>
@@ -70,14 +70,18 @@
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KFF-aa-C72">
-                        <rect key="frame" x="10" y="48" width="300" height="0.0"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.89508551520270274" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XVv-XO-2nb">
+                        <rect key="frame" x="0.0" y="49" width="400" height="10"/>
+                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="RSQ-oW-7ug"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="delegate" destination="w5e-k9-YmQ" id="BcN-J5-tzU"/>
+                        </connections>
+                    </webView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fW2-6E-pdI">
-                        <rect key="frame" x="50" y="57" width="260" height="0.0"/>
+                        <rect key="frame" x="50" y="69" width="340" height="0.0"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_num2" translatesAutoresizingMaskIntoConstraints="NO" id="DsH-Od-V8d">
                                 <rect key="frame" x="5" y="4" width="10" height="10"/>
@@ -93,7 +97,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYg-Ed-z1n">
-                                <rect key="frame" x="10" y="22" width="240" height="0.0"/>
+                                <rect key="frame" x="10" y="22" width="320" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.55686274509803924" alpha="0.79771959459459463" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -115,23 +119,22 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="uMu-AX-FxH" secondAttribute="trailing" constant="10" id="0IO-Ov-dq3"/>
                     <constraint firstItem="uMu-AX-FxH" firstAttribute="centerY" secondItem="Y5u-if-OBw" secondAttribute="centerY" id="3TP-Ze-eMX"/>
-                    <constraint firstItem="fW2-6E-pdI" firstAttribute="top" secondItem="KFF-aa-C72" secondAttribute="bottom" constant="9" id="7gB-40-RcU"/>
                     <constraint firstItem="qEb-lc-3Dp" firstAttribute="leading" secondItem="3eo-Wt-aSv" secondAttribute="trailing" constant="6" id="EQb-dX-lYj"/>
-                    <constraint firstItem="3eo-Wt-aSv" firstAttribute="top" secondItem="NXO-sP-m2r" secondAttribute="top" constant="9" id="Gpo-xa-GXz"/>
-                    <constraint firstItem="KFF-aa-C72" firstAttribute="top" secondItem="3eo-Wt-aSv" secondAttribute="bottom" constant="9" id="XiW-DC-sSz"/>
+                    <constraint firstItem="3eo-Wt-aSv" firstAttribute="top" secondItem="NXO-sP-m2r" secondAttribute="top" constant="10" id="Gpo-xa-GXz"/>
+                    <constraint firstItem="XVv-XO-2nb" firstAttribute="leading" secondItem="NXO-sP-m2r" secondAttribute="leading" id="RLZ-5h-wIh"/>
+                    <constraint firstItem="XVv-XO-2nb" firstAttribute="top" secondItem="3eo-Wt-aSv" secondAttribute="bottom" constant="10" id="Tyn-OF-gFH"/>
+                    <constraint firstAttribute="trailing" secondItem="XVv-XO-2nb" secondAttribute="trailing" id="a8v-E9-00e"/>
                     <constraint firstItem="qEb-lc-3Dp" firstAttribute="centerY" secondItem="3eo-Wt-aSv" secondAttribute="centerY" id="cNK-t8-wb3"/>
-                    <constraint firstItem="KFF-aa-C72" firstAttribute="leading" secondItem="NXO-sP-m2r" secondAttribute="leading" constant="10" id="dtm-5t-WPp"/>
                     <constraint firstAttribute="trailing" secondItem="fW2-6E-pdI" secondAttribute="trailing" constant="10" id="eSj-uU-HeP"/>
                     <constraint firstItem="uMu-AX-FxH" firstAttribute="leading" secondItem="Y5u-if-OBw" secondAttribute="trailing" constant="4" id="eZJ-ta-wyO"/>
                     <constraint firstItem="uMu-AX-FxH" firstAttribute="centerY" secondItem="qEb-lc-3Dp" secondAttribute="centerY" id="hZy-eO-Gkl"/>
                     <constraint firstItem="fW2-6E-pdI" firstAttribute="leading" secondItem="NXO-sP-m2r" secondAttribute="leading" constant="50" id="iq7-ub-nQo"/>
-                    <constraint firstAttribute="trailing" secondItem="KFF-aa-C72" secondAttribute="trailing" constant="10" id="jdV-bC-ceL"/>
                     <constraint firstItem="3eo-Wt-aSv" firstAttribute="leading" secondItem="NXO-sP-m2r" secondAttribute="leading" constant="10" id="m2i-nC-t6L"/>
+                    <constraint firstItem="fW2-6E-pdI" firstAttribute="top" secondItem="XVv-XO-2nb" secondAttribute="bottom" constant="10" id="vuu-WA-n1R"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="commentView" destination="fW2-6E-pdI" id="E9T-zc-Vsb"/>
-                <outlet property="comment_content" destination="KFF-aa-C72" id="JJB-TE-Xk5"/>
                 <outlet property="comment_floor" destination="uMu-AX-FxH" id="ZgS-bd-90C"/>
                 <outlet property="comment_reply_comment_content" destination="AYg-Ed-z1n" id="J4f-BK-4Pg"/>
                 <outlet property="comment_reply_height" destination="M0p-n1-vTU" id="ZLJ-V5-xyn"/>
@@ -140,8 +143,10 @@
                 <outlet property="user_head" destination="3eo-Wt-aSv" id="Bdh-yd-W0V"/>
                 <outlet property="user_head_user_head" destination="DsH-Od-V8d" id="aik-7a-F9W"/>
                 <outlet property="user_name" destination="qEb-lc-3Dp" id="zHo-JJ-zRr"/>
+                <outlet property="webView" destination="XVv-XO-2nb" id="FOr-ZI-THd"/>
+                <outlet property="webViewHeight" destination="RSQ-oW-7ug" id="Owg-yj-SVS"/>
             </connections>
-            <point key="canvasLocation" x="151" y="173"/>
+            <point key="canvasLocation" x="191" y="323"/>
         </tableViewCell>
     </objects>
     <resources>
