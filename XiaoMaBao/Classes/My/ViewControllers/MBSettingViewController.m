@@ -28,16 +28,7 @@
 
 - (NSArray *)lists{
     if (!_lists) {
-          MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-        if ([userInfo.collection_num isEqualToString:@"0"]) {
-            _lists = @[
-                       @"修改个人资料",
-                       @"修改密码",
-                       @"服务条款",
-                       @"关于麻包",
-                       @"清除缓存"
-                       ];
-        }else{
+        
         
             _lists = @[
                        @"修改个人资料",
@@ -45,7 +36,7 @@
                        @"关于麻包",
                        @"清除缓存"
                        ];
-        }
+        
        
     }
     return _lists;
@@ -131,31 +122,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-    if ([userInfo.collection_num isEqualToString:@"0"]) {
-        if (indexPath.row == 0) {
-            MBEditProfileViewController *editVc = [[MBEditProfileViewController alloc] init];
-            [self.navigationController pushViewController:editVc animated:YES];
-        }else if (indexPath.row == 1){
-            MBEditPwdViewController *pwdVc = [[MBEditPwdViewController alloc] init];
-            [self.navigationController pushViewController:pwdVc animated:YES];
-        }else if (indexPath.row == 2){
-            MBServiceProvisionViewController *evaluateVc = [[MBServiceProvisionViewController alloc] init];
-            [self.navigationController pushViewController:evaluateVc animated:YES];
-        }else if (indexPath.row == 3){
-            MBAboutViewController *serviceVc = [[MBAboutViewController alloc] init];
-            [self.navigationController pushViewController:serviceVc animated:YES];
-        }else if (indexPath.row == 4){
-            // 获取Caches目录路径
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-            NSString *cachesDir = [paths objectAtIndex:0];
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                            message:[NSString stringWithFormat:@"缓存大小为：%.2fM，确定要清除缓存吗？",[self folderSizeAtPath:cachesDir]] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            [alert show];
-        }
     
-    }else{
         if (indexPath.row == 0) {
             MBEditProfileViewController *editVc = [[MBEditProfileViewController alloc] init];
             [self.navigationController pushViewController:editVc animated:YES];
@@ -175,7 +142,7 @@
         }
 
     
-    }
+    
 }
 
 - (void)unLogin{

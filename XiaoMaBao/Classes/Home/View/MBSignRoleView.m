@@ -33,7 +33,7 @@
         [self addSubview:line];
         
         //内容
-        NSString* content = @"1. 坚持每天签到，则每天签到能领取1个麻豆。（1麻豆＝1元）\n2. 坚持签到十天，麻豆累计到十个，可兑换为10元优惠券（全场通用无门槛）\n3. 活动最终解释权给小麻包所有" ;
+        NSString* content = @"1、每天签到能领取10个麻豆奖励，签到成功麻豆奖励直接放入您的账户中，可享受小麻包平台的所有麻豆优惠政策。\n2、如因不可抗力、大面积作弊等情况导致难以继续开展本活动，小麻包可觉得取消、修改或暂停本活动，法律法规许可范围内，小麻包有权对活动进行解释。" ;
         UILabel* contentLabel = [[UILabel alloc] init];
         contentLabel.numberOfLines = 0 ;
         contentLabel.font = [UIFont systemFontOfSize:12.0f];

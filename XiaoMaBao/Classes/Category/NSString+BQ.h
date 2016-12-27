@@ -59,4 +59,6 @@ typedef enum {
 + (NSString *)UUID;
 + (NSArray *)htmlString:(NSString *)str AspectRatio:(NSArray *)array;
 + (NSString *)removeSpaceAndNewline:(NSString *)str;
++ (NSString *)filterHTML:(NSString *)html;
++ (NSArray *)rangesOfString:(NSString *)searchString inString:(NSString *)str;
 @end

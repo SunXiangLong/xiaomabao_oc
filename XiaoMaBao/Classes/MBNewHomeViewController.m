@@ -78,8 +78,6 @@
     [super viewDidLoad];
 
     [[Unicall singleton] attach:self appKey:UNICALL_APPKEY tenantId:UNICALL_TENANID];
-    
-    self.view.backgroundColor = [UIColor whiteColor];
     [self setupChildVcs];
     [self setupTitlesView];
     [self setupScrollView];

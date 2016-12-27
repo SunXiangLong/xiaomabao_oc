@@ -18,6 +18,6 @@
  */
 @property (nonatomic,strong) NSString *post_id;
 
-@property (nonatomic,strong) void(^successEvaluation)();
+@property (nonatomic,copy) void(^successEvaluation)();
 
 @end

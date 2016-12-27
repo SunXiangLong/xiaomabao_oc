@@ -449,10 +449,10 @@
     if (!attr) {
         attr = @"";
     }
-    
+    [self show];
     NSString *goodnumber = self.numberFld.text;
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/addtocart"] parameters:@{@"session":sessiondict, @"goods_id":self.goods_id,@"number":goodnumber,@"spec":attr} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        
+        [self dismiss];
         NSString *status = [NSString stringWithFormat:@"%@",[responseObject valueForKeyPath:@"status"][@"succeed"]];
         
         MMLog(@"%@",[responseObject valueForKeyPath:@"status"]);

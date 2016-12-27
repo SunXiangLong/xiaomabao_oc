@@ -68,12 +68,11 @@
         
 //      MMLog(@"%@",responseObject);
         [self dismiss];
-        MMLog(@"%ld",[responseObject[@"data"] count]);
-        MMLog(@"%ld",self.dataArray.count);
+       
         if (responseObject) {
             if ([responseObject[@"data"] count]>0) {
                 [self.dataArray addObjectsFromArray:responseObject[@"data"]];
-                MMLog(@"%ld",self.dataArray.count);
+                
                 if (_page ==1) {
                     _tableView.tableHeaderView = [self setTableHeadView];
                     

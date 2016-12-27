@@ -23,7 +23,7 @@
 #import "MBRefundHomeController.h"
 #import "MBHealthViewController.h"
 #import "MBMyServiceController.h"
-@interface MBNewMyViewController ()
+@interface MBNewMyViewController ()<UIScrollViewDelegate>
 {
     /**
      *  数据
@@ -36,7 +36,7 @@
      *    是否从云客服界面退出,初始为0  4为退出
      */
     NSInteger _UnicallCount;
-  
+    
 }
 @property (weak, nonatomic) IBOutlet UITableView *tabeleView;
 
@@ -87,15 +87,15 @@
                         
                         break;
                 }
-
+                
                 
             }];
             
-           
+            
             
             view;
         });
-}
+    }
     
     
     
@@ -103,19 +103,21 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _tabeleView.bounces = NO;
+    
     self.tabeleView.tableFooterView = [[UIView alloc] init];
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageBadge:) name:@"messageBadge" object:nil];
-    _dataArray = @[@{@"image":@"icon1",@"name":@"浏览记录"},
-                 @{@"image":@"icon2",@"name":@"热线电话",@"photo":@"010-85170751"},
-                 @{@"image":@"icon3",@"name":@"收货地址"},
-                 @{@"image":@"icon4",@"name":@"售后服务"},
-                 @{@"image":@"icon5",@"name":@"联系我们"},
-                 @{@"image":@"icon6",@"name":@"麻包帮助"},
-                 @{@"image":@"icon7",@"name":@"退换货"},
-                 @{@"image":@"icon8",@"name":@"代金券"},
-                 ];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageBadge:) name:@"messageBadge" object:nil];
+    _dataArray = @[
+                   @{@"image":@"icon7",@"name":@"退换货"},
+                   @{@"image":@"icon8",@"name":@"代金券"},
+                   @{@"image":@"hempBeans",@"name":@"我的麻豆"},
+                   @{@"image":@"icon2",@"name":@"热线电话",@"photo":@"010-85170751"},
+                   @{@"image":@"icon3",@"name":@"收货地址"},
+                   @{@"image":@"icon1",@"name":@"浏览记录"},
+                   @{@"image":@"icon5",@"name":@"联系我们"},
+                   @{@"image":@"icon4",@"name":@"售后服务"},
+                   @{@"image":@"icon6",@"name":@"麻包帮助"},
+                   ];
+    
 }
 - (void)messageBadge:(NSNotification *)notificat{
     NSString *messageNumber = [User_Defaults objectForKey:@"messageNumber"];
@@ -138,7 +140,7 @@
 
 - (void)rightTitleClick{
     
-
+    
     _isbool = NO;
     if (self.isLogin) {
         MBSettingViewController *settingVc = [[MBSettingViewController alloc] init];
@@ -264,76 +266,69 @@
     cell.user_image.image = [UIImage imageNamed:dic[@"image"]];
     cell.user_tiele.text = dic[@"name"];
     cell.user_photo.text = dic[@"photo"];
-
     
-    [self setUIEdgeInsetsZero:cell];
+    
+    [cell uiedgeInsetsZero];
     
     return cell;
-    
-}
-/**
- *  让cell地下的边线挨着左边界
- */
-- (void)setUIEdgeInsetsZero:(UITableViewCell *)cell{
-    cell.separatorInset = UIEdgeInsetsZero;
-    cell.layoutMargins = UIEdgeInsetsZero;
-    cell.preservesSuperviewLayoutMargins   = false;
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (indexPath.row != 3||indexPath.row != 6||indexPath.row != 7||indexPath.row != 8) {
+        if (!sid) {
+            [self  loginClicksss:@"mabao"];
+            
+            return;
+        }
+    }
     
     switch (indexPath.row) {
         case 0:{
-            if (!sid) {
-                [self  loginClicksss:@"mabao"];
-                
-                return;
-            }
-            MBHistoryRecoderViewController *VC = [[MBHistoryRecoderViewController alloc] init];
+            MBRefundHomeController *VC = [[MBRefundHomeController alloc] init];
+            [self pushViewController:VC Animated:YES];}break;
+        case 1: {
+            MBVoucherViewController *VC =[[MBVoucherViewController alloc] init];
             [self pushViewController:VC Animated:YES];
         }break;
-        case 1: {//拨打电话号码
+        case 2:{
+            [self performSegueWithIdentifier:@"MBMyMaBeanViewController" sender:nil];
+        }break;
+        case 3:{
+            //拨打电话号码
             NSString * telStr = [NSString stringWithFormat:@"telprompt://%@",@"010-85170751"];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
         }break;
-        case 2:{
-            if (!sid) {
-                [self  loginClicksss:@"mabao"];
-                return;
-            }
+        case 4:{
             MBShopAddresViewController *VC = [[MBShopAddresViewController alloc] init];
             VC.PersonalCenter = @"yes";
-            [self pushViewController:VC Animated:YES];}break;
-        case 3:{
-            
-            MBBackServiceViewController *VC = [[MBBackServiceViewController alloc] init];
-            [self pushViewController:VC Animated:YES];}break;
-        case 4: [self service]; break;
+            [self pushViewController:VC Animated:YES];
+        } break;
         case 5: {
+            MBHistoryRecoderViewController *VC = [[MBHistoryRecoderViewController alloc] init];
+            [self pushViewController:VC Animated:YES];
+        }break;
+        case 6: {
+            [self service];
+        }break;
+            
+        case 7:{
+            MBBackServiceViewController *VC = [[MBBackServiceViewController alloc] init];
+            [self pushViewController:VC Animated:YES];
+            
+        }break;
+        default:{
             MBHelpServiceViewController *VC = [[MBHelpServiceViewController alloc] init];
             [self pushViewController:VC Animated:YES];}break;
-        case 6: {
-            if (!sid) {
-                [self  loginClicksss:@"mabao"];
-                
-                return;
-            }
-            
-            MBRefundHomeController *VC = [[MBRefundHomeController alloc] init];
-            [self pushViewController:VC Animated:YES];}break;
-        default:{
-            if (!sid) {
-                [self  loginClicksss:@"mabao"];
-                
-                return;
-            }
-            MBVoucherViewController *VC =[[MBVoucherViewController alloc] init]; [self pushViewController:VC Animated:YES];}
-            break;
-    }
+    
+        }
 }
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (scrollView.mj_offsetY < 0) {
+        scrollView.mj_offsetY = 0;
+    }
 
-
+}
 @end

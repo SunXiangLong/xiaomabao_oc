@@ -103,7 +103,7 @@
     case 0:
             return 80;
     case 1:
-            return 270;
+            return 290;
     case 2:
             return 100;
     default:

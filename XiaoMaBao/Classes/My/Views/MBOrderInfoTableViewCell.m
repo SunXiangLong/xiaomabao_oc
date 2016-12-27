@@ -31,7 +31,7 @@
     _discount_formatted.text = _dataDic[@"discount_formatted"];
     _coupus_formatted.text = _dataDic[@"coupus_formatted"];
     _bonus_formatted.text = _dataDic[@"bonus_formatted"];
-    
+    _bean_fee.text = string(@"￥", _dataDic[@"bean_fee"]);
     
 }
 

@@ -13,7 +13,7 @@
 #import "MBServiceOrderThreeCell.h"
 #import "MBServiceDetailsViewController.h"
 @interface MBServiceOrderController (){
-
+    
     NSDictionary  *_dataDic;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -75,7 +75,7 @@
         case 0: return 95;
         case 1: return 40;
         default:  return 380;
-          
+            
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -83,7 +83,7 @@
         if ([_dataDic[@"return_status"] isEqualToNumber:@1]) {
             return 47;
         }
-       
+        
     }
     return 0;
 }
@@ -100,9 +100,9 @@
         [view addSubview:footView];
         return view;
     }
- 
+    
     return nil;
-
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -118,10 +118,11 @@
             cell.service_name.text = dic[@"product_name"];
             cell.service_price.text = [NSString stringWithFormat:@"¥ %@",dic[@"product_shop_price"]];
             
-            return cell;}
+            return cell;
+        }
         case 1: {
             NSDictionary *dic = _dataDic[@"ticket_info"][indexPath.row];
-
+            
             MBServiceOrderTwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceOrderTwoCell"];
             if (!cell) {
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"MBServiceOrderTwoCell"owner:nil options:nil]firstObject];
@@ -129,9 +130,10 @@
             cell.mabaoquan.text = dic[@"ticket_code"];
             cell.zhuangtai.text = dic[@"ticket_status"];
             
-            return cell;}
+            return cell;
+        }
         default: {
-             NSDictionary *orderDic = _dataDic[@"order_info"];
+            NSDictionary *orderDic = _dataDic[@"order_info"];
             NSDictionary *shopDic =  _dataDic[@"shop_info"];
             MBServiceOrderThreeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBServiceOrderThreeCell"];
             if (!cell) {
@@ -143,25 +145,26 @@
             
             cell.order_number.text = [NSString stringWithFormat:@"订单号：%@",orderDic[@"product_sn"]];
             cell.order_phone.text = [NSString stringWithFormat:@"购买手机号：%@",orderDic[@"mobile_phone"]];
-            cell.oredr_time.text = [NSString stringWithFormat:@"购买手机号：%@",orderDic[@"pay_time"]];
+            cell.oredr_time.text = [NSString stringWithFormat:@"下单时间：%@",orderDic[@"pay_time"]];
             cell.order_num.text = [NSString stringWithFormat:@"数量：%@",orderDic[@"product_number"]];
             cell.order_price.text = [NSString stringWithFormat:@"总价：%@元",orderDic[@"order_amount"]];
-             cell.surplus.text = [NSString stringWithFormat:@"麻包卡：%@",orderDic[@"surplus"]];
-            return cell;}
+            cell.surplus.text = [NSString stringWithFormat:@"麻包卡：%@",orderDic[@"surplus"]];
+            return cell;
+        }
             
     }
-   
+    
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-         NSDictionary *dic = _dataDic[@"product_info"];
+        NSDictionary *dic = _dataDic[@"product_info"];
         MBServiceDetailsViewController *VC = [[MBServiceDetailsViewController alloc] init];
         VC.product_id = dic[@"product_id"];
         [self pushViewController:VC Animated:YES];
- 
+        
     }
-   
+    
 }
 
 @end

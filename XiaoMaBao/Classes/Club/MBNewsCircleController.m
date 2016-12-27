@@ -28,18 +28,7 @@
 @end
 
 @implementation MBNewsCircleController
--(void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    [MobClick beginLogPageView:@"MBNewsCircleController"];
-    
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick endLogPageView:@"MBNewsCircleController"];
-    
-}
+
 -(NSMutableArray *)dataArray{
 
     if (!_dataArray) {

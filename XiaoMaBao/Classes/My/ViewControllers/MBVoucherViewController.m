@@ -23,10 +23,11 @@
 - (UITableView *)tableView{
     if (!_tableView) {
         UITableView *tableView = [[UITableView alloc] init];
-        tableView.backgroundColor =BG_COLOR;
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        tableView.backgroundColor = [UIColor whiteColor];
+//        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [tableView registerNib:[UINib nibWithNibName:@"MBVoucherTableViewCell" bundle:nil] forCellReuseIdentifier:@"MBVoucherTableViewCell"];
-        tableView.dataSource = self,tableView.delegate = self;
+        tableView.dataSource = self;
+        tableView.delegate = self;
         tableView.frame = CGRectMake(0, TOP_Y, self.view.ml_width, self.view.ml_height - TOP_Y);
         tableView.tableFooterView = [[UIView alloc] init];
         [self.view addSubview:_tableView = tableView];
@@ -161,15 +162,10 @@
     NSString *eDate= [dateFormatter stringFromDate:endDate];
     cell.use_valide_date.text = [NSString stringWithFormat:@"有效期：%@~%@",sDate,eDate];
     cell.useRange.text = [NSString stringWithFormat:@"使用范围：满%@元可用",coupon[@"min_goods_amount"]];
-    
+    [cell uiedgeInsetsZero];
     
     return cell;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 10;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 65;
 }

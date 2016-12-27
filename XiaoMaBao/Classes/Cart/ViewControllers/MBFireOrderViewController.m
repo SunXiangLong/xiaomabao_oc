@@ -20,6 +20,7 @@
 #import "MBAddIDCardView.h"
 #import "MBBabyCardController.h"
 #import "MBInvoiceViewController.h"
+#import "MBBeanUseViewController.h"
 @interface MBFireOrderViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
    
@@ -46,10 +47,11 @@
     NSString *_invoiceText;
     NSArray *_array;
     NSString *_address_id;
-    
+    NSString *_bean_fee;
 
 
 }
+
 @property (weak,nonatomic) UIButton *addVouchersBtn;
 @property (weak,nonatomic) UITableView *tableView;
 @property (strong,nonatomic)NSMutableArray *numarr;
@@ -58,10 +60,12 @@
 @property (strong,nonatomic) UILabel *invoiceLbl;
 @property (strong,nonatomic) UILabel *babycard;
 @property (strong,nonatomic) UILabel *totalLabel;
+@property (strong,nonatomic) UILabel *beanLabel;
 @property (copy,nonatomic) NSString *couponId;
 @property (copy,nonatomic) NSString *inv_payee;
 @property (copy,nonatomic) NSString *inv_type;
 @property (copy,nonatomic) NSString *inv_content;
+@property (copy,nonatomic) NSString *mabaobean_number;
 @property (copy,nonatomic) NSArray *photoArr;
 @property (assign,nonatomic) BOOL isCard;
 /**
@@ -312,7 +316,7 @@
     if (![self.is_cross_border isEqualToString:@"0"]) {
         UIView *footerView = [[UIView alloc] init];
         footerView.backgroundColor = [UIColor whiteColor];
-        footerView.frame = CGRectMake(0, 0, self.view.ml_width, 450);
+        footerView.frame = CGRectMake(0, 0, self.view.ml_width, 450+60);
         
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 110)];
         if (![_is_black isEqualToString:@"0"]) {
@@ -568,7 +572,8 @@
         //添加优惠券和红包选择
         UIView * invoiceView = [self setBonusView:remarkLbl margin:MARGIN_10 text:@"发票信息" type:3];
         UIView * couponView = [self setBonusView:invoiceView margin:0 text:@"使用代金券" type:0];
-        UIView * bonusView = [self setBonusView:couponView margin:0 text:@"使用红包或兑换券" type:1];
+        UIView * beanView = [self setBonusView:couponView margin:0 text:@"使用麻豆" type:4];
+        UIView * bonusView = [self setBonusView:beanView margin:0 text:@"使用红包或兑换券" type:1];
         UIView * babyCard = [self setBonusView:bonusView margin:0 text:@"使用麻包卡" type:2];
         [footerView addSubview:totalLbl];
         [footerView addSubview:freightLbl];
@@ -581,13 +586,15 @@
         //红包
         [footerView addSubview:invoiceView];
         [footerView addSubview:couponView];
+        [footerView addSubview:beanView];
         [footerView addSubview:bonusView];
         [footerView addSubview:babyCard];
         UITapGestureRecognizer *ger0 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(invoiceClick:)];
         [invoiceView addGestureRecognizer:ger0];
         UITapGestureRecognizer *ger1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(couponClick:)];
         [couponView addGestureRecognizer:ger1];
-        
+        UITapGestureRecognizer *ger4 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(beanViewClick:)];
+        [beanView addGestureRecognizer:ger4];
  
         UITapGestureRecognizer *ger2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bonusClick:)];
         [bonusView addGestureRecognizer:ger2];
@@ -601,7 +608,7 @@
         
         UIView *footerView = [[UIView alloc] init];
         footerView.backgroundColor = [UIColor whiteColor];
-        footerView.frame = CGRectMake(0, 0, self.view.ml_width, 280+60);
+        footerView.frame = CGRectMake(0, 0, self.view.ml_width, 280+60+60);
         UILabel *totalLbl = [[UILabel alloc] init];
         totalLbl.font = [UIFont systemFontOfSize:14];
         
@@ -645,9 +652,9 @@
         //添加优惠券和红包选择
         UIView * invoiceView = [self setBonusView:remarkLbl margin:MARGIN_10 text:@"发票信息" type:3];
         UIView * couponView = [self setBonusView:invoiceView margin:0 text:@"使用代金券" type:0];
-        UIView * bonusView = [self setBonusView:couponView margin:0 text:@"使用红包或兑换券" type:1];
-        
-         UIView * babyCard = [self setBonusView:bonusView margin:0 text:@"使用麻包卡" type:2];
+        UIView * beanView = [self setBonusView:couponView margin:0 text:@"使用麻豆" type:4];
+        UIView * bonusView = [self setBonusView:beanView margin:0 text:@"使用红包或兑换券" type:1];
+        UIView * babyCard = [self setBonusView:bonusView margin:0 text:@"使用麻包卡" type:2];
         
         [footerView addSubview:totalLbl];
         [footerView addSubview:freightLbl];
@@ -660,6 +667,7 @@
         //红包
         [footerView addSubview:invoiceView];
         [footerView addSubview:couponView];
+        [footerView addSubview:beanView];
         [footerView addSubview:bonusView];
         [footerView addSubview:babyCard];
         
@@ -668,7 +676,9 @@
         UITapGestureRecognizer *ger1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(couponClick:)];
         [couponView addGestureRecognizer:ger1];
         
-
+        UITapGestureRecognizer *ger4 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(beanViewClick:)];
+        [beanView addGestureRecognizer:ger4];
+        
         UITapGestureRecognizer *ger2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bonusClick:)];
         [bonusView addGestureRecognizer:ger2];
         
@@ -881,6 +891,20 @@
         _babycard.textAlignment = NSTextAlignmentRight;
         [headerBoxView addSubview:_babycard];
     
+    }else if (type  == 4){
+        //可使用麻豆
+        _beanLabel = [[UILabel alloc] init];
+        _beanLabel.frame = CGRectMake(consigneeLabel.ml_width+8, 0,self.view.ml_width-Image.size.width*2-8-consigneeLabel.ml_width, 50);
+        _beanLabel.font = [UIFont systemFontOfSize:14];
+        _beanLabel.textAlignment = NSTextAlignmentRight;
+        [headerBoxView addSubview:_beanLabel];
+      
+        if (_bean_fee) {
+            
+            _beanLabel.text =  [NSString stringWithFormat:@"￥%@",_bean_fee];
+        }
+        
+    
     }else{
         //发票信息
         _invoiceLbl = [[UILabel alloc] init];
@@ -928,6 +952,40 @@
     };
     [self pushViewController:VC Animated:YES];
     
+}
+- (void)beanViewClick:(UITapGestureRecognizer *)ger{
+    
+    [self giveFriend];
+    
+}
+- (void)giveFriend{
+
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    [self show];
+    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/bean/number") parameters:@{@"session":dict} success:^(id responseObject) {
+        [self dismiss];
+        if (responseObject) {
+            MBBeanUseViewController *VC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBBeanUseViewController"];
+            VC.number = [NSString stringWithFormat:@"%@",responseObject[@"number"]];
+            WS(weakSelf)
+            VC.block = ^(NSString *mabaobean_number){
+                weakSelf.mabaobean_number = mabaobean_number;
+                
+                [weakSelf beforeCreateOrder];
+
+            };
+            [self pushViewController:VC Animated:true];
+        }
+
+
+
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"请求失败" time:.8];
+    }];
+
+
 }
 /**
  *  优惠券单击事件
@@ -1010,12 +1068,16 @@
 //根据产品sid(session_id)、uid生成订单前的订单确认接口
 -(void)beforeCreateOrder
 {
+    if (!_mabaobean_number) {
+        _mabaobean_number = @"";
+    }
+    
     [self show];
   
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/checkout"] parameters:@{@"session":sessiondict,@"cards":self.cards}success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/checkout"] parameters:@{@"session":sessiondict,@"cards":self.cards,@"mabaobean_number":_mabaobean_number}success:^(NSURLSessionDataTask *operation, id responseObject) {
         
 //        MMLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
         
@@ -1041,7 +1103,7 @@
         
         NSString *str  = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"real_name"]];
         NSString *str1 = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"is_over_sea"]];
-        
+        _bean_fee = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"bean_fee"];
         self.is_cross_border = str;
         self.is_over_sea = str1;
         self.CartDict =  [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"s_goods_list"];
@@ -1112,13 +1174,16 @@
         _inv_type= @"";
         _inv_content = @"";
     }
+    if (!_mabaobean_number) {
+        _mabaobean_number = @"";
+    }
     if (!name) {
         [self show:@"收货人姓名不能为空" time:1];
         return;
     }
     
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/done_new"]parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":_inv_type,@"inv_content":_inv_content,@"inv_payee" :_inv_payee,@"real_name":name,@"identity_card":_identity_card,@"cards":self.cards}
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/done_new"]parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":_inv_type,@"inv_content":_inv_content,@"inv_payee" :_inv_payee,@"real_name":name,@"identity_card":_identity_card,@"cards":self.cards,@"mabaobean_number":_mabaobean_number}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
                  
                    [self dismiss];

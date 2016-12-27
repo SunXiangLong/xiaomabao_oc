@@ -17,6 +17,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (copy, nonatomic) NSMutableArray *dataArray;
 @property (copy, nonatomic) NSMutableArray *recordSelectedArray;
+@property (weak, nonatomic) IBOutlet UIButton *button;
+@property (weak, nonatomic) IBOutlet UIView *showView;
+
 
 @end
 
@@ -119,8 +122,8 @@
         [self dismiss];
         [_tableView.mj_footer endRefreshing];
         
-        MMLog(@"%@",responseObject);
-        
+//        MMLog(@"%@",responseObject);
+        _showView.hidden = false;
         
         if ([[responseObject valueForKeyPath:@"data"] count]>0) {
             
@@ -141,13 +144,14 @@
                 }
                 _page ++;
                 _tableView.hidden = NO;
-                
                 [self.tableView reloadData];
             }
          
         }else{
             if (_page == 1) {
                 _tableView.hidden = YES;
+                _button.hidden = true;
+                
             }
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
             
@@ -199,24 +203,17 @@
     }else{
        cell.seleButton.selected    = YES;
     }
-    [self setUIEdgeInsetsZero:cell];
+    [cell uiedgeInsetsZero];
     
     return cell;
     
 }
-
-/**
- *  让cell地下的边线挨着左边界
- */
-- (void)setUIEdgeInsetsZero:(UITableViewCell *)cell{
-    cell.separatorInset = UIEdgeInsetsZero;
-    cell.layoutMargins = UIEdgeInsetsZero;
-    cell.preservesSuperviewLayoutMargins   = false;
-    
-}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+   
+    [self.myCircleViewSubject sendNext:@[_dataArray[indexPath.row]]];
     
+    [self popViewControllerAnimated:YES];
+
 }
-
-
 @end

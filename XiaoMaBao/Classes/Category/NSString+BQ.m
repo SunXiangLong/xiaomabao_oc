@@ -188,9 +188,71 @@
 + (NSString *)removeSpaceAndNewline:(NSString *)str
 {
     NSString *temp = [str stringByReplacingOccurrencesOfString:@"" withString:@""];
-//    temp = [temp stringByReplacingOccurrencesOfString:@" " withString:@""];
+    temp = [temp stringByReplacingOccurrencesOfString:@"\\" withString:@""];
     temp = [temp stringByReplacingOccurrencesOfString:@"'" withString:@""];
     temp = [temp stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     return temp;
+}
++ (NSString *)filterHTML:(NSString *)html
+
+{
+    
+    NSScanner * scanner = [NSScanner scannerWithString:html];
+    
+    NSString * text = nil;
+    
+    while([scanner isAtEnd]==NO)
+        
+    {
+        
+        //找到标签的起始位置
+        
+        [scanner scanUpToString:@"<" intoString:nil];
+        
+        //找到标签的结束位置
+        
+        [scanner scanUpToString:@">" intoString:&text];
+        
+        //替换字符
+        
+        html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>",text] withString:@""];
+        
+    }
+    
+    return html;
+    
+}
++ (NSArray *)rangesOfString:(NSString *)searchString inString:(NSString *)str {
+    
+    NSMutableArray *results = [NSMutableArray array];
+    
+    
+    
+    NSRange searchRange = NSMakeRange(0, [str length]);
+    
+    
+    
+    NSRange range;
+    
+    
+    
+    while ((range = [str rangeOfString:searchString options:0 range:searchRange]).location != NSNotFound) {
+        
+        [results addObject:[NSValue valueWithRange:range]];
+        
+        
+        
+        searchRange = NSMakeRange(NSMaxRange(range), [str length] - NSMaxRange(range));
+        
+        
+        
+    }
+    
+    
+    
+    return results;
+    
+    
+    
 }
 @end

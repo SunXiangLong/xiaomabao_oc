@@ -21,17 +21,6 @@
 @end
 
 @implementation MBMessageCheckViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBMessageCheckViewController"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBMessageCheckViewController"];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

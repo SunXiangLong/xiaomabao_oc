@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *add_time_formatted;
 @property (weak, nonatomic) IBOutlet UILabel *shipping_fee_formatted;
 @property (weak, nonatomic) IBOutlet UILabel *goods_amount_formatted;
+@property (weak, nonatomic) IBOutlet UILabel *bean_fee;
 
 @property (weak, nonatomic) IBOutlet UILabel *total_fee_formatted;
 @property (weak, nonatomic) IBOutlet UILabel *card_fee_formatted;
