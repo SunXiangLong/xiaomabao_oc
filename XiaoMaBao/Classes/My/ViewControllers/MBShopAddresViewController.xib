@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ufl-b0-pQS">
-                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                    <rect key="frame" x="0.0" y="64" width="375" height="545"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="jz0-rR-zoQ"/>
@@ -36,7 +36,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
-                    <state key="normal" title="新建地址" image="address_add_icon.png">
+                    <state key="normal" title="新建地址" image="address_add_icon">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -51,18 +51,18 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="Ufl-b0-pQS" secondAttribute="bottom" id="5dI-o6-6eN"/>
-                <constraint firstAttribute="trailing" secondItem="Ufl-b0-pQS" secondAttribute="trailing" id="We2-Zk-4K0"/>
-                <constraint firstItem="Ufl-b0-pQS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="YZX-jQ-M76"/>
+                <constraint firstItem="Ufl-b0-pQS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="Kbb-Fq-PXT"/>
                 <constraint firstAttribute="trailing" secondItem="zsc-tB-Py0" secondAttribute="trailing" constant="25" id="exw-od-Q93"/>
+                <constraint firstItem="zsc-tB-Py0" firstAttribute="top" secondItem="Ufl-b0-pQS" secondAttribute="bottom" constant="8" id="f5f-s4-QqO"/>
+                <constraint firstAttribute="trailing" secondItem="Ufl-b0-pQS" secondAttribute="trailing" id="njJ-ne-DRE"/>
                 <constraint firstItem="zsc-tB-Py0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="25" id="tjg-D7-TvF"/>
-                <constraint firstItem="Ufl-b0-pQS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xMd-rd-3KX"/>
+                <constraint firstItem="Ufl-b0-pQS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="uf7-Hs-Ays"/>
                 <constraint firstAttribute="bottom" secondItem="zsc-tB-Py0" secondAttribute="bottom" constant="10" id="yvo-ao-YYo"/>
             </constraints>
-            <point key="canvasLocation" x="255" y="29"/>
+            <point key="canvasLocation" x="254.5" y="28.5"/>
         </view>
     </objects>
     <resources>
-        <image name="address_add_icon.png" width="15" height="15"/>
+        <image name="address_add_icon" width="15" height="15"/>
     </resources>
 </document>

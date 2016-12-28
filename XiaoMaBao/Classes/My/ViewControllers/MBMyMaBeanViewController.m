@@ -48,14 +48,14 @@
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/bean/info") parameters:@{@"session":dict,@"page":s_Integer(_page)} success:^(id responseObject) {
         [self dismiss];
         [self.tableView.mj_footer endRefreshing];
-//        MMLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         _madouNumber.text = [NSString stringWithFormat:@"%@",responseObject[@"number"]];
         _tableView.hidden = false;
         if ([responseObject[@"records"] count] > 0) {
             
             if (_page == 1) {
                 _beanModel = [MBBeanInfoModel yy_modelWithJSON:responseObject];
-                MMLog(@"%@",_beanModel.record);
+                
                 
             }else{
                 

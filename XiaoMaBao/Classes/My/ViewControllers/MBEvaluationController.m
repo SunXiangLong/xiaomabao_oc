@@ -11,22 +11,24 @@
 #import "MBEvaluationTableViewCell.h"
 @interface MBEvaluationController ()<UITableViewDataSource,UITableViewDelegate,MBEvaluationTableViewCellDelegate>
 {
-    NSArray *_goodsListArray;
-    UIView *_lastView;
-    NSMutableArray *_shopArray;
-    NSMutableArray *_evaluationArray;
+
+    
     UILabel *_lable;
     
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *top;
-
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (nonatomic,copy) NSMutableArray *evaluationArray;
 
 @end
 
 @implementation MBEvaluationController
-
+- (NSMutableArray *)evaluationArray{
+    if (!_evaluationArray) {
+        _evaluationArray = [NSMutableArray array];
+    }
+    return _evaluationArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,16 +37,20 @@
     self.tableView.dataSource = self;
     self.top.constant = TOP_Y;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _shopArray = [NSMutableArray arrayWithArray:self.array];
-    _evaluationArray = [NSMutableArray array];
-    for (id dic in self.array) {
+    
+    for (NSInteger i = 0 ; i < self.goodListArray.count; i++) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         [dict setObject:@[] forKey:@"fileNames"];
         [dict setObject:@"" forKey:@"xinde"];
         [dict setObject:@"" forKey:@"comment_rank"];
-        [_evaluationArray addObject:dict];
+        [self.evaluationArray addObject:dict];
     }
     
+    
+}
+-(NSString *)titleStr{
+
+return @"评价订单";
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -69,8 +75,8 @@
     cell.delegate =self;
     cell.row = indexPath.row;
     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
-    NSURL *url = [NSURL URLWithString:_shopArray[indexPath.row][@"img"]];
-    [cell.showImage  sd_setImageWithURL:url ];
+    
+    [cell.showImage  sd_setImageWithURL:[self.goodListArray[indexPath.row] img] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
     [cell setinit];
     return cell;
 }
@@ -134,7 +140,7 @@
  */
 -(void)SubmitEvaluation:(NSInteger)row{
     NSMutableDictionary *dic = _evaluationArray[row];
-    //MMLog(@"%@",dic);
+    MBGoodListModel *model = self.goodListArray[row];
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
@@ -156,7 +162,11 @@
     }
     
     
-    NSDictionary *parmeters =@{@"session":sessiondict,@"order_id":self.order_id,@"goods_id":_shopArray[row][@"goods_id"],@"xinde":dic[@"xinde"],@"comment_rank":dic[@"comment_rank"],@"fileNames":fileNames};
+    NSDictionary *parmeters =@{@"session":sessiondict,@"order_id":self.order_id,@"goods_id":model.goods_id,@"xinde":dic[@"xinde"],@"comment_rank":dic[@"comment_rank"],@"fileNames":fileNames};
+    
+    
+    
+    
     
     [self show];
     
@@ -176,14 +186,15 @@
 //        self.progress = progress.fractionCompleted;
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         [self dismiss];
-        if ([dic[@"succeed"]isEqualToNumber:@1]) {
+        if ([responseObject[@"status"]
+             [@"succeed"] integerValue] == 1) {
             [self dismiss];
             [_evaluationArray removeObjectAtIndex:row];
+            [_goodListArray removeObjectAtIndex:row];
             
             [_tableView reloadData];
-            NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:_array[row]];
-            dic[@"is_comment"] = @"1";
-            NSDictionary *dict = @{@"dic":dic,@"section":[NSString stringWithFormat:@"%ld",self.section]};
+            model.is_comment = @"1";
+            NSDictionary *dict = @{@"section":[NSString stringWithFormat:@"%ld",self.section]};
             NSNotification *notification =[NSNotification notificationWithName:@"MBEvaluationController" object:nil userInfo:dict];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
@@ -192,7 +203,7 @@
                 [self popViewControllerAnimated:YES];
             }
         }else{
-            [self show:dic[@"error_desc"] time:1];
+            [self show:@"评价失败" time:1];
             
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {

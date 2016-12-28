@@ -7,9 +7,9 @@
 //
 
 #import "BkBaseViewController.h"
-
+#import "MBOrderModel.h"
 @interface MBEvaluationController : BkBaseViewController
 @property (nonatomic,strong) NSString *order_id;
-@property (nonatomic,strong) NSArray *array;
+@property (nonatomic,strong) NSMutableArray<MBGoodListModel *> *goodListArray;
 @property (nonatomic,assign) NSInteger section;
 @end

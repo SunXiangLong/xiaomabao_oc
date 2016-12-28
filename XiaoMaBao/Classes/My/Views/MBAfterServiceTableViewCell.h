@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MBOrderModel.h"
 @interface MBAfterServiceTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *showImageview;
 @property (weak, nonatomic) IBOutlet UILabel *describe;
 @property (weak, nonatomic) IBOutlet UILabel *priceAndNumber;
+@property (nonatomic,strong) MBGoodListModel *model;
 
 
 @end

@@ -21,14 +21,16 @@
     _record_desc.text = model.record_desc;
     _record_time.text = model.record_time;
     
-    NSSet *set = [NSSet setWithObjects:@"2",@"3",@"4",@"1",@"5", nil];
-    if ([set containsObject:model.record_type]) {
+    
+    if ([model.record_val containsString:@"-"]) {
         _record_desc.textColor = UIcolor(@"999999");
-        _record_val.textColor = UIcolor(@"ff7162");
+        _record_time.textColor = UIcolor(@"999999");
+        _record_val.textColor = UIcolor(@"999999");
         
     }else{
         _record_desc.textColor = UIcolor(@"555555");
-        _record_val.textColor = UIcolor(@"999999");
+        _record_val.textColor = UIcolor(@"ff7162");
+        
         
     }
    

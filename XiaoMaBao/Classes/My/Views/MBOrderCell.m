@@ -10,6 +10,7 @@
 #import "MBAfterServiceTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "MBShopingViewController.h"
+#import "MBOrderModel.h"
 @implementation MBOrderCell
 
 - (void)awakeFromNib {
@@ -34,19 +35,19 @@
     return 30;
 }
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    MBGoodListModel *model = _goods_listArray[indexPath.row];
     MBAfterServiceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBAfterServiceTableViewCell"];
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBAfterServiceTableViewCell" owner:nil options:nil]firstObject];
     }
     
-    [cell.showImageview sd_setImageWithURL:_goods_listArray[indexPath.row][@"goods_img"]];
+    [cell.showImageview sd_setImageWithURL:model.goods_img];
     
     //名字描述
-    cell.describe.text = _goods_listArray[indexPath.row][@"name"];
+    cell.describe.text = model.name;
     //数量以及价格
-    NSString *goods_number = _goods_listArray[indexPath.row][@"goods_number"];
-    NSString *formated_shop_price = _goods_listArray[indexPath.row][@"shop_price_formatted"];
+    NSString *goods_number = model.goods_number;
+    NSString *formated_shop_price = model.shop_price_formatted;
     
     cell.priceAndNumber.text = [NSString stringWithFormat:@"%@ X %@",formated_shop_price,goods_number];
     
@@ -55,9 +56,9 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MBShopingViewController *VC = [[MBShopingViewController alloc] init];
-    VC.GoodsId = _goods_listArray[indexPath.row][@"goods_id"];
+    VC.GoodsId = [_goods_listArray[indexPath.row] goods_id];
     [self.VC pushViewController:VC Animated:YES];
-    
+
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     

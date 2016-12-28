@@ -107,33 +107,42 @@ return @"nav_back";
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/get_sign_days"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-        NSArray *days = [responseObject.data valueForKey:@"days"];
-        self.calendarView.datys = days;
-        if ([[responseObject.status valueForKey:@"error_code"] integerValue] > 0) {
-            [self show:[responseObject.status valueForKey:@"error_desc"] time:1];
-            return ;
-        }
+    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/promote/get_sign_days") parameters:@{@"session":dict} success:^(id responseObject) {
         
-        // 刷新lbl
-        NSString *msgLbl = [NSString stringWithFormat:@"我的签到奖金金额%@麻豆",[responseObject.data valueForKey:@"sign_score"]];
-        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:msgLbl];
+        MMLog(@"%@",responseObject);
+        if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
+            
+            self.calendarView.datys = responseObject[@"data"][@"days"];
+            // 刷新lbl
+            NSString *msgLbl = [NSString stringWithFormat:@"我的可用麻豆为%@麻豆",responseObject[@"data"][@"sign_score"]];
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:msgLbl];
+            
+            NSString *pattern = @"\\d+";
+            NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
+            NSTextCheckingResult *result = [regex firstMatchInString:msgLbl options:NSMatchingReportProgress range:NSMakeRange(0, msgLbl.length)];
+            [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:result.range];
+            self.msgLbl.attributedText = attr;
+            
+            if ([responseObject[@"data"][@"signed"] integerValue] != 0) {
+                
+                // 刷新btn
+                [self.signButton setImage:[UIImage imageNamed:@"signed_circle_btn"] forState:UIControlStateNormal];
+            }
+
+        }else{
+            NSString *errorStr = responseObject[@"status"][@"error_desc"];
+            if (errorStr) {
+                [self show:errorStr time:.8];
+            }else{
+                [self show:@"未知错误" time:.8];
+            }
         
-        NSString *pattern = @"\\d+";
-        NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
-        NSTextCheckingResult *result = [regex firstMatchInString:msgLbl options:NSMatchingReportProgress range:NSMakeRange(0, msgLbl.length)];
-        [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:result.range];
-        self.msgLbl.attributedText = attr;
-        
-        if ([[responseObject.data valueForKey:@"signed"] integerValue] == 1) {
-       
-            // 刷新btn
-            [self.signButton setImage:[UIImage imageNamed:@"signed_circle_btn"] forState:UIControlStateNormal];
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        
+        [self show:@"请求失败" time:.5];
     }];
+    
 }
 
 - (NSString *)titleStr{
@@ -176,12 +185,9 @@ return @"nav_back";
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/sign"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
         
-        MMLog(@"%@",responseObject.status);
-        
         if ([[responseObject.status valueForKey:@"succeed"] integerValue] == 0) {
             [self show:responseObject.status[@"error_desc"] time:1];
-        }
-        else{
+        }else{
             [self show:@"签到成功! 您每天继续来签到吧!" time:1];
             [self refreshCalendarView];
         }

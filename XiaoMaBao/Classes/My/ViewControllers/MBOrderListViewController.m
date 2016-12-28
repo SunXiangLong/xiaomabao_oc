@@ -17,11 +17,11 @@
 #import "MBLogisticsViewController.h"
 #import "MBShopingViewController.h"
 #import "WNXRefresgHeader.h"
-
 #import "MBAfterSalesServiceViewController.h"
 #import "MBDeliveryInformationViewController.h"
 #import "MBRefundScheduleViewController.h"
 #import "MBOrderInfoTableViewController.h"
+#import "MBOrderModel.h"
 @interface MBOrderListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UIButton *_lastButton;
@@ -121,18 +121,9 @@
 //}
 - (void)MBEvaluationController:(NSNotification *)notificat{
     
-    NSDictionary *dic = notificat.userInfo[@"dic"];
+
     NSInteger section = [notificat.userInfo[@"section"] integerValue];
-    
-    NSMutableArray *arr = _orderListArray[section];
-    for (int i = 0; i<arr.count; i++) {
-        NSDictionary *dict = arr[i];
-        if ([dict[@"goods_id"]isEqualToString:dic[@"goods_id"]]) {
-            arr[i] = dic;
-        }
-    }
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:section];
-    
     [_tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
@@ -187,15 +178,16 @@
     NSDictionary *paginationDict = @{@"page":s_Integer(_page),@"count":@"10"};
     
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_list_new"] parameters:@{@"session":sessiondict,@"pagination":paginationDict,@"type":_type}success:^(NSURLSessionDataTask *operation, id responseObject) {
-        
+    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/order/order_list_new") parameters:@{@"session":sessiondict,@"pagination":paginationDict,@"type":_type} success:^(id responseObject) {
         [self dismiss];
-        MMLog(@"成功获取搜索退换货订单信息---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+        [self.tableView .mj_footer endRefreshing];
+//        MMLog(@"成功获取搜索退换货订单信息---responseObject%@",responseObject);
         if ([[responseObject valueForKeyPath:@"data"] count] > 0) {
-            [self.orderListArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
+            [self.orderListArray addObjectsFromArray:[NSArray modelDictionary:responseObject modelKey:@"data" modelClassName:@"MBOrderModel"]];
+            
             _page++;
             [_tableView reloadData];
-            [self.tableView .mj_footer endRefreshing];
+            
             
         }else{
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -214,13 +206,10 @@
             _promptLable.hidden = YES;
             
         }
-        
-        
-        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        [self show:@"请求失败" time:1];
-        MMLog(@"%@",error);
+         [self show:@"请求失败" time:1];
     }];
+
     
 }
 - (void)setupTableView{
@@ -270,7 +259,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    NSDictionary *dic = _orderListArray[section];
+    MBOrderModel *orderModel = _orderListArray[section];
     UIView *view = [[UIView alloc] init];
     view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 35);
     view.backgroundColor = [UIColor whiteColor];
@@ -280,14 +269,15 @@
     //订时间
     UILabel *order_time = [[UILabel alloc] init];
     order_time.textColor = UIcolor(@"2c2c2c");
-    order_time.text = s_str(dic[@"order_time"]);
+    order_time.text = s_str(orderModel.order_time);
     order_time.font = [UIFont systemFontOfSize:13];
     [view addSubview:order_time];
     //订单状态
     UILabel *sectionLbl = [[UILabel alloc] init];
     sectionLbl.textColor = UIcolor(@"d66263");
-    NSString *order_status = [self getOrderStatusName:dic[@"order_status"]];
-    if (![order_status isEqualToString:@"待付款"]&&[dic[@"child_orders"] count] > 0) {
+    NSString *order_status = [self getOrderStatusName:orderModel.order_status];
+    
+    if (![order_status isEqualToString:@"待付款"]&&orderModel.childOrders.count > 0) {
         order_status = @"";
     }
     
@@ -320,7 +310,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     
-    
+    MBOrderModel *orderModel = _orderListArray[section];
     UIView *footerMainView = [[UIView alloc] init];
     footerMainView.backgroundColor = [UIColor whiteColor];
     footerMainView.frame = CGRectMake(0, 0, self.view.ml_width, 30);
@@ -334,8 +324,7 @@
     
     UILabel *priceLbl = [[UILabel alloc] init];
     priceLbl.textColor = [UIColor colorWithHexString:@"da465a"];
-    NSString *order_amount = [_orderListArray[section] valueForKeyPath:@"totalFee"];
-    priceLbl.text = [NSString stringWithFormat:@"%@",order_amount];
+    priceLbl.text = [NSString stringWithFormat:@"%@",orderModel.totalFee];
     priceLbl.font = [UIFont systemFontOfSize:12];
     [footerMainView addSubview:priceLbl];
     
@@ -385,7 +374,7 @@
     
     
     
-    NSString *order_status = [_orderListArray[section] valueForKeyPath:@"order_status"];
+    NSString *order_status = orderModel.order_status;
     if(order_status != nil && (NSNull *)order_status != [NSNull null]){
         if([order_status isEqualToString:@"await_pay"]){
             [sendServiceBtn setTitle:@"去付款" forState:UIControlStateNormal];
@@ -406,10 +395,10 @@
             }];
             
         }else if([order_status isEqualToString:@"finished"]){
-            NSArray *arr =_orderListArray[section][@"goods_list"];
+            
             BOOL isEvaluation = NO;
-            for (NSDictionary *dic in arr) {
-                if ([dic[@"is_comment"]isEqualToString:@"0"]) {
+            for (MBGoodListModel *model in orderModel.goodsList) {
+                if ([model.is_comment isEqualToString:@"0"]) {
                     isEvaluation = YES;
                 }
             }
@@ -421,9 +410,9 @@
                 
             }
             
-            NSString *refund_status = s_str(_orderListArray[section][@"refund_status"]);
+            NSString *refund_status = s_str(orderModel.refund_status);
             NSString *status1;
-            
+           
             if ([refund_status isEqualToString:@"1"]) {
                 status1 = @"申请退款/换货";
             }else if([refund_status isEqualToString:@"5"]){
@@ -530,24 +519,24 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSDictionary *dic = _orderListArray[section];
     
+    MBOrderModel *orderModel = _orderListArray[section];
     
-    if ([dic[@"child_orders"] count] == 0 ) {
+    if (orderModel.childOrders.count == 0 ) {
         
-        return [dic[@"goods_list"]  count];
+        return orderModel.goodsList.count;
     }
     
-    return [dic[@"child_orders"] count];
+    return orderModel.childOrders.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSDictionary *dic = _orderListArray[indexPath.section];
-    if ([dic[@"child_orders"] count] == 0) {
+    MBOrderModel *orderModel = _orderListArray[indexPath.section];
+    if (orderModel.childOrders.count == 0) {
         return 75;
     }
-    NSArray *goods_list = dic[@"child_orders"][indexPath.row][@"goods_list"];
+    NSArray *goods_list = [orderModel.childOrders[indexPath.row] goodsList];
     return goods_list.count * 75+30;
     
 }
@@ -560,57 +549,41 @@
     return 30;
 }
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary *dic = _orderListArray[indexPath.section];
+    MBOrderModel *orderModel = _orderListArray[indexPath.section];
     
-    if ([dic[@"child_orders"] count] > 0) {
+    if (orderModel.childOrders.count > 0) {
         MBOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBOrderCell"];
         if (!cell) {
             cell = [[[NSBundle mainBundle]loadNibNamed:@"MBOrderCell" owner:nil options:nil]firstObject];
         }
-        cell.order_sn = dic[@"child_orders"][indexPath.row][@"order_sn"];
-        NSString *order_status = [self getOrderStatusName:_orderListArray[indexPath.section][@"order_status"]];
+        cell.order_sn = [orderModel.childOrders[indexPath.row]  order_sn];
+        NSString *order_status = [self getOrderStatusName:orderModel.order_status];
         if ([order_status isEqualToString:@"待付款"]) {
             order_status = @"";
         }
         
         cell.order_status = order_status;
-        cell.goods_listArray = dic[@"child_orders"][indexPath.row][@"goods_list"];
+        cell.goods_listArray = [orderModel.childOrders[indexPath.row]  goodsList];
         cell.VC = self;
         return cell;
     }else{
+       
         MBAfterServiceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBAfterServiceTableViewCell"];
         if (!cell) {
             cell = [[[NSBundle mainBundle]loadNibNamed:@"MBAfterServiceTableViewCell" owner:nil options:nil]firstObject];
         }
-        
-        NSDictionary *dict = dic[@"goods_list"][indexPath.row];
-        
-        //图片
-        [cell.showImageview sd_setImageWithURL:URL(dict[@"goods_img"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-        //名字描述
-        NSString *name1 = [dict valueForKeyPath:@"name"];
-        cell.describe.text = name1;
-        //数量以及价格
-        NSString *goods_number = [dict valueForKeyPath:@"goods_number"];
-        NSString *formated_shop_price = [dict valueForKeyPath:@"shop_price_formatted"];
-        
-        cell.priceAndNumber.text = [NSString stringWithFormat:@"%@ X %@",formated_shop_price,goods_number];
+        cell.model = orderModel.goodsList[indexPath.row];
         return cell;
-        
-        
     }
     
     
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-   
-    NSDictionary *dic = _orderListArray[indexPath.section];
-    if ([dic[@"child_orders"] count] == 0) {
-        NSDictionary *dict = dic[@"goods_list"][indexPath.row];
+     MBOrderModel *orderModel = _orderListArray[indexPath.section];
+    if (orderModel.childOrders.count == 0) {
         MBShopingViewController *VC = [[MBShopingViewController alloc] init];
-        VC.GoodsId = dict[@"goods_id"];
+        VC.GoodsId =  [orderModel.goodsList[indexPath.row] goods_id];
 
         [self pushViewController:VC Animated:YES];
     }
@@ -646,16 +619,16 @@
 }
 - (void)details:(UIButton *)btn{
     NSInteger section = btn.tag;
-    
+     MBOrderModel *orderModel = _orderListArray[section];
     UINavigationController  *nav =  [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
     MBOrderInfoTableViewController *infoVc = (MBOrderInfoTableViewController *)nav.viewControllers.firstObject;
 
-    if ([_orderListArray[section][@"child_orders"] count] > 0) {
-       infoVc.parent_order_sn =  _orderListArray[section][@"parent_order_sn"];
+    if (orderModel.childOrders.count > 0) {
+        infoVc.parent_order_sn =  orderModel.parent_order_sn;
         
     }else{
-        infoVc.parent_order_sn =  _orderListArray[section][@"parent_order_sn"];
-        infoVc.order_id = _orderListArray[section][@"order_id"];
+        infoVc.parent_order_sn = orderModel.parent_order_sn;
+        infoVc.order_id = orderModel.order_id;
     }
 
     [self.navigationController presentViewController:nav animated:YES completion:nil];
@@ -663,11 +636,12 @@
     
 }
 - (void)getOrderInfo:(NSInteger)row{
-    [self show];
+    MBOrderModel *orderModel = _orderListArray[row];
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/pay_info"] parameters:@{@"session":dict,@"order_sn":[_orderListArray[row] valueForKeyPath:@"parent_order_sn"]} success:^(NSURLSessionDataTask *operation, MBModel *model) {
+    [self show];
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/pay_info"] parameters:@{@"session":dict,@"order_sn":orderModel.parent_order_sn} success:^(NSURLSessionDataTask *operation, MBModel *model) {
         [self dismiss];
         if([model.status[@"succeed"] isEqualToNumber:@1]){
              MMLog(@"%@",model.data);
@@ -693,61 +667,63 @@
 }
 -(void)comment:(UIButton *)button{
     
-    NSArray *arr = _orderListArray[button.tag][@"goods_list"];
-    NSMutableArray *array = [NSMutableArray array];
-    for (NSDictionary *dic in arr) {
-        if ([dic[@"is_comment"]isEqualToString:@"0"]) {
-            [array addObject:dic];
+    
+    MBOrderModel *orderModel = _orderListArray[button.tag];
+    NSArray *goodListArr = orderModel.goodsList;
+    NSMutableArray *goodListArray = [NSMutableArray array];
+    for (MBGoodListModel *model in goodListArr) {
+        if ([model.is_comment isEqualToString:@"0"]) {
+            [goodListArray addObject:model];
         }
     }
     
     
     MBEvaluationController *VC = [[MBEvaluationController alloc] init];
-    NSString *order_id = [_orderListArray[button.tag] valueForKeyPath:@"order_id"];
-    VC.order_id = order_id;
-    VC.array =  array;
+    VC.order_id = orderModel.order_id;
+    VC.goodListArray =  [NSMutableArray arrayWithArray:goodListArray];
     VC.section = button.tag;
     [self.navigationController pushViewController:VC animated:YES];
     
 }
 - (void)realTimeLogistic:(UIButton *)button{
     
+     MBOrderModel *orderModel = _orderListArray[button.tag];
     
     if ([button.titleLabel.text isEqualToString:@"申请退款/换货"]) {
         MBAfterSalesServiceViewController *VC = [[MBAfterSalesServiceViewController alloc] init] ;
         VC.type = @"1";
         VC.section = button.tag;
-        VC.order_sn = _orderListArray[button.tag][@"order_sn"];
-        VC.order_id =  _orderListArray[button.tag][@"order_id"];
+        VC.order_sn = orderModel.order_sn;
+        VC.order_id =  orderModel.order_id;
+        VC.orderModel = orderModel;
         [self.navigationController pushViewController:VC animated:YES];
-        MMLog(@"申请退款/换货");
+       
     }else if ([button.titleLabel.text isEqualToString:@"进度查询"]){
         MBRefundScheduleViewController *VC = [[MBRefundScheduleViewController alloc] init];
-        VC.orderid = _orderListArray[button.tag][@"order_id"];
-        VC.order_sn = _orderListArray[button.tag][@"order_sn"];
+        VC.orderid = orderModel.order_id;
+        VC.order_sn = orderModel.order_sn;
         [self.navigationController pushViewController:VC animated:YES];
-        MMLog(@"进度查询");
+        
     }else if ([button.titleLabel.text isEqualToString:@"重新申请"]){
         
-        MMLog(@"重新申请");
+        
         MBAfterSalesServiceViewController *VC = [[MBAfterSalesServiceViewController alloc] init];
         VC.type = @"0";
         VC.section = button.tag;
-        VC.order_sn = _orderListArray[button.tag][@"order_sn"];
-        VC.order_id =  _orderListArray[button.tag][@"order_id"];
+        VC.order_sn = orderModel.order_sn;
+        VC.order_id =  orderModel.order_id;
         
-        
+        VC.orderModel = orderModel;
         [self.navigationController pushViewController:VC animated:YES];
         
     }else if([button.titleLabel.text isEqualToString:@"填写运单号"]){
         MBDeliveryInformationViewController *VC = [[MBDeliveryInformationViewController alloc] init];
-        VC.back_tax = _orderListArray[button.tag][@"back_tax"];
-        VC.order_id = _orderListArray[button.tag][@"order_id"];
-        VC.order_sn = _orderListArray[button.tag][@"order_sn"];
+        VC.back_tax = orderModel.back_tax;
+        VC.order_sn = orderModel.order_sn;
+        VC.order_id =  orderModel.order_id;
         VC.section = button.tag;
         [self.navigationController pushViewController:VC animated:YES];
-        MMLog(@"填写运单号");
-        
+       
     }
 
     
@@ -758,7 +734,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
-    NSString *order_id = _orderListArray[button.tag][@"order_id"];
+    NSString *order_id = [_orderListArray[button.tag] order_id];
     
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_receive"] parameters:@{@"session":sessiondict,@"order_id":order_id}success:^(NSURLSessionDataTask *operation, id responseObject) {
@@ -781,7 +757,9 @@
         MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
-    
-    
+
+}
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end

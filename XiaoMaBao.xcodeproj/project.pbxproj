@@ -679,6 +679,8 @@
 		9F9CFACC1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9CFACA1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.m */; };
 		9F9CFACF1D8F84250033681D /* MBMaBaoFeaturesShopCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9CFACD1D8F84250033681D /* MBMaBaoFeaturesShopCell.h */; };
 		9F9CFAD01D8F84250033681D /* MBMaBaoFeaturesShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9CFACE1D8F84250033681D /* MBMaBaoFeaturesShopCell.m */; };
+		9FA7956A1E12611F00CA49A9 /* MBOrderModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FA795681E12611F00CA49A9 /* MBOrderModel.h */; };
+		9FA7956B1E12611F00CA49A9 /* MBOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA795691E12611F00CA49A9 /* MBOrderModel.m */; };
 		9FAE0ACF1DD16325000CFF31 /* MBConfirmAnOrderViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FAE0ACD1DD16325000CFF31 /* MBConfirmAnOrderViewController.h */; };
 		9FAE0AD01DD16325000CFF31 /* MBConfirmAnOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAE0ACE1DD16325000CFF31 /* MBConfirmAnOrderViewController.m */; };
 		9FB1BD811D8FD7E60033D12B /* MBBrandDetailsCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FB1BD7F1D8FD7E60033D12B /* MBBrandDetailsCollectionViewCell.h */; };
@@ -1802,6 +1804,8 @@
 		9F9CFACA1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMaBaoFeaturesBrandCell.m; sourceTree = "<group>"; };
 		9F9CFACD1D8F84250033681D /* MBMaBaoFeaturesShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMaBaoFeaturesShopCell.h; sourceTree = "<group>"; };
 		9F9CFACE1D8F84250033681D /* MBMaBaoFeaturesShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMaBaoFeaturesShopCell.m; sourceTree = "<group>"; };
+		9FA795681E12611F00CA49A9 /* MBOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBOrderModel.h; sourceTree = "<group>"; };
+		9FA795691E12611F00CA49A9 /* MBOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBOrderModel.m; sourceTree = "<group>"; };
 		9FAE0ACD1DD16325000CFF31 /* MBConfirmAnOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBConfirmAnOrderViewController.h; sourceTree = "<group>"; };
 		9FAE0ACE1DD16325000CFF31 /* MBConfirmAnOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBConfirmAnOrderViewController.m; sourceTree = "<group>"; };
 		9FB1BD7F1D8FD7E60033D12B /* MBBrandDetailsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBrandDetailsCollectionViewCell.h; sourceTree = "<group>"; };
@@ -2338,6 +2342,8 @@
 			children = (
 				481FC0DA1B246125000E6864 /* MBMyItem.h */,
 				481FC0DB1B246125000E6864 /* MBMyItem.m */,
+				9FA795681E12611F00CA49A9 /* MBOrderModel.h */,
+				9FA795691E12611F00CA49A9 /* MBOrderModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4013,6 +4019,7 @@
 				9428D5F21D6D53D40055CCFC /* STConst.h in Headers */,
 				9FB1BD891D8FE9E80033D12B /* MBBrandDetailsViewController.h in Headers */,
 				9FE1ABD31DF6698B00BE760B /* LGPhotoPickerBrowserPhotoImageView.h in Headers */,
+				9FA7956A1E12611F00CA49A9 /* MBOrderModel.h in Headers */,
 				9FE1ABEB1DF6698B00BE760B /* LGPhotoPickerFooterCollectionReusableView.h in Headers */,
 				9FE1ABE31DF6698B00BE760B /* LGPhotoPickerGroupViewController.h in Headers */,
 				946ECE001D1B731200778EF6 /* MBBabyCardCell.h in Headers */,
@@ -4722,6 +4729,7 @@
 				949997D21C44E05500EB80A1 /* MBGroupShopController.m in Sources */,
 				9FE1ABEE1DF6698B00BE760B /* LGPhotoPickerGroupTableViewCell.m in Sources */,
 				94FA70791CE054B600BCC364 /* MBDetailsCircleTableHeadView.m in Sources */,
+				9FA7956B1E12611F00CA49A9 /* MBOrderModel.m in Sources */,
 				480386081B58A08C0052FA20 /* Foundation+Log.m in Sources */,
 				94B6F47C1BD5DD2200B352B9 /* ApiXml.mm in Sources */,
 				941BCEAD1D64083D00B4C67E /* MBArticleViewCell.m in Sources */,

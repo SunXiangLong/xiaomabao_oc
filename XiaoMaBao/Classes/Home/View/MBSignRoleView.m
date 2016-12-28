@@ -33,7 +33,7 @@
         [self addSubview:line];
         
         //内容
-        NSString* content = @"1、每天签到能领取10个麻豆奖励，签到成功麻豆奖励直接放入您的账户中，可享受小麻包平台的所有麻豆优惠政策。\n2、如因不可抗力、大面积作弊等情况导致难以继续开展本活动，小麻包可觉得取消、修改或暂停本活动，法律法规许可范围内，小麻包有权对活动进行解释。" ;
+        NSString* content = @"1、每天签到能领取10个麻豆奖励，签到成功麻豆奖励直接放入您的账户中，可享受小麻包平台的所有麻豆优惠政策。\n2、如因不可抗力、大面积作弊等情况导致难以继续开展本活动，小麻包可自觉取消、修改或暂停本活动，法律法规许可范围内，小麻包有权对活动进行解释。" ;
         UILabel* contentLabel = [[UILabel alloc] init];
         contentLabel.numberOfLines = 0 ;
         contentLabel.font = [UIFont systemFontOfSize:12.0f];
@@ -65,18 +65,21 @@
         }];
         [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(line.mas_bottom).offset(2);
-            make.left.right.mas_equalTo(kMargin);
+            make.left.mas_equalTo(kMargin);
+            make.right.mas_equalTo(-6);
             make.height.mas_equalTo(80);
         }];
         [baseline mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.mas_equalTo(kMargin);
+            make.left.mas_equalTo(kMargin);
+            make.right.mas_equalTo(-6);
             make.top.mas_equalTo(contentLabel.mas_bottom).offset(kMargin);
             make.height.mas_equalTo(2);
             
         }];
         [btnSure mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(baseline.mas_bottom).offset(kMargin);
-            make.left.right.mas_equalTo(kMargin);
+            make.left.mas_equalTo(kMargin);
+            make.right.mas_equalTo(-6);
             make.bottom.mas_equalTo(0);
             
         }];

@@ -7,11 +7,11 @@
 //
 
 #import "BkBaseViewController.h"
-
+#import "MBOrderModel.h"
 @interface MBDeliveryInformationViewController : BkBaseViewController
 @property (nonatomic,strong) id back_tax;
 @property (nonatomic,strong) NSString *order_id;
 @property (nonatomic,strong) NSString *order_sn;
-
 @property (nonatomic,assign) NSInteger section;
+@property (nonatomic,strong) MBOrderModel *orderModel;
 @end

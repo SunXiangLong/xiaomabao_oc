@@ -30,6 +30,19 @@
 @end
 
 @implementation MBGoodSSearchViewController
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = false;
+    
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBarHidden = true;
+    
+}
 -(NSMutableArray *)recommend_goods{
     if (!_recommend_goods) {
         _recommend_goods = [NSMutableArray array];

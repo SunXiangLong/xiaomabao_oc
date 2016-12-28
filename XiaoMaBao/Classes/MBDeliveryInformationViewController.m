@@ -78,6 +78,8 @@
 }
 
 - (IBAction)determine:(UIButton *)sender {
+   
+    
     [self setResignFirstResponder];
     if (!_CourierNumber.text) {
         [self show:@"快递单号不能为空" time:1];
@@ -118,12 +120,21 @@
         
         [self show:[responseObject valueForKeyPath:@"status"][@"error_desc"] time:1];
         
-        NSString *section = [NSString stringWithFormat:@"%ld",(long)self.section];
-        NSDictionary *reduce = @{@"refund":@"2",@"section":section};
-        NSNotification *notification =[NSNotification notificationWithName:@"Refund_status" object:nil userInfo:reduce];
         
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        if (_orderModel) {
+            _orderModel.refund_status = @"2";
+            NSDictionary *dict = @{@"section":[NSString stringWithFormat:@"%ld",self.section]};
+            NSNotification *notification =[NSNotification notificationWithName:@"MBEvaluationController" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+        }else{
+            NSString *section = [NSString stringWithFormat:@"%ld",self.section];
+            NSDictionary *reduce = @{@"refund":@"2",@"section":section};
+            NSNotification *notification =[NSNotification notificationWithName:@"Refund_status" object:nil userInfo:reduce];
+            
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+        }
 
         MBRefundScheduleViewController   *VC = [[MBRefundScheduleViewController alloc] init];
         VC.type = @"1";

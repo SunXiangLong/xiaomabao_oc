@@ -80,52 +80,16 @@
     if (myTimer == nil) {
         myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeFireMethod:) userInfo:nil repeats:YES];
     }
-
-    [MobClick beginLogPageView:@"MBShopingViewController"];
+    [self getShoppingCartNumber];
+    
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [myTimer invalidate];
      myTimer = nil;
-    [MobClick endLogPageView:@"MBShopingViewController"];
+    
 }
-- (void)viewDidAppear:(BOOL)animated{
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    //更新购物车数量
-    if (!uid) {
-        return;
-    }
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/list_count"] parameters:@{@"session":session}
-               success:^(NSURLSessionDataTask *operation, id responseObject) {
-                   NSInteger status = [[[responseObject valueForKey:@"status"] valueForKey:@"succeed"] integerValue];
-                   if(status == 1){
-                       NSString * list_count = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKey:@"list_count"]];
-                       
-                       if(list_count != nil){
-                           if ([list_count integerValue]>0) {
-                            [self.badge autoBadgeSizeWithString:list_count];
-                             self.badge.hidden = NO;
-                           }else{
-                           self.badge.hidden = YES;
-                           }
-                          
-                       }else{
-                           self.badge.hidden = YES;
-                       }
-                       
-                       
-                   }
-                   
-                   
-               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   MMLog(@"失败");
-                   
-               }];
-}
-
 - (void)viewDidLoad{
 
     [super viewDidLoad];
@@ -206,7 +170,38 @@
     
     
 }
+//获取购物车数量
+- (void)getShoppingCartNumber{
 
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    //更新购物车数量
+    if (!uid) {
+        return;
+    }
+    
+    [MBNetworking   POSTOrigin:string(BASE_URL_root, @"/flow/list_count") parameters:@{@"session":session} success:^(id responseObject) {
+        
+        if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
+             NSString * list_count = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"list_count"]];
+            if(list_count != nil){
+                if ([list_count integerValue]>0) {
+                    [self.badge autoBadgeSizeWithString:list_count];
+                    self.badge.hidden = NO;
+                }else{
+                    self.badge.hidden = YES;
+                }
+                
+            }else{
+                self.badge.hidden = YES;
+            }
+        }
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        
+    }];
+    
+}
 #pragma mark 商品内容详情
 -(void)getGoosInfo
 {

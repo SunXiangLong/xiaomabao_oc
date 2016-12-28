@@ -352,7 +352,7 @@
         VC.order_sn = _orderArray[button.tag][@"order_sn"];
         VC.order_id =  _orderArray[button.tag][@"order_id"];
         [self.navigationController pushViewController:VC animated:YES];
-        MMLog(@"申请退款/换货");
+       
     }else if ([button.titleLabel.text isEqualToString:@"进度查询"]){
         MBRefundScheduleViewController *VC = [[MBRefundScheduleViewController alloc] init];
         VC.orderid = _orderArray[button.tag][@"order_id"];

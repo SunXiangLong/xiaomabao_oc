@@ -225,6 +225,7 @@ return @"申请售后服务";
 - (void)submit:(NSNotification *)notif{
     
     
+    
     if (!(_ProblemDescriptionTextView.text.length >0)) {
         [self show:@"请添加问题描述" time:1];
         return;
@@ -267,7 +268,7 @@ return @"申请售后服务";
 #pragma mark ---提交上传数据
 - (void)submitInformation{
     
-    
+   
     
     if ( !_consigneeTectField.text  ) {
         _consigneeTectField.text = @"";
@@ -330,12 +331,21 @@ return @"申请售后服务";
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         [self dismiss];
 #pragma mark -- 通知前一个界面改变进度状态
-        NSString *section = [NSString stringWithFormat:@"%ld",self.section];
-        NSDictionary *reduce = @{@"refund":@"2",@"section":section};
-        NSNotification *notification =[NSNotification notificationWithName:@"Refund_status" object:nil userInfo:reduce];
-        
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        if (_orderModel) {
+            _orderModel.refund_status = @"2";
+            NSDictionary *dict = @{@"section":[NSString stringWithFormat:@"%ld",self.section]};
+            NSNotification *notification =[NSNotification notificationWithName:@"MBEvaluationController" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+        }else{
+            NSString *section = [NSString stringWithFormat:@"%ld",self.section];
+            NSDictionary *reduce = @{@"refund":@"2",@"section":section};
+            NSNotification *notification =[NSNotification notificationWithName:@"Refund_status" object:nil userInfo:reduce];
+            
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+        }
+       
         MBRefundScheduleViewController   *VC = [[MBRefundScheduleViewController alloc] init];
         VC.type = @"1";
         if (_type ) {
