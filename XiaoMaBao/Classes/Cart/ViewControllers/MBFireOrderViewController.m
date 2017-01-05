@@ -98,24 +98,15 @@
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tableView registerNib:[UINib nibWithNibName:@"MBFireOrderTableViewCell" bundle:nil] forCellReuseIdentifier:@"MBFireOrderTableViewCell"];
     
-
     tableView.dataSource = self,tableView.delegate = self;
-
     tableView.frame = CGRectMake(0, TOP_Y, self.view.ml_width, self.view.ml_height - TOP_Y - 35);
-
     [self.view addSubview:_tableView = tableView];
-    
     [self getAddressList];
-  
-  
     [self setupTabbarView];
     
 }
 -(void)selsectaddress:(NSNotification *)notif
 {
-  
-    
-    
     _address_id = [notif userInfo][@"address_id"];
     
     NSDictionary *cardDic = [notif userInfo][@"idcard"];

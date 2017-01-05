@@ -137,7 +137,7 @@
         
         
         if (responseObject) {
-
+            self.baseSearchTableView.hidden = false;
             self.hotSearches = responseObject[@"keywords"];
             self.hotSearchStyle =  PYHotSearchStyleColorfulTag;
             self.searchBar.placeholder = @"请输入要搜索商品名称";
@@ -167,6 +167,7 @@
             [self dismiss];
             NSArray *arr = [responseObject valueForKeyPath:@"data"];
             [self.collectionView .mj_footer endRefreshing];
+            self.topView.hidden = false;
             [self.view bringSubviewToFront:self.topView];
             
             

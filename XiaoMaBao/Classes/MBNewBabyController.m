@@ -220,25 +220,7 @@
 - (IBAction)back:(UIButton *)sender {
     
    
-    if (_row == _dateArray.count-1) {
-        return;
-    }
-    if ([_dateArray[_row] isEqualToDate:_current_date]) {
-        _backTadyButton.hidden = YES;
-    }
-    _row ++;
-    [self collectionViewOffset];
-    NSDate *date = _dateArray[_row];
-    if (sender) {
-        _backTadyButton.hidden = NO;
-      [self setToolkit:NO date:[self setDate:date]];
-    }
     
-    
-}
-- (IBAction)next:(UIButton *)sender {
-
-
     
     if (_row == 0) {
         return;
@@ -252,6 +234,24 @@
     
     _backTadyButton.hidden = NO;
     [self setToolkit:NO date:[self setDate:date]];
+    
+}
+- (IBAction)next:(UIButton *)sender {
+
+    if (_row == _dateArray.count-1) {
+        return;
+    }
+    if ([_dateArray[_row] isEqualToDate:_current_date]) {
+        _backTadyButton.hidden = YES;
+    }
+    _row ++;
+    [self collectionViewOffset];
+    NSDate *date = _dateArray[_row];
+    if (sender) {
+        _backTadyButton.hidden = NO;
+        [self setToolkit:NO date:[self setDate:date]];
+    }
+    
 
     
     

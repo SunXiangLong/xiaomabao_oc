@@ -43,17 +43,16 @@
 /** 搜索历史标签的清空按钮 */
 @property (nonatomic, weak) UIButton *emptyButton;
 
-/** 基本搜索TableView(显示历史搜索和搜索记录) */
-@property (nonatomic, strong) UITableView *baseSearchTableView;
 /** 记录是否点击搜索建议 */
 @property (nonatomic, assign) BOOL didClickSuggestionCell;
 
 @end
 
 @implementation MBSearchViewController
-- (instancetype)init
+- (instancetype)init:(BOOL)isServiceSearch
 {
     if (self = [super init]) {
+        _isServiceSearch = isServiceSearch;
         [self setup];
     }
     return self;
@@ -88,10 +87,12 @@
     if (!_baseSearchTableView) {
         UITableView *baseSearchTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_HEIGHT - TOP_Y) style:UITableViewStyleGrouped];
         baseSearchTableView.backgroundColor = PYBackgroundColor;
+       
+         baseSearchTableView.hidden = true;
         baseSearchTableView.delegate = self;
         baseSearchTableView.dataSource = self;
         [self.view addSubview:baseSearchTableView];
-        _baseSearchTableView = baseSearchTableView;
+        _baseSearchTableView = baseSearchTableView; 
     }
     return _baseSearchTableView;
 }
@@ -173,7 +174,14 @@
 - (NSMutableArray *)searchHistories
 {
     if (!_searchHistories) {
+        
+        if (self.isServiceSearch) {
+         _searchHistories = [NSKeyedUnarchiver unarchiveObjectWithFile:ServiceSearchHistoriesPath];
+           
+        }else{
         _searchHistories = [NSKeyedUnarchiver unarchiveObjectWithFile:PYSearchHistoriesPath];
+        }
+        
         if (!_searchHistories) {
             _searchHistories = [NSMutableArray array];
         }
@@ -184,10 +192,12 @@
 - (NSMutableArray *)colorPol
 {
     if (!_colorPol) {
-        NSArray *colorStrPol = @[@"009999", @"0099cc", @"0099ff", @"00cc99", @"00cccc", @"336699", @"3366cc", @"3366ff", @"339966", @"666666", @"666699", @"6666cc", @"6666ff", @"996666", @"996699", @"999900", @"999933", @"99cc00", @"99cc33", @"660066", @"669933", @"990066", @"cc9900", @"cc6600" , @"cc3300", @"cc3366", @"cc6666", @"cc6699", @"cc0066", @"cc0033", @"ffcc00", @"ffcc33", @"ff9900", @"ff9933", @"ff6600", @"ff6633", @"ff6666", @"ff6699", @"ff3366", @"ff3333"];
+        
+        NSArray *colorStrPol = @[@"07ecef4", @"084ccc9", @"88abda",@"7dc1dd",@"b6b8de"];
+//  @[@"009999", @"0099cc", @"0099ff", @"00cc99", @"00cccc", @"336699", @"3366cc", @"3366ff", @"339966", @"666666", @"666699", @"6666cc", @"6666ff", @"996666", @"996699", @"999900", @"999933", @"99cc00", @"99cc33", @"660066", @"669933", @"990066", @"cc9900", @"cc6600" , @"cc3300", @"cc3366", @"cc6666", @"cc6699", @"cc0066", @"cc0033", @"ffcc00", @"ffcc33", @"ff9900", @"ff9933", @"ff6600", @"ff6633", @"ff6666", @"ff6699", @"ff3366", @"ff3333"];
         NSMutableArray *colorPolM = [NSMutableArray array];
         for (NSString *colorStr in colorStrPol) {
-            UIColor *color = [UIColor py_colorWithHexString:colorStr];
+            UIColor *color =UIcolor(colorStr); //[UIColor py_colorWithHexString:colorStr];
             [colorPolM addObject:color];
         }
         _colorPol = colorPolM;
@@ -728,7 +738,13 @@
     // 移除所有历史搜索
     [self.searchHistories removeAllObjects];
     // 移除数据缓存
-    [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:PYSearchHistoriesPath];
+    if (self.isServiceSearch) {
+        
+        [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServiceSearchHistoriesPath];
+    }else{
+        [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:PYSearchHistoriesPath];
+    }
+    
     if (self.searchHistoryStyle == PYSearchHistoryStyleCell) {
         // 刷新cell
         [self.baseSearchTableView reloadData];
@@ -790,7 +806,13 @@
         self.searchHistoryStyle = self.searchHistoryStyle;
     }
     // 保存搜索信息
-    [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:PYSearchHistoriesPath];
+    MMLog(@"%u",self.isServiceSearch);
+    if (self.isServiceSearch) {
+        [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServiceSearchHistoriesPath];
+    }else{
+        [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:PYSearchHistoriesPath];
+    }
+    
     // 处理搜索结果
     switch (self.searchResultShowMode) {
         case PYSearchResultShowModePush: // Push
@@ -839,8 +861,13 @@
     UITableViewCell *cell = (UITableViewCell *)sender.superview;
     // 移除搜索信息
     [self.searchHistories removeObject:cell.textLabel.text];
+    if (self.isServiceSearch) {
+        [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServiceSearchHistoriesPath];
+    }else{
+        [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:PYSearchHistoriesPath];
+    }
     // 保存搜索信息
-    [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:PYSearchHistoriesPath];
+    
     // 刷新
     [self.baseSearchTableView reloadData];
 }
@@ -854,6 +881,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // 没有搜索记录就隐藏
     self.baseSearchTableView.tableFooterView.hidden = self.searchHistories.count == 0;
+    MMLog(@"%@---%ld",self.searchHistories,(long)self.searchHistoryStyle);
     return  self.searchHistoryStyle == PYSearchHistoryStyleCell ? self.searchHistories.count : 0;
 }
 

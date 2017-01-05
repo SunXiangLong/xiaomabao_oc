@@ -55,7 +55,7 @@
 @property (nonatomic, strong) NSString * back_tax;
 @property (nonatomic, strong) NSString * refund_status;
 @property (nonatomic, strong) NSString * is_comment;
-@property (nonatomic,strong) NSArray *goodsList;
-@property (nonatomic,strong) NSArray *childOrders;
+@property (nonatomic,strong) NSArray<MBGoodListModel *> *goodsList;
+@property (nonatomic,strong) NSArray<MBChildOrderModel *> *childOrders;
 
 @end

@@ -160,7 +160,7 @@
                 NSDictionary *dic = @{@"text":@"",@"imageUrl":[stringArr.lastObject componentsSeparatedByString:@"\""].firstObject};
                 [arr addObject:dic];
             }else{
-                MMLog(@"%@",string);
+//                MMLog(@"%@",string);
                 
                 if ([string containsString:@"</div>"]) {
                     NSDictionary *dic = @{@"text":[stringArr.firstObject componentsSeparatedByString:@"</div>"].firstObject,@"imageUrl":[stringArr.lastObject componentsSeparatedByString:@"\""].firstObject};
@@ -184,6 +184,22 @@
     
 
     return arr;
+}
++ (BOOL )htmlImgString:(NSString *)str{
+    NSInteger coun = 0;
+    NSArray *strArr = [str componentsSeparatedByString:@"<div>"];
+    for (NSString *string in strArr) {
+        if ([string containsString:@"<img src=\""]) {
+        
+            coun++;
+        }
+
+        
+    }
+    if (coun != 1) {
+        return YES;
+    }
+    return NO;
 }
 + (NSString *)removeSpaceAndNewline:(NSString *)str
 {
@@ -254,5 +270,19 @@
     
     
     
+}
+
++ (NSInteger)getAppearCount:(NSString *)withStr{
+    NSString *searchStr = @"<br>";
+    int count=0;
+    
+    for (int i = 0; i < withStr.length - searchStr.length + 1; i++)
+    {
+        if ([[withStr substringWithRange:NSMakeRange(i, searchStr.length)] isEqualToString:searchStr])
+        {
+            count++;
+        }
+    }
+    return count;
 }
 @end

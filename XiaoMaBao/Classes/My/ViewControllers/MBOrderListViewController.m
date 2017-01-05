@@ -181,7 +181,7 @@
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/order/order_list_new") parameters:@{@"session":sessiondict,@"pagination":paginationDict,@"type":_type} success:^(id responseObject) {
         [self dismiss];
         [self.tableView .mj_footer endRefreshing];
-//        MMLog(@"成功获取搜索退换货订单信息---responseObject%@",responseObject);
+        MMLog(@"成功获取搜索退换货订单信息---responseObject%@",responseObject);
         if ([[responseObject valueForKeyPath:@"data"] count] > 0) {
             [self.orderListArray addObjectsFromArray:[NSArray modelDictionary:responseObject modelKey:@"data" modelClassName:@"MBOrderModel"]];
             
@@ -557,13 +557,15 @@
             cell = [[[NSBundle mainBundle]loadNibNamed:@"MBOrderCell" owner:nil options:nil]firstObject];
         }
         cell.order_sn = [orderModel.childOrders[indexPath.row]  order_sn];
-        NSString *order_status = [self getOrderStatusName:orderModel.order_status];
+       
+        NSString *order_status = [self getOrderStatusName:orderModel.childOrders[indexPath.row].order_status];
         if ([order_status isEqualToString:@"待付款"]) {
             order_status = @"";
         }
+        cell.order_status =  order_status;
         
-        cell.order_status = order_status;
         cell.goods_listArray = [orderModel.childOrders[indexPath.row]  goodsList];
+        
         cell.VC = self;
         return cell;
     }else{

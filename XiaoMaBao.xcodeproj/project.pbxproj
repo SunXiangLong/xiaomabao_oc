@@ -634,6 +634,9 @@
 		9F33006F1DD59A2A0031248A /* UIColor+PYExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3300631DD59A2A0031248A /* UIColor+PYExtension.m */; };
 		9F3300701DD59A2A0031248A /* UIView+PYExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F3300641DD59A2A0031248A /* UIView+PYExtension.h */; };
 		9F3300711DD59A2A0031248A /* UIView+PYExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3300651DD59A2A0031248A /* UIView+PYExtension.m */; };
+		9F3DB6B41E1DF7F100F5E868 /* MBTopView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F3DB6B21E1DF7F100F5E868 /* MBTopView.h */; };
+		9F3DB6B51E1DF7F100F5E868 /* MBTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3DB6B31E1DF7F100F5E868 /* MBTopView.m */; };
+		9F3DB6B71E1DF80300F5E868 /* MBTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F3DB6B61E1DF80300F5E868 /* MBTopView.xib */; };
 		9F4248431DC0C2A0001D5BAE /* MBUpdateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4248421DC0C2A0001D5BAE /* MBUpdateView.xib */; };
 		9F4248461DC0C2BE001D5BAE /* MBUpdateView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F4248441DC0C2BE001D5BAE /* MBUpdateView.h */; };
 		9F4248471DC0C2BE001D5BAE /* MBUpdateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4248451DC0C2BE001D5BAE /* MBUpdateView.m */; };
@@ -661,6 +664,16 @@
 		9F60592A1E07DD0400BA8D03 /* MBRedeemedCashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6059281E07DD0400BA8D03 /* MBRedeemedCashViewController.m */; };
 		9F60592D1E07E2BD00BA8D03 /* MBTiedCardViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F60592B1E07E2BD00BA8D03 /* MBTiedCardViewController.h */; };
 		9F60592E1E07E2BD00BA8D03 /* MBTiedCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F60592C1E07E2BD00BA8D03 /* MBTiedCardViewController.m */; };
+		9F660B451E1CD41B009F2504 /* MBServiceSubtypeViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F660B431E1CD41B009F2504 /* MBServiceSubtypeViewController.h */; };
+		9F660B461E1CD41B009F2504 /* MBServiceSubtypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F660B441E1CD41B009F2504 /* MBServiceSubtypeViewController.m */; };
+		9F660B491E1CD684009F2504 /* MBServiceSubtypeCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F660B471E1CD684009F2504 /* MBServiceSubtypeCell.h */; };
+		9F660B4A1E1CD684009F2504 /* MBServiceSubtypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F660B481E1CD684009F2504 /* MBServiceSubtypeCell.m */; };
+		9F660B4E1E1CF236009F2504 /* MBServiceSearchViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F660B4B1E1CF236009F2504 /* MBServiceSearchViewController.h */; };
+		9F660B4F1E1CF236009F2504 /* MBServiceSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F660B4C1E1CF236009F2504 /* MBServiceSearchViewController.m */; };
+		9F660B501E1CF236009F2504 /* MBServiceSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F660B4D1E1CF236009F2504 /* MBServiceSearchViewController.xib */; };
+		9F660B541E1D0A46009F2504 /* MBServiceSearchCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F660B511E1D0A46009F2504 /* MBServiceSearchCell.h */; };
+		9F660B551E1D0A46009F2504 /* MBServiceSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F660B521E1D0A46009F2504 /* MBServiceSearchCell.m */; };
+		9F660B561E1D0A46009F2504 /* MBServiceSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F660B531E1D0A46009F2504 /* MBServiceSearchCell.xib */; };
 		9F796BF81DE59C6F00AFD7D0 /* MBAffordablePlanetTabCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F796BF61DE59C6F00AFD7D0 /* MBAffordablePlanetTabCell.h */; };
 		9F796BF91DE59C6F00AFD7D0 /* MBAffordablePlanetTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F796BF71DE59C6F00AFD7D0 /* MBAffordablePlanetTabCell.m */; };
 		9F796BFC1DE59CF500AFD7D0 /* MBAffordablePlanetCVCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F796BFA1DE59CF500AFD7D0 /* MBAffordablePlanetCVCell.h */; };
@@ -675,6 +688,18 @@
 		9F977E561DEEC7C300E186AD /* MBArticleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F977E541DEEC7C300E186AD /* MBArticleDetailViewController.m */; };
 		9F977E611DEEE7B400E186AD /* MBBabyShowViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F977E5F1DEEE7B400E186AD /* MBBabyShowViewController.h */; };
 		9F977E621DEEE7B400E186AD /* MBBabyShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F977E601DEEE7B400E186AD /* MBBabyShowViewController.m */; };
+		9F9B12C31E1B84EC00B5F4A5 /* MBServiceModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9B12C11E1B84EC00B5F4A5 /* MBServiceModel.h */; };
+		9F9B12C41E1B84EC00B5F4A5 /* MBServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9B12C21E1B84EC00B5F4A5 /* MBServiceModel.m */; };
+		9F9B12C61E1B943B00B5F4A5 /* MBServiceHomeHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9B12C51E1B943B00B5F4A5 /* MBServiceHomeHeadView.xib */; };
+		9F9B12C91E1B945300B5F4A5 /* MBServiceHomeHeadView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9B12C71E1B945300B5F4A5 /* MBServiceHomeHeadView.h */; };
+		9F9B12CA1E1B945300B5F4A5 /* MBServiceHomeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9B12C81E1B945300B5F4A5 /* MBServiceHomeHeadView.m */; };
+		9F9B12CD1E1B946D00B5F4A5 /* MBServiceHomeFootView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9B12CB1E1B946D00B5F4A5 /* MBServiceHomeFootView.h */; };
+		9F9B12CE1E1B946D00B5F4A5 /* MBServiceHomeFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9B12CC1E1B946D00B5F4A5 /* MBServiceHomeFootView.m */; };
+		9F9B12D01E1B948900B5F4A5 /* MBServiceHomeFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9B12CF1E1B948900B5F4A5 /* MBServiceHomeFootView.xib */; };
+		9F9B12D31E1B9CE300B5F4A5 /* MBServiceCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9B12D11E1B9CE300B5F4A5 /* MBServiceCell.h */; };
+		9F9B12D41E1B9CE300B5F4A5 /* MBServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9B12D21E1B9CE300B5F4A5 /* MBServiceCell.m */; };
+		9F9B12D71E1B9F2D00B5F4A5 /* MBServiceCollCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9B12D51E1B9F2D00B5F4A5 /* MBServiceCollCell.h */; };
+		9F9B12D81E1B9F2D00B5F4A5 /* MBServiceCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9B12D61E1B9F2D00B5F4A5 /* MBServiceCollCell.m */; };
 		9F9CFACB1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9CFAC91D8F840E0033681D /* MBMaBaoFeaturesBrandCell.h */; };
 		9F9CFACC1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9CFACA1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.m */; };
 		9F9CFACF1D8F84250033681D /* MBMaBaoFeaturesShopCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9CFACD1D8F84250033681D /* MBMaBaoFeaturesShopCell.h */; };
@@ -1759,6 +1784,9 @@
 		9F3300631DD59A2A0031248A /* UIColor+PYExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+PYExtension.m"; sourceTree = "<group>"; };
 		9F3300641DD59A2A0031248A /* UIView+PYExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+PYExtension.h"; sourceTree = "<group>"; };
 		9F3300651DD59A2A0031248A /* UIView+PYExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PYExtension.m"; sourceTree = "<group>"; };
+		9F3DB6B21E1DF7F100F5E868 /* MBTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTopView.h; sourceTree = "<group>"; };
+		9F3DB6B31E1DF7F100F5E868 /* MBTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTopView.m; sourceTree = "<group>"; };
+		9F3DB6B61E1DF80300F5E868 /* MBTopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBTopView.xib; sourceTree = "<group>"; };
 		9F4248421DC0C2A0001D5BAE /* MBUpdateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBUpdateView.xib; sourceTree = "<group>"; };
 		9F4248441DC0C2BE001D5BAE /* MBUpdateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBUpdateView.h; sourceTree = "<group>"; };
 		9F4248451DC0C2BE001D5BAE /* MBUpdateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBUpdateView.m; sourceTree = "<group>"; };
@@ -1786,6 +1814,16 @@
 		9F6059281E07DD0400BA8D03 /* MBRedeemedCashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBRedeemedCashViewController.m; sourceTree = "<group>"; };
 		9F60592B1E07E2BD00BA8D03 /* MBTiedCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTiedCardViewController.h; sourceTree = "<group>"; };
 		9F60592C1E07E2BD00BA8D03 /* MBTiedCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTiedCardViewController.m; sourceTree = "<group>"; };
+		9F660B431E1CD41B009F2504 /* MBServiceSubtypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceSubtypeViewController.h; sourceTree = "<group>"; };
+		9F660B441E1CD41B009F2504 /* MBServiceSubtypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceSubtypeViewController.m; sourceTree = "<group>"; };
+		9F660B471E1CD684009F2504 /* MBServiceSubtypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceSubtypeCell.h; sourceTree = "<group>"; };
+		9F660B481E1CD684009F2504 /* MBServiceSubtypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceSubtypeCell.m; sourceTree = "<group>"; };
+		9F660B4B1E1CF236009F2504 /* MBServiceSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceSearchViewController.h; sourceTree = "<group>"; };
+		9F660B4C1E1CF236009F2504 /* MBServiceSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceSearchViewController.m; sourceTree = "<group>"; };
+		9F660B4D1E1CF236009F2504 /* MBServiceSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBServiceSearchViewController.xib; sourceTree = "<group>"; };
+		9F660B511E1D0A46009F2504 /* MBServiceSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceSearchCell.h; sourceTree = "<group>"; };
+		9F660B521E1D0A46009F2504 /* MBServiceSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceSearchCell.m; sourceTree = "<group>"; };
+		9F660B531E1D0A46009F2504 /* MBServiceSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBServiceSearchCell.xib; sourceTree = "<group>"; };
 		9F796BF61DE59C6F00AFD7D0 /* MBAffordablePlanetTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAffordablePlanetTabCell.h; sourceTree = "<group>"; };
 		9F796BF71DE59C6F00AFD7D0 /* MBAffordablePlanetTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAffordablePlanetTabCell.m; sourceTree = "<group>"; };
 		9F796BFA1DE59CF500AFD7D0 /* MBAffordablePlanetCVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAffordablePlanetCVCell.h; sourceTree = "<group>"; };
@@ -1800,6 +1838,18 @@
 		9F977E541DEEC7C300E186AD /* MBArticleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBArticleDetailViewController.m; sourceTree = "<group>"; };
 		9F977E5F1DEEE7B400E186AD /* MBBabyShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBabyShowViewController.h; sourceTree = "<group>"; };
 		9F977E601DEEE7B400E186AD /* MBBabyShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabyShowViewController.m; sourceTree = "<group>"; };
+		9F9B12C11E1B84EC00B5F4A5 /* MBServiceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceModel.h; sourceTree = "<group>"; };
+		9F9B12C21E1B84EC00B5F4A5 /* MBServiceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceModel.m; sourceTree = "<group>"; };
+		9F9B12C51E1B943B00B5F4A5 /* MBServiceHomeHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBServiceHomeHeadView.xib; sourceTree = "<group>"; };
+		9F9B12C71E1B945300B5F4A5 /* MBServiceHomeHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceHomeHeadView.h; sourceTree = "<group>"; };
+		9F9B12C81E1B945300B5F4A5 /* MBServiceHomeHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceHomeHeadView.m; sourceTree = "<group>"; };
+		9F9B12CB1E1B946D00B5F4A5 /* MBServiceHomeFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceHomeFootView.h; sourceTree = "<group>"; };
+		9F9B12CC1E1B946D00B5F4A5 /* MBServiceHomeFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceHomeFootView.m; sourceTree = "<group>"; };
+		9F9B12CF1E1B948900B5F4A5 /* MBServiceHomeFootView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBServiceHomeFootView.xib; sourceTree = "<group>"; };
+		9F9B12D11E1B9CE300B5F4A5 /* MBServiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceCell.h; sourceTree = "<group>"; };
+		9F9B12D21E1B9CE300B5F4A5 /* MBServiceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceCell.m; sourceTree = "<group>"; };
+		9F9B12D51E1B9F2D00B5F4A5 /* MBServiceCollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBServiceCollCell.h; sourceTree = "<group>"; };
+		9F9B12D61E1B9F2D00B5F4A5 /* MBServiceCollCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBServiceCollCell.m; sourceTree = "<group>"; };
 		9F9CFAC91D8F840E0033681D /* MBMaBaoFeaturesBrandCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMaBaoFeaturesBrandCell.h; sourceTree = "<group>"; };
 		9F9CFACA1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMaBaoFeaturesBrandCell.m; sourceTree = "<group>"; };
 		9F9CFACD1D8F84250033681D /* MBMaBaoFeaturesShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMaBaoFeaturesShopCell.h; sourceTree = "<group>"; };
@@ -2643,6 +2693,7 @@
 		944BB0461CAD0E7900D16E19 /* Service( 服务) */ = {
 			isa = PBXGroup;
 			children = (
+				9F9B12C01E1B84B900B5F4A5 /* Model */,
 				944BB0481CAD0ED800D16E19 /* View */,
 				944BB0471CAD0EC500D16E19 /* VC */,
 			);
@@ -2656,6 +2707,8 @@
 				944AFCBA1CBB996200E66535 /* MBServiceHomeViewController.m */,
 				944BB0581CAD287000D16E19 /* MBServiceShopsViewController.h */,
 				944BB0591CAD287000D16E19 /* MBServiceShopsViewController.m */,
+				9F660B431E1CD41B009F2504 /* MBServiceSubtypeViewController.h */,
+				9F660B441E1CD41B009F2504 /* MBServiceSubtypeViewController.m */,
 				944BB0531CAD187900D16E19 /* MBServiceDetailsViewController.h */,
 				944BB0541CAD187900D16E19 /* MBServiceDetailsViewController.m */,
 				944BB0551CAD187900D16E19 /* MBServiceDetailsViewController.xib */,
@@ -2664,6 +2717,9 @@
 				941BA94D1CB3493E00421BF6 /* MBSubmitOrdersController.h */,
 				941BA94E1CB3493E00421BF6 /* MBSubmitOrdersController.m */,
 				941BA94F1CB3493E00421BF6 /* MBSubmitOrdersController.xib */,
+				9F660B4B1E1CF236009F2504 /* MBServiceSearchViewController.h */,
+				9F660B4C1E1CF236009F2504 /* MBServiceSearchViewController.m */,
+				9F660B4D1E1CF236009F2504 /* MBServiceSearchViewController.xib */,
 				941BA9551CB362CA00421BF6 /* MBServiceEvaluationController.h */,
 				941BA9561CB362CA00421BF6 /* MBServiceEvaluationController.m */,
 				941BA9571CB362CA00421BF6 /* MBServiceEvaluationController.xib */,
@@ -2700,6 +2756,18 @@
 		944BB0481CAD0ED800D16E19 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9F9B12D11E1B9CE300B5F4A5 /* MBServiceCell.h */,
+				9F9B12D21E1B9CE300B5F4A5 /* MBServiceCell.m */,
+				9F9B12D51E1B9F2D00B5F4A5 /* MBServiceCollCell.h */,
+				9F9B12D61E1B9F2D00B5F4A5 /* MBServiceCollCell.m */,
+				9F9B12C71E1B945300B5F4A5 /* MBServiceHomeHeadView.h */,
+				9F9B12C81E1B945300B5F4A5 /* MBServiceHomeHeadView.m */,
+				9F9B12C51E1B943B00B5F4A5 /* MBServiceHomeHeadView.xib */,
+				9F9B12CB1E1B946D00B5F4A5 /* MBServiceHomeFootView.h */,
+				9F9B12CC1E1B946D00B5F4A5 /* MBServiceHomeFootView.m */,
+				9F9B12CF1E1B948900B5F4A5 /* MBServiceHomeFootView.xib */,
+				9F660B471E1CD684009F2504 /* MBServiceSubtypeCell.h */,
+				9F660B481E1CD684009F2504 /* MBServiceSubtypeCell.m */,
 				944BB04E1CAD0FCE00D16E19 /* MBServiceHomeCell.h */,
 				944BB04F1CAD0FCE00D16E19 /* MBServiceHomeCell.m */,
 				944BB05D1CAD2ACE00D16E19 /* MBServiceShopsHeadView.h */,
@@ -2764,6 +2832,12 @@
 				944AFCBC1CBBA2D800E66535 /* MBServiceRefundFootCell.h */,
 				944AFCBD1CBBA2D800E66535 /* MBServiceRefundFootCell.m */,
 				944AFCBE1CBBA2D800E66535 /* MBServiceRefundFootCell.xib */,
+				9F660B511E1D0A46009F2504 /* MBServiceSearchCell.h */,
+				9F660B521E1D0A46009F2504 /* MBServiceSearchCell.m */,
+				9F660B531E1D0A46009F2504 /* MBServiceSearchCell.xib */,
+				9F3DB6B21E1DF7F100F5E868 /* MBTopView.h */,
+				9F3DB6B31E1DF7F100F5E868 /* MBTopView.m */,
+				9F3DB6B61E1DF80300F5E868 /* MBTopView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -3731,6 +3805,15 @@
 			path = PYSearch;
 			sourceTree = "<group>";
 		};
+		9F9B12C01E1B84B900B5F4A5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9F9B12C11E1B84EC00B5F4A5 /* MBServiceModel.h */,
+				9F9B12C21E1B84EC00B5F4A5 /* MBServiceModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		9FD088451E10B430000C230E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -3960,6 +4043,7 @@
 				9F0F88AB1E0112D1003979F8 /* LWImageStorage.h in Headers */,
 				9FE1ABED1DF6698B00BE760B /* LGPhotoPickerGroupTableViewCell.h in Headers */,
 				9FE1ABE11DF6698B00BE760B /* LGPhotoPickerAssetsViewController.h in Headers */,
+				9F9B12C31E1B84EC00B5F4A5 /* MBServiceModel.h in Headers */,
 				941BCEA01D64056000B4C67E /* MBVoiceViewController.h in Headers */,
 				9F977E501DEEC73500E186AD /* MBVideoDetailsViewCell.h in Headers */,
 				941BCEA61D64079700B4C67E /* MBArticleViewController.h in Headers */,
@@ -3974,6 +4058,7 @@
 				941687961D05217200F069AE /* STPhotoKitController.h in Headers */,
 				9FC814071E08C02C001731DD /* MBUseHelpViewController.h in Headers */,
 				9FB5BAB01DE2EE9F004BE309 /* MBSearchViewController.h in Headers */,
+				9F3DB6B41E1DF7F100F5E868 /* MBTopView.h in Headers */,
 				9F5888AB1DE6FFB1008CA2D7 /* MBMBAffordablePlanetOneChildeOneCell.h in Headers */,
 				9439C9A71CF420F900AA0140 /* WXApi.h in Headers */,
 				941687B81D0546D100F069AE /* MBabyRecordTwoCell.h in Headers */,
@@ -3982,17 +4067,22 @@
 				941D8EA91D378D1C00E60972 /* MBPostDetailsFooterTwo.h in Headers */,
 				9F0F88C71E0112D1003979F8 /* NSManagedObject+LWLayout.h in Headers */,
 				94E272331CFEE8A500172511 /* MBNewBabyFourTableCell.h in Headers */,
+				9F660B451E1CD41B009F2504 /* MBServiceSubtypeViewController.h in Headers */,
 				9FB1BD811D8FD7E60033D12B /* MBBrandDetailsCollectionViewCell.h in Headers */,
+				9F660B4E1E1CF236009F2504 /* MBServiceSearchViewController.h in Headers */,
 				9FB5BAB51DE2EF13004BE309 /* MBGoodSSearchViewController.h in Headers */,
 				9FE1ABD11DF6698B00BE760B /* LGImagePickerSelectView.h in Headers */,
+				9F9B12C91E1B945300B5F4A5 /* MBServiceHomeHeadView.h in Headers */,
 				9F9CFACF1D8F84250033681D /* MBMaBaoFeaturesShopCell.h in Headers */,
 				9F3300681DD59A2A0031248A /* PYSearchConst.h in Headers */,
 				94E2722D1CFEDA4100172511 /* MBNewBabyThreeTableCell.h in Headers */,
 				9F0F889B1E0112D1003979F8 /* LWCornerRadiusHelper.h in Headers */,
 				9F0F88B11E0112D1003979F8 /* LWStorageBuilder.h in Headers */,
+				9F660B491E1CD684009F2504 /* MBServiceSubtypeCell.h in Headers */,
 				9FF38BC31DC74DCA005223BC /* MBMaBaoFeaturesViewController.h in Headers */,
 				94BBF9561D6D784B00C80D37 /* MBPhoneticDetailTableViewController.h in Headers */,
 				9F5723561DED74EE00D67766 /* MBLovelyBabyImageCell.h in Headers */,
+				9F660B541E1D0A46009F2504 /* MBServiceSearchCell.h in Headers */,
 				9FE1ABE51DF6698B00BE760B /* LGPhotoPickerViewController.h in Headers */,
 				941687981D05217200F069AE /* UIImagePickerController+ST.h in Headers */,
 				9F0F88CD1E0112D1003979F8 /* SDImageCache+Gallop.h in Headers */,
@@ -4019,6 +4109,7 @@
 				9428D5F21D6D53D40055CCFC /* STConst.h in Headers */,
 				9FB1BD891D8FE9E80033D12B /* MBBrandDetailsViewController.h in Headers */,
 				9FE1ABD31DF6698B00BE760B /* LGPhotoPickerBrowserPhotoImageView.h in Headers */,
+				9F9B12D31E1B9CE300B5F4A5 /* MBServiceCell.h in Headers */,
 				9FA7956A1E12611F00CA49A9 /* MBOrderModel.h in Headers */,
 				9FE1ABEB1DF6698B00BE760B /* LGPhotoPickerFooterCollectionReusableView.h in Headers */,
 				9FE1ABE31DF6698B00BE760B /* LGPhotoPickerGroupViewController.h in Headers */,
@@ -4029,6 +4120,7 @@
 				9FE1AC201DF66F6200BE760B /* MBNewReleaseTopicViewController.h in Headers */,
 				9F2419001DE59506006775F0 /* MBAffordablePlanetViewController.h in Headers */,
 				9FE1AC191DF6698B00BE760B /* ZLCameraView.h in Headers */,
+				9F9B12D71E1B9F2D00B5F4A5 /* MBServiceCollCell.h in Headers */,
 				9FE1ABE91DF6698B00BE760B /* LGPhotoPickerCollectionViewCell.h in Headers */,
 				94E272271CFED70D00172511 /* MBNewBabyTwoTableCell.h in Headers */,
 				943F1CE61D10FFEF00CEA790 /* MBCollectionViewFlowLayout.h in Headers */,
@@ -4050,6 +4142,7 @@
 				9424062A1D6EC1ED0061C777 /* MBPhoneticDetailViewController.h in Headers */,
 				9F9CFACB1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.h in Headers */,
 				9FE1ABF21DF6698B00BE760B /* DACircularProgressView.h in Headers */,
+				9F9B12CD1E1B946D00B5F4A5 /* MBServiceHomeFootView.h in Headers */,
 				946ECDFA1D1B6EDD00778EF6 /* MBBabyCardController.h in Headers */,
 				9FE1ABD91DF6698B00BE760B /* LGPhotoPickerCustomToolBarView.h in Headers */,
 				9F0F88921E0112D1003979F8 /* GallopDefine.h in Headers */,
@@ -4198,6 +4291,7 @@
 				9FE1ABB91DF6698B00BE760B /* broswerPic3.jpg in Resources */,
 				48742C3B1B2AE0C2000F188F /* MBVoucherTableViewCell.xib in Resources */,
 				9411619B1C46618200EE8B9A /* MBStyleCollectionViewCell.xib in Resources */,
+				9F9B12C61E1B943B00B5F4A5 /* MBServiceHomeHeadView.xib in Resources */,
 				943ED80B1CCF6B30005AF4D9 /* MBAddIDCardView.xib in Resources */,
 				941BCEA81D64079700B4C67E /* MBArticleViewController.xib in Resources */,
 				944DCD181C9B9CFB003B5CC2 /* MBCategoryViewOneCell.xib in Resources */,
@@ -4207,6 +4301,7 @@
 				9FE1ABBB1DF6698B00BE760B /* btn_back_imagePicker@2x.png in Resources */,
 				94510C791CE36428006CC5AB /* MBPostDetailsHeadView.xib in Resources */,
 				94892D781CB5081D00668A98 /* MBServiceOrderTwoCell.xib in Resources */,
+				9F660B561E1D0A46009F2504 /* MBServiceSearchCell.xib in Resources */,
 				94E2722F1CFEDA4100172511 /* MBNewBabyThreeTableCell.xib in Resources */,
 				944DCD1D1C9B9D13003B5CC2 /* MBCategoryViewTwoCell.xib in Resources */,
 				944DCD131C9B996F003B5CC2 /* MBCategoryViewController.xib in Resources */,
@@ -4227,8 +4322,10 @@
 				948A59DA1C20F29D001AA522 /* validationView.xib in Resources */,
 				946ECDFC1D1B6EDD00778EF6 /* MBBabyCardController.xib in Resources */,
 				9465B5981C0DA31700D25B43 /* PhotoCollectionViewCell.xib in Resources */,
+				9F3DB6B71E1DF80300F5E868 /* MBTopView.xib in Resources */,
 				94D0BB261C3A114E000B8943 /* MBImageTableViewCell.xib in Resources */,
 				9FE1ABC41DF6698B00BE760B /* shanguangdeng2.png in Resources */,
+				9F9B12D01E1B948900B5F4A5 /* MBServiceHomeFootView.xib in Resources */,
 				9FE1ABC91DF6698B00BE760B /* xiang@2x.png in Resources */,
 				9FE1ABC81DF6698B00BE760B /* xiang.png in Resources */,
 				941687C01D05507200F069AE /* MBabyRecordThreeCell.xib in Resources */,
@@ -4330,6 +4427,7 @@
 				949725CE1CB6233100804098 /* MBServiceRefundHeadView.xib in Resources */,
 				94E294381C8AADAE0063E678 /* MBToolCollectionViewCell.xib in Resources */,
 				941687B41D0539C500F069AE /* MBabyRecordHeadView.xib in Resources */,
+				9F660B501E1CF236009F2504 /* MBServiceSearchViewController.xib in Resources */,
 				9450025E1C22C18700820F5F /* MBOrderCell.xib in Resources */,
 				944E3BE21CE99A73001C1F76 /* MBNewsCircleController.xib in Resources */,
 				481D080E1AF4746400BE1994 /* MBEmailRegisterView.xib in Resources */,
@@ -4430,6 +4528,7 @@
 				94E9A45A1C8FB4280002E15E /* NSString+SizeToFit.m in Sources */,
 				948CA9FB1BFECBB400318EAE /* RSADataSigner.m in Sources */,
 				9F0F88C41E0112D1003979F8 /* LWTransaction.m in Sources */,
+				9F660B551E1D0A46009F2504 /* MBServiceSearchCell.m in Sources */,
 				9452BCAF1D222D0800368533 /* MBLogOperation.m in Sources */,
 				481FC0D81B23046E000E6864 /* MBMyTableViewCell.m in Sources */,
 				94BE35DD1CFFC385004F099E /* MBBabyToolCell.m in Sources */,
@@ -4468,6 +4567,7 @@
 				94B6EE8A1D65739F0083D075 /* MBVideoPlaybackViewController.m in Sources */,
 				4854862F1B196C58008C68C0 /* NSString+BQ.m in Sources */,
 				9478D3EF1D1B7A7E0059D9C2 /* MBDindingBabyCardController.m in Sources */,
+				9F660B461E1CD41B009F2504 /* MBServiceSubtypeViewController.m in Sources */,
 				420BF6651BB537BB00C89C3C /* MJMethod.m in Sources */,
 				94B6F47D1BD5DD2200B352B9 /* payRequsestHandler.mm in Sources */,
 				487602BC1AF30DB000A2B1F0 /* MBRegisterPhoneVerifyViewController.m in Sources */,
@@ -4574,6 +4674,7 @@
 				9FD088511E10BAA5000C230E /* MBMyMaBeanViewCell.m in Sources */,
 				941BCEA11D64056000B4C67E /* MBVoiceViewController.m in Sources */,
 				94DB1E1C1CE5E6F500ADAE9D /* CommentView.m in Sources */,
+				9F9B12CE1E1B946D00B5F4A5 /* MBServiceHomeFootView.m in Sources */,
 				42ED8D171BAE6AAC00F458DE /* Order.m in Sources */,
 				944BB0561CAD187900D16E19 /* MBServiceDetailsViewController.m in Sources */,
 				48FAFD5E1B1FFAD6002D8DEC /* MBJoinCartViewController.m in Sources */,
@@ -4588,9 +4689,11 @@
 				420BF6691BB537BB00C89C3C /* NSObject+MJKeyValue.m in Sources */,
 				941691B31D066C6200442741 /* MBBabyDueDateController.m in Sources */,
 				94E9A4641C8FB9AD0002E15E /* UICollectionViewFlowLayout+XWFullItem.m in Sources */,
+				9F660B4A1E1CD684009F2504 /* MBServiceSubtypeCell.m in Sources */,
 				94FA70661CE027D900BCC364 /* MBTopPostCell.m in Sources */,
 				94DB24781CD21B4300B1F153 /* MBMycircleTableViewCell.m in Sources */,
 				48F9F4F11B01F71200ED4A5D /* BkTabBarView.m in Sources */,
+				9F3DB6B51E1DF7F100F5E868 /* MBTopView.m in Sources */,
 				94510EBC1C8577C0005DF311 /* JCCollectionViewWaterfallLayout.m in Sources */,
 				9F0F88B41E0112D1003979F8 /* LWTextAttachment.m in Sources */,
 				944BB05F1CAD2ACE00D16E19 /* MBServiceShopsHeadView.m in Sources */,
@@ -4600,6 +4703,7 @@
 				AA9F03CF1B8EEA110072D39A /* MBSignRoleView.m in Sources */,
 				4803860C1B58B0290052FA20 /* MBNetworking.m in Sources */,
 				486D23451B249C700035EE1A /* MBSettingViewController.m in Sources */,
+				9F9B12CA1E1B945300B5F4A5 /* MBServiceHomeHeadView.m in Sources */,
 				94243BAE1D6705E400540440 /* MBBaseTableViewController.m in Sources */,
 				94743C301D07DF72003A262B /* MBNewMyViewCell.m in Sources */,
 				42891E451BB0EB14008CF062 /* MBBackServiceViewController.m in Sources */,
@@ -4663,9 +4767,11 @@
 				94892D801CB50B0F00668A98 /* MBServiceOrderFootView.m in Sources */,
 				487602C21AF3162F00A2B1F0 /* MBRegisterPhoneDoneViewController.m in Sources */,
 				946ECDFB1D1B6EDD00778EF6 /* MBBabyCardController.m in Sources */,
+				9F660B4F1E1CF236009F2504 /* MBServiceSearchViewController.m in Sources */,
 				4824ED6A1B57EE5200E4B9E2 /* MBModel.m in Sources */,
 				482846951B22D1380069FB28 /* MBShopCommonFrame.m in Sources */,
 				48ED9FB81AF735250076A4CD /* MBRegisterField.m in Sources */,
+				9F9B12D41E1B9CE300B5F4A5 /* MBServiceCell.m in Sources */,
 				9F0F88B61E0112D1003979F8 /* LWTextContainer.m in Sources */,
 				9FE1ABDA1DF6698B00BE760B /* LGPhotoPickerCustomToolBarView.m in Sources */,
 				42B4559E1BB92862003E555F /* MBServiceProvisionViewController.m in Sources */,
@@ -4706,6 +4812,7 @@
 				943ED8091CCF6B24005AF4D9 /* MBAddIDCardView.m in Sources */,
 				941BCEB31D64394D00B4C67E /* MBVoiceViewCell.m in Sources */,
 				941687991D05217200F069AE /* UIImagePickerController+ST.m in Sources */,
+				9F9B12C41E1B84EC00B5F4A5 /* MBServiceModel.m in Sources */,
 				48162F441AF2866900E61D5C /* MBNavigationViewController.m in Sources */,
 				485006771B084815002520CB /* MBHomeMenuButton.m in Sources */,
 				4850067A1B085BB1002520CB /* MBSharkViewController.m in Sources */,
@@ -4773,6 +4880,7 @@
 				9FE1ABCE1DF6698B00BE760B /* LGPhotoRect.m in Sources */,
 				9F4248471DC0C2BE001D5BAE /* MBUpdateView.m in Sources */,
 				482FE0221B883DF600EE221C /* ZLDateView.m in Sources */,
+				9F9B12D81E1B9F2D00B5F4A5 /* MBServiceCollCell.m in Sources */,
 				9463A2DB1C7C2E0000B30892 /* orderFootView.m in Sources */,
 				9FB1BD821D8FD7E60033D12B /* MBBrandDetailsCollectionViewCell.m in Sources */,
 				9F0F88CC1E0112D1003979F8 /* NSString+HTML.m in Sources */,
@@ -5034,8 +5142,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaomabao.APPxiaomabao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ab8d13c8-98f8-4699-b793-2e97c9bf4c2a";
-				PROVISIONING_PROFILE_SPECIFIER = xiaomabao_Development;
+				PROVISIONING_PROFILE = "8b022695-8d4d-420c-a3d5-bfb9f9428020";
+				PROVISIONING_PROFILE_SPECIFIER = "<font><font>xiaomabao_Development</font></font>";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";

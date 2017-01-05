@@ -76,6 +76,7 @@
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/discount/get_user_coupon"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         _couponList = [responseObject valueForKeyPath:@"data"];
+        MMLog(@"%@",_couponList);
         
         if (_couponList.count>0) {
             if(_tableView){
@@ -116,6 +117,7 @@
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/discount/get_coupon_enable"] parameters:@{@"session":dict,@"order_money":order_money} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         [self dismiss];
+        MMLog(@"%@",[responseObject valueForKeyPath:@"data"]);
         _couponList = [responseObject valueForKeyPath:@"data"];
         if (_couponList.count>0) {
             if( !_tableView){

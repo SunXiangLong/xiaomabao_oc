@@ -18,7 +18,7 @@
 /***  军哥后台 */
 //   static NSString *BASE_URL_root = @"http://192.168.11.36";
 /***  辉哥后台 */
-//static NSString *BASE_URL_root =   @"http://192.168.22.222";
+//static NSString *BASE_URL_root =   @"http://192.168.10.202";
 
 #define NOTIFICATION_TIME_CELL  @"NotificationTimeCell"
 #endif

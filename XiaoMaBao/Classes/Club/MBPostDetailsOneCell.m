@@ -46,42 +46,45 @@
 -(void)setDataDic:(NSDictionary *)dataDic{
     _dataDic = dataDic;
     
-    self.post_content.text = dataDic[@"post_content"];
-    
+   
+    self.post_title.text = dataDic[@"post_title"];
     self.author_name.text = dataDic[@"author_name"];
     [self.author_userhead  sd_setImageWithURL:URL(dataDic[@"author_userhead"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-   
     
     _inHtmlString =  dataDic[@"post_content"] ;
     NSURL *indexFileURL = [[NSBundle mainBundle] URLForResource:@"richTextEditor" withExtension:@"html"];
-    
-    
-    NSArray *htmlArr =  [NSString htmlString:dataDic[@"post_content"] AspectRatio:dataDic[@"post_imgs_scale"]];
+    //    NSArray *htmlArr =  [NSString htmlString:dataDic[@"post_content"] AspectRatio:dataDic[@"post_imgs_scale"]];
     NSArray *brArr = [NSString rangesOfString:@"<br>" inString:dataDic[@"post_content"]];
-   
+    
     _allImageHeight = brArr.count*20;
+    _webView.hidden = NO;
     
-    for (NSDictionary *dic in htmlArr) {
-        if ([dic[@"imageUrl"] containsString:@"http://"]) {
-            _isImage = YES;
-        }
-    }
-    
-    
-    if (_isImage) {
-        _webView.hidden = NO;
-        _allImageHeight += [[NSString filterHTML:dataDic[@"post_content"]] sizeWithFont:SYSTEMFONT(17) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
-        [self.webView loadRequest:[NSURLRequest requestWithURL:indexFileURL]];
+    if ([dataDic[@"post_content"] containsString:@"<div>"]) {
+        
         for (NSString *scale in dataDic[@"post_imgs_scale"]) {
-            _allImageHeight += 30;
+            _allImageHeight += 20;
             _allImageHeight += (UISCREEN_WIDTH-20)/[scale floatValue];
+            
         }
+        _allImageHeight += [[NSString filterHTML:dataDic[@"post_content"]] sizeWithFont:SYSTEMFONT(18) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
+        _allImageHeight+= 150;
+        
     }else{
+        
         _webView.hidden = YES;
+        
+         self.post_content.text = [dataDic[@"post_content"] componentsSeparatedByString:@"<img src=\""].firstObject;
+    
+        _allImageHeight+= [self.dataDic[@"post_content"] sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
         [self.post_content rowSpace:6];
         [self.post_title rowSpace:2];
-        self.post_title.text = dataDic[@"post_title"];
+        _allImageHeight+= 65;
+       
     }
+    
+    [self.webView loadRequest:[NSURLRequest requestWithURL:indexFileURL]];
+    
+    
     
     
 }
@@ -98,18 +101,31 @@
 - (CGSize)sizeThatFits:(CGSize)size {
     CGFloat totalHeight = 0;
     totalHeight+= [self.post_title sizeThatFits:size].height;
-    if (!_isImage) {
-        totalHeight+= [self.dataDic[@"post_content"] sizeWithFont:SYSTEMFONT(16) lineSpacing:6 withMax:UISCREEN_WIDTH-20];
-       totalHeight+= 65;
-    }else{
-        totalHeight+= _allImageHeight;
-        totalHeight+= 150;
-    }
-    
-    
-    
-    
+    totalHeight+= _allImageHeight;
     return CGSizeMake(size.width, totalHeight);
 }
-
+//- (NSUInteger)analyseRX:(NSString *)string withPatternString:(NSString *)patternString
+//{
+//    //     \\[[^\\]]+\\]  用以匹配字符串中所出现的 [*] 的个数
+//    //     <[^>]+>        用以匹配字符串中所出现的 <*> 的个数
+//
+//    if (string == nil)
+//    {
+//        return 0;
+//    }
+//
+//    // 正则表达式
+//    NSRegularExpression *regex = \
+//    [NSRegularExpression regularExpressionWithPattern:patternString
+//                                              options:NSRegularExpressionCaseInsensitive
+//                                                error:nil];
+//    // 执行相关匹配操作
+//    NSRange range = NSMakeRange(0, [string length]);
+//    NSUInteger numberOfMatches = [regex numberOfMatchesInString:string
+//                                                        options:0
+//                                                          range:range];
+//
+//    // 返回匹配的个数
+//    return numberOfMatches;
+//}
 @end

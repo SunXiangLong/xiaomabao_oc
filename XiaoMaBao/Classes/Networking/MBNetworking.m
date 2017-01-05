@@ -57,6 +57,7 @@ static AFHTTPSessionManager *mgr = nil;
     
     requestParams = [self stitchingParameter:parameters];
     [self logURL];
+    
     return   [self.mgr POST:URLString parameters:requestParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
     } failure:failure];

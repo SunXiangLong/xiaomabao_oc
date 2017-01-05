@@ -61,4 +61,6 @@ typedef enum {
 + (NSString *)removeSpaceAndNewline:(NSString *)str;
 + (NSString *)filterHTML:(NSString *)html;
 + (NSArray *)rangesOfString:(NSString *)searchString inString:(NSString *)str;
++ (NSInteger)getAppearCount:(NSString *)withStr;
++ (BOOL )htmlImgString:(NSString *)str;
 @end

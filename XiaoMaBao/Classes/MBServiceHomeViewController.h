@@ -9,5 +9,6 @@
 #import "BkBaseViewController.h"
 
 @interface MBServiceHomeViewController : BkBaseViewController
-
+@property (nonatomic,strong) NSString *cat_id;
+@property (nonatomic,strong) NSString *cat_name;
 @end

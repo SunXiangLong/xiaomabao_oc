@@ -258,8 +258,8 @@
 }
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
 
-    MBGoodSSearchViewController *searchViewController = [[MBGoodSSearchViewController alloc] init];
-    searchViewController.hotSearches = @[@"美德乐", @"花王", @"跨境购", @"婴儿车", @"玩具",@"围巾", @"尿不湿",@"诺优能",@"特福芬",@"麦婴",@"奶瓶",@"行李箱",@"智高chicco"];
+    MBGoodSSearchViewController *searchViewController = [[MBGoodSSearchViewController alloc] init:NO];
+    searchViewController.hotSearches = @[@""];
     searchViewController.hotSearchStyle =  PYHotSearchStyleColorfulTag;
     searchViewController.searchBar.placeholder = @"请输入要搜索商品名称";
     searchViewController.hotSearchHeader.text = @"大家都在搜";

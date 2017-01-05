@@ -54,33 +54,39 @@
     self.user_name.text = dataDic[@"user_name"];
     [self.user_head sd_setImageWithURL:URL(dataDic[@"user_head"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
     
-    NSArray *htmlArr =  [NSString htmlString:dataDic[@"comment_content"] AspectRatio:dataDic[@"post_imgs_scale"]];
-    
+//    NSArray *htmlArr =  [NSString htmlString:dataDic[@"comment_content"] AspectRatio:dataDic[@"post_imgs_scale"]];
+    NSArray *brArr = [NSString rangesOfString:@"<br>" inString:dataDic[@"comment_content"]];
     _allImageHeight = 0;
+    _allImageHeight = brArr.count*20;
     
-    
-    for (NSDictionary *dic in htmlArr) {
+//    for (NSDictionary *dic in htmlArr) {
+//        
+//        if (![dic[@"text"] isEqualToString:@""]&&![dic[@"text"] isEqualToString:@"<br>"]) {
+//            _allImageHeight += 20;
+//            _allImageHeight += [dic[@"text"] sizeWithFont:SYSTEMFONT(16) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
+//        }
+//        if ([dic[@"imageUrl"] containsString:@"http://"]) {
+//            _isImage = YES;
+//        }
+//        
+//    }
+    if ([dataDic[@"comment_content"] containsString:@"<div>"]) {
         
-        if (![dic[@"text"] isEqualToString:@""]&&![dic[@"text"] isEqualToString:@"<br>"]) {
-            _allImageHeight += 20;
-            _allImageHeight += [dic[@"text"] sizeWithFont:SYSTEMFONT(16) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
-        }
-        if ([dic[@"imageUrl"] containsString:@"http://"]) {
-            _isImage = YES;
-        }
-        
-    }
-    
-    if (_isImage) {
         for (NSString *scale in dataDic[@"comment_imgs_scale"]) {
             _allImageHeight += 20;
             _allImageHeight += (UISCREEN_WIDTH-20)/[scale floatValue];
+            
         }
+        _allImageHeight += [[NSString filterHTML:dataDic[@"comment_content"]] sizeWithFont:SYSTEMFONT(18) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
+
+        
+    }else{
+        _allImageHeight += [dataDic[@"comment_content"] sizeWithFont:SYSTEMFONT(18) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
+        _allImageHeight +=20;
     }
     
-    
+
     _webHeight =   [_postContent sizeWithFont:SYSTEMFONT(17) withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height + _allImageHeight;
-   
     self.webViewHeight.constant = _webHeight;
     NSURL *indexFileURL = [[NSBundle mainBundle] URLForResource:@"richTextEditor" withExtension:@"html"];
     [self.webView loadRequest:[NSURLRequest requestWithURL:indexFileURL]];

@@ -22,6 +22,7 @@
     NSArray *_dataArr;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom;
 
 @end
 
@@ -73,7 +74,7 @@
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         if ([responseObject count]>0) {
-            
+            self.bottom.constant = 0;
 //            MMLog(@"%@",responseObject);
             _dataDic = responseObject;
             self.tableView.tableHeaderView = [self setTableHeadView];

@@ -21,7 +21,10 @@
     _shopAddress.displaysAsynchronously = YES;
 //    _shopAddress.ignoreCommonProperties = YES;
 }
+-(void)setModel:(ServiceShopModel *)model{
 
+
+}
 -(void)setDataDic:(NSDictionary *)dataDic{
     _dataDic = dataDic;
     [self.shopLogo sd_setImageWithURL:[NSURL URLWithString:dataDic[@"shop_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
@@ -36,7 +39,7 @@
    
     NSMutableAttributedString *shopAddresstext = [[NSMutableAttributedString alloc] init];
      UIImage *addressImage = [UIImage imageNamed:@"ditie"];
-    NSMutableAttributedString *attachText = [NSMutableAttributedString yy_attachmentStringWithContent:addressImage contentMode:UIViewContentModeCenter attachmentSize:CGSizeMake(9, 10) alignToFont:YC_YAHEI_FONT(13) alignment:YYTextVerticalAlignmentBottom];
+    NSMutableAttributedString *attachText = [NSMutableAttributedString yy_attachmentStringWithContent:addressImage contentMode:UIViewContentModeCenter attachmentSize:CGSizeMake(12, 12) alignToFont:YC_YAHEI_FONT(13) alignment:YYTextVerticalAlignmentBottom];
     NSString *title = string(@"  ", dataDic[@"shop_nearby_subway"]) ;
     [shopAddresstext appendAttributedString:attachText];
     [shopAddresstext appendAttributedString:[[NSAttributedString alloc] initWithString:title attributes:nil]];
@@ -47,7 +50,7 @@
     
     NSMutableAttributedString *shopCityText = [[NSMutableAttributedString alloc] init];
     UIImage *cityImage = [UIImage imageNamed:@"city_image"];
-    NSMutableAttributedString *cityText = [NSMutableAttributedString yy_attachmentStringWithContent:cityImage contentMode:UIViewContentModeCenter attachmentSize:CGSizeMake(9, 10) alignToFont:YC_YAHEI_FONT(13) alignment:YYTextVerticalAlignmentBottom];
+    NSMutableAttributedString *cityText = [NSMutableAttributedString yy_attachmentStringWithContent:cityImage contentMode:UIViewContentModeCenter attachmentSize:CGSizeMake(12, 12) alignToFont:YC_YAHEI_FONT(13) alignment:YYTextVerticalAlignmentBottom];
     NSString *cityTitle = string(@"  ",dataDic[@"shop_city"]) ;
     [shopCityText appendAttributedString:cityText];
     
