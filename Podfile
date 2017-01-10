@@ -1,8 +1,18 @@
 
 platform :ios, '8.0'
 target 'XiaoMaBao' do
+#网络请求框架。
 pod 'AFNetworking', '~> 3.1.0'
-#UITableView data is nil 
+#相册多选拍照。
+pod 'TZImagePickerController'
+#富文本编辑器
+#pod 'WordPress-iOS-Editor-Extension'
+#pod 'CocoaLumberjack', '~>2.2.0', :inhibit_warnings => true
+#pod 'WordPress-iOS-Shared', '~>0.5.0', :inhibit_warnings => true
+#pod 'WordPressCom-Analytics-iOS', '~>0.1.0', :inhibit_warnings => true
+
+
+#UITableView data is nil
 pod 'DZNEmptyDataSet'
 #of keyboard sliding up and cover UITextField/UITextView.
 pod 'IQKeyboardManager'

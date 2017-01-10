@@ -36,6 +36,8 @@
     #import "MBRefreshGifFooter.h"
     #import "MBNavigationViewController.h"
     #import "Unicall.h"
+
+#import <TZImagePickerController/TZImagePickerController.h>
 #import "LGPhotoPickerViewController.h"
 #import "LGPhoto.h"
 #import "LGPhotoPickerViewController.h"

@@ -191,7 +191,7 @@
                       
                        NSDictionary *userData = [responseObject valueForKeyPath:@"data"];
                        NSDictionary *sessionDict = [userData valueForKeyPath:@"session"];
-                       MMLog(@"%@",userData);
+//                       MMLog(@"%@",userData);
                        MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
                        userInfo.sid = [sessionDict valueForKeyPath:@"sid"];
                        userInfo.uid = [sessionDict valueForKeyPath:@"uid"];

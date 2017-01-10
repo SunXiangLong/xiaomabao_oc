@@ -9,7 +9,7 @@
 #import "MBServiceSubtypeViewController.h"
 #import "MBServiceSubtypeCell.h"
 #import "MBServiceModel.h"
-#import "MBServiceShopsViewController.h"
+#import "MBServiceDetailsViewController.h"
 @interface MBServiceSubtypeViewController (){
     NSInteger _page;
 }
@@ -94,21 +94,24 @@
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self performSegueWithIdentifier:@"MBServiceShopsViewController" sender:indexPath];
+    MBServiceDetailsViewController *VC  = [[MBServiceDetailsViewController alloc] init];
+    VC.product_id = _productModelArray[indexPath.row].product_id;;
+    [self pushViewController:VC Animated:true];
+//    [self performSegueWithIdentifier:@"MBServiceShopsViewController" sender:indexPath];
 }
 
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSIndexPath *indexPath = (NSIndexPath *)sender;
-    if([segue.identifier isEqualToString:@"MBServiceShopsViewController"]){
-        MBServiceShopsViewController *VC = (MBServiceShopsViewController *)segue.destinationViewController;
-        VC.shop_id = _productModelArray[indexPath.row].product_id;
-        VC.title = _productModelArray[indexPath.row].product_name;
-        
-    }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    NSIndexPath *indexPath = (NSIndexPath *)sender;
+//    if([segue.identifier isEqualToString:@"MBServiceShopsViewController"]){
+//        MBServiceShopsViewController *VC = (MBServiceShopsViewController *)segue.destinationViewController;
+//        VC.shop_id = _productModelArray[indexPath.row].product_id;
+//        VC.title = _productModelArray[indexPath.row].product_name;
+//        
+//    }
+//}
 
 
 @end

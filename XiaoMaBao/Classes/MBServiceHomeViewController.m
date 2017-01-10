@@ -178,7 +178,7 @@
 #pragma mark -- 更多服务
 - (void)moreService:(UITapGestureRecognizer *)ges{
     if ([ges.view isKindOfClass:[MBServiceHomeHeadView class]]) {
-    
+        MMLog(@"%ld",ges.view.tag);
         [self performSegueWithIdentifier:@"MBServiceShopsViewController" sender:[NSIndexPath indexPathForRow:0 inSection:ges.view.tag]];
         return;
     }

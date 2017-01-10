@@ -207,6 +207,7 @@
     temp = [temp stringByReplacingOccurrencesOfString:@"\\" withString:@""];
     temp = [temp stringByReplacingOccurrencesOfString:@"'" withString:@""];
     temp = [temp stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+//    temp = [temp stringByReplacingOccurrencesOfString:@"<br />" withString:@""];
     return temp;
 }
 + (NSString *)filterHTML:(NSString *)html

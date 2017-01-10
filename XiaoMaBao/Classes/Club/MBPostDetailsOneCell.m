@@ -90,7 +90,7 @@
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     
-    
+    MMLog(@"%@",[NSString removeSpaceAndNewline:_inHtmlString]);
     NSString *place = [NSString stringWithFormat:@"window.placeHTMLToEditor('%@')",[NSString removeSpaceAndNewline:_inHtmlString]];
     [webView stringByEvaluatingJavaScriptFromString:place];
     
@@ -104,28 +104,4 @@
     totalHeight+= _allImageHeight;
     return CGSizeMake(size.width, totalHeight);
 }
-//- (NSUInteger)analyseRX:(NSString *)string withPatternString:(NSString *)patternString
-//{
-//    //     \\[[^\\]]+\\]  用以匹配字符串中所出现的 [*] 的个数
-//    //     <[^>]+>        用以匹配字符串中所出现的 <*> 的个数
-//
-//    if (string == nil)
-//    {
-//        return 0;
-//    }
-//
-//    // 正则表达式
-//    NSRegularExpression *regex = \
-//    [NSRegularExpression regularExpressionWithPattern:patternString
-//                                              options:NSRegularExpressionCaseInsensitive
-//                                                error:nil];
-//    // 执行相关匹配操作
-//    NSRange range = NSMakeRange(0, [string length]);
-//    NSUInteger numberOfMatches = [regex numberOfMatchesInString:string
-//                                                        options:0
-//                                                          range:range];
-//
-//    // 返回匹配的个数
-//    return numberOfMatches;
-//}
 @end

@@ -61,6 +61,7 @@ PODS:
   - StreamingKit (0.1.29)
   - SVProgressHUD (1.1.3)
   - TYAttributedLabel (2.6.1)
+  - TZImagePickerController (1.5.0)
   - UITableView+FDTemplateLayoutCell (1.5.beta)
   - UMengAnalytics (3.6.6)
   - WMPageController (1.1.0)
@@ -107,6 +108,7 @@ DEPENDENCIES:
   - SKTagView
   - StreamingKit
   - TYAttributedLabel
+  - TZImagePickerController
   - UITableView+FDTemplateLayoutCell (~> 1.5.beta)
   - UMengAnalytics
   - WMPageController
@@ -141,6 +143,7 @@ SPEC CHECKSUMS:
   StreamingKit: c329785aaef3ac142d4ae388345bfe1ed23cfd45
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TYAttributedLabel: 4785820dc8d7935446f49f1de4daa0f99ebcba8a
+  TZImagePickerController: d09eef6042852a9dd19224ae4e874f7430852a51
   UITableView+FDTemplateLayoutCell: 02b508ab1cb4cea16a8c17ac83d2cd1fd72124f9
   UMengAnalytics: 4bf831415146b9c57cb10be65fbd43462ef8cf65
   WMPageController: f612ff7be927c7de6a17c6c29333fb7053f06e5e
@@ -152,6 +155,6 @@ SPEC CHECKSUMS:
   YYWebImage: 0431ed108e104527669b86f75efd58958425cca2
   ZFPlayer: 80cf92fef7412ff7a31e47c6658c50393351f938
 
-PODFILE CHECKSUM: af09b6848e423c305cef63ca72d21e46bbc7af09
+PODFILE CHECKSUM: 7f56076ee193bc796d16e4b350ebf5290d4a5352
 
-COCOAPODS: 1.1.0.beta.2
+COCOAPODS: 1.1.1

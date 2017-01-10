@@ -7,7 +7,9 @@
 //
 
 #import "MBNewReleaseTopicViewController.h"
-
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
+#import  <TZImageManager.h> 
 @interface MBNewReleaseTopicViewController ()<UIWebViewDelegate,
 UINavigationControllerDelegate,LGPhotoPickerViewControllerDelegate,UIImagePickerControllerDelegate
 >
@@ -19,6 +21,7 @@ UINavigationControllerDelegate,LGPhotoPickerViewControllerDelegate,UIImagePicker
     NSInteger _imageCount;
     
 }
+@property (nonatomic, strong) UIImagePickerController *imagePickerVc;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (nonatomic,copy) NSMutableArray *imageArr;
 @property (copy, nonatomic) NSMutableArray  *photoArray;
@@ -30,6 +33,26 @@ UINavigationControllerDelegate,LGPhotoPickerViewControllerDelegate,UIImagePicker
         _imageArr = [NSMutableArray array];
     }
     return _imageArr;
+}
+- (UIImagePickerController *)imagePickerVc {
+    if (_imagePickerVc == nil) {
+        _imagePickerVc = [[UIImagePickerController alloc] init];
+        _imagePickerVc.delegate = self;
+        // set appearance / 改变相册选择页的导航栏外观
+        _imagePickerVc.navigationBar.barTintColor = self.navigationController.navigationBar.barTintColor;
+        _imagePickerVc.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
+        UIBarButtonItem *tzBarItem, *BarItem;
+        if (iOS9Later) {
+            tzBarItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[TZImagePickerController class]]];
+            BarItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UIImagePickerController class]]];
+        } else {
+            tzBarItem = [UIBarButtonItem appearanceWhenContainedIn:[TZImagePickerController class], nil];
+            BarItem = [UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil];
+        }
+        NSDictionary *titleTextAttributes = [tzBarItem titleTextAttributesForState:UIControlStateNormal];
+        [BarItem setTitleTextAttributes:titleTextAttributes forState:UIControlStateNormal];
+    }
+    return _imagePickerVc;
 }
 #pragma mark - View Will Appear Section
 - (void)viewWillAppear:(BOOL)animated {
@@ -296,20 +319,75 @@ UINavigationControllerDelegate,LGPhotoPickerViewControllerDelegate,UIImagePicker
  *  初始化相册选择器
  */
 - (void)presentPhotoPickerViewControllerWithStyle:(LGShowImageType)style {
-    LGPhotoPickerViewController *pickerVc = [[LGPhotoPickerViewController alloc] initWithShowType:style];
-    pickerVc.status = PickerViewShowStatusCameraRoll;
-    pickerVc.maxCount = 5;   // 最多能选5张图片
-    pickerVc.delegate = self;
+//    LGPhotoPickerViewController *pickerVc = [[LGPhotoPickerViewController alloc] initWithShowType:style];
+//    pickerVc.status = PickerViewShowStatusCameraRoll;
+//    pickerVc.maxCount = 5;   // 最多能选5张图片
+//    pickerVc.delegate = self;
+//    
+//    [pickerVc showPickerVc:self];
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:5 delegate:nil];
     
-    [pickerVc showPickerVc:self];
+
+    // 4. 照片排列按修改时间升序
+    imagePickerVc.sortAscendingByModificationDate = YES;
+    NSMutableArray *imageIDArray = [NSMutableArray array];
+   
+    [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
+        
+        [photos enumerateObjectsUsingBlock:^(UIImage * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            NSString *imageID = [[NSUUID UUID] UUIDString];
+            UIImage *image = [UIImage imageNamed:@"img_default"];
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectory = [paths objectAtIndex:0];
+            NSString *imagePath = [documentsDirectory stringByAppendingPathComponent:imageID];
+            if (image) {
+                NSData *imageData = UIImageJPEGRepresentation(image, 1);
+                [imageData writeToFile:imagePath atomically:YES];
+            }
+            NSString *script = [NSString stringWithFormat:@"window.insertImage('%@', '%@')", imageID, imagePath];
+            
+            [self.webView stringByEvaluatingJavaScriptFromString:script];
+            [imageIDArray addObject:imageID];
+        }];
+        [self getsubData:photos imageName:[imageIDArray copy]];
+    }];
+    
+    [self presentViewController:imagePickerVc animated:YES completion:nil];
 }
 /**
  *  初始化自定义相机（连拍）
  */
 - (void)presentCameraContinuous {
+//    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+//    if ((authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) && iOS7Later) {
+//        // 无相机权限 做一个友好的提示
+//        UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"无法使用相机" message:@"请在iPhone的""设置-隐私-相机""中允许访问相机" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"设置", nil];
+//        [alert show];
+//        // 拍照之前还需要检查相册权限
+//        
+//    } else if ([[TZImageManager manager] authorizationStatusAuthorized]) { // 已被拒绝，没有相册权限，将无法保存拍的照片
+//        
+//        ZZCameraController *cameraController = [[ZZCameraController alloc]init];
+//        //设置最大连拍张数
+//        cameraController.takePhotoOfMax = 5;
+//        //设置图片返回类型 （下面例子为缩略图）
+////        cameraController.imageType = ZZImageTypeOfThumb;
+//        [cameraController showIn:self result:^(id responseObject){
+//            //responseObject 中元素类型为 ZZCamera
+//            //返回结果集
+//            NSLog(@"%@",responseObject);
+//            NSArray *array = (NSArray *)responseObject;
+//        }];
+//    }  else {
+//        UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"无法访问相册" message:@"请在iPhone的""设置-隐私-相册""中允许访问相册" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"设置", nil];
+//        alert.tag = 1;
+//        [alert show];
+//        
+//    }
     ZLCameraViewController *cameraVC = [[ZLCameraViewController alloc] init];
     // 拍照最多个数
-    cameraVC.maxCount = 4;
+    cameraVC.maxCount = 5;
     // 连拍
     cameraVC.cameraType = ZLCameraContinuous;
     WS(weakSelf)

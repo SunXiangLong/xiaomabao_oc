@@ -15,61 +15,63 @@
 #import "MBPostDetailsViewCell.h"
 #import "MBPostDetailsFooterOne.h"
 #import "MBPostDetailsFooterTwo.h"
+
+#import <JavaScriptCore/JavaScriptCore.h> //引入头文件
+#import "ObjCModel.h"
 @interface MBPostDetailsViewController ()<UITableViewDelegate,UITableViewDataSource>
-    {
-        
-        /**
-         *  titltButton的飙升箭头
-         */
-        UIImageView *_imageView;
-        /**
-         *  筛选view
-         */
-        UIView *_topView;
-        /**
-         *  是否弹出筛选view
-         */
-        BOOL _isbool;
-        /**
-         *  是否被收藏
-         */
-        BOOL _isCollection;
-        
-        NSIndexPath *_dianjiIndexPath;
-        
-        BOOL _isRefresh;
-        
-        
-    }
+{
     
     /**
-     *  收藏button
+     *  titltButton的飙升箭头
      */
-    @property (weak, nonatomic) IBOutlet UIButton *collectionButton;
+    UIImageView *_imageView;
     /**
-     *   底层视图控件
+     *  筛选view
      */
-    @property (weak, nonatomic) IBOutlet UITableView *tableView;
+    UIView *_topView;
     /**
-     *  存放跟帖用户的相关信息
+     *  是否弹出筛选view
      */
-    @property (copy, nonatomic) NSMutableArray *commentsArray;
+    BOOL _isbool;
     /**
-     *  页数
+     *  是否被收藏
      */
-    @property (assign, nonatomic)   NSInteger page;
-    /**
-     *  楼主id
-     */
-    @property (copy, nonatomic) NSString *poster;
-    /**
-     *  筛选帖子的条件 0是默认全部，1是只看楼主，2是只看图片
-     */
-    @property (copy, nonatomic) NSString *isImage;
-    /**
-     *   是否是下个界面返回
-     */
+    BOOL _isCollection;
     
+    NSIndexPath *_dianjiIndexPath;
+    
+    BOOL _isRefresh;
+    
+    
+}
+
+/**
+ *  收藏button
+ */
+@property (weak, nonatomic) IBOutlet UIButton *collectionButton;
+/**
+ *   底层视图控件
+ */
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+/**
+ *  存放跟帖用户的相关信息
+ */
+@property (copy, nonatomic) NSMutableArray *commentsArray;
+/**
+ *  页数
+ */
+@property (assign, nonatomic)   NSInteger page;
+/**
+ *  楼主id
+ */
+@property (copy, nonatomic) NSString *poster;
+/**
+ *  筛选帖子的条件 1是默认全部，2是只看楼主，3是只看图片
+ */
+@property (copy, nonatomic) NSString *isImage;
+
+    
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
     @property (nonatomic,assign) BOOL isDismiass;
     @end
 
@@ -90,18 +92,83 @@
     _poster =  @"1";
     _isImage = @"1";
     
-    
-    [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsOneCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsOneCell"];
-    [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsTwoCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsTwoCell"];
-    [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsViewCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsViewCell"];
-    
-    [self is_collectionData];
-    [self setData];
+    [self show:@"加载中..."];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,_isImage,_poster]]];
+    [_webView loadRequest:request];
+//    [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsOneCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsOneCell"];
+//    [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsTwoCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsTwoCell"];
+//    [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsViewCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsViewCell"];
+//    
+//    [self is_collectionData];
+//    [self setData];
     
     
     
 }
+-(void)webViewDidFinishLoad:(UIWebView*)webView{
+    //当网页视图结束加载一个请求之后，得到通知。
     
+    
+        JSContext *context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+        
+        // 通过模型调用方法，这种方式更好些。
+        ObjCModel *model  = [[ObjCModel alloc] init];
+        context[@"xmbapp"] = model;
+        model.jsContext = context;
+        model.webView = self.webView;
+        @weakify(self);
+        [[model.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDictionary *dic) {
+            @strongify(self);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                MMLog(@"%@",dic);
+                NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+                
+                if (!sid) {
+                    [self  loginClicksss:@"mabao"];
+                    return;
+                }
+                _isDismiass = YES;
+                
+                
+                MBPostReplyController *VC = [[MBPostReplyController alloc] init];
+                VC.title   = [NSString stringWithFormat:@"回复%@:",dic[@"user_name"]];
+                VC.post_id = dic[@"post_id"];
+                VC.comment_reply_id  = dic[@"comment_id"];
+                WS(weakSelf)
+                VC.successEvaluation = ^(){
+                    
+                    if (weakSelf.isDismiass) {
+                        
+                        _isDismiass = YES;
+                        weakSelf.poster =  @"1";
+                        weakSelf.isImage = @"1";
+                        [weakSelf show:@"加载中..."];
+                        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,_isImage,_poster]]];
+                        [weakSelf.webView loadRequest:request];
+                        
+                    }
+                    
+                };
+                [self pushViewController:VC Animated:YES];
+            });
+        }];
+        context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
+            context.exception = exceptionValue;
+            MMLog(@"异常信息：%@", exceptionValue);
+        };
+    
+    
+    [self dismiss];
+    
+}
+-(void)webView:(UIWebView*)webView DidFailLoadWithError:(NSError*)error{
+    //当在请求加载中发生错误时，得到通知。会提供一个NSSError对象，以标识所发生错误类
+    MMLog(@"%@",error);
+    [self show:error.userInfo[@"NSLocalizedDescription"] time:1];
+}
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated{
+    return [self.navigationController popViewControllerAnimated:animated];
+}
 #pragma mark -- tittButton和帖子筛选分类的View的Ui布局
 - (void)setTitle{
     UILabel *lable = [[UILabel alloc] init];
@@ -150,12 +217,15 @@
         
         @strongify(self);
         self.isImage = s_str(number);
-        self.page = 1;
-        [self.tableView.mj_footer resetNoMoreData];
-        
-        [self.commentsArray removeAllObjects];
-        [self setData];
-        [self showTopView];
+        [self show:@"加载中..."];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,_isImage,_poster]]];
+        [_webView loadRequest:request];
+//        self.page = 1;
+//        [self.tableView.mj_footer resetNoMoreData];
+//        
+//        [self.commentsArray removeAllObjects];
+//        [self setData];
+//        [self showTopView];
     }];
     
 }
@@ -197,7 +267,7 @@
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        MMLog(@"%@",responseObject);
+//        MMLog(@"%@",responseObject);
         [_tableView.mj_footer endRefreshing];
         if (responseObject) {
            
@@ -430,13 +500,12 @@
         
         if (weakSelf.isDismiass) {
             
-            if (weakSelf.commentsArray.count<20) {
-                weakSelf.page =1;
-            }
             _isDismiass = YES;
             weakSelf.poster =  @"1";
             weakSelf.isImage = @"1";
-            [weakSelf setData];
+            [weakSelf show:@"加载中..."];
+            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,_isImage,_poster]]];
+            [weakSelf.webView loadRequest:request];
             
         }
         

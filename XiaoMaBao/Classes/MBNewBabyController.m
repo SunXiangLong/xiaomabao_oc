@@ -206,7 +206,7 @@
     if ([sender isEqual:_backTadyButton]) {
         _row = [_dateArray indexOfObject:_current_date];
         [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-        
+        MMLog(@"button");
           [self setData:[self setDate:_current_date]];
         sender.hidden= YES;
         
@@ -261,7 +261,6 @@
  *  请求工具数据
  */
 - (void)setToolkit:(BOOL)refresh date:(NSString *)date{
-    
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
@@ -281,9 +280,11 @@
             [_tableView  reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
         }else if(date){
               self.dataArray[1] = [responseObject valueForKeyPath:@"data"];
+            
             [self setData:date];
         }else{
             [self.dataArray addObject:[responseObject valueForKeyPath:@"data"]];
+            
             [self setData:date];
         }
         
@@ -358,7 +359,9 @@
             [self.dataArray addObject:@[arr]];
             _tableView.delegate = self;
             _tableView.dataSource =self;
+            
             _current_date = [self setDateStr:[responseObject valueForKeyPath:@"current_date"]];
+            MMLog(@"%@",_current_date);
             _start_date   =  [self setDateStr:[responseObject valueForKeyPath:@"start_date"]];
             _end_date     = [self setDateStr:[responseObject valueForKeyPath:@"end_date"]];
             
@@ -443,21 +446,20 @@
     }
 
     
-    [_dateArray addObject:_current_date];
     
-    NSInteger  i =1;
+    NSInteger  i = 0;
     
-    while (i<[_end_date daysFrom:_current_date]+2) {
+    while (i<[_end_date daysFrom:_current_date]+1) {
         
         [_dateArray addObject: [_current_date dateByAddingDays:i]];
 
         i++;
     }
 
+    i = 1;
     
-    i=1;
-    
-    while (i<[_current_date daysFrom:_start_date]) {
+    while (i<[_current_date daysFrom:_start_date]+1) {
+        
         [_dateArray insertObject:[_current_date dateBySubtractingDays:i] atIndex:0];
         i++;
     }
@@ -467,9 +469,8 @@
     _leftButton.hidden = NO;
     _row = [_dateArray indexOfObject:_current_date];
     [self collectionViewOffset];
-  [self back:nil];
 
- 
+
 
 }
 /**
@@ -587,7 +588,10 @@
 }
 #pragma mark ---UICollectionViewDelagate
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 1;
+    if (self.dateArray.count > 0) {
+        return 1;
+    }
+    return 0;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -598,9 +602,8 @@
 {
     MBNewBabyCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBNewBabyCell" forIndexPath:indexPath];
     NSDate *date = _dateArray[indexPath.item];
-    
-    cell.date.text = [NSString stringWithFormat:@"%ld月%ld日", (long)date.month,(long)date.day];
-    cell.time.text = [NSString stringWithFormat:@"%ld天", (long)[date daysFrom:_start_date]];
+    cell.date.text = [NSString stringWithFormat:@"%ld月%ld日",[date month], [date day]];
+    cell.time.text = [NSString stringWithFormat:@"%ld天", [date daysFrom:_start_date]+1];
     cell.date.font = SYSTEMFONT(16);
     cell.time.font = SYSTEMFONT(12);
     
@@ -609,7 +612,6 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     _row = indexPath.row;
     _backTadyButton.hidden = NO;
-    
     [self collectionViewOffset];
     NSDate *date = _dateArray[_row];
     [self setToolkit:NO date:[self setDate:date]];

@@ -53,6 +53,11 @@
      MMLog(@"Js调用了OC的方法，参数为：%@==%@", params,topId);
 
 }
+- (void)postComment:(NSString *)post_id :(NSString *)comment_id :(NSString *)user_name{
+
+    [self.myCircleViewSubject sendNext:@{@"post_id":post_id,@"comment_id":comment_id,@"user_name":user_name}];
+    MMLog(@"Js调用了OC的方法，参数为：%@==%@==%@", post_id,comment_id,user_name);
+};
 - (void)showShare:(NSString *)imageUrl :(NSString *)title :(NSString *)center :(NSString *)sharUrl{
     MMLog(@"Js调用了OC的方法，参数为：%@==%@==%@==%@", imageUrl,sharUrl,title,center);
     [self.myCircleViewSubject sendNext:@{@"imageUrl":imageUrl,

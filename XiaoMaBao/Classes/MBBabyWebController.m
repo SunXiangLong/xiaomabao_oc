@@ -37,7 +37,7 @@
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     [self show:@"加载中..."];
     _webView.delegate = self;
-    _webView.backgroundColor = [UIColor colorR:205 colorG:222 colorB:232];
+    _webView.backgroundColor = [UIColor whiteColor];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
     

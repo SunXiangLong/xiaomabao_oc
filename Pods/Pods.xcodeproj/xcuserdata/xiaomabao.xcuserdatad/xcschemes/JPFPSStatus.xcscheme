@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '744F7CD12F8BBD9F25362CDAD590D524'
+               BlueprintIdentifier = 'B5ABC01683CDF94F5C25CAFCA60129D8'
                BlueprintName = 'JPFPSStatus'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libJPFPSStatus.a'>
