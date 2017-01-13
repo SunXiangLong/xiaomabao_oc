@@ -33,6 +33,7 @@
 - (void)showGroup:(NSString *)params;
 - (void)showWebView:(NSString *)params :(NSString *)topId;
 - (void)showShare:(NSString *)imageUrl :(NSString *)title :(NSString *)center :(NSString *)sharUrl;
+- (void)jumpToCart;
 - (void)postComment:(NSString *)post_id :(NSString *)comment_id :(NSString *)user_name;
 @end
 @interface ObjCModel : NSObject <JavaScriptObjectiveCDelegate>

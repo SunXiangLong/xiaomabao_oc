@@ -40,7 +40,7 @@
 #import "MBLogOperation.h"
 #import "MBAPService.h"
 #import "MBShare.h"
-#import <IQKeyboardManager.h>
+#import "IQKeyboardManager.h"
 @interface AppDelegate ()<WXApiDelegate>
 @end
 

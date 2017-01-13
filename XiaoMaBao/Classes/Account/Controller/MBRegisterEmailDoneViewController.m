@@ -9,22 +9,12 @@
 //
 
 #import "MBRegisterEmailDoneViewController.h"
-#import "MobClick.h"
+#
 @interface MBRegisterEmailDoneViewController ()
 
 @end
 
 @implementation MBRegisterEmailDoneViewController
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBRegisterEmailDoneViewController.m"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBRegisterEmailDoneViewController.m"];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

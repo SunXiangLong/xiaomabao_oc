@@ -10,9 +10,7 @@
 
 #import "MBMessageCheckViewController.h"
 #import "MBRegisterField.h"
-#import "NSString+BQ.h"
 #import "MBResetPwdViewController.h"
-#import "MobClick.h"
 @interface MBMessageCheckViewController ()
 @property (weak, nonatomic) IBOutlet MBRegisterField *verifyField;
 @property (weak, nonatomic) IBOutlet UILabel *textPhone;

@@ -37,7 +37,7 @@
     self.collectionView.ml_height = 0;
     _page = 1;
     [self setheadData];
-    [self setRefresh];
+    
     
 }
 - (void)setRefresh{
@@ -61,13 +61,15 @@
     [self show];
     [MBNetworking POSTOrigin:urlStr parameters:parameters success:^(id responseObject) {
         [self dismiss];
-        [self.tableView.mj_footer endRefreshing];
+       
         if (responseObject) {
             if (_page == 1) {
                 self.serviceModel = [MBServiceModel yy_modelWithJSON:responseObject];
+                [self setRefresh];
                 [self setCollectionViewFlowLayout];
                 [self.collectionView reloadData];
             }else{
+                 [self.tableView.mj_footer endRefreshing];
                 [self.serviceModel.shopsArray addObjectsFromArray:[MBServiceModel yy_modelWithJSON:responseObject].shopsArray];
             }
             if ([responseObject[@"shops"] count] == 0) {

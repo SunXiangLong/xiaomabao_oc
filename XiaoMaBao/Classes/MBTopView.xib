@@ -79,8 +79,8 @@
                     <rect key="frame" x="0.0" y="35" width="375" height="632"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="dataSource" destination="ngb-31-7eK" id="ckq-4H-unw"/>
-                        <outlet property="delegate" destination="ngb-31-7eK" id="APC-xP-GGP"/>
+                        <outlet property="dataSource" destination="ngb-31-7eK" id="wN0-Ed-BjB"/>
+                        <outlet property="delegate" destination="ngb-31-7eK" id="047-aK-plc"/>
                     </connections>
                 </tableView>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Km-Fx-WTc">
@@ -90,7 +90,7 @@
                             <rect key="frame" x="95" y="65" width="185" height="191"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dgt-bq-fQU">
-                            <rect key="frame" x="174" y="290" width="46" height="30"/>
+                            <rect key="frame" x="95" y="286" width="185" height="36"/>
                             <color key="backgroundColor" red="0.83919483423233032" green="0.38492119312286377" blue="0.38714140653610229" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="pOz-Sv-63o"/>
@@ -135,9 +135,9 @@
             </constraints>
             <connections>
                 <outlet property="defaultBtn" destination="dqp-Dt-J8R" id="c0b-d4-65k"/>
-                <outlet property="serviceViewNull" destination="4Km-Fx-WTc" id="ant-Lf-Iif"/>
-                <outlet property="sortView" destination="e3M-u3-CDw" id="PCL-Is-Fy7"/>
-                <outlet property="tableView" destination="ujj-xy-AVR" id="Vb2-kH-6k7"/>
+                <outlet property="serviceViewNull" destination="4Km-Fx-WTc" id="8dM-0D-0CC"/>
+                <outlet property="sortView" destination="e3M-u3-CDw" id="hs4-1X-BBU"/>
+                <outlet property="tableView" destination="ujj-xy-AVR" id="btk-pE-LiG"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="54.5"/>
         </view>

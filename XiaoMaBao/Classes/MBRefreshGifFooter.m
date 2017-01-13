@@ -20,7 +20,9 @@
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"dropdown_loading_0%zd", i]];
         [refreshingImages addObject:image];
     }
-    [self setImages:refreshingImages forState:MJRefreshStateRefreshing];
+    
+    [self setImages:refreshingImages forState:3];
+   
 }
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "MBRealNameAuthViewController.h"
-#import "MobClick.h"
 @interface MBRealNameAuthViewController ()
 {
     UITextField *_name;

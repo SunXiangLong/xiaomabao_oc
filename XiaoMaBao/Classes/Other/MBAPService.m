@@ -19,8 +19,12 @@
 + (void)umengTrack{
     [MobClick setAppVersion:XcodeAppVersion]; //参数为NSString * 类型,自定义app版本信息，如果不设置，默认从CFBundleVersion里取
     [MobClick setLogEnabled:YES];//开始调试模式
-    [MobClick startWithAppkey:UMENG_APPKEY reportPolicy:(ReportPolicy) REALTIME channelId:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onlineConfigCallBack:) name:UMOnlineConfigDidFinishedNotification object:nil];
+    UMAnalyticsConfig *config = [[UMAnalyticsConfig alloc] init];
+    config.appKey = UMENG_APPKEY;
+    config.ePolicy = (ReportPolicy) REALTIME;
+    [MobClick startWithConfigure:config];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onlineConfigCallBack:) name:UMOnlineConfigDidFinishedNotification object:nil];
 
 }
 + (void)required:(NSDictionary *)launchOptions{

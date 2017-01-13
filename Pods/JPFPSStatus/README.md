@@ -18,7 +18,7 @@ Show FPS Status on StatusBar
 
 ```ruby
 platform :ios, '7.0'
-pod 'JPFPSStatus', '~> 0.0.2'
+pod 'JPFPSStatus', '~> 0.1'
 ```
 
 
@@ -42,7 +42,17 @@ add the code in AppDelegate.m
 
 <pre>
 #if defined(DEBUG)||defined(_DEBUG)
-    [[JPFPSStatus sharedInstance] open];
+	[[JPFPSStatus sharedInstance] openWithHandler:^(NSInteger fpsValue) {
+		NSLog(@"fpsvalue %@",@(fpsValue));
+	}];
+#endif
+
+</pre>
+
+
+<pre>
+#if defined(DEBUG)||defined(_DEBUG)
+    [[JPFPSStatus sharedInstance] close];
 #endif
 </pre>
 

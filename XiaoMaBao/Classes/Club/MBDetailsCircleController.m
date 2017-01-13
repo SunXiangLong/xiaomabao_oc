@@ -48,7 +48,7 @@
     [super viewDidLoad];
     _page = 1;
    [self setData];
-    [self pullOnLoading];
+    
     [self.tableView registerNib:    [UINib nibWithNibName:@"MBDetailsCircleCell" bundle:nil] forCellReuseIdentifier:@"MBDetailsCircleCell"];
  
     
@@ -75,12 +75,14 @@
                 
                 if (_page ==1) {
                     _tableView.tableHeaderView = [self setTableHeadView];
-                    
+                    [self pullOnLoading];
   
+                }else{
+                 [self.tableView .mj_footer endRefreshing];
                 }
                 _page++;
                 [_tableView reloadData];
-                [self.tableView .mj_footer endRefreshing];
+               
                 
             }else{
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];

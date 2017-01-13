@@ -9,7 +9,7 @@
 #import "MBNewReleaseTopicViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
-#import  <TZImageManager.h> 
+#import  "TZImageManager.h" 
 @interface MBNewReleaseTopicViewController ()<UIWebViewDelegate,
 UINavigationControllerDelegate,LGPhotoPickerViewControllerDelegate,UIImagePickerControllerDelegate
 >

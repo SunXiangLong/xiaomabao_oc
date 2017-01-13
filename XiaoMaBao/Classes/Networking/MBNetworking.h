@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AFNetworking.h"
 #import "MBModel.h"
-
+#import <AFNetworking/AFNetworking.h>
 @class NSURLSessionDataTask;
 
 @interface MBNetworking : NSObject

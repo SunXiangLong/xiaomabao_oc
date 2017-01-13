@@ -31,7 +31,8 @@
     _sort = _meunArray.firstObject;
 }
 
-+ (instancetype)instanceView{
++ (instancetype )instanceView{
+    
     return [[[NSBundle mainBundle] loadNibNamed:@"MBTopView" owner:nil options:nil] lastObject];
 }
 - (IBAction)btn:(UIButton *)sender {
@@ -70,7 +71,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.block(_productModelArray[indexPath.row]);
-
+    
 }
 
 @end

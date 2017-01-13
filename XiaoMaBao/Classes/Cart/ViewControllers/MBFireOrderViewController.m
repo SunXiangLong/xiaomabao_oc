@@ -1172,7 +1172,10 @@
         [self show:@"收货人姓名不能为空" time:1];
         return;
     }
-    
+    if (!_address_id) {
+        [self show:@"收货人地址ID不存在" time:1];
+        return;
+    }
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/done_new"]parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":_inv_type,@"inv_content":_inv_content,@"inv_payee" :_inv_payee,@"real_name":name,@"identity_card":_identity_card,@"cards":self.cards,@"mabaobean_number":_mabaobean_number}
                success:^(NSURLSessionDataTask *operation, id responseObject) {

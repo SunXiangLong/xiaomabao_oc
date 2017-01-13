@@ -8,13 +8,9 @@
 
 #import "MBJoinCartViewController.h"
 #import "MBCartItemButton.h"
-#import "UIImageView+WebCache.h"
-#import "MBNetworking.h"
-#import "MBSignaltonTool.h"
 #import "MBPaymentViewController.h"
 #import "MBFireOrderViewController.h"
 #import "MBShoppingCartViewController.h"
-#import "MobClick.h"
 #import "MBSpecificationsCell.h"
 @interface MBJoinCartViewController ()<UITableViewDataSource,UITableViewDelegate,MBSpecificationsCelldelegate>
 {

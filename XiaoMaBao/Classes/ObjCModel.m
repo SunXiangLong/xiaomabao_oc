@@ -32,6 +32,11 @@
 }
 
 // 通过JSON传过来
+-(void)jumpToCart{
+    
+ [self.myCircleViewSubject sendNext:@{@"type":@"jumpCart"}];
+
+}
 - (void)showGood:(NSString *)params{
  MMLog(@"Js调用了OC的方法，参数为：%@", params);
     [self.myCircleViewSubject sendNext:@{@"params":params,@"type":@"showGood"}];

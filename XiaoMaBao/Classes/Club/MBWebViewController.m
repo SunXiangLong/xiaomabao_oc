@@ -12,6 +12,7 @@
 #import "MBShopingViewController.h"
 #import "MBActivityViewController.h"
 #import "MBGroupShopController.h"
+#import "MBShoppingCartViewController.h"
 @interface MBWebViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @end
@@ -23,17 +24,19 @@
     _webView.delegate = self;
     _webView.backgroundColor = [UIColor colorR:205 colorG:222 colorB:232];
     
-     NSURLRequest *request = [NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
-
+    [self loadWebview];
+    
+}
+- (void)loadWebview{
+    NSURLRequest *request = [NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
+    
     if (self.isloging) {
         [self deleteCookie];
         [self setCookie];
     }
- 
-    [_webView loadRequest:request];
     
+    [_webView loadRequest:request];
 }
-
 /**
  *   删除cookie
  */
@@ -56,19 +59,22 @@
 - (void)setCookie{
     NSMutableDictionary *cookieProperties = [NSMutableDictionary dictionary];
    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    
+//   NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
    [cookieProperties setObject:@"ECS_ID" forKey:NSHTTPCookieName];
     if (sid) {
            [cookieProperties setObject:sid forKey:NSHTTPCookieValue];
+//           [cookieProperties setObject:@"test" forKey:NSHTTPCookieValue];
     }
 
-    [cookieProperties setObject:self.url forKey:NSHTTPCookieDomain];
+    [cookieProperties setObject:@".xiaomabao.com" forKey:NSHTTPCookieDomain];
     [cookieProperties setObject:self.url forKey:NSHTTPCookieOriginURL];
     [cookieProperties setObject:@"/" forKey:NSHTTPCookiePath];
     [cookieProperties setObject:@"0" forKey:NSHTTPCookieVersion];
     [cookieProperties setValue:[NSDate dateWithTimeIntervalSinceNow:60*60*24*360] forKey:NSHTTPCookieExpires];
     NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+    MMLog(@"%@",cookieProperties);
+    
 }
 -(NSString *)titleStr{
 
@@ -95,7 +101,7 @@
             @strongify(self);
             dispatch_async(dispatch_get_main_queue(), ^{
                 if ([dic[@"type"] isEqualToString:@"showLogin"]) {
-                   [self  loginClicksss:@"mabao"];
+                   [self loadWebview];
                 }else if ([dic[@"type"] isEqualToString:@"showGood"]){
                     MBShopingViewController *VC = [[MBShopingViewController alloc] init];
                     VC.GoodsId = dic[@"params"];
@@ -110,6 +116,9 @@
                 }else if([dic[@"type"] isEqualToString:@"showShare"]){
                 
                     [self share:dic];
+                }else if([dic[@"type"] isEqualToString:@"jumpCart"]){
+                    MBShoppingCartViewController *VC = [[MBShoppingCartViewController alloc] init];
+                    [self pushViewController:VC Animated:true];
                 }
             });
         }];

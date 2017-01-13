@@ -13,8 +13,6 @@
 #import "MBRegisterFieldRightViewButton.h"
 #import "MBSettingPwdViewController.h"
 #import "MBRegisterViewController.h"
-#import "NSString+BQ.h"
-#import "MobClick.h"
 @interface MBRegisterPhoneVerifyViewController ()
 @property (weak, nonatomic) IBOutlet MBRegisterField *verifyField;
 @property (weak, nonatomic) IBOutlet UILabel *MBRegisterList;

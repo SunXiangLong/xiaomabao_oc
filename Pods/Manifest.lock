@@ -1,5 +1,5 @@
 PODS:
-  - ActionSheetPicker-3.0 (2.0.1)
+  - ActionSheetPicker-3.0 (2.2.0)
   - AFNetworking (3.1.0):
     - AFNetworking/NSURLSession (= 3.1.0)
     - AFNetworking/Reachability (= 3.1.0)
@@ -18,24 +18,22 @@ PODS:
   - Appirater (2.0.5)
   - DateTools (1.7.0)
   - DZNEmptyDataSet (1.8.1)
-  - FMDB (2.5):
-    - FMDB/standard (= 2.5)
-  - FMDB/common (2.5)
-  - FMDB/standard (2.5):
-    - FMDB/common
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
   - FreeStreamer (3.6.2):
     - Reachability (~> 3.0)
-  - HexColors (3.0.0)
+  - HexColors (4.0.0)
   - IQKeyboardManager (4.0.4)
-  - JPFPSStatus (0.0.2)
-  - Masonry (0.6.3)
+  - JPFPSStatus (0.1)
+  - Masonry (1.0.1)
   - MBProgressHUD (1.0.0)
   - MJPhotoBrowser (1.0.2):
     - SDWebImage
     - SVProgressHUD
     - YLGIFImage
-  - MJRefresh (3.0.7)
-  - MOBFoundation (1.5.1)
+  - MJRefresh (3.1.12)
+  - MOBFoundation (2.0.8)
   - Reachability (3.2)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
@@ -44,27 +42,26 @@ PODS:
   - ReactiveCocoa/no-arc (2.5)
   - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
-  - SDCycleScrollView (1.6):
+  - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
-  - SDWebImage (3.7.3):
-    - SDWebImage/Core (= 3.7.3)
-  - SDWebImage/Core (3.7.3)
-  - ShareSDK3 (3.2.5):
-    - ShareSDK3/ShareSDK (= 3.2.5)
-  - ShareSDK3/ShareSDK (3.2.5)
-  - ShareSDK3/ShareSDKPlatforms/QQ (3.2.5)
-  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (3.2.5)
-  - ShareSDK3/ShareSDKPlatforms/WeChat (3.2.5)
-  - ShareSDK3/ShareSDKUI (3.2.5)
-  - SKTagView (0.7):
-    - Masonry
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
+  - ShareSDK3 (3.4.0):
+    - ShareSDK3/ShareSDK (= 3.4.0)
+  - ShareSDK3/ShareSDK (3.4.0)
+  - ShareSDK3/ShareSDKPlatforms/QQ (3.4.0)
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (3.4.0)
+  - ShareSDK3/ShareSDKPlatforms/WeChat (3.4.0)
+  - ShareSDK3/ShareSDKUI (3.4.0)
+  - SKTagView (0.9.2)
   - StreamingKit (0.1.29)
-  - SVProgressHUD (1.1.3)
+  - SVProgressHUD (2.0.3)
   - TYAttributedLabel (2.6.1)
   - TZImagePickerController (1.5.0)
   - UITableView+FDTemplateLayoutCell (1.5.beta)
-  - UMengAnalytics (3.6.6)
-  - WMPageController (1.1.0)
+  - UMengAnalytics (4.1.0)
+  - WMPageController (1.8.8)
   - YLGIFImage (0.11)
   - YYCache (1.0.3)
   - YYImage (1.0.3):
@@ -81,24 +78,24 @@ PODS:
     - Masonry
 
 DEPENDENCIES:
-  - ActionSheetPicker-3.0 (~> 2.0.1)
-  - AFNetworking (~> 3.1.0)
+  - ActionSheetPicker-3.0
+  - AFNetworking
   - Appirater
   - DateTools
   - DZNEmptyDataSet
-  - FMDB (~> 2.5)
+  - FMDB
   - FreeStreamer
   - HexColors
   - IQKeyboardManager
   - JPFPSStatus
   - Masonry
   - MBProgressHUD
-  - MJPhotoBrowser (~> 1.0.2)
+  - MJPhotoBrowser
   - MJRefresh
   - MOBFoundation
   - Reachability
   - ReactiveCocoa (~> 2.5)
-  - SDCycleScrollView (~> 1.6)
+  - SDCycleScrollView
   - SDWebImage
   - ShareSDK3
   - ShareSDK3/ShareSDKPlatforms/QQ
@@ -119,34 +116,34 @@ DEPENDENCIES:
   - ZFPlayer
 
 SPEC CHECKSUMS:
-  ActionSheetPicker-3.0: eeb47e64b7af3e09a50e1ce5dfee9c8c957490c6
+  ActionSheetPicker-3.0: d11a4c12c6aaf704b8a3f56d179198c99f3e41e6
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Appirater: e7c0a47fb67ee5041ce8479e6ba960927fb40264
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   FreeStreamer: 32a59f31065bf10909c329c47c8d6a2e1d9ba559
-  HexColors: 8b83e3fe90c0d466dae7b98c9d22da95799f99cb
+  HexColors: 5f95843ef89aff6a72e1fd3a8ebabf205cc43379
   IQKeyboardManager: 4a6f83b540283c2645aaeba2bd8dc0f09b5c77f8
-  JPFPSStatus: 11de6027b4cbebfeee0c939dfe08f5ec124a0965
-  Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
+  JPFPSStatus: 4467a17488382e4c1700bd9d18c92ae581fd6305
+  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJPhotoBrowser: f55e8490231f44a78ca6455105a1c798a142c95f
-  MJRefresh: f3e1228ec3d38c7ba5208d58032631a52f39f495
-  MOBFoundation: 79efc94db961fe5a08cf32de69166f6a29a3b2b5
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  MOBFoundation: 6f2006b941bd4002e2689a638d04c6b535c4cc64
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
-  SDCycleScrollView: 436ccec76258f9f280365af5c07b289a71382601
-  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
-  ShareSDK3: ccdd8ec971044703e7722e19c2f3b38fb03775e2
-  SKTagView: 1e89c1ce2292cf890610901d3621c55d1ed82379
+  SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
+  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  ShareSDK3: df89140111729eae7a2bf06688372af969322a37
+  SKTagView: 59cdadcd16e4a09300746ad1811a72371e1327f7
   StreamingKit: c329785aaef3ac142d4ae388345bfe1ed23cfd45
-  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
   TYAttributedLabel: 4785820dc8d7935446f49f1de4daa0f99ebcba8a
   TZImagePickerController: d09eef6042852a9dd19224ae4e874f7430852a51
   UITableView+FDTemplateLayoutCell: 02b508ab1cb4cea16a8c17ac83d2cd1fd72124f9
-  UMengAnalytics: 4bf831415146b9c57cb10be65fbd43462ef8cf65
-  WMPageController: f612ff7be927c7de6a17c6c29333fb7053f06e5e
+  UMengAnalytics: 19b28253793d77dff10fb7d502faad1fb6b8ce4a
+  WMPageController: 17f093c7ad34507775b62d537821aa4d6de54e7b
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YYCache: 282f35b5b0990833d0b7a06d864a87141a021da2
   YYImage: 362f44ffba1fc498f2152060f3bb54ed84600981
@@ -155,6 +152,6 @@ SPEC CHECKSUMS:
   YYWebImage: 0431ed108e104527669b86f75efd58958425cca2
   ZFPlayer: 80cf92fef7412ff7a31e47c6658c50393351f938
 
-PODFILE CHECKSUM: 7f56076ee193bc796d16e4b350ebf5290d4a5352
+PODFILE CHECKSUM: f9c61da5a97929f2b3192c823507dbd7c8c12872
 
 COCOAPODS: 1.1.1

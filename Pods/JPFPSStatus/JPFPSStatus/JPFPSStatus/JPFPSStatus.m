@@ -1,10 +1,10 @@
 //
-//  YiFPSStatus.m
-//  YiFPSStatus
+//  JPFPSStatus.m
+//  JPFPSStatus
 //
 //  Created by coderyi on 16/6/4.
-//  Copyright © 2016年 coderyi. All rights reserved.
-//
+//  Copyright © 2016年 http://coderyi.com . All rights reserved.
+//  @ https://github.com/joggerplus/JPFPSStatus
 
 #import "JPFPSStatus.h"
 
@@ -12,8 +12,8 @@
     CADisplayLink *displayLink;
     NSTimeInterval lastTime;
     NSUInteger count;
-    
 }
+@property(nonatomic,copy) void (^fpsHandler)(NSInteger fpsValue);
 
 @end
 
@@ -79,6 +79,9 @@
     
     NSString *text = [NSString stringWithFormat:@"%d FPS",(int)round(fps)];
     [fpsLabel setText: text];
+    if (_fpsHandler) {
+        _fpsHandler((int)round(fps));
+    }
     
 }
 
@@ -90,11 +93,20 @@
             return;
         }
     }
-    
+
+    [displayLink setPaused:NO];
     [[((NSObject <UIApplicationDelegate> *)([UIApplication sharedApplication].delegate)) window].rootViewController.view addSubview:fpsLabel];
 }
 
+- (void)openWithHandler:(void (^)(NSInteger fpsValue))handler{
+    [[JPFPSStatus sharedInstance] open];
+    _fpsHandler=handler;
+}
+
 - (void)close {
+    
+    [displayLink setPaused:YES];
+
     NSArray *rootVCViewSubViews=[[UIApplication sharedApplication].delegate window].rootViewController.view.subviews;
     for (UIView *label in rootVCViewSubViews) {
         if ([label isKindOfClass:[UILabel class]]&& label.tag==101) {

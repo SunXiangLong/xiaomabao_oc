@@ -25,7 +25,7 @@
         UIImage *newImage = [image imageByScalingToSize:CGSizeMake(40, 40)];
         [idleImages addObject:newImage];
     }
-    [self setImages:idleImages forState:MJRefreshStateIdle];
+    [self setImages:idleImages forState:1];
     
     // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
     NSMutableArray *refreshingImages = [NSMutableArray array];
@@ -35,7 +35,7 @@
         UIImage *newImage = [image imageByScalingToSize:CGSizeMake(40, 40)];
         [refreshingImages addObject:newImage];
     }
-    [self setImages:refreshingImages forState:MJRefreshStatePulling];
+    [self setImages:refreshingImages forState:2];
     
     NSMutableArray *startImages = [NSMutableArray array];
 
@@ -46,7 +46,7 @@
         [startImages addObject:newImage];
     }
     // 设置正在刷新状态的动画图片
-    [self setImages:startImages forState:MJRefreshStateRefreshing];
+    [self setImages:startImages forState:3];
     
 }
 

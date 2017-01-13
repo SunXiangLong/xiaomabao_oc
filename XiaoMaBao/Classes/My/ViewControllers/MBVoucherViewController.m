@@ -9,7 +9,7 @@
 #import "MBVoucherViewController.h"
 #import "MBVoucherTableViewCell.h"
 #import "MBFireOrderViewController.h"
-#import "MobClick.h"
+
 @interface MBVoucherViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     int  _i;

@@ -55,7 +55,7 @@
             }else{
                 MBServiceDetailsViewController *VC  = [[MBServiceDetailsViewController alloc] init];
                 VC.product_id = ((ServiceProductsModel *)value).product_id;
-                [weakSelf pushViewController:VC Animated:true];
+                [weakSelf pushViewController:VC Animated:false];
             }
         };
         [self.view addSubview:_topView];
@@ -105,7 +105,7 @@
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         
-        MMLog(@"%@",responseObject);
+        
         if (responseObject) {
             self.baseSearchTableView.hidden = false;
             self.hotSearches = responseObject[@"data"];
@@ -124,7 +124,7 @@
 -(void)searchData{
     [self show];
     [MBNetworking   POSTOrigin:string(BASE_URL_root, @"/service/search") parameters:@{@"page":s_Integer(_page),@"search_key":self.searchText,@"sort":_sort} success:^(id responseObject) {
-       
+       MMLog(@"%@",responseObject);
         [self dismiss];
         if (_page == 1) {
             [self refreshLoading];
@@ -150,6 +150,7 @@
         self.topView.hidden = false;
         self.topView.tableView.tableFooterView = [[UIView alloc] init];
         [self.view bringSubviewToFront:self.topView];
+        
         [self.topView.tableView reloadData];
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败" time:.8];

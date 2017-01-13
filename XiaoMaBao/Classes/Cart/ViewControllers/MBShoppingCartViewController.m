@@ -12,6 +12,7 @@
 #import "MBShoppingCartTableViewCell.h"
 #import "MBShopingViewController.h"
 #import "MBRealNameAuthViewController.h"
+#import "MBShoppingCartViewController.h"
 @interface MBShoppingCartViewController () <UITableViewDataSource,UITableViewDelegate,MBShoppingCartTableViewdelegate>
 {
     UIButton *allSelectBtn;

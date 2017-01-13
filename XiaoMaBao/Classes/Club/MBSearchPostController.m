@@ -168,10 +168,7 @@
     [self.view addSubview:self.tabView];
     [self setupTagView];
     
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
-    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setSearchCircleData)];
-    footer.refreshingTitleHidden = YES;
-   self.tabView.mj_footer = footer;
+    
     
 }
 - (void)setupTagView
@@ -180,9 +177,9 @@
         SKTagView *view = [[SKTagView alloc] init];
         view.backgroundColor = UIColor.whiteColor;
         view.padding    = UIEdgeInsetsMake(10, 10, 0, 0);
-        view.insets    = 6;
-        view.lineSpace = 10;
-        view.didClickTagAtIndex = ^(NSUInteger index){
+        view.interitemSpacing   = 6;
+        view.lineSpacing = 10;
+        view.didTapTagAtIndex = ^(NSUInteger index){
             
 
             _SearchBar.text = _SearchHistoryArray[index];
@@ -244,11 +241,17 @@
         
         [MBNetworking   POSTOrigin:str parameters:@{@"page":page,@"keyword":self.searchString} success:^(id responseObject) {
             [self dismiss];
-            MMLog(@"%@",responseObject);
+//            MMLog(@"%@",responseObject);
             if (responseObject) {
                 if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                     if (_page ==1) {
+                        // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+                        MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setSearchCircleData)];
+                        footer.refreshingTitleHidden = YES;
+                        self.tabView.mj_footer = footer;
                      _tabView.tableHeaderView=[[UIView alloc] init];
+                    }else{
+                    [_tabView .mj_footer endRefreshing];
                     }
                   
                     [self.dataArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
@@ -256,7 +259,8 @@
                    
                     _page++;
                     [_tabView reloadData];
-                    [_tabView .mj_footer endRefreshing];
+                    
+                    
                     
                 }else{
                     [_tabView.mj_footer endRefreshingWithNoMoreData];
@@ -323,9 +327,12 @@
         _SearchBar.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 55);
         _tabView.frame = CGRectMake(0, CGRectGetMaxY(_SearchBar.frame), UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y-55);
         [self.dataArray removeAllObjects];
+        _page = 1;
         self.tabView.tableHeaderView=[self headView];
         [self setupTagView];
         [self.tabView reloadData];
+        [self.tabView.mj_footer removeFromSuperview];
+        self.tabView.mj_footer = nil;
     
     }];
     

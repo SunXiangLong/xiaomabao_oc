@@ -72,7 +72,7 @@
     _meunArray = @[@"default",@"salesnum",@"new"];
     _type = _meunArray.firstObject;
     [self setData];
-    [self refreshLoading];
+   
 }
 
 - (IBAction)btn:(UIButton *)sender {
@@ -150,7 +150,13 @@
         [self dismiss];
 //        MMLog(@"%@ ",responseObject);
         
+        
+        
+        if (_page == 1) {
+             [self refreshLoading];
+        }else{
         [self.collectionView .mj_footer endRefreshing];
+        }
         if (responseObject) {
             if ([[responseObject valueForKey:@"goods_list"] count]>0) {
                 [self.recommend_goods addObjectsFromArray:[responseObject valueForKey:@"goods_list"]];

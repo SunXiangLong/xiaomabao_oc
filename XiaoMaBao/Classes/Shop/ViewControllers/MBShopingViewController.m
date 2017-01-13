@@ -117,6 +117,9 @@
 
 -(void)share{
     
+    if (!self.GoodsDict[@"goods_gallery"]) {
+        return;
+    }
     //1、创建分享参数
     NSArray* imageArray = @[self.GoodsDict[@"goods_gallery"][0]];
     
@@ -133,7 +136,7 @@
                                          images:imageArray
                                             url:url
                                           title:@"小麻包母婴分享"
-                                           type:SSDKContentTypeAuto];
+                                           type:SSDKContentTypeWebPage];
         //2、分享（可以弹出我们的分享菜单和编辑界面）
         [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
                                  items:nil
@@ -923,9 +926,9 @@
     NSArray *imgarr =  self.GoodsDict[@"goods_gallery"];
 
     NSDictionary *itemInfo = @{
-                               @"title" : self.GoodsDict[@"goods_name"],
-                               @"desc" : self.goods_brief,
-                               @"iconUrl" : imgarr.firstObject,
+                               @"title" : self.GoodsDict[@"goods_name"]?:@"",
+                               @"desc" : self.goods_brief?:@"",
+                               @"iconUrl" : imgarr?imgarr.firstObject:@"",
                                @"url" : [NSString stringWithFormat:@"http://www.xiaomabao.com/goods-%@.html",self.GoodsDict[@"goods_id"]]
                                };
     [[Unicall singleton] UnicallShowView:itemInfo];

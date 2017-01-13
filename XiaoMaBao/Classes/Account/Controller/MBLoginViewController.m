@@ -16,7 +16,6 @@
 #import "AFNetworking.h"
 #import "MBNetworking.h"
 #import <ShareSDK/ShareSDK.h>
-#import "MobClick.h"
 #import "SFHFKeychainUtils.h"
 #import "WXApi.h"
 #import "ValidationView.h"

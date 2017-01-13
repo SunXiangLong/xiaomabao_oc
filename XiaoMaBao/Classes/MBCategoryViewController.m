@@ -42,17 +42,8 @@
     [self setData];
     
     _page = 2;
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
-    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setheadData)];
     
-    // 当上拉刷新控件出现50%时（出现一半），就会自动刷新。这个值默认是1.0（也就是上拉刷新100%出现时，才会自动刷新）
-    //    footer.triggerAutomaticallyRefreshPercent = 0.5;
     
-    // 隐藏刷新状态的文字
-    footer.refreshingTitleHidden = YES;
-    
-    // 设置footer
-    self.collectionView.mj_footer = footer;
 }
 - (void)searchUI{
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(64 , 26.5, UISCREEN_WIDTH - 64*2, 30)];
@@ -82,6 +73,9 @@
               [self.dataArray addObject:goods_list];
             _collectionView.delegate = self;
             _collectionView.dataSource = self;
+            MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setheadData)];
+            footer.refreshingTitleHidden = YES;
+            self.collectionView.mj_footer = footer;
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {

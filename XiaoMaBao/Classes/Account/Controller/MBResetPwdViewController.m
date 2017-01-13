@@ -10,9 +10,6 @@
 
 #import "MBResetPwdViewController.h"
 #import "MBRegisterField.h"
-#import "MBNetworking.h"
-#import "NSString+BQ.h"
-#import "MobClick.h"
 @interface MBResetPwdViewController ()
 @property (weak, nonatomic) IBOutlet MBRegisterField *pwdField;
 @property (weak, nonatomic) IBOutlet MBRegisterField *pwd2Field;

@@ -39,7 +39,11 @@
     
 }
 - (IBAction)buttonTouch:(UIButton *)sender {
-    
+    NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (!sid) {
+        [self  loginClicksss:@"mabao"];
+        return ;
+    }
     switch (sender.tag) {
         case 0:
         {
@@ -62,7 +66,7 @@
         case 2: {
             
             MBWebViewController *VC = [[MBWebViewController alloc] init];
-            VC.url = URL(@"http://api.xiaomabao.com/circle/raffle");
+            VC.url =  URL(string(BASE_URL_root, @"/daily/prize"));
             VC.title =@"抽大奖";
             VC.isloging = YES;
             [self pushViewController:VC Animated:YES];

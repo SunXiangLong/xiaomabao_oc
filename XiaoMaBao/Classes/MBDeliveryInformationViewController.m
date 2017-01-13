@@ -7,7 +7,6 @@
 //
 
 #import "MBDeliveryInformationViewController.h"
-#import "MobClick.h"
 #import "MBRefundScheduleViewController.h"
 @interface MBDeliveryInformationViewController ()<UIScrollViewDelegate>
 

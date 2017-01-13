@@ -9,7 +9,7 @@
 //
 
 #import "MBRegisterPhoneDoneViewController.h"
-#import "MobClick.h"
+
 @interface MBRegisterPhoneDoneViewController ()
 - (IBAction)complete;
 @property (weak, nonatomic) IBOutlet UILabel *phone;

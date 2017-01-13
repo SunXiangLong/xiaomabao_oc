@@ -7,7 +7,6 @@
 //
 
 #import <MJRefresh/MJRefresh.h>
-
 @interface MBRefreshGifFooter : MJRefreshAutoGifFooter
 
 @end

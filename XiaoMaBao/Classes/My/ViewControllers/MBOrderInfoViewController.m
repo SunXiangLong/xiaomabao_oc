@@ -7,11 +7,8 @@
 //
 
 #import "MBOrderInfoViewController.h"
-#import "UIImageView+WebCache.h"
 #import "MBFireOrderTableViewCell.h"
-#import "MBNetworking.h"
 #import "MBSignaltonTool.h"
-#import "MobClick.h"
 @interface MBOrderInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak,nonatomic) UITableView *tableView;
 @property (strong,nonatomic)NSDictionary *defaultAddressdict;

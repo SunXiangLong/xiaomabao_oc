@@ -22,7 +22,7 @@
     #import "UIColor+Extension.h"
     #import "UIView+MLExtension.h"
     #import "MBSignaltonTool.h"
-    #import "MobClick.h"
+    #import <UMMobClick/MobClick.h>
     #import "MBNetworking.h"
     #import <Masonry/Masonry.h>
     #import "HexColors.h"
