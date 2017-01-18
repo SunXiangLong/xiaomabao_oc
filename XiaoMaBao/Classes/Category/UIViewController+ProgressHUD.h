@@ -20,4 +20,5 @@
 -(void)dismissView:(UIView *)view;
 - (void)loginClicksss:(NSString *)type;
 //@property (nonatomic,assign) double progress;
+- (void)loginTimeout:(id)responseObject;
 @end

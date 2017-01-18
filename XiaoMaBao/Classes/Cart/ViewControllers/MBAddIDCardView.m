@@ -8,22 +8,18 @@
 
 #import "MBAddIDCardView.h"
 #import "PhotoCollectionViewCell.h"
-#import "LGPhotoPickerViewController.h"
-#import "LGPhoto.h"
 #import "MBIDCardCell.h"
-@interface MBAddIDCardView ()<LGPhotoPickerViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface MBAddIDCardView ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 {
     
     
-    SDPhotoBrowser  *browser;
+   
     NSInteger _row;
     UIImage *_image;
     
     
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-
-@property (nonatomic, assign) LGShowImageType showType;
 @end
 @implementation MBAddIDCardView
 
@@ -54,16 +50,6 @@
 /**
  *  初始化相册选择器
  */
-- (void)presentPhotoPickerViewControllerWithStyle:(LGShowImageType)style {
-    LGPhotoPickerViewController *pickerVc = [[LGPhotoPickerViewController alloc] initWithShowType:style];
-    pickerVc.status = PickerViewShowStatusCameraRoll;
-    pickerVc.maxCount = 1;   // 最多能选9张图片
-    pickerVc.delegate = self;
-    self.showType = style;
-    [pickerVc showPickerVc:self.VC];
-}
-
-
 
 #pragma maek -- 拍照或从相机获取图片
 - (void)setCamera{
@@ -76,7 +62,17 @@
                                                              handler:^(UIAlertAction * action) {}];
         UIAlertAction* fromPhotoAction = [UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault                                                                 handler:^(UIAlertAction * action) {
             
-            [self presentPhotoPickerViewControllerWithStyle:LGShowImageTypeImagePicker];
+            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+            [imagePicker.navigationBar setBackgroundColor:UIcolor(@"ffffff")];
+            [imagePicker.navigationBar setBackgroundImage:[UIImage imageNamed:@"mm_navGroundImage"] forBarMetrics:UIBarMetricsDefault];
+            imagePicker.navigationBar.tintColor = UIcolor(@"ffffff");
+            NSDictionary* dict= @{NSForegroundColorAttributeName:UIcolor(@"ffffff"),NSFontAttributeName:YC_RTWSYueRoud_FONT(17)};
+            imagePicker.navigationBar.titleTextAttributes= dict;
+            imagePicker.delegate = self;
+            imagePicker.allowsEditing = YES;
+            imagePicker.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self.VC presentViewController:imagePicker animated:YES completion:nil];
         }];
         UIAlertAction* fromCameraAction = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault                                                             handler:^(UIAlertAction * action) {
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
@@ -103,11 +99,13 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self.VC show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/idcard/update"] parameters:@{@"session":sessiondict,@"real_name":self.name,@"identity_card":self.idCard,} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        UIImage *image = [[UIImage alloc] init];
+        UIImage *image = nil;
+      
         for (int i = 0; i<_photoArray.count-1; i++) {
-            if ([_photoArray[i]isKindOfClass:[LGPhotoAssets class]]) {
-                LGPhotoAssets *photo = _photoArray [i];
-                image = photo.thumbImage;
+            if ([_photoArray[i] isKindOfClass:[NSDictionary class]]) {
+                
+               image = _photoArray[i][UIImagePickerControllerOriginalImage];
+               
             }else{
                 
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
@@ -139,27 +137,6 @@
         [self.VC show:@"请求失败！" time:1];
     }];
     
-    
-}
-
-
-- (void)pickerViewControllerDoneAsstes:(NSArray *)assets isOriginal:(BOOL)original{
-    
-    
-    _photoArray[_row] = assets.firstObject;
-    BOOL isAddPhoto = YES;
-    for (id info in _photoArray) {
-        
-        if ([info isKindOfClass:[UIImage class]]) {
-            isAddPhoto = NO;
-        }
-        
-    }
-    
-    if (isAddPhoto) {
-        [_photoArray addObject:[UIImage imageNamed:@"submit_image"]];
-    }
-    [_collectionView reloadData];
     
 }
 
@@ -195,12 +172,10 @@
          cell.cardImage.image = _photoArray[indexPath.item];
          cell.deleLabel.hidden = YES;
         
-       }else{
+    }else{
+        cell.cardImage.image = _photoArray[indexPath.item][UIImagePickerControllerOriginalImage];
+        cell.deleLabel.hidden = NO;
     
-           LGPhotoAssets *photo = [_photoArray objectAtIndex:indexPath.item];
-           cell.cardImage.image = photo.thumbImage;
-           cell.deleLabel.hidden = NO;
-
     }
     
     return cell;
@@ -224,6 +199,32 @@
     
     
 };
+#pragma mark - UIImagePickerControllerDelegate methods
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    WS(weakSelf)
+    [self.VC.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+//        UIImage  *image = info[UIImagePickerControllerOriginalImage];
+        weakSelf.photoArray[_row] = info;
+        BOOL isAddPhoto = YES;
+        for (id info in _photoArray) {
+            
+            if ([info isKindOfClass:[UIImage class]]) {
+                isAddPhoto = NO;
+            }
+            
+        }
+        
+        if (isAddPhoto) {
+            [_photoArray addObject:[UIImage imageNamed:@"submit_image"]];
+        }
+        [_collectionView reloadData];
+       
+        
+    }];
+    
+}
 #pragma mark -- 删除图片
 - (void)deletePhoto:(NSIndexPath *)indexPath{
     

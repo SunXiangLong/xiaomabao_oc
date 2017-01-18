@@ -99,6 +99,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [MobClick event:@"MaBaoCircle3"];
     /**
      *  移除navBarView
      */
@@ -411,7 +412,7 @@
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
    
-   
+    [MobClick event:@"MoreCircle0"];
     _SearchBar.showsCancelButton = YES;
     [UIView animateWithDuration:.2f animations:^{
         _SearchBar.frame = CGRectMake(0, 20,UISCREEN_WIDTH, 55);
@@ -529,17 +530,21 @@
     WS(weakSelf)
     cell.buttonClick =  ^(NSIndexPath *indexPath){
         if (_isSearchTableView) {
+            [MobClick event:@"MoreCircle3"];
             if ([_search_is_joinArray[indexPath.row] isEqualToNumber:@1]) {
                 [weakSelf prompt:indexPath];
             }else{
+                [MobClick event:@"MoreCircle4"];
                 NSString *ID = _searchArray[indexPath.row][@"circle_id"];
                 [weakSelf setJoin_circle:ID indexPath:indexPath is_join:YES];
             }
         }else{
+            [MobClick event:@"MoreCircle3"];
             if ([_is_joinArray[_number][indexPath.row] isEqualToNumber:@1]) {
                 [weakSelf prompt:indexPath];
                 
             }else{
+                [MobClick event:@"MoreCircle4"];
                 NSString *ID = _OneLevel[_number][@"child_cats"][indexPath.row][@"circle_id"];
                 [weakSelf setJoin_circle:ID indexPath:indexPath is_join:YES];
                 
@@ -599,7 +604,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([_tableViewOne isEqual:tableView]) {
-        
+        [MobClick event:@"MoreCircle1"];
         if (_number !=indexPath.row) {
             _number = indexPath.row;
             [_tableViewOne reloadData];
@@ -607,6 +612,7 @@
         }
         return;
     }
+    [MobClick event:@"MoreCircle2"];
     NSDictionary *dic = _OneLevel[_number][@"child_cats"][indexPath.row];
     NSNumber *number = _is_joinArray[_number][indexPath.row];
     if (_isSearchTableView) {

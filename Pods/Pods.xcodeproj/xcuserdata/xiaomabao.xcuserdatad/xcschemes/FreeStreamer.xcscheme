@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '9C3B6E993B7ABFE6B3A66E7C1F7DF1FB'
+               BlueprintIdentifier = '9C8E44ED4B2A3F5EA77697C7DAD3F36E'
                BlueprintName = 'FreeStreamer'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libFreeStreamer.a'>
+               BuildableName = 'FreeStreamer.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

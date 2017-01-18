@@ -51,6 +51,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [MobClick event:@"Shopping0"];
      [self.navBar removeFromSuperview];
     [self addBottomLineView:_sortView];
     _lastBtn = _defaultBtn;

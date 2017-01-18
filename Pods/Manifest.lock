@@ -16,6 +16,14 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - Appirater (2.0.5)
+  - CocoaLumberjack (2.2.0):
+    - CocoaLumberjack/Default (= 2.2.0)
+    - CocoaLumberjack/Extensions (= 2.2.0)
+  - CocoaLumberjack/Core (2.2.0)
+  - CocoaLumberjack/Default (2.2.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.2.0):
+    - CocoaLumberjack/Default
   - DateTools (1.7.0)
   - DZNEmptyDataSet (1.8.1)
   - FMDB (2.6.2):
@@ -34,6 +42,7 @@ PODS:
     - YLGIFImage
   - MJRefresh (3.1.12)
   - MOBFoundation (2.0.8)
+  - NSObject-SafeExpectations (0.0.2)
   - Reachability (3.2)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
@@ -58,10 +67,17 @@ PODS:
   - StreamingKit (0.1.29)
   - SVProgressHUD (2.0.3)
   - TYAttributedLabel (2.6.1)
-  - TZImagePickerController (1.5.0)
-  - UITableView+FDTemplateLayoutCell (1.5.beta)
+  - TZImagePickerController (1.7.8)
+  - UITableView+FDTemplateLayoutCell (1.4)
   - UMengAnalytics (4.1.0)
   - WMPageController (1.8.8)
+  - WordPress-iOS-Editor (1.8.1):
+    - CocoaLumberjack (~> 2.2.0)
+    - NSObject-SafeExpectations (~> 0.0.2)
+    - WordPressCom-Analytics-iOS (~> 0.1.0)
+  - WordPress-iOS-Shared (0.7.0):
+    - CocoaLumberjack (~> 2.2.0)
+  - WordPressCom-Analytics-iOS (0.1.18)
   - YLGIFImage (0.11)
   - YYCache (1.0.3)
   - YYImage (1.0.3):
@@ -81,6 +97,7 @@ DEPENDENCIES:
   - ActionSheetPicker-3.0
   - AFNetworking
   - Appirater
+  - CocoaLumberjack (from `https://github.com/CocoaLumberjack/CocoaLumberjack.git`, tag `2.2.0`)
   - DateTools
   - DZNEmptyDataSet
   - FMDB
@@ -105,20 +122,52 @@ DEPENDENCIES:
   - SKTagView
   - StreamingKit
   - TYAttributedLabel
-  - TZImagePickerController
-  - UITableView+FDTemplateLayoutCell (~> 1.5.beta)
+  - TZImagePickerController (from `https://github.com/banchichen/TZImagePickerController.git`, tag `1.7.8`)
+  - UITableView+FDTemplateLayoutCell
   - UMengAnalytics
   - WMPageController
+  - WordPress-iOS-Editor (from `https://github.com/wordpress-mobile/WordPress-iOS-Editor.git`, tag `1.8.1`)
+  - WordPress-iOS-Shared (from `https://github.com/wordpress-mobile/WordPress-Shared-iOS`, tag `0.7.0`)
+  - WordPressCom-Analytics-iOS (~> 0.1.18)
   - YYImage/WebP
   - YYModel
   - YYText
   - YYWebImage
   - ZFPlayer
 
+EXTERNAL SOURCES:
+  CocoaLumberjack:
+    :git: https://github.com/CocoaLumberjack/CocoaLumberjack.git
+    :tag: 2.2.0
+  TZImagePickerController:
+    :git: https://github.com/banchichen/TZImagePickerController.git
+    :tag: 1.7.8
+  WordPress-iOS-Editor:
+    :git: https://github.com/wordpress-mobile/WordPress-iOS-Editor.git
+    :tag: 1.8.1
+  WordPress-iOS-Shared:
+    :git: https://github.com/wordpress-mobile/WordPress-Shared-iOS
+    :tag: 0.7.0
+
+CHECKOUT OPTIONS:
+  CocoaLumberjack:
+    :git: https://github.com/CocoaLumberjack/CocoaLumberjack.git
+    :tag: 2.2.0
+  TZImagePickerController:
+    :git: https://github.com/banchichen/TZImagePickerController.git
+    :tag: 1.7.8
+  WordPress-iOS-Editor:
+    :git: https://github.com/wordpress-mobile/WordPress-iOS-Editor.git
+    :tag: 1.8.1
+  WordPress-iOS-Shared:
+    :git: https://github.com/wordpress-mobile/WordPress-Shared-iOS
+    :tag: 0.7.0
+
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: d11a4c12c6aaf704b8a3f56d179198c99f3e41e6
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Appirater: e7c0a47fb67ee5041ce8479e6ba960927fb40264
+  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
@@ -131,6 +180,7 @@ SPEC CHECKSUMS:
   MJPhotoBrowser: f55e8490231f44a78ca6455105a1c798a142c95f
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   MOBFoundation: 6f2006b941bd4002e2689a638d04c6b535c4cc64
+  NSObject-SafeExpectations: 7d7f48df90df4e11da7cfe86b64f45eff7a7f521
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
@@ -140,10 +190,13 @@ SPEC CHECKSUMS:
   StreamingKit: c329785aaef3ac142d4ae388345bfe1ed23cfd45
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
   TYAttributedLabel: 4785820dc8d7935446f49f1de4daa0f99ebcba8a
-  TZImagePickerController: d09eef6042852a9dd19224ae4e874f7430852a51
-  UITableView+FDTemplateLayoutCell: 02b508ab1cb4cea16a8c17ac83d2cd1fd72124f9
+  TZImagePickerController: 87a138ae5d585225aaa6c8abe2cface0f0ad19dd
+  UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
   UMengAnalytics: 19b28253793d77dff10fb7d502faad1fb6b8ce4a
   WMPageController: 17f093c7ad34507775b62d537821aa4d6de54e7b
+  WordPress-iOS-Editor: 3118f5d6b142b6bf322f3393a7dd98a28bca68cb
+  WordPress-iOS-Shared: 4bec543bac6543480b10d904bea122dcba43cc37
+  WordPressCom-Analytics-iOS: f8e3823c3d528d5238bfe6721cd0d67b9e7cc4f6
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YYCache: 282f35b5b0990833d0b7a06d864a87141a021da2
   YYImage: 362f44ffba1fc498f2152060f3bb54ed84600981
@@ -152,6 +205,6 @@ SPEC CHECKSUMS:
   YYWebImage: 0431ed108e104527669b86f75efd58958425cca2
   ZFPlayer: 80cf92fef7412ff7a31e47c6658c50393351f938
 
-PODFILE CHECKSUM: f9c61da5a97929f2b3192c823507dbd7c8c12872
+PODFILE CHECKSUM: 4f122454698bc75e09372838c91fac30617fa221
 
 COCOAPODS: 1.1.1

@@ -10,7 +10,6 @@
 #import "SFHFKeychainUtils.h"
 #import "DXAlertView.h"
 #import "MBGuidePage.h"
-#import "MJExtension.h"
 #import "MBUpdateView.h"
 @implementation MBLogOperation
 

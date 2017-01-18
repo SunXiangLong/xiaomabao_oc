@@ -8,8 +8,6 @@
 
 #import "MBNetworking.h"
 #import "MBModel.h"
-#import "MJExtension.h"
-
 static NSDictionary *requestParams = nil;
 static NSString *url = nil;
 
@@ -71,7 +69,7 @@ static AFHTTPSessionManager *mgr = nil;
    
     return   [self.mgr POST:URLString parameters:requestParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        MBModel *model = [MBModel objectWithKeyValues:responseObject];
+        MBModel *model = [MBModel yy_modelWithJSON:responseObject];
         success(task,model);
     } failure:failure];
     
@@ -83,7 +81,7 @@ static AFHTTPSessionManager *mgr = nil;
     [self logURL];
     
     return  [self.mgr GET:URLString parameters:requestParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        MBModel *model = [MBModel objectWithKeyValues:responseObject];
+        MBModel *model = [MBModel yy_modelWithJSON: responseObject];
         success(task,model);
     } failure:failure];
     

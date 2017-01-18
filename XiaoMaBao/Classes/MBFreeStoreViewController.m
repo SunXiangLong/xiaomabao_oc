@@ -35,6 +35,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [MobClick event:@"Shopping2"];
     _headView.ml_height = UISCREEN_WIDTH *35/75;
     [self requestData];
     
@@ -86,7 +87,7 @@
     
     NSInteger ad_type = [_model.today_recommend_top[index].ad_type integerValue];
     
-    
+    [MobClick event:@"FreeStore0"];
     switch (ad_type) {
         case 1: {
             MBActivityViewController *VC = [[MBActivityViewController alloc] init];
@@ -210,9 +211,8 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    [MobClick event:@"FreeStore3"];
     MBActivityViewController *categoryVc = [[MBActivityViewController alloc] init];
-    
     categoryVc.act_id =  _model.today_recommend_bot[indexPath.row].act_id;
     [self pushViewController:categoryVc Animated:YES];
     
@@ -262,18 +262,21 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     if (collectionView.tag == 1) {
-        
+        [MobClick event:@"FreeStore2"];
         MBDetailedViewController *VC = [[MBDetailedViewController alloc] init];
         VC.cat_id = _model.category[indexPath.item].c_id;
         VC.countries  = true;
         [self pushViewController:VC Animated:YES];
     }else{
+        
         MBAffordablePlanetCV *CV = (MBAffordablePlanetCV *)collectionView;
         GoodModel *model =  nil;
         if (collectionView.tag == 0) {
+            [MobClick event:@"FreeStore2"];
             model = _model.recommend_goods[indexPath.item];
         }
         if (collectionView.tag == 2) {
+            [MobClick event:@"FreeStore4"];
             model = _model.today_recommend_bot[CV.indexPath.row].goods[indexPath.item];
         }
         

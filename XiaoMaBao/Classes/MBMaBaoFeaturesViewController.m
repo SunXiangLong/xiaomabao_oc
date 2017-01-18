@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [MobClick event:@"Shopping3"];
     [self.navBar removeFromSuperview];
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerIdentifier"];
     [self requestData];
@@ -121,13 +122,13 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 1) {
-        
+        [MobClick   event:@"MaBaoFeatures0"];
         MBShopingViewController *shopDetailVc = [[MBShopingViewController alloc] init];
         shopDetailVc.GoodsId = _model.hot_goods[indexPath.row].goods_id;
         [self pushViewController: shopDetailVc Animated:YES];
         
     }else{
-        
+        [MobClick   event:@"MaBaoFeatures0"];
         [self performSegueWithIdentifier:@"MBBrandDetailsViewController" sender:_model.feature[indexPath.row]];
         
     }

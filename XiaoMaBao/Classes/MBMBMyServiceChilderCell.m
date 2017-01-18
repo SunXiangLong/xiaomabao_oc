@@ -44,23 +44,25 @@
     UIButton *button = (UIButton *)sender;
     NSString *str = button.titleLabel.text;
     if ([str isEqualToString:@"付款"]) {
+        [MobClick event:@"ServiceOrder4"];
         MBPaymentViewController *VC = [[MBPaymentViewController alloc] init];
         VC.service_data = self.dataDic;
         [self.vc pushViewController:VC Animated:YES];
     }else if ([str isEqualToString:@"查看卷码"]){
-    
+    [MobClick event:@"ServiceOrder5"];
         MBMaBaoVolumeController *VC  = [[MBMaBaoVolumeController alloc] init];
           VC.order_id = self.dataDic[@"order_id"];
         [self.vc pushViewController:VC Animated:YES];
     
     }else if ([str isEqualToString:@"评价"]){
-        
+        [MobClick event:@"ServiceOrder6"];
     MBServiceEvaluationController *VC  = [[MBServiceEvaluationController alloc] init];
      VC.order_id = self.dataDic[@"order_id"];
      VC.title = self.dataDic[@"shop_name"];
     [self.vc pushViewController:VC Animated:YES];
     
     }else if ([str isEqualToString:@"申请退款"] ){
+        [MobClick event:@"ServiceOrder7"];
         MBServiceRefundController *VC = [[MBServiceRefundController alloc] init];
         VC.order_id = self.dataDic[@"order_id"];
         [self.vc pushViewController:VC Animated:YES];

@@ -94,6 +94,7 @@
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [MobClick event:@"MabaoService4"];
     MBServiceDetailsViewController *VC  = [[MBServiceDetailsViewController alloc] init];
     VC.product_id = _productModelArray[indexPath.row].product_id;;
     [self pushViewController:VC Animated:true];

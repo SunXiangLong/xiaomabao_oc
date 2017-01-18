@@ -28,6 +28,7 @@
     
 }
 - (void)loadWebview{
+//    self.url = [NSURL URLWithString:@"http://w3m.huawei.com/mcloud/mag/fg/FreeProxyForContent/MagicMT/index.html"];
     NSURLRequest *request = [NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
     
     if (self.isloging) {

@@ -70,18 +70,22 @@
                 
                 switch ([x integerValue]) {
                     case 0: {
+                         [MobClick event:@"PersonalCenter1"];
                         MBOrderListViewController *VC = [[MBOrderListViewController alloc] init];
                         [self.navigationController pushViewController:VC animated:YES];}break;
                     case 1:{
+                        [MobClick event:@"PersonalCenter2"];
                         MBMyServiceController *VC  = [[MBMyServiceController alloc] init];
                         [self pushViewController:VC Animated:YES];
                     }break;
                     case 2: {
+                        [MobClick event:@"PersonalCenter3"];
                         MBShoppingCartViewController *VC =[[MBShoppingCartViewController alloc] init];
                         VC.showBottomBar = @"yes";
                         [self pushViewController:VC Animated:YES];
                     }  break;
                     case 3:{
+                        [MobClick event:@"PersonalCenter4"];
                         MBMyCollectionViewController *VC =[[MBMyCollectionViewController alloc] init]; [self pushViewController:VC Animated:YES];}  break;
                     default:[self  loginClicksss:@"mabao"];
                         
@@ -140,7 +144,7 @@
 
 - (void)rightTitleClick{
     
-    
+    [MobClick event:@"PersonalCenter0"];
     _isbool = NO;
     if (self.isLogin) {
         MBSettingViewController *settingVc = [[MBSettingViewController alloc] init];
@@ -287,39 +291,48 @@
     
     switch (indexPath.row) {
         case 0:{
+            [MobClick event:@"PersonalCenter5"];
             MBRefundHomeController *VC = [[MBRefundHomeController alloc] init];
             [self pushViewController:VC Animated:YES];}break;
         case 1: {
+            [MobClick event:@"PersonalCenter6"];
             MBVoucherViewController *VC =[[MBVoucherViewController alloc] init];
             [self pushViewController:VC Animated:YES];
         }break;
         case 2:{
+            [MobClick event:@"PersonalCenter7"];
             [self performSegueWithIdentifier:@"MBMyMaBeanViewController" sender:nil];
         }break;
         case 3:{
+            [MobClick event:@"PersonalCenter8"];
             //拨打电话号码
             NSString * telStr = [NSString stringWithFormat:@"telprompt://%@",@"010-85170751"];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
         }break;
         case 4:{
+            [MobClick event:@"PersonalCenter9"];
             MBShopAddresViewController *VC = [[MBShopAddresViewController alloc] init];
             VC.PersonalCenter = @"yes";
             [self pushViewController:VC Animated:YES];
         } break;
         case 5: {
+            [MobClick event:@"PersonalCenter10"];
             MBHistoryRecoderViewController *VC = [[MBHistoryRecoderViewController alloc] init];
             [self pushViewController:VC Animated:YES];
         }break;
         case 6: {
+            [MobClick event:@"PersonalCenter11"];
             [self service];
         }break;
             
         case 7:{
+            [MobClick event:@"PersonalCenter12"];
             MBBackServiceViewController *VC = [[MBBackServiceViewController alloc] init];
             [self pushViewController:VC Animated:YES];
             
         }break;
         default:{
+            [MobClick event:@"PersonalCenter13"];
             MBHelpServiceViewController *VC = [[MBHelpServiceViewController alloc] init];
             [self pushViewController:VC Animated:YES];}break;
     

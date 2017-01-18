@@ -31,3 +31,16 @@
 
 }
 @end
+@implementation NSDictionary (Model)
+-(id)keyForvalue:(id)value{
+   __block id objectEightId;
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NSLog(@"key = %@ and obj = %@", key, obj);
+        if ([obj isEqualToString: value]) {
+            objectEightId = key;
+            
+        }
+    }];
+    return objectEightId;
+}
+@end

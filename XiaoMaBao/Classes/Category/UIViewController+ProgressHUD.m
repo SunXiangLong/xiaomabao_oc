@@ -20,6 +20,26 @@
     MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
     [self presentViewController:VC animated:YES completion:nil];
 }
+- (void)loginTimeout:(id)responseObject{
+    NSString *message = @"登录超时，请重新登录";
+    if ([responseObject[@"status"] integerValue] == -1) {
+        message = @"未登录，请先登录";
+    }
+    UIAlertController *alerVC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel
+                                   
+                                                         handler:^(UIAlertAction * action) {}];
+    UIAlertAction*loginAction = [UIAlertAction actionWithTitle:@"去登陆" style:UIAlertActionStyleDefault                                                                 handler:^(UIAlertAction * action) {
+        
+        [self loginClicksss:@"mabao"];
+    }];
+    [alerVC addAction:cancelAction];
+    [alerVC addAction:loginAction];
+    
+    [self presentViewController:alerVC animated:YES completion:nil];
+    
+    
+}
 - (void)show{
     
     [self showMessage:nil toView:nil delay:0];

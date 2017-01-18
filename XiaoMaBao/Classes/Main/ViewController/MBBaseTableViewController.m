@@ -51,7 +51,8 @@
 }
 - (void)popViewControllerAnimated{
     
-    [self.navigationController   popViewControllerAnimated:YES];
+//    [self.navigationController   popViewControllerAnimated:YES];
+    [self.view endEditing:false];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

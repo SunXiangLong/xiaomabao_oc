@@ -11,11 +11,10 @@
 #import "MBPostDetailsTwoCell.h"
 #import "MBPostDetailsHeadView.h"
 #import "MBCollectionPostController.h"
-#import "MBPostReplyController.h"
 #import "MBPostDetailsViewCell.h"
 #import "MBPostDetailsFooterOne.h"
 #import "MBPostDetailsFooterTwo.h"
-
+#import "MBEditorTopicViewController.h"
 #import <JavaScriptCore/JavaScriptCore.h> //引入头文件
 #import "ObjCModel.h"
 @interface MBPostDetailsViewController ()
@@ -95,6 +94,7 @@
     [self addTopLineView:_bottomView];
     [self show:@"加载中..."];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,_isImage,_poster]]];
+    MMLog(@"%@",[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,_isImage,_poster]]);
     [_webView loadRequest:request];
     //    [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsOneCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsOneCell"];
     //    [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsTwoCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsTwoCell"];
@@ -106,12 +106,18 @@
     
     
 }
+//-(void)webViewDidFinishLoad:(UIWebView *)webView{
+//    if (self.post_id) {
+//        NSInteger height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"] intValue];
+//        NSString* javascript = [NSString stringWithFormat:@"window.scrollBy(0, %ld);", (long)height];
+//        [webView stringByEvaluatingJavaScriptFromString:javascript];
+//    }
+//    
+//}
 -(void)webViewDidFinishLoad:(UIWebView*)webView{
     //当网页视图结束加载一个请求之后，得到通知。
-    
     _post_content =  [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     JSContext *context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    
     // 通过模型调用方法，这种方式更好些。
     ObjCModel *model  = [[ObjCModel alloc] init];
     context[@"xmbapp"] = model;
@@ -120,42 +126,71 @@
     @weakify(self);
     [[model.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDictionary *dic) {
         @strongify(self);
-        
         NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-        
         if (!sid) {
             [self  loginClicksss:@"mabao"];
             return;
         }
+        MMLog(@"%@",dic);
         [self pusVC:dic];
-        
-        
     }];
     context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
         context.exception = exceptionValue;
         MMLog(@"异常信息：%@", exceptionValue);
     };
     
+    
+        if (_isRefresh) {
+            NSInteger height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"] intValue];
+            NSString* javascript = [NSString stringWithFormat:@"window.scrollBy(0, %ld);", (long)height];
+            [webView stringByEvaluatingJavaScriptFromString:javascript];
+        }
     _bottomView.hidden = false;
     [self dismiss];
     
 }
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)_request navigationType:(UIWebViewNavigationType)navigationType {
+    NSString *requestString = [[_request URL] absoluteString];
+    NSString *prefix = @"clickimage:";
+    if ([requestString hasPrefix:prefix]) {
+        
+         MMLog(@"%@", requestString);
+    }
+    return YES;
+}
 -(void)pusVC:(NSDictionary *)dic{
     
-    MBPostReplyController *VC = [[MBPostReplyController alloc] init];
-    VC.title   = [NSString stringWithFormat:@"回复%@:",dic[@"user_name"]];
+    MBEditorTopicViewController *VC = [[MBEditorTopicViewController    alloc] init];
+    MBNavigationViewController *nav = [[MBNavigationViewController alloc] initWithRootViewController:VC];
+    VC.title = [NSString stringWithFormat:@"回复%@:",dic[@"user_name"]];
     VC.post_id = dic[@"post_id"];
     VC.comment_reply_id  = dic[@"comment_id"];
     WS(weakSelf)
-    VC.successEvaluation = ^(){
+    VC.releaseSuccess = ^(){
         weakSelf.poster =  @"1";
         weakSelf.isImage = @"1";
         [weakSelf show:@"加载中..."];
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,_isImage,_poster]]];
         [weakSelf.webView loadRequest:request];
-        
+        _isRefresh = YES;
     };
-    [self pushViewController:VC Animated:YES];
+    [self presentViewController:nav  animated:false completion:nil];
+    
+    
+//    MBPostReplyController *VC = [[MBPostReplyController alloc] init];
+//    VC.title   = [NSString stringWithFormat:@"回复%@:",dic[@"user_name"]];
+//    VC.post_id = dic[@"post_id"];
+//    VC.comment_reply_id  = dic[@"comment_id"];
+//    WS(weakSelf)
+//    VC.successEvaluation = ^(){
+//        weakSelf.poster =  @"1";
+//        weakSelf.isImage = @"1";
+//        [weakSelf show:@"加载中..."];
+//        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,_isImage,_poster]]];
+//        [weakSelf.webView loadRequest:request];
+//        
+//    };
+//    [self pushViewController:VC Animated:YES];
 }
 -(void)webView:(UIWebView*)webView DidFailLoadWithError:(NSError*)error{
     //当在请求加载中发生错误时，得到通知。会提供一个NSSError对象，以标识所发生错误类
@@ -478,21 +513,35 @@
         [self  loginClicksss:@"mabao"];
         return;
     }
-    MBPostReplyController *VC = [[MBPostReplyController alloc] init];
+    MBEditorTopicViewController *VC = [[MBEditorTopicViewController    alloc] init];
+    MBNavigationViewController *nav = [[MBNavigationViewController alloc] initWithRootViewController:VC];
     VC.title   = [NSString stringWithFormat:@"回复%@:",@"楼主"];
     VC.post_id = self.post_id;
     VC.comment_reply_id  = @"0";
     WS(weakSelf)
-    VC.successEvaluation = ^(){
-        
+    VC.releaseSuccess = ^(){
         weakSelf.poster =  @"1";
         weakSelf.isImage = @"1";
         [weakSelf show:@"加载中..."];
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,_isImage,_poster]]];
         [weakSelf.webView loadRequest:request];
-        
     };
-    [self pushViewController:VC Animated:YES];
+     [self presentViewController:nav  animated:false completion:nil];
+//    MBPostReplyController *VC = [[MBPostReplyController alloc] init];
+//    VC.title   = [NSString stringWithFormat:@"回复%@:",@"楼主"];
+//    VC.post_id = self.post_id;
+//    VC.comment_reply_id  = @"0";
+//    WS(weakSelf)
+//    VC.successEvaluation = ^(){
+//        
+//        weakSelf.poster =  @"1";
+//        weakSelf.isImage = @"1";
+//        [weakSelf show:@"加载中..."];
+//        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,_isImage,_poster]]];
+//        [weakSelf.webView loadRequest:request];
+//        
+//    };
+//    [self pushViewController:VC Animated:YES];
     
     
 }

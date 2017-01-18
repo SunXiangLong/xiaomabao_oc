@@ -14,10 +14,11 @@
 #import "MBActivityViewController.h"
 #import "MBWebViewController.h"
 #import "MBGroupShopController.h"
-#import "MBNewReleaseTopicViewController.h"
 #import "MBAffordablePlanetViewController.h"
 #import "MBFreeStoreViewController.h"
 #import "MBMaBaoFeaturesViewController.h"
+#import "MBCheckInViewController.h"
+#import "MBServiceEvaluationController.h"
 @interface MBNewHomeViewController ()<UIScrollViewDelegate,UnicallDelegate>
 {
     
@@ -44,8 +45,6 @@
 {
     
     [super viewWillAppear:animated];
-
-
     NSDictionary *userInfo = [User_Defaults valueForKeyPath:@"userInfo"];
     if (userInfo) {
         NSString *type = userInfo[@"type"];
@@ -65,6 +64,10 @@
             VC.url =  [NSURL URLWithString:userInfo[@"id"]];
             VC.isloging = YES;
             [self pushViewController:VC Animated:YES];
+        }else if([type isEqualToString:@"signIn"]){
+            UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+            MBCheckInViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBCheckInViewController"];
+            [self presentViewController:myView animated:YES completion:nil];
         }
         [User_Defaults setObject:nil forKey:@"userInfo"];
         [User_Defaults synchronize];
@@ -83,6 +86,9 @@
     [self setupScrollView];
 }
 -(void)leftTitleClick{
+    
+//    MBServiceEvaluationController *VC  = [[MBServiceEvaluationController alloc] init];
+//    [self  pushViewController:VC Animated:YES];
 //    MBNewReleaseTopicViewController *vc = [[MBNewReleaseTopicViewController alloc] init];
 //    [self pushViewController:vc Animated:true];
 
@@ -162,6 +168,7 @@
 }
 
 - (void)rightTitleClick{
+    
     MBGoodSSearchViewController *searchViewController = [[MBGoodSSearchViewController alloc] init:NO];
     searchViewController.hotSearches = @[@""];
     searchViewController.hotSearchStyle =  PYHotSearchStyleColorfulTag;

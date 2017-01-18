@@ -32,7 +32,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    
     [self searchUI];
     
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView1"];

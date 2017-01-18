@@ -8,13 +8,10 @@
 
 #import "MBServiceEvaluationController.h"
 #import "PhotoCollectionViewCell.h"
-#import "LGPhotoPickerViewController.h"
-#import "LGPhoto.h"
-#import "UIImage+Size.h"
 #import "MBEvaluationSuccessController.h"
-@interface MBServiceEvaluationController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SDPhotoBrowserDelegate,PhotoCollectionViewCellDelegate,LGPhotoPickerViewControllerDelegate>{
+@interface MBServiceEvaluationController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SDPhotoBrowserDelegate,PhotoCollectionViewCellDelegate>{
     
-    NSMutableArray *_photoArray;
+    
     SDPhotoBrowser *browser;
 }
 @property (weak, nonatomic) IBOutlet UITextView *textView;
@@ -22,11 +19,16 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeight;
-@property (nonatomic, assign) LGShowImageType showType;
-
+@property (copy, nonatomic) NSMutableArray *photoArray;
 @end
 
 @implementation MBServiceEvaluationController
+-(NSMutableArray *)photoArray{
+    if (!_photoArray) {
+        _photoArray = [NSMutableArray array];
+    }
+    return _photoArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.bottom.constant = UISCREEN_HEIGHT - 136 - TOP_Y;
@@ -50,12 +52,7 @@
         UIImage *image = [[UIImage alloc] init];
         if (_photoArray.count>1) {
             for (int i = 0; i<_photoArray.count-1; i++) {
-                if ([_photoArray[i]isKindOfClass:[UIImage class]]) {
-                    image = _photoArray[i];
-                }else{
-                    LGPhotoAssets *photo = _photoArray [i];
-                    image = photo.thumbImage;
-                }
+                image = _photoArray[i];
                 NSData * data = [UIImage reSizeImageData:image maxImageSize:800 maxSizeWithKB:800];
                 if(data != nil){
                     [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"photo[]"] fileName:[NSString stringWithFormat:@"photo%d.jpg",i]mimeType:@"image/jpeg"];
@@ -89,13 +86,19 @@
 /**
  *  初始化相册选择器
  */
-- (void)presentPhotoPickerViewControllerWithStyle:(LGShowImageType)style {
-    LGPhotoPickerViewController *pickerVc = [[LGPhotoPickerViewController alloc] initWithShowType:style];
-    pickerVc.status = PickerViewShowStatusCameraRoll;
-    pickerVc.maxCount = 6;   // 最多能选6张图片
-    pickerVc.delegate = self;
-    self.showType = style;
-    [pickerVc showPickerVc:self];
+- (void)presentPhotoPickerViewController {
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:6 columnNumber:4 delegate:nil pushPhotoPickerVc:YES];
+    WS(weakSelf)
+    [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
+        for ( UIImage *image in photos) {
+            
+            [weakSelf.photoArray insertObject:image atIndex:0];
+        }
+        [self setCollectionViewHeight];
+        [self.collectionView reloadData];
+    }];
+    
+    [self presentViewController:imagePickerVc animated:YES completion:nil];
 }
 
 
@@ -121,7 +124,7 @@
                                                              handler:^(UIAlertAction * action) {}];
         UIAlertAction* fromPhotoAction = [UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault                                                                 handler:^(UIAlertAction * action) {
             
-            [self presentPhotoPickerViewControllerWithStyle:LGShowImageTypeImagePicker];
+            [self presentPhotoPickerViewController];
         }];
         UIAlertAction* fromCameraAction = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault                                                             handler:^(UIAlertAction * action) {
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
@@ -168,32 +171,7 @@
     [super didReceiveMemoryWarning];
     
 }
-- (void)pickerViewControllerDoneAsstes:(NSArray *)assets isOriginal:(BOOL)original{
-    /*
-     //assets的元素是LGPhotoAssets对象，获取image方法如下:
-     NSMutableArray *thumbImageArray = [NSMutableArray array];
-     NSMutableArray *originImage = [NSMutableArray array];
-     NSMutableArray *fullResolutionImage = [NSMutableArray array];
-     
-     for (LGPhotoAssets *photo in assets) {
-     //缩略图
-     [thumbImageArray addObject:photo.thumbImage];
-     //原图
-     [originImage addObject:photo.originImage];
-     //全屏图
-     [fullResolutionImage addObject:fullResolutionImage];
-     }
-     */
-    for ( LGPhotoAssets *photo in assets) {
-         
-         [_photoArray insertObject:photo atIndex:0];
-     }
-    
-    
-    [self setCollectionViewHeight];
-    [self.collectionView reloadData];
-    
-}
+
 
 #pragma mark --UITextViewDelegate
 - (void)textViewDidChange:(UITextView*)textView{
@@ -236,15 +214,7 @@
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCollectionViewCell" forIndexPath:indexPath];
     
     
-    if ([_photoArray[indexPath.row]isKindOfClass:[UIImage class]]) {
-        cell.image.image = _photoArray[indexPath.item];
-    }else{
-        
-        LGPhotoAssets *photo = [_photoArray objectAtIndex:indexPath.item];
-        cell.image.image = photo.thumbImage;
-        
-    }
-    
+    cell.image.image = _photoArray[indexPath.item];
     cell.image .contentMode =  UIViewContentModeScaleAspectFill;
     cell.image .autoresizingMask = UIViewAutoresizingFlexibleHeight;
     cell.image .clipsToBounds  = YES;
@@ -262,14 +232,12 @@
             return;
         }
     }
-    
-    
+   
     SDPhotoBrowser *photoBrowser = [SDPhotoBrowser new];
     photoBrowser.delegate = self;
     photoBrowser.currentImageIndex = indexPath.item;
-    photoBrowser.imageCount = _photoArray.count-1;
+    photoBrowser.imageCount = _photoArray.count == 6?6:_photoArray.count-1;
     photoBrowser.sourceImagesContainerView = self.collectionView;
-    
     [photoBrowser show];
     
     
@@ -306,14 +274,7 @@
 #pragma mark - SDPhotoBrowserDelegate
 - (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
 {
-    if ([_photoArray[index]isKindOfClass:[UIImage class]]) {
-        return _photoArray[index];
-    }else{
-        
-        LGPhotoAssets *photo = [_photoArray objectAtIndex:index ];
-        UIImage *image =  photo.thumbImage;
-        return image;
-    }
+    return _photoArray[index];
     
 }
 -(void)photoNum:(NSInteger)index{

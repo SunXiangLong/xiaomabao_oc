@@ -50,9 +50,7 @@
     [super viewDidLoad];
     _page = 1;
     
-    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData:)];
-    footer.refreshingTitleHidden = YES;
-    self.tableView.mj_footer = footer;
+   
     [self getBabyImage];
 }
 /**
@@ -76,8 +74,15 @@
     [MBNetworking POSTOrigin:url parameters:@{@"session":sessiondict,@"page":page} success:^(id responseObject) {
         
          [self dismiss];
-         [_tableView.mj_footer endRefreshing];
-          MMLog(@"%@",responseObject);
+        if (_page == 1) {
+            MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData:)];
+            footer.refreshingTitleHidden = YES;
+            self.tableView.mj_footer = footer;
+        }else{
+        [_tableView.mj_footer endRefreshing];
+        }
+        
+//          MMLog(@"%@",responseObject);
         if ([[responseObject valueForKeyPath:@"data"][@"result"] count] == 0) {
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
 

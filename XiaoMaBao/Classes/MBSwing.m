@@ -9,5 +9,8 @@
 #import "MBSwing.h"
 
 @implementation MBSwing
-
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic{
+    
+    return YES;
+}
 @end

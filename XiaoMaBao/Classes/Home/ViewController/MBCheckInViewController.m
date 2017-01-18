@@ -12,12 +12,15 @@
 #import "ZLDateView.h"
 #import "MBSignRoleView.h"
 @interface MBCheckInViewController ()
-
+{
+    BOOL _isSignIN;
+    BOOL _isRefreesh;
+    UIView *_signInView;
+}
 @property (weak, nonatomic) IBOutlet UIView *calendarBottomView;
 @property (weak, nonatomic) IBOutlet ZLDateView *calendarView;
 @property (weak, nonatomic) IBOutlet UIView *shareTimeView;
 @property (weak, nonatomic) IBOutlet UIView *monthDayView;
-- (IBAction)SignClick;
 @property (weak, nonatomic) IBOutlet UIButton *signButton;
 @property (weak, nonatomic) IBOutlet UILabel *timeLbl;
 @property (weak, nonatomic) IBOutlet UILabel *msgLbl;
@@ -25,22 +28,32 @@
 @end
 
 @implementation MBCheckInViewController
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+    [super viewWillAppear:animated];
+    [self refreshCalendarView];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setUI];
 
+   
   
+   
+}
+- (void)setUI{
     self.calendarBottomView.backgroundColor = [UIColor colorWithRed:126/256.0 green:156/256.0 blue:172/256.0 alpha:0.5];
     self.shareTimeView.backgroundColor = [UIColor colorWithRed:128.0/255.0 green:165.0/255.0 blue:193.0/255.0 alpha:0.7];
     self.calendarView.backgroundColor = [UIColor colorWithRed:157.0/255.0 green:193.0/255.0 blue:213.0/255.0 alpha:0.5];
-   
+    
     NSDate *date = [NSDate date];
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
     fmt.dateFormat = @"yyyy年MM月";
     self.timeLbl.text = [fmt stringFromDate:date];
     self.automaticallyAdjustsScrollViewInsets = YES;
-    [self refreshCalendarView];
+    
     [self setupBottomView];
 }
 -(NSString *)leftImage{
@@ -75,9 +88,13 @@ return @"nav_back";
         }else {
             calendarBottomMakeView = [[UIView alloc] init];
             calendarBottomMakeView.layer.cornerRadius = 7.5;
+            calendarBottomMakeView.layer.borderWidth = 1;
             calendarBottomMakeView.frame = CGRectMake(0, (bottomRangeView.ml_height - 15) * 0.5, 15, 15);
             [bottomRangeView addSubview:calendarBottomMakeView];
-            calendarBottomMakeView.backgroundColor = [UIColor redColor];
+            calendarBottomMakeView.layer.borderColor = [UIColor whiteColor].CGColor;
+            calendarBottomMakeView.backgroundColor = [UIColor clearColor];
+            _signInView = calendarBottomMakeView;
+//            calendarBottomMakeView.backgroundColor = [UIColor redColor];
         }
         
         UILabel *calendarBottomLabel = [[UILabel alloc] init];
@@ -106,12 +123,21 @@ return @"nav_back";
     
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    if (!uid) {
+        [self loginTimeout:@{@"status":@"-1"}];
+        return ;
+    }
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    [self show];
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/promote/get_sign_days") parameters:@{@"session":dict} success:^(id responseObject) {
-        
-        MMLog(@"%@",responseObject);
+        [self dismiss];
+        _isRefreesh = true;
+//        MMLog(@"%@",responseObject);
+        if (responseObject[@"status"]&&![responseObject[@"status"]isKindOfClass:[NSDictionary class]]&&[responseObject[@"status"] integerValue] == 0) {
+            [self loginTimeout:responseObject];
+            return ;
+        }
         if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
-            
             self.calendarView.datys = responseObject[@"data"][@"days"];
             // 刷新lbl
             NSString *msgLbl = [NSString stringWithFormat:@"我的可用麻豆为%@麻豆",responseObject[@"data"][@"sign_score"]];
@@ -124,9 +150,11 @@ return @"nav_back";
             self.msgLbl.attributedText = attr;
             
             if ([responseObject[@"data"][@"signed"] integerValue] != 0) {
-                
+                _isSignIN = true;
                 // 刷新btn
                 [self.signButton setImage:[UIImage imageNamed:@"signed_circle_btn"] forState:UIControlStateNormal];
+                _signInView.backgroundColor = [UIColor redColor];
+
             }
 
         }else{
@@ -180,19 +208,36 @@ return @"nav_back";
 
 
 - (IBAction)SignClick {
+    
+    if (!_isRefreesh) {
+        [self loginTimeout:@{@"status":@"-1"}];
+        return ;
+    }
+    if (_isSignIN) {
+        [self show:@"您今天已经签过到了" time:.8];
+        return;
+    }
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/sign"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-        
-        if ([[responseObject.status valueForKey:@"succeed"] integerValue] == 0) {
-            [self show:responseObject.status[@"error_desc"] time:1];
-        }else{
-            [self show:@"签到成功! 您每天继续来签到吧!" time:1];
-            [self refreshCalendarView];
+    [MBNetworking   POSTOrigin:string(BASE_URL_root, @"/promote/sign") parameters:@{@"session":dict} success:^(id responseObject) {
+        MMLog(@"%@",responseObject);
+        if (responseObject[@"status"]&&![responseObject[@"status"]isKindOfClass:[NSDictionary class]]&&[responseObject[@"status"] integerValue] == 0) {
+            [self loginTimeout:responseObject];
+            return ;
         }
+        if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
+            [self show:@"签到成功! 您每天继续来签到吧!" time:1];
+            _signInView.backgroundColor = [UIColor redColor];
+            [self refreshCalendarView];
+        }else{
+            [self show:responseObject[@"status"][@"error_desc"] time:1];
+        }
+        
+        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败" time:1];
     }];
+
 }
 @end

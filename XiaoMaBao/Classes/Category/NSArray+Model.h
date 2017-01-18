@@ -12,3 +12,7 @@
 // 模型转对象转换工具（配合YYModel）
 + (NSArray *)modelDictionary:(NSDictionary *)dic modelKey:(NSString *)key modelClassName:(NSString *)name;
 @end
+@interface NSDictionary (Model)
+// 根据字典value求对呀key
+- (id)keyForvalue:(id)value;
+@end

@@ -199,12 +199,14 @@
 }
 
 - (void)rightTitleClick{
+    [MobClick event:@"MaBaoCircle4"];
     MBSearchPostController *searchVc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBSearchPostController"];
     
     [self pushViewController:searchVc Animated:YES];
     
 }
 -(void)leftTitleClick{
+    [MobClick event:@"MaBaoCircle0"];
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     if (! sid) {
         

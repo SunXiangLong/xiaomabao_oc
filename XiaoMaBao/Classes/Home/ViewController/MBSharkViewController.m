@@ -7,12 +7,10 @@
 //
 
 #import "MBSharkViewController.h"
-#import "MBNetworking.h"
 #import "MBUserDataSingalTon.h"
 #import "MBSignaltonTool.h"
 #import "UIImageView+WebCache.h"
 #import "MBSwing.h"
-#import "MJExtension.h"
 #import <AVFoundation/AVFoundation.h>
 @interface MBSharkViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *tipLbl;
@@ -57,7 +55,9 @@
     
     if (userInfo != nil && [userInfo valueForKey:@"uid"] != nil) {
         NSDictionary *dict = @{@"uid":[userInfo valueForKey:@"uid"],@"sid":[userInfo valueForKey:@"sid"]};
+        
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/get_remote_reward"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
+            
             NSString* header_img = [responseObject.data valueForKey:@"header_img"];
             if (![header_img isKindOfClass:[NSNull class]]) {
                 [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:header_img]];
@@ -79,7 +79,7 @@
 }
 
 - (void)getSwingTimes:(BOOL )isonce{
-    [self show];
+    
     if (isonce) {
           AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
@@ -87,6 +87,7 @@
     MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
     if (userInfo != nil && [userInfo valueForKey:@"uid"] != nil) {
         NSDictionary *dict = @{@"uid":[userInfo valueForKey:@"uid"],@"sid":[userInfo valueForKey:@"sid"]};
+        [self show];
         [MBNetworking POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/get_remain_swing"] parameters:@{@"session":dict} success:^(id responseObject) {
             if (!isonce) {
                 [self dismiss];
@@ -248,7 +249,7 @@
             NSDictionary *dict = @{@"uid":[userInfo valueForKey:@"uid"],@"sid":[userInfo valueForKey:@"sid"]};
             [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/swing"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                  [self dismiss];
-                self.swing = [MBSwing objectWithKeyValues:responseObject.data];
+                self.swing = [MBSwing  yy_modelWithDictionary: responseObject.data];
                 if ([[responseObject.data allValues] count] == 0) {
                     // 没中奖
                     [self showSharkWinning:NO];

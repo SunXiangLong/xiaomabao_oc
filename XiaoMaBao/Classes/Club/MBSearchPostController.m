@@ -327,10 +327,11 @@
         _SearchBar.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, 55);
         _tabView.frame = CGRectMake(0, CGRectGetMaxY(_SearchBar.frame), UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y-55);
         [self.dataArray removeAllObjects];
+        [self.tabView.fd_keyedHeightCache invalidateAllHeightCache];
+        [self.tabView reloadData];
         _page = 1;
         self.tabView.tableHeaderView=[self headView];
         [self setupTagView];
-        [self.tabView reloadData];
         [self.tabView.mj_footer removeFromSuperview];
         self.tabView.mj_footer = nil;
     
@@ -360,8 +361,10 @@
 #pragma mark --UItableDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
-    return 1;
+    if (self.dataArray.count > 0) {
+        return 1;
+    }
+    return 0;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -378,6 +381,7 @@
 - (void)configureCell:(MBDetailsCircleTbaleViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     
     cell.fd_enforceFrameLayout = YES;
+    MMLog(@"%@--%ld",self.dataArray,(long)indexPath.row);
     cell.dataDic = self.dataArray[indexPath.row];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

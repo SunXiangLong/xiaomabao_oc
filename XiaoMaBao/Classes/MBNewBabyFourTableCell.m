@@ -25,7 +25,7 @@
 - (IBAction)dianji:(UITapGestureRecognizer *)sender {
 
     NSDictionary *dic = _dataArr[sender.view.tag];
-    
+    [MobClick event:@"Mengbao7"];
     if (sender.view.tag>1) {
         MBShopingViewController *VC = [[MBShopingViewController alloc] init];
         VC.GoodsId =  dic[@"goods_id"];

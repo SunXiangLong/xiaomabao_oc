@@ -32,7 +32,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor    colorWithHexString:@"ecedf1"];
     [self.navBar removeFromSuperview];
-    [self setFootRefres];
+   
     _dataArray = [NSMutableArray array];
     _promptLable = [[UILabel alloc] init];
     _promptLable.textAlignment = 1;
@@ -49,11 +49,6 @@
 - (void)setFootRefres{
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setheadData)];
-    
-    // 当上拉刷新控件出现50%时（出现一半），就会自动刷新。这个值默认是1.0（也就是上拉刷新100%出现时，才会自动刷新）
-    //    footer.triggerAutomaticallyRefreshPercent = 0.5;
-    
-    // 隐藏刷新状态的文字
     footer.refreshingTitleHidden = YES;
     
     // 设置footer
@@ -98,7 +93,9 @@
                    
                    ;
                    //                   MMLog(@"%@",responseObject.data);
+                  
                    [self.tableView.mj_header endRefreshing];
+                   
                    
                    if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                        [_dataArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
@@ -149,7 +146,7 @@
                    if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                        _promptLable.hidden = YES;
                        [_dataArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
-                
+                       [self setheadData];
                        _page++;
                    }else{
                        NSString *str;
@@ -240,6 +237,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (self.type != 0) {
+        [MobClick event:@"ServiceOrder8"];
         NSDictionary *dic = _dataArray[indexPath.row];
         MBServiceOrderController *VC = [[MBServiceOrderController alloc] init];
         VC.type = self.type;

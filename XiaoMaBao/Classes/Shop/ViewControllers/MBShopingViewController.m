@@ -93,7 +93,7 @@
 - (void)viewDidLoad{
 
     [super viewDidLoad];
-  
+    [MobClick event:@"Goods0"];
     [self.navigationController.navigationItem.rightBarButtonItem setImage:[UIImage imageNamed:@"address_add"]];
     self.view.backgroundColor = [UIColor whiteColor];
     [self getGoosInfo];

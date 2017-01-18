@@ -23,7 +23,7 @@
 }
 -(void)tap:(UITapGestureRecognizer *)gesture{
     
-    
+     [MobClick event:@"ShoppingCart0"];
     if (self.delegate&&[self.delegate respondsToSelector:@selector(click:)]) {
         [self.delegate click:self.row];
     }
@@ -77,7 +77,7 @@
 
 //数量减1
 - (IBAction)reduce:(id)sender {
-    
+    [MobClick event:@"ShoppingCart4"];
     NSString * selected = self.isSelect;
     
     //数量减1
@@ -105,7 +105,7 @@
 }
 //数量加1
 - (IBAction)Add:(id)sender {
-    
+     [MobClick event:@"ShoppingCart3"];
     
     NSString * selected = self.isSelect;
     //数量加1

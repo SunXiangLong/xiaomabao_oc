@@ -13,5 +13,5 @@
 @property (strong,nonatomic) NSDictionary *status;
 @property (strong,nonatomic) NSDictionary *msg;
 @property (strong,nonatomic) NSString *img;
-@property (strong,nonatomic) NSDictionary *is_black;
+@property (strong,nonatomic) NSString *is_black;
 @end

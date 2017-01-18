@@ -526,6 +526,7 @@
             @strongify(self);
             NSString *url;
             NSString *title;
+            [MobClick event:@"Mengbao3"];
             switch ([tag integerValue]) {
                 case 0: {
                     
@@ -837,17 +838,20 @@
     if (tableView.tag ==1) {
         
         if (indexPath.row == 0) {
+            [MobClick event:@"Mengbao0"];
             MBBabyDueDateController *VC = [[MBBabyDueDateController alloc] init];
             
             [self pushViewController:VC Animated:YES];
         }else{
-            
+            [MobClick event:@"Mengbao1"];
             [self performSegueWithIdentifier:@"sunxianglong" sender:nil];
         }
         return;
     }
     switch (indexPath.section) {
         case 0: {
+           
+            [MobClick event:@"Mengbao4"];
             MBBabyWebController *VC = [[MBBabyWebController alloc] init];
             VC.url = URL(_dataArray[indexPath.section][indexPath.row][@"url"]);
             VC.title = _dataArray[indexPath.section][indexPath.row][@"title"];
@@ -855,7 +859,7 @@
         }break;
         case 1: {
             if ([_dataArray[indexPath.section] count] == indexPath.row ) {
-                
+                [MobClick event:@"Mengbao5"];
                 MBBabyWebController *VC = [[MBBabyWebController alloc] init];
                 VC.url = URL(string(BASE_URL_root, @"/mengbao/toolkit"));
                 VC.title = @"添加工具到首页";
@@ -866,6 +870,7 @@
                 }];
                 [self pushViewController:VC Animated:YES];
             }else{
+                [MobClick event:@"Mengbao5"];
                 NSDictionary *dic = _dataArray[indexPath.section][indexPath.row];
                 MBBabyWebController *VC = [[MBBabyWebController alloc] init];
                 VC.url = URL(dic[@"toolkit_url"]);
@@ -877,7 +882,7 @@
             
         }break;
         case 2: {
-         
+         [MobClick event:@"Mengbao6"];
             MBPostDetailsViewController *VC = [[MBPostDetailsViewController   alloc] init];
             VC.post_id = _dataArray[indexPath.section][indexPath.row][@"post_id"];
             [self pushViewController:VC Animated:YES];

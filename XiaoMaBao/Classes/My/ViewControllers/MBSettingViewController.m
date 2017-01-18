@@ -124,16 +124,19 @@
     
     
         if (indexPath.row == 0) {
+            [MobClick event:@"SetUp0"];
             MBEditProfileViewController *editVc = [[MBEditProfileViewController alloc] init];
             [self.navigationController pushViewController:editVc animated:YES];
         }else if (indexPath.row == 1){
+            [MobClick event:@"SetUp1"];
             MBServiceProvisionViewController *evaluateVc = [[MBServiceProvisionViewController alloc] init];
             [self.navigationController pushViewController:evaluateVc animated:YES];
         }else if (indexPath.row == 2){
+            [MobClick event:@"SetUp2"];
             MBAboutViewController *serviceVc = [[MBAboutViewController alloc] init];
             [self.navigationController pushViewController:serviceVc animated:YES];
         }else if (indexPath.row == 3){
-            
+            [MobClick event:@"SetUp3"];
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
                                                             message:[NSString stringWithFormat:@"缓存大小为：%@，确定要清除缓存吗？",_cacheSize] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -146,6 +149,7 @@
 }
 
 - (void)unLogin{
+    [MobClick event:@"SetUp4"];
     MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
     
     [user clearUserInfo];

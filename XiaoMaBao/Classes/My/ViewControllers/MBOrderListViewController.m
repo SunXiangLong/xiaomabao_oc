@@ -65,10 +65,10 @@
                 @"待收货",
                 @"已完成"
                 ];
-    _page = 1;
+    
     [self setupMenuView];
     [self setupTableView];
-    [self setFootRefres];
+   
     if(self.order_status_tag)
     {
         [self tabMenuClick:_order_status_tag];
@@ -128,6 +128,8 @@
 }
 
 -(void)tabMenuClick:(NSInteger)tag{
+    
+    _page = 1;
     [UIView animateWithDuration:.25 animations:^{
         CGFloat width = self.view.ml_width / _titles.count;
         self.menuLineView.ml_x = tag * width;
@@ -180,8 +182,12 @@
     [self show];
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/order/order_list_new") parameters:@{@"session":sessiondict,@"pagination":paginationDict,@"type":_type} success:^(id responseObject) {
         [self dismiss];
-        [self.tableView .mj_footer endRefreshing];
-        MMLog(@"成功获取搜索退换货订单信息---responseObject%@",responseObject);
+        if (_page == 1) {
+             [self setFootRefres];
+        }else{
+         [self.tableView .mj_footer endRefreshing];
+        }
+       
         if ([[responseObject valueForKeyPath:@"data"] count] > 0) {
             [self.orderListArray addObjectsFromArray:[NSArray modelDictionary:responseObject modelKey:@"data" modelClassName:@"MBOrderModel"]];
             
@@ -192,6 +198,7 @@
         }else{
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
             if (self.orderListArray.count == 0) {
+                
                 _promptLable.hidden  = NO;
                 _promptLable.text = [NSString stringWithFormat:@"还没有%@的订单",_lastButton.titleLabel.text];
                 
@@ -199,6 +206,8 @@
             return ;
         }
         if (self.orderListArray.count == 0) {
+            [self.tableView.mj_footer removeFromSuperview];
+            self.tableView.mj_footer = nil;
             _promptLable.hidden  = NO;
             _promptLable.text = [NSString stringWithFormat:@"还没有%@的订单",_lastButton.titleLabel.text];
             
@@ -583,6 +592,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
      MBOrderModel *orderModel = _orderListArray[indexPath.section];
+    [MobClick event:@"MyOrder5"];
     if (orderModel.childOrders.count == 0) {
         MBShopingViewController *VC = [[MBShopingViewController alloc] init];
         VC.GoodsId =  [orderModel.goodsList[indexPath.row] goods_id];
@@ -606,6 +616,7 @@
         //重新请求服务器数据
         _page = 1;
         _type = _types[btn.tag];
+        [MobClick event:string(@"MyOrder", s_Integer(btn.tag))];
         [self getOrderListInfo];
     }];
 }
@@ -616,10 +627,11 @@
 }
 
 -(void)payForMoney:(UIButton *)btn{
-    
+    [MobClick event:@"MyOrder11"];
     [self getOrderInfo:btn.tag];
 }
 - (void)details:(UIButton *)btn{
+    [MobClick event:@"MyOrder6"];
     NSInteger section = btn.tag;
      MBOrderModel *orderModel = _orderListArray[section];
     UINavigationController  *nav =  [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
@@ -669,7 +681,7 @@
 }
 -(void)comment:(UIButton *)button{
     
-    
+    [MobClick event:@"MyOrder9"];
     MBOrderModel *orderModel = _orderListArray[button.tag];
     NSArray *goodListArr = orderModel.goodsList;
     NSMutableArray *goodListArray = [NSMutableArray array];
@@ -692,6 +704,7 @@
      MBOrderModel *orderModel = _orderListArray[button.tag];
     
     if ([button.titleLabel.text isEqualToString:@"申请退款/换货"]) {
+        [MobClick event:@"MyOrder8"];
         MBAfterSalesServiceViewController *VC = [[MBAfterSalesServiceViewController alloc] init] ;
         VC.type = @"1";
         VC.section = button.tag;
@@ -701,13 +714,14 @@
         [self.navigationController pushViewController:VC animated:YES];
        
     }else if ([button.titleLabel.text isEqualToString:@"进度查询"]){
+         [MobClick event:@"MyOrder7"];
         MBRefundScheduleViewController *VC = [[MBRefundScheduleViewController alloc] init];
         VC.orderid = orderModel.order_id;
         VC.order_sn = orderModel.order_sn;
         [self.navigationController pushViewController:VC animated:YES];
         
     }else if ([button.titleLabel.text isEqualToString:@"重新申请"]){
-        
+        [MobClick event:@"MyOrder14"];
         
         MBAfterSalesServiceViewController *VC = [[MBAfterSalesServiceViewController alloc] init];
         VC.type = @"0";
@@ -719,6 +733,7 @@
         [self.navigationController pushViewController:VC animated:YES];
         
     }else if([button.titleLabel.text isEqualToString:@"填写运单号"]){
+        [MobClick event:@"MyOrder10"];
         MBDeliveryInformationViewController *VC = [[MBDeliveryInformationViewController alloc] init];
         VC.back_tax = orderModel.back_tax;
         VC.order_sn = orderModel.order_sn;
@@ -726,12 +741,19 @@
         VC.section = button.tag;
         [self.navigationController pushViewController:VC animated:YES];
        
+    }else if([button.titleLabel.text isEqualToString:@"查看物流"]){
+        
+        MBLogisticsViewController *VC = [[MBLogisticsViewController alloc] init];
+        VC.type =  orderModel.shipping_name;
+        VC.postid = orderModel.invoice_no;
+        [self pushViewController:VC Animated:YES];
+    
     }
 
     
 }
 - (void)shipped:(UIButton *)button{
-    
+    [MobClick event:@"MyOrder12"];
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];

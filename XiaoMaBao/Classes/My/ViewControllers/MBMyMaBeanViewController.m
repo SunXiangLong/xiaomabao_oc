@@ -69,7 +69,7 @@
 
         }else{
             if (_page == 1) {
-                [_tableView.mj_footer removeSubviews];
+//                [_tableView.mj_footer removeSubviews];
                 _tableView.mj_footer = nil;
             }{
                 [_tableView.mj_footer endRefreshingWithNoMoreData];

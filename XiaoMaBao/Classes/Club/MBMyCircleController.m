@@ -61,6 +61,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [MobClick event:@"MaBaoCircle1"];
     [self.navBar removeFromSuperview];
     
    
@@ -99,7 +100,7 @@
     switch (sender.tag) {
         case 0:
         {
-            
+            [MobClick event:@"MyCircle1"];
             MBWebViewController *VC = [[MBWebViewController alloc] init];
             VC.url =  [NSURL URLWithString:string(BASE_URL_root, @"/discovery/story")];
             VC.isloging = YES;
@@ -109,12 +110,13 @@
             
         }break;
         case 1:{
-            
+            [MobClick event:@"MyCircle2"];
             MBVoiceViewController *Vc  = [[MBVoiceViewController alloc] init];
             [self pushViewController:Vc Animated:YES];
             
         }break;
         case 2: {
+            [MobClick event:@"MyCircle3"];
             if (!sid) {
                 [self  loginClicksss:@"mabao"];
                 return ;
@@ -125,6 +127,7 @@
         }break;
         case 3:
         {
+            [MobClick event:@"MyCircle4"];
             if (!sid) {
                 [self  loginClicksss:@"mabao"];
                 return ;
@@ -280,7 +283,7 @@
     
     NSInteger ad_type = [_bandImageArray[index][@"ad_type"] integerValue];
     
-    
+    [MobClick event:@"MyCircle0"];
     switch (ad_type) {
         case 1: {
             MBActivityViewController *VC = [[MBActivityViewController alloc] init];
@@ -345,10 +348,11 @@
         
         
         if (indexPath.section == 0) {
+            [MobClick event:@"MyCircle7"];
             [weakSelf prompt:indexPath];
             
         }else{
-            
+            [MobClick event:@"MyCircle8"];
             [weakSelf setJoin_circle:_recommendArray[indexPath.row][@"circle_id"] indexPath:indexPath];
         }
     };
@@ -487,9 +491,11 @@
     NSDictionary *dic;
     NSString *str  = @"0";
     if (indexPath.section == 0&&sid) {
+        [MobClick event:@"MyCircle5"];
         dic = _myCircleArray[indexPath.row];
         str = @"1";
     }else{
+        [MobClick event:@"MyCircle6"];
         if (self.recommendArray.count > 0) {
             dic = self.recommendArray[indexPath.row];
         }

@@ -145,6 +145,7 @@
 }
 
 - (void)rightTitleClick{
+     [MobClick event:@"MabaoService2"];
     MBServiceSearchViewController *searchViewController = [[MBServiceSearchViewController alloc] init:true];
     searchViewController.hotSearches = @[@""];
     searchViewController.hotSearchStyle =  PYHotSearchStyleColorfulTag;
@@ -179,6 +180,7 @@
 
 #pragma mark -- 更多服务
 - (void)moreService:(UITapGestureRecognizer *)ges{
+    [MobClick event:@"MabaoService1"];
     if ([ges.view isKindOfClass:[MBServiceHomeHeadView class]]) {
         MMLog(@"%ld",ges.view.tag);
         [self performSegueWithIdentifier:@"MBServiceShopsViewController" sender:[NSIndexPath indexPathForRow:0 inSection:ges.view.tag]];
@@ -271,6 +273,7 @@
  
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+     [MobClick event:@"MabaoService1"];
     MBServiceDetailsViewController *VC  = [[MBServiceDetailsViewController alloc] init];
     VC.product_id = _serviceModel.shopsArray[indexPath.section].productArray[indexPath.row].product_id;
     [self pushViewController:VC Animated:true];
@@ -297,6 +300,7 @@
     
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    [MobClick event:@"MabaoService0"];
     if (self.cat_id) {
         [self performSegueWithIdentifier:@"MBServiceSubtypeViewController" sender:indexPath];
         return;

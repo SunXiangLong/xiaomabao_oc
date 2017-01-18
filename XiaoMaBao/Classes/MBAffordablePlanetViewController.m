@@ -34,6 +34,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [MobClick event:@"Shopping1"];
     _headView.ml_height = UISCREEN_WIDTH *35/75 + 90;
     [self requestData];
     
@@ -47,8 +48,8 @@
     switch (sender.tag) {
         case 0:
         {
+            [MobClick event:@"AffordablePlane1"];
             UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-            
             MBCheckInViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBCheckInViewController"];
             [self presentViewController:myView animated:YES completion:nil];
             
@@ -56,6 +57,7 @@
         }
             break;
         case 1:{
+            [MobClick event:@"AffordablePlane2"];
             UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
             MBSharkViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBSharkViewController"];
         
@@ -64,9 +66,9 @@
         }
             break;
         case 2: {
-            
+            [MobClick event:@"AffordablePlane3"];
             MBWebViewController *VC = [[MBWebViewController alloc] init];
-            VC.url =  URL(string(BASE_URL_root, @"/daily/prize"));
+            VC.url = URL(string(@"http://www.xiaomabao.com", @"/daily/prize"));
             VC.title =@"抽大奖";
             VC.isloging = YES;
             [self pushViewController:VC Animated:YES];
@@ -129,20 +131,20 @@
     
     switch (ad_type) {
         case 1: {
+            [MobClick event:@"AffordablePlane0"];
             MBActivityViewController *VC = [[MBActivityViewController alloc] init];
             VC.act_id = _model.today_recommend_top[index].act_id;
-            
             [self pushViewController:VC Animated:YES];
         }break;
         case 2: {
-            
+             [MobClick event:@"AffordablePlane0"];
             MBShopingViewController *VC = [[MBShopingViewController alloc] init];
             VC.GoodsId  = _model.today_recommend_top[index].ad_con;
             VC.title = _model.today_recommend_top[index].ad_name;
             [self pushViewController:VC Animated:YES];
         }break;
         case 3: {
-            
+            [MobClick event:@"AffordablePlane0" attributes:@{@"WebUrl":@"网页活动"}];
             MBWebViewController *VC = [[MBWebViewController alloc] init];
             VC.url =  [NSURL URLWithString:_model.today_recommend_top[index].ad_con];
             VC.title = _model.today_recommend_top[index].ad_name;
@@ -152,7 +154,7 @@
             
         }break;
         case 4: {
-            
+             [MobClick event:@"AffordablePlane0"];
             MBGroupShopController *VC = [[MBGroupShopController alloc] init];
             VC.title = _model.today_recommend_top[index].ad_name;
             [self pushViewController:VC Animated:YES];
@@ -239,9 +241,8 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    [MobClick event:@"AffordablePlane5"];
     MBActivityViewController *categoryVc = [[MBActivityViewController alloc] init];
-    
     categoryVc.act_id =  _model.today_recommend_bot[indexPath.row].act_id;
     [self pushViewController:categoryVc Animated:YES];
     
@@ -279,11 +280,12 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     if (collectionView.tag == 0) {
-        
+        [MobClick event:@"AffordablePlane4"];
         MBCategoryViewController *VC = [[MBCategoryViewController alloc] init];
         VC.ID = _model.category[indexPath.item].cat_id;
         [self pushViewController:VC Animated:YES];
     }else{
+         [MobClick event:@"AffordablePlane6"];
         MBAffordablePlanetCV *CV = (MBAffordablePlanetCV *)collectionView;
         MBShopingViewController *shopDetailVc = [[MBShopingViewController alloc] init];
         shopDetailVc.GoodsId =  _model.today_recommend_bot[CV.indexPath.row].goods[indexPath.item].goods_id;

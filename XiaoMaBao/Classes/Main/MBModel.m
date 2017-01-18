@@ -9,5 +9,8 @@
 #import "MBModel.h"
 
 @implementation MBModel
-
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic{
+    
+       return YES;
+}
 @end

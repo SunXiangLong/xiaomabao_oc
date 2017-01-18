@@ -1,11 +1,11 @@
 
-platform :ios, '8.0'
-#use_frameworks!
+platform :ios, '9.0'
+use_frameworks!
 target 'XiaoMaBao' do
 #网络请求框架。
 pod 'AFNetworking'
 #相册多选拍照。
-pod 'TZImagePickerController'
+pod 'TZImagePickerController',:git => 'https://github.com/banchichen/TZImagePickerController.git', :tag => '1.7.8'
 
 #UITableView data is nil
 pod 'DZNEmptyDataSet'
@@ -33,12 +33,12 @@ pod 'FreeStreamer'
 pod 'ReactiveCocoa','~> 2.5'
 pod 'JPFPSStatus'
 pod 'DateTools'
-pod 'UITableView+FDTemplateLayoutCell', '~> 1.5.beta'
+pod 'UITableView+FDTemplateLayoutCell'
 #基于HTML+JS的富文本编辑器
-#pod 'WordPressCom-Analytics-iOS','~> 0.1.18'
-#pod 'WordPress-iOS-Shared’,:git => 'https://github.com/wordpress-mobile/WordPress-Shared-iOS', :tag => '0.7.0'
-#pod 'CocoaLumberjack’,:git => 'https://github.com/CocoaLumberjack/CocoaLumberjack.git', :tag => '2.2.0'
-#pod 'WordPress-iOS-Editor’,:git => 'https://github.com/wordpress-mobile/WordPress-iOS-Editor.git', :tag => '1.8.1'
+pod 'WordPressCom-Analytics-iOS','~> 0.1.18'
+pod 'WordPress-iOS-Shared’,:git => 'https://github.com/wordpress-mobile/WordPress-Shared-iOS', :tag => '0.7.0'
+pod 'CocoaLumberjack’,:git => 'https://github.com/CocoaLumberjack/CocoaLumberjack.git', :tag => '2.2.0'
+pod 'WordPress-iOS-Editor’,:git => 'https://github.com/wordpress-mobile/WordPress-iOS-Editor.git', :tag => '1.8.1'
 #YYText库
 pod 'YYText'
 pod 'YYModel'

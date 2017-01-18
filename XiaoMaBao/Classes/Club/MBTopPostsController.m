@@ -28,14 +28,13 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [MobClick event:@"MaBaoCircle2"];
     [self.navBar removeFromSuperview];
     self.tableView.tableFooterView = [[UIView alloc] init];
     _page = 1;
     [self setData];
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
-    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
-    footer.refreshingTitleHidden = YES;
-    self.tableView.mj_footer = footer;
+    
     
 }
 #pragma mark -- 热帖数据数据
@@ -46,7 +45,14 @@
     
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
+        
+        if (_page == 1) {
+            MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
+            footer.refreshingTitleHidden = YES;
+            self.tableView.mj_footer = footer;
+        }else{
         [self.tableView .mj_footer endRefreshing];
+        }
         //      MMLog(@"%@",responseObject);
         if (responseObject) {
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
@@ -112,6 +118,7 @@
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [MobClick   event:@"TopPost0"];
     NSDictionary *dic = _dataArray[indexPath.row];
     MBPostDetailsViewController *VC = [[MBPostDetailsViewController   alloc] init];
     VC.post_id = dic[@"post_id"];

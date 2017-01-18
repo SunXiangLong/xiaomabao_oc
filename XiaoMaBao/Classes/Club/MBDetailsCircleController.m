@@ -10,7 +10,7 @@
 #import "MBDetailsCircleTableHeadView.h"
 #import "MBPostDetailsViewController.h"
 #import "MBDetailsCircleCell.h"
-#import "MBNewReleaseTopicViewController.h"
+#import "MBEditorTopicViewController.h"
 @interface MBDetailsCircleController ()<UITableViewDelegate,UITableViewDataSource>
 {
     /**
@@ -133,16 +133,31 @@
         _tableView.tableHeaderView = [self setTableHeadView];
             if (isRightButton) {
                 
-                MBNewReleaseTopicViewController *VC = [[MBNewReleaseTopicViewController    alloc] init];
+//                MBNewReleaseTopicViewController *VC = [[MBNewReleaseTopicViewController    alloc] init];
+//                VC.circle_id = self.circle_id;
+//                WS(weakSelf);
+//                VC.releaseSuccess = ^(){
+//                    _page = 1;
+//                    [weakSelf.dataArray removeAllObjects];
+//                    [weakSelf setData];
+//                    
+//                };
+//                [self pushViewController:VC Animated:YES];
+                
+                MBEditorTopicViewController *VC = [[MBEditorTopicViewController    alloc] init];
+                
+                MBNavigationViewController *nav = [[MBNavigationViewController alloc] initWithRootViewController:VC];
+                VC.title = @"发布话题";
                 VC.circle_id = self.circle_id;
-                WS(weakSelf);
+                WS(weakSelf)
                 VC.releaseSuccess = ^(){
                     _page = 1;
                     [weakSelf.dataArray removeAllObjects];
+                    
                     [weakSelf setData];
                     
                 };
-                [self pushViewController:VC Animated:YES];
+                [self presentViewController:nav  animated:false completion:nil];
 
             }
      
@@ -214,19 +229,38 @@
 }
 -(void)rightTitleClick{
     if ([self.is_join isEqualToString:@"0"]) {
-         [self prompt];
+         [self share];
     }else{
         
-        MBNewReleaseTopicViewController *VC = [[MBNewReleaseTopicViewController    alloc] init];
+        
+        MBEditorTopicViewController *VC = [[MBEditorTopicViewController    alloc] init];
+        
+        MBNavigationViewController *nav = [[MBNavigationViewController alloc] initWithRootViewController:VC];
+        VC.title = @"发布话题";
         VC.circle_id = self.circle_id;
+        WS(weakSelf)
         VC.releaseSuccess = ^(){
             _page = 1;
-            [self.dataArray removeAllObjects];
-            
-            [self setData];
+            [weakSelf.dataArray removeAllObjects];
+
+            [weakSelf setData];
         
         };
-        [self pushViewController:VC Animated:YES];
+        [self presentViewController:nav  animated:false completion:nil];
+//        [self presentViewController:VC animated:true completion:nil];
+       
+//        MBNewReleaseTopicViewController *VC = [[MBNewReleaseTopicViewController    alloc] init];
+//        VC.circle_id = self.circle_id;
+//        VC.releaseSuccess = ^(){
+//            _page = 1;
+//            [self.dataArray removeAllObjects];
+//            
+//            [self setData];
+//        
+//        };
+//        [self pushViewController:VC Animated:YES];
+        
+        
 //        MBReleaseTopicViewController *VC = [[MBReleaseTopicViewController    alloc] init];
 //        VC.circle_id = self.circle_id;
 //        [self pushViewController:VC Animated:YES];
@@ -275,7 +309,7 @@
     
     
 }
-- (void)prompt{
+- (void)share{
     
     NSString *str = @"";
     NSString *str1 = [NSString stringWithFormat:@"加入话题所在的圈子才能发帖哦～%@?",str];

@@ -87,6 +87,13 @@ return @"我的服务";
 {
     // 取出对应的子控制器
     int index = scrollView.contentOffset.x / UISCREEN_WIDTH;
+    switch (index) {
+        case 0:[MobClick event:@"ServiceOrder0"]; break;
+        case 1:[MobClick event:@"ServiceOrder1"]; break;
+        case 2:[MobClick event:@"ServiceOrder2"]; break;
+        case 3:[MobClick event:@"ServiceOrder3"]; break;
+        default:break;
+    }
     MBMyServiceChilderViewController *willShowChildVc = self.childViewControllers[index];
     
     // 如果控制器的view已经被创建过，就直接返回

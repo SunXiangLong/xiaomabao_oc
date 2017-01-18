@@ -367,6 +367,7 @@
 //全选按钮
 -(void)allSelectBtn:(UIButton *)button
 {
+     [MobClick event:@"ShoppingCart1"];
     [self selectAllOrZero];
 }
 #pragma mark -- 提交订单前的确认
@@ -523,7 +524,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    [MobClick event:@"ShoppingCart2"];
     
 }
 #pragma mark -- 在滑动手势删除某一行的时候，显示出更多的按钮
@@ -535,7 +536,7 @@
     // 添加一个删除按钮
     
     UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除"handler:^(UITableViewRowAction *action,NSIndexPath *indexPath) {
-        
+        [MobClick event:@"ShoppingCart5"];
         NSString *rec_id = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"rec_id"];
         
         [self DelteCartAndSavecollectRequestData:rec_id and:0 and:indexPath.row];
@@ -546,7 +547,7 @@
     
     //添加一个收藏按钮
     UITableViewRowAction *moreRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"加入收藏"handler:^(UITableViewRowAction *action,NSIndexPath *indexPath) {
-        
+        [MobClick event:@"ShoppingCart6"];
         NSString *goods_id = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"goods_id"];
         [self DelteCartAndSavecollectRequestData:goods_id and:1 and:indexPath.row];
         
