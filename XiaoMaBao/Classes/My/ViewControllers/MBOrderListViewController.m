@@ -65,7 +65,7 @@
                 @"待收货",
                 @"已完成"
                 ];
-    
+    _page = 1;
     [self setupMenuView];
     [self setupTableView];
    
@@ -100,25 +100,6 @@
     
     
 }
-
-//#pragma mark --下拉刷新
-//- (void)setHeadRefresh
-//{
-//    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
-//    WNXRefresgHeader *header = [WNXRefresgHeader headerWithRefreshingTarget:self refreshingAction:@selector(setRefreshData)];
-//    
-//    // 隐藏时间
-//    header.lastUpdatedTimeLabel.hidden = YES;
-//    
-//    // 隐藏状态
-//    header.stateLabel.hidden = YES;
-//    
-//    // 马上进入刷新状态
-//    [header beginRefreshing];
-//    
-//    // 设置header
-//    self.tableView.mj_header = header;
-//}
 - (void)MBEvaluationController:(NSNotification *)notificat{
     
 
@@ -182,6 +163,10 @@
     [self show];
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/order/order_list_new") parameters:@{@"session":sessiondict,@"pagination":paginationDict,@"type":_type} success:^(id responseObject) {
         [self dismiss];
+        if (![responseObject [@"data"] isKindOfClass:[NSArray class]]) {
+            [self show:@"登录超时，请重新登录" time:1];
+            return ;
+        }
         if (_page == 1) {
              [self setFootRefres];
         }else{
@@ -197,13 +182,7 @@
             
         }else{
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            if (self.orderListArray.count == 0) {
-                
-                _promptLable.hidden  = NO;
-                _promptLable.text = [NSString stringWithFormat:@"还没有%@的订单",_lastButton.titleLabel.text];
-                
-            }
-            return ;
+            
         }
         if (self.orderListArray.count == 0) {
             [self.tableView.mj_footer removeFromSuperview];
@@ -217,6 +196,7 @@
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
          [self show:@"请求失败" time:1];
+        MMLog(@"%@",error);
     }];
 
     

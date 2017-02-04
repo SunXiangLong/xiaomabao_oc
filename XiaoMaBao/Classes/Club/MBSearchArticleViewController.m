@@ -54,7 +54,7 @@
     // Dispose of any resources that can be recreated.
 }
 - (void)configureCell:(MBVoiceViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    cell.fd_enforceFrameLayout = NO;
+    cell.fd_enforceFrameLayout = YES;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 0;

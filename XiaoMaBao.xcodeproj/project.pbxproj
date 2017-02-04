@@ -634,6 +634,10 @@
 		9F4693481DE6ECD10057DF1D /* MBFreeStoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4693461DE6ECD10057DF1D /* MBFreeStoreModel.m */; };
 		9F4A66511DC869B70015B4D1 /* UITableViewCell+MBBottomLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F4A664F1DC869B70015B4D1 /* UITableViewCell+MBBottomLine.h */; };
 		9F4A66521DC869B70015B4D1 /* UITableViewCell+MBBottomLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A66501DC869B70015B4D1 /* UITableViewCell+MBBottomLine.m */; };
+		9F56DE831E4574BB00160483 /* MBShoppingCartModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F56DE811E4574BB00160483 /* MBShoppingCartModel.h */; };
+		9F56DE841E4574BB00160483 /* MBShoppingCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F56DE821E4574BB00160483 /* MBShoppingCartModel.m */; };
+		9F56DE871E45A04D00160483 /* MBConfirmModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F56DE851E45A04D00160483 /* MBConfirmModel.h */; };
+		9F56DE881E45A04D00160483 /* MBConfirmModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F56DE861E45A04D00160483 /* MBConfirmModel.m */; };
 		9F5723561DED74EE00D67766 /* MBLovelyBabyImageCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F5723541DED74EE00D67766 /* MBLovelyBabyImageCell.h */; };
 		9F5723571DED74EE00D67766 /* MBLovelyBabyImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5723551DED74EE00D67766 /* MBLovelyBabyImageCell.m */; };
 		9F5888AB1DE6FFB1008CA2D7 /* MBMBAffordablePlanetOneChildeOneCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F5888A81DE6FFB1008CA2D7 /* MBMBAffordablePlanetOneChildeOneCell.h */; };
@@ -1681,6 +1685,10 @@
 		9F4693461DE6ECD10057DF1D /* MBFreeStoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFreeStoreModel.m; sourceTree = "<group>"; };
 		9F4A664F1DC869B70015B4D1 /* UITableViewCell+MBBottomLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+MBBottomLine.h"; sourceTree = "<group>"; };
 		9F4A66501DC869B70015B4D1 /* UITableViewCell+MBBottomLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+MBBottomLine.m"; sourceTree = "<group>"; };
+		9F56DE811E4574BB00160483 /* MBShoppingCartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBShoppingCartModel.h; path = XiaoMaBao/Classes/Cart/MBShoppingCartModel.h; sourceTree = SOURCE_ROOT; };
+		9F56DE821E4574BB00160483 /* MBShoppingCartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBShoppingCartModel.m; path = XiaoMaBao/Classes/Cart/MBShoppingCartModel.m; sourceTree = SOURCE_ROOT; };
+		9F56DE851E45A04D00160483 /* MBConfirmModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBConfirmModel.h; path = XiaoMaBao/Classes/Cart/MBConfirmModel.h; sourceTree = SOURCE_ROOT; };
+		9F56DE861E45A04D00160483 /* MBConfirmModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBConfirmModel.m; path = XiaoMaBao/Classes/Cart/MBConfirmModel.m; sourceTree = SOURCE_ROOT; };
 		9F5723541DED74EE00D67766 /* MBLovelyBabyImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBLovelyBabyImageCell.h; sourceTree = "<group>"; };
 		9F5723551DED74EE00D67766 /* MBLovelyBabyImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBLovelyBabyImageCell.m; sourceTree = "<group>"; };
 		9F5888A81DE6FFB1008CA2D7 /* MBMBAffordablePlanetOneChildeOneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMBAffordablePlanetOneChildeOneCell.h; sourceTree = "<group>"; };
@@ -2262,6 +2270,10 @@
 		485486311B19AAFF008C68C0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9F56DE811E4574BB00160483 /* MBShoppingCartModel.h */,
+				9F56DE821E4574BB00160483 /* MBShoppingCartModel.m */,
+				9F56DE851E45A04D00160483 /* MBConfirmModel.h */,
+				9F56DE861E45A04D00160483 /* MBConfirmModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3612,6 +3624,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F56DE871E45A04D00160483 /* MBConfirmModel.h in Headers */,
 				941BCEAC1D64083D00B4C67E /* MBArticleViewCell.h in Headers */,
 				9F0F88A51E0112D1003979F8 /* LWHTMLNode.h in Headers */,
 				9428D5F61D6D53D40055CCFC /* UIImage+ST.h in Headers */,
@@ -3735,6 +3748,7 @@
 				946ECDFA1D1B6EDD00778EF6 /* MBBabyCardController.h in Headers */,
 				9F0F88921E0112D1003979F8 /* GallopDefine.h in Headers */,
 				9414ABE11D659CA700EE78C2 /* MBOrderInfoTableViewController.h in Headers */,
+				9F56DE831E4574BB00160483 /* MBShoppingCartModel.h in Headers */,
 				9F0F88C11E0112D1003979F8 /* LWTextStorage.h in Headers */,
 				9F796BF81DE59C6F00AFD7D0 /* MBAffordablePlanetTabCell.h in Headers */,
 				9F0F88BD1E0112D1003979F8 /* LWTextParser.h in Headers */,
@@ -4175,6 +4189,7 @@
 				94E9A4721C9047340002E15E /* SDBrowserImageView.m in Sources */,
 				94892D721CB4FF4100668A98 /* MBServiceOrderThreeCell.m in Sources */,
 				944AFCBF1CBBA2D800E66535 /* MBServiceRefundFootCell.m in Sources */,
+				9F56DE881E45A04D00160483 /* MBConfirmModel.m in Sources */,
 				9F3300711DD59A2A0031248A /* UIView+PYExtension.m in Sources */,
 				9F0F88D01E0112D1003979F8 /* SDWebImageManager+Gallop.m in Sources */,
 				948CA9F91BFECBB400318EAE /* NSDataEx.m in Sources */,
@@ -4432,6 +4447,7 @@
 				9408C8B51CA28A7400A1B5E0 /* MBTableViewRmbCell.m in Sources */,
 				9411619A1C46618200EE8B9A /* MBStyleCollectionViewCell.m in Sources */,
 				9F0F888E1E0112D1003979F8 /* CALayer+WebCache.m in Sources */,
+				9F56DE841E4574BB00160483 /* MBShoppingCartModel.m in Sources */,
 				9F0F88C61E0112D1003979F8 /* LWTransactionGroup.m in Sources */,
 				940329F51CE49B8A00E0C5FA /* ObjCModel.m in Sources */,
 				94EBB0131C328DE000466E92 /* MBEvaluationViewView.m in Sources */,

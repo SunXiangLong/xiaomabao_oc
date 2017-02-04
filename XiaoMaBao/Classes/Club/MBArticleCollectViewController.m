@@ -35,9 +35,7 @@
     [self loadData];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"MBVoiceViewCell" bundle:nil] forCellReuseIdentifier:@"MBVoiceViewCell"];
-    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
-    footer.refreshingTitleHidden = YES;
-    self.tableView.mj_footer = footer;
+    
 }
 - (void)loadData{
     [self show];
@@ -47,8 +45,14 @@
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/article/collect_list/") parameters:@{@"page":s_Integer(_page),@"session":sessiondict} success:^(id responseObject) {
         [self dismiss];
         
-        [self.tableView .mj_footer endRefreshing];
         
+        if (_page == 1) {
+            MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
+            footer.refreshingTitleHidden = YES;
+            self.tableView.mj_footer = footer;
+        }else{
+            [self.tableView .mj_footer endRefreshing];
+        }
         if ([responseObject count] >0) {
             [self.dataArr addObjectsFromArray:responseObject];
             
@@ -61,7 +65,6 @@
         }
         
         [self.tableView reloadData];
-        MMLog(@"%ld",_dataArr.count);
         if (_dataArr.count > 0 ) {
             _headView.hidden = YES;
           
@@ -85,7 +88,8 @@
 }
 
 - (void)configureCell:(MBVoiceViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    cell.fd_enforceFrameLayout = NO;
+    cell.fd_enforceFrameLayout = YES;
+//    cell.fd_enforceFrameLayout = NO;
     cell.dataDic = _dataArr[indexPath.section];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

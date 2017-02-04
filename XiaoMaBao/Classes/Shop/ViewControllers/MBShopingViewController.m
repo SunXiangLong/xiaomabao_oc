@@ -186,7 +186,9 @@
     
     [MBNetworking   POSTOrigin:string(BASE_URL_root, @"/flow/list_count") parameters:@{@"session":session} success:^(id responseObject) {
         
-        if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
+        MMLog(@"%@",responseObject);
+        
+        if ([responseObject[@"status"] isKindOfClass:[NSDictionary class]]&&[responseObject[@"status"][@"succeed"] integerValue] == 1) {
              NSString * list_count = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"list_count"]];
             if(list_count != nil){
                 if ([list_count integerValue]>0) {
@@ -1105,7 +1107,7 @@
 -(void)rightTitleClick{
     
     MBShoppingCartViewController *shoppingCartVc = [[MBShoppingCartViewController alloc] init];
-    shoppingCartVc.showBottomBar = @"yes";//不显示底栏
+//    shoppingCartVc.showBottomBar = @"yes";//不显示底栏
     [self.navigationController pushViewController:shoppingCartVc animated:YES];
 }
 -(void)timeFireMethod:(NSTimer *)timer{

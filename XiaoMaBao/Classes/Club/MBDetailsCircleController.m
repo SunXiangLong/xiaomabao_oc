@@ -66,7 +66,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/circle/get_circle_info"];
     [MBNetworking   POSTOrigin:url parameters:@{@"circle_id":self.circle_id,@"page":page} success:^(id responseObject) {
         
-//      MMLog(@"%@",responseObject);
+      MMLog(@"%@",responseObject);
         [self dismiss];
        
         if (responseObject) {
@@ -305,6 +305,7 @@
     NSDictionary *dic = _dataArray[indexPath.row];
     MBPostDetailsViewController *VC = [[MBPostDetailsViewController   alloc] init];
     VC.post_id = dic[@"post_id"];
+    VC.tittext = dic[@"post_title"];
     [self pushViewController:VC Animated:YES];
     
     

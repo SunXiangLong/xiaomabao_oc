@@ -451,7 +451,7 @@
 -(void)rightTitleClick{
     
     MBShoppingCartViewController *shoppingCartVc = [[MBShoppingCartViewController alloc] init];
-    shoppingCartVc.showBottomBar = @"yes";//不显示底栏
+//    shoppingCartVc.showBottomBar = @"yes";//不显示底栏
     [self.navigationController pushViewController:shoppingCartVc animated:YES];
 }
 

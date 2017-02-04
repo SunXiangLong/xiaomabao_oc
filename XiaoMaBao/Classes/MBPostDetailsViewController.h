@@ -11,7 +11,5 @@
 @interface MBPostDetailsViewController : BkBaseViewController
 @property (nonatomic,strong) NSString *post_id;
 @property (nonatomic,strong) NSString *comment_id;
-
-
-
+@property (nonatomic,strong) NSString *tittext;
 @end

@@ -9,17 +9,27 @@
 #import "MBShoppingCartTableViewCell.h"
 #import "MBNetworking.h"
 #import "MBSignaltonTool.h"
+@interface MBShoppingCartTableViewCell()
+@property (weak, nonatomic) IBOutlet UIImageView *imageView1;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView2;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView3;
+@property (weak, nonatomic) IBOutlet UIImageView *imageVIew4;
+@property (weak, nonatomic) IBOutlet UIImageView *Carimageview;
+@property (weak, nonatomic) IBOutlet UILabel *GoodsDescribe;
+@property (weak, nonatomic) IBOutlet UILabel *Goods_price;
+@property (weak, nonatomic) IBOutlet UILabel *Market_Price;
+@property (weak, nonatomic) IBOutlet UILabel *goods_number;
+@property (weak, nonatomic) IBOutlet UIImageView *selectImageview;
+@property (weak, nonatomic) IBOutlet UIView *maskView;
+@property (nonatomic,strong) NSArray *imageArray;
+@property(strong,nonatomic)NSString * isSelect;
+@end
 @implementation MBShoppingCartTableViewCell
 - (void)awakeFromNib {
     [super awakeFromNib];
     
     [self.maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)]];
     
-}
-
-- (CGSize)sizeThatFits:(CGSize)size {
-    
-    return CGSizeMake(size.width, 62);
 }
 -(void)tap:(UITapGestureRecognizer *)gesture{
     
@@ -31,48 +41,45 @@
     
     
 }
--(void)setDataDic:(NSDictionary *)dataDic{
-    _dataDic = dataDic;
-    self.Goods_price.text = dataDic[@"goods_price_formatted"];
-    self.Market_Price.text = dataDic[@"market_price_formatted"];
-    self.goods_number.text = dataDic[@"goods_number"];
-    self.GoodsDescribe.text = dataDic[@"goods_name"];
-    self.goodID = dataDic[@"goods_id"];
-    self.rec_id = dataDic[@"rec_id"];
-    
-    NSInteger flow_order = [dataDic[@"flow_order"] integerValue];
-    if (flow_order == 1) {
+-(void)setModel:(MBGood_ListModel *)model{
+    _model = model;
+    self.Goods_price.text = model.goods_price_formatted;
+    self.Market_Price.text = model.market_price_formatted;
+    self.goods_number.text = model.goods_number;
+    self.GoodsDescribe.text = model.goods_name;
+    if ([_model.flow_order integerValue] == 1) {
         self.isSelect = @"1";
         self.selectImageview.image = [UIImage imageNamed:@"icon_true"];
-        
     }else{
         self.isSelect = @"0";
         self.selectImageview.image = [UIImage imageNamed:@"pitch_no"];
-        
-        
+    
     }
     NSMutableArray *array = [NSMutableArray array];
     
-    if ([dataDic[@"is_third"] isEqualToString:@"1"]) {
+    if ([model.is_third integerValue] == 1) {
         [array addObject:[UIImage imageNamed:@"thrid_goods_icon"]];
     }
-    if ([dataDic[@"coupon_disable"]isEqualToString:@"1"]) {
+    if ([model.coupon_disable integerValue] == 1) {
         [array addObject:[UIImage imageNamed:@"coupon_disable"]];
     }
-    if ([dataDic[@"is_cross_border"]isEqualToString:@"1"]) {
+    if ([model.is_cross_border integerValue] == 1) {
         [array addObject:[UIImage imageNamed:@"icon_cross_g"]];
         
     }
-    if ([dataDic[@"is_group"]isEqualToString:@"1"]) {
+    if ([model.is_group integerValue] == 1) {
         [array addObject:[UIImage imageNamed:@"icon_group_g"]];
         
     }
     
     self.imageArray = array;
     
-    NSURL *url = [NSURL URLWithString:dataDic[@"goods_img"]];
     
-    [self.Carimageview sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+    
+    [self.Carimageview sd_setImageWithURL:model.goods_img placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+
+
+
 }
 
 //数量减1
@@ -84,17 +91,14 @@
     NSString *number = self.goods_number.text;
     NSInteger goodNumber = [number integerValue];
     goodNumber--;
-    if (goodNumber <= 0) {
-        [self.viewController  show:@"商品件数最少为1" time:1];
-        return;
-    }
+    
     if([self.isSelect isEqualToString:@"0"]){
         self.goods_number.text = [NSString stringWithFormat:@"%ld",goodNumber];
     }
     
     //创建通知
     NSString * goods_number = [NSString stringWithFormat:@"%ld",goodNumber ];
-    NSString * rec_id = self.rec_id;
+    NSString * rec_id = _model.rec_id;
     NSString *row = [NSString stringWithFormat:@"%ld",self.row];
     NSDictionary *reduceNumber = [NSDictionary dictionaryWithObjectsAndKeys:goods_number,@"goods_number",rec_id,@"rec_id", selected,@"selected",row,@"row",nil];
     if (self.delegate &&[self.delegate respondsToSelector:@selector(reduceShop:)]) {
@@ -119,7 +123,7 @@
     
     //创建通知
     NSString * goods_number = [NSString stringWithFormat:@"%ld",goodNumber];
-    NSString * rec_id = self.rec_id;
+    NSString * rec_id = _model.rec_id;
     
     NSString *row = [NSString stringWithFormat:@"%ld",self.row];
     
@@ -157,5 +161,8 @@
             break;
     }
 }
-
+- (CGSize)sizeThatFits:(CGSize)size {
+    
+    return CGSizeMake(size.width, 62);
+}
 @end

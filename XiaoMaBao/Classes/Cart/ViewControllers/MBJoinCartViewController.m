@@ -455,7 +455,7 @@
         
         if ([status isEqualToString:@"1"]) {
             MBShoppingCartViewController *payVc = [[MBShoppingCartViewController alloc] init];
-            payVc.showBottomBar = @"yes";
+//            payVc.showBottomBar = @"yes";
             [self.navigationController pushViewController:payVc animated:YES];
         }else{
             

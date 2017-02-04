@@ -96,7 +96,7 @@
     // Dispose of any resources that can be recreated.
 }
 - (void)configureCell:(MBArticleViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    cell.fd_enforceFrameLayout = NO;
+    cell.fd_enforceFrameLayout = YES;
     cell.dataDic = self.dataArr[indexPath.section];
     }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

@@ -49,8 +49,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _page = 1;
-    
-   
     [self getBabyImage];
 }
 /**
@@ -82,7 +80,7 @@
         [_tableView.mj_footer endRefreshing];
         }
         
-//          MMLog(@"%@",responseObject);
+          MMLog(@"%@",responseObject);
         if ([[responseObject valueForKeyPath:@"data"][@"result"] count] == 0) {
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
 
@@ -123,7 +121,7 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
     [MBNetworking  POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_pic_wall"] parameters:@{@"session":sessiondict} success:^(id responseObject) {
-//      MMLog(@"%@",responseObject);
+      MMLog(@"%@",responseObject);
         
         _imageArr = [@[[responseObject valueForKeyPath:@"data"][@"pic1"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic2"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic3"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic4"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic5"][@"photo"]] mutableCopy];
         
@@ -177,10 +175,11 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (_resultArray.count > 0) {
-        return 2;
-    }
-    return 0;
+//    if (_resultArray.count > 0) {
+//        return 2;
+//    }
+//    return 0;
+    return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     

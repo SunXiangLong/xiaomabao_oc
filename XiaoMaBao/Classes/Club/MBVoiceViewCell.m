@@ -64,7 +64,6 @@
     totalHeight += [self.user_title sizeThatFits:size].height;
     
     totalHeight += [_dataDic[@"imgs"] count]>0?65:50;
-    
     return CGSizeMake(size.width, totalHeight);
 }
 @end

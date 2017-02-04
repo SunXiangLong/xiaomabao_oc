@@ -81,7 +81,6 @@
                     case 2: {
                         [MobClick event:@"PersonalCenter3"];
                         MBShoppingCartViewController *VC =[[MBShoppingCartViewController alloc] init];
-                        VC.showBottomBar = @"yes";
                         [self pushViewController:VC Animated:YES];
                     }  break;
                     case 3:{

@@ -38,15 +38,15 @@
     // 海淀区
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_list"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        MMLog(@"%@",responseObject);
+    [MBNetworking   POSTOrigin:string(BASE_URL_root, @"/address/address_list") parameters:@{@"session":dict} success:^(id responseObject) {
         [self dismiss];
-        _addressListArr = [responseObject valueForKeyPath:@"data"];
-        [_tableView reloadData];
+        MMLog(@"%@",responseObject);
+        if ([responseObject[@"status"] isKindOfClass:[NSDictionary class]]&&[responseObject[@"status"][@"succeed"] integerValue] == 1) {
+            _addressListArr = responseObject[@"data"];
+            [_tableView reloadData];
+        }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        MMLog(@"%@",error);
         [self show:@"请求失败" time:1];
     }];
     
@@ -76,7 +76,6 @@
     cell.photo.text = dic[@"mobile"];
     cell.address.text = [NSString stringWithFormat:@"%@-%@-%@-%@",dic[@"province_name"],dic[@"city_name"],dic[@"district_name"],dic[@"address"]];
     cell.addressDic = dic;
-    MMLog(@"%@",dic);
     cell.VC =self;
     cell.delagate =self;
     if ([dic[@"is_default"] intValue] == 1) {

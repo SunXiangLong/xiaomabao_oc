@@ -34,17 +34,22 @@
     [self loadData];
     [self searchText];
   [self.tableView registerNib:    [UINib nibWithNibName:@"MBVoiceViewCell" bundle:nil] forCellReuseIdentifier:@"MBVoiceViewCell"];
-    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
-    footer.refreshingTitleHidden = YES;
-    self.tableView.mj_footer = footer;
+    
 }
 - (void)loadData{
     [self show];
     
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/article/article_list/") parameters:@{@"page":s_Integer(_page),@"keyword":_keyword} success:^(id responseObject) {
         [self dismiss];
+        if (_page == 1) {
+            MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
+            footer.refreshingTitleHidden = YES;
+            self.tableView.mj_footer = footer;
+        }else{
         
-        [self.tableView .mj_footer endRefreshing];
+            [self.tableView .mj_footer endRefreshing];
+        }
+        
         
         if ([responseObject count] >0) {
             [self.dataArr addObjectsFromArray:responseObject];
@@ -56,7 +61,6 @@
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
             
         }
-        MMLog(@"%@",self.dataArr);
         [self.tableView reloadData];
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
@@ -93,7 +97,7 @@
 }
 
 - (void)configureCell:(MBVoiceViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    cell.fd_enforceFrameLayout = NO;
+    cell.fd_enforceFrameLayout = YES;
     cell.dataDic = _dataArr[indexPath.section];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

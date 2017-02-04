@@ -31,7 +31,7 @@
     UITextField *_cardTextField;
     UIView *_view1;
     UIView *_view2;
-    BOOL *_isyanzhen;
+    
 
     
     NSString *_is_black;
@@ -45,16 +45,11 @@
     NSString *_strHongbao;
     NSString *_babyCardStr;
     NSString *_invoiceText;
-    NSArray *_array;
     NSString *_address_id;
-    NSString *_bean_fee;
-
-
 }
 
 @property (weak,nonatomic) UIButton *addVouchersBtn;
 @property (weak,nonatomic) UITableView *tableView;
-@property (strong,nonatomic)NSMutableArray *numarr;
 @property (strong,nonatomic) UILabel *couponLbl;
 @property (strong,nonatomic) UILabel *bonusLbl;
 @property (strong,nonatomic) UILabel *invoiceLbl;
@@ -86,20 +81,13 @@
     [super viewDidLoad];
     //选择地址
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selsectaddress:) name:@"AddressNOtifition" object:nil];
-    _numarr = [NSMutableArray array];
-    for (NSDictionary *dict in self.goodselectArray ) {
-        if (![[dict valueForKeyPath:@"celltag"] isEqualToString:@"-1"]) {
-            [_numarr addObject:dict];
-        }
-    }
-    _array = [self.CartDict allKeys];
-    UITableView *tableView = [[UITableView alloc] init];
+
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, TOP_Y, self.view.ml_width, self.view.ml_height - TOP_Y - 35) style:UITableViewStyleGrouped];
     tableView.backgroundColor = [UIColor colorWithHexString:@"d7d7d7"];
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tableView registerNib:[UINib nibWithNibName:@"MBFireOrderTableViewCell" bundle:nil] forCellReuseIdentifier:@"MBFireOrderTableViewCell"];
-    
-    tableView.dataSource = self,tableView.delegate = self;
-    tableView.frame = CGRectMake(0, TOP_Y, self.view.ml_width, self.view.ml_height - TOP_Y - 35);
+    tableView.dataSource = self;
+    tableView.delegate = self;
     [self.view addSubview:_tableView = tableView];
     [self getAddressList];
     [self setupTabbarView];
@@ -128,88 +116,79 @@
         
     }
     
-    [self BeforeCreateOrder];
+    [self beforeCreateOrder:false];
     
   
 
     
 }
 
-
 #pragma mark -- 更换地址从新获取订单数据－－更改运费（不同地点运费不同）
--(void)BeforeCreateOrder
+-(void)beforeCreateOrder:(BOOL)isRefreshData
 {
     [self show];
-    
+    if (!_mabaobean_number) {
+        _mabaobean_number = @"";
+    }
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/checkout"] parameters:@{@"session":sessiondict,@"address_id":_address_id}success:^(NSURLSessionDataTask *operation, id responseObject) {
-//           MMLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
-        
+    NSDictionary *parameter = @{@"session":sessiondict,@"address_id":_address_id};
+    if (isRefreshData) {
+        parameter = @{@"session":sessiondict,@"cards":self.cards,@"mabaobean_number":_mabaobean_number};
+    }
+   
+    [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/flow/checkout") parameters:parameter success:^(id responseObject) {
         [self dismiss];
-        if ([[responseObject valueForKeyPath:@"status"][@"succeed"] isEqualToNumber:@1]) {
+        if ([responseObject[@"status"] isKindOfClass:[NSDictionary  class]]&&[responseObject[@"status"][@"succeed"]  integerValue] == 1) {
+             self.orderShopModel = [MBConfirmModel yy_modelWithDictionary:responseObject[@"data"]];
+            if (isRefreshData) {
+                [self setupTabbarView];
+                [_tableView reloadData];
+                _tableView.tableFooterView = [self tableViewFooterView];
+            }else{
+                [_tableView.tableHeaderView removeFromSuperview];
+                _tableView.tableHeaderView = [self tableViewHeaderView];
+                [_tableView.tableFooterView removeFromSuperview];
+                _tableView.tableFooterView   = [self tableViewFooterView];
+                
+                _totalLabel.text = [NSString stringWithFormat:@"应付金额：%@",self.orderShopModel.order_amount_formatted];
+                [self getAddressList];
+            }
+           
             
             
-            NSMutableArray * infoDict = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_list"];
-            self.total = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"total"];
-            self.CartinfoDict = infoDict;
-            self.cartinfoArray = self.CartinfoDict;
-            self.order_amount = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"order_amount"];
-            self.order_amount_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"order_amount_formatted"];
-            self.cross_border_tax = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"cross_border_tax"];
-            self.shipping_fee_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"shipping_fee_formatted"];
-            self.goods_amount = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_amount"];
-            self.goods_amount_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_amount_formatted"];
-            self.discount_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"discount_formatted"];
-            NSString *str  = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"real_name"]];
-            self.is_cross_border = str;
-            self.CartDict =  [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"s_goods_list"];
-            [_tableView.tableHeaderView removeFromSuperview];
-            _tableView.tableHeaderView = [self tableViewHeaderView];
-            [_tableView.tableFooterView removeFromSuperview];
-            _tableView.tableFooterView   = [self tableViewFooterView];
-            _totalLabel.text = [NSString stringWithFormat:@"应付金额：%@",self.order_amount_formatted];
-            self.consignee = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"consignee"] ;
-            
-
-            [self getAddressList];
-
-        }else{
-        
-            [self show:@"获取失败" time:1];
         }
         
-    }failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   [self show:@"请求失败！" time:1];
-                   MMLog(@"%@",error);
-                   
-               }
-     ];
+        
+        
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"请求失败！" time:1];
+    }];
+    
     
 }
 #pragma mark -- 收货地址的处理；
 -(void)getAddressList
 {
     
-    if (self.consignee[@"address_id"]) {
-        _address_id = self.consignee[@"address_id"];
+    if (self.orderShopModel.consignee.address_id) {
+        _address_id = self.orderShopModel.consignee.address_id;
     }
-    if (self.consignee[@"idcard"]) {
+    if (self.orderShopModel.consignee.idcard) {
         
-        if (![self.consignee[@"idcard"][@"identity_card_front_thumb"] isEqualToString:@""]  &&![self.consignee[@"idcard"][@"identity_card_backend_thumb"] isEqualToString:@""]) {
-            _photoArr = @[self.consignee[@"idcard"][@"identity_card_front_thumb"],self.consignee[@"idcard"][@"identity_card_backend_thumb"]];
+        if (![self.orderShopModel.consignee.idcard.identity_card_front_thumb  isEqualToString:@""]&&![self.orderShopModel.consignee.idcard.identity_card_backend_thumb isEqualToString:@""]) {
+            _photoArr = @[self.orderShopModel.consignee.idcard.identity_card_front_thumb,self.orderShopModel.consignee.idcard.identity_card_backend_thumb];
             _isCard = YES;
         }else{
             UIImage *image  = [UIImage imageNamed:@"addPhoto_image"];
             _photoArr = @[image,image];
         }
         
-        NSDictionary *cardDic = self.consignee[@"idcard"];
-        NSString *str1 = cardDic[@"real_name"];
-        NSString *str2 = cardDic[@"identity_card"];
-        if (cardDic) {
-            _is_black =  [NSString stringWithFormat:@"%@",cardDic[@"is_black"]];
+        NSString *str1 = self.orderShopModel.consignee.idcard.real_name;
+        NSString *str2 = self.orderShopModel.consignee.idcard.identity_id;
+        if (self.orderShopModel.consignee.idcard) {
+            _is_black =  [NSString stringWithFormat:@"%@",self.orderShopModel.consignee.idcard.is_black];
             
             if (str1 &&![str1 isEqualToString:@""]) {
                 _real_name = str1;
@@ -257,7 +236,7 @@
     UITapGestureRecognizer *ger = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addressClick:)];
     [headerView addGestureRecognizer:ger];
     
-    if (self.consignee) {
+    if (self.orderShopModel.consignee) {
         UILabel *consigneeLabel = [[UILabel alloc] init];
         consigneeLabel.frame = CGRectMake(MARGIN_8, 10, self.view.ml_width * 0.5, 18);
         consigneeLabel.font = [UIFont systemFontOfSize:15];
@@ -270,13 +249,10 @@
         addressLabel.font = [UIFont systemFontOfSize:13];
         addressLabel.frame = CGRectMake(MARGIN_8, CGRectGetMaxY(consigneeLabel.frame) + MARGIN_5, self.view.ml_width - MARGIN_20, 15);
         
-        NSString *name = [_consignee valueForKeyPath:@"consignee"];
-        consigneeLabel.text = [NSString stringWithFormat:@"收货人：%@" ,name];
-        phoneLabel.text = [_consignee valueForKeyPath:@"mobile"];
-        NSString *province_name = [_consignee valueForKeyPath:@"province_name"];
-        NSString *district_name = [_consignee valueForKeyPath:@"district_name"];
-        NSString *address = [_consignee valueForKeyPath:@"address"];
-        addressLabel.text = [NSString stringWithFormat:@"收货地址：%@%@%@",province_name,district_name,address];
+       
+        consigneeLabel.text = [NSString stringWithFormat:@"收货人：%@" , self.orderShopModel.consignee.consignee];
+        phoneLabel.text =  self.orderShopModel.consignee.mobile;
+        addressLabel.text = [NSString stringWithFormat:@"收货地址：%@%@%@",self.orderShopModel.consignee.province_name,self.orderShopModel.consignee.district_name,self.orderShopModel.consignee.address];
         _address.text = addressLabel.text;
         [headerBoxView addSubview: consigneeLabel];
         [headerBoxView addSubview:phoneLabel];
@@ -304,7 +280,7 @@
 }
 
 - (UIView *)tableViewFooterView{
-    if (![self.is_cross_border isEqualToString:@"0"]) {
+    if (self.orderShopModel.real_name) {
         UIView *footerView = [[UIView alloc] init];
         footerView.backgroundColor = [UIColor whiteColor];
         footerView.frame = CGRectMake(0, 0, self.view.ml_width, 450+60);
@@ -314,7 +290,7 @@
             
             view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 140);
         }
-        if(![_is_over_sea isEqualToString:@"0"]){
+        if(self.orderShopModel.is_over_sea){
         
             view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 290);
             footerView.frame = CGRectMake(0, 0, self.view.ml_width, 390+180);
@@ -329,10 +305,8 @@
         [view addSubview:view2];
         
         UILabel *lable2 = [[UILabel alloc]init];
-        
-        NSString *name = [_consignee valueForKeyPath:@"consignee"];
-        if (name) {
-               lable2.text = [NSString stringWithFormat:@"收货人姓名：%@",name] ;
+        if (self.orderShopModel.consignee.consignee) {
+               lable2.text = [NSString stringWithFormat:@"收货人姓名：%@",self.orderShopModel.consignee.consignee] ;
         }
         lable2.font = [UIFont systemFontOfSize:14];
         [view addSubview:_nameLabel = lable2];
@@ -491,8 +465,7 @@
                     make.height.mas_equalTo(25);
                 }];
 
-       if(![_is_over_sea isEqualToString:@"0"]){
-            NSString *name = [_consignee valueForKeyPath:@"consignee"];
+       if(self.orderShopModel.is_over_sea){
             MBAddIDCardView *idCardView = [MBAddIDCardView instanceView];
             [view addSubview:idCardView];
            __unsafe_unretained __typeof(self) weakSelf = self;
@@ -505,7 +478,7 @@
            
            
            idCardView.VC = self;
-           idCardView.name = name;
+           idCardView.name = self.orderShopModel.consignee.consignee;
            idCardView.idCard = _identity_card;
            idCardView.photoArray = [NSMutableArray arrayWithArray:_photoArr];
            idCardView.block = ^(BOOL isbool ){
@@ -519,19 +492,20 @@
         UILabel *totalLbl = [[UILabel alloc] init];
         totalLbl.font = [UIFont systemFontOfSize:14];
         
-        totalLbl.text = [NSString stringWithFormat:@"商品金额：%@",self.goods_amount_formatted];
+        totalLbl.text = [NSString stringWithFormat:@"商品金额：%@",self.orderShopModel.goods_amount_formatted];
         totalLbl.frame = CGRectMake(8, CGRectGetMaxY(view.frame)+10, self.view.ml_width, 15);
         
         UILabel *freightLbl = [[UILabel alloc] init];
         freightLbl.font = [UIFont systemFontOfSize:14];
-        freightLbl.text = [NSString stringWithFormat:@"运       费：%@",self.shipping_fee_formatted];
+        
+        freightLbl.text = [NSString stringWithFormat:@"运       费：%@",self.orderShopModel.shipping_fee_formatted];
         freightLbl.frame = CGRectMake(8, CGRectGetMaxY(totalLbl.frame) + MARGIN_5, self.view.ml_width, 15);
         
         UILabel *vouchersLbl = [[UILabel alloc] init];
         vouchersLbl.font = [UIFont systemFontOfSize:14];
         
         
-        vouchersLbl.text = _discount_formatted?[NSString stringWithFormat:@"专场优惠：%@",_discount_formatted]:@"¥0.00";
+        vouchersLbl.text = self.orderShopModel.discount_formatted?[NSString stringWithFormat:@"专场优惠：%@",self.orderShopModel.discount_formatted]:@"¥0.00";
             
         
         
@@ -539,7 +513,8 @@
         
         UILabel *rateLbl = [[UILabel alloc] init];
         rateLbl.font = [UIFont systemFontOfSize:14];
-        rateLbl.text =   [NSString stringWithFormat:@"税       费：%@",self.cross_border_tax];
+        
+        rateLbl.text =   [NSString stringWithFormat:@"税       费：%@",self.orderShopModel.cross_border_tax];
         rateLbl.frame = CGRectMake(8, CGRectGetMaxY(vouchersLbl.frame) + MARGIN_5, self.view.ml_width, 0);
         
         
@@ -600,24 +575,24 @@
         UILabel *totalLbl = [[UILabel alloc] init];
         totalLbl.font = [UIFont systemFontOfSize:14];
         
-        totalLbl.text = [NSString stringWithFormat:@"商品金额：%@",self.goods_amount_formatted];
+        totalLbl.text = [NSString stringWithFormat:@"商品金额：%@",self.orderShopModel.goods_amount_formatted];
         totalLbl.frame = CGRectMake(8, 10, self.view.ml_width, 15);
         
         UILabel *freightLbl = [[UILabel alloc] init];
         freightLbl.font = [UIFont systemFontOfSize:14];
-        freightLbl.text = [NSString stringWithFormat:@"运       费：%@",self.shipping_fee_formatted];
+        freightLbl.text = [NSString stringWithFormat:@"运       费：%@",self.orderShopModel.shipping_fee_formatted];
         freightLbl.frame = CGRectMake(8, CGRectGetMaxY(totalLbl.frame) + MARGIN_5, self.view.ml_width, 15);
         
         UILabel *vouchersLbl = [[UILabel alloc] init];
         vouchersLbl.font = [UIFont systemFontOfSize:14];
-        vouchersLbl.text = [NSString stringWithFormat:@"专场优惠：%@",_discount_formatted];
+        vouchersLbl.text = [NSString stringWithFormat:@"专场优惠：%@",self.orderShopModel.discount_formatted];
  
        
         vouchersLbl.frame = CGRectMake(8, CGRectGetMaxY(freightLbl.frame) + MARGIN_5, self.view.ml_width, 15);
         
         UILabel *rateLbl = [[UILabel alloc] init];
         rateLbl.font = [UIFont systemFontOfSize:14];
-        rateLbl.text =   [NSString stringWithFormat:@"税       费：%@",self.cross_border_tax];
+        rateLbl.text =   [NSString stringWithFormat:@"税       费：%@",self.orderShopModel.cross_border_tax];
         rateLbl.frame = CGRectMake(8, CGRectGetMaxY(vouchersLbl.frame) + MARGIN_5, self.view.ml_width, 0);
 
         
@@ -873,8 +848,8 @@
         _babycard = [[UILabel alloc] init];
         _babycard.frame = CGRectMake(consigneeLabel.ml_width+8, 0,self.view.ml_width-Image.size.width*2-8-consigneeLabel.ml_width, 50);
         _babycard.font = [UIFont systemFontOfSize:14];
-        if (self.surplus) {
-            _babycard.text = self.surplus;
+        if (self.orderShopModel.surplus) {
+            _babycard.text = self.orderShopModel.surplus;
         }
         _babycard.textAlignment = NSTextAlignmentRight;
         [headerBoxView addSubview:_babycard];
@@ -887,9 +862,9 @@
         _beanLabel.textAlignment = NSTextAlignmentRight;
         [headerBoxView addSubview:_beanLabel];
       
-        if (_bean_fee) {
+        if (self.orderShopModel.bean_fee) {
             
-            _beanLabel.text =  [NSString stringWithFormat:@"￥%@",_bean_fee];
+            _beanLabel.text =  [NSString stringWithFormat:@"￥%@",self.orderShopModel.bean_fee];
         }
         
     
@@ -961,7 +936,7 @@
             VC.block = ^(NSString *mabaobean_number){
                 weakSelf.mabaobean_number = mabaobean_number;
                 
-                [weakSelf beforeCreateOrder];
+                [weakSelf beforeCreateOrder:true];
 
             };
             [self pushViewController:VC Animated:true];
@@ -989,7 +964,7 @@
     }else{
         MBVoucherViewController *vc = [[MBVoucherViewController alloc] init];
         vc.is_fire = @"yes";
-        vc.order_money = self.order_amount;
+        vc.order_money = self.orderShopModel.order_amount;
     
         @weakify(self);
         [[vc.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDictionary *coupon) {
@@ -998,7 +973,7 @@
             self.couponId = coupon [@"bonus_id"];
             _strCoupon   =  coupon [@"type_name"];
             //更新底部价格
-            float totalMoney = self.order_amount.floatValue;
+            float totalMoney =  self.orderShopModel.order_amount.floatValue;
             float type_money = [coupon [@"type_money"] floatValue];
             _couponMoney =      coupon[@"type_money"];
             _tableView.tableFooterView = [self tableViewFooterView];
@@ -1044,73 +1019,16 @@
             }
         }
         
-        MMLog(@"%@",_cards);
+       
         
         
-        [self beforeCreateOrder];
+        [self beforeCreateOrder:true];
        
         
     }];
     [self pushViewController:VC Animated:YES];
 }
-//根据产品sid(session_id)、uid生成订单前的订单确认接口
--(void)beforeCreateOrder
-{
-    if (!_mabaobean_number) {
-        _mabaobean_number = @"";
-    }
-    
-    [self show];
-  
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/checkout"] parameters:@{@"session":sessiondict,@"cards":self.cards,@"mabaobean_number":_mabaobean_number}success:^(NSURLSessionDataTask *operation, id responseObject) {
-        
-//        MMLog(@"成功---生成订单前的订单确认接口%@",[responseObject valueForKeyPath:@"data"]);
-        
-        NSMutableArray * infoDict = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_list"];
-        
-        
-        
-        self.total = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"total"];
-       
-        self.CartinfoDict = infoDict;
-        self.cartinfoArray = self.CartinfoDict;
-        self.order_amount = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"order_amount"];
-        self.order_amount_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"order_amount_formatted"];
-        self.cross_border_tax = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"cross_border_tax"];
-        self.shipping_fee_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"shipping_fee_formatted"];
-        self.goods_amount = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_amount"];
-        self.goods_amount_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"goods_amount_formatted"];
-        self.discount_formatted = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"discount_formatted"];
-        
-        self.surplus = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"surplus"];
 
-        self.consignee = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"consignee"] ;
-        
-        NSString *str  = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"real_name"]];
-        NSString *str1 = [NSString stringWithFormat:@"%@",[[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"is_over_sea"]];
-        _bean_fee = [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"bean_fee"];
-        self.is_cross_border = str;
-        self.is_over_sea = str1;
-        self.CartDict =  [[responseObject valueForKeyPath:@"data"] valueForKeyPath:@"s_goods_list"];
-        [self dismiss];
-         [self setupTabbarView];
-        [_tableView reloadData];
-         _tableView.tableFooterView = [self tableViewFooterView];
-
-    }
-     
-     
-               failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   [self show:@"请求失败！" time:1];
-                   MMLog(@"%@",error);
-                   
-               }
-     ];
-    
-}
 #pragma mark --底部提交按钮
 - (void)setupTabbarView{
     CGFloat tabbarHeight = 35;
@@ -1124,7 +1042,7 @@
     _totalLabel.font = [UIFont systemFontOfSize:14];
     _totalLabel.frame = CGRectMake(20, 0, 200, bottomView.ml_height);
     
-    _totalLabel.text = [NSString stringWithFormat:@"应付金额：%@",self.order_amount_formatted];
+    _totalLabel.text = [NSString stringWithFormat:@"应付金额：%@",self.orderShopModel.order_amount_formatted];
     [bottomView addSubview:_totalLabel];
     
     CGFloat submitButtonWidth = 90;
@@ -1145,7 +1063,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    NSString *name = [_consignee valueForKeyPath:@"consignee"];
+    NSString *name = self.orderShopModel.consignee.consignee;
     if (!_identity_card) {
         _identity_card = @"";
         _real_name = @"";
@@ -1173,50 +1091,38 @@
         [self show:@"收货人地址ID不存在" time:1];
         return;
     }
-    
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/done_new"]parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":_inv_type,@"inv_content":_inv_content,@"inv_payee" :_inv_payee,@"real_name":name,@"identity_card":_identity_card,@"cards":self.cards,@"mabaobean_number":_mabaobean_number}
-               success:^(NSURLSessionDataTask *operation, id responseObject) {
-                 
-                   [self dismiss];
-                   
-                   NSDictionary *dict = [responseObject valueForKeyPath:@"status"];
-                  
-                   if ([responseObject valueForKeyPath:@"data"]) {
-                       VC.orderInfo = [responseObject valueForKeyPath:@"data"][@"order_info"];
-                       
-                       VC.type = @"1";
-                       VC.order_sn = VC.orderInfo[@"order_sn"];
-                       [self.navigationController pushViewController:VC animated:YES];
-                       [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCart" object:nil];
-                       
-                   }else{
-                        MMLog(@"%@",dict);
-                       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:dict[@"error_desc"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                       [alert show];
-                   }
-                   
-               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   MMLog(@"----%@",error);
-                 [self show:@"请求失败！" time:1];
-                  
-                   
-               }];
+    [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/flow/done_new") parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":_inv_type,@"inv_content":_inv_content,@"inv_payee" :_inv_payee,@"real_name":name,@"identity_card":_identity_card,@"cards":self.cards,@"mabaobean_number":_mabaobean_number} success:^(id responseObject) {
+        [self dismiss];
+        if ([responseObject[@"status"] isKindOfClass:[NSDictionary class]]&&[responseObject[@"status"][@"succeed"] integerValue] == 1) {
+            VC.orderInfo = responseObject[@"data"][@"order_info"];
+            VC.type = @"1";
+            VC.order_sn = VC.orderInfo[@"order_sn"];
+            [self.navigationController pushViewController:VC animated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCart" object:nil];
+
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:responseObject[@"status"][@"error_desc"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+         [self show:@"请求失败！" time:1];
+    }];
     
 }
 #pragma mark --提交订单前的一堆判断逻辑
 /***  一堆判断逻辑－先的有收获地址 -跨境购的需要实名认证－ 海外直邮的需要上传身份证 */
 - (void)goPaymentVc{
     /***  是否存在收货地址*/
-    if (self.consignee) {
+    if (self.orderShopModel.consignee.consignee) {
         MBPaymentViewController *payVc = [[MBPaymentViewController alloc] init];
         /***  是否跨境购*/
-        if (![self.is_cross_border isEqualToString:@"0"]) {
+        if (self.orderShopModel.real_name) {
             /***  是否被海关拉黑*/
             if ([_is_black isEqualToString:@"0"]) {
                 /***  是否实名认证*/
                 if (_identity_card) {
                     /***  是否是海外直邮*/
-                    if (![_is_over_sea isEqualToString:@"0"]) {
+                    if (self.orderShopModel.is_over_sea) {
                         /***海外直邮身份证是否上传*/
                         if (_isCard) {
                             [self getDingdanINfo:payVc];
@@ -1279,7 +1185,7 @@
         UITextField*textField=alertController.textFields.firstObject;
             NSString * bonus_sn = textField.text;
        
-        [self getBonusBySn:bonus_sn order_money:self.order_amount];
+        [self getBonusBySn:bonus_sn order_money:self.orderShopModel.order_amount];
         
     }];
     
@@ -1320,7 +1226,7 @@
                        if (self.couponId) {
                            type_money = [_totalLabel.text floatValue] -totalMoney;
                        }else{
-                           type_money = self.order_amount.floatValue -totalMoney;
+                           type_money = self.orderShopModel.order_amount.floatValue -totalMoney;
                        }
                         _hongbaoMoney = dic[@"type_money"];
                         _strHongbao = dic[@"type_name"];
@@ -1347,24 +1253,24 @@
 #pragma mark --UITableViewdelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
 
-    return _array.count;
+    return self.orderShopModel.goods_list.count;
 
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSArray *arr = [self.CartDict objectForKey:_array[section]][@"goods_list"];
-    return arr.count;
+    
+    return self.orderShopModel.goods_list[section].goods_list.count;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     orderHeadView *headerView = [orderHeadView instanceView];
-    headerView.headLableText.text = _array[section];
+    headerView.headLableText.text = self.orderShopModel.goods_list[section].supplier;
     return headerView;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     orderFootView *footView = [orderFootView instanceView];
-     NSDictionary *dic = [self.CartDict objectForKey:_array[section]];
-    footView.priceLabletext.text = dic[@"shipping_fee"];
-    footView.shuifeiLabletext.text = dic[@"cross_border_money"];
-    footView.zongjiaLabeltext.text = [NSString stringWithFormat:@"共%@件商品，总计%@",dic[@"number"],dic[@"total_money"]];
+    footView.priceLabletext.text =  self.orderShopModel.goods_list[section].shipping_fee;
+    footView.shuifeiLabletext.text = self.orderShopModel.goods_list[section].cross_border_money;
+    
+    footView.zongjiaLabeltext.text = [NSString stringWithFormat:@"共%@件商品，总计%@",self.orderShopModel.goods_list[section].number,self.orderShopModel.goods_list[section].total_money];
     return footView;
 
 }
@@ -1375,12 +1281,9 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBFireOrderTableViewCell" owner:nil options:nil]firstObject];
     }
-    NSDictionary *dic = [self.CartDict objectForKey:_array[indexPath.section]][@"goods_list"][indexPath.row];
+
+    cell.model = self.orderShopModel.goods_list[indexPath.section].goods_list[indexPath.row];
     
-    cell.countNumber.text = [NSString stringWithFormat:@"X %@",dic[@"goods_number"]];
-    cell.countprice.text = dic[@"subtotal_formatted"];
-    cell.desribe.text = dic[@"goods_name"];
-    [cell.showimageview sd_setImageWithURL:[NSURL URLWithString:dic[@"goods_thumb"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
     return cell;
     
 }
@@ -1394,11 +1297,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 30;
 }
-
-
-
 #pragma mark --要开始移动scrollView时调用（移除键盘）
-
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView;{
     [_cardTextField resignFirstResponder];
     [_beizhu resignFirstResponder];
@@ -1415,7 +1314,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     
-    NSString *name = _consignee [@"consignee"];
+    NSString *name = self.orderShopModel.consignee.consignee;
     
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     if (!name) {

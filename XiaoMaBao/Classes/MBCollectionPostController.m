@@ -37,10 +37,7 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
     [self setData];
    
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
-    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
-    footer.refreshingTitleHidden = YES;
-    self.tableView.mj_footer = footer;
+    
 }
 /**
  *  请求收藏的帖子数据
@@ -63,11 +60,19 @@
 //        MMLog(@"%@",responseObject);
         [self dismiss];
         if (responseObject) {
+            if (_page == 1) {
+                // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+                MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
+                footer.refreshingTitleHidden = YES;
+                self.tableView.mj_footer = footer;
+            }else{
+                [self.tableView .mj_footer endRefreshing];
+            }
             if ([[responseObject valueForKeyPath:@"data"] count]>0) {
                 [self.dataArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
                
                 [_tableView reloadData];
-                [self.tableView .mj_footer endRefreshing];
+                
                  _page++;
                 
             }else{

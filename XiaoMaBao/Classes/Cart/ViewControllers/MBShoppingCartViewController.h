@@ -10,9 +10,9 @@
 
 @interface MBShoppingCartViewController : BkBaseViewController
 
-@property(strong,nonatomic)NSDictionary *total;
+//@property(strong,nonatomic)NSDictionary *total;
 
-@property(strong,nonatomic)NSString * showBottomBar;//是否显示底栏
+//@property(strong,nonatomic)NSString * showBottomBar;//是否显示底栏
 
 
 

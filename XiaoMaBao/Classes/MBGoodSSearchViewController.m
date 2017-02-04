@@ -164,29 +164,26 @@
         NSDictionary *params = @{@"keywords":self.searchText,@"having_goods":@"false",@"orderby":_type,@"sort":_priceSorted};
         NSDictionary *pagination = @{@"count":@"10",@"page":page};
         [self show];
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/search/index"] parameters:@{@"filter":params,@"pagination":pagination} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
+        [MBNetworking POSTOrigin:string(BASE_URL_root, @"/search/index") parameters:@{@"filter":params,@"pagination":pagination} success:^(id responseObject) {
             [self dismiss];
-            NSArray *arr = [responseObject valueForKeyPath:@"data"];
+            
+//            MMLog(@"%@",responseObject);
             [self.collectionView .mj_footer endRefreshing];
             self.topView.hidden = false;
             [self.view bringSubviewToFront:self.topView];
             
-            
-            if (arr.count==0) {
+            if ([responseObject[@"data"] count ]== 0) {
                 [_collectionView.mj_footer endRefreshingWithNoMoreData];
                 
                 return;
             }
             
-            [self.recommend_goods addObjectsFromArray:arr];
+            [self.recommend_goods addObjectsFromArray:responseObject[@"data"]];
             [self.collectionView reloadData];
             _page ++;
-            
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            
             [self show:@"请求失败" time:1];
         }];
-        
         
     }
     
