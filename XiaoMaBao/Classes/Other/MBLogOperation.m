@@ -50,7 +50,7 @@
     [MBNetworking POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/common/update"] parameters:@{@"device":@"ios"} success:^(id responseObject) {
         NSDictionary *dic =responseObject;
         
-        
+        MMLog(@"%@",responseObject);
         
         if (dic) {
             

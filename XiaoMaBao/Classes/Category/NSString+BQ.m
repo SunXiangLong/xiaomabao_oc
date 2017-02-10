@@ -104,6 +104,35 @@
     NSData *data = [[NSData alloc]initWithBase64EncodedString:self options:0];
     return [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
 }
+- (BOOL)isValidWithIdentityNum{
+    //先正则匹配
+    //......
+    if (self && [self isEqualToString:@""]) {
+        
+        return false;
+    }
+    
+    //计算最后一位余数
+    NSArray *arrExp = [NSArray arrayWithObjects:@"7", @"9", @"10", @"5", @"8", @"4", @"2", @"1", @"6", @"3", @"7", @"9", @"10", @"5", @"8", @"4", @"2", nil];
+    NSArray *arrVaild = [NSArray arrayWithObjects:@"1", @"0", @"X", @"9", @"8", @"7", @"6", @"5", @"4", @"3", @"2", nil];
+    
+    long sum = 0;
+    for (int i = 0; i < (self.length -1); i++) {
+        NSString * str = [self substringWithRange:NSMakeRange(i, 1)];
+        sum += [str intValue] * [arrExp[i] intValue];
+    }
+    
+    int idx = (sum % 11);
+    if ([arrVaild[idx] isEqualToString:[self substringWithRange:NSMakeRange(self.length - 1, 1)]]) {
+        return YES;
+    }else{
+        return NO;
+    }
+    
+    
+    
+    return YES;
+}
 - (BOOL)isValidPhone{
     if (self.length != 11) {
         return NO;

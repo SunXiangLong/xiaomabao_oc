@@ -23,22 +23,15 @@
 #import "MBBeanUseViewController.h"
 @interface MBFireOrderViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
-   
-    UITextField *_beizhu;
-
-    UILabel*_address;
-    UILabel *_nameLabel;
-    UITextField *_cardTextField;
-    UIView *_view1;
-    UIView *_view2;
     
-
+    UITextField  *_beizhu;
+    UITextField  *_cardTextField;
+    UILabel      *_address;
+    UILabel      *_nameLabel;
+    UIView       *_view1;
+    UIView       *_view2;
     
-    NSString *_is_black;
-    NSString *_real_name;
-    NSString *_identity_card;
     NSString *_bonus_id;
-    
     NSString *_couponMoney;
     NSString *_hongbaoMoney;
     NSString *_strCoupon;
@@ -81,7 +74,7 @@
     [super viewDidLoad];
     //选择地址
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selsectaddress:) name:@"AddressNOtifition" object:nil];
-
+    
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, TOP_Y, self.view.ml_width, self.view.ml_height - TOP_Y - 35) style:UITableViewStyleGrouped];
     tableView.backgroundColor = [UIColor colorWithHexString:@"d7d7d7"];
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -101,25 +94,28 @@
     NSString *str1 = cardDic[@"real_name"];
     NSString *str2 = cardDic[@"identity_card"];
     if (cardDic) {
-        _is_black = [NSString stringWithFormat:@"%@",cardDic[@"is_black"]];
         
-        if (str1 &&![str1 isEqualToString:@""]) {
-            _real_name = str1;
+        if (self.orderShopModel.consignee.idcard) {
+            self.orderShopModel.consignee.idcard.is_black = cardDic[@"is_black"];
+            if (str1 &&![str1 isEqualToString:@""]) {
+                self.orderShopModel.consignee.idcard.real_name = str1;
+                
+            }
+            if (str2 &&![str2 isEqualToString:@""]) {
+                self.orderShopModel.consignee.idcard.identity_card = str2;
+            }
         }else{
-            _real_name = nil;
-        }
-        if (str2 &&![str2 isEqualToString:@""]) {
-            _identity_card = str2;
-        }else{
-            _identity_card = nil;
+            self.orderShopModel.consignee.idcard = [MBIdcardModel yy_modelWithDictionary:cardDic];
+            MMLog(@"%@",cardDic);
+            
         }
         
     }
     
     [self beforeCreateOrder:false];
     
-  
-
+    
+    
     
 }
 
@@ -137,11 +133,12 @@
     if (isRefreshData) {
         parameter = @{@"session":sessiondict,@"cards":self.cards,@"mabaobean_number":_mabaobean_number};
     }
-   
+    
     [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/flow/checkout") parameters:parameter success:^(id responseObject) {
         [self dismiss];
+        MMLog(@"%@",responseObject);
         if ([responseObject[@"status"] isKindOfClass:[NSDictionary  class]]&&[responseObject[@"status"][@"succeed"]  integerValue] == 1) {
-             self.orderShopModel = [MBConfirmModel yy_modelWithDictionary:responseObject[@"data"]];
+            self.orderShopModel = [MBConfirmModel yy_modelWithDictionary:responseObject[@"data"]];
             if (isRefreshData) {
                 [self setupTabbarView];
                 [_tableView reloadData];
@@ -155,7 +152,7 @@
                 _totalLabel.text = [NSString stringWithFormat:@"应付金额：%@",self.orderShopModel.order_amount_formatted];
                 [self getAddressList];
             }
-           
+            
             
             
         }
@@ -185,36 +182,18 @@
             _photoArr = @[image,image];
         }
         
-        NSString *str1 = self.orderShopModel.consignee.idcard.real_name;
-        NSString *str2 = self.orderShopModel.consignee.idcard.identity_id;
-        if (self.orderShopModel.consignee.idcard) {
-            _is_black =  [NSString stringWithFormat:@"%@",self.orderShopModel.consignee.idcard.is_black];
-            
-            if (str1 &&![str1 isEqualToString:@""]) {
-                _real_name = str1;
-            }
-            if (str2 &&![str2 isEqualToString:@""]) {
-                _identity_card = str2;
-            }
-            
-        }
-        
         
         _tableView.tableHeaderView = [self tableViewHeaderView];
         _tableView.tableFooterView = [self tableViewFooterView];
     }else{
         UIImage *image  = [UIImage imageNamed:@"addPhoto_image"];
         _photoArr = @[image,image];
-        _is_black = @"0";
+        //        _is_black = @"0";
         _tableView.tableHeaderView = [self tableViewHeaderView];
         _tableView.tableFooterView = [self tableViewFooterView];
     }
     
     [_tableView reloadData];
-    
-    
-    
-  
     
 }
 
@@ -249,7 +228,7 @@
         addressLabel.font = [UIFont systemFontOfSize:13];
         addressLabel.frame = CGRectMake(MARGIN_8, CGRectGetMaxY(consigneeLabel.frame) + MARGIN_5, self.view.ml_width - MARGIN_20, 15);
         
-       
+        
         consigneeLabel.text = [NSString stringWithFormat:@"收货人：%@" , self.orderShopModel.consignee.consignee];
         phoneLabel.text =  self.orderShopModel.consignee.mobile;
         addressLabel.text = [NSString stringWithFormat:@"收货地址：%@%@%@",self.orderShopModel.consignee.province_name,self.orderShopModel.consignee.district_name,self.orderShopModel.consignee.address];
@@ -286,18 +265,18 @@
         footerView.frame = CGRectMake(0, 0, self.view.ml_width, 450+60);
         
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 110)];
-        if (![_is_black isEqualToString:@"0"]) {
+        if (self.orderShopModel.consignee.idcard&& [self.orderShopModel.consignee.idcard.is_black integerValue] == 1) {
             
             view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 140);
         }
         if(self.orderShopModel.is_over_sea){
-        
+            
             view.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 290);
             footerView.frame = CGRectMake(0, 0, self.view.ml_width, 390+180);
             
-         
+            
         }
-         view.backgroundColor = [UIColor whiteColor];
+        view.backgroundColor = [UIColor whiteColor];
         [footerView addSubview:view];
         
         UIView *view2 = [[UIView alloc] initWithFrame:CGRectMake(0, view.ml_height -10, UISCREEN_WIDTH, 10)];
@@ -306,12 +285,12 @@
         
         UILabel *lable2 = [[UILabel alloc]init];
         if (self.orderShopModel.consignee.consignee) {
-               lable2.text = [NSString stringWithFormat:@"收货人姓名：%@",self.orderShopModel.consignee.consignee] ;
+            lable2.text = [NSString stringWithFormat:@"收货人姓名：%@",self.orderShopModel.consignee.consignee] ;
         }
         lable2.font = [UIFont systemFontOfSize:14];
         [view addSubview:_nameLabel = lable2];
         [lable2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        
+            
             make.top.mas_equalTo(15);
             make.left.mas_equalTo(8);
             make.height.mas_equalTo(20);
@@ -340,39 +319,35 @@
         }];
         UILabel *lable1 = [[UILabel alloc] init];
         
-        if (_identity_card) {
+        if ([self.orderShopModel.consignee.idcard.status integerValue] == 1&&[self.orderShopModel.consignee.idcard.identity_card isValidWithIdentityNum]) {
             
-                [textField1 removeFromSuperview];
-              
-                NSRange range = NSMakeRange(6, 8);
+            [textField1 removeFromSuperview];
+            
+            NSRange range = NSMakeRange(6, 8);
+            NSString *newNumb = [self.orderShopModel.consignee.idcard.identity_card stringByReplacingCharactersInRange:range withString:@"****"];
+            lable1.text = newNumb;;
+            
+            lable1.font = [UIFont systemFontOfSize:14];
+            [view addSubview:lable1];
+            [lable1 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(lable3.mas_right).offset(0);
+                make.top.equalTo(lable2.mas_bottom).offset(8);
+                make.height.mas_equalTo(20);
                 
-               
-                if (_identity_card.length>15) {
-                     NSString *newNumb = [_identity_card stringByReplacingCharactersInRange:range withString:@"****"];
-                       lable1.text = newNumb;;
-                }
-                
-                lable1.font = [UIFont systemFontOfSize:14];
-                [view addSubview:lable1];
-                [lable1 mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(lable3.mas_right).offset(0);
-                    make.top.equalTo(lable2.mas_bottom).offset(8);
-                    make.height.mas_equalTo(20);
-                    
-                }];
- 
+            }];
+            
             
             
         }
         
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        if (![_is_black isEqualToString:@"0"]) {
+        if ([self.orderShopModel.consignee.idcard.is_black integerValue] == 1) {
             [button setBackgroundImage:[UIImage imageNamed:@"card_validation1"] forState:  UIControlStateNormal];
             [button setTitle:@"已拉黑" forState:UIControlStateNormal];
-
+            
         }else{
-            if (_identity_card) {
+            if ([self.orderShopModel.consignee.idcard.status integerValue] == 1&&[self.orderShopModel.consignee.idcard.identity_card isValidWithIdentityNum]) {
                 [button setBackgroundImage:[UIImage imageNamed:@"card_validation1"] forState:  UIControlStateNormal];
                 [button setTitle:@"已验证" forState:UIControlStateNormal];
             }else{
@@ -387,18 +362,18 @@
         [button addTarget:self action:@selector(validation:) forControlEvents: UIControlEventTouchUpInside];
         [view addSubview:button];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            if (_identity_card) {
-                 make.left.equalTo(lable1.mas_right).offset(10);
+            if ([self.orderShopModel.consignee.idcard.status integerValue] == 1&&[self.orderShopModel.consignee.idcard.identity_card isValidWithIdentityNum]) {
+                make.left.equalTo(lable1.mas_right).offset(10);
             }else{
-             make.left.equalTo(textField1.mas_right).offset(10);
+                make.left.equalTo(textField1.mas_right).offset(10);
             }
             make.top.equalTo(lable2.mas_bottom).offset(8);
-           
+            
             make.size.mas_equalTo(CGSizeMake(50, 20));
         }];
         UIImageView *imageview1 = [[UIImageView alloc]init];
-         UILabel *lables = [[UILabel alloc] init];
-        if (![_is_black isEqualToString:@"0"]) {
+        UILabel *lables = [[UILabel alloc] init];
+        if ([self.orderShopModel.consignee.idcard.is_black integerValue] == 1) {
             imageview1.image = [UIImage imageNamed:@"cared_dele"];
             [view addSubview:imageview1];
             [imageview1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -408,7 +383,7 @@
                 
             }];
             
-           
+            
             lables.text = @"对不起，该身份证号因提交跨境购订单过多，已被海关列入黑名单，请更换收货人姓名和身份证号重新下单。";
             lables.textColor = [UIColor redColor];
             lables.font = [UIFont systemFontOfSize:10];
@@ -421,71 +396,71 @@
                 make.right.mas_equalTo(0);
             }];
         }
-
-                UILabel *lable4 = [[UILabel alloc] init];
-                lable4.text = @"为什么要需要身份证?";
-                lable4.font= [UIFont systemFontOfSize:12];
-                lable4.textColor = [UIColor redColor];
-                [view addSubview:lable4];
-                [lable4 mas_makeConstraints:^(MASConstraintMaker *make) {
-                    if (![_is_black isEqualToString:@"0"]) {
-                        make.top.equalTo(lables.mas_bottom).offset(10);
-                    }else {
-                     make.top.equalTo(lable3.mas_bottom).offset(10);
-                    }
-                   
-                    make.left.mas_equalTo(10);
         
-                }];
+        UILabel *lable4 = [[UILabel alloc] init];
+        lable4.text = @"为什么要需要身份证?";
+        lable4.font= [UIFont systemFontOfSize:12];
+        lable4.textColor = [UIColor redColor];
+        [view addSubview:lable4];
+        [lable4 mas_makeConstraints:^(MASConstraintMaker *make) {
+            if ([self.orderShopModel.consignee.idcard.is_black integerValue] == 1) {
+                make.top.equalTo(lables.mas_bottom).offset(10);
+            }else {
+                make.top.equalTo(lable3.mas_bottom).offset(10);
+            }
+            
+            make.left.mas_equalTo(10);
+            
+        }];
         
-                UIView *view3 = [[UIView alloc] init];
-                view3.backgroundColor = [UIColor redColor];
-                [view addSubview:view3];
-                [view3 mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(lable4.mas_bottom).offset(0);
-                    make.left.mas_equalTo(10);
-                    make.width.mas_equalTo(lable4.mas_width);
-                    make.height.mas_equalTo(1);
+        UIView *view3 = [[UIView alloc] init];
+        view3.backgroundColor = [UIColor redColor];
+        [view addSubview:view3];
+        [view3 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(lable4.mas_bottom).offset(0);
+            make.left.mas_equalTo(10);
+            make.width.mas_equalTo(lable4.mas_width);
+            make.height.mas_equalTo(1);
+            
+        }];
         
-                }];
+        UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
         
-                UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
-       
-                [button1 addTarget:self action:@selector(PromptInformation) forControlEvents:UIControlEventTouchUpInside];
-                [view addSubview:button1];
-                [button1 mas_makeConstraints:^(MASConstraintMaker *make) {
-                    if (![_is_black isEqualToString:@"0"]) {
-                       make.top.equalTo(lables.mas_bottom).offset(5);
-                    }else{
-                        make.top.equalTo(lable3.mas_bottom).offset(5);
-                    }
-                
-                    make.left.mas_equalTo(10);
-                    make.width.mas_equalTo(lable4.mas_width);
-                    make.height.mas_equalTo(25);
-                }];
-
-       if(self.orderShopModel.is_over_sea){
+        [button1 addTarget:self action:@selector(PromptInformation) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:button1];
+        [button1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            if ([self.orderShopModel.consignee.idcard.is_black integerValue] == 1) {
+                make.top.equalTo(lables.mas_bottom).offset(5);
+            }else{
+                make.top.equalTo(lable3.mas_bottom).offset(5);
+            }
+            
+            make.left.mas_equalTo(10);
+            make.width.mas_equalTo(lable4.mas_width);
+            make.height.mas_equalTo(25);
+        }];
+        
+        if(self.orderShopModel.is_over_sea){
             MBAddIDCardView *idCardView = [MBAddIDCardView instanceView];
             [view addSubview:idCardView];
-           __unsafe_unretained __typeof(self) weakSelf = self;
+            __unsafe_unretained __typeof(self) weakSelf = self;
             [idCardView mas_makeConstraints:^(MASConstraintMaker *make) {
-                 make.top.equalTo(button1.mas_bottom).offset(0);
-                 make.left.mas_equalTo(0);
-                 make.right.mas_equalTo(0);
-                 make.height.mas_equalTo(180);
+                make.top.equalTo(button1.mas_bottom).offset(0);
+                make.left.mas_equalTo(0);
+                make.right.mas_equalTo(0);
+                make.height.mas_equalTo(180);
             }];
-           
-           
-           idCardView.VC = self;
-           idCardView.name = self.orderShopModel.consignee.consignee;
-           idCardView.idCard = _identity_card;
-           idCardView.photoArray = [NSMutableArray arrayWithArray:_photoArr];
-           idCardView.block = ^(BOOL isbool ){
-               weakSelf.isCard = isbool;
-           
-           };
-           
+            
+            
+            idCardView.VC = self;
+            idCardView.name = self.orderShopModel.consignee.consignee;
+            idCardView.idCard = self.orderShopModel.consignee.idcard.identity_card;
+            idCardView.photoArray = [NSMutableArray arrayWithArray:_photoArr];
+            idCardView.block = ^(BOOL isbool ){
+                weakSelf.isCard = isbool;
+                
+            };
+            
         }
         
         
@@ -506,7 +481,7 @@
         
         
         vouchersLbl.text = self.orderShopModel.discount_formatted?[NSString stringWithFormat:@"专场优惠：%@",self.orderShopModel.discount_formatted]:@"¥0.00";
-            
+        
         
         
         vouchersLbl.frame = CGRectMake(8, CGRectGetMaxY(freightLbl.frame) + MARGIN_5, self.view.ml_width, 15);
@@ -558,10 +533,10 @@
         [couponView addGestureRecognizer:ger1];
         UITapGestureRecognizer *ger4 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(beanViewClick:)];
         [beanView addGestureRecognizer:ger4];
- 
+        
         UITapGestureRecognizer *ger2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bonusClick:)];
         [bonusView addGestureRecognizer:ger2];
-              [self addBottomLineView:footerView];
+        [self addBottomLineView:footerView];
         UITapGestureRecognizer *ger3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(babyCardClick:)];
         [babyCard addGestureRecognizer:ger3];
         [self addBottomLineView:footerView];
@@ -586,21 +561,21 @@
         UILabel *vouchersLbl = [[UILabel alloc] init];
         vouchersLbl.font = [UIFont systemFontOfSize:14];
         vouchersLbl.text = [NSString stringWithFormat:@"专场优惠：%@",self.orderShopModel.discount_formatted];
- 
-       
+        
+        
         vouchersLbl.frame = CGRectMake(8, CGRectGetMaxY(freightLbl.frame) + MARGIN_5, self.view.ml_width, 15);
         
         UILabel *rateLbl = [[UILabel alloc] init];
         rateLbl.font = [UIFont systemFontOfSize:14];
         rateLbl.text =   [NSString stringWithFormat:@"税       费：%@",self.orderShopModel.cross_border_tax];
         rateLbl.frame = CGRectMake(8, CGRectGetMaxY(vouchersLbl.frame) + MARGIN_5, self.view.ml_width, 0);
-
+        
         
         UILabel *remarkLbl = [[UILabel alloc] init];
         remarkLbl.font = [UIFont systemFontOfSize:14];
         remarkLbl.text = [NSString stringWithFormat:@"备       注：%@",@""];
         remarkLbl.frame = CGRectMake(8, CGRectGetMaxY(rateLbl.frame) + MARGIN_5, 70, 15);
-       
+        
         UITextField *remarkTxt = [[UITextField alloc] init];
         remarkTxt.font = [UIFont systemFontOfSize:14];
         remarkTxt.delegate = self;
@@ -653,9 +628,9 @@
         [self addBottomLineView:footerView];
         
         return footerView;
-
-    
-    
+        
+        
+        
     }
     
 }
@@ -669,18 +644,18 @@
 #pragma mark--身份证验证按钮
 - (void)validation:(UIButton *)button{
     [_cardTextField resignFirstResponder];
-  
+    
     if ([button.titleLabel.text isEqualToString:@"验证"]) {
         
-           [self authentication];
+        [self authentication];
     }
- 
+    
     
 }
 #pragma mark--为何验证身份证提示；
 - (void)PromptInformation{
- [_cardTextField resignFirstResponder];
-   
+    [_cardTextField resignFirstResponder];
+    
     UIView* baseline = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_HEIGHT)];
     baseline.backgroundColor = [UIColor blackColor];
     baseline.alpha = 0.5 ;
@@ -689,7 +664,7 @@
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_view1 = view];
-
+    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"care_cancel"] forState: UIControlStateNormal ];
     [button addTarget:self action:@selector(dele) forControlEvents:UIControlEventTouchUpInside];
@@ -718,32 +693,32 @@
     }];
     
     
-            UIImageView *imageview = [[UIImageView alloc] init];
-            imageview.image = [UIImage imageNamed:@"card_volume"];
-            [view addSubview:imageview];
-            [imageview mas_makeConstraints:^(MASConstraintMaker *make) {
-                
-                make.top.equalTo(lable1.mas_bottom).offset(6);
-                make.left.mas_equalTo(10);
-                make.size.mas_equalTo(CGSizeMake(10, 10));
-    
-            }];
-            UILabel *lable5 = [[UILabel alloc] init];
-            lable5.text = @"温馨提示：";
-            lable5.font = [UIFont systemFontOfSize:12];
-            lable5.textColor = [UIColor redColor];
-            [view addSubview:lable5];
-            [lable5 mas_makeConstraints:^(MASConstraintMaker *make) {
-               make.baseline.equalTo(imageview.mas_baseline).offset(0);
-               make.left.equalTo(imageview.mas_right).offset(3);
-    
-            }];
-            UILabel *lable6 = [[UILabel alloc] init];
-            lable6.text = @"收货人请填写与身份证对应的真实姓名，否则您的订单无法通过海关审批。";
-            lable6.font = [UIFont systemFontOfSize:12];
-            //lable6.textColor = [UIColor redColor];
-            lable6.numberOfLines = 0;
-            [view addSubview:lable6];
+    UIImageView *imageview = [[UIImageView alloc] init];
+    imageview.image = [UIImage imageNamed:@"card_volume"];
+    [view addSubview:imageview];
+    [imageview mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(lable1.mas_bottom).offset(6);
+        make.left.mas_equalTo(10);
+        make.size.mas_equalTo(CGSizeMake(10, 10));
+        
+    }];
+    UILabel *lable5 = [[UILabel alloc] init];
+    lable5.text = @"温馨提示：";
+    lable5.font = [UIFont systemFontOfSize:12];
+    lable5.textColor = [UIColor redColor];
+    [view addSubview:lable5];
+    [lable5 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.baseline.equalTo(imageview.mas_baseline).offset(0);
+        make.left.equalTo(imageview.mas_right).offset(3);
+        
+    }];
+    UILabel *lable6 = [[UILabel alloc] init];
+    lable6.text = @"收货人请填写与身份证对应的真实姓名，否则您的订单无法通过海关审批。";
+    lable6.font = [UIFont systemFontOfSize:12];
+    //lable6.textColor = [UIColor redColor];
+    lable6.numberOfLines = 0;
+    [view addSubview:lable6];
     
     NSMutableAttributedString *attributedString2 = [[NSMutableAttributedString alloc] initWithString:lable6.text];
     NSMutableParagraphStyle *paragraphStyle2 = [[NSMutableParagraphStyle alloc] init];
@@ -751,13 +726,13 @@
     [attributedString2 addAttribute:NSParagraphStyleAttributeName value:paragraphStyle2 range:NSMakeRange(0, [lable6.text length])];
     lable6.attributedText = attributedString2;
     [lable6 sizeToFit];
-
-            [lable6 mas_makeConstraints:^(MASConstraintMaker *make) {
-                
-                make.top.equalTo(lable1.mas_bottom).offset(4);
-                make.left.equalTo(lable5.mas_right).offset(1);
-                make.right.mas_equalTo(-10);
-            }];
+    
+    [lable6 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(lable1.mas_bottom).offset(4);
+        make.left.equalTo(lable5.mas_right).offset(1);
+        make.right.mas_equalTo(-10);
+    }];
     
     UILabel *lable2 = [[UILabel alloc] init];
     lable2.text = @"小麻包承诺：身份证信息视如 “ 绝密档案” 保管，绝不对外泄露。";
@@ -776,7 +751,7 @@
         make.left.mas_equalTo(10);
         make.right.mas_equalTo(-10);
     }];
-
+    
     
     
     [view mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -787,10 +762,10 @@
     }];
 }
 -(void)dele{
-
+    
     [_view1 removeFromSuperview];
     [_view2 removeFromSuperview];
-
+    
 }
 /**
  *  设置红包或优惠券
@@ -829,7 +804,7 @@
         _couponLbl.frame = CGRectMake(consigneeLabel.ml_width+8, 0,self.view.ml_width-Image.size.width*2-8-consigneeLabel.ml_width, 50);
         _couponLbl.font = [UIFont systemFontOfSize:14];
         if (_strCoupon) {
-             _couponLbl.text = _strCoupon;
+            _couponLbl.text = _strCoupon;
         }
         _couponLbl.textAlignment = NSTextAlignmentRight;
         [headerBoxView addSubview:_couponLbl];
@@ -853,7 +828,7 @@
         }
         _babycard.textAlignment = NSTextAlignmentRight;
         [headerBoxView addSubview:_babycard];
-    
+        
     }else if (type  == 4){
         //可使用麻豆
         _beanLabel = [[UILabel alloc] init];
@@ -861,13 +836,13 @@
         _beanLabel.font = [UIFont systemFontOfSize:14];
         _beanLabel.textAlignment = NSTextAlignmentRight;
         [headerBoxView addSubview:_beanLabel];
-      
+        
         if (self.orderShopModel.bean_fee) {
             
             _beanLabel.text =  [NSString stringWithFormat:@"￥%@",self.orderShopModel.bean_fee];
         }
         
-    
+        
     }else{
         //发票信息
         _invoiceLbl = [[UILabel alloc] init];
@@ -881,7 +856,7 @@
     }
     [headerBoxView addSubview:consigneeLabel];
     [headerView addSubview:headerBoxView];
-
+    
     return headerView;
 }
 
@@ -893,16 +868,16 @@
 -(void)bonusClick:(UITapGestureRecognizer *)ger{
     if (self.couponId) {
         UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已使用了代金券不可以在使用红包或兑货券" delegate: self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alerView show];
+        [alerView show];
     }else{
-    
-    [self showOkayCancelAlert];
+        
+        [self showOkayCancelAlert];
     }
     
 }
 
 -(void)invoiceClick:(UITapGestureRecognizer *)ger{
-
+    
     MBInvoiceViewController *VC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBInvoiceViewController"];
     WS(weakSelf)
     VC.block = ^(NSString *inv_payee,NSString *inv_type,NSString *inv_content){
@@ -922,7 +897,7 @@
     
 }
 - (void)giveFriend{
-
+    
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
@@ -937,18 +912,18 @@
                 weakSelf.mabaobean_number = mabaobean_number;
                 
                 [weakSelf beforeCreateOrder:true];
-
+                
             };
             [self pushViewController:VC Animated:true];
         }
-
-
-
+        
+        
+        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败" time:.8];
     }];
-
-
+    
+    
 }
 /**
  *  优惠券单击事件
@@ -965,11 +940,11 @@
         MBVoucherViewController *vc = [[MBVoucherViewController alloc] init];
         vc.is_fire = @"yes";
         vc.order_money = self.orderShopModel.order_amount;
-    
+        
         @weakify(self);
         [[vc.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDictionary *coupon) {
             @strongify(self);
-      
+            
             self.couponId = coupon [@"bonus_id"];
             _strCoupon   =  coupon [@"type_name"];
             //更新底部价格
@@ -984,9 +959,9 @@
             
         }];
         [self.navigationController pushViewController:vc animated:YES];
-    
+        
     }
-   
+    
 }
 /**
  *  麻包卡点击事件
@@ -1000,30 +975,30 @@
     @weakify(self);
     
     [[VC.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSArray *arr) {
-    @strongify(self);
-
+        @strongify(self);
         
         
         for (NSDictionary *dic in arr) {
             if ([dic isEqualToDictionary:arr.firstObject]) {
+                if (dic[@"card_no"]) {
+                    [self.cards appendString:dic[@"card_no"]];
+                }
                 
-                [self.cards appendString:dic[@"card_no"]];
                 
             }else{
                 
+                if (dic[@"card_no"]) {
+                    [self.cards appendString:@","];
+                    [self.cards appendString:dic[@"card_no"]];
+                }
                 
-            [self.cards appendString:@","];
-            [self.cards appendString:dic[@"card_no"]];
                 
                 
             }
         }
         
-       
-        
-        
         [self beforeCreateOrder:true];
-       
+        
         
     }];
     [self pushViewController:VC Animated:YES];
@@ -1064,9 +1039,8 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     NSString *name = self.orderShopModel.consignee.consignee;
-    if (!_identity_card) {
-        _identity_card = @"";
-        _real_name = @"";
+    if (!self.orderShopModel.consignee.idcard) {
+        self.orderShopModel.consignee.idcard = [MBIdcardModel yy_modelWithDictionary:@{@"identity_card":@""}];
     }
     if (!self.couponId) {
         self.couponId = @"";
@@ -1091,21 +1065,23 @@
         [self show:@"收货人地址ID不存在" time:1];
         return;
     }
-    [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/flow/done_new") parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":_inv_type,@"inv_content":_inv_content,@"inv_payee" :_inv_payee,@"real_name":name,@"identity_card":_identity_card,@"cards":self.cards,@"mabaobean_number":_mabaobean_number} success:^(id responseObject) {
+   
+    [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/flow/done_new") parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":_address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":_inv_type,@"inv_content":_inv_content,@"inv_payee" :_inv_payee,@"real_name":name,@"identity_card":self.orderShopModel.consignee.idcard.identity_card,@"cards":self.cards,@"mabaobean_number":_mabaobean_number} success:^(id responseObject) {
         [self dismiss];
+        MMLog(@"%@",responseObject);
         if ([responseObject[@"status"] isKindOfClass:[NSDictionary class]]&&[responseObject[@"status"][@"succeed"] integerValue] == 1) {
             VC.orderInfo = responseObject[@"data"][@"order_info"];
             VC.type = @"1";
             VC.order_sn = VC.orderInfo[@"order_sn"];
             [self.navigationController pushViewController:VC animated:YES];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCart" object:nil];
-
+            
         }else{
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:responseObject[@"status"][@"error_desc"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alert show];
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-         [self show:@"请求失败！" time:1];
+        [self show:@"请求失败！" time:1];
     }];
     
 }
@@ -1118,9 +1094,9 @@
         /***  是否跨境购*/
         if (self.orderShopModel.real_name) {
             /***  是否被海关拉黑*/
-            if ([_is_black isEqualToString:@"0"]) {
+            if ([self.orderShopModel.consignee.idcard.is_black integerValue] == 0) {
                 /***  是否实名认证*/
-                if (_identity_card) {
+                if ([self.orderShopModel.consignee.idcard.identity_card isValidWithIdentityNum]) {
                     /***  是否是海外直邮*/
                     if (self.orderShopModel.is_over_sea) {
                         /***海外直邮身份证是否上传*/
@@ -1175,16 +1151,16 @@
     
     // Create the actions.
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-      
+        
         
     }];
     
     UIAlertAction *otherAction = [UIAlertAction actionWithTitle:otherButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-       
+        
         
         UITextField*textField=alertController.textFields.firstObject;
-            NSString * bonus_sn = textField.text;
-       
+        NSString * bonus_sn = textField.text;
+        
         [self getBonusBySn:bonus_sn order_money:self.orderShopModel.order_amount];
         
     }];
@@ -1209,14 +1185,14 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-
+    
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/discount/get_bonus_info"]
             parameters:@{@"session":sessiondict,@"bonus_sn":bonus_sn,@"order_money":order_money}
                success:^(NSURLSessionDataTask *operation, id responseObject) {
-                  
+                   
                    NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
                    
-                 
+                   
                    
                    if (dic) {
                        _bonus_id = dic[@"bonus_id"];
@@ -1228,13 +1204,13 @@
                        }else{
                            type_money = self.orderShopModel.order_amount.floatValue -totalMoney;
                        }
-                        _hongbaoMoney = dic[@"type_money"];
-                        _strHongbao = dic[@"type_name"];
-                        self.totalLabel.text = [NSString stringWithFormat:@"应付金额：￥%.2lf",type_money];
-                        _tableView.tableFooterView = [self tableViewFooterView];
-        
-             
-                      
+                       _hongbaoMoney = dic[@"type_money"];
+                       _strHongbao = dic[@"type_name"];
+                       self.totalLabel.text = [NSString stringWithFormat:@"应付金额：￥%.2lf",type_money];
+                       _tableView.tableFooterView = [self tableViewFooterView];
+                       
+                       
+                       
                    }else{
                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:[responseObject valueForKeyPath:@"status"][@"error_desc"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                        [view show];
@@ -1252,9 +1228,9 @@
 
 #pragma mark --UITableViewdelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-
+    
     return self.orderShopModel.goods_list.count;
-
+    
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -1272,16 +1248,16 @@
     
     footView.zongjiaLabeltext.text = [NSString stringWithFormat:@"共%@件商品，总计%@",self.orderShopModel.goods_list[section].number,self.orderShopModel.goods_list[section].total_money];
     return footView;
-
+    
 }
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-
+    
     MBFireOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBFireOrderTableViewCell"];
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBFireOrderTableViewCell" owner:nil options:nil]firstObject];
     }
-
+    
     cell.model = self.orderShopModel.goods_list[indexPath.section].goods_list[indexPath.row];
     
     return cell;
@@ -1301,11 +1277,11 @@
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView;{
     [_cardTextField resignFirstResponder];
     [_beizhu resignFirstResponder];
-
+    
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-     [_cardTextField resignFirstResponder];
+    [_cardTextField resignFirstResponder];
     return YES;
 }
 #pragma mark -- 验证身份证
@@ -1325,19 +1301,19 @@
         [self dismiss];
         if ([s_str(responseObject[@"status"]) isEqualToString:@"1"]) {
             [self show:responseObject[@"msg"] time:1];
-            _identity_card = _cardTextField.text;
-            _is_black = @"0";
+            self.orderShopModel.consignee.idcard.identity_card = _cardTextField.text;
+            self.orderShopModel.consignee.idcard.is_black = @0;
             _tableView.tableFooterView = [self tableViewFooterView];
         }else{
             if (responseObject[@"msg"]) {
                 [self show:responseObject[@"msg"] time:1];
             }else{
-            
+                
                 [self show:@"绑定失败" time:1];
             }
             
         }
- 
+        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         MMLog(@"%@",error);
         

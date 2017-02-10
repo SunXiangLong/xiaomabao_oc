@@ -322,6 +322,7 @@
     [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/flow/checkout") parameters:@{@"session":sessiondict} success:^(id responseObject) {
         if ([responseObject[@"status"] isKindOfClass:[NSDictionary  class]]&&[responseObject[@"status"][@"succeed"]  integerValue] == 1) {
             MBFireOrderViewController *VC = [[MBFireOrderViewController alloc] init];
+            MMLog(@"%@",responseObject);
             VC.orderShopModel = [MBConfirmModel yy_modelWithDictionary:responseObject[@"data"]];
             [self dismiss];
             [self pushViewController:VC Animated:YES];
