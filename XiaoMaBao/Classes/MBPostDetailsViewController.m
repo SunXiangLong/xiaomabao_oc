@@ -93,7 +93,7 @@
     _isImage = @"1";
     [self addTopLineView:_bottomView];
     [self show:@"加载中..."];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,_isImage,_poster]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",@"http://api.xiaomabao.com",self.post_id,_isImage,_poster]]];
     MMLog(@"%@",[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,_isImage,_poster]]);
     [_webView loadRequest:request];
     //    [self.tableView registerNib:    [UINib nibWithNibName:@"MBPostDetailsOneCell" bundle:nil] forCellReuseIdentifier:@"MBPostDetailsOneCell"];
@@ -170,7 +170,7 @@
         weakSelf.poster =  @"1";
         weakSelf.isImage = @"1";
         [weakSelf show:@"加载中..."];
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,_isImage,_poster]]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",@"http://api.xiaomabao.com",self.post_id,_isImage,_poster]]];
         [weakSelf.webView loadRequest:request];
         _isRefresh = YES;
     };
@@ -247,7 +247,7 @@
         @strongify(self);
         self.isImage = s_str(number);
         [self show:@"加载中..."];
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,self.isImage,self.poster]]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",@"http://api.xiaomabao.com",self.post_id,self.isImage,self.poster]]];
         [self.webView loadRequest:request];
         //        self.page = 1;
         //        [self.tableView.mj_footer resetNoMoreData];
@@ -523,7 +523,7 @@
         weakSelf.poster =  @"1";
         weakSelf.isImage = @"1";
         [weakSelf show:@"加载中..."];
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",BASE_URL_root,self.post_id,_isImage,_poster]]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/circle/mpost/%@/%@/%@",@"http://api.xiaomabao.com",self.post_id,_isImage,_poster]]];
         [weakSelf.webView loadRequest:request];
     };
      [self presentViewController:nav  animated:false completion:nil];

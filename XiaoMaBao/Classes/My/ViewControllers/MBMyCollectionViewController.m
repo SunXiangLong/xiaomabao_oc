@@ -11,7 +11,7 @@
 #import "MBSignaltonTool.h"
 #import "UIImageView+WebCache.h"
 #import "MBMyCollectionTableViewCell.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MJRefresh.h"
 #import "MBMyCollectionCollectionViewCell.h"
 #import "MBActivityViewController.h"
@@ -183,7 +183,7 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MBShopingViewController *shop = [[MBShopingViewController alloc] init];
+    MBGoodsDetailsViewController *shop = [[MBGoodsDetailsViewController alloc] init];
     shop.GoodsId = [[self.CartinfoDict objectAtIndex:indexPath.row] valueForKeyPath:@"goods_id"];
     [self.navigationController pushViewController:shop animated:YES];
 }

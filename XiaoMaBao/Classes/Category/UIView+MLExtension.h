@@ -19,5 +19,6 @@
 @property (nonatomic,assign) CGFloat ml_width;
 @property (nonatomic,assign) CGFloat ml_height;
 @property (nonatomic,assign) CGSize ml_size;
-
+-(void)removeAllSubviews;
+- (void)bezierPathWithRoundingCorners:(UIRectCorner)corners cornerRadii:(CGFloat )cornerRadii;
 @end

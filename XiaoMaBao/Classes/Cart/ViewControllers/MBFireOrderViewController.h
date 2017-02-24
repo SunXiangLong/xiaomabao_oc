@@ -10,4 +10,5 @@
 #import "MBConfirmModel.h"
 @interface MBFireOrderViewController : BkBaseViewController
 @property(strong,nonatomic)MBConfirmModel * orderShopModel;
+@property(copy,nonatomic) void(^isRefresh)();
 @end

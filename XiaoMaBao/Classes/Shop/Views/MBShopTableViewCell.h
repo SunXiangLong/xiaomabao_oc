@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MBGoodsModel.h"
 @interface MBShopTableViewCell : UITableViewCell<UICollectionViewDataSource,UICollectionViewDelegate,SDPhotoBrowserDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UIView *evaluationView;
@@ -15,5 +15,5 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *evaluationPhoto;
 @property (copy, nonatomic) NSArray *photoArray;
 @property(copy,nonatomic)NSDictionary *dic;
-
+@property(strong,nonatomic) MBGoodCommentListModel *model;
 @end

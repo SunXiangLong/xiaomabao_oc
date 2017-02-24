@@ -9,8 +9,7 @@
 #import "MBNewHomeViewController.h"
 #import "DataSigner.h"
 #import "MBGoodSSearchViewController.h"
-#import "MBShopDetailsViewController.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBActivityViewController.h"
 #import "MBWebViewController.h"
 #import "MBGroupShopController.h"
@@ -49,7 +48,7 @@
     if (userInfo) {
         NSString *type = userInfo[@"type"];
         if ([type isEqualToString:@"goods"]) {
-            MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+            MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
             VC.GoodsId =  userInfo[@"id"];
             [self pushViewController:VC Animated:YES];
         }else if([type isEqualToString:@"topic"]){

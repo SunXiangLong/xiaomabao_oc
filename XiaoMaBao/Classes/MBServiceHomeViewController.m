@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    MMLog(@"%f",UISCREEN_WIDTH);
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.tableView.backgroundColor = UIcolor(@"f3f3f3");
     self.collectionView.ml_height = 0;
@@ -61,7 +61,7 @@
     [self show];
     [MBNetworking POSTOrigin:urlStr parameters:parameters success:^(id responseObject) {
         [self dismiss];
-       
+//        MMLog(@"%@",responseObject);
         if (responseObject) {
             if (_page == 1) {
                 self.serviceModel = [MBServiceModel yy_modelWithJSON:responseObject];
@@ -87,15 +87,16 @@
     
 }
 - (void)setCollectionViewFlowLayout{
-
+    NSInteger  widthSale = UISCREEN_WIDTH*55/320;
     if (self.cat_id) {
         if (_serviceModel.categoryArray.count > 0) {
+            
             UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-            NSInteger itemspa = (UISCREEN_WIDTH - (UISCREEN_WIDTH -132 -90)/3*4 )/5;
-            layout.sectionInset = UIEdgeInsetsMake(20, itemspa, 20, itemspa);
+//            NSInteger itemspa = (UISCREEN_WIDTH - (UISCREEN_WIDTH -132 -90)/3*4 )/5;
+            layout.sectionInset = UIEdgeInsetsMake(20, 20, 20, 20);
             layout.minimumLineSpacing = 25;
-            layout.minimumInteritemSpacing = itemspa;
-            layout.itemSize = CGSizeMake((UISCREEN_WIDTH - 90-132)/3,(UISCREEN_WIDTH - 90-132)/3);
+            layout.minimumInteritemSpacing = (UISCREEN_WIDTH - 4*widthSale - 40)/3;
+            layout.itemSize = CGSizeMake(widthSale,widthSale);
             self.collectionView.collectionViewLayout = layout;
             self.collectionView.scrollEnabled = NO;
             NSInteger cont = _serviceModel.categoryArray.count/4;
@@ -104,9 +105,9 @@
                 cont ++;
             }
             if (cont == 1) {
-                self.collectionView.ml_height = cont*(UISCREEN_WIDTH - 90-132)/3 + 40;
+                self.collectionView.ml_height = cont*widthSale + 40;
             }else{
-                self.collectionView.ml_height = cont*(UISCREEN_WIDTH - 90-132)/3 + 40 + (cont - 1)*25;
+                self.collectionView.ml_height = cont*widthSale + 40 + (cont - 1)*25;
             }
             
             
@@ -116,10 +117,10 @@
     }
     if (_serviceModel.categoryArray.count > 0) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.sectionInset = UIEdgeInsetsMake(20, 45, 20, 45);
+        layout.sectionInset = UIEdgeInsetsMake(20,20 , 20, 20);
         layout.minimumLineSpacing = 25;
-        layout.minimumInteritemSpacing =  66;
-        layout.itemSize = CGSizeMake((UISCREEN_WIDTH - 90-132)/3,(UISCREEN_WIDTH - 90-132)/3);
+        layout.minimumInteritemSpacing =  (UISCREEN_WIDTH - 3*widthSale -40)/2 ;
+        layout.itemSize = CGSizeMake(widthSale,widthSale);
         self.collectionView.collectionViewLayout = layout;
         self.collectionView.scrollEnabled = NO;
         NSInteger cont = _serviceModel.categoryArray.count/3;
@@ -128,9 +129,9 @@
             cont ++;
         }
         if (cont == 1) {
-            self.collectionView.ml_height = cont*(UISCREEN_WIDTH - 90-134)/3 + 40;
+            self.collectionView.ml_height = cont*widthSale + 40;
         }else{
-            self.collectionView.ml_height = cont*(UISCREEN_WIDTH - 90-134)/3 + 40 + (cont - 1)*25;
+            self.collectionView.ml_height = cont*widthSale + 40 + (cont - 1)*25;
         }
         
         

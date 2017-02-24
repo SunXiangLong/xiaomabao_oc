@@ -39,4 +39,15 @@
  */
 
 + (NSData *)reSizeImageData:(UIImage *)sourceImage maxImageSize:(CGFloat)maxImageSize maxSizeWithKB:(CGFloat) maxSize;
+
+//
+
+/**
+ 根据图片url获取图片尺寸
+
+ @param imageURL 图片URL
+ @return 图片大小
+ */
++(CGSize)getImageSizeWithURL:(id)imageURL;
+
 @end

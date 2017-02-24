@@ -21,7 +21,7 @@
       [self show:@"加载中..."];
     self.button.hidden   = YES;
      _webView.scalesPageToFit = YES;
-    NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/service/product_preview/",self.product_id];
+    NSString *url =[NSString stringWithFormat:@"%@%@%@",@"http://api.xiaomabao.com",@"/service/product_preview/",self.product_id];
 
     NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];//创建NSURLRequest
     [_webView loadRequest:request];//加载

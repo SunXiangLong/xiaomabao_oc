@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self show:@"加载中..."];
+  
     self.titleStr = @"物流查询";
     [MBLogOperation deleteCookie];
     _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, -60, UISCREEN_WIDTH, UISCREEN_HEIGHT+110)];
@@ -36,6 +36,8 @@
     [_webView loadRequest:request];//加载
     [self.view insertSubview:_webView atIndex:0];
     [self disableDropDown];
+    
+    [self show:@"加载中..." toView:self.view];
 }
 #pragma mark -- 禁用uiscorrow的下拉上拉弹起功能；
 - (void)disableDropDown{
@@ -80,10 +82,11 @@
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
     
     MMLog(@"%@",error);
+    [self dismisstoView:self.view];
     [self show:@"加载失败" time:1];
 }
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{
-    [self dismiss];
+    [self dismisstoView:self.view];
 }
 -(NSString *)leftStr{
 return @"";

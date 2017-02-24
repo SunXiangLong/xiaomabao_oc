@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "15E5A1398856B71C7B74F3F4856B9DF6"
+               BlueprintIdentifier = "09AFA2EDC1D60C98F7C325F707AA273D"
                BuildableName = "WordPressShared.framework"
                BlueprintName = "WordPress-iOS-Shared"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "15E5A1398856B71C7B74F3F4856B9DF6"
+            BlueprintIdentifier = "09AFA2EDC1D60C98F7C325F707AA273D"
             BuildableName = "WordPressShared.framework"
             BlueprintName = "WordPress-iOS-Shared"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -8,7 +8,7 @@
 //
 
 #import "UIView+MLExtension.h"
-
+#import <QuartzCore/QuartzCore.h>
 @implementation UIView (Extension)
 
 - (void)setMl_x:(CGFloat)x{
@@ -71,6 +71,19 @@
 }
 - (CGSize)ml_size{
     return self.frame.size;
+}
+-(void)removeAllSubviews{
+    while (self.subviews.count) {
+        UIView *child = self.subviews.lastObject;
+        [child removeFromSuperview];
+    }
+}
+- (void)bezierPathWithRoundingCorners:(UIRectCorner)corners cornerRadii:(CGFloat )cornerRadii{
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds      byRoundingCorners:corners    cornerRadii:CGSizeMake(corners, corners)];
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.frame = self.bounds;
+    maskLayer.path = maskPath.CGPath;
+    self.layer.mask = maskLayer;
 }
 
 @end

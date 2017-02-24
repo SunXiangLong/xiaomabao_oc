@@ -7,12 +7,26 @@
 //
 
 #import "MBImageTableViewCell.h"
-
+@interface MBImageTableViewCell()
+@property (weak, nonatomic) IBOutlet UIImageView *showImageView;
+@end
 @implementation MBImageTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+-(void)setUrl:(NSString *)url{
+    _url = url;
+    NSURL* URL = nil;
+    if([url isKindOfClass:[NSURL class]]){
+        URL = (NSURL *)url;
+    }
+    if([url isKindOfClass:[NSString class]]){
+        URL = [NSURL URLWithString:url];
+    }
+    [self.showImageView sd_setImageWithURL:URL placeholderImage:nil];
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

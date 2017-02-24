@@ -7,7 +7,7 @@
 //
 
 #import "MBNewBabyFourTableCell.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBActivityViewController.h"
 @implementation MBNewBabyFourTableCell
 
@@ -27,7 +27,7 @@
     NSDictionary *dic = _dataArr[sender.view.tag];
     [MobClick event:@"Mengbao7"];
     if (sender.view.tag>1) {
-        MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+        MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
         VC.GoodsId =  dic[@"goods_id"];
         [self.VC pushViewController:VC Animated:YES];
         

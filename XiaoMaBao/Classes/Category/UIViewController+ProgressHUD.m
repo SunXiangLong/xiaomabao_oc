@@ -20,6 +20,18 @@
     MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
     [self presentViewController:VC animated:YES completion:nil];
 }
+-(BOOL)checkData:(id)responseObject{
+
+    if ([responseObject[@"status"] isKindOfClass:[NSDictionary class]]) {
+        return true;
+    }else if ([responseObject[@"status"] integerValue] == 0){
+        UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"示" message:@"登录超时,请重新登录!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alerView show];
+    
+    }
+
+    return false;
+}
 - (void)loginTimeout:(id)responseObject{
     NSString *message = @"登录超时，请重新登录";
     if ([responseObject[@"status"] integerValue] == -1) {
@@ -47,6 +59,14 @@
 - (void)dismiss{
     [self hideHUDForView:nil];
 
+}
+- (void)show:(NSString *)str toView:(UIView *)view{
+    
+    [self showMessage:str toView:view delay:0];
+}
+- (void)dismisstoView:(UIView *)view{
+    [self hideHUDForView:view];
+    
 }
 - (void)show:(NSString *)str{
 

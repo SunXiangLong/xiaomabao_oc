@@ -9,7 +9,7 @@
 #import "MBWebViewController.h"
 #import <JavaScriptCore/JavaScriptCore.h> //引入头文件
 #import "ObjCModel.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBActivityViewController.h"
 #import "MBGroupShopController.h"
 #import "MBShoppingCartViewController.h"
@@ -74,7 +74,7 @@
     [cookieProperties setValue:[NSDate dateWithTimeIntervalSinceNow:60*60*24*360] forKey:NSHTTPCookieExpires];
     NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
-    MMLog(@"%@",cookieProperties);
+    
     
 }
 -(NSString *)titleStr{
@@ -104,7 +104,7 @@
                 if ([dic[@"type"] isEqualToString:@"showLogin"]) {
                    [self loadWebview];
                 }else if ([dic[@"type"] isEqualToString:@"showGood"]){
-                    MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+                    MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
                     VC.GoodsId = dic[@"params"];
                     [self pushViewController:VC Animated:YES];
                 }else if ([dic[@"type"] isEqualToString:@"showTopic"]){

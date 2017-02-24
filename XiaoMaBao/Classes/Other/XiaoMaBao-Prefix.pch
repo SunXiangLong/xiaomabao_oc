@@ -55,7 +55,8 @@
 #import "NSString+BQ.h"
 #import "SDPhotoBrowser.h"
 #import "UIImageView+WebCache.h"
-
+//#import <FastImage/KHIFastImage.h>
+#import <KNSemiModalViewController_hons82/UIViewController+KNSemiModal.h>
 #define MAS_SHORTHAND_GLOBALS
 #import <ReactiveCocoa/ReactiveCocoa.h>
 

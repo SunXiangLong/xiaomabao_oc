@@ -10,7 +10,7 @@
 #import "MBSellingCollectionViewCell.h"
 #import "MBMoreBrandsCollectionViewCell.h"
 #import "MBStyleCollectionViewCell.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBTimeModel.h"
 @interface MBBrandViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>{
     NSTimer  *_timer;
@@ -122,7 +122,7 @@
 #pragma mark -- 图片点击手势
 - (void)SingleTap{
 
-    MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+    MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
     VC.GoodsId = _mid_link;
     [self pushViewController:VC Animated:YES];
 
@@ -313,11 +313,11 @@
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+        MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
         VC.GoodsId = _hot_goods[indexPath.row][@"goods_id"];
         [self pushViewController:VC Animated:YES];
     }else if(indexPath.section == 1){
-        MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+        MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
         VC.GoodsId = _normal_goods[indexPath.row][@"goods_id"];
         [self pushViewController:VC Animated:YES];
     }else{

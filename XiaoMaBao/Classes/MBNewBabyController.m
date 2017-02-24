@@ -284,7 +284,7 @@
             [self setData:date];
         }else{
             [self.dataArray addObject:[responseObject valueForKeyPath:@"data"]];
-            
+            MMLog(@"%lu",(unsigned long)self.dataArray.count);
             [self setData:date];
         }
         
@@ -325,7 +325,7 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_index_info"];
     [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
         [self dismiss];
-//        MMLog(@"%@",responseObject);
+        MMLog(@"%@",responseObject);
         _isPregnant = [[responseObject valueForKeyPath:@"type"] isEqualToString:@"pregnant"];
         
         if (date) {
@@ -361,7 +361,6 @@
             _tableView.dataSource =self;
             
             _current_date = [self setDateStr:[responseObject valueForKeyPath:@"current_date"]];
-            MMLog(@"%@",_current_date);
             _start_date   =  [self setDateStr:[responseObject valueForKeyPath:@"start_date"]];
             _end_date     = [self setDateStr:[responseObject valueForKeyPath:@"end_date"]];
             
@@ -571,7 +570,7 @@
             }
             
             MBBabyWebController *VC = [[MBBabyWebController alloc] init];
-            VC.url = URL(string(BASE_URL_root, url));
+            VC.url = URL(string(@"http://api.xiaomabao.com", url));
             VC.title = title;
             [self pushViewController:VC Animated:YES];
             
@@ -861,7 +860,7 @@
             if ([_dataArray[indexPath.section] count] == indexPath.row ) {
                 [MobClick event:@"Mengbao5"];
                 MBBabyWebController *VC = [[MBBabyWebController alloc] init];
-                VC.url = URL(string(BASE_URL_root, @"/mengbao/toolkit"));
+                VC.url = URL(string(@"http://api.xiaomabao.com", @"/mengbao/toolkit"));
                 VC.title = @"添加工具到首页";
                 @weakify(self);
                 [[VC.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSString *str) {

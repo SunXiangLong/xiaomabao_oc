@@ -9,7 +9,7 @@
 #import "MBActivityViewController.h"
 
 #import "MBCategoryViewTwoCell.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "timeView.h"
 #import "MBGoodSSearchViewController.h"
 @interface MBActivityViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate>{
@@ -284,7 +284,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     NSDictionary *dic = _recommend_goods[indexPath.item];
-    MBShopingViewController  *VC = [[MBShopingViewController alloc] init];
+    MBGoodsDetailsViewController  *VC = [[MBGoodsDetailsViewController alloc] init];
     VC.GoodsId = dic[@"goods_id"];
     [self pushViewController:VC Animated:YES];
 

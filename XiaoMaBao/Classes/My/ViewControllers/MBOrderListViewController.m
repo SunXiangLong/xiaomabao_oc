@@ -15,7 +15,7 @@
 #import "MBOrderCell.h"
 #import "MBEvaluationController.h"
 #import "MBLogisticsViewController.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "WNXRefresgHeader.h"
 #import "MBAfterSalesServiceViewController.h"
 #import "MBDeliveryInformationViewController.h"
@@ -574,7 +574,7 @@
      MBOrderModel *orderModel = _orderListArray[indexPath.section];
     [MobClick event:@"MyOrder5"];
     if (orderModel.childOrders.count == 0) {
-        MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+        MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
         VC.GoodsId =  [orderModel.goodsList[indexPath.row] goods_id];
 
         [self pushViewController:VC Animated:YES];

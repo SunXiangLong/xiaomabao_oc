@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MBImageTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *showImageView;
 
+@property(strong,nonatomic)NSString  *url;
 @end

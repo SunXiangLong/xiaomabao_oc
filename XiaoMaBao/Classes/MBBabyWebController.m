@@ -9,7 +9,7 @@
 #import "MBBabyWebController.h"
 #import <JavaScriptCore/JavaScriptCore.h> //引入头文件
 #import "ObjCModel.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBActivityViewController.h"
 #import "MBGroupShopController.h"
 @interface MBBabyWebController ()<UIWebViewDelegate>

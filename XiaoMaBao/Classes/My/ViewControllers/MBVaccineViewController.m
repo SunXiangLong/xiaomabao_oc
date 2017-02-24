@@ -113,7 +113,7 @@
 
     if (self.isSearch) {
         MBBabySearchViewController *VC = [[MBBabySearchViewController alloc] init];
-        NSString *str = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/discovery/knowledge_search/ios/"];
+        NSString *str = [NSString stringWithFormat:@"%@%@",@"http://api.xiaomabao.com",@"/discovery/knowledge_search/ios/"];
         VC.url = [NSURL URLWithString:str];
         VC.urlstr = str;
         VC.isSearch = YES;

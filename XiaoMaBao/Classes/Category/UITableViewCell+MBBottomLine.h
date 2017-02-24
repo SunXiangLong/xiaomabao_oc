@@ -15,8 +15,7 @@
  */
 -(void)uiedgeInsetsZero;
 
-/**
- 移除cell最下的线
- */
+
+/**移除cell最下的线*/
 -(void)removeUIEdgeInsetsZero;
 @end

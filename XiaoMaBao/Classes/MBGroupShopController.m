@@ -11,7 +11,7 @@
 #import "MBHomeMenuButton.h"
 #import "MBBrandTableViewCell.h"
 #import "MBBrandViewController.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBTimeModel.h"
 @interface MBGroupShopController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
 {
@@ -319,7 +319,7 @@
         [self pushViewController:VC Animated:YES];
     }else{
     
-        MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+        MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
         VC.GoodsId = _shopArray[indexPath.row][@"id"];
         [self pushViewController:VC Animated:YES];
     }

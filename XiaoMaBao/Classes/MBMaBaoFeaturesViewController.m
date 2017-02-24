@@ -9,7 +9,7 @@
 #import "MBMaBaoFeaturesViewController.h"
 #import "MBMaBaoFeaturesBrandCell.h"
 #import "MBMaBaoFeaturesShopCell.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBBrandDetailsViewController.h"
 #import "MBMaBaoFeaturesModel.h"
 @interface MBMaBaoFeaturesViewController ()
@@ -123,7 +123,7 @@
     
     if (indexPath.section == 1) {
         [MobClick   event:@"MaBaoFeatures0"];
-        MBShopingViewController *shopDetailVc = [[MBShopingViewController alloc] init];
+        MBGoodsDetailsViewController *shopDetailVc = [[MBGoodsDetailsViewController alloc] init];
         shopDetailVc.GoodsId = _model.hot_goods[indexPath.row].goods_id;
         [self pushViewController: shopDetailVc Animated:YES];
         

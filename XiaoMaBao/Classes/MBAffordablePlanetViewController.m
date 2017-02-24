@@ -14,8 +14,10 @@
 #import "MBCheckInViewController.h"
 #import "MBActivityViewController.h"
 #import "MBCategoryViewController.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBGroupShopController.h"
+
+#import "MBGoodsDetailsViewController.h"
 @interface MBAffordablePlanetViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,SDCycleScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *headView;
 @property (weak, nonatomic) IBOutlet SDCycleScrollView *shufflingView;
@@ -68,7 +70,7 @@
         case 2: {
             [MobClick event:@"AffordablePlane3"];
             MBWebViewController *VC = [[MBWebViewController alloc] init];
-            VC.url = URL(string(@"http://www.xiaomabao.com", @"/daily/prize"));
+            VC.url = URL(@"https://www.xiaomabao.com/daily/prize");
             VC.title =@"抽大奖";
             VC.isloging = YES;
             [self pushViewController:VC Animated:YES];
@@ -138,7 +140,7 @@
         }break;
         case 2: {
              [MobClick event:@"AffordablePlane0"];
-            MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+            MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
             VC.GoodsId  = _model.today_recommend_top[index].ad_con;
             VC.title = _model.today_recommend_top[index].ad_name;
             [self pushViewController:VC Animated:YES];
@@ -287,7 +289,7 @@
     }else{
          [MobClick event:@"AffordablePlane6"];
         MBAffordablePlanetCV *CV = (MBAffordablePlanetCV *)collectionView;
-        MBShopingViewController *shopDetailVc = [[MBShopingViewController alloc] init];
+        MBGoodsDetailsViewController *shopDetailVc = [[MBGoodsDetailsViewController alloc] init];
         shopDetailVc.GoodsId =  _model.today_recommend_bot[CV.indexPath.row].goods[indexPath.item].goods_id;
         shopDetailVc.title = _model.today_recommend_bot[CV.indexPath.row].goods[indexPath.item].goods_name;
         [self pushViewController:shopDetailVc Animated:YES];

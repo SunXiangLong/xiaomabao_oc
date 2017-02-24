@@ -10,7 +10,6 @@
 #import "MBTopPostsController.h"
 #import "MBMoreCirclesController.h"
 #import "MBSearchPostController.h"
-#import "MBShopDetailsViewController.h"
 #import "MBMyCircleController.h"
 #import "MBNewsCircleController.h"
 #import "JPUSHService.h"

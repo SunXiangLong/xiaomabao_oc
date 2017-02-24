@@ -266,9 +266,7 @@
     return self.title?:@"添加收货地址";
 }
 -(NSString *)rightStr{
-    if ([self.title isEqualToString:@"编辑收货地址"]) {
-        return @"编辑";
-    }
+    
     return @"保存";
 }
 -(void)rightTitleClick{

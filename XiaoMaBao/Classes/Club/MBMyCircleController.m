@@ -8,7 +8,7 @@
 
 #import "MBMyCircleController.h"
 #import "MBMycircleTableViewCell.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBActivityViewController.h"
 #import "MBWebViewController.h"
 #import "MBGroupShopController.h"
@@ -102,7 +102,7 @@
         {
             [MobClick event:@"MyCircle1"];
             MBWebViewController *VC = [[MBWebViewController alloc] init];
-            VC.url =  [NSURL URLWithString:string(BASE_URL_root, @"/discovery/story")];
+            VC.url =  [NSURL URLWithString:string(@"http://api.xiaomabao.com", @"/discovery/story")];
             VC.isloging = YES;
             VC.title = @"麻包故事";
             [self pushViewController:VC Animated:YES];
@@ -293,7 +293,7 @@
         }break;
         case 2: {
             
-            MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+            MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
             VC.GoodsId = _bandImageArray[index][@"ad_con"];
             VC.title = _bandImageArray[index][@"ad_name"];
             [self pushViewController:VC Animated:YES];

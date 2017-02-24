@@ -1,10 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -19,12 +23,12 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OgS-cc-7KA">
                         <rect key="frame" x="18" y="10" width="0.0" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oae-le-Loe">
                         <rect key="frame" x="18" y="10" width="288" height="21"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="Z8t-n7-5z6"/>
                         </constraints>
@@ -32,22 +36,12 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="mi2-xX-dNE">
                         <rect key="frame" x="18" y="40" width="280" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.51000000000000001" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.51000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXF-Fc-ccV">
-                        <rect key="frame" x="0.0" y="176.5" width="316" height="1"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="8Sf-If-Ehd"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="hexRgbColor" value="d7d7d7"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="K4L-O0-FAa">
                         <rect key="frame" x="10" y="109" width="296" height="59"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="K4L-O0-FAa" secondAttribute="height" multiplier="5:1" id="3k9-bd-gr9"/>
                         </constraints>
@@ -60,13 +54,10 @@
                     </collectionView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="WXF-Fc-ccV" secondAttribute="bottom" id="0lB-Yt-cih"/>
-                    <constraint firstAttribute="trailing" secondItem="WXF-Fc-ccV" secondAttribute="trailing" id="1fu-0v-tR2"/>
                     <constraint firstItem="oae-le-Loe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="5Zh-IB-JHm"/>
                     <constraint firstItem="mi2-xX-dNE" firstAttribute="top" secondItem="OgS-cc-7KA" secondAttribute="bottom" constant="9" id="DWU-Y8-wFG"/>
                     <constraint firstAttribute="trailing" secondItem="oae-le-Loe" secondAttribute="trailing" constant="10" id="ELa-eE-3Ot"/>
                     <constraint firstAttribute="bottom" secondItem="K4L-O0-FAa" secondAttribute="bottom" constant="10" id="Gte-4q-IBc"/>
-                    <constraint firstItem="WXF-Fc-ccV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="OKJ-b5-l1I"/>
                     <constraint firstItem="OgS-cc-7KA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="SUT-ZV-UXt"/>
                     <constraint firstItem="K4L-O0-FAa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="V2a-ll-h9c"/>
                     <constraint firstItem="OgS-cc-7KA" firstAttribute="top" secondItem="oae-le-Loe" secondAttribute="top" id="cbQ-CP-W4c"/>

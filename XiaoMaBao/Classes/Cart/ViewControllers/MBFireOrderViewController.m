@@ -129,14 +129,22 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    if (!_address_id) {
+        [self show:@"请设置收货地址" time:.8];
+        return;
+    }
     NSDictionary *parameter = @{@"session":sessiondict,@"address_id":_address_id};
     if (isRefreshData) {
+        
+        if (!self.cards) {
+            return;
+        }
         parameter = @{@"session":sessiondict,@"cards":self.cards,@"mabaobean_number":_mabaobean_number};
     }
     
     [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/flow/checkout") parameters:parameter success:^(id responseObject) {
         [self dismiss];
-        MMLog(@"%@",responseObject);
+//        MMLog(@"%@",responseObject);
         if ([responseObject[@"status"] isKindOfClass:[NSDictionary  class]]&&[responseObject[@"status"][@"succeed"]  integerValue] == 1) {
             self.orderShopModel = [MBConfirmModel yy_modelWithDictionary:responseObject[@"data"]];
             if (isRefreshData) {
@@ -1070,6 +1078,7 @@
         [self dismiss];
         MMLog(@"%@",responseObject);
         if ([responseObject[@"status"] isKindOfClass:[NSDictionary class]]&&[responseObject[@"status"][@"succeed"] integerValue] == 1) {
+            self.isRefresh();
             VC.orderInfo = responseObject[@"data"][@"order_info"];
             VC.type = @"1";
             VC.order_sn = VC.orderInfo[@"order_sn"];
@@ -1303,6 +1312,7 @@
             [self show:responseObject[@"msg"] time:1];
             self.orderShopModel.consignee.idcard.identity_card = _cardTextField.text;
             self.orderShopModel.consignee.idcard.is_black = @0;
+            self.orderShopModel.consignee.idcard.status = @1;
             _tableView.tableFooterView = [self tableViewFooterView];
         }else{
             if (responseObject[@"msg"]) {

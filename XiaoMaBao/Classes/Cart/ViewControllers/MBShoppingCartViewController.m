@@ -10,7 +10,7 @@
 #import "MBFireOrderViewController.h"
 #import "MBSignaltonTool.h"
 #import "MBShoppingCartTableViewCell.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBRealNameAuthViewController.h"
 #import "MBShoppingCartViewController.h"
 #import "MBShoppingCartModel.h"
@@ -20,7 +20,7 @@
     NSString *_is_cross_border;
     NSString *dele;
     UIButton *_submitButton;
-    
+    BOOL _isRefresh;
 }
 @property (strong,nonatomic)  UIView *maskView;
 @property (strong,nonatomic) UILabel *totalLbl;
@@ -35,23 +35,26 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-    
-    if (userInfo.uid) {
-        
-       [self getCartInfo:0 type:nil isShow:true];
-        
-    }else{
-        
-        
-        [self maskView];
+    if (_isRefresh) {
+        if ([MBSignaltonTool getCurrentUserInfo].uid) {
+            [self getCartInfo:0 type:nil isShow:true];
+        }else{
+            [self maskView];
+        }
     }
+    
 }
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+    
     [self setupUI];
+    if ([MBSignaltonTool getCurrentUserInfo].uid) {
+        [self getCartInfo:0 type:nil isShow:true];
+    }else{
+        [self maskView];
+    }
+    
     
     
 }
@@ -322,9 +325,13 @@
     [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/flow/checkout") parameters:@{@"session":sessiondict} success:^(id responseObject) {
         if ([responseObject[@"status"] isKindOfClass:[NSDictionary  class]]&&[responseObject[@"status"][@"succeed"]  integerValue] == 1) {
             MBFireOrderViewController *VC = [[MBFireOrderViewController alloc] init];
-            MMLog(@"%@",responseObject);
+//            MMLog(@"%@",responseObject);
             VC.orderShopModel = [MBConfirmModel yy_modelWithDictionary:responseObject[@"data"]];
             [self dismiss];
+            VC.isRefresh = ^(){
+                _isRefresh  = true;
+            
+            };
             [self pushViewController:VC Animated:YES];
         }
         

@@ -8,7 +8,7 @@
 
 #import "MBHistoryRecoderViewController.h"
 #import "MBHistoryRecoderTableViewCell.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 @interface MBHistoryRecoderViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSArray *_array;
@@ -109,7 +109,7 @@
     return 60;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MBShopingViewController *VC =[[MBShopingViewController alloc] init];
+    MBGoodsDetailsViewController *VC =[[MBGoodsDetailsViewController alloc] init];
     VC.GoodsId = _array[indexPath.row][@"goods_id"];
     [self pushViewController:VC Animated:YES];
 

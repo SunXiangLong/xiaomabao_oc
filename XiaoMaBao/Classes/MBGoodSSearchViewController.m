@@ -8,7 +8,7 @@
 
 #import "MBGoodSSearchViewController.h"
 #import "MBCategoryViewTwoCell.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 @interface MBGoodSSearchViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>{
   
     NSArray *_keywordArray;
@@ -217,7 +217,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     NSDictionary *dic = _recommend_goods[indexPath.item];
-    MBShopingViewController  *VC = [[MBShopingViewController alloc] init];
+    MBGoodsDetailsViewController  *VC = [[MBGoodsDetailsViewController alloc] init];
     VC.GoodsId = dic[@"goods_id"];
     [self.navigationController pushViewController:VC animated:NO];
     

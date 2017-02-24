@@ -9,7 +9,7 @@
 #import "MBOrderCell.h"
 #import "MBAfterServiceTableViewCell.h"
 #import "UIImageView+WebCache.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBOrderModel.h"
 @implementation MBOrderCell
 
@@ -55,7 +55,7 @@
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+    MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
     VC.GoodsId = [_goods_listArray[indexPath.row] goods_id];
     [self.VC pushViewController:VC Animated:YES];
 

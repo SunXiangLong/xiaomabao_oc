@@ -8,12 +8,13 @@
 
 #import "MBAPService.h"
 #import "JPUSHService.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBActivityViewController.h"
 #import "MBWebViewController.h"
 #import "MBGroupShopController.h"
 #import "MBTabBarViewController.h"
 #import "MBNavigationViewController.h"
+#import "MBCheckInViewController.h"
 @implementation MBAPService
 
 + (void)umengTrack{
@@ -115,7 +116,7 @@
     if (userInfo){
         NSString *type = userInfo[@"type"];
         if ([type isEqualToString:@"goods"]) {
-            MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+            MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
             VC.GoodsId =  userInfo[@"id"];
             [rootVC pushViewController:VC animated:YES];
         }else if([type isEqualToString:@"topic"]){
@@ -130,6 +131,11 @@
             VC.url =  [NSURL URLWithString:userInfo[@"id"]];
             VC.isloging = YES;
             [rootVC pushViewController:VC animated:YES];
+        }else if([type isEqualToString:@"signIn"]){
+        
+            UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+            MBCheckInViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBCheckInViewController"];
+            [rootVC presentViewController:myView animated:YES completion:nil];
         }
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     }

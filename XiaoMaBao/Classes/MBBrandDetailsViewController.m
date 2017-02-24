@@ -9,7 +9,7 @@
 #import "MBGoodSSearchViewController.h"
 #import "MBBrandDetailsCollectionViewCell.h"
 #import "MBBrandDetailsCollectionViewReusableView.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBBrandDetailModel.h"
 @interface MBBrandDetailsViewController ()<UISearchBarDelegate>{
     NSInteger _page;
@@ -110,7 +110,7 @@
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    MBShopingViewController *shopDetailVc = [[MBShopingViewController alloc] init];
+    MBGoodsDetailsViewController *shopDetailVc = [[MBGoodsDetailsViewController alloc] init];
     shopDetailVc.GoodsId = _model.goodsList[indexPath.item].goods_id;
     [self pushViewController:shopDetailVc Animated:true];
     

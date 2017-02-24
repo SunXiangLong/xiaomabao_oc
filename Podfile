@@ -11,12 +11,14 @@ pod 'TZImagePickerController',:git => 'https://github.com/banchichen/TZImagePick
 pod 'DZNEmptyDataSet'
 #of keyboard sliding up and cover UITextField/UITextView.
 pod 'IQKeyboardManager'
+pod 'YNPageScrollViewController'
 #pod 'iCarousel'
 #pod 'DZNEmptyDataSet'
 pod 'WMPageController'
 pod 'ActionSheetPicker-3.0'
 #pod 'TGCameraViewController',:git => 'https://github.com/tdginternet/TGCameraViewController.git', :tag => '2.2.6'
-
+# pod 'FastImage'
+pod 'KNSemiModalViewController_hons82'
 pod "SKTagView"
 pod 'HexColors'
 pod 'Reachability'

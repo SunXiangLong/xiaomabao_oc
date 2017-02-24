@@ -14,7 +14,7 @@
 #import "MBCheckInViewController.h"
 #import "MBActivityViewController.h"
 #import "MBDetailedViewController.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBGroupShopController.h"
 
 @interface MBFreeStoreViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,SDCycleScrollViewDelegate,UIGestureRecognizerDelegate>
@@ -97,7 +97,7 @@
         }break;
         case 2: {
             
-            MBShopingViewController *VC = [[MBShopingViewController alloc] init];
+            MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
             VC.GoodsId  = _model.today_recommend_top[index].ad_con;
             VC.title = _model.today_recommend_top[index].ad_name;
             [self pushViewController:VC Animated:YES];
@@ -281,7 +281,7 @@
         }
         
         
-        MBShopingViewController *shopDetailVc = [[MBShopingViewController alloc] init];
+        MBGoodsDetailsViewController *shopDetailVc = [[MBGoodsDetailsViewController alloc] init];
         shopDetailVc.GoodsId =  model.goods_id;
         shopDetailVc.title = model.goods_name;
         [self pushViewController:shopDetailVc Animated:YES];

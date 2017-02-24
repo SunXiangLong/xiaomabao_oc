@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol MBSpecificationsCelldelegate <NSObject>
--(void)getDic:(NSDictionary *)dic;
-@end
+#import "MBGoodsModel.h"
+////@protocol MBSpecificationsCelldelegate <NSObject>
+////-(void)getDic:(NSDictionary *)dic;
+//@end
 @interface MBSpecificationsCell : UITableViewCell
+@property(nonatomic,strong) MBGoodsSpecsModel *model;
 @property (weak, nonatomic) IBOutlet UIView *view;
-@property(nonatomic,copy) NSDictionary *dic;
-@property(nonatomic,assign) NSInteger row;
-@property(nonatomic,assign) id<MBSpecificationsCelldelegate> delegate;
--(void)setUI;
+@property (copy, nonatomic) void (^determineGoodsSpecs)(MBGoodsSpecsModel *);
+//@property(nonatomic,copy) NSDictionary *dic;
+//@property(nonatomic,assign) NSInteger row;
+//@property(nonatomic,assign) id<MBSpecificationsCelldelegate> delegate;
+//-(void)setUI;
 @end

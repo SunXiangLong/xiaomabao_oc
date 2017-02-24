@@ -11,7 +11,30 @@
 #import "PhotoCollectionViewCell.h"
 @implementation MBShopTableViewCell
 
+-(void)setModel:(MBGoodCommentListModel *)model {
+    _model = model;
+    RatingBar *bar = [[RatingBar alloc] initWithFrame:CGRectMake(0, 0, 100, self.evaluationView.ml_height)];
+    [self.evaluationView addSubview:bar];
+    bar.enable = NO;
+    NSString *str = _model.comment_rank;
+    bar.starNumber = [str integerValue];
+    self.name.text = [_model.author isEqualToString:@""]?@"匿名用户":_model.author;
+    self.evaluationText.text = _model.content;
+    
+    
+    if (_model.img_path.count <= 0) {
+        [self.evaluationPhoto removeFromSuperview];
+    }
+    
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.itemSize = CGSizeMake((UISCREEN_WIDTH-40)/5,(UISCREEN_WIDTH-40)/5);
+    flowLayout.minimumInteritemSpacing =5;
+    self.evaluationPhoto.collectionViewLayout = flowLayout;
+    self.evaluationPhoto.dataSource = self;
+    self.evaluationPhoto.delegate = self;
+    [ self.evaluationPhoto registerNib:[UINib nibWithNibName:@"PhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PhotoCollectionViewCell"];
 
+}
 -(void)setDic:(NSDictionary *)dic{
     _dic =dic;
     RatingBar *bar = [[RatingBar alloc] initWithFrame:CGRectMake(0, 0, 100, self.evaluationView.ml_height)];
@@ -49,11 +72,14 @@
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 1;
+    if (_model.img_path.count > 0) {
+        return 1;
+    }
+    return 0;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return _photoArray.count;
+    return _model.img_path.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -73,11 +99,6 @@
     photoBrowser.sourceImagesContainerView = self.evaluationPhoto;
     
     [photoBrowser show];
-
-
-
-
-
 }
 
 #pragma mark - SDPhotoBrowserDelegate
@@ -100,5 +121,15 @@
     
     return imageView.image;
 }
-
+- (CGSize)sizeThatFits:(CGSize)size {
+   
+    NSInteger height = [_model.content sizeWithFont:[UIFont systemFontOfSize:12] withMaxSize:CGSizeMake(UISCREEN_WIDTH-20, MAXFLOAT)].height;
+    
+   
+    
+    if (_model.img_path.count>0) {
+        return  CGSizeMake(size.width, 50+height+(UISCREEN_WIDTH-40)/5+20);
+    }
+    return  CGSizeMake(size.width, 50+height);
+}
 @end

@@ -9,7 +9,7 @@
 #import "MBCategoryViewController.h"
 #import "MBCategoryViewTwoCell.h"
 #import "MBCategoryViewOneCell.h"
-#import "MBShopingViewController.h"
+#import "MBGoodsDetailsViewController.h"
 #import "MBDetailedViewController.h"
 #import "MBGoodSSearchViewController.h"
 @interface MBCategoryViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UISearchBarDelegate>
@@ -219,7 +219,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
      NSDictionary *dic = _dataArray[indexPath.section][indexPath.item];
     if (indexPath.section==1) {
-        MBShopingViewController  *VC = [[MBShopingViewController alloc] init];
+        MBGoodsDetailsViewController  *VC = [[MBGoodsDetailsViewController alloc] init];
         VC.GoodsId = dic[@"goods_id"];
         [self pushViewController:VC Animated:YES];
         return;

@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self show];
-    NSURL *url = [NSURL URLWithString:string(BASE_URL_root, @"/agreement/bean")];
+    NSURL *url = [NSURL URLWithString:string(@"http://api.xiaomabao.com", @"/agreement/bean")];
     
     [_webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
