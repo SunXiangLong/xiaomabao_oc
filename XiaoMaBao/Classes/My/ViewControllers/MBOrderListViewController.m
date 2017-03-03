@@ -204,7 +204,7 @@
 - (void)setupTableView{
     if(!_tableView ){
         UITableView *tableView = [[UITableView alloc] initWithFrame: CGRectMake(0,34 + TOP_Y, self.view.ml_width, self.view.ml_height - CGRectGetMaxY(_menuView.frame)) style:UITableViewStyleGrouped];
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tableView.dataSource = self,
         tableView.delegate = self;
         tableView.backgroundColor =   [UIColor colorWithHexString:@"f2f3f7"];

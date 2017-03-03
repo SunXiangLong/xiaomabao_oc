@@ -209,14 +209,11 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-   
-     NSDictionary *dic = _recommend_goods[indexPath.item];
-     MBGoodsDetailsViewController  *VC = [[MBGoodsDetailsViewController alloc] init];
-     VC.GoodsId = dic[@"goods_id"];
+   NSDictionary *dic = _recommend_goods[indexPath.item];
+    MBGoodsDetailsViewController  *VC = [[MBGoodsDetailsViewController alloc] init];
+    VC.GoodsId = dic[@"goods_id"];
     [self pushViewController:VC Animated:YES];
-        
-    
-    
+
     
     
 }

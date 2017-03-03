@@ -69,7 +69,8 @@ static AFHTTPSessionManager *mgr = nil;
    
     return   [self.mgr POST:URLString parameters:requestParams progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        MBModel *model = [MBModel yy_modelWithJSON:responseObject];
+        MBModel *model = [MBModel yy_modelWithDictionary:responseObject];
+        MMLog(@"%@",model);
         success(task,model);
     } failure:failure];
     

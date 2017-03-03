@@ -15,10 +15,11 @@
 #import "MBShoppingCartViewController.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
-#import "MBShopTableViewCell.h"
+#import "MBGoodsEvaluationViewController.h"
 #import "MBNavigationViewController.h"
 #import "DataSigner.h"
 #import "MBGoodsPropertyTableViewCell.h"
+#import "RatingBar.h"
 @interface MBGoodsDetailsViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     UILabel *_goodsName;
@@ -28,7 +29,7 @@
     UIView  *_infoItemLineView;
     NSTimer *_myTimer;
     UIButton  *_lastButton;
-    BOOL _isCommentData;
+   
     BOOL _isPropertyData;
     BOOL _isSpecData;
     NSInteger _page;
@@ -67,8 +68,7 @@
 @property (nonatomic, strong) MBGoodsSpecsRootModel *goodsSpecsModel;
 /**商品介绍数据 */
 @property (nonatomic, copy) NSArray<MBGoodsPropertyModel *> *goodsPropertyArray;
-/**商品评价数据 */
-@property (nonatomic, strong) MBGoodCommentModel *goodCommentModel;
+
 @end
 
 @implementation MBGoodsDetailsViewController
@@ -81,8 +81,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [_myTimer invalidate];
-    _myTimer = nil;
+//    [_myTimer invalidate];
+//    _myTimer = nil;
     
 }
 - (NSMutableArray *)contentOffsetDictionaryM{
@@ -118,80 +118,42 @@
     
     //异步请求相应的数据，成功获取数据先后顺序未知（根据不同顺序做不同的半判断）
     [self getGoosInfoData];
-    [self getGoodsCommentsData];
+    
     [self getGoodsIntroduceData];
     [self getGoodsPropertyData];
     
-    [self getShareButton];
+    
     
     
     
     
 }
-#pragma mark --设置分享按钮
+#pragma mark --设置收藏按钮
 -(void)getShareButton{
-    
+    //收藏按钮
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame =  CGRectMake(UISCREEN_WIDTH - 2*NAV_BAR_W, NAV_BAR_Y, NAV_BAR_W, NAV_BAR_HEIGHT);
-    [button setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(goodShare) forControlEvents:UIControlEventTouchUpInside];
+    if (_model.is_collect) {
+        [button setImage:[UIImage imageNamed:@"collection"] forState:UIControlStateNormal];
+        
+        
+    } else {
+        [button setImage:[UIImage imageNamed:@"nice"] forState:UIControlStateNormal];
+    }
+
+    [button addTarget:self action:@selector(ClickCollection:) forControlEvents:UIControlEventTouchUpInside];
     button.imageEdgeInsets = UIEdgeInsetsMake(0, 30, 0,0);
     [self.navBar addSubview:button];
     
 }
--(void)goodShare{
-    
-    if (!_model.goods_gallery||_model.goods_gallery == 0 ) {
-        [self show:@"商品图片不存在，无法分享！" time:.5];
-        return;
-    }
-    //1、创建分享参数
-    NSArray* imageArray = @[_model.goods_gallery.firstObject];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xiaomabao.com/goods-%@.html",_model.goods_id]];
-    //（注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
-    if (imageArray) {
-        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-        [shareParams SSDKSetupShareParamsByText:_model.goods_name
-                                         images:imageArray
-                                            url:url
-                                          title:@"小麻包母婴分享"
-                                           type:SSDKContentTypeWebPage];
-        //2、分享（可以弹出我们的分享菜单和编辑界面）
-        [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
-                                 items:nil
-                           shareParams:shareParams
-                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
-                       
-                       switch (state) {
-                           case SSDKResponseStateSuccess:
-                           {
-                               UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                                   message:nil
-                                                                                  delegate:nil
-                                                                         cancelButtonTitle:@"确定"
-                                                                         otherButtonTitles:nil];
-                               [alertView show];
-                               break;
-                           }
-                           case SSDKResponseStateFail:
-                           {
-                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
-                                                                               message:[NSString stringWithFormat:@"%@",error]
-                                                                              delegate:nil
-                                                                     cancelButtonTitle:@"OK"
-                                                                     otherButtonTitles:nil, nil];
-                               [alert show];
-                               break;
-                           }
-                           default:
-                               break;
-                       }
-                       
-                   }];
-    }
-    
-    
+-(NSString *)rightImage{
+    return @"share";
 }
+-(void)rightTitleClick{
+    [self goodShare];
+
+}
+
 - (void)setupContentView
 {
     self.islockObserveParam = YES;
@@ -199,7 +161,7 @@
     scrollView.delaysContentTouches = NO;
     [self.view addSubview:scrollView];
     
-    scrollView.backgroundColor = [UIColor yellowColor];
+    scrollView.backgroundColor = [UIColor whiteColor];
     self.scrollView = scrollView;
     scrollView.pagingEnabled = YES;
     scrollView.bounces = NO;
@@ -207,7 +169,7 @@
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.delegate = self;
     scrollView.contentSize = CGSizeMake(UISCREEN_WIDTH * 3, 0);
-    scrollView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT- TOP_Y - 40);
+    scrollView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT- TOP_Y - 50 );
     
     UITableView* table1 = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, scrollView.mj_h)];
     table1.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -229,31 +191,17 @@
     
     
     
-    UITableView* table3 = [[UITableView alloc] initWithFrame:CGRectMake(UISCREEN_WIDTH*2,0 , UISCREEN_WIDTH, scrollView.mj_h)];
-    [table3 registerNib:[UINib nibWithNibName:@"MBShopTableViewCell" bundle:nil] forCellReuseIdentifier:@"MBShopTableViewCell"];
-    table3.tag = 2;
-    table3.delegate = self;
-    table3.dataSource = self;
-    table3.tableFooterView = [[UIView alloc] init];
-    [scrollView addSubview: table3];
+
     
     
-    _tableViews = @[table1,table2,table3];
+    _tableViews = @[table1,table2];
     for (UITableView *table in _tableViews) {
         [table addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:(__bridge void * _Nullable)(scrollView)];
-         table.scrollIndicatorInsets = UIEdgeInsetsMake(self.headViewHeight + 40, 0, 0, 0);
+        table.scrollIndicatorInsets = UIEdgeInsetsMake(self.headViewHeight + 40, 0, 0, 0);
     }
+    
+    
 
-    // 如何在加载前数据已经请求下来 要在这里加上拉加载方法
-    if (_isCommentData) {
-        MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(getGoodsCommentsData)];
-        footer.refreshingTitleHidden = YES;
-        _tableViews.lastObject.mj_footer = footer;
-    }
-    
-    
-    
-    
     [self.view addSubview:self.tempHeaderView];
     [self.view bringSubviewToFront:self.navBar];
     
@@ -275,14 +223,12 @@
     _goodsImageSDScrollView.autoScrollTimeInterval = 5.0f;
     _goodsImageSDScrollView.imageURLStringsGroup = _model.goods_gallery;
     [view addSubview:_goodsImageSDScrollView];
-    
-    
-    
+
     _goodsName = [[UILabel alloc] init];
-    _goodsName.textColor = [UIColor colorWithHexString:@"e8465e"];
+    _goodsName.textColor = [UIColor colorWithHexString:@"000000"];
     _goodsName.numberOfLines = 0;
     _goodsName.text = _model.goods_name;
-    _goodsName.font = [UIFont boldSystemFontOfSize:13];
+    _goodsName.font = [UIFont boldSystemFontOfSize:16];
     [view addSubview:_goodsName];
     [_goodsName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_goodsImageSDScrollView.mas_bottom).offset(10);
@@ -316,48 +262,38 @@
         
     }];
     
-    _goods_number = [[UILabel alloc] init];
-    _goods_number.font = [UIFont systemFontOfSize:16];
-    _goods_number.textAlignment = NSTextAlignmentCenter;
-    _goods_number.textColor = [UIColor colorWithHexString:@"b2b2b2"];
-    _goods_number.text = [NSString stringWithFormat:@"库存: %@件",_model.goods_number];
-    [view addSubview:_goods_number];
-    [_goods_number mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(_marketPriceFormatted);
-        make.right.mas_equalTo(-8);
-        make.height.mas_equalTo(35);
-    }];
-    if ([_model.active_remainder_time integerValue] > 0) {
-        _myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeFireMethod:) userInfo:nil repeats:YES];
-        UIButton *timeBtn = [[UIButton alloc] init];
-        [timeBtn setTitleColor:[UIColor colorWithHexString:@"b2b2b2"] forState:UIControlStateNormal];
-        timeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);
-        [timeBtn setImage:[UIImage imageNamed:@"clock"] forState:UIControlStateNormal];
-        _lettTimes = [_model.active_remainder_time intValue];
-        NSInteger leftdays = [_model.active_remainder_time integerValue]/(24*60*60);
-        NSInteger hour = ([_model.active_remainder_time integerValue]-leftdays*24*3600)/3600;
-        NSInteger minute = ([_model.active_remainder_time integerValue] - hour*3600-leftdays*24*3600)/60;
-        NSInteger second = ([_model.active_remainder_time integerValue] - hour *3600 - 60*minute-leftdays*24*3600);
-        NSString *leftmessage;
-        if (leftdays ==0 && hour == 0) {
-            
-            leftmessage = [NSString stringWithFormat:@"剩余%ld时%ld分%ld秒",hour,minute,second];
-        }else
-        {
-            leftmessage = [NSString stringWithFormat:@"%ld天%ld时%ld分%ld秒",leftdays,hour,minute,second];
-        }
-        timeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [timeBtn setTitle:leftmessage forState:UIControlStateNormal];
-        [view addSubview: _timerButton =timeBtn];
-        
-        [timeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_marketPriceFormatted.mas_bottom);
-            make.left.mas_equalTo(8);
-            make.width.mas_equalTo(140);
-            make.height.mas_equalTo(35);
-        }];
-        
-    }
+
+//    if ([_model.active_remainder_time integerValue] > 0) {
+//        _myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeFireMethod:) userInfo:nil repeats:YES];
+//        UIButton *timeBtn = [[UIButton alloc] init];
+//        [timeBtn setTitleColor:[UIColor colorWithHexString:@"b2b2b2"] forState:UIControlStateNormal];
+//        timeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);
+//        [timeBtn setImage:[UIImage imageNamed:@"clock"] forState:UIControlStateNormal];
+//        _lettTimes = [_model.active_remainder_time intValue];
+//        NSInteger leftdays = [_model.active_remainder_time integerValue]/(24*60*60);
+//        NSInteger hour = ([_model.active_remainder_time integerValue]-leftdays*24*3600)/3600;
+//        NSInteger minute = ([_model.active_remainder_time integerValue] - hour*3600-leftdays*24*3600)/60;
+//        NSInteger second = ([_model.active_remainder_time integerValue] - hour *3600 - 60*minute-leftdays*24*3600);
+//        NSString *leftmessage;
+//        if (leftdays ==0 && hour == 0) {
+//            
+//            leftmessage = [NSString stringWithFormat:@"剩余%ld时%ld分%ld秒",hour,minute,second];
+//        }else
+//        {
+//            leftmessage = [NSString stringWithFormat:@"%ld天%ld时%ld分%ld秒",leftdays,hour,minute,second];
+//        }
+//        timeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+//        [timeBtn setTitle:leftmessage forState:UIControlStateNormal];
+//        [view addSubview: _timerButton =timeBtn];
+//        
+//        [timeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(_marketPriceFormatted.mas_bottom);
+//            make.left.mas_equalTo(8);
+//            make.width.mas_equalTo(140);
+//            make.height.mas_equalTo(35);
+//        }];
+//        
+//    }
     
     
     //添加折扣 tag
@@ -378,12 +314,28 @@
     lineView.backgroundColor = [UIColor colorWithHexString:@"d7d7d7"];
     [view addSubview:lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(_lastButton.mas_bottom).offset(5);
+        make.top.equalTo(_shopPriceFormatted.mas_bottom).offset(5);
         make.right.left.mas_equalTo(0);
         make.height.mas_equalTo(PX_ONE);
     }];
-    
-    
+    _goods_number = [[UILabel alloc] init];
+    _goods_number.textColor = [UIColor colorWithHexString:@"323232"];
+    _goods_number.text = [NSString stringWithFormat:@"库存: %@件",_model.goods_number];
+    [view addSubview:_goods_number];
+    [_goods_number mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(lineView.mas_bottom);
+        make.left.mas_equalTo(MARGIN_8);
+        make.right.mas_equalTo(0);
+        make.height.mas_equalTo(40);
+    }];
+    UIView *lineView11 = [[UIView alloc] init];
+    lineView11.backgroundColor = [UIColor colorWithHexString:@"d7d7d7"];
+    [view addSubview:lineView11];
+    [lineView11 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_goods_number.mas_bottom);
+        make.right.left.mas_equalTo(0);
+        make.height.mas_equalTo(PX_ONE);
+    }];
     
     UILabel *shopPackageView = [[UILabel alloc] init];
     shopPackageView.userInteractionEnabled = YES;
@@ -391,7 +343,7 @@
     shopPackageView.text = @"选择：套餐分类、规格";
     [view addSubview:shopPackageView];
     [shopPackageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lineView.mas_bottom);
+        make.top.equalTo(lineView11.mas_bottom);
         make.left.mas_equalTo(MARGIN_8);
         make.right.mas_equalTo(0);
         make.height.mas_equalTo(40);
@@ -410,8 +362,7 @@
     
     UITapGestureRecognizer *ger = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseSpecifications)];
     [shopPackageView  addGestureRecognizer:ger];
-    
-    
+
     UIView *lineView1 = [[UIView alloc] init];
     lineView1.backgroundColor = [UIColor colorWithHexString:@"d7d7d7"];
     [view addSubview:lineView1];
@@ -420,18 +371,122 @@
         make.right.left.mas_equalTo(0);
         make.height.mas_equalTo(PX_ONE);
     }];
+    [view layoutIfNeeded];
+     self.headViewHeight = CGRectGetMaxY(lineView1.frame);
+    if (_model.is_collect) {
+        
+        UILabel *commentsLabel = [[UILabel alloc] init];
+        commentsLabel.userInteractionEnabled = YES;
+        commentsLabel.textColor = [UIColor colorWithHexString:@"323232"];
+        
+        commentsLabel.text = [NSString stringWithFormat:@"评价（%@）",_model.comments.total];
+        [view addSubview:commentsLabel];
+        [commentsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(lineView1.mas_bottom);
+            make.left.mas_equalTo(MARGIN_8);
+            make.right.mas_equalTo(0);
+            make.height.mas_equalTo(40);
+        }];
+        
+        UIImageView *commentsImageView = [[UIImageView alloc] init];
+        UIImage *image = [UIImage imageNamed:@"next"];
+        commentsImageView.image = image;
+        commentsImageView.userInteractionEnabled = YES;
+        [commentsLabel addSubview:commentsImageView];
+        [commentsImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(13);
+            make.left.mas_equalTo(UISCREEN_WIDTH - 8 - image.size.width*2);
+            make.size.mas_equalTo(image.size);
+        }];
+        
+        UITapGestureRecognizer *commentsGer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moreEvaluation)];
+        [commentsLabel  addGestureRecognizer:commentsGer];
+        
+        UIView *lineView2 = [[UIView alloc] init];
+        lineView2.backgroundColor = [UIColor colorWithHexString:@"d7d7d7"];
+        [view addSubview:lineView2];
+        [lineView2 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(commentsLabel.mas_bottom);
+            make.right.left.mas_equalTo(0);
+            make.height.mas_equalTo(PX_ONE);
+        }];
+        
+        
+        
+        
+        UILabel *user_name = [[UILabel alloc] init];
+        user_name.font  = SYSTEMFONT(14);
+        user_name.textColor = UIcolor(@"696969");
+        user_name.text = _model.comments.comment.user_name;
+        [view addSubview:user_name];
+        [user_name mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(lineView2.mas_bottom).offset(10);
+            make.left.mas_equalTo(10);
+
+        }];
+        
+        UILabel *comment_time = [[UILabel alloc] init];
+        comment_time.font  = SYSTEMFONT(14);
+        comment_time.textColor = UIcolor(@"696969");
+        comment_time.text = _model.comments.comment.comment_time;
+        [view addSubview:comment_time];
+        [comment_time mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(lineView2.mas_bottom).offset(10);
+            make.right.mas_equalTo(-10);
+            
+        }];
+        
+        [view layoutIfNeeded];
+        RatingBar *bar = [[RatingBar alloc] initWithFrame:CGRectMake(CGRectGetMaxX(user_name.frame)+10, 0, 100, 20)];
+        bar.ml_centerY = user_name.ml_centerY;
+        bar.enable = NO;
+        bar.starNumber = [_model.comments.comment.rank integerValue];
+        [view addSubview:bar];
+        
+        
+        
+        UILabel *content = [[UILabel alloc] init];
+        content.numberOfLines = 0;
+        content.font  = SYSTEMFONT(12);
+        content.textColor = UIcolor(@"696969");
+        content.text = _model.comments.comment.content;
+        [view addSubview:content];
+        [content mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(user_name.mas_bottom).offset(10);
+            make.left.mas_equalTo(10);
+            make.right.mas_equalTo(-10);
+            
+        }];
+    
+
+        UIView *lineView3 = [[UIView alloc] init];
+        lineView3.backgroundColor = [UIColor colorWithHexString:@"d7d7d7"];
+        [view addSubview:lineView3];
+        [lineView3 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(content.mas_bottom).offset(10);
+            make.right.left.mas_equalTo(0);
+            make.height.mas_equalTo(PX_ONE);
+        }];
+        
+        [view layoutIfNeeded];
+        self.headViewHeight = CGRectGetMaxY(lineView3.frame);
+        
+    }
+   
+    
+    view.mj_h =  self.headViewHeight;
+    headView.mj_h =  self.headViewHeight + 40;
     
     UIView *goodsInfoView = [[UIView alloc] initWithFrame:CGRectMake(0, self.headViewHeight+TOP_Y, UISCREEN_WIDTH, 40)];
     goodsInfoView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_menuView = goodsInfoView];
-    CGFloat width = UISCREEN_WIDTH / 3;
+    
     
     _titles = @[
                 @"商品介绍",
                 @"规格参数",
-                @"麻妈口碑"
                 ];
-    
+    CGFloat width = UISCREEN_WIDTH / _titles.count;
     for (NSInteger i = 0 ; i < _titles.count; i++) {
         UIView *view = [[UIView alloc] init];
         view.frame = CGRectMake(i * width, 0, width, 40);
@@ -451,7 +506,7 @@
         
         [self.goodsInfoViewArr addObject:btn];
         
-        if (i != 2) {
+        if (i != 1) {
             UIView *lineView = [[UIView alloc] init];
             lineView.frame = CGRectMake(width - PX_ONE, 10, PX_ONE,  20);
             lineView.backgroundColor = [UIColor colorWithHexString:@"898989"];
@@ -474,66 +529,88 @@
     
 }
 
+/**更多评价数据*/
+-(void)moreEvaluation{
+    MBGoodsEvaluationViewController *VC = [[MBGoodsEvaluationViewController alloc] init];
+    VC.GoodsId = self.GoodsId;
+    [self pushViewController:VC Animated:true];
+}
 #pragma mark - 商品底部Tabbar
 - (void)setupGoodsTabbar{
     UIView *tabbarView = [[UIView alloc] init];
     tabbarView.backgroundColor = [UIColor whiteColor];
-    CGFloat height = 40;
-    tabbarView.frame = CGRectMake(0, self.view.ml_height - height, self.view.ml_width, height);
     [self.view addSubview: tabbarView];
-    //小能移动客服
-    UIButton *customerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [customerBtn setImage:[UIImage imageNamed:@"service"] forState:UIControlStateNormal];
-    customerBtn.frame = CGRectMake(0, 0, 35, height);
-    [tabbarView addSubview:customerBtn];
-    [customerBtn addTarget:self action:@selector(service) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIView *lineView = [[UIView alloc] init];
-    lineView.frame = CGRectMake(CGRectGetMaxX(customerBtn.frame), 10, 1, height -20);
-    lineView.backgroundColor = [UIColor colorWithHexString:@"898989"];
-    [tabbarView addSubview:lineView];
-    
-    
-    //收藏按钮
-    UIButton *collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    if (_model.is_collect) {
-        [collectionBtn setImage:[UIImage imageNamed:@"nice"] forState:UIControlStateNormal];
-        
-        
-    } else {
-        [collectionBtn setImage:[UIImage imageNamed:@"collection"] forState:UIControlStateNormal];
-    }
-    
-    
-    collectionBtn.frame = CGRectMake(35, 0, 35, height);
-    [collectionBtn addTarget:self action:@selector(ClickCollection:) forControlEvents:UIControlEventTouchUpInside];
-    [tabbarView addSubview:collectionBtn];
-    
+    [tabbarView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(0);
+        make.height.mas_equalTo(50);
+    }];
     [self addTopLineView:tabbarView];
     
-    CGFloat width = (self.view.ml_width - CGRectGetMaxX(collectionBtn.frame) - MARGIN_20) * 0.5;
-    CGFloat y = (tabbarView.ml_height - 30) / 2;
+    
+    //小能移动客服
+    UIButton *customerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+
+    [customerBtn setImage:[UIImage imageNamed:@"service"] forState:UIControlStateNormal];
+    [customerBtn setTitle:@"客服" forState:UIControlStateNormal];
+    customerBtn.titleLabel.font  = SYSTEMFONT(12);
+    [customerBtn setTitleColor:UIcolor(@"686d6f") forState:UIControlStateNormal];
+    [customerBtn addTarget:self action:@selector(service) forControlEvents:UIControlEventTouchUpInside];
+    [tabbarView addSubview:customerBtn];
+    [customerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.left.mas_equalTo(0);
+        make.width.mas_equalTo(UISCREEN_WIDTH/4 - PX_ONE);
+    }];
+    [customerBtn layoutIfNeeded];
+    [customerBtn setButtonContentCenter:10];
+    
+    
+    UIView *lineView = [[UIView alloc] init];
+    lineView.backgroundColor = UIcolor(@"dfe1e9");
+    [tabbarView addSubview:lineView];
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(5);
+        make.bottom.mas_equalTo(-5);
+        make.left.equalTo(customerBtn.mas_right);
+        make.width.mas_equalTo(PX_ONE);
+    }];
+    
+    UIButton *goodsCarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [goodsCarBtn setImage:[UIImage imageNamed:@"shoppingCart"] forState:UIControlStateNormal];
+    [goodsCarBtn setTitleColor:UIcolor(@"686d6f") forState:UIControlStateNormal];
+    [goodsCarBtn setTitle:@"购物车" forState:UIControlStateNormal];
+    goodsCarBtn.titleLabel.font  = SYSTEMFONT(12);
+    [tabbarView addSubview:goodsCarBtn];
+    [goodsCarBtn addTarget:self action:@selector(careClick) forControlEvents:UIControlEventTouchUpInside];
+    [goodsCarBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.mas_equalTo(0);
+        make.left.equalTo(lineView.mas_right);
+        make.width.mas_equalTo(UISCREEN_WIDTH/4);
+    }];
+    [goodsCarBtn layoutIfNeeded];
+     [goodsCarBtn setButtonContentCenter:10];
+       [goodsCarBtn.imageView layoutIfNeeded];
+    self.badge = [CustomBadge customBadgeWithString:@"0" withStyle:[BadgeStyle defaultStyle]];
+    self.badge.center =  CGPointMake(34+25, 10);
+    self.badge.size  = CGSizeMake(20, 20);
+    self.badge.hidden = true;
+    [goodsCarBtn.imageView.superview addSubview:self.badge];
+
+    
     //立即购买
     UIButton *purchaseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    purchaseBtn.tag = 2;
-    purchaseBtn.frame = CGRectMake(CGRectGetMaxX(collectionBtn.frame) + MARGIN_10, y, width, 30);
     purchaseBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     purchaseBtn.backgroundColor = [UIColor colorWithHexString:@"e8465e"];
     [purchaseBtn setTitle:@"加入购物车" forState:UIControlStateNormal];
     [purchaseBtn addTarget:self action:@selector(purchaseGoods:) forControlEvents:UIControlEventTouchUpInside];
-    purchaseBtn.layer.cornerRadius = 3.0;
+    //    purchaseBtn.layer.cornerRadius = 3.0;
     [tabbarView addSubview:purchaseBtn];
-    //加入购物车
-    UIButton *shopingCartBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    shopingCartBtn.tag = 1;
-    shopingCartBtn.frame = CGRectMake(CGRectGetMaxX(purchaseBtn.frame) + MARGIN_5, y, width, 30);
-    shopingCartBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    shopingCartBtn.backgroundColor = [UIColor colorWithHexString:@"eeb94f"];
-    [shopingCartBtn setTitle:@"立即购买" forState:UIControlStateNormal];
-    shopingCartBtn.layer.cornerRadius = 3.0;
-    [tabbarView addSubview:shopingCartBtn];
-    [shopingCartBtn addTarget:self action:@selector(purchaseGoods:) forControlEvents:UIControlEventTouchUpInside];
+    [purchaseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.right.mas_equalTo(0);
+        make.left.equalTo(goodsCarBtn.mas_right);
+    }];
+   
 }
+
 - (void)changeItem:(MBShoppingBtn *)btn{
     
     if (btn.isClickStatus) {
@@ -551,33 +628,33 @@
     [self scrollViewDidEndDecelerating:self.scrollView];
     
 }
--(void)timeFireMethod:(NSTimer *)timer{
-    
-    
-    _lettTimes--;
-    if (_lettTimes > 0) {
-        NSInteger leftdays = _lettTimes/(24*60*60);
-        NSInteger hour = (_lettTimes-leftdays*24*3600)/3600;
-        NSInteger minute = (_lettTimes - hour*3600-leftdays*24*3600)/60;
-        NSInteger second = (_lettTimes - hour *3600 - 60*minute-leftdays*24*3600);
-        NSString *leftmessage;
-        if (leftdays ==0 && hour == 0) {
-            leftmessage = [NSString stringWithFormat:@"剩余%ld时%ld分%ld秒",hour,minute,second];
-            
-        }else
-        {
-            leftmessage = [NSString stringWithFormat:@"%ld天%ld时%ld分%ld秒",leftdays,hour,minute,second];
-            
-        }
-        
-        [_timerButton setTitle:leftmessage forState:UIControlStateNormal];
-    }
-    
-    if(_lettTimes==0){
-        [_myTimer invalidate];
-        _myTimer = nil;
-    }
-}
+//-(void)timeFireMethod:(NSTimer *)timer{
+//    
+//    
+//    _lettTimes--;
+//    if (_lettTimes > 0) {
+//        NSInteger leftdays = _lettTimes/(24*60*60);
+//        NSInteger hour = (_lettTimes-leftdays*24*3600)/3600;
+//        NSInteger minute = (_lettTimes - hour*3600-leftdays*24*3600)/60;
+//        NSInteger second = (_lettTimes - hour *3600 - 60*minute-leftdays*24*3600);
+//        NSString *leftmessage;
+//        if (leftdays ==0 && hour == 0) {
+//            leftmessage = [NSString stringWithFormat:@"剩余%ld时%ld分%ld秒",hour,minute,second];
+//            
+//        }else
+//        {
+//            leftmessage = [NSString stringWithFormat:@"%ld天%ld时%ld分%ld秒",leftdays,hour,minute,second];
+//            
+//        }
+//        
+//        [_timerButton setTitle:leftmessage forState:UIControlStateNormal];
+//    }
+//    
+//    if(_lettTimes==0){
+//        [_myTimer invalidate];
+//        _myTimer = nil;
+//    }
+//}
 #pragma mark --云客服
 - (void)service{
     
@@ -650,14 +727,14 @@
 - (void)purchaseGoods:(UIButton *)btn{
     switch (btn.tag) {
         case 1: [self presentSemiType:2];break;
-          
+            
         default: [self presentSemiType:3];break;
     }
 }
 #pragma mark - 商品收藏
 -(void)ClickCollection:(UIButton *)btn
 {
-    [btn setImage:[UIImage imageNamed:@"nice"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"collection"] forState:UIControlStateNormal];
     [self getCollectionGoodsData];
 }
 //获取收藏数据
@@ -691,11 +768,61 @@
     return @"商品详情";
 }
 
--(NSString *)rightImage{
-    return @"shoppingCart";
+-(void)goodShare{
+    
+    if (!_model.goods_gallery||_model.goods_gallery == 0 ) {
+        [self show:@"商品图片不存在，无法分享！" time:.5];
+        return;
+    }
+    //1、创建分享参数
+    NSArray* imageArray = @[_model.goods_gallery.firstObject];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.xiaomabao.com/goods-%@.html",_model.goods_id]];
+    //（注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
+    if (imageArray) {
+        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+        [shareParams SSDKSetupShareParamsByText:_model.goods_name
+                                         images:imageArray
+                                            url:url
+                                          title:@"小麻包母婴分享"
+                                           type:SSDKContentTypeWebPage];
+        //2、分享（可以弹出我们的分享菜单和编辑界面）
+        [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
+                                 items:nil
+                           shareParams:shareParams
+                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                       
+                       switch (state) {
+                           case SSDKResponseStateSuccess:
+                           {
+                               UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                   message:nil
+                                                                                  delegate:nil
+                                                                         cancelButtonTitle:@"确定"
+                                                                         otherButtonTitles:nil];
+                               [alertView show];
+                               break;
+                           }
+                           case SSDKResponseStateFail:
+                           {
+                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                               message:[NSString stringWithFormat:@"%@",error]
+                                                                              delegate:nil
+                                                                     cancelButtonTitle:@"OK"
+                                                                     otherButtonTitles:nil, nil];
+                               [alert show];
+                               break;
+                           }
+                           default:
+                               break;
+                       }
+                       
+                   }];
+    }
+    
+    
 }
 
--(void)rightTitleClick{
+-(void)careClick{
     
     MBShoppingCartViewController *shoppingCartVc = [[MBShoppingCartViewController alloc] init];
     [self.navigationController pushViewController:shoppingCartVc animated:YES];
@@ -717,16 +844,15 @@
     
     MBGoodsSpecsView * imagev = [[MBGoodsSpecsView alloc] initWithModel:_goodsSpecsModel type:type];
     imagev.VC = self;
-    
+    imagev.inventoryNum =  [_model.goods_number integerValue];
     WS(weakSelf)
     imagev.getCarData = ^(){
-        [weakSelf getShoppingCartNumber];
-    
-    };
-    UIImageView * bgimgv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
-    bgimgv.backgroundColor = [UIColor blackColor];
-    [self presentSemiView:imagev withOptions:@{ KNSemiModalOptionKeys.backgroundView:bgimgv }];
+        
+        
+    [weakSelf getShoppingCartNumber];
 
+    };
+    [self presentSemiView:imagev];
 }
 - (void)setTagButton:(NSString *)color tagName:(NSString *)tagName i:(NSInteger)i shopTimeView:(UIView *)shopTimeView{
     CGFloat tagBtnheight = 20;
@@ -739,7 +865,8 @@
     btn.layer.cornerRadius = 3.0f;
     [shopTimeView addSubview:btn];
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_goods_number.mas_bottom);
+//        make.top.equalTo(_goods_number.mas_bottom);
+        make.centerY.equalTo(_shopPriceFormatted.mas_centerY);
         make.width.mas_equalTo(width);
         make.height.mas_equalTo(tagBtnheight);
         if (!_lastButton) {
@@ -813,8 +940,9 @@
             
             MMLog(@"获取商品内容详情数据成功%@",@"123");
             _model = [MBGoodsModel yy_modelWithDictionary:responseObject[@"data"]];
+            [self getShareButton];
             CGFloat strHeight = [_model.goods_name sizeWithFont:[UIFont boldSystemFontOfSize:13]  withMaxSize:CGSizeMake(UISCREEN_WIDTH-16, MAXFLOAT)].height;
-            self.headViewHeight = UISCREEN_WIDTH+strHeight+120;
+            self.headViewHeight = UISCREEN_WIDTH+strHeight+120 + 40 + (_model.is_collect?60:0);
             if ([_model.active_remainder_time integerValue] > 0) {
                 self.headViewHeight = UISCREEN_WIDTH+strHeight+135;
             }
@@ -844,94 +972,26 @@
     
 }
 
-#pragma mark -- 获取商品评价数据;
--(void)getGoodsCommentsData
-{
-    
-    MMLog(@"%u--%ld",_isCommentData,(long)_pageIndex);
-    if ( _isCommentData) {
-    
-        if (_pageIndex != 2) {
-            
-            [_tableViews.lastObject.mj_footer endRefreshing];
-            return;
-        }
-        
-        [self show];
-    }
-    
-    [MBNetworking    POSTOrigin:string(BASE_URL_root, @"/goods/comments") parameters:@{@"goods_id":self.GoodsId,@"page":s_Integer(_page)} success:^(id responseObject) {
-       
-        if ([self checkData:responseObject]) {
-            if (_isCommentData) {
-                [self dismiss];
-            }
-            if (_page==1) {
-                 _isCommentData = YES;
-                if (_tableViews.count > 0) {
-                    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(getGoodsCommentsData)];
-                    footer.refreshingTitleHidden = YES;
-                    _tableViews.lastObject.mj_footer = footer;
-                }
-            }else{
-                [_tableViews.lastObject.mj_footer endRefreshing];
-            }
-            if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
-                
-                 MMLog(@"获取评论成功%@",@"123");
-                if (_page == 1) {
-                    
-                    _goodCommentModel = [MBGoodCommentModel yy_modelWithDictionary:responseObject[@"data"]];
-                    
-                    
-                    
-                }else{
-                    [_goodCommentModel.commentsList addObjectsFromArray:[MBGoodCommentModel yy_modelWithDictionary:responseObject].commentsList];
-                }
-                
-                if (_isCommentData) {
-                    [_tableViews.lastObject reloadData];
-                }
-                
-                if (_tableViews.count > 0) {
-                    [_tableViews.lastObject reloadData];
-                }
-                if ([responseObject[@"data"][@"comments_list"] count] == 0) {
-                    [_tableViews.lastObject.mj_footer endRefreshingWithNoMoreData];
-                    return ;
-                }
-                _page ++;
-            }
-        }
-        
-    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        if (_isCommentData) {
-            [self show:@"请求失败，请检查你的网络连接！" time:.5];
-        }
-        
-        MMLog(@"%@",error);
-    }];
-    
-}
+
 #pragma mark -- 请求规格数据
 -(void)getGoodsPropertyData{
     if (_isSpecData) {
-         [self show];
+        [self show];
     }
-
+    
     [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/goods/getgoodsspecs") parameters:@{@"goods_id":self.GoodsId} success:^(id responseObject) {
         if (_isSpecData) {
             [self dismiss];
         }
         
         if ([self checkData:responseObject]&&[responseObject[@"status"][@"succeed"] integerValue] == 1) {
-             MMLog(@"获取规格数据成功%@",@"123");
+            MMLog(@"获取规格数据成功%@",@"123");
             MMLog(@"获取规格数据成功%@",responseObject);
             _goodsSpecsModel = [MBGoodsSpecsRootModel yy_modelWithDictionary:responseObject[@"data"]];
             if (_isSpecData) {
                 [self presentSemiType:1];
             }
-//            MMLog(@"%@",_goodsSpecsModel);
+            //            MMLog(@"%@",_goodsSpecsModel);
             _isSpecData = false;
             
         }
@@ -950,7 +1010,7 @@
         [self show];
     }
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/goods/getgoodsproperty") parameters:@{@"goods_id":self.GoodsId} success:^(id responseObject) {
-//        MMLog(@"获取商品介绍%@",responseObject);
+        //        MMLog(@"获取商品介绍%@",responseObject);
         if (_isPropertyData) {
             [self dismiss];
         }
@@ -1078,16 +1138,6 @@
                 }
                 
             }break;
-            case 2:
-            {
-                if (!_goodCommentModel) {
-                    _page = 1;
-                    _isCommentData = true;
-                    [self getGoodsCommentsData];
-                }
-                
-            }break;
-                
             default:
                 break;
         }
@@ -1122,49 +1172,15 @@
     switch (tableView.tag) {
         case 0:return _model.imageScale.count;
         case 1:return _goodsPropertyArray.count > 0?_goodsPropertyArray.count:1;
-        case 2:return _goodCommentModel.commentsList.count;
         default:return 0;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    switch (tableView.tag) {
-        case 2: return 30;
-        default: return 0;
-            
-    }
+    return 0;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    switch (tableView.tag) {
-        case 2:{
-            UIView *commonView = [[UIView alloc] init];
-            commonView.frame = CGRectMake(0, 0, self.view.ml_width, 30);
-            UILabel *commonLbl = [[UILabel alloc] init];
-            commonLbl.frame = CGRectMake(MARGIN_8, 0, commonView.ml_width, commonView.ml_height);
-            commonLbl.font = [UIFont systemFontOfSize:14];
-            commonLbl.textColor = [UIColor colorWithHexString:@"323232"];
-            commonLbl.text = [NSString stringWithFormat:@"评论晒单 (%@人评论)",_goodCommentModel.comment_num];
-            [commonView addSubview:commonLbl];
-            
-            UILabel *praiseTextLbl = [[UILabel alloc] init];
-            praiseTextLbl.font = [UIFont systemFontOfSize:14];
-            praiseTextLbl.text = @"好评率";
-            praiseTextLbl.frame = CGRectMake(commonView.ml_width - 8 - 50, 0, 50, commonView.ml_height);
-            [commonView addSubview:praiseTextLbl];
-            
-            UILabel *praiseLbl = [[UILabel alloc] init];
-            praiseLbl.font = [UIFont systemFontOfSize:14];
-            praiseLbl.textColor = [UIColor colorWithHexString:@"e8465e"];
-            praiseLbl.text = _goodCommentModel.good_comment_rate;
-            praiseLbl.frame = CGRectMake(commonView.ml_width - 8 - 100, 0, 50, commonView.ml_height);
-            [commonView addSubview:praiseLbl];
-            return commonView;
-        }
-            
-            
-            
-        default:return [[UIView alloc] init];
-    }
+    return [[UIView alloc] init];
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -1177,21 +1193,14 @@
             [self configureCell:cell atIndexPath:indexPath];
             
         }];
-        case 2:return  [tableView fd_heightForCellWithIdentifier:@"MBShopTableViewCell" cacheByIndexPath:indexPath configuration:^(MBShopTableViewCell *cell) {
-            [self configureCell:cell atIndexPath:indexPath];
-            
-        }];
+       
         default:return 0;
     }
     
 }
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     cell.fd_enforceFrameLayout = YES;
-    if ([cell isKindOfClass:[MBShopTableViewCell class]]) {
-        
-        MBShopTableViewCell *commtCell  = (MBShopTableViewCell *)cell;
-        commtCell.model = _goodCommentModel.commentsList[indexPath.row];
-    }else{
+    
         
         MBGoodsPropertyTableViewCell *PropertyCell  = (MBGoodsPropertyTableViewCell *)cell;
         [PropertyCell removeUIEdgeInsetsZero];
@@ -1202,7 +1211,6 @@
             PropertyCell.isShowImage = true;
             
         }
-    }
     
     
 }
@@ -1230,15 +1238,6 @@
             
             return cell;
             
-        }
-        case 2:  {
-            
-            
-            
-            MBShopTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBShopTableViewCell" forIndexPath:indexPath];
-            [cell uiedgeInsetsZero];
-            [self configureCell:cell atIndexPath:indexPath];
-            return cell;
         }
             
             

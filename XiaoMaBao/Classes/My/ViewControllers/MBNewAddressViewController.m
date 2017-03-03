@@ -164,17 +164,30 @@
 }
 #pragma mark -- 省市联动确定
 - (IBAction)determine:(id)sender {
-    
-    NSString *sheng  = [self.provinceArray objectAtIndex:[self.myPicker selectedRowInComponent:0]][@"name"];
-    _provinceID =  [self.provinceArray objectAtIndex:[self.myPicker selectedRowInComponent:0]][@"id"];
-    
-    
-    NSString *shi = [self.cityArray objectAtIndex:[self.myPicker selectedRowInComponent:1]][@"name"];
-    _cityID = [self.cityArray objectAtIndex:[self.myPicker selectedRowInComponent:1]][@"id"];
+    NSString *sheng =@"";
+    if (self.provinceArray.count > [self.myPicker selectedRowInComponent:0]){
+        sheng  = [self.provinceArray objectAtIndex:[self.myPicker selectedRowInComponent:0]][@"name"];
+        _provinceID =  [self.provinceArray objectAtIndex:[self.myPicker selectedRowInComponent:0]][@"id"];
+    }
     
     
-    NSString *qu =  [self.townArray objectAtIndex:[self.myPicker selectedRowInComponent:2]][@"name"];
-    _districtID = [self.townArray objectAtIndex:[self.myPicker selectedRowInComponent:2]][@"id"];
+    
+      NSString *shi  = @"";
+    if (self.cityArray.count > [self.myPicker selectedRowInComponent:1]) {
+    
+        shi = [self.cityArray objectAtIndex:[self.myPicker selectedRowInComponent:1]][@"name"];
+        _cityID = [self.cityArray objectAtIndex:[self.myPicker selectedRowInComponent:1]][@"id"];
+    }
+    
+   
+    
+    
+     NSString *qu = @"";
+    if (self.townArray.count > [self.myPicker selectedRowInComponent:2]) {
+       qu =  [self.townArray objectAtIndex:[self.myPicker selectedRowInComponent:2]][@"name"];
+        _districtID = [self.townArray objectAtIndex:[self.myPicker selectedRowInComponent:2]][@"id"];
+    }
+   
     NSString *str = [NSString stringWithFormat:@"%@-%@-%@",sheng,shi,qu];
     self.address.text = str;
     

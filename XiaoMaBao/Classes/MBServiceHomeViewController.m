@@ -31,7 +31,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    MMLog(@"%f",UISCREEN_WIDTH);
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.tableView.backgroundColor = UIcolor(@"f3f3f3");
     self.collectionView.ml_height = 0;

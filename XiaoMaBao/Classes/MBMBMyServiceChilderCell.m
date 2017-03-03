@@ -17,13 +17,13 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.service_image.contentMode =  UIViewContentModeScaleAspectFill;
-    self.service_image.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.service_image.clipsToBounds  = YES;
-    
-    self.service_image.contentMode =  UIViewContentModeScaleAspectFill;
-    self.service_image.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.service_image.clipsToBounds  = YES;
+//    self.service_image.contentMode =  UIViewContentModeScaleAspectFill;
+//    self.service_image.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//    self.service_image.clipsToBounds  = YES;
+//    
+//    self.service_image.contentMode =  UIViewContentModeScaleAspectFill;
+//    self.service_image.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//    self.service_image.clipsToBounds  = YES;
 }
 
 - (IBAction)tiaozhuandianbu:(id)sender {

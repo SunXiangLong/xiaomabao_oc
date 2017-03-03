@@ -13,14 +13,23 @@
 @interface MBGoodCommentListModel : NSObject
 @property (nonatomic, strong) NSString * ID;
 @property (nonatomic, strong) NSString * author;
-@property (nonatomic, strong) NSString * content;
 @property (nonatomic, strong) NSString * comment_rank;
 @property (nonatomic, strong) NSString * create_time;
 @property (nonatomic, strong) NSArray * img_path;
+
+@property (nonatomic, strong) NSString * content;
+@property (nonatomic, strong) NSString * user_name;
+@property (nonatomic, strong) NSString * comment_time;
+@property (nonatomic, strong) NSString * rank;
 @end
 @interface MBGoodCommentModel : NSObject
 @property (nonatomic, strong) NSNumber * comment_num;
 @property (nonatomic, strong) NSString * good_comment_rate;
+
+@property (nonatomic, strong) NSNumber * total;
+@property (nonatomic, strong) NSString * rate;
+@property (nonatomic, strong) MBGoodCommentListModel * comment;
+
 @property (nonatomic, strong) NSMutableArray<MBGoodCommentListModel *> * commentsList;
 @end
 @interface MBGoodsPropertyModel : NSObject
@@ -29,6 +38,8 @@
 @end
 @interface MBGoodsModel : NSObject
 @property (nonatomic, strong) NSString * shop_price;
+@property (nonatomic, strong) MBGoodCommentModel * comments;
+
 @property (nonatomic, strong) NSURL    * goods_thumb;
 @property (nonatomic, strong) NSString * goods_shop_pricename;
 @property (nonatomic, strong) NSString * market_price;

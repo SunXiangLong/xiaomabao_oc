@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _centerText.text = @"1.目前只支持纸质发票，暂不支持电子发票，增值税发票 \n\n2.发票金额为订单的实际支付金额、不含红包、优惠券抵扣金额";
+    _centerText.text = @"1.目前只支持纸质发票，暂不支持电子发票，增值税发票 \n\n2.发票金额为订单的实际支付金额、不含红包、优惠券抵扣金额、麻豆抵扣金额、麻包卡&共享卡抵扣金额";
     
     _instructionsView.frame = CGRectMake(0, -UISCREEN_HEIGHT, UISCREEN_WIDTH, UISCREEN_HEIGHT);
     

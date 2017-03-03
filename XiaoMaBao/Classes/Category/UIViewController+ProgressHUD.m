@@ -25,7 +25,7 @@
     if ([responseObject[@"status"] isKindOfClass:[NSDictionary class]]) {
         return true;
     }else if ([responseObject[@"status"] integerValue] == 0){
-        UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"示" message:@"登录超时,请重新登录!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"登录超时,请重新登录!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alerView show];
     
     }

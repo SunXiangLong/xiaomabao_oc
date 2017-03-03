@@ -60,9 +60,7 @@
 -(void)getCouponList
 {
    
-    if(!_couponList){
-        _couponList = [NSMutableArray array];
-    }
+    
     
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
@@ -73,11 +71,12 @@
     }
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/discount/get_user_coupon"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/discount/get_user_coupon") parameters:@{@"session":dict} success:^(id responseObject) {
         [self dismiss];
-        _couponList = [responseObject valueForKeyPath:@"data"];
-        MMLog(@"%@",_couponList);
-        
+        if (![self checkData:responseObject]) {
+            return ;
+        }
+        _couponList = [NSMutableArray arrayWithArray:responseObject[@"data"]];
         if (_couponList.count>0) {
             if(_tableView){
                 [_tableView reloadData];
@@ -85,11 +84,10 @@
                 [self tableView];
             }
         }else{
-       
+            
             self.stateStr = @"你没有可用的代金劵" ;
-        
+            
         }
-        
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         MMLog(@"%@",error);

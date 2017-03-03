@@ -63,6 +63,9 @@
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/refund/refund_process") parameters:@{@"session":sessiondict,@"order_id":_orderid} success:^(id responseObject) {
         
         [self dismiss];
+        if (![self checkData:responseObject]) {
+            return ;
+        }
         MMLog(@"退款进度查询成功---responseObject%@",responseObject);
         if ([responseObject[@"status"][@"succeed"]integerValue] == 1) {
             NSDictionary *dic = (NSDictionary *)responseObject[@"data"];

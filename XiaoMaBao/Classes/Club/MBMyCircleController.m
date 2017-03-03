@@ -155,7 +155,7 @@
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
        
         if (responseObject) {
-            if ([[responseObject valueForKeyPath:@"data"] count]>0) {
+            if ([[responseObject valueForKeyPath:@"data"] isKindOfClass:[NSArray class]]) {
                 _bandImageArray = [responseObject valueForKeyPath:@"data"];
                
                 NSMutableArray *imaageUrlArr = [NSMutableArray array];

@@ -50,4 +50,6 @@
  */
 +(CGSize)getImageSizeWithURL:(id)imageURL;
 
+/**改变图片颜色*/
+- (UIImage *) imageWithTintColor:(UIColor *)tintColor;
 @end

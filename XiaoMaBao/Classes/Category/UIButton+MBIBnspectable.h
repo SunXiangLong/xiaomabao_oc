@@ -11,4 +11,11 @@ IB_DESIGNABLE
 @interface UIButton (MBIBnspectable)
 // set text hex color
 @property (assign,nonatomic) IBInspectable NSString *titleHexColor;
+
+/**
+ 设置按钮和图片垂直居中
+
+ @param topHeighet 图片距离top的距离
+ */
+-(void)setButtonContentCenter:(CGFloat )topHeighet;
 @end

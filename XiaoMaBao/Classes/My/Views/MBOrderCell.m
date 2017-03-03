@@ -41,15 +41,8 @@
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBAfterServiceTableViewCell" owner:nil options:nil]firstObject];
     }
     
-    [cell.showImageview sd_setImageWithURL:model.goods_img];
+    cell.model = model;
     
-    //名字描述
-    cell.describe.text = model.name;
-    //数量以及价格
-    NSString *goods_number = model.goods_number;
-    NSString *formated_shop_price = model.shop_price_formatted;
-    
-    cell.priceAndNumber.text = [NSString stringWithFormat:@"%@ X %@",formated_shop_price,goods_number];
     
     return cell;
     

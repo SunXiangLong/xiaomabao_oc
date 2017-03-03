@@ -213,10 +213,8 @@
         
         return cell;
     }
-    
     //图片
     NSString *urlstr = [[self.goodsListArray objectAtIndex:indexPath.row]  valueForKeyPath:@"img"];
-
     NSURL *url = [NSURL URLWithString:urlstr];
     [cell.showimageview sd_setImageWithURL:url];
     //名字描述
@@ -225,7 +223,6 @@
     //数量
     NSString *goods_number = [[self.goodsListArray objectAtIndex:indexPath.row]  valueForKeyPath:@"goods_number"];
     cell.countNumber.text = [NSString stringWithFormat:@"X %@",goods_number];
-    
     NSString *price = [[self.goodsListArray objectAtIndex:indexPath.row]  valueForKeyPath:@"goods_price_formatted"];
     cell.countprice.text = price;
     return cell;
@@ -234,7 +231,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 58;
+    return 146;
 }
 
 - (NSString *)titleStr{

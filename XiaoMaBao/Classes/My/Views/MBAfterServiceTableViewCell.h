@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "MBOrderModel.h"
+#import "MBRefundModel.h"
 @interface MBAfterServiceTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *showImageview;
-@property (weak, nonatomic) IBOutlet UILabel *describe;
-@property (weak, nonatomic) IBOutlet UILabel *priceAndNumber;
-@property (nonatomic,strong) MBGoodListModel *model;
 
+@property (nonatomic,strong) MBGoodListModel *model;
+@property (nonatomic,strong) MBRefundGoodsModel *refundGoodsModel;
 
 @end

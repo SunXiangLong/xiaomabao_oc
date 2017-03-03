@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "shoppingCart1.png",
+      "filename" : "shoppingCart.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "shoppingCart2.png",
+      "filename" : "shoppingCart@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "shoppingCart-2副本.png",
+      "filename" : "shoppingCart@3x.png",
       "scale" : "3x"
     }
   ],

@@ -7,22 +7,27 @@
 //
 
 #import "MBGoodsSpecsView.h"
-#import "MBSpecificationsCell.h"
 #import "MBShoppingCartViewController.h"
 #import <QuartzCore/QuartzCore.h>
-@interface MBGoodsSpecsView ()
+@interface MBGoodsSpecsView ()<UITextFieldDelegate>
 {
     NSString *_spec;
+    
+    UITextField *_goodsNumField;
+    UIButton *_goodsMoreBtn;
+    UIButton *_goodsLessBtn;
+    
+    
 }
 @property (nonatomic, weak) MBGoodsSpecsRootModel *model;
-@property (nonatomic, weak) UILabel *buyNumsLbl;
+//@property (nonatomic, weak) UILabel *buyNumsLbl;
 @property (nonatomic, weak) UILabel *priceLbl;
 // 存放buttons的数组
 @property (nonatomic, strong) NSMutableArray *selecterSpecsArr;
 @property (nonatomic, strong) NSMutableArray *lastBtnsArr;
 @property (nonatomic, strong) UIView *lastView;
 /** 购买数量 */
-@property (nonatomic, assign) int buyNum;
+@property (nonatomic, assign) NSInteger buyGoodsNum;
 /**1 是规格选择   2 立即购买  3是加入购物车*/
 @property (nonatomic,assign) NSInteger type;
 @end
@@ -32,7 +37,7 @@
     if (self) {
         self.frame = CGRectMake(0, 0, UISCREEN_WIDTH,UISCREEN_HEIGHT - UISCREEN_WIDTH/2);
         _model = model;
-        _buyNum = 1;
+        _buyGoodsNum = 1;
         _type = num;
         _selecterSpecsArr = [NSMutableArray array];
         _lastBtnsArr = [NSMutableArray array];
@@ -45,6 +50,25 @@
     }
     return self;
 }
+
+-(void)setInventoryNum:(NSInteger)inventoryNum{
+    _inventoryNum = inventoryNum;
+    if (inventoryNum == 0) {
+        _buyGoodsNum = 0;
+        _goodsMoreBtn.enabled = false;
+        _goodsLessBtn.enabled = false;
+    }
+    
+    if (_buyGoodsNum > inventoryNum ) {
+        _buyGoodsNum = inventoryNum;
+        
+        _goodsMoreBtn.enabled = false;
+        _goodsLessBtn.enabled = true;
+    }
+    
+    _goodsNumField.text = [NSString stringWithFormat:@"%ld",(long)_buyGoodsNum];
+    
+}
 /**
  *  设置视图的基本内容
  */
@@ -55,11 +79,8 @@
     iconView.layer.shadowColor = [UIColor blackColor].CGColor;// 阴影的颜色
     iconView.layer.shadowRadius = 3;// 阴影扩散的范围控制
     iconView.layer.shadowOffset  = CGSizeMake(1, 1);// 阴影的范围
-    iconView.layer.cornerRadius = 5;
-//        iconView.layer.masksToBounds = YES;
-    [self addSubview:iconView];
     
-//    [iconView bezierPathWithRoundingCorners:UIRectCornerTopLeft|UIRectCornerBottomLeft cornerRadii:10];
+    [self addSubview:iconView];
     UIImageView *iconImgView = [[UIImageView alloc] init];
     [iconImgView sd_setImageWithURL:_model.goodsModel.goods_thumb placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
     [iconView addSubview:iconImgView];
@@ -68,13 +89,14 @@
     }];
     
     UIButton *XBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [XBtn setBackgroundImage:[UIImage imageNamed:@"goodsSpecsDelete"] forState:UIControlStateNormal];
+    
+    [XBtn setImage:[UIImage imageNamed:@"goodsSpecsDelete"] forState:UIControlStateNormal];
     [XBtn addTarget:self action:@selector(removeView) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:XBtn];
     [XBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(10);
-        make.right.mas_equalTo(-10);
-        make.width.height.mas_equalTo(8);
+        make.top.mas_equalTo(5);
+        make.right.mas_equalTo(-5);
+        make.width.height.mas_equalTo(30);
     }];
     UILabel *goodsPriceLbl = [[UILabel alloc] init];
     goodsPriceLbl.text = _model.goodsModel.shop_price_formatted;
@@ -82,7 +104,7 @@
     goodsPriceLbl.textColor = [UIColor colorWithHexString:@"f11919"];
     [self addSubview:_priceLbl = goodsPriceLbl];
     [goodsPriceLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(XBtn.mas_bottom).offset(5);
+        make.top.equalTo(XBtn.mas_bottom).offset(-10 );
         make.left.equalTo(iconView.mas_right).offset(15);
     }];
     
@@ -115,37 +137,13 @@
     //加入购物车
     UIButton *shopingCartBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     shopingCartBtn.tag = 2;
-    shopingCartBtn.frame = CGRectMake( 0, CGRectGetMaxY(attrScrollView.frame), UISCREEN_WIDTH/2, 44);
+    shopingCartBtn.frame = CGRectMake( 0, CGRectGetMaxY(attrScrollView.frame), UISCREEN_WIDTH, 44);
     shopingCartBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     shopingCartBtn.backgroundColor = [UIColor colorWithHexString:@"e8465e"];
     [shopingCartBtn setTitle:@"加入购物车" forState:UIControlStateNormal];
     [shopingCartBtn addTarget:self action:@selector(purchaseGoods:) forControlEvents:UIControlEventTouchUpInside];
-    //立即购买
-    UIButton *purchaseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    purchaseBtn.tag = 1;
-    purchaseBtn.frame = CGRectMake(CGRectGetMaxX(shopingCartBtn.frame), CGRectGetMaxY(attrScrollView.frame), UISCREEN_WIDTH/2, 44);
-    purchaseBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    purchaseBtn.backgroundColor = [UIColor colorWithHexString:@"eeb94f"];
-    [purchaseBtn setTitle:@"立即购买" forState:UIControlStateNormal];
-    [purchaseBtn addTarget:self action:@selector(purchaseGoods:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:shopingCartBtn];
     
-    switch (_type) {
-        case 1:{
-            [self addSubview:shopingCartBtn];
-            [self addSubview:purchaseBtn];
-        }break;
-        case 2:{
-            purchaseBtn.ml_x = 0;
-            purchaseBtn.ml_width = UISCREEN_WIDTH;
-            [self addSubview:purchaseBtn];
-        }break;
-        case 3:{
-            shopingCartBtn.ml_x = 0;
-            shopingCartBtn.ml_width = UISCREEN_WIDTH;
-            [self addSubview:shopingCartBtn];
-        }break;
-        default:break;
-    }
     for (MBGoodsSpecsModel *model in _model.goodsSpecs) {
         
         NSInteger j = [_model.goodsSpecs indexOfObject:model];
@@ -216,70 +214,130 @@
     //        make.centerY.equalTo(numLab);
     //    }];
     
-    // +
-    UIButton *plusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [plusBtn setImage:[UIImage imageNamed:@"addGoodsNum"] forState:UIControlStateNormal];
-    plusBtn.layer.borderWidth = 1;
-    plusBtn.layer.borderColor = [UIColor colorWithHexString:@"c4c5c7"].CGColor;
-    [plusBtn addTarget:self action:@selector(plusBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [attrScrollView addSubview:plusBtn];
-    
-    [plusBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIButton *goodsMoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [goodsMoreBtn addTarget:self action:@selector(plusBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [goodsMoreBtn setImage:[UIImage imageNamed:@"cart_more_btn_enable"]  forState:UIControlStateNormal];
+    [goodsMoreBtn setImage:[UIImage imageNamed:@"cart_more_btn_disable"]  forState:UIControlStateDisabled];
+    [attrScrollView addSubview:_goodsMoreBtn =  goodsMoreBtn];
+    [goodsMoreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.width.mas_equalTo(25);
         make.centerY.equalTo(numLab);
         make.right.equalTo(self).offset(-10);
     }];
-    // cou
-    UILabel *buyNumsLbl = [[UILabel alloc] init];
-    buyNumsLbl.text = [NSString stringWithFormat:@"%d", self.buyNum];
-    buyNumsLbl.textAlignment = NSTextAlignmentCenter;
-    [attrScrollView addSubview: _buyNumsLbl = buyNumsLbl];
     
-    [buyNumsLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(plusBtn.mas_left);
+    
+    
+    UIButton *goodsNumeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [goodsNumeBtn setBackgroundImage:[[UIImage imageNamed:@"syncart_middle_btn_enable"] imageWithTintColor:UIcolor(@"dddddd")] forState:UIControlStateNormal];
+    [attrScrollView addSubview:goodsNumeBtn];
+    [goodsNumeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(goodsMoreBtn.mas_left);
+        make.height.mas_equalTo(25);
+        make.width.mas_equalTo(45);
+        make.centerY.equalTo(numLab);
+    }];
+    
+    UITextField *goodsNumField = [[UITextField alloc] init];
+    
+    goodsNumField.keyboardType = UIKeyboardTypeNumberPad;
+    goodsNumField.textColor = UIcolor(@"333333");
+    goodsNumField.font = YC_YAHEI_FONT(12);
+    goodsNumField.textAlignment = 1;
+    goodsNumField.delegate = self;
+    goodsNumField.text =  [NSString stringWithFormat:@"%ld",(long)_buyGoodsNum];
+    [attrScrollView addSubview:_goodsNumField =  goodsNumField];
+    
+    
+    
+    
+    [goodsNumField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(goodsMoreBtn.mas_left);
         make.height.mas_equalTo(23);
         make.width.mas_equalTo(45);
         make.centerY.equalTo(numLab);
         
     }];
     
-    // -
-    UIButton *minusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [minusBtn setImage:[UIImage imageNamed:@"reduceGoodsNum"] forState:UIControlStateNormal];
-    [minusBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    minusBtn.titleLabel.font = SYSTEMFONT(17);
-    minusBtn.layer.borderWidth = 1;
-    minusBtn.layer.borderColor = [UIColor colorWithHexString:@"c4c5c7"].CGColor;
-    [minusBtn addTarget:self action:@selector(minusBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [attrScrollView addSubview:minusBtn];
-    [minusBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(buyNumsLbl.mas_left);
+    UIButton *goodsLessBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [goodsLessBtn addTarget:self action:@selector(minusBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [goodsLessBtn setImage:[UIImage imageNamed:@"cart_less_btn_enable"]  forState:UIControlStateNormal];
+    [goodsLessBtn setImage:[UIImage imageNamed:@"cart_less_btn_disable"]  forState:UIControlStateDisabled];
+    [attrScrollView addSubview:_goodsLessBtn =  goodsLessBtn];
+    [goodsLessBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(goodsNumeBtn.mas_left);
         make.height.width.mas_equalTo(25);
         make.centerY.equalTo(numLab);
+    }];
+    if ([_goodsNumField.text integerValue] == 1) {
         
-    }];
-    
-    UIView *lineOnew = [[UIView alloc] init];
-    lineOnew.backgroundColor = [UIColor colorWithHexString:@"c4c5c7"];
-    [attrScrollView addSubview:lineOnew];
-    [lineOnew mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(plusBtn.mas_left);
-        make.left.equalTo(minusBtn.mas_right);
-        make.height.mas_equalTo(1);
-        make.bottom.equalTo(buyNumsLbl.mas_top);
-    }];
-    UIView *lineTwo = [[UIView alloc] init];
-    lineTwo.backgroundColor = [UIColor colorWithHexString:@"c4c5c7"];
-    [attrScrollView addSubview:lineTwo];
-    [lineTwo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(plusBtn.mas_left);
-        make.left.equalTo(minusBtn.mas_right);
-        make.height.mas_equalTo(1);
-        make.top.equalTo(buyNumsLbl.mas_bottom);
         
-    }];
+        goodsLessBtn.enabled = false;
+    }
+    // +
+    //    UIButton *plusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //
+    //    [plusBtn setImage:[UIImage imageNamed:@"addGoodsNum"] forState:UIControlStateNormal];
+    //    plusBtn.layer.borderWidth = 1;
+    //    plusBtn.layer.borderColor = [UIColor colorWithHexString:@"c4c5c7"].CGColor;
+    //    [plusBtn addTarget:self action:@selector(plusBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    //    [attrScrollView addSubview:plusBtn];
+    //
+    //    [plusBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.height.width.mas_equalTo(25);
+    //        make.centerY.equalTo(numLab);
+    //        make.right.equalTo(self).offset(-10);
+    //    }];
+    //    // cou
+    //    UILabel *buyNumsLbl = [[UILabel alloc] init];
+    //    buyNumsLbl.text = [NSString stringWithFormat:@"%d", self.buyNum];
+    //    buyNumsLbl.textAlignment = NSTextAlignmentCenter;
+    //    [attrScrollView addSubview: _buyNumsLbl = buyNumsLbl];
+    //
+    //    [buyNumsLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.right.equalTo(plusBtn.mas_left);
+    //        make.height.mas_equalTo(23);
+    //        make.width.mas_equalTo(45);
+    //        make.centerY.equalTo(numLab);
+    //
+    //    }];
+    //
+    //    // -
+    //    UIButton *minusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //
+    //    [minusBtn setImage:[UIImage imageNamed:@"reduceGoodsNum"] forState:UIControlStateNormal];
+    //    [minusBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    //    minusBtn.titleLabel.font = SYSTEMFONT(17);
+    //    minusBtn.layer.borderWidth = 1;
+    //    minusBtn.layer.borderColor = [UIColor colorWithHexString:@"c4c5c7"].CGColor;
+    //    [minusBtn addTarget:self action:@selector(minusBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    //    [attrScrollView addSubview:minusBtn];
+    //    [minusBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.right.equalTo(buyNumsLbl.mas_left);
+    //        make.height.width.mas_equalTo(25);
+    //        make.centerY.equalTo(numLab);
+    //
+    //    }];
+    //
+    //    UIView *lineOnew = [[UIView alloc] init];
+    //    lineOnew.backgroundColor = [UIColor colorWithHexString:@"c4c5c7"];
+    //    [attrScrollView addSubview:lineOnew];
+    //    [lineOnew mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.right.equalTo(plusBtn.mas_left);
+    //        make.left.equalTo(minusBtn.mas_right);
+    //        make.height.mas_equalTo(1);
+    //        make.bottom.equalTo(buyNumsLbl.mas_top);
+    //    }];
+    //    UIView *lineTwo = [[UIView alloc] init];
+    //    lineTwo.backgroundColor = [UIColor colorWithHexString:@"c4c5c7"];
+    //    [attrScrollView addSubview:lineTwo];
+    //    [lineTwo mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.right.equalTo(plusBtn.mas_left);
+    //        make.left.equalTo(minusBtn.mas_right);
+    //        make.height.mas_equalTo(1);
+    //        make.top.equalTo(buyNumsLbl.mas_bottom);
+    //
+    //    }];
     
     if (!(CGRectGetMaxY(numLab.frame)+ 5 > attrScrollView.mj_h)) {
         attrScrollView.contentSize =CGSizeMake(0, attrScrollView.mj_h +10);
@@ -298,23 +356,29 @@
 }
 /** 增加要购买商品数量*/
 - (void)plusBtnClick{
-    _buyNum ++;
-    if (_buyNum > [_model.goodsModel.goods_number intValue]) {
-        _buyNum --;
+    _buyGoodsNum ++;
+    _goodsLessBtn.enabled = true;
+    if (_buyGoodsNum > [_model.goodsModel.goods_number intValue]) {
+        _buyGoodsNum --;
+        
+        _goodsMoreBtn.enabled = false;
         [self.VC show:@"库存不足" time:1];
         return;
-    }else{
-        _buyNumsLbl.text = [NSString stringWithFormat:@"%d", self.buyNum];
     }
+    
+    _goodsNumField.text = [NSString stringWithFormat:@"%ld", (long)_buyGoodsNum];
+    
 }
 /** 减少要购买商品数量*/
 - (void)minusBtnClick{
-    _buyNum --;
-    if (_buyNum > 0) {
-        _buyNumsLbl.text = [NSString stringWithFormat:@"%d", self.buyNum];
-    }else{
-        _buyNum ++;
+    _buyGoodsNum --;
+    _goodsMoreBtn.enabled = true;
+    if (_buyGoodsNum == 1) {
+        _goodsLessBtn.enabled = false;
+        _goodsNumField.text = [NSString stringWithFormat:@"%ld", (long)_buyGoodsNum];
     }
+    
+    
     
 }
 /** 购买商品或者添加到购物车*/
@@ -330,10 +394,7 @@
     }
     
     
-    if ([_buyNumsLbl.text integerValue] > _buyNum) {
-        [self.VC show:@"商品库存不足" time:.8];
-        return;
-    }
+    
     
     NSMutableArray *goodsAttrID = [NSMutableArray array];
     for (MBGoodsAttrListModel *model in _selecterSpecsArr) {
@@ -352,18 +413,9 @@
     if (!_spec) {
         _spec = @"";
     }
-    MMLog(@"%ld",(long)btn.tag);
     
-    switch (btn.tag) {
-        case 1:{
-            
-             [self addGoodsCart:false];
-        }break;
-        case 2:{
-            [self addGoodsCart:true];
-        }break;
-        default:break;
-    }
+    
+    [self addGoodsCart];
 }
 /**规格按钮点击选择*/
 - (void)btnClick:(UIButton *)btn{
@@ -387,7 +439,7 @@
 }
 
 /**加入购物车*/
--(void)addGoodsCart:(BOOL)isAddCar
+-(void)addGoodsCart
 {
     
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
@@ -401,24 +453,15 @@
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self.VC show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/addtocart"] parameters:@{@"session":dict, @"goods_id":_model.goodsModel.goods_id,@"number":_buyNumsLbl.text,@"spec":_spec} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/addtocart"] parameters:@{@"session":dict, @"goods_id":_model.goodsModel.goods_id,@"number":_goodsNumField.text,@"spec":_spec} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self.VC dismiss];
         NSString *status = [NSString stringWithFormat:@"%@",[responseObject valueForKeyPath:@"status"][@"succeed"]];
         
         if ([status isEqualToString:@"1"]) {
-            WS(weakSelf)
             [self.VC dismissSemiModalViewWithCompletion:^{
-                if (isAddCar) {
-                    weakSelf.getCarData();
-                    [self.VC show:@"加入购物车成功!" time:1];
-                }else{
-                    MBShoppingCartViewController *payVc = [[MBShoppingCartViewController alloc] init];
-                    [self.VC pushViewController:payVc Animated:YES];
-                }
-               
+                [self.VC show:@"加入购物车成功!" time:1];
+                
             }];
-            
-            
             
         }else{
             [self.VC show:[responseObject valueForKeyPath:@"status"][@"error_desc"] time:1];
@@ -461,18 +504,15 @@
         attr = @"";
     }
     
+    
     [self.VC show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsspecinfos"] parameters:@{@"goods_id":_model.goodsModel.goods_id,@"number":_buyNumsLbl.text,@"attr":attr} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/goods/getgoodsspecinfos"] parameters:@{@"goods_id":_model.goodsModel.goods_id,@"number":_goodsNumField.text,@"attr":attr} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self.VC dismiss];
         NSDictionary *dic = [responseObject valueForKey:@"data"];
         MMLog(@"%@",dic);
         if (dic) {
             _priceLbl.text = dic[@"result"];
-            _buyNumsLbl.text =[NSString stringWithFormat:@"%@", dic[@"qty"]];
-            
-            if (dic[@"num"]) {
-                _buyNum = [dic[@"num"] intValue];
-            }
+            _inventoryNum = [dic[@"num"] integerValue];
             
         }
         
@@ -487,5 +527,19 @@
 }
 -(void)dealloc{
     MMLog(@"delloc");
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    if ([_goodsNumField.text integerValue] > _inventoryNum) {
+        _goodsLessBtn.enabled = true;
+        _goodsMoreBtn.enabled = false;
+        [self.VC show:@"库存不足" time:1];
+        _goodsNumField.text = [NSString stringWithFormat:@"%ld",(long)_buyGoodsNum];
+        return;
+    }
+    
+    _buyGoodsNum = [_goodsNumField.text integerValue];
+    
+    
+    
 }
 @end

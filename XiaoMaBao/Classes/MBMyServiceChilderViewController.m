@@ -92,7 +92,7 @@
                success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                    
                    ;
-                   //                   MMLog(@"%@",responseObject.data);
+                   //   MMLog(@"%@",responseObject.data);
                   
                    [self.tableView.mj_header endRefreshing];
                    
@@ -136,45 +136,34 @@
     if (! sid) {
         return;
     }
+    [MBNetworking POSTOrigin:url parameters:@{@"session":sessiondict,@"type":self.strType,@"page":page} success:^(id responseObject) {
+        
+        
+        if ([responseObject[@"data"] isKindOfClass:[NSArray class]]&&[responseObject[@"data"] count] >0) {
+            _promptLable.hidden = YES;
+            [_dataArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
+            _page++;
+        }else{
+            NSString *str;
+            switch (self.type) {
+                case 0:  str = @"待付款";break;
+                case 1:  str = @"待使用";break;
+                case 2:  str = @"待评价";break;
+                default: str = @"售后";break;
+            }
+            _promptLable.hidden  = NO;
+            _promptLable.text = [NSString stringWithFormat:@"没有%@的服务订单",str];
+            
+        }
+        
+        [self.tableView reloadData];
+        [self.tableView .mj_header endRefreshing];
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"请求失败 " time:1];
+        MMLog(@"%@",error);
+        [self.tableView .mj_header endRefreshing];
+    }];
     
-    [MBNetworking POST:url parameters:@{@"session":sessiondict,@"type":self.strType,@"page":page}
-               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-                   
-                   ;
-//                    MMLog(@"%@",responseObject.data);
-                   
-                   if ([[responseObject valueForKeyPath:@"data"] count]>0) {
-                       _promptLable.hidden = YES;
-                       [_dataArray addObjectsFromArray:[responseObject valueForKeyPath:@"data"]];
-                       [self setheadData];
-                       _page++;
-                   }else{
-                       NSString *str;
-                       switch (self.type) {
-                           case 0:  str = @"待付款";break;
-                           case 1:  str = @"待使用";break;
-                           case 2:  str = @"待评价";break;
-                           default: str = @"售后";break;
-                       }
-                    _promptLable.hidden  = NO;
-                       
-                    _promptLable.text = [NSString stringWithFormat:@"没有%@的服务订单",str];
-                           
-                      
-                       
-
-                   }
-                  
-                          [self.tableView reloadData];
-                   [self.tableView .mj_header endRefreshing];
-               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   
-                   [self show:@"请求失败 " time:1];
-                   MMLog(@"%@",error);
-                   [self.tableView .mj_header endRefreshing];
-                   
-               }
-     ];
     
     
 }
@@ -203,7 +192,7 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBMBMyServiceChilderCell" owner:nil options:nil]firstObject];
     }
-    cell.vc  = self;
+     cell.vc  = self;
     [cell.store_image sd_setImageWithURL:[NSURL URLWithString:dic[@"shop_logo"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
     [cell.service_image   sd_setImageWithURL:[NSURL URLWithString:dic[@"product_img"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
     cell.service_num.text = [NSString stringWithFormat:@"数量：%@",dic[@"product_number"]];

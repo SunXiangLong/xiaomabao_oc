@@ -7,7 +7,9 @@
 //
 
 #import "MBFireOrderTableViewCell.h"
+@interface MBFireOrderTableViewCell()
 
+@end
 @implementation MBFireOrderTableViewCell
 
 - (void)awakeFromNib {

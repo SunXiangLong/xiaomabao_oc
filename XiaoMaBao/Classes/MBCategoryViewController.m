@@ -224,12 +224,20 @@
         [self pushViewController:VC Animated:YES];
         return;
     }else{
-     if (![dic[@"icon"]isEqualToString:@""]) {
+        
+        if ([dic[@"is_long_show"] integerValue] == 1) {
+            MBCategoryViewController  *VC = [[MBCategoryViewController alloc] init];
+            VC.ID = dic[@"cat_id"];
+            [self pushViewController:VC Animated:YES];
+            return;
+        }
+        
+     
         MBDetailedViewController  *VC = [[MBDetailedViewController alloc] init];
          VC.cat_id =  dic[@"cat_id"];
          VC.title = dic[@"cat_name"];
         [self pushViewController:VC Animated:YES];
-     }
+     
      }
     
     

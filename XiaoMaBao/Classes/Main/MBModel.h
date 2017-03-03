@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface MBModel : NSObject
-@property (strong,nonatomic) NSDictionary *data;
+@property (strong,nonatomic) id data;
 @property (strong,nonatomic) NSDictionary *status;
 @property (strong,nonatomic) NSDictionary *msg;
 @property (strong,nonatomic) NSString *img;

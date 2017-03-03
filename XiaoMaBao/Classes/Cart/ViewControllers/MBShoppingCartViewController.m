@@ -9,18 +9,30 @@
 #import "MBShoppingCartViewController.h"
 #import "MBFireOrderViewController.h"
 #import "MBSignaltonTool.h"
-#import "MBShoppingCartTableViewCell.h"
 #import "MBGoodsDetailsViewController.h"
 #import "MBRealNameAuthViewController.h"
 #import "MBShoppingCartViewController.h"
 #import "MBShoppingCartModel.h"
+#import "MBShoppingCartCell.h"
 @interface MBShoppingCartViewController () <UITableViewDataSource,UITableViewDelegate,MBShoppingCartTableViewdelegate>
 {
+    
+    /*
+     1.小麻包app商品详情界面修改，修改以前图片过多加载会闪退的问题。
+     2.购物车界面重构。
+     3.下单确认界面重构。
+     4.修复小麻包app已知bug。
+     5.修复共享购app已知bug。
+     6.提交共享购1.1.3版本
+     7.提交小麻包app3.6.2版本。
+
+     */
     UIButton *allSelectBtn;
     NSString *_is_cross_border;
     NSString *dele;
     UIButton *_submitButton;
     BOOL _isRefresh;
+    UIView *_bottomView;
 }
 @property (strong,nonatomic)  UIView *maskView;
 @property (strong,nonatomic) UILabel *totalLbl;
@@ -44,77 +56,72 @@
     }
     
 }
-
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
     [self setupUI];
     if ([MBSignaltonTool getCurrentUserInfo].uid) {
         [self getCartInfo:0 type:nil isShow:true];
     }else{
         [self maskView];
     }
-    
-    
-    
 }
-/**
- *  初始化界面元素
- */
+/**  初始化界面元素*/
 - (void)setupUI{
-    if (_mytableView) {
-        return;
-    }
-    _mytableView = [[UITableView alloc] initWithFrame:CGRectMake(0, TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT - TOP_Y - 35) style:UITableViewStylePlain];
     
-    [_mytableView registerNib:[UINib nibWithNibName:@"MBShoppingCartTableViewCell" bundle:nil] forCellReuseIdentifier:@"MBShoppingCartTableViewCell"];
+    _mytableView = [[UITableView alloc] initWithFrame:CGRectMake(0, TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT - TOP_Y - 35) style:UITableViewStylePlain];
     _mytableView.dataSource = self,
     _mytableView.delegate = self;
-    _mytableView.backgroundColor = [UIColor colorWithHexString:@"eaeaea"];
-    
-    
+    _mytableView.tableFooterView = [[UIView alloc] init];
+    _mytableView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_mytableView];
     
     UIView *tableViewFooterView = [[UIView alloc] init];
     tableViewFooterView.frame = CGRectMake(0, 0, self.view.ml_width, 28);
     _mytableView.tableFooterView = tableViewFooterView;
     
-    UIView *bottomView = [[UIView alloc] init];
-    bottomView.backgroundColor = [UIColor lightTextColor];
-    bottomView.layer.borderColor = [[UIColor redColor] CGColor];
-    CGFloat tabbarHeight = 35;
-    bottomView.frame = CGRectMake(0, self.view.ml_height - tabbarHeight, self.view.ml_width, tabbarHeight);
-    [self.view addSubview:bottomView];
     
-    [bottomView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UIView *bottomView = [[UIView alloc] init];
+    [self addTopLineView:bottomView];
+    bottomView.hidden = true;
+    bottomView.frame = CGRectMake(0, UISCREEN_HEIGHT - 45, UISCREEN_WIDTH, 45);
+    [self.view addSubview:_bottomView = bottomView];
     
     allSelectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    allSelectBtn.frame = CGRectMake(0, 4, 72, tableViewFooterView.ml_height);
-    allSelectBtn.titleEdgeInsets = UIEdgeInsetsMake(0, MARGIN_20, 0, 0);
-    
-    [allSelectBtn setTitleColor:[UIColor colorWithHexString:@"323232"] forState:UIControlStateNormal];
+    allSelectBtn.titleLabel.font  = SYSTEMFONT(12);
+    [allSelectBtn setImage:[UIImage imageNamed:@"syncart_round_check"] forState:UIControlStateNormal];
+    [allSelectBtn setImage:[UIImage imageNamed:@"syncart_round_check1"] forState:UIControlStateSelected];
+    [allSelectBtn setTitleColor:[UIColor colorWithHexString:@"333333"] forState:UIControlStateNormal];
     [allSelectBtn setTitle:@"全选" forState:UIControlStateNormal];
     [allSelectBtn addTarget:self action:@selector(allSelectBtn:) forControlEvents:UIControlEventTouchUpInside];
-    allSelectBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    
     [bottomView addSubview:allSelectBtn];
+    [allSelectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(0);
+        make.height.mas_equalTo(35);
+        make.width.mas_equalTo(65);
+        make.centerY.equalTo(bottomView.mas_centerY);
+    }];
     
-    CGFloat submitButtonWidth = 90;
-    
-    if(_totalLbl){
-        [_totalLbl removeFromSuperview];
-    }
+    allSelectBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
     _totalLbl = [[UILabel alloc] init];
-    _totalLbl.font = [UIFont systemFontOfSize:14];
-    _totalLbl.frame = CGRectMake(CGRectGetMaxX(allSelectBtn.frame) +5, 0, self.view.ml_width - submitButtonWidth, bottomView.ml_height);
+    
+    _totalLbl = [[UILabel alloc] init];
+    _totalLbl.font = YC_YAHEI_FONT(16);
     [bottomView addSubview:_totalLbl];
+    [_totalLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(bottomView.mas_centerY);
+        make.left.equalTo(allSelectBtn.mas_right).offset(9);
+    }];
     
     
     UIButton *submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    submitButton.frame = CGRectMake(self.view.ml_width - submitButtonWidth, 0, submitButtonWidth, bottomView.ml_height);
-    [submitButton setTitle:@"结算" forState:UIControlStateNormal];
+    submitButton.backgroundColor = [UIColor grayColor];
+    submitButton.titleLabel.font = SYSTEMFONT(17);
     [bottomView addSubview:_submitButton = submitButton];
-    
-    
+    [submitButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.top.bottom.mas_equalTo(0);
+        make.width.mas_equalTo(100);
+    }];
     [submitButton addTarget:self action:@selector(clickSubmit) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -184,19 +191,27 @@
  *  @param new_number  数量
  *  @param flow_number 是否选中
  */
-- (void)updateCart:(NSString *)rec_id new_number:(NSString *)new_number flow_number:(NSString *)flow_number row:(NSInteger)row{
+- (void)updateCart:(MBGood_ListModel *)model goods_number:(NSString *)goods_number flow_order:(NSString *)flow_order row:(NSInteger)row isnum:(BOOL )isNum{
     
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/update_cart"] parameters:@{@"session":dict,@"rec_id":rec_id,@"new_number":new_number,@"flow_order":flow_number} success:^(NSURLSessionDataTask *operation, id responseObject) {
-       
-        //        MMLog(@"更新购物车成功---responseObject%@",[responseObject valueForKeyPath:@"status"]);
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/update_cart"] parameters:@{@"session":dict,@"rec_id":model.rec_id,@"new_number":goods_number,@"flow_order":flow_order} success:^(NSURLSessionDataTask *operation, id responseObject) {
+        
+        MMLog(@"更新购物车成功%@",[responseObject valueForKeyPath:@"status"]);
+        
         NSDictionary * dict = [responseObject valueForKeyPath:@"status"];
         if([[dict valueForKeyPath:@"succeed"] isEqualToNumber:@1]){
             
+//            if (isNum) {
+//                model.goods_number = goods_number;
+//                
+//            }else{
+//                model.flow_order = flow_order;
+//            }
             
+           
             [self getCartInfo: row type:@"reload" isShow:false];
             
         }else{
@@ -204,6 +219,8 @@
             [self  show:dict[@"error_desc"] time:1];
             
         }
+        
+         [_mytableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败" time:1];
@@ -223,7 +240,7 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/cart/select_all_or_zero") parameters:@{@"session":dict} success:^(id responseObject) {
         
-         MMLog(@"更新购物车成功---responseObject%@",responseObject);
+        MMLog(@"更新购物车成功---responseObject%@",responseObject);
         if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
             [self getCartInfo:0 type:nil isShow:false];
         }
@@ -248,63 +265,66 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/flow/cart") parameters:@{@"session":dict} success:^(id responseObject) {
         [self dismiss];
-        if (![responseObject[@"status"] isKindOfClass:[NSDictionary class]]) {
-            [self show:@"登录超时，请重新登录"];
+        if (![self checkData:responseObject]) {
+            
             return ;
-        }else{
-            _model = [MBShoppingCartModel yy_modelWithJSON:responseObject[@"data"]];
-            if (_model.goods_list.count > 0) {
-                if (_model.isSettlement) {
-                    if (_maskView) {
-                        [_maskView removeFromSuperview];
-                        _maskView = nil;
-                    }
-                    
-                    [allSelectBtn setImage:[UIImage imageNamed:@"icon_true"] forState:UIControlStateNormal];
-                    allSelectBtn.selected = YES;
-                    //结算可用
-                    _submitButton.backgroundColor = [UIColor colorWithHexString:@"e8455d"];
-                    [_submitButton setEnabled:YES];
-                }else{
-                    [allSelectBtn setImage:[UIImage imageNamed:@"pitch_no"] forState:UIControlStateNormal];
-                    allSelectBtn.selected = NO;
-                    //结算变灰，且不可用
-                    _submitButton.backgroundColor = [UIColor grayColor];
-                    [_submitButton setEnabled:NO];
+        }
+        
+        _model = [MBShoppingCartModel yy_modelWithJSON:responseObject[@"data"]];
+        _totalLbl.text = string(@"合计：", _model.total.goods_price);
+        [_submitButton setTitle:string(@"去结算(",string(_model.total.real_goods_count, @")")) forState:UIControlStateNormal];
+        _bottomView.hidden = false;
+        if (_model.goods_list.count > 0) {
+            if (_model.isSettlement) {
+                if (_maskView) {
+                    [_maskView removeFromSuperview];
+                    _maskView = nil;
                 }
                 
                 
+                allSelectBtn.selected = YES;
+                //结算可用
+                _submitButton.backgroundColor = [UIColor colorWithHexString:@"e8455d"];
+                [_submitButton setEnabled:YES];
             }else{
-            
-                [self maskView];
-                
+                allSelectBtn.selected = NO;
+                //结算变灰，且不可用
+                _submitButton.backgroundColor = [UIColor grayColor];
+                [_submitButton setEnabled:NO];
             }
             
-            if ([type isEqualToString:@"reload"]) {
-                
-                NSIndexPath *indexpath = [NSIndexPath indexPathForRow:row inSection:0];
-                
-                [_mytableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
-                
-                
-            }else {
-                
-                
-                [_mytableView reloadData];
-            }
-        
+            
+        }else{
+            
+            [self maskView];
+            
         }
+        
+        if ([type isEqualToString:@"reload"]) {
+            
+            NSIndexPath *indexpath = [NSIndexPath indexPathForRow:row inSection:0];
+            
+            [_mytableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
+            
+            
+        }else {
+            
+            
+            [_mytableView reloadData];
+        }
+        
+        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败！" time:1];
         MMLog(@"%@",error);
     }];
-
+    
     
 }
 //全选按钮
 -(void)allSelectBtn:(UIButton *)button
 {
-     [MobClick event:@"ShoppingCart1"];
+    [MobClick event:@"ShoppingCart1"];
     [self selectAllOrZero];
 }
 #pragma mark -- 提交订单前的确认
@@ -325,13 +345,14 @@
     [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/flow/checkout") parameters:@{@"session":sessiondict} success:^(id responseObject) {
         if ([responseObject[@"status"] isKindOfClass:[NSDictionary  class]]&&[responseObject[@"status"][@"succeed"]  integerValue] == 1) {
             MBFireOrderViewController *VC = [[MBFireOrderViewController alloc] init];
-//            MMLog(@"%@",responseObject);
+            //            MMLog(@"%@",responseObject);
             VC.orderShopModel = [MBConfirmModel yy_modelWithDictionary:responseObject[@"data"]];
             [self dismiss];
             VC.isRefresh = ^(){
                 _isRefresh  = true;
-            
+                
             };
+            VC.navBar.back = true;
             [self pushViewController:VC Animated:YES];
         }
         
@@ -345,7 +366,7 @@
 - (void)goToDaySale{
     MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
     if (userInfo.uid == nil) {
-         [self loginClicksss:@"shop"];
+        [self loginClicksss:@"shop"];
         return;
     }else{
         UIViewController *mainVc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
@@ -362,26 +383,21 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-   
+    
     if (num == 0) {//删除
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/del_cart"] parameters:@{@"session":session,@"rec_id":rec_id}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
-                       
-                       
                        [self getCartInfo:row type:@"dele" isShow:false];
-                       
                    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                        MMLog(@"失败");
                    }];
         
     }else {//收藏
-        
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/collect/collect_goods"] parameters:@{@"session":session,@"goods_id":rec_id}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
                        [self dismiss];
                        if ([[responseObject valueForKeyPath:@"status"][@"succeed"]isEqualToNumber:@1]) {
                            [self show:@"收藏成功" time:1];
-                           
                        }else{
                            
                            [self show:[responseObject valueForKeyPath:@"status"][@"error_desc"] time:1];
@@ -408,35 +424,38 @@
 #pragma mark --UITableViewdelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (_model.goods_list.count > 0) {
-         return _model.goods_list.count;
+        return _model.goods_list.count;
     }
     return 0;
 }
-- (void)configureCell:(MBShoppingCartTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    cell.fd_enforceFrameLayout = YES;
- [cell uiedgeInsetsZero];
-    cell.delegate = self;
-    cell.row = indexPath.row;
-    cell.model = _model.goods_list[indexPath.row];
-}
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    MBShoppingCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBShoppingCartTableViewCell"];
-    [self configureCell:cell atIndexPath:indexPath];
+    static NSString *idstr = @"MBShoppingCartCell";
+    // 创建cell
+    MBShoppingCartCell *cell = [tableView dequeueReusableCellWithIdentifier:idstr];
+    if (!cell) {
+        cell = [[MBShoppingCartCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:idstr model:_model.goods_list[indexPath.row]];
+    }else{
+        cell.goodsModel = _model.goods_list[indexPath.row];
+    }
+    cell.delegate = self;
     return cell;
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [tableView fd_heightForCellWithIdentifier:@"MBShoppingCartTableViewCell" cacheByIndexPath:indexPath configuration:^(MBShoppingCartTableViewCell *cell) {
-        [self configureCell:cell atIndexPath:indexPath];
-        
-    }];
+   
+    return 96+18;
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [MobClick event:@"ShoppingCart2"];
+    
+    MBGoodsDetailsViewController *shopDetailVc = [[MBGoodsDetailsViewController alloc] init];
+    shopDetailVc.GoodsId =  _model.goods_list[indexPath.row].goods_id;
+    shopDetailVc.title = _model.goods_list[indexPath.row].goods_name;
+    [self pushViewController:shopDetailVc Animated:YES];
     
 }
 #pragma mark -- 在滑动手势删除某一行的时候，显示出更多的按钮
@@ -468,35 +487,25 @@
     
 }
 #pragma mark -- MBShoppingCartTableViewdelegate
+- (void)show:(NSString *)str{
+    [self show:str time:.5];
+}
 //选中和取消选中
--(void)click:(NSInteger )row{
+-(void)click:(MBGood_ListModel *)model{
     
-    if ([_model.goods_list[row].flow_order integerValue] == 1) {
-        [self updateCart:_model.goods_list[row].rec_id new_number:_model.goods_list[row].goods_number flow_number:@"0" row:(row)];
+    if ([model.flow_order integerValue] == 1) {
+        [self updateCart:model goods_number:model.goods_number flow_order:@"0" row:[_model.goods_list indexOfObject:model] isnum:false];
     }else{
-        [self updateCart:_model.goods_list[row].rec_id new_number:_model.goods_list[row].goods_number flow_number:@"1" row:(row)];
+        [self updateCart:model goods_number:model.goods_number flow_order:@"1" row:[_model.goods_list indexOfObject:model] isnum:false];
     }
     
 }
-//增加一个
-- (void)addShop:(NSDictionary *)dic{
-    //如果选中，则更新购物车
-    NSString * selected =dic[@"selected"];
-    if([selected isEqualToString:@"1"]){
-        [self updateCart:dic[@"rec_id"] new_number:dic[@"goods_number"] flow_number:@"1" row:[dic[@"row"] integerValue]];
-    }
-    
+
+- (void)goodsNumberChange:(NSDictionary *)dic{
+
+    MBGood_ListModel *model = dic[@"model"];
+     [self updateCart:model goods_number:dic[@"num"] flow_order:@"1" row:[_model.goods_list indexOfObject:model] isnum:true];
+
 }
-//减少一个
-- (void)reduceShop:(NSDictionary *)dic{
-    if ([dic[@"goods_number"] integerValue ] <= 0) {
-        [self  show:@"商品件数最少为1" time:1];
-        return;
-    }
-    //如果选中，则更新购物车
-    NSString * selected =dic[@"selected"];
-    if([selected isEqualToString:@"1"]){
-        [self updateCart:dic[@"rec_id"] new_number:dic[@"goods_number"] flow_number:@"1" row:[dic[@"row"] integerValue]];
-    }
-}
+
 @end

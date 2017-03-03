@@ -12,77 +12,75 @@
 #import "MBDeliveryInformationViewController.h"
 #import "MBRefundScheduleViewController.h"
 #import "MBOrderInfoTableViewController.h"
+#import "MBRefundModel.h"
 @interface MBRefundHomeController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
 {
-    NSArray *_titles;
-    UIView *_menuView;//全部订单／已申请view
-    UIView *_menuLineView;//线view
-    NSMutableArray *_orderArray;//全部订单
-    BOOL _isState;
-  
-    NSString *_refund_status;
-    int _page;//当前页数
-    int _size;//每页数据量
-    UIButton *_lastButton;
+    BOOL _isToApple;
     
+    NSInteger _allOrderPage;
+    NSInteger _toApplyPage;
+    
+    UIButton *_lastButton;
     UILabel *_promptLable;
 }
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topDistance;
-
+@property (weak, nonatomic) IBOutlet UITableView *tableViewTo;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *allOrderButton;
+@property (weak, nonatomic) IBOutlet UIButton *toApplyButton;
+@property (weak, nonatomic) IBOutlet UIView *mentLineView;
+@property (strong, nonatomic) MBRefundModel *searchRefundModel;
+@property (copy, nonatomic) NSMutableArray<MBRefundModel *> *allOrderData;
+@property (copy, nonatomic) NSMutableArray<MBRefundModel *> *toApplyOrderData;
 @end
 
 @implementation MBRefundHomeController
 
-
+-(NSMutableArray *)allOrderData{
+    if (!_allOrderData) {
+        _allOrderData = [NSMutableArray array];
+    }
+    return _allOrderData;
+}
+-(NSMutableArray *)toApplyOrderData{
+    if (!_toApplyOrderData) {
+        _toApplyOrderData = [NSMutableArray array];
+    }
+    return _toApplyOrderData;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.topDistance.constant = TOP_Y+10;
-    _page = 1;
-    _orderArray = [NSMutableArray array];
-
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    _allOrderPage = 1;
+    _toApplyPage = 1;
+    _tableViewTo.tableFooterView = [[UIView alloc] init];
+    _tableView.tableFooterView =  [[UIView alloc] init];
+    _lastButton = _allOrderButton;
+    
+    [self requestData];
     [self setUI];
-    [self setupMenuView];
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RefundStatus:) name:@"Refund_status" object:nil];
     
 }
 - (void)RefundStatus:(NSNotification *)notificat{
-    _refund_status = [notificat userInfo][@"refund"];
+    
     NSString *section = [notificat userInfo][@"section"];
     NSInteger sect = [section  integerValue];
     NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:sect];
-
-    NSDictionary *dic = _orderArray[sect];
-    NSArray *arr = [dic allKeys];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-    for (NSString *str in arr) {
-        id sss = [dic objectForKey:str];
-        if ([str isEqualToString:@"refund_status"]) {
-            [dict  setObject:@2 forKey:str];
-        }else{
-        
-            [dict setObject:sss forKey:str];
-        }
-    }
-    
-    [_orderArray replaceObjectAtIndex:sect withObject:dict];
-    
-    
+    MBRefundModel *model = _allOrderData[sect];
+    model.refund_status = @(2);
     [_tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-
+    
 }
 #pragma mark --界面布局
 - (void)setUI{
     self.titleStr = @"退换货";
-   
-    
     UIView *searchLeftView = [[UIView alloc] init];
     searchLeftView.frame = CGRectMake(0, 0, 35, _searchTextField.frame.size.height);
-    
     UIImageView *searchImageView = [[UIImageView alloc] init];
     searchImageView.image = [UIImage imageNamed:@"search_icon"];
     searchImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -93,270 +91,202 @@
     _searchTextField.delegate = self;
     _searchTextField.leftViewMode = UITextFieldViewModeAlways;
     
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-    
-  
-    if (_orderArray.count>0) {
-        
-        if (_tableView.superview == nil) {
-            [self.view addSubview:_tableView];
-        }else{
-            //[self.collectionView reloadData];
-        }
-    }else{
-        
-        if (_isState) {
-            [self applyData];
-        }else{
-        
-         [self requestData];
-        }
-       
-    }
-     __unsafe_unretained __typeof(self) weakSelf = self;
-    // 上拉刷新
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-     
-        if (_isState) {
-            [self applyData];
-        }else{
-
-            [self requestData];
-        }
-       
-            [weakSelf.tableView.mj_footer endRefreshing];
-     
-    }];
-    // 默认先隐藏footer
-    self.tableView.mj_footer.hidden = YES;
-
-    _promptLable = [[UILabel alloc] init];
-    _promptLable.textAlignment = 1;
-    _promptLable.font = [UIFont systemFontOfSize:14];
-    _promptLable.textColor = [UIColor colorR:146 colorG:147 colorB:148];
-    _promptLable.hidden = YES;
-    [self.view addSubview:_promptLable];
-    
-    [_promptLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.centerY.equalTo(self.view.mas_centerY);
-    }];
-
-
-
-}
--(void)setupMenuView{
-    
-    _titles = @[
-                @"全部订单",
-                @"已申请"
-                ];
-
-    if(_menuView == nil){
-        CGFloat width = UISCREEN_WIDTH / _titles.count;
-        _menuView = [[UIView alloc] init];
-        _menuView.backgroundColor = [UIColor whiteColor];
-        _menuView.frame = CGRectMake(0, CGRectGetMaxY(self.searchTextField.frame)+10, UISCREEN_WIDTH, 40);
-        [self.view addSubview:_menuView];
-        
-        for (NSInteger i = 0; i < _titles.count; i++) {
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [btn setTitleColor:[UIColor colorWithHexString:@"313232"] forState:UIControlStateNormal];
-            btn.titleLabel.font = [UIFont systemFontOfSize:14];
-            btn.frame = CGRectMake(i * width, 0, width, 34);
-            [btn setTitle:_titles[i] forState:UIControlStateNormal];
-            [_menuView addSubview:btn];
-            btn.tag = i;
-            
-            [btn addTarget:self action:@selector(orderMenuBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-            if (i==0) {
-                 [btn setTitleColor:NavBar_Color forState:UIControlStateNormal];
-                _lastButton = btn;
-            }
-        }
-        
-        UIView *lineView = [[UIView alloc] init];
-        lineView.frame = CGRectMake(0, 40 - 2, width, 2);
-        lineView.backgroundColor = NavBar_Color;
-        [_menuView addSubview:_menuLineView = lineView];
-        [self addBottomLineView:_menuView];
-    }
-    
-}
-- (void)orderMenuBtnClick:(UIButton *)btn{
-    [_searchTextField resignFirstResponder];
-    [btn setTitleColor:NavBar_Color forState:UIControlStateNormal];
-    [_lastButton setTitleColor:[UIColor colorWithHexString:@"313232"] forState:UIControlStateNormal];
-    _lastButton = btn;
-    [UIView animateWithDuration:.25 animations:^{
-        _menuLineView.ml_x = btn.tag * btn.ml_width;
-        
-    }];
     
     
-    if ([btn.titleLabel.text isEqualToString:@"全部订单"]) {
-       
-        [_orderArray removeAllObjects];
-        [_tableView.mj_footer resetNoMoreData];
-          [_tableView reloadData];
-        _isState = NO;
-        _page =1;
-       
-        [self requestData];
-        
-    }else{
-   
-        [_orderArray removeAllObjects];
-        
-        [_tableView reloadData];
-        _isState = YES;
-        _page =1;
-        [self applyData];
-    }
-}
-/**
- *  判断是否存在数据
- */
-- (void)isData{
     
-    if (_orderArray.count == 0) {
-        _promptLable.hidden  = NO;
-        if ([_lastButton.titleLabel.text isEqualToString:@"已申请"]) {
-            _promptLable.text = [NSString stringWithFormat:@"您还没有%@退换货的订单",_lastButton.titleLabel.text];
-        }else{
-            _promptLable.text = @"您还没有可退换货的订单";
-        }
-        
-        
-    }else{
-      
-        
+    
+        _promptLable = [[UILabel alloc] init];
+        _promptLable.textAlignment = 1;
+        _promptLable.font = [UIFont systemFontOfSize:14];
+        _promptLable.textColor = [UIColor colorR:146 colorG:147 colorB:148];
         _promptLable.hidden = YES;
-        
-    }
-
+        [self.view addSubview:_promptLable];
+    
+        [_promptLable mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.view.mas_centerX);
+            make.centerY.equalTo(self.view.mas_centerY);
+        }];
+    
+    
+    
 }
-#pragma mark --请求全部订单数据
+- (IBAction)orderMenuBtnClick:(UIButton *)sender {
+    if (_lastButton != sender) {
+        _searchRefundModel = nil;
+        [sender setTitleColor:NavBar_Color forState:UIControlStateNormal];
+        [_lastButton setTitleColor:[UIColor colorWithHexString:@"313232"] forState:UIControlStateNormal];
+        [UIView animateWithDuration:.25 animations:^{
+            _leftConstraint.constant    = sender.tag*((UISCREEN_WIDTH - 1)/2+1);
+            [_mentLineView setNeedsLayout];
+        }];
+        _lastButton = sender;
+        switch (sender.tag) {
+            case 0:{
+                _isToApple = false;
+                [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+            }break;
+                
+            default:{
+                _isToApple = true;
+                [_scrollView setContentOffset:CGPointMake(UISCREEN_WIDTH, 0) animated:YES];
+                if (!_toApplyOrderData) {
+                    
+                    [self requestData];
+                }
+            }break;
+        }
+    }
+    
+}
+
+
+/***  判断是否存在数据*/
+- (void)isData{
+
+    switch (_lastButton.tag) {
+        case 0:{
+            if (_allOrderData.count == 0  ) {
+                _promptLable.hidden  = NO;
+                _promptLable.text = @"您还没有可退换货的订单";
+                self.tableView.mj_footer.hidden = YES;
+            }
+        }break;
+        default:{
+            
+            if (_toApplyOrderData.count == 0  ) {
+                _promptLable.hidden  = NO;
+                _promptLable.text = @"您还没有已申请退换货的订单";
+                self.tableViewTo.mj_footer.hidden = YES;
+            }
+            
+        
+        }break;
+    }
+    
+}
+
+#pragma mark --请求退换货订单数据（_isToApple 为yes为已申请的数据，否则就是全部数据）
 - (void)requestData{
-   
+    
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-     NSString *page = [NSString stringWithFormat:@"%d",_page];
+    NSString *url = string(BASE_URL_root, @"/refund/refund_list");
+    NSDictionary *parameter = @{@"session":sessiondict,@"page":s_Integer(_allOrderPage)};
+    if (_isToApple) {
+        url =  string(BASE_URL_root, @"/refund/apply_list");
+        parameter = @{@"session":sessiondict,@"page":s_Integer(_toApplyPage)};
+    }
+    
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/refund/refund_list"] parameters:@{@"session":sessiondict,@"page":page}success:^(NSURLSessionDataTask *operation, id responseObject) {
-         [self dismiss];
-//        MMLog(@"成功获取全部可退换货订单---responseObject%@",[responseObject valueForKeyPath:@"data"]);
     
-        
-        NSArray * arr =  [responseObject valueForKeyPath:@"data"];
-        if (arr.count>0) {
-            [_orderArray addObjectsFromArray:arr];
-        }else{
-            [_tableView.mj_footer endRefreshingWithNoMoreData];
-                   [self isData];
+    [MBNetworking POSTOrigin:url parameters:parameter success:^(id responseObject) {
+        [self dismiss];
+        if (![self checkData:responseObject]) {
             return ;
-        
         }
-  
-            _page += 1;
-      
-       [self isData];
-    
-        [_tableView reloadData];
-  
+        //        MMLog(@"%@",responseObject);
+        if (_isToApple) {
+            
+            if (_toApplyPage == 1) {
+                self.tableViewTo.mj_footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
+                
+            }else{
+                [_tableViewTo.mj_footer endRefreshingWithNoMoreData];
+            }
+            [self.toApplyOrderData addObjectsFromArray:[NSArray modelDictionary:responseObject modelKey:@"data" modelClassName:@"MBRefundModel"]];
+            if (_toApplyPage == 1) {
+                [self isData];
+            }
+            [_tableViewTo reloadData];
+            _toApplyPage++;
+            
+        }else{
+            if (_allOrderPage == 1) {
+                self.tableView.mj_footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
+                
+            }else{
+                [_tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+            
+            [self.allOrderData addObjectsFromArray:[NSArray modelDictionary:responseObject modelKey:@"data" modelClassName:@"MBRefundModel"]];
+            if (_allOrderPage == 1) {
+                [self isData];
+            }
+            
+            
+            [_tableView reloadData];
+            _allOrderPage++;
+            
+        }
         
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"请求失败！" time:1];
+         MMLog(@"%@",error);
+    }];
     
-       }failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                 [self show:@"请求失败！" time:1];
-                   MMLog(@"%@",error);
-                   
-               }
-     ];
-
-
-
+    
 }
 #pragma mark --搜索订单数据
 - (void)searchData:(NSString *)str{
-
-      [_orderArray removeAllObjects];
-    [self show];
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/refund/refund_search"] parameters:@{@"session":sessiondict,@"order_sn":str}success:^(NSURLSessionDataTask *operation, id responseObject) {
-        [self dismiss];
-        MMLog(@"成功获取搜索退换货订单信息---responseObject%@",[responseObject valueForKeyPath:@"data"]);
-        NSArray *arr = [responseObject valueForKeyPath:@"data"];
-        
-        [_orderArray addObjectsFromArray:arr];
-        
-             [self isData];
-        [_tableView reloadData];
-     
-        
-        
-    }failure:^(NSURLSessionDataTask *operation, NSError *error) {
-   [self show:@"请求失败！" time:1];
-        MMLog(@"%@",error);
-        
-    }
-     ];
     
-}
-#pragma mark --请求已申请数据
--(void)applyData{
-   
+    [self show];
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-         NSString *page = [NSString stringWithFormat:@"%d",_page];
-    [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/refund/apply_list"] parameters:@{@"session":sessiondict,@"page":page}success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/refund/refund_search") parameters:@{@"session":sessiondict,@"order_sn":str} success:^(id responseObject){
         [self dismiss];
-        //MMLog(@"成功获取全部已申请退换货订单---responseObject%@",[responseObject valueForKeyPath:@"data"]);
-       
-        NSArray * arr =  [responseObject valueForKeyPath:@"data"];
-        if (arr.count>0) {
-            [_orderArray addObjectsFromArray:arr];
-        }else{
-            [_tableView.mj_footer endRefreshingWithNoMoreData];
-               [self isData];
+        if (![self checkData:responseObject]) {
             return ;
         }
+        MMLog(@"%@",responseObject);
+        if ([responseObject[@"data"] count] >0) {
+            _searchRefundModel = [MBRefundModel yy_modelWithDictionary:responseObject[@"data"][0]];
+            switch (_lastButton.tag) {
+                case 0:[_tableView reloadData];  break;
+                    
+                default:[_tableViewTo reloadData]; break;
+            }
+        }else{
+            [self show:@"搜不到该订单，请检查订单号是否正确" time:.5];
         
-        _page += 1;
-         [self isData];
-        [_tableView reloadData];
+        }
         
-        
-    }failure:^(NSURLSessionDataTask *operation, NSError *error) {
-    [self show:@"请求失败！" time:1];
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"请求失败！" time:.5];
         MMLog(@"%@",error);
-        
-    }
-     ];
-
-
+    }];
 }
+
 
 #pragma mark -- 申请事件
 -(void)comment:(UIButton *)button{
+    MBRefundModel *model = nil;
+    if (_lastButton.tag == 0) {
+        model = _allOrderData[button.tag];
+    }
+    if (_lastButton.tag == 1) {
+        model = _toApplyOrderData[button.tag];
+    }
+    if (_searchRefundModel) {
+        model = _searchRefundModel;
+    }
+   
     
     if ([button.titleLabel.text isEqualToString:@"申请退款/换货"]) {
+        
+        
         MBAfterSalesServiceViewController *VC = [[MBAfterSalesServiceViewController alloc] init] ;
         VC.type = @"1";
         VC.section = button.tag;
-        VC.order_sn = _orderArray[button.tag][@"order_sn"];
-        VC.order_id =  _orderArray[button.tag][@"order_id"];
+        VC.order_sn = model.order_sn;
+        VC.order_id = model.order_id;
         [self.navigationController pushViewController:VC animated:YES];
-       
+        
     }else if ([button.titleLabel.text isEqualToString:@"进度查询"]){
         MBRefundScheduleViewController *VC = [[MBRefundScheduleViewController alloc] init];
-        VC.orderid = _orderArray[button.tag][@"order_id"];
-        VC.order_sn = _orderArray[button.tag][@"order_sn"];
+        VC.order_sn = model.order_sn;
+        VC.orderid = model.order_id;
         [self.navigationController pushViewController:VC animated:YES];
         MMLog(@"进度查询");
     }else if ([button.titleLabel.text isEqualToString:@"重新申请"]){
@@ -365,55 +295,43 @@
         MBAfterSalesServiceViewController *VC = [[MBAfterSalesServiceViewController alloc] init];
         VC.type = @"0";
         VC.section = button.tag;
-        
-        
-        
-        VC.order_sn = _orderArray[button.tag][@"order_sn"];
-        VC.order_id =  _orderArray[button.tag][@"order_id"];
-        
-    
+        VC.order_sn = model.order_sn;
+        VC.order_id = model.order_id;
         [self.navigationController pushViewController:VC animated:YES];
         
     }else if([button.titleLabel.text isEqualToString:@"填写运单号"]){
         MBDeliveryInformationViewController *VC = [[MBDeliveryInformationViewController alloc] init];
-        VC.back_tax = _orderArray[button.tag][@"back_tax"];
-        VC.order_id = _orderArray[button.tag][@"order_id"];
-        VC.order_sn = _orderArray[button.tag][@"order_sn"];
+        VC.back_tax = model.back_tax;
+        VC.order_sn = model.order_sn;
+        VC.order_id = model.order_id;
         VC.section = button.tag;
         [self.navigationController pushViewController:VC animated:YES];
-        MMLog(@"填写运单号");
         
     }
     
 }
 #pragma mark -UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (_orderArray>0) {
-         return _orderArray.count;
-    }else{
-        return 0;
+    
+    
+    switch (_lastButton.tag) {
+        case 0 :return _searchRefundModel?1:_allOrderData.count;
+        default:return _searchRefundModel?1:_toApplyOrderData.count;
     }
-   
+    
+    
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-   
-    
-    if (_orderArray>0) {
-        NSArray *arr = _orderArray[section][@"goods_detail"];
-        return arr.count;
-    }else{
-        return 0;
+    switch (_lastButton.tag) {
+        case 0 :return _searchRefundModel?_searchRefundModel.goodsDetail.count:_allOrderData[section].goodsDetail.count;
+        default:return _searchRefundModel?_searchRefundModel.goodsDetail.count:_toApplyOrderData[section].goodsDetail.count;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-        return 75;
-    
-    
+    return 75;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -425,7 +343,16 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
+    MBRefundModel *model = nil;
+    if (_lastButton.tag == 0) {
+        model = _allOrderData[section];
+    }
+    if (_lastButton.tag == 1) {
+        model = _toApplyOrderData[section];
+    }
+    if (_searchRefundModel) {
+        model = _searchRefundModel;
+    }
     UIView *sectionView = [[UIView alloc] init];
     sectionView.frame = CGRectMake(0, 0, UISCREEN_WIDTH, 25);
     sectionView.backgroundColor = NavBar_Color;
@@ -434,7 +361,7 @@
     UILabel *sectionLbl = [[UILabel alloc] init];
     sectionLbl.textColor = [UIColor whiteColor];
     sectionLbl.textAlignment = 2;
-    sectionLbl.text = _orderArray[section][@"add_time"];
+    sectionLbl.text = model.add_time;
     sectionLbl.frame = CGRectMake(UISCREEN_WIDTH -320 , 0,300, sectionView.ml_height);
     sectionLbl.font = [UIFont systemFontOfSize:12];
     [sectionView addSubview:sectionLbl];
@@ -442,11 +369,7 @@
     //订单号
     UILabel *section_order_sn = [[UILabel alloc] init];
     section_order_sn.textColor = [UIColor whiteColor];
-    if (_orderArray) {
-        NSString *order_sn =  _orderArray[section][@"order_sn"];
-        section_order_sn.text = [NSString stringWithFormat:@"订单号：%@",order_sn];
-    }
-    
+    section_order_sn.text = [NSString stringWithFormat:@"订单号：%@",model.order_sn];
     section_order_sn.frame = CGRectMake(8, 0,150, sectionView.ml_height);
     section_order_sn.font = [UIFont systemFontOfSize:12];
     [sectionView addSubview:section_order_sn];
@@ -457,11 +380,8 @@
     lable.textColor = [UIColor redColor];
     lable.frame = CGRectMake(CGRectGetMaxX(section_order_sn.frame), 0, 100, sectionView.ml_height);
     lable.font = [UIFont systemFontOfSize:10];
-    if (_orderArray.count>0) {
-        NSNumber *refund_status = _orderArray[section][@"refund_status"];
-        if ([refund_status  isEqualToNumber:@4]) {
-            [sectionView addSubview:lable];
-        }
+    if ([model.refund_status integerValue] == 4) {
+        [sectionView addSubview:lable];
     }
     
     return sectionView;
@@ -469,6 +389,17 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    MBRefundModel *model = nil;
+    if (_lastButton.tag == 0) {
+        model = _allOrderData[section];
+    }
+    if (_lastButton.tag == 1) {
+        model = _toApplyOrderData[section];
+    }
+    if (_searchRefundModel) {
+        model = _searchRefundModel;
+    }
+    
     
     UIView *footerView = [[UIView alloc] init];
     footerView.backgroundColor = BG_COLOR;
@@ -488,11 +419,7 @@
     
     UILabel *priceLbl = [[UILabel alloc] init];
     priceLbl.textColor = [UIColor colorWithHexString:@"da465a"];
-    if (_orderArray.count>0) {
-        NSString *str = _orderArray[section][@"order_total_money"];
-        priceLbl.text = [NSString stringWithFormat:@"¥%@",str];;
-    }
-    
+    priceLbl.text = [NSString stringWithFormat:@"¥%@",model.order_total_money];;
     priceLbl.frame = CGRectMake(CGRectGetMaxX(footerLbl.frame), 0, 150, footerView.ml_height);
     priceLbl.font = [UIFont systemFontOfSize:12];
     [footerMainView addSubview:priceLbl];
@@ -505,23 +432,19 @@
     sendServiceBtn1.tag = section;
     sendServiceBtn2.tag = section;
     
-    NSNumber *refund_status = _orderArray[section][@"refund_status"];
-   
-    
-    
-    if([refund_status isEqualToNumber:@1]){
-       
-    [sendServiceBtn setTitle:@"申请退款/换货" forState:UIControlStateNormal];
-        [sendServiceBtn addTarget:self action:@selector(comment:) forControlEvents:UIControlEventTouchUpInside];
-    sendServiceBtn.frame = CGRectMake(UISCREEN_WIDTH - 8-80 , (footerView.ml_height - 20) * 0.5, 80, 20);
-    [sendServiceBtn setTitleColor:NavBar_Color forState:UIControlStateNormal];
-    sendServiceBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    sendServiceBtn.layer.cornerRadius = 3.0;
-    sendServiceBtn.layer.borderColor = NavBar_Color.CGColor;
-    sendServiceBtn.layer.borderWidth = PX_ONE;
+    if([model.refund_status integerValue] == 1){
         
-    }else if([refund_status isEqualToNumber:@5]){
-    
+        [sendServiceBtn setTitle:@"申请退款/换货" forState:UIControlStateNormal];
+        [sendServiceBtn addTarget:self action:@selector(comment:) forControlEvents:UIControlEventTouchUpInside];
+        sendServiceBtn.frame = CGRectMake(UISCREEN_WIDTH - 8-80 , (footerView.ml_height - 20) * 0.5, 80, 20);
+        [sendServiceBtn setTitleColor:NavBar_Color forState:UIControlStateNormal];
+        sendServiceBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        sendServiceBtn.layer.cornerRadius = 3.0;
+        sendServiceBtn.layer.borderColor = NavBar_Color.CGColor;
+        sendServiceBtn.layer.borderWidth = PX_ONE;
+        
+    }else if([model.refund_status integerValue] == 5){
+        
         [sendServiceBtn1 setTitle:@"进度查询" forState:UIControlStateNormal];
         [sendServiceBtn1 addTarget:self action:@selector(comment:) forControlEvents:UIControlEventTouchUpInside];
         sendServiceBtn1.frame = CGRectMake(UISCREEN_WIDTH - 8-60 , (footerView.ml_height - 20) * 0.5, 60, 20);
@@ -540,7 +463,7 @@
         sendServiceBtn2.layer.cornerRadius = 3.0;
         sendServiceBtn2.layer.borderColor = NavBar_Color.CGColor;
         sendServiceBtn2.layer.borderWidth = PX_ONE;
-    }else if([refund_status isEqualToNumber:@3]){
+    }else if([model.refund_status integerValue] == 3){
         [sendServiceBtn1 setTitle:@"进度查询" forState:UIControlStateNormal];
         [sendServiceBtn1 addTarget:self action:@selector(comment:) forControlEvents:UIControlEventTouchUpInside];
         sendServiceBtn1.frame = CGRectMake(UISCREEN_WIDTH - 8-60 , (footerView.ml_height - 20) * 0.5, 60, 20);
@@ -559,9 +482,9 @@
         sendServiceBtn2.layer.cornerRadius = 3.0;
         sendServiceBtn2.layer.borderColor = NavBar_Color.CGColor;
         sendServiceBtn2.layer.borderWidth = PX_ONE;
-    
+        
     }else{
-    
+        
         [sendServiceBtn1 setTitle:@"进度查询" forState:UIControlStateNormal];
         [sendServiceBtn1 addTarget:self action:@selector(comment:) forControlEvents:UIControlEventTouchUpInside];
         sendServiceBtn1.frame = CGRectMake(UISCREEN_WIDTH - 8-60 , (footerView.ml_height - 20) * 0.5, 60, 20);
@@ -570,8 +493,8 @@
         sendServiceBtn1.layer.cornerRadius = 3.0;
         sendServiceBtn1.layer.borderColor = NavBar_Color.CGColor;
         sendServiceBtn1.layer.borderWidth = PX_ONE;
-
-    
+        
+        
     }
     
     [footerMainView addSubview:sendServiceBtn];
@@ -584,47 +507,52 @@
 
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-  
-        
-        MBAfterServiceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBAfterServiceTableViewCell"];
-        if (!cell) {
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"MBAfterServiceTableViewCell" owner:self options:nil]firstObject];
-        }
-      cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (_orderArray.count>0) {
-        NSDictionary *dic = _orderArray[indexPath.section][@"goods_detail"][indexPath.row];
-        cell.describe.text= dic[@"goods_name"];
-        NSString *str1 = dic[@"goods_price"];
-        NSString *str2= dic[@"goods_number"];
-        
-        cell.priceAndNumber.text = [NSString stringWithFormat:@"￥%@x%@",str1,str2];
-        NSURL *url = [NSURL URLWithString:dic[@"goods_thumb"]];
-        [cell.showImageview  sd_setImageWithURL:url ];
+    MBRefundGoodsModel *model = nil;
+    if (_lastButton.tag == 0) {
+        model  = _allOrderData[indexPath.section].goodsDetail[indexPath.row];
     }
-     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
-
-        return cell;
+    if (_lastButton.tag == 1) {
+        model = _toApplyOrderData[indexPath.section].goodsDetail[indexPath.row];
+    }
+    if (_searchRefundModel) {
+        model = _searchRefundModel.goodsDetail[indexPath.row];
+    }
+    
+    MBAfterServiceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBAfterServiceTableViewCell"];
+    if (!cell) {
+        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBAfterServiceTableViewCell" owner:self options:nil]firstObject];
+    }
+    cell.refundGoodsModel = model;
+    [cell uiedgeInsetsZero];
+    return cell;
     
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-   
+    MBRefundGoodsModel *model = nil;
+    if (_lastButton.tag == 0) {
+        model = _allOrderData[indexPath.section].goodsDetail[indexPath.row];
+    }
+    if (_lastButton.tag == 1) {
+        model = _toApplyOrderData[indexPath.section].goodsDetail[indexPath.row];
+    }
+    if (_searchRefundModel) {
+        model = _searchRefundModel.goodsDetail[indexPath.row];
+    }
     
     UINavigationController  *nav =  [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
     MBOrderInfoTableViewController *infoVc = (MBOrderInfoTableViewController *)nav.viewControllers.firstObject;
-   
+    
     
     //单号和时间
-    NSString *order_id = [_orderArray[indexPath.section] valueForKeyPath:@"order_id"];
-     MMLog(@"%@",order_id);
-    infoVc.order_id = order_id;
+    infoVc.order_id = model.order_id;
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark --UITextFideldDelegate（点击键盘搜索触发事件）
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
-   
+    
     NSString *regex = @"^\\d{13}$";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     BOOL isValid = [predicate evaluateWithObject:textField.text];
@@ -638,7 +566,7 @@
     [_searchTextField resignFirstResponder];
     return YES;
     
-   
+    
 }
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{
     NSNotification *notification =[NSNotification notificationWithName:@"HYTPopViewControllerNotification" object:nil userInfo:nil];
@@ -647,11 +575,54 @@
     return [self.navigationController popViewControllerAnimated:animated];
 }
 
-#pragma mark ---让tabview的headview跟随cell一起滑动
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [_searchTextField resignFirstResponder];
 }
 
 - ( void )scrollViewDidEndDecelerating:( UIScrollView *)scrollView{
+    if (scrollView  == _scrollView) {
+        _searchRefundModel = nil;
+        CGFloat contentOffsetX = scrollView.contentOffset.x;
+        NSInteger num = contentOffsetX / UISCREEN_WIDTH;
+       
+        
+        [_lastButton setTitleColor:[UIColor colorWithHexString:@"313232"] forState:UIControlStateNormal];
+        
+//        if (_lastButton == _allOrderButton) {
+//            [_toApplyButton setTitleColor:NavBar_Color forState:UIControlStateNormal];
+//            _lastButton = _toApplyButton;
+//        }else{
+//            [_allOrderButton setTitleColor:NavBar_Color forState:UIControlStateNormal];
+//            _lastButton = _toApplyButton;
+//        }
+        
+        [UIView animateWithDuration:.25 animations:^{
+            _leftConstraint.constant   = num*((UISCREEN_WIDTH - 1)/2+1);
+            [_mentLineView setNeedsLayout];
+        }];
+        
+        
+        switch (num) {
+            case 0:{
+                _isToApple = false;
+                [_allOrderButton setTitleColor:NavBar_Color forState:UIControlStateNormal];
+                _lastButton = _allOrderButton;
+                [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+            }break;
+                
+            default:{
+                _isToApple = true;
+                [_toApplyButton setTitleColor:NavBar_Color forState:UIControlStateNormal];
+                _lastButton = _toApplyButton;
+                [_scrollView setContentOffset:CGPointMake(UISCREEN_WIDTH, 0) animated:YES];
+                if (!_toApplyOrderData) {
+                    [self requestData];
+                }
+                
+            }break;
+                
+        }
+    }
+    
 }
 @end

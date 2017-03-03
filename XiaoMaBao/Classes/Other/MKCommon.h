@@ -16,7 +16,7 @@
 ///***  线上后台 */
     static NSString *BASE_URL_root =   @"https://api.xiaomabao.com";
 /***  军哥后台 */
-//   static NSString *BASE_URL_root = @"http://192.168.11.36";
+//   static NSString *BASE_URL_root = @"http://apis.xiaomabao.com";
 /***  辉哥后台 */
 //static NSString *BASE_URL_root =   @"http://192.168.11.153";
 

@@ -64,14 +64,7 @@
         if (self.rightImage.length) {
             [navBar.rightButton setImage:[UIImage imageNamed:self.rightImage] forState:UIControlStateNormal];
         
-            if([self.rightImage isEqualToString:@"shoppingCart"]){
-                if(self.badge == nil){
-                    self.badge = [CustomBadge customBadgeWithString:@"0" withStyle:[BadgeStyle defaultStyle]];
-                    self.badge.hidden = YES;
-                    [navBar setButtonBadge:self.badge];
-                }
-                
-            }
+
         }
         [self.view insertSubview:navBar atIndex:0];
         self.navBar = navBar;
@@ -102,7 +95,15 @@
     [self.navBar.rightButton addTarget:self action:@selector(rightTitleClick) forControlEvents:UIControlEventTouchUpInside];
     [self.navBar.titleButton addTarget:self action:@selector(titleClick) forControlEvents:UIControlEventTouchUpInside];
 }
-
+- (UIView *)addBottomLineView:(UIView *)addLineView left:(CGFloat )left{
+    // 分割线
+    UIView *lineView = [[UIView alloc] init];
+    lineView.tag = 1111111;
+    lineView.frame = CGRectMake(left,addLineView.ml_height - PX_ONE, [UIScreen mainScreen].bounds.size.width, PX_ONE);
+    lineView.backgroundColor = [UIColor colorWithHexString:@"d7d7d7"];
+    [addLineView addSubview:lineView];
+    return lineView;
+}
 - (UIView *)addBottomLineView:(UIView *)addLineView{
     // 分割线
     UIView *lineView = [[UIView alloc] init];

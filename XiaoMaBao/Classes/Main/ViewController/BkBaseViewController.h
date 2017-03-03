@@ -66,7 +66,7 @@
 
 - (UIView *)addBottomLineView:(UIView *)addLineView;
 - (UIView *)addTopLineView:(UIView *)addLineView;
-
+- (UIView *)addBottomLineView:(UIView *)addLineView left:(CGFloat )left;
 - (CGFloat)leftButtonW;
 
 // 是否登录
