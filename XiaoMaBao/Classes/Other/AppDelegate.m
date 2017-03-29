@@ -89,7 +89,7 @@
 
 #if defined(DEBUG)||defined(_DEBUG)
 
-    [[JPFPSStatus sharedInstance] open];
+     //[[JPFPSStatus sharedInstance] open];
 #endif
 
     

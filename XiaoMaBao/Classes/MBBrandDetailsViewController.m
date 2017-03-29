@@ -24,9 +24,7 @@
     [self searchUI];
     _page = 1;
     [self requestData];
-    MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
-    footer.refreshingTitleHidden = YES;
-    self.collectionView.mj_footer = footer;
+    
 
 
 }
@@ -43,7 +41,14 @@
     [self show];
     [MBNetworking POSTOrigin:@"http://api.xiaomabao.com/feature/detail" parameters:@{@"type":_type,@"id":_ID,@"page":s_Integer((long)_page)} success:^(id responseObject) {
         [self dismiss];
-        [self.collectionView.mj_footer endRefreshing];
+        if (_page == 1) {
+            MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
+            footer.refreshingTitleHidden = YES;
+            self.collectionView.mj_footer = footer;
+        }else{
+            [self.collectionView.mj_footer endRefreshing];
+        }
+        
         
         if ([responseObject[@"goods_list"] count] > 0) {
             if (_page == 1) {

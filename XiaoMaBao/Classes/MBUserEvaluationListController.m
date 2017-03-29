@@ -25,7 +25,7 @@
     self.tableView.tableHeaderView = [self setTableHeadView];
     _page = 1;
     [self setheadData];
-    [self setRefresh];
+    
     
 }
 - (void)setRefresh{
@@ -48,7 +48,11 @@
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         
-        
+        if (_page == 1) {
+            [self setRefresh];
+        }else{
+        [self.tableView .mj_footer endRefreshing];
+        }
         if ([[responseObject valueForKey:@"data"]count]>0) {
             MMLog(@"%@",responseObject);
             
@@ -56,7 +60,7 @@
             _page++;
             [self.tableView reloadData];
             // 拿到当前的上拉刷新控件，结束刷新状态
-            [self.tableView .mj_footer endRefreshing];
+            
         }else{
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
             return ;

@@ -580,7 +580,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YE0-BS-OOM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3834" y="134"/>
+            <point key="canvasLocation" x="-3697" y="124"/>
         </scene>
         <!--Redeemed Cash View Controller-->
         <scene sceneID="UgE-Y4-JUb">
@@ -1344,10 +1344,10 @@
             </objects>
             <point key="canvasLocation" x="-4450" y="-2488"/>
         </scene>
-        <!--Service Shops View Controller-->
+        <!--服务商家-->
         <scene sceneID="SeB-pK-gWh">
             <objects>
-                <viewController storyboardIdentifier="MBServiceShopsViewController" hidesBottomBarWhenPushed="YES" id="3Z6-Fs-XWJ" customClass="MBServiceShopsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MBServiceShopsViewController" hidesBottomBarWhenPushed="YES" id="3Z6-Fs-XWJ" userLabel="服务商家" customClass="MBServiceShopsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bi6-IJ-7yZ"/>
                         <viewControllerLayoutGuide type="bottom" id="V0k-BS-csT"/>
@@ -1357,7 +1357,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="pKk-YT-lAm">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MBServiceHomeCell" rowHeight="100" id="mtZ-Lj-rBP" customClass="MBServiceHomeCell">
@@ -1667,23 +1667,22 @@
                             <constraint firstItem="pKk-YT-lAm" firstAttribute="top" secondItem="Bi6-IJ-7yZ" secondAttribute="bottom" id="6x7-Wz-Wq5"/>
                             <constraint firstItem="pKk-YT-lAm" firstAttribute="leading" secondItem="fCu-GV-B85" secondAttribute="leading" id="9IG-Yf-A4L"/>
                             <constraint firstAttribute="trailing" secondItem="pKk-YT-lAm" secondAttribute="trailing" id="FeZ-Uf-QE8"/>
-                            <constraint firstItem="V0k-BS-csT" firstAttribute="top" secondItem="pKk-YT-lAm" secondAttribute="bottom" id="mJ8-IY-s6V"/>
+                            <constraint firstAttribute="bottom" secondItem="pKk-YT-lAm" secondAttribute="bottom" id="rZh-Qu-qfE"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottom" destination="mJ8-IY-s6V" id="oBS-I0-Twc"/>
                         <outlet property="tableView" destination="pKk-YT-lAm" id="ooi-pF-Mhs"/>
                         <segue destination="0IN-7h-drV" kind="show" identifier="MBUserEvaluationController" id="hmn-Kj-nWY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iOK-I3-u6p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2970" y="-1495"/>
+            <point key="canvasLocation" x="-2970.4000000000001" y="-1495.5022488755624"/>
         </scene>
         <!--User Evaluation Controller-->
         <scene sceneID="Grh-Q8-3NB">
             <objects>
-                <viewController id="0IN-7h-drV" customClass="MBUserEvaluationController" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="0IN-7h-drV" customClass="MBUserEvaluationController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RDN-cD-AaA"/>
                         <viewControllerLayoutGuide type="bottom" id="ZpL-lp-ajO"/>
@@ -1693,7 +1692,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="FZh-Sh-nYw">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MBUserEvaluationCell" rowHeight="108" id="gtk-c9-CrI" customClass="MBUserEvaluationCell">
@@ -1801,8 +1800,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="FZh-Sh-nYw" secondAttribute="bottom" id="8cJ-ld-QYd"/>
                             <constraint firstAttribute="trailing" secondItem="FZh-Sh-nYw" secondAttribute="trailing" id="NkD-Fk-cV1"/>
-                            <constraint firstItem="ZpL-lp-ajO" firstAttribute="top" secondItem="FZh-Sh-nYw" secondAttribute="bottom" id="PGT-Fv-cZN"/>
                             <constraint firstItem="FZh-Sh-nYw" firstAttribute="leading" secondItem="4ma-WY-3QW" secondAttribute="leading" id="dub-bn-iK2"/>
                             <constraint firstItem="FZh-Sh-nYw" firstAttribute="top" secondItem="RDN-cD-AaA" secondAttribute="bottom" id="vRy-Mp-wQM"/>
                         </constraints>
@@ -1813,7 +1812,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rfO-xa-AaI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2204" y="-1496"/>
+            <point key="canvasLocation" x="-2204" y="-1496.4017991004498"/>
         </scene>
         <!--New Baby Controller-->
         <scene sceneID="Rhc-9D-UcN">
@@ -3919,7 +3918,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9hs-wG-WoW" customClass="YYLabel">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9hs-wG-WoW" customClass="YYLabel">
                                                     <rect key="frame" x="10" y="337" width="70" height="15"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -3935,7 +3934,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ySZ-d3-05B" customClass="YYLabel">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ySZ-d3-05B" customClass="YYLabel">
                                                     <rect key="frame" x="90" y="339" width="120" height="10"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <userDefinedRuntimeAttributes>
@@ -5975,7 +5974,7 @@
                             <rect key="frame" x="0.0" y="28" width="371" height="65"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MZ7-fk-m9Q" id="x5A-Wc-1fs">
-                                <rect key="frame" x="0.0" y="0.0" width="371" height="64.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="371" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b2D-cx-ikp">
@@ -6283,7 +6282,7 @@
                             <rect key="frame" x="0.0" y="28" width="375" height="169"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8QV-Uf-KAl" id="ZSj-fA-nXl">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="168.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="168"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6v-No-0ez">
@@ -6318,7 +6317,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lGC-Il-hTo">
-                                        <rect key="frame" x="15" y="81" width="108.5" height="65"/>
+                                        <rect key="frame" x="15" y="81" width="108" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="z4X-VM-L26"/>
                                         </constraints>
@@ -6329,7 +6328,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e2W-2a-WTx">
-                                        <rect key="frame" x="133.5" y="81" width="108" height="65"/>
+                                        <rect key="frame" x="133" y="81" width="109" height="65"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <integer key="value" value="4"/>
@@ -6337,7 +6336,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u2W-2V-cTa">
-                                        <rect key="frame" x="251.5" y="81" width="108.5" height="65"/>
+                                        <rect key="frame" x="252" y="81" width="108" height="65"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <integer key="value" value="4"/>
@@ -8523,11 +8522,11 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MBFreeStoreTabCell" rowHeight="200" id="bZ6-3Y-niP" customClass="MBFreeStoreTabCell">
                                         <rect key="frame" x="0.0" y="231" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="bZ6-3Y-niP" id="tMu-Vb-iTx">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bZ6-3Y-niP" id="tMu-Vb-iTx">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cdg-Q8-pNe" customClass="MBAffordablePlanetCV">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cdg-Q8-pNe" customClass="MBAffordablePlanetCV">
                                                     <rect key="frame" x="0.0" y="175" width="375" height="70"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -8861,7 +8860,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="72" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NpP-bx-Xpv">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MBServiceSubtypeCell" rowHeight="72" id="13G-gg-ZWj" customClass="MBServiceSubtypeCell">
@@ -8895,7 +8894,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sbb-CF-Osa" customClass="YYLabel">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sbb-CF-Osa" customClass="YYLabel">
                                                     <rect key="frame" x="100" y="40" width="87" height="14"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <userDefinedRuntimeAttributes>
@@ -8908,7 +8907,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yRg-VR-KW0" customClass="YYLabel">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yRg-VR-KW0" customClass="YYLabel">
                                                     <rect key="frame" x="272" y="40" width="87" height="14"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <userDefinedRuntimeAttributes>
@@ -8962,9 +8961,9 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="NpP-bx-Xpv" secondAttribute="trailing" id="8Z5-K6-LE9"/>
-                            <constraint firstItem="OiN-Yj-rwB" firstAttribute="top" secondItem="NpP-bx-Xpv" secondAttribute="bottom" id="Pms-J2-LmZ"/>
                             <constraint firstItem="NpP-bx-Xpv" firstAttribute="leading" secondItem="HqT-sR-psw" secondAttribute="leading" id="e5c-Hd-Mbz"/>
                             <constraint firstItem="NpP-bx-Xpv" firstAttribute="top" secondItem="b7s-5u-Vbk" secondAttribute="bottom" id="vy6-H8-KVD"/>
+                            <constraint firstAttribute="bottom" secondItem="NpP-bx-Xpv" secondAttribute="bottom" id="y3k-8g-MmN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="F2P-Qu-HPZ"/>
@@ -9020,8 +9019,8 @@
         <image name="xiaobing_optimize_more_arrow" width="66" height="66"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="bax-k1-OWg"/>
         <segue reference="WjA-K7-FPm"/>
         <segue reference="Yau-Fm-G5X"/>
-        <segue reference="ydg-p8-L9E"/>
     </inferredMetricsTieBreakers>
 </document>

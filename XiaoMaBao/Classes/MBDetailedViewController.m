@@ -40,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self searchUI];
-    [self refreshLoading];
+    [_collectionView registerNib:[UINib nibWithNibName:@"MBCategoryViewTwoCell" bundle:nil] forCellWithReuseIdentifier:@"MBCategoryViewTwoCell"];
     [self addBottomLineView:_topView];
     _page =1;
     _lastBtn = _defaultBtn;
@@ -106,18 +106,8 @@
 }
 #pragma mark -- 上拉加载
 - (void)refreshLoading{
-    
-      [_collectionView registerNib:[UINib nibWithNibName:@"MBCategoryViewTwoCell" bundle:nil] forCellWithReuseIdentifier:@"MBCategoryViewTwoCell"];
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
-    
-    // 当上拉刷新控件出现50%时（出现一半），就会自动刷新。这个值默认是1.0（也就是上拉刷新100%出现时，才会自动刷新）
-    //    footer.triggerAutomaticallyRefreshPercent = 0.5;
-    
-    // 隐藏刷新状态的文字
     footer.refreshingTitleHidden = YES;
-    
-    // 设置footer
     self.collectionView.mj_footer = footer;
 }
 
@@ -134,9 +124,13 @@
     }
     [MBNetworking newGET:url parameters:@{@"sort":_priceStored} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
-        MMLog(@"%@ ",responseObject);
+       // MMLog(@"%@ ",responseObject);
+        if (_page == 1) {
+            [self refreshLoading];
+        }else{
+            [self.collectionView .mj_footer endRefreshing];
+        }
         
-           [self.collectionView .mj_footer endRefreshing];
         if (responseObject) {
             if ([[responseObject valueForKey:@"goods_list"] count]>0) {
                 [self.recommend_goods addObjectsFromArray:[responseObject valueForKey:@"goods_list"]];
@@ -153,6 +147,7 @@
             
          
         }else{
+        
             [self.collectionView.mj_footer endRefreshingWithNoMoreData];
 
         }

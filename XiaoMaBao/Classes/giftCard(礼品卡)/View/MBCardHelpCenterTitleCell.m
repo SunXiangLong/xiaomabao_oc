@@ -55,12 +55,27 @@
     _card_password.text = model.card_pass;
 }
 @end
-
-
+@interface MBElectronicCardOrderCell()
+@property (strong, nonatomic) UILabel *promptLable;
+@end
 @implementation MBElectronicCardOrderCell
+-(void)setIsDataNull:(BOOL)isDataNull{
+    _isDataNull = isDataNull;
+    if (isDataNull) {
+        _promptLable = [[UILabel alloc] init];
+        _promptLable.textAlignment = 1;
+        _promptLable.font = [UIFont systemFontOfSize:14];
+        _promptLable.textColor = [UIColor colorR:146 colorG:147 colorB:148];
+        [self.tableView addSubview:_promptLable];
+        [_promptLable mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.tableView.mas_centerX);
+            make.centerY.equalTo(self.tableView.mas_centerY);
+        }];
+        self.promptLable.text = @"暂时没有相关数据！";
+    }
+}
 -(void)awakeFromNib{
     [super awakeFromNib];
-   
     self.tableView.tableFooterView = [[UIView alloc] init];
 
 }

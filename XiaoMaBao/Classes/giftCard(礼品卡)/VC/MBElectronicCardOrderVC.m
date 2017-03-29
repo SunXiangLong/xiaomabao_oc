@@ -82,7 +82,7 @@
             MBElectronicCardOrderCell *cell = (MBElectronicCardOrderCell * )[_collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:_selectionPage inSection:0]];
         if ([_pageArr[_selectionPage] integerValue] == 1) {
             MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(reloadData)];
-//            footer.automaticallyHidden = YES;
+            footer.automaticallyHidden = YES;
             cell.tableView.mj_footer =  footer;
         }else{
             [cell.tableView.mj_footer endRefreshing];
@@ -103,6 +103,9 @@
                 [cell.tableView reloadData];
                 [cell.tableView.mj_footer removeFromSuperview];
                 cell.tableView.mj_footer = nil;
+                if ([_pageArr[_selectionPage] integerValue] == 1) {
+                    cell.isDataNull = true;
+                }
             }
             
         }

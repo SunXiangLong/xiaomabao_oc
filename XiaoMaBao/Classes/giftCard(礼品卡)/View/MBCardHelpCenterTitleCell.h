@@ -25,5 +25,6 @@
 
 @interface MBElectronicCardOrderCell : UICollectionViewCell
 
+@property (assign, nonatomic) BOOL isDataNull;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end

@@ -289,9 +289,9 @@
             [self pushViewController:VC Animated:YES];
         } break;
 //        case 6: {
-////            [MobClick event:@"PersonalCenter10"];
-////            MBHistoryRecoderViewController *VC = [[MBHistoryRecoderViewController alloc] init];
-////            [self pushViewController:VC Animated:YES];
+//            [MobClick event:@"PersonalCenter10"];
+//            MBHistoryRecoderViewController *VC = [[MBHistoryRecoderViewController alloc] init];
+//            [self pushViewController:VC Animated:YES];
 //        }break;
         case 6: {
             [MobClick event:@"PersonalCenter11"];

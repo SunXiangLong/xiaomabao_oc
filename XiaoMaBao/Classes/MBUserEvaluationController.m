@@ -25,12 +25,11 @@
     _commentsArray = [NSMutableArray    array];
     _page = 1;
     [self setheadData];
-    [self setRefresh];
+    
     
 }
 - (void)setRefresh{
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setheadData)];
-    //    footer.triggerAutomaticallyRefreshPercent = 0.5;
     footer.refreshingTitleHidden = YES;
     self.tableView.mj_footer = footer;
     
@@ -48,8 +47,12 @@
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         
-        MMLog(@"%@",responseObject);
-        
+        //MMLog(@"%@",responseObject);
+        if (_page == 1) {
+            [self setRefresh];
+        }else{
+        [self.tableView .mj_footer endRefreshing];
+        }
         if ([[responseObject valueForKey:@"data"]count]>0) {
             
       
@@ -57,7 +60,7 @@
             _page++;
             [self.tableView reloadData];
             // 拿到当前的上拉刷新控件，结束刷新状态
-            [self.tableView .mj_footer endRefreshing];
+            
         }else{
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
             return ;

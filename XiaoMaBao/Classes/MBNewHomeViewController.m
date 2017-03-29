@@ -264,7 +264,12 @@
 }
 -(UIViewController*) currentViewController
 {
+    MMLog(@"%@",[UIViewController currentViewController]);
     
+    
+    if ([[NSString stringWithUTF8String:object_getClassName([UIViewController currentViewController])] isEqualToString:@"MBNewMyViewController"]) {
+        return self.tabBarController;
+    }
     return [UIViewController currentViewController];
 }
 -(NSString*)getCurrentTime {

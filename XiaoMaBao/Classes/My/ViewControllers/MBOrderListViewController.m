@@ -85,16 +85,9 @@
 #pragma mark --上拉加载
 - (void)setFootRefres{
     
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
+
     MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(getOrderListInfo)];
-    
-    // 当上拉刷新控件出现50%时（出现一半），就会自动刷新。这个值默认是1.0（也就是上拉刷新100%出现时，才会自动刷新）
-    //    footer.triggerAutomaticallyRefreshPercent = 0.5;
-    
-    // 隐藏刷新状态的文字
     footer.refreshingTitleHidden = YES;
-    
-    // 设置footer
     self.tableView.mj_footer = footer;
     
     
@@ -111,6 +104,7 @@
 -(void)tabMenuClick:(NSInteger)tag{
     
     _page = 1;
+    
     [UIView animateWithDuration:.25 animations:^{
         CGFloat width = self.view.ml_width / _titles.count;
         self.menuLineView.ml_x = tag * width;
@@ -168,7 +162,11 @@
             return ;
         }
         if (_page == 1) {
+            if (self.tableView.mj_footer) {
+               self.tableView.mj_footer.hidden = false;
+            }else{
              [self setFootRefres];
+            }
         }else{
          [self.tableView .mj_footer endRefreshing];
         }
@@ -583,6 +581,7 @@
 }
 
 - (void)menuBtnClick:(UIButton *)btn{
+    
     [UIView animateWithDuration:.25 animations:^{
         self.menuLineView.ml_x = btn.tag * btn.ml_width;
         
@@ -591,6 +590,7 @@
             [btn setTitleColor:[UIColor colorR:255 colorG:78 colorB:136] forState:UIControlStateNormal];
             _lastButton = btn;
         }
+        self.tableView.mj_footer.hidden = true;
         [_orderListArray removeAllObjects];
         [self.tableView reloadData];
         //重新请求服务器数据

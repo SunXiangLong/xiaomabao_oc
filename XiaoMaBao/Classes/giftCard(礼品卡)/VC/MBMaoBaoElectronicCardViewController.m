@@ -15,7 +15,7 @@
 {
     NSInteger _page;
     UIView *_makeView;
-    MBElectronicCardModel *_cards_custom_model;
+    NSDictionary *_cards_custom;
     MBElectronicCardOrderModel *_orderModel;
 }
 @property (weak, nonatomic) IBOutlet UILabel *topCardAllMoney;
@@ -84,9 +84,9 @@
     [MBNetworking newGET:string(BASE_URL_root, string(@"/giftcard/electronic_card/", s_Integer(_page))) parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         [self dismiss];
         if (_page == 1) {
-            _cards_custom_model = [MBElectronicCardModel yy_modelWithDictionary:responseObject[@"cards_custom"]];
-            _cards_custom_model.isCustom = true;
-            _countTextField.placeholder = [NSString stringWithFormat:@"请输入自定义面额（1-%@的整数）",_cards_custom_model.card_max_money];
+            _cards_custom = responseObject[@"cards_custom"];
+        
+            _countTextField.placeholder = [NSString stringWithFormat:@"请输入自定义面额（1-%@的整数）",_cards_custom[@"card_max_money"]];
             _makeView.hidden = true;
         }
         if ([responseObject[@"cards_list"] count] > 0) {
@@ -102,15 +102,18 @@
     
 }
 - (IBAction)addElectronicMoney:(id)sender {
-_cards_custom_model.card_money = [NSString stringWithFormat:@"%.2f",[_countTextField.text floatValue]];
-    if ([_cards_custom_model.card_money integerValue] == 0) {
+    
+    MBElectronicCardModel *model = [MBElectronicCardModel yy_modelWithDictionary:_cards_custom];
+    
+    model.card_money = [NSString stringWithFormat:@"%.2f",[_countTextField.text floatValue]];
+    if ([model.card_money integerValue] == 0) {
         [self show:@"请输入一个自定义金额" time:1];
         return;
     }
     [self.countTextField resignFirstResponder];
     __block BOOL isThree = false ;
     [_seleCtionModelArray enumerateObjectsUsingBlock:^(MBElectronicCardModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj.card_money isEqualToString:_cards_custom_model.card_money]) {
+        if ([obj.card_money isEqualToString:model.card_money]) {
             obj.count ++;
             isThree = true;
             return ;
@@ -119,7 +122,7 @@ _cards_custom_model.card_money = [NSString stringWithFormat:@"%.2f",[_countTextF
     
     if (!isThree) {
         [_modelArray enumerateObjectsUsingBlock:^(MBElectronicCardModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([_cards_custom_model.card_money isEqualToString:obj.card_money]) {
+            if ([model.card_money isEqualToString:obj.card_money]) {
                 obj.isSelection = true;
                 obj.count = 1;
                 [self.seleCtionModelArray addObject:obj];
@@ -128,7 +131,7 @@ _cards_custom_model.card_money = [NSString stringWithFormat:@"%.2f",[_countTextF
             }
         }];
         if (!isThree) {
-            MBElectronicCardModel *model = _cards_custom_model;
+            
             model.count = 1;
             model.isSelection = true;
             [self.seleCtionModelArray addObject:model];
@@ -317,12 +320,9 @@ _cards_custom_model.card_money = [NSString stringWithFormat:@"%.2f",[_countTextF
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     
-     MMLog(@"%@",self.countTextField.text);
-   
-    
-    if ([textField.text integerValue] > [_cards_custom_model.card_max_money integerValue]) {
-        [self show:[NSString stringWithFormat:@"最大输入%@",_cards_custom_model.card_max_money] time:1];
-        _countTextField.text = _cards_custom_model.card_max_money;
+    if ([textField.text integerValue] > [_cards_custom[@"card_max_money"] integerValue]) {
+        [self show:[NSString stringWithFormat:@"最大输入%@",_cards_custom[@"card_max_money"]] time:1];
+        _countTextField.text = _cards_custom[@"card_max_money"];
         return;
     }
     
