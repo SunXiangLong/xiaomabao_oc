@@ -35,6 +35,7 @@
     NSInteger _page;
     NSArray *_titles;
     NSArray<UITableView *> *_tableViews;
+  
     
 }
 
@@ -81,8 +82,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    [_myTimer invalidate];
-//    _myTimer = nil;
+
     
 }
 - (NSMutableArray *)contentOffsetDictionaryM{
@@ -113,20 +113,14 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
     
     _page = 1;
-    
     //异步请求相应的数据，成功获取数据先后顺序未知（根据不同顺序做不同的半判断）
     [self getGoosInfoData];
-    
     [self getGoodsIntroduceData];
-    [self getGoodsPropertyData];
-    
-    
-    
-    
-    
-    
+//    [self getGoodsPropertyData];
+
 }
 #pragma mark --设置收藏按钮
 -(void)getShareButton{
@@ -135,12 +129,9 @@
     button.frame =  CGRectMake(UISCREEN_WIDTH - 2*NAV_BAR_W, NAV_BAR_Y, NAV_BAR_W, NAV_BAR_HEIGHT);
     if (_model.is_collect) {
         [button setImage:[UIImage imageNamed:@"collection"] forState:UIControlStateNormal];
-        
-        
     } else {
         [button setImage:[UIImage imageNamed:@"nice"] forState:UIControlStateNormal];
     }
-
     [button addTarget:self action:@selector(ClickCollection:) forControlEvents:UIControlEventTouchUpInside];
     button.imageEdgeInsets = UIEdgeInsetsMake(0, 30, 0,0);
     [self.navBar addSubview:button];
@@ -157,7 +148,7 @@
 - (void)setupContentView
 {
     self.islockObserveParam = YES;
-    UIScrollView* scrollView = [[UIScrollView alloc] init];
+    MBBaseScrollView* scrollView = [[MBBaseScrollView alloc] init];
     scrollView.delaysContentTouches = NO;
     [self.view addSubview:scrollView];
     
@@ -168,7 +159,7 @@
     scrollView.showsVerticalScrollIndicator = NO;
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.delegate = self;
-    scrollView.contentSize = CGSizeMake(UISCREEN_WIDTH * 3, 0);
+    scrollView.contentSize = CGSizeMake(UISCREEN_WIDTH * 2, 0);
     scrollView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT- TOP_Y - 50 );
     
     UITableView* table1 = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, scrollView.mj_h)];
@@ -176,7 +167,6 @@
     table1.tag = 0;
     table1.delegate = self;
     table1.dataSource = self;
-    
     table1.tableFooterView = [[UIView alloc] init];
     [scrollView addSubview:  table1];
     
@@ -188,11 +178,6 @@
     table2.tag = 1;
     table2.tableFooterView = [[UIView alloc] init];
     [scrollView addSubview:table2];
-    
-    
-    
-
-    
     
     _tableViews = @[table1,table2];
     for (UITableView *table in _tableViews) {
@@ -725,10 +710,12 @@
 
 #pragma mark 购买商品
 - (void)purchaseGoods:(UIButton *)btn{
+    
+    
     switch (btn.tag) {
-        case 1: [self presentSemiType:2];break;
+        case 1: [self chooseSpecifications:2];break;
             
-        default: [self presentSemiType:3];break;
+        default: [self chooseSpecifications:3];break;
     }
 }
 #pragma mark - 商品收藏
@@ -770,7 +757,7 @@
 
 -(void)goodShare{
     
-    if (!_model.goods_gallery||_model.goods_gallery == 0 ) {
+    if (!_model.goods_gallery||_model.goods_gallery.count == 0 ) {
         [self show:@"商品图片不存在，无法分享！" time:.5];
         return;
     }
@@ -829,16 +816,20 @@
 }
 #pragma MARK ---选择规格;
 - (void)chooseSpecifications{
+    [self chooseSpecifications:1];
     
+    
+    
+}
+- (void)chooseSpecifications:(NSInteger )type{
     if (_goodsSpecsModel) {
         
-        [self presentSemiType:1];
+        [self presentSemiType:type];
     }else{
         _isSpecData = YES;
-        [self getGoodsPropertyData];
+        [self getGoodsPropertyData:type];
     }
-    
-    
+
 }
 - (void)presentSemiType:(NSInteger )type{
     
@@ -847,8 +838,6 @@
     imagev.inventoryNum =  [_model.goods_number integerValue];
     WS(weakSelf)
     imagev.getCarData = ^(){
-        
-        
     [weakSelf getShoppingCartNumber];
 
     };
@@ -890,7 +879,7 @@
     
     [MBNetworking   POSTOrigin:string(BASE_URL_root, @"/flow/list_count") parameters:@{@"session":session} success:^(id responseObject) {
         
-        //        MMLog(@"%@",responseObject);
+                MMLog(@"%@",responseObject);
         
         if ([responseObject[@"status"] isKindOfClass:[NSDictionary class]]&&[responseObject[@"status"][@"succeed"] integerValue] == 1) {
             NSString * list_count = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"list_count"]];
@@ -938,7 +927,7 @@
         }
         if ([responseObject[@"status"][@"succeed"] integerValue] == 1 ) {
             
-            MMLog(@"获取商品内容详情数据成功%@",@"123");
+//            MMLog(@"获取商品内容详情数据成功%@",responseObject);
             _model = [MBGoodsModel yy_modelWithDictionary:responseObject[@"data"]];
             [self getShareButton];
             CGFloat strHeight = [_model.goods_name sizeWithFont:[UIFont boldSystemFontOfSize:13]  withMaxSize:CGSizeMake(UISCREEN_WIDTH-16, MAXFLOAT)].height;
@@ -946,11 +935,8 @@
             if ([_model.active_remainder_time integerValue] > 0) {
                 self.headViewHeight = UISCREEN_WIDTH+strHeight+135;
             }
-            NSMutableArray *imageScale = [NSMutableArray array];
-            for (id url in _model.goods_desc) {
-                [imageScale addObject: @([UIImage getImageSizeWithURL:url].height/[UIImage getImageSizeWithURL:url].width)];
-            }
-            _model.imageScale = imageScale;
+           
+           
             
             
             [self dismiss];
@@ -974,7 +960,7 @@
 
 
 #pragma mark -- 请求规格数据
--(void)getGoodsPropertyData{
+-(void)getGoodsPropertyData:(NSInteger )type{
     if (_isSpecData) {
         [self show];
     }
@@ -986,10 +972,10 @@
         
         if ([self checkData:responseObject]&&[responseObject[@"status"][@"succeed"] integerValue] == 1) {
             MMLog(@"获取规格数据成功%@",@"123");
-            MMLog(@"获取规格数据成功%@",responseObject);
+//            MMLog(@"获取规格数据成功%@",responseObject);
             _goodsSpecsModel = [MBGoodsSpecsRootModel yy_modelWithDictionary:responseObject[@"data"]];
             if (_isSpecData) {
-                [self presentSemiType:1];
+                [self presentSemiType:type];
             }
             //            MMLog(@"%@",_goodsSpecsModel);
             _isSpecData = false;
@@ -1010,7 +996,7 @@
         [self show];
     }
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/goods/getgoodsproperty") parameters:@{@"goods_id":self.GoodsId} success:^(id responseObject) {
-        //        MMLog(@"获取商品介绍%@",responseObject);
+          MMLog(@"获取商品介绍数据成功%@",@"123");
         if (_isPropertyData) {
             [self dismiss];
         }
@@ -1018,7 +1004,7 @@
             if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
                 
                 _goodsPropertyArray = [NSArray modelDictionary:responseObject modelKey:@"data" modelClassName:@"MBGoodsPropertyModel"];
-                MMLog(@"获取商品介绍数据成功%@",@"123");
+//
                 if (_tableViews.count >0) {
                     [_tableViews[1] reloadData];
                 }
@@ -1106,7 +1092,7 @@
         newBtn.clickStatus = YES;
         _lastButton = newBtn;
         [UIView animateWithDuration:.25 animations:^{
-            _infoItemLineView.ml_x = pageNum * (UISCREEN_WIDTH/3);
+            _infoItemLineView.ml_x = pageNum * (UISCREEN_WIDTH/2);
         }];
         
         UITableView* contentView = _tableViews[pageNum];
@@ -1170,14 +1156,14 @@
 #pragma mark ---UITableViewDelegate,UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     switch (tableView.tag) {
-        case 0:return _model.imageScale.count;
-        case 1:return _goodsPropertyArray.count > 0?_goodsPropertyArray.count:1;
-        default:return 0;
+        case 0:return _model.goods_desc_size.count;
+        default:return _goodsPropertyArray.count > 0?_goodsPropertyArray.count:1;
+      
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 0;
+    return 0.0001;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     return [[UIView alloc] init];
@@ -1188,13 +1174,14 @@
     
     
     switch (tableView.tag) {
-        case 0:return  [_model.imageScale[indexPath.row] doubleValue]*UISCREEN_WIDTH;
-        case 1:return  [tableView fd_heightForCellWithIdentifier:@"MBGoodsPropertyTableViewCell" cacheByIndexPath:indexPath configuration:^(MBGoodsPropertyTableViewCell *cell) {
+        case 0:{
+            CGFloat height = UISCREEN_WIDTH/[_model.goods_desc_size[indexPath.row] doubleValue];
+            return  fabs(height);
+        }
+        default:return  [tableView fd_heightForCellWithIdentifier:@"MBGoodsPropertyTableViewCell" cacheByIndexPath:indexPath configuration:^(MBGoodsPropertyTableViewCell *cell) {
             [self configureCell:cell atIndexPath:indexPath];
-            
         }];
        
-        default:return 0;
     }
     
 }
@@ -1228,7 +1215,7 @@
             
         }
             
-        case 1:  {
+       default:  {
             
             
             MBGoodsPropertyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBGoodsPropertyTableViewCell" forIndexPath:indexPath];
@@ -1241,7 +1228,7 @@
         }
             
             
-        default:return nil;
+        
     }
 }
 

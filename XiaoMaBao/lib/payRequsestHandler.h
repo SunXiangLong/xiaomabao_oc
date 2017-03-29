@@ -74,9 +74,9 @@
 //创建package签名
 -(NSString*) createMd5Sign:(NSMutableDictionary*)dict;
 //获取package带参数的签名包
--(NSString *)genPackage:(NSMutableDictionary*)packageParams;
+-(NSString *)sendPrepay:(NSMutableDictionary*)packageParams;
 //提交预支付
--(NSString *)sendPrepay:(NSMutableDictionary *)prePayParams;
+-( void)sendPrepay:(NSMutableDictionary*)prePayParams Block:(void (^)(NSString *prepayid))prepayBlock;
 //签名实例测试
 - ( NSMutableDictionary *)sendPay_demo;
 

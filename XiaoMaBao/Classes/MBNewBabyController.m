@@ -350,7 +350,6 @@
         }else{
             _day_info = [responseObject valueForKeyPath:@"day_info"];
             [self setTableHeadView:_day_info];
-       
             [self.dataArray insertObject:[responseObject valueForKeyPath:@"remind"] atIndex:0];
             [self.dataArray addObject:[responseObject valueForKeyPath:@"recommend_posts"]];
             NSMutableArray *arr = [NSMutableArray array];

@@ -86,13 +86,12 @@
     [MBLogOperation guidePage:self.window];
     //消息数置0
      [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    //JSPatch 热修复
-    [JSPatch startWithAppKey:@"17ff2af963cfd7dd"];
+
 #if defined(DEBUG)||defined(_DEBUG)
-//    [JSPatch setupDevelopment];
-//    [[JPFPSStatus sharedInstance] open];
+
+    [[JPFPSStatus sharedInstance] open];
 #endif
-    [JSPatch sync];
+
     
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -158,7 +157,7 @@
 {
     // 当用户通过支付宝客户端进行支付时,会回调该block:standbyCallback
     [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"AlipayPay" object:nil userInfo:resultDic]];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"alipayPay" object:nil userInfo:resultDic]];
     }];
     
      return   [WXApi handleOpenURL:url delegate:self];

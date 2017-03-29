@@ -10,22 +10,11 @@
 
 @interface MBPaymentViewController : BkBaseViewController
 
-
-/**
- *  订单号
- */
-@property (nonatomic,copy) NSString *order_sn;
-/**
- *  商品订单信息
- */
+/***  商品订单信息 */
 @property(strong,nonatomic)NSDictionary *orderInfo;
-/**
- *   服务订单信息
- */
-@property (nonatomic,strong) NSDictionary *service_data;
-/**
- *  标示  2代表服务订单  1代表商品订单  返回的界面不一样
- */
+/***  标示  2代表服务订单  1代表商品订单  3代表电子卡界面 返回的界面不一样*/
 @property(strong,nonatomic)NSString *type;
 
+/**是否是订单界面pus*/
+@property(assign,nonatomic)BOOL isOrderVC;
 @end

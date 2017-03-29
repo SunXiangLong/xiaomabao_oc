@@ -638,11 +638,14 @@
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/pay_info"] parameters:@{@"session":dict,@"order_sn":orderModel.parent_order_sn} success:^(NSURLSessionDataTask *operation, MBModel *model) {
         [self dismiss];
         if([model.status[@"succeed"] isEqualToNumber:@1]){
-             MMLog(@"%@",model.data);
             MBPaymentViewController *payVc = [[MBPaymentViewController alloc] init];
-            
-            payVc.orderInfo = model.data;
-            payVc.order_sn = model.data[@"parent_order_sn"];
+            payVc.orderInfo = @{@"order_sn":model.data[@"parent_order_sn"],
+                                @"order_amount":[model.data[@"order_amount_formatted"] substringFromIndex:1],
+                                @"subject":@"北京小麻包信息技术有限公司",
+                                @"desc":@"北京小麻包信息技术有限公司"
+                                };
+            payVc.type = @"1";
+            payVc.isOrderVC = true;
             [self pushViewController:payVc Animated:YES];
             
         }else{

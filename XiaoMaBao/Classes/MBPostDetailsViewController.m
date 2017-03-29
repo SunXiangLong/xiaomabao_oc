@@ -131,8 +131,11 @@
             [self  loginClicksss:@"mabao"];
             return;
         }
-        MMLog(@"%@",dic);
-        [self pusVC:dic];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self pusVC:dic];
+        });
+        
     }];
     context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
         context.exception = exceptionValue;

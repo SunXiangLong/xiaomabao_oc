@@ -46,7 +46,13 @@
     if ([str isEqualToString:@"付款"]) {
         [MobClick event:@"ServiceOrder4"];
         MBPaymentViewController *VC = [[MBPaymentViewController alloc] init];
-        VC.service_data = self.dataDic;
+        VC.orderInfo = @{@"order_sn":self.dataDic[@"product_sn"],
+                         @"order_amount":self.dataDic[@"order_amount"],
+                         @"subject":@"北京小麻包信息技术有限公司",
+                         @"desc":[NSString stringWithFormat:@"%@-麻包服务",self.dataDic[@"product_name"]]
+                         };
+        VC.isOrderVC = true;
+        VC.type = @"2";
         [self.vc pushViewController:VC Animated:YES];
     }else if ([str isEqualToString:@"查看卷码"]){
     [MobClick event:@"ServiceOrder5"];

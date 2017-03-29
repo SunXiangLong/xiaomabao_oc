@@ -124,7 +124,8 @@
         
         
     }];
-    
+    [_nameLabel  layoutIfNeeded];
+
     UITextField *textField = [[UITextField alloc] init];
     textField.placeholder   = @"请输入备注信息";
     textField.font =  SYSTEMFONT(14);
@@ -132,8 +133,10 @@
     [textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
         make.left.equalTo(_nameLabel.mas_right);
-//        make.right.equalTo(self.mas_right).offset(-10);
+        make.width.mas_equalTo(UISCREEN_WIDTH - _nameLabel.right);
+        make.height.mas_equalTo(40);
     }];
+    
     
     
     

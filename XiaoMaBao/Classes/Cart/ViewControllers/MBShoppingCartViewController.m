@@ -17,16 +17,6 @@
 @interface MBShoppingCartViewController () <UITableViewDataSource,UITableViewDelegate,MBShoppingCartTableViewdelegate>
 {
     
-    /*
-     1.小麻包app商品详情界面修改，修改以前图片过多加载会闪退的问题。
-     2.购物车界面重构。
-     3.下单确认界面重构。
-     4.修复小麻包app已知bug。
-     5.修复共享购app已知bug。
-     6.提交共享购1.1.3版本
-     7.提交小麻包app3.6.2版本。
-
-     */
     UIButton *allSelectBtn;
     NSString *_is_cross_border;
     NSString *dele;
@@ -49,7 +39,7 @@
     [super viewWillAppear:animated];
     if (_isRefresh) {
         if ([MBSignaltonTool getCurrentUserInfo].uid) {
-            [self getCartInfo:0 type:nil isShow:true];
+            [self getCartInfoShow:true];
         }else{
             [self maskView];
         }
@@ -60,7 +50,7 @@
     [super viewDidLoad];
     [self setupUI];
     if ([MBSignaltonTool getCurrentUserInfo].uid) {
-        [self getCartInfo:0 type:nil isShow:true];
+        [self getCartInfoShow:true];
     }else{
         [self maskView];
     }
@@ -81,6 +71,7 @@
     
     
     UIView *bottomView = [[UIView alloc] init];
+    bottomView.backgroundColor = [UIColor whiteColor];
     [self addTopLineView:bottomView];
     bottomView.hidden = true;
     bottomView.frame = CGRectMake(0, UISCREEN_HEIGHT - 45, UISCREEN_WIDTH, 45);
@@ -199,20 +190,13 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/update_cart"] parameters:@{@"session":dict,@"rec_id":model.rec_id,@"new_number":goods_number,@"flow_order":flow_order} success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-        MMLog(@"更新购物车成功%@",[responseObject valueForKeyPath:@"status"]);
+//        MMLog(@"更新购物车成功%@",[responseObject valueForKeyPath:@"status"]);
         
         NSDictionary * dict = [responseObject valueForKeyPath:@"status"];
         if([[dict valueForKeyPath:@"succeed"] isEqualToNumber:@1]){
             
-//            if (isNum) {
-//                model.goods_number = goods_number;
-//                
-//            }else{
-//                model.flow_order = flow_order;
-//            }
-            
-           
-            [self getCartInfo: row type:@"reload" isShow:false];
+
+            [self getCartInfoShow:false];
             
         }else{
             [self dismiss];
@@ -242,7 +226,7 @@
         
         MMLog(@"更新购物车成功---responseObject%@",responseObject);
         if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
-            [self getCartInfo:0 type:nil isShow:false];
+            [self getCartInfoShow:false];
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
@@ -254,7 +238,7 @@
 }
 
 #pragma mark -- 获取购物车数据
--(void)getCartInfo:(NSInteger )row type:(NSString *)type isShow:(BOOL)isShow
+-(void)getCartInfoShow:(BOOL)isShow
 {
     
     if (isShow) {
@@ -300,18 +284,7 @@
             
         }
         
-        if ([type isEqualToString:@"reload"]) {
-            
-            NSIndexPath *indexpath = [NSIndexPath indexPathForRow:row inSection:0];
-            
-            [_mytableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
-            
-            
-        }else {
-            
-            
-            [_mytableView reloadData];
-        }
+        [_mytableView reloadData];
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
@@ -362,7 +335,6 @@
     
     
 }
-
 - (void)goToDaySale{
     MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
     if (userInfo.uid == nil) {
@@ -378,7 +350,7 @@
     return @"购物车";
 }
 #pragma mark --  收藏和删除购物车商品
-- (void)DelteCartAndSavecollectRequestData:(NSString *)rec_id  and:(NSInteger)num and:(NSInteger)row{
+- (void)delteCartAndSavecollectRequestData:(NSString *)rec_id  and:(NSInteger)num and:(NSInteger)row{
     [self show];
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
@@ -387,7 +359,7 @@
     if (num == 0) {//删除
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/del_cart"] parameters:@{@"session":session,@"rec_id":rec_id}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
-                       [self getCartInfo:row type:@"dele" isShow:false];
+                       [self getCartInfoShow:false];
                    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                        MMLog(@"失败");
                    }];
@@ -412,13 +384,9 @@
                    }];
     }
     
-    
-    
-    
+
     
 }
-
-
 
 
 #pragma mark --UITableViewdelegate
@@ -469,7 +437,7 @@
     UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除"handler:^(UITableViewRowAction *action,NSIndexPath *indexPath) {
         [MobClick event:@"ShoppingCart5"];
         
-        [self DelteCartAndSavecollectRequestData:_model.goods_list[indexPath.row].rec_id and:0 and:indexPath.row];
+        [self delteCartAndSavecollectRequestData:_model.goods_list[indexPath.row].rec_id and:0 and:indexPath.row];
         
     }];
     
@@ -478,7 +446,7 @@
     UITableViewRowAction *moreRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"加入收藏"handler:^(UITableViewRowAction *action,NSIndexPath *indexPath) {
         [MobClick event:@"ShoppingCart6"];
         
-        [self DelteCartAndSavecollectRequestData:_model.goods_list[indexPath.row].goods_id and:1 and:indexPath.row];
+        [self delteCartAndSavecollectRequestData:_model.goods_list[indexPath.row].goods_id and:1 and:indexPath.row];
         
     }];
     

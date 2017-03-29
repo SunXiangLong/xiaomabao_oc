@@ -63,6 +63,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (!iOS_9) {
+        
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"当前系统版本过低，请升级后再试！" preferredStyle:UIAlertControllerStyleAlert];
+        WS(weakSelf)
+
+        UIAlertAction *cancleUpdata = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [weakSelf.navigationController popViewControllerAnimated:true];
+            [weakSelf.navigationController dismissViewControllerAnimated:true completion:nil];
+            
+        }];
+      
+        [alertVC addAction:cancleUpdata];
+        [self presentViewController:alertVC animated:YES completion:nil];
+        return;
+    }
     [self show];
     [self setNavigationBar];
     //    self.fileRootPath = @"http://oce53xy92.bkt.clouddn.com/";

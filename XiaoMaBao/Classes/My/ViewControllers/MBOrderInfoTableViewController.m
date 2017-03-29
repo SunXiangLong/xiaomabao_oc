@@ -41,9 +41,7 @@
     
     }
     
-  
-    
-    
+
     [MBNetworking POST:url parameters:parameters  success:^(NSURLSessionDataTask *operation, id responseObject) {
         
         [self dismiss];
@@ -58,7 +56,8 @@
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        MMLog(@"失败");
+        [self show:@"请求失败！" time:1];
+        MMLog(@"%@",error);
     }];
 }
 

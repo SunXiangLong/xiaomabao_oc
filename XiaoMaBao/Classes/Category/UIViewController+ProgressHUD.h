@@ -30,4 +30,11 @@
  @param responseObject 接口返回的数据
  */
 - (BOOL)checkData:(id)responseObject;
+- (BOOL)charmResponseObject:(id)responseObject;
+/**
+ 获取当前视图上的视图控制器。
+
+ @return VC
+ */
++(UIViewController*) currentViewController;
 @end

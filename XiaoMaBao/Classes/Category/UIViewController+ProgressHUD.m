@@ -20,6 +20,17 @@
     MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
     [self presentViewController:VC animated:YES completion:nil];
 }
+- (BOOL)charmResponseObject:(id)responseObject{
+    
+    if ([responseObject[@"status"] isKindOfClass:[NSNumber class]]&&[responseObject[@"status"] integerValue] == 0) {
+        
+        [self show:@"登录超时,请重新登录!" time:.5];
+        return false ;
+    }
+    
+    
+    return true;
+}
 -(BOOL)checkData:(id)responseObject{
 
     if ([responseObject[@"status"] isKindOfClass:[NSDictionary class]]) {
@@ -52,6 +63,42 @@
     
     
 }
+
++(UIViewController *) findBestViewController:(UIViewController *)vc {
+    if (vc.presentedViewController) {
+        // Return presented view controller
+        return [UIViewController findBestViewController:vc.presentedViewController];
+    } else if ([vc isKindOfClass:[UISplitViewController class]]) {
+        // Return right hand side
+        UISplitViewController *svc = (UISplitViewController *) vc;
+        if (svc.viewControllers.count > 0)
+            return [UIViewController findBestViewController:svc.viewControllers.lastObject];
+        else
+            return vc;
+    } else if ([vc isKindOfClass:[UINavigationController class]]) {
+        // Return top view
+        UINavigationController *svc = (UINavigationController *) vc;
+        if (svc.viewControllers.count > 0)
+            return [UIViewController findBestViewController:svc.topViewController];
+        else
+            return vc;
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        // Return visible view
+        UITabBarController *svc = (UITabBarController *) vc;
+        if (svc.viewControllers.count > 0)
+            return [UIViewController findBestViewController:svc.selectedViewController];
+        else
+            return vc;
+    } else {
+        // Unknown view controller type, return last child view controller
+        return vc;
+    }
+}
++(UIViewController *) currentViewController {
+    // Find best view controller
+    UIViewController *viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    return [UIViewController findBestViewController:viewController];
+}
 - (void)show{
     
     [self showMessage:nil toView:nil delay:0];
@@ -76,13 +123,15 @@
     [self dismiss];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     
-    // Set the text mode to show only text.
+
+
     hud.mode = MBProgressHUDModeText;
+    hud.label.numberOfLines = 0;
     hud.label.text = str;
     // Move to bottm center.
-    hud.offset = CGPointMake(0.f, 0.f);
+//    hud.offset = CGPointMake(0.f, 0.f);
     
-    [hud hideAnimated:YES afterDelay:1.f];
+    [hud hideAnimated:YES afterDelay:1.0f];
 
 }
 -(void)show:(NSString *)str1 and:(NSString *)str2 time:(NSInteger)timer{

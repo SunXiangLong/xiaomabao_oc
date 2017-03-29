@@ -50,9 +50,7 @@
 //                   MMLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                    [self dismiss];
                    _array= [responseObject valueForKeyPath:@"data"];
-                  
-                 
-                   
+                
                    if (_array.count>0) {
                           [self tableView];
                    }else{

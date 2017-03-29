@@ -16,18 +16,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *tipLbl;
 @property (weak,nonatomic) UIView *maskView;
 @property (assign,nonatomic) NSInteger swingCount;
-
 @property (weak, nonatomic) IBOutlet UIImageView *iconImgView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 @property (weak, nonatomic) IBOutlet UILabel *timeLbl;
 @property (strong,nonatomic) MBSwing *swing;
-
 @property (weak,nonatomic) UIButton *checkBtn;
 @property (weak,nonatomic) UIButton *agianBtn;
 @property (weak,nonatomic) UIButton *shareBtn;
-
 @property (weak, nonatomic) UIView *sharkView;
-
 @end
 
 @implementation MBSharkViewController
@@ -48,65 +44,67 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = YES;
     [self getSwingTimes:NO];//获取摇奖次数
-    [self getPrizeUser];//获取中奖信息
+    
 }
 - (void)getPrizeUser{
-    MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
     
-    if (userInfo != nil && [userInfo valueForKey:@"uid"] != nil) {
-        NSDictionary *dict = @{@"uid":[userInfo valueForKey:@"uid"],@"sid":[userInfo valueForKey:@"sid"]};
-        
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/get_remote_reward"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-            
-            NSString* header_img = [responseObject.data valueForKey:@"header_img"];
-            if (![header_img isKindOfClass:[NSNull class]]) {
-                [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:header_img]];
-            }
-            
-            self.titleLbl.text = [NSString stringWithFormat:@"恭喜“%@” 摇中了%@",[responseObject.data valueForKey:@"nick_name"],[responseObject.data valueForKey:@"type_name"]];
-            
+    
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSDictionary *dict = @{@"uid":uid,@"sid":sid};
+    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/promote/get_remote_reward") parameters:@{@"session":dict} success:^(id responseObject) {
+        MMLog(@"%@",responseObject);
+        [self dismiss];
+        if ([self checkData:responseObject]) {
+            self.titleLbl.text = [NSString stringWithFormat:@"恭喜“%@” 摇中了%@",responseObject[@"data"][@"nick_name"],responseObject[@"data"][@"type_name"]];
+            [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:responseObject[@"data"][@"header_img"]]];
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             [formatter setDateFormat:@"yyyy.MM.dd"];
             NSString *str = [NSString stringWithFormat:@"%@",
-                             [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:[[responseObject.data valueForKey:@"prize_time"] integerValue]]]];
-            
+                             [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:[responseObject[@"data"][@"prize_time"] integerValue]]]];
             self.timeLbl.text = str;
-            
-        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            
-        }];
-    }
+        }
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"请求失败" time:.5];
+    }];
+    
+    
 }
 
 - (void)getSwingTimes:(BOOL )isonce{
     
     if (isonce) {
-          AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSDictionary *dict = @{@"uid":uid,@"sid":sid};
+    [self show];
     
-    MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-    if (userInfo != nil && [userInfo valueForKey:@"uid"] != nil) {
-        NSDictionary *dict = @{@"uid":[userInfo valueForKey:@"uid"],@"sid":[userInfo valueForKey:@"sid"]};
-        [self show];
-        [MBNetworking POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/get_remain_swing"] parameters:@{@"session":dict} success:^(id responseObject) {
-            if (!isonce) {
-                [self dismiss];
+    
+    [MBNetworking POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/get_remain_swing"] parameters:@{@"session":dict} success:^(id responseObject) {
+        if (!isonce) {
+            
+            [self getPrizeUser];//获取中奖信息
+        }else{
+         [self dismiss];
+        }
+        MMLog(@"%@",responseObject);
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary* dic = (NSDictionary*)responseObject ;
+            NSDictionary* dDate = [dic objectForKey:@"data"];
+            int rest_count = (int)[dDate[@"rest_count"] integerValue];
+            self.tipLbl.text = [NSString stringWithFormat:@"还可以摇%d次",rest_count];
+            self.swingCount = rest_count ;
+            if (isonce) {
+                [self startSwing];
             }
-            if ([responseObject isKindOfClass:[NSDictionary class]]) {
-                NSDictionary* dic = (NSDictionary*)responseObject ;
-                NSDictionary* dDate = [dic objectForKey:@"data"];
-                int rest_count = (int)[dDate[@"rest_count"] integerValue];
-                self.tipLbl.text = [NSString stringWithFormat:@"还可以摇%d次",rest_count];
-                self.swingCount = rest_count ;
-                if (isonce) {
-                    [self startSwing];
-                }
-               
-            }
-        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            [self dismiss];
-        }];
-    }
+            
+        }
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"请求失败" time:.5];
+    }];
+    
 }
 -(NSString *)leftImage{
     return @"nav_back";
@@ -169,7 +167,7 @@
         NSString *startTime = [NSString stringWithFormat:@"%@",
                                [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:[self.swing.send_start_date integerValue]]]];
         NSString *endTime = [NSString stringWithFormat:@"%@",
-                               [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:[self.swing.send_end_date integerValue]]]];
+                             [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:[self.swing.send_end_date integerValue]]]];
         
         prizeName.text = [NSString stringWithFormat:@"哇！棒着呢~"];
         prizeDetailName.text = [NSString stringWithFormat:@"恭喜摇到%@！",self.swing.type_name];
@@ -233,36 +231,36 @@
 }
 
 - (void)startSwing{
-
- 
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
     
-        
-        if (self.swingCount <= 0) {
-            [self show:@"您今天的次数已经用光了~" time:1];
-            return ;
-        }
-        
-   
-        MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-        if (userInfo != nil && [userInfo valueForKey:@"uid"] != nil) {
-            NSDictionary *dict = @{@"uid":[userInfo valueForKey:@"uid"],@"sid":[userInfo valueForKey:@"sid"]};
-            [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/swing"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-                 [self dismiss];
-                self.swing = [MBSwing  yy_modelWithDictionary: responseObject.data];
-                if ([[responseObject.data allValues] count] == 0) {
-                    // 没中奖
-                    [self showSharkWinning:NO];
-                }else{
-                    [self showSharkWinning:YES];
-                }
-               
-            } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                [self show:@"请求失败" time:1];
-            }];
-        }
-        
-//    });
+    
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    
+    
+    if (self.swingCount <= 0) {
+        [self show:@"您今天的次数已经用光了~" time:1];
+        return ;
+    }
+    
+    
+    MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
+    if (userInfo != nil && [userInfo valueForKey:@"uid"] != nil) {
+        NSDictionary *dict = @{@"uid":[userInfo valueForKey:@"uid"],@"sid":[userInfo valueForKey:@"sid"]};
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/promote/swing"] parameters:@{@"session":dict} success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
+            [self dismiss];
+            self.swing = [MBSwing  yy_modelWithDictionary: responseObject.data];
+            if ([[responseObject.data allValues] count] == 0) {
+                // 没中奖
+                [self showSharkWinning:NO];
+            }else{
+                [self showSharkWinning:YES];
+            }
+            
+        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+            [self show:@"请求失败" time:1];
+        }];
+    }
+    
+    //    });
     
     
 }

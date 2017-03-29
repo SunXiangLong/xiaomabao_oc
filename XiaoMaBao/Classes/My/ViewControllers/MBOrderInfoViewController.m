@@ -36,16 +36,13 @@
 }
 
 - (void)getOrderInfo{
+    
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    
+    [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_detail"] parameters:@{@"session":dict,@"order_id":self.order_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        
-        MMLog(@"%@",[responseObject valueForKeyPath:@"data"]);
-
-        
-        
+        [self dismiss];
         NSDictionary * status = [responseObject valueForKeyPath:@"status"];
         if([status[@"succeed"] isEqualToNumber:@1]){
             NSDictionary * data = [responseObject valueForKeyPath:@"data"];
@@ -75,7 +72,7 @@
         [_tableView reloadData];
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        MMLog(@"失败");
+        [self show:@"请求失败" time:.1];
     }];
 }
 

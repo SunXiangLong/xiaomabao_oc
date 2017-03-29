@@ -130,7 +130,8 @@ return @"申请售后服务";
     NSInteger order_num = 0;
     double    order_money = 0.00;
     for (int i=0;i<_numArray.count;i++  ) {
-        NSString *str = _numArray[i];
+        NSString *str =[NSString stringWithFormat:@"%@",_numArray[i]];
+        
         if (![str isEqualToString:@"0"]) {
             order_num += [str integerValue];
         }
@@ -228,10 +229,10 @@ return @"申请售后服务";
         [self show:@"请添加问题描述" time:1];
         return;
     }
-    if (_photoArray.count<2) {
-        [self show:@"请添加图片" time:1];
-        return;
-    }
+//    if (_photoArray.count<2) {
+//        [self show:@"请添加图片" time:1];
+//        return;
+//    }
     NSInteger number = 0;
     for (NSString *str in _numArray) {
         number +=[str integerValue];

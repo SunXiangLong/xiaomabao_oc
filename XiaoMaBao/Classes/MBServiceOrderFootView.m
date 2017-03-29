@@ -26,7 +26,13 @@
     NSString *str = button.titleLabel.text;
     if ([str isEqualToString:@"付款"]) {
         MBPaymentViewController *VC = [[MBPaymentViewController alloc] init];
-        VC.service_data = self.dataDic;
+        VC.orderInfo = VC.orderInfo = @{@"order_sn":self.dataDic[@"product_sn"],
+                                        @"order_amount":self.dataDic[@"order_amount"],
+                                        @"subject":@"北京小麻包信息技术有限公司",
+                                        @"desc":self.dataDic[@"desc"]
+                                        };
+        VC.type = @"2";
+        VC.isOrderVC = true;
         [self.vc pushViewController:VC Animated:YES];
     }else if ([str isEqualToString:@"查看卷码"]){
         

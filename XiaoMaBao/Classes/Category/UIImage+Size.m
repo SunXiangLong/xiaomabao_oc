@@ -372,6 +372,7 @@
         URL = [NSURL URLWithString:imageURL];
     }
     if(URL == nil)
+        
         return CGSizeZero;     // url不正确返回CGSizeZero
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL];

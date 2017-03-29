@@ -43,14 +43,15 @@
 }
 - (IBAction)buttonTouch:(UIButton *)sender {
     NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
-    if (!sid) {
-        [self  loginClicksss:@"mabao"];
-        return ;
-    }
     switch (sender.tag) {
         case 0:
         {
             [MobClick event:@"AffordablePlane1"];
+            
+            if (!sid) {
+                [self  loginClicksss:@"mabao"];
+                return ;
+            }
             UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
             MBCheckInViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBCheckInViewController"];
             [self presentViewController:myView animated:YES completion:nil];
@@ -60,6 +61,10 @@
             break;
         case 1:{
             [MobClick event:@"AffordablePlane2"];
+            if (!sid) {
+                [self  loginClicksss:@"mabao"];
+                return ;
+            }
             UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
             MBSharkViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBSharkViewController"];
         

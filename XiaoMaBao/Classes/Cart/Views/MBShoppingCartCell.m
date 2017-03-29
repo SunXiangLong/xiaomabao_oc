@@ -138,7 +138,7 @@
     
     
     UIButton *goodsNumeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [goodsNumeBtn setBackgroundImage:[[UIImage imageNamed:@"syncart_middle_btn_enable"] imageWithTintColor:UIcolor(@"dddddd")] forState:UIControlStateNormal];
+    [goodsNumeBtn setBackgroundImage:[UIImage imageNamed:@"syncart_middle_btn_enable"] forState:UIControlStateNormal];
     [self addSubview:goodsNumeBtn];
     [goodsNumeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(goodsPrice.mas_bottom);

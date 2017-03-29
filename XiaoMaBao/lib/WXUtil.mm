@@ -51,8 +51,11 @@
     [request setHTTPBody:[data dataUsingEncoding:NSUTF8StringEncoding]];
     
     NSError *error;
-    //将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+    //将请求的url数据放到NSData对象
+   [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+        
+    }] ;
+      NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
     return response;
     //return [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
 }

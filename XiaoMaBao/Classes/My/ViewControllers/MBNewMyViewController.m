@@ -23,6 +23,7 @@
 #import "MBRefundHomeController.h"
 #import "MBHealthViewController.h"
 #import "MBMyServiceController.h"
+#import "MBElectronicCardOrderVC.h"
 @interface MBNewMyViewController ()<UIScrollViewDelegate>
 {
     /**
@@ -46,7 +47,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"MBPersonalSettingsViewController"];
-    
+  
+   
     if (!_isbool) {
         
         _tabeleView.tableHeaderView = ({
@@ -84,8 +86,9 @@
                         [self pushViewController:VC Animated:YES];
                     }  break;
                     case 3:{
-                        [MobClick event:@"PersonalCenter4"];
-                        MBMyCollectionViewController *VC =[[MBMyCollectionViewController alloc] init]; [self pushViewController:VC Animated:YES];}  break;
+                        [self performSegueWithIdentifier:@"MBElectronicCardOrderVC" sender:nil];
+                       
+                    }  break;
                     default:[self  loginClicksss:@"mabao"];
                         
                         break;
@@ -104,21 +107,24 @@
     
     
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.tabeleView.tableFooterView = [[UIView alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageBadge:) name:@"messageBadge" object:nil];
     _dataArray = @[
+                   @{@"image":@"star",@"name":@"我的收藏"},
                    @{@"image":@"icon7",@"name":@"退换货"},
                    @{@"image":@"icon8",@"name":@"代金券"},
                    @{@"image":@"hempBeans",@"name":@"我的麻豆"},
                    @{@"image":@"icon2",@"name":@"热线电话",@"photo":@"010-85170751"},
                    @{@"image":@"icon3",@"name":@"收货地址"},
-                   @{@"image":@"icon1",@"name":@"浏览记录"},
+//                   @{@"image":@"icon1",@"name":@"浏览记录"},
                    @{@"image":@"icon5",@"name":@"联系我们"},
                    @{@"image":@"icon4",@"name":@"售后服务"},
-                   @{@"image":@"icon6",@"name":@"麻包帮助"},
+                   @{@"image":@"icon6",@"name":@"麻包帮助"}
+                   
                    ];
     
 }
@@ -161,7 +167,6 @@
 
 
 - (void)service{
-    [[Unicall singleton] attach:self appKey:UNICALL_APPKEY tenantId:UNICALL_TENANID];
     NSDictionary *itemInfo = @{
                                @"title" :@"",
                                @"desc" :@"",
@@ -203,38 +208,7 @@
         [unicall UnicallUpdateUserInfo:@{@"nickname": string(@"用户的sid:", sid)}];
     }
 }
-//delegate methods
--(void)acquireValidation
-{
-    [self getUnicallSignature];
-}
--(void)messageCountUpdated:(NSNumber*) data
-{
-    MMLog(@"count%@:",data);
-    
-}
--(void)messageArrived:(NSDictionary*) data
-{
-    NSError* error = nil;
-    NSData* source = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error];
-    NSString* str = [NSJSONSerialization JSONObjectWithData:source options:NSJSONReadingMutableContainers error:&error];
-    MMLog(@"%@%@",@"Unicall message arrived.",str);
-    
-    if([[data objectForKey:@"eventName"] isEqualToString:@"updateNewMessageCount"])
-        MMLog(@"count%@:",data);
-}
--(UIViewController*) currentViewController
-{
-    if (_UnicallCount ==0) {
-        self.tabBarController.tabBar.hidden = YES;
-    }
-    _UnicallCount++;
-    if (_UnicallCount ==4) {
-        self.tabBarController.tabBar.hidden = NO;
-        _UnicallCount =0;
-    }
-    return self;
-}
+
 -(NSString*)getCurrentTime {
     NSDateFormatter*formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyy-MM-dd'T'HH:mm:ssZZZZZ"];
@@ -289,36 +263,36 @@
     }
     
     switch (indexPath.row) {
-        case 0:{
+        case 1:{
             [MobClick event:@"PersonalCenter5"];
             MBRefundHomeController *VC = [[MBRefundHomeController alloc] init];
             [self pushViewController:VC Animated:YES];}break;
-        case 1: {
+        case 2: {
             [MobClick event:@"PersonalCenter6"];
             MBVoucherViewController *VC =[[MBVoucherViewController alloc] init];
             [self pushViewController:VC Animated:YES];
         }break;
-        case 2:{
+        case 3:{
             [MobClick event:@"PersonalCenter7"];
             [self performSegueWithIdentifier:@"MBMyMaBeanViewController" sender:nil];
         }break;
-        case 3:{
+        case 4:{
             [MobClick event:@"PersonalCenter8"];
             //拨打电话号码
             NSString * telStr = [NSString stringWithFormat:@"telprompt://%@",@"010-85170751"];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
         }break;
-        case 4:{
+        case 5:{
             [MobClick event:@"PersonalCenter9"];
             MBShopAddresViewController *VC = [[MBShopAddresViewController alloc] init];
             VC.PersonalCenter = @"yes";
             [self pushViewController:VC Animated:YES];
         } break;
-        case 5: {
-            [MobClick event:@"PersonalCenter10"];
-            MBHistoryRecoderViewController *VC = [[MBHistoryRecoderViewController alloc] init];
-            [self pushViewController:VC Animated:YES];
-        }break;
+//        case 6: {
+////            [MobClick event:@"PersonalCenter10"];
+////            MBHistoryRecoderViewController *VC = [[MBHistoryRecoderViewController alloc] init];
+////            [self pushViewController:VC Animated:YES];
+//        }break;
         case 6: {
             [MobClick event:@"PersonalCenter11"];
             [self service];
@@ -330,12 +304,19 @@
             [self pushViewController:VC Animated:YES];
             
         }break;
-        default:{
+        case 8:{
             [MobClick event:@"PersonalCenter13"];
             MBHelpServiceViewController *VC = [[MBHelpServiceViewController alloc] init];
-            [self pushViewController:VC Animated:YES];}break;
-    
+            [self pushViewController:VC Animated:YES];
+        }break;
+        default:{
+            
+            [MobClick event:@"PersonalCenter4"];
+            MBMyCollectionViewController *VC =[[MBMyCollectionViewController alloc] init];
+            [self pushViewController:VC Animated:YES];
         }
+    
+    }
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (scrollView.mj_offsetY < 0) {

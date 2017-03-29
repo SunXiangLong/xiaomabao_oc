@@ -120,6 +120,7 @@
         if (![_type isEqualToString:_meunArray[sender.tag]]) {
             _page = 1;
             [_recommend_goods removeAllObjects];
+            [self.collectionView reloadData];
             _type = _meunArray[sender.tag];
             [self searchData];
             

@@ -81,15 +81,17 @@
     if (!_tableView) {
         [self.view addSubview:self.tableView];
     }
-    
-    self.discountPriceArray   = [NSMutableArray arrayWithArray:@[orderShopModel.goods_amount_formatted,orderShopModel.shipping_fee_formatted,orderShopModel.discount_formatted,@"",orderShopModel.surplus?:@"",([orderShopModel.bean_fee integerValue] > 0)?string(@"￥", orderShopModel.bean_fee) :@"",@"",@"",@"",@""] ];
+
+    self.discountPriceArray   = [@[orderShopModel.goods_amount_formatted,orderShopModel.shipping_fee_formatted,orderShopModel.discount_formatted,_inv_payee?_discountPriceArray[3]:@"",orderShopModel.surplus?:@"",([orderShopModel.bean_fee integerValue] > 0)?string(@"￥", orderShopModel.bean_fee) :@"",_couponId?( [orderShopModel.discount integerValue] > 0?orderShopModel.discount_formatted:@""):@"",_bonus_id?([orderShopModel.discount integerValue] > 0?orderShopModel.discount_formatted:@""):@"",@""] mutableCopy];
     ;
+//    MMLog(@"%@",self.discountPriceArray);
     self.tableView.tableHeaderView = [self tableViewHeaderView];
     
     if (_totalLabel) {
         _totalLabel.text =  orderShopModel.order_amount_formatted;
+        
     }else{
-    [self setUpbottomViewUI];
+      [self setUpbottomViewUI];
     }
     
     
@@ -125,7 +127,7 @@
         
     }
     
-    [self beforeCreateOrder:false];
+    [self beforeCreateOrder];
     
     
     
@@ -257,7 +259,7 @@
             VC.block = ^(NSString *mabaobean_number){
                 
                 _mabaobean_number = mabaobean_number;
-                [weakSelf beforeCreateOrder:true];
+                [weakSelf beforeCreateOrder];
                 
             };
             [self pushViewController:VC Animated:true];
@@ -288,14 +290,8 @@
             @strongify(self);
             
             self.couponId = coupon [@"bonus_id"];
-            _discountPriceArray[6] = string(@"￥", coupon [@"type_money"]);
-            [self.tableView reloadData];
-            float totalMoney =  self.orderShopModel.order_amount.floatValue;
-            float type_money = [coupon [@"type_money"] floatValue];
-            float money = totalMoney - type_money;
-            if(money < 0)
-                money = 0;
-            self.totalLabel.text = [NSString stringWithFormat:@"应付金额：￥%.2lf",money];
+            [self beforeCreateOrder];
+
             
         }];
         [self.navigationController pushViewController:vc animated:YES];
@@ -516,13 +512,19 @@
             self.isRefresh();
             VC.orderInfo = responseObject[@"data"][@"order_info"];
             VC.type = @"1";
-            VC.order_sn = VC.orderInfo[@"order_sn"];
             [self.navigationController pushViewController:VC animated:YES];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCart" object:nil];
             
         }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:responseObject[@"status"][@"error_desc"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
+            
+            UIAlertController   *alerVC = [UIAlertController alertControllerWithTitle:@"提示" message:responseObject[@"status"][@"error_desc"] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *sheet = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self.isRefresh();
+                [self popViewControllerAnimated:true];
+            }];
+            [alerVC addAction:sheet];
+            [self presentViewController:alerVC animated:true completion:nil];
+           
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败！" time:1];
@@ -530,7 +532,7 @@
     
 }
 #pragma mark -- 更换地址从新获取订单数据－－更改运费（不同地点运费不同）
--(void)beforeCreateOrder:(BOOL)isRefreshData
+-(void)beforeCreateOrder
 {
     [self show];
     if (!_mabaobean_number) {
@@ -543,16 +545,20 @@
         [self show:@"请设置收货地址" time:.8];
         return;
     }
-    NSDictionary *parameter = @{@"session":sessiondict,@"address_id":self.orderShopModel.consignee.address_id};
-    if (isRefreshData) {
-        
-        if (!self.cards) {
-            return;
+    NSDictionary *parameter = @{@"address_id":self.orderShopModel.consignee.address_id,@"session":sessiondict,@"cards":self.cards,@"mabaobean_number":_mabaobean_number};
+        if (self.couponId) {
+          parameter = @{@"address_id":self.orderShopModel.consignee.address_id,@"session":sessiondict,@"cards":self.cards,@"mabaobean_number":_mabaobean_number,@"coupon_id":self.couponId};
         }
-        parameter = @{@"session":sessiondict,@"cards":self.cards,@"mabaobean_number":_mabaobean_number};
-    }
+        
+        if (self.bonus_id) {
+           parameter = @{@"address_id":self.orderShopModel.consignee.address_id,@"session":sessiondict,@"cards":self.cards,@"mabaobean_number":_mabaobean_number,@"bonus_id":_bonus_id};
+        }
+
+        
+    
     
     [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/flow/checkout") parameters:parameter success:^(id responseObject) {
+//        MMLog(@"%@",responseObject);
         [self dismiss];
         if ([responseObject[@"status"] isKindOfClass:[NSDictionary  class]]&&[responseObject[@"status"][@"succeed"]  integerValue] == 1) {
             self.orderShopModel = [MBConfirmModel yy_modelWithDictionary:responseObject[@"data"]];
@@ -580,17 +586,7 @@
                    NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
                    if (dic) {
                        _bonus_id = dic[@"bonus_id"];
-                       //更新底部价格
-                       float totalMoney =  [dic[@"type_money"] floatValue ];
-                       float type_money;
-                       if (self.couponId) {
-                           type_money = [_totalLabel.text floatValue] -totalMoney;
-                       }else{
-                           type_money = self.orderShopModel.order_amount.floatValue -totalMoney;
-                       }
-                       _discountPriceArray[7] = dic[@"type_money"];
-                       [self.tableView reloadData];
-                       self.totalLabel.text = [NSString stringWithFormat:@"应付金额：￥%.2lf",type_money];
+                       [self beforeCreateOrder];
 
                    }else{
                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:[responseObject valueForKeyPath:@"status"][@"error_desc"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -802,7 +798,7 @@
                         }
                     }
                     
-                    [self beforeCreateOrder:true];
+                    [self beforeCreateOrder];
                     
                     
                 }];

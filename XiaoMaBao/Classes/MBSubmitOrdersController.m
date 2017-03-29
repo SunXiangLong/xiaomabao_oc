@@ -163,7 +163,11 @@
                        NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
                        if (dic){
                            MBPaymentViewController *VC = [[MBPaymentViewController alloc] init];
-                           VC.service_data = dic;
+                           VC.orderInfo = @{@"order_sn":dic[@"product_sn"],
+                                            @"order_amount":dic[@"order_amount"],
+                                            @"subject":@"北京小麻包信息技术有限公司",
+                                            @"desc":[NSString stringWithFormat:@"%@-麻包服务",dic[@"product_name"]]
+                                            };;
                            VC.type = @"2";
                            [self pushViewController:VC Animated:YES];
                            

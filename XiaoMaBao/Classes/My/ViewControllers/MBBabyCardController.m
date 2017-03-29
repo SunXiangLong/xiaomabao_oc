@@ -142,21 +142,6 @@
             _tableView.hidden = NO;
             [self.tableView reloadData];
             
-            //            if (self.dataArray.count > 0&&![self.dataArray.firstObject isEqual:[[responseObject valueForKeyPath:@"data"] firstObject]]) {
-            //
-            //
-            //                [self.dataArray insertObject:[[responseObject valueForKeyPath:@"data"] firstObject] atIndex:0];
-            //                [self.recordSelectedArray insertObject:@1 atIndex:0];
-            //                [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-            //
-            //                _page ++;
-            //
-            //            }else{
-            //
-            //
-            //
-            //
-            //            }
             
         }else{
             if (_page == 1) {
@@ -190,7 +175,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return _dataArray.count;
+    return self.dataArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 95;

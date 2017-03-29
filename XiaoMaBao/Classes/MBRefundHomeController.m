@@ -73,7 +73,7 @@
     NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:sect];
     MBRefundModel *model = _allOrderData[sect];
     model.refund_status = @(2);
-    [_tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [_tableView reloadData];
     
 }
 #pragma mark --界面布局

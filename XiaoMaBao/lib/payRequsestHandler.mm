@@ -87,6 +87,88 @@
     return [NSString stringWithString:reqPars];
 }
 //提交预支付
+-( void)sendPrepay:(NSMutableDictionary*)prePayParams Block:(void (^)(NSString *prepayid))prepayBlock{
+
+    __block NSString *prepayid = nil;
+    
+    //获取提交支付
+    NSString *send      = [self genPackage:prePayParams];
+    
+    //输出Debug Info
+    [debugInfo appendFormat:@"API链接:%@\n", payUrl];
+    [debugInfo appendFormat:@"发送的xml:%@\n", send];
+    
+    
+    NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:payUrl] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:5];
+    [req setHTTPMethod:@"POST"];
+    [req addValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+    [req setValue:@"UTF-8" forHTTPHeaderField:@"charset"];
+    [req setHTTPBody:[send dataUsingEncoding:NSUTF8StringEncoding]];
+    [NSURLConnection sendAsynchronousRequest:req queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+        
+        
+        if (!connectionError) {
+            
+                //输出Debug Info
+                [debugInfo appendFormat:@"服务器返回：\n%@\n\n",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+                MMLog(@"%@",debugInfo);
+                XMLHelper *xml  = [[XMLHelper alloc] init];
+            
+                //开始解析
+                [xml startParse:data];
+            
+                NSMutableDictionary *resParams = [xml getDict];
+            
+                //判断返回
+                NSString *return_code   = [resParams objectForKey:@"return_code"];
+                NSString *result_code   = [resParams objectForKey:@"result_code"];
+                if ( [return_code isEqualToString:@"SUCCESS"] )
+                {
+                    //生成返回数据的签名
+                    NSString *sign      = [self createMd5Sign:resParams ];
+                    NSString *send_sign =[resParams objectForKey:@"sign"] ;
+            
+                    //验证签名正确性
+                    if( [sign isEqualToString:send_sign]){
+                        if( [result_code isEqualToString:@"SUCCESS"]) {
+                            //验证业务处理状态
+                            prepayid    = [resParams objectForKey:@"prepay_id"];
+                            prepayBlock(prepayid);
+                            return_code = 0;
+                            [debugInfo appendFormat:@"获取预支付交易标示成功！\n"];
+                            return ;
+                        }
+                    }else{
+                        
+                        last_errcode = 1;
+                        [debugInfo appendFormat:@"gen_sign=%@\n   _sign=%@\n",sign,send_sign];
+                        [debugInfo appendFormat:@"服务器返回签名验证错误！！！\n"];
+                    }
+                }else{
+                    last_errcode = 2;
+                    [debugInfo appendFormat:@"接口返回错误！！！\n"];
+                }
+            prepayBlock(nil);
+
+        }else{
+            prepayBlock(nil);
+            MMLog(@"%@",connectionError);
+        }
+        
+    }] ;
+
+    
+    
+    NSError *error;
+    //将请求的url数据放到NSData对象
+    
+    
+    NSData *res = [WXUtil httpSend:payUrl method:@"POST" data:send];
+//
+
+    
+    
+}
 -(NSString *)sendPrepay:(NSMutableDictionary *)prePayParams
 {
     NSString *prepayid = nil;

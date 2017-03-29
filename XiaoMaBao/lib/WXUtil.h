@@ -15,4 +15,5 @@
  实现http GET/POST 解析返回的json数据
  */
 +(NSData *) httpSend:(NSString *)url method:(NSString *)method data:(NSString *)data;
+
 @end

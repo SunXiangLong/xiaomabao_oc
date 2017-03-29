@@ -33,8 +33,8 @@
 @end
 @implementation MBGoodsSpecsView
 -(instancetype)initWithModel:(MBGoodsSpecsRootModel *)model type:(NSInteger)num{
-    self = [super init];
-    if (self) {
+
+    if (self = [super init]) {
         self.frame = CGRectMake(0, 0, UISCREEN_WIDTH,UISCREEN_HEIGHT - UISCREEN_WIDTH/2);
         _model = model;
         _buyGoodsNum = 1;
@@ -118,6 +118,7 @@
         make.top.equalTo(goodsPriceLbl.mas_bottom).offset(2);
         make.left.equalTo(goodsPriceLbl);
         make.right.equalTo(XBtn.mas_left).offset(5);
+        make.bottom.equalTo(iconView.mas_bottom);
     }];
     
     
@@ -229,7 +230,7 @@
     
     
     UIButton *goodsNumeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [goodsNumeBtn setBackgroundImage:[[UIImage imageNamed:@"syncart_middle_btn_enable"] imageWithTintColor:UIcolor(@"dddddd")] forState:UIControlStateNormal];
+    [goodsNumeBtn setBackgroundImage:[UIImage imageNamed:@"syncart_middle_btn_enable"] forState:UIControlStateNormal];
     [attrScrollView addSubview:goodsNumeBtn];
     [goodsNumeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(goodsMoreBtn.mas_left);
@@ -346,7 +347,7 @@
     
     
     
-    MMLog(@"%@",self);
+ 
     
 }
 
@@ -357,32 +358,41 @@
 /** 增加要购买商品数量*/
 - (void)plusBtnClick{
     _buyGoodsNum ++;
-    _goodsLessBtn.enabled = true;
+    
+    if (!_model.goodsModel) {
+        [self.VC show:@"未知错误" time:1];
+       return;
+    }
     if (_buyGoodsNum > [_model.goodsModel.goods_number intValue]) {
         _buyGoodsNum --;
-        
         _goodsMoreBtn.enabled = false;
         [self.VC show:@"库存不足" time:1];
         return;
     }
-    
+    _goodsLessBtn.enabled = true;
     _goodsNumField.text = [NSString stringWithFormat:@"%ld", (long)_buyGoodsNum];
     
 }
 /** 减少要购买商品数量*/
 - (void)minusBtnClick{
     _buyGoodsNum --;
-    _goodsMoreBtn.enabled = true;
+    
     if (_buyGoodsNum == 1) {
         _goodsLessBtn.enabled = false;
-        _goodsNumField.text = [NSString stringWithFormat:@"%ld", (long)_buyGoodsNum];
+        
     }
-    
-    
+    _goodsMoreBtn.enabled = true;
+    _goodsNumField.text = [NSString stringWithFormat:@"%ld", (long)_buyGoodsNum];
     
 }
 /** 购买商品或者添加到购物车*/
 - (void)purchaseGoods:(UIButton *)btn{
+    if ([_goodsNumField.text integerValue] == 0 ) {
+        
+         [self.VC show:@"该商品库存不足" time:.8];
+        
+        return;
+    }
     
     for (id model in _selecterSpecsArr) {
         if ([model isKindOfClass:[NSNumber class]]) {
@@ -392,10 +402,6 @@
         }
         
     }
-    
-    
-    
-    
     NSMutableArray *goodsAttrID = [NSMutableArray array];
     for (MBGoodsAttrListModel *model in _selecterSpecsArr) {
         
@@ -413,6 +419,7 @@
     if (!_spec) {
         _spec = @"";
     }
+    
     
     
     [self addGoodsCart];
@@ -451,6 +458,10 @@
         return;
     }
     
+    if (!_model.goodsModel) {
+        [self.VC show:@"未知错误" time:1];
+        return;
+    }
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     [self.VC show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/flow/addtocart"] parameters:@{@"session":dict, @"goods_id":_model.goodsModel.goods_id,@"number":_goodsNumField.text,@"spec":_spec} success:^(NSURLSessionDataTask *operation, id responseObject) {
@@ -460,6 +471,7 @@
         if ([status isEqualToString:@"1"]) {
             [self.VC dismissSemiModalViewWithCompletion:^{
                 [self.VC show:@"加入购物车成功!" time:1];
+                self.getCarData();
                 
             }];
             
@@ -533,7 +545,7 @@
         _goodsLessBtn.enabled = true;
         _goodsMoreBtn.enabled = false;
         [self.VC show:@"库存不足" time:1];
-        _goodsNumField.text = [NSString stringWithFormat:@"%ld",(long)_buyGoodsNum];
+        _goodsNumField.text = [NSString stringWithFormat:@"%ld",(long)_inventoryNum];
         return;
     }
     

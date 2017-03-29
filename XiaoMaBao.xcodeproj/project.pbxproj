@@ -419,7 +419,6 @@
 		94A9B6371C46311200BA8278 /* MBBrandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A9B6351C46311200BA8278 /* MBBrandViewController.m */; };
 		94A9B6381C46311200BA8278 /* MBBrandViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A9B6361C46311200BA8278 /* MBBrandViewController.xib */; };
 		94B131A91C898C4400204CD9 /* HXFlexoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B131A81C898C4400204CD9 /* HXFlexoView.m */; };
-		94B49BA21D753C8400E75261 /* JSPatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B49BA11D753C8400E75261 /* JSPatch.framework */; };
 		94B6EE891D65739F0083D075 /* MBVideoPlaybackViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 94B6EE861D65739F0083D075 /* MBVideoPlaybackViewController.h */; };
 		94B6EE8A1D65739F0083D075 /* MBVideoPlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B6EE871D65739F0083D075 /* MBVideoPlaybackViewController.m */; };
 		94B6EE8B1D65739F0083D075 /* MBVideoPlaybackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94B6EE881D65739F0083D075 /* MBVideoPlaybackViewController.xib */; };
@@ -516,6 +515,10 @@
 		94FDD0B51C57565C007B2A42 /* MBBabyImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FDD0B31C57565C007B2A42 /* MBBabyImageCollectionViewCell.xib */; };
 		9F02AD731DE67BDE004DB0E6 /* NSArray+Model.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F02AD711DE67BDE004DB0E6 /* NSArray+Model.h */; };
 		9F02AD741DE67BDE004DB0E6 /* NSArray+Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F02AD721DE67BDE004DB0E6 /* NSArray+Model.m */; };
+		9F08B2CF1E837A310052C821 /* MBBaseScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F08B2CD1E837A310052C821 /* MBBaseScrollView.h */; };
+		9F08B2D01E837A310052C821 /* MBBaseScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08B2CE1E837A310052C821 /* MBBaseScrollView.m */; };
+		9F08B2D31E8393CE0052C821 /* MBBaseCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F08B2D11E8393CE0052C821 /* MBBaseCollectionView.h */; };
+		9F08B2D41E8393CE0052C821 /* MBBaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08B2D21E8393CE0052C821 /* MBBaseCollectionView.m */; };
 		9F0F888B1E0112D1003979F8 /* CALayer+LWTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F0F88411E0112D1003979F8 /* CALayer+LWTransaction.h */; };
 		9F0F888C1E0112D1003979F8 /* CALayer+LWTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0F88421E0112D1003979F8 /* CALayer+LWTransaction.m */; };
 		9F0F888D1E0112D1003979F8 /* CALayer+WebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F0F88431E0112D1003979F8 /* CALayer+WebCache.h */; };
@@ -665,6 +668,12 @@
 		9F796BFD1DE59CF500AFD7D0 /* MBAffordablePlanetCVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F796BFB1DE59CF500AFD7D0 /* MBAffordablePlanetCVCell.m */; };
 		9F796C001DE59F1D00AFD7D0 /* MBAffordablePlanetModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F796BFE1DE59F1D00AFD7D0 /* MBAffordablePlanetModel.h */; };
 		9F796C011DE59F1D00AFD7D0 /* MBAffordablePlanetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F796BFF1DE59F1D00AFD7D0 /* MBAffordablePlanetModel.m */; };
+		9F7AB82D1E821DE4002D328E /* MBElectronicOrderHelpcenterVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F7AB82B1E821DE4002D328E /* MBElectronicOrderHelpcenterVC.h */; };
+		9F7AB82E1E821DE4002D328E /* MBElectronicOrderHelpcenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7AB82C1E821DE4002D328E /* MBElectronicOrderHelpcenterVC.m */; };
+		9F7AB8311E8220C5002D328E /* MBCardHelpCenterTitleCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F7AB82F1E8220C5002D328E /* MBCardHelpCenterTitleCell.h */; };
+		9F7AB8321E8220C5002D328E /* MBCardHelpCenterTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7AB8301E8220C5002D328E /* MBCardHelpCenterTitleCell.m */; };
+		9F7E7DE81E812703003366D9 /* MBElectronicConfirmationOrderViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F7E7DE61E812703003366D9 /* MBElectronicConfirmationOrderViewController.h */; };
+		9F7E7DE91E812703003366D9 /* MBElectronicConfirmationOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7E7DE71E812703003366D9 /* MBElectronicConfirmationOrderViewController.m */; };
 		9F977E461DEE90E400E186AD /* MBGoodSSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F977E451DEE90E400E186AD /* MBGoodSSearchViewController.xib */; };
 		9F977E501DEEC73500E186AD /* MBVideoDetailsViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F977E4D1DEEC73500E186AD /* MBVideoDetailsViewCell.h */; };
 		9F977E511DEEC73500E186AD /* MBVideoDetailsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F977E4E1DEEC73500E186AD /* MBVideoDetailsViewCell.m */; };
@@ -689,8 +698,24 @@
 		9F9CFACC1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9CFACA1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.m */; };
 		9F9CFACF1D8F84250033681D /* MBMaBaoFeaturesShopCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9CFACD1D8F84250033681D /* MBMaBaoFeaturesShopCell.h */; };
 		9F9CFAD01D8F84250033681D /* MBMaBaoFeaturesShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9CFACE1D8F84250033681D /* MBMaBaoFeaturesShopCell.m */; };
+		9FA105251E826339003A356E /* MBElectronicCardOrderModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FA105231E826339003A356E /* MBElectronicCardOrderModel.h */; };
+		9FA105261E826339003A356E /* MBElectronicCardOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA105241E826339003A356E /* MBElectronicCardOrderModel.m */; };
 		9FA7956A1E12611F00CA49A9 /* MBOrderModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FA795681E12611F00CA49A9 /* MBOrderModel.h */; };
 		9FA7956B1E12611F00CA49A9 /* MBOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA795691E12611F00CA49A9 /* MBOrderModel.m */; };
+		9FA8F9F31E7F9F9600B2E865 /* MBGiftCardViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FA8F9E81E7F9F9600B2E865 /* MBGiftCardViewController.h */; };
+		9FA8F9F41E7F9F9600B2E865 /* MBGiftCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F9E91E7F9F9600B2E865 /* MBGiftCardViewController.m */; };
+		9FA8F9F51E7F9F9600B2E865 /* MBMaoBaoCardViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FA8F9EA1E7F9F9600B2E865 /* MBMaoBaoCardViewController.h */; };
+		9FA8F9F61E7F9F9600B2E865 /* MBMaoBaoCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F9EB1E7F9F9600B2E865 /* MBMaoBaoCardViewController.m */; };
+		9FA8F9F71E7F9F9600B2E865 /* MBMaoBaoElectronicCardViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FA8F9EC1E7F9F9600B2E865 /* MBMaoBaoElectronicCardViewController.h */; };
+		9FA8F9F81E7F9F9600B2E865 /* MBMaoBaoElectronicCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F9ED1E7F9F9600B2E865 /* MBMaoBaoElectronicCardViewController.m */; };
+		9FA8F9F91E7F9F9600B2E865 /* MBMaoBaoEntityCardViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FA8F9EE1E7F9F9600B2E865 /* MBMaoBaoEntityCardViewController.h */; };
+		9FA8F9FA1E7F9F9600B2E865 /* MBMaoBaoEntityCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F9EF1E7F9F9600B2E865 /* MBMaoBaoEntityCardViewController.m */; };
+		9FA8F9FB1E7F9F9600B2E865 /* MBWelfareCardViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FA8F9F01E7F9F9600B2E865 /* MBWelfareCardViewController.h */; };
+		9FA8F9FC1E7F9F9600B2E865 /* MBWelfareCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F9F11E7F9F9600B2E865 /* MBWelfareCardViewController.m */; };
+		9FA8F9FF1E7F9FD500B2E865 /* MBWelfareCardCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FA8F9FD1E7F9FD500B2E865 /* MBWelfareCardCollectionViewCell.h */; };
+		9FA8FA001E7F9FD500B2E865 /* MBWelfareCardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F9FE1E7F9FD500B2E865 /* MBWelfareCardCollectionViewCell.m */; };
+		9FA8FA031E7FA23D00B2E865 /* MBWelfareCardModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FA8FA011E7FA23D00B2E865 /* MBWelfareCardModel.h */; };
+		9FA8FA041E7FA23D00B2E865 /* MBWelfareCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8FA021E7FA23D00B2E865 /* MBWelfareCardModel.m */; };
 		9FAE0ACF1DD16325000CFF31 /* MBConfirmAnOrderViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FAE0ACD1DD16325000CFF31 /* MBConfirmAnOrderViewController.h */; };
 		9FAE0AD01DD16325000CFF31 /* MBConfirmAnOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAE0ACE1DD16325000CFF31 /* MBConfirmAnOrderViewController.m */; };
 		9FAEAF1D1E601F4900F26267 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FAEAF1C1E601F4900F26267 /* QuartzCore.framework */; };
@@ -736,6 +761,10 @@
 		9FF38BC41DC74DCA005223BC /* MBMaBaoFeaturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF38BC21DC74DCA005223BC /* MBMaBaoFeaturesViewController.m */; };
 		9FFBFA661E63CDA300E301F8 /* MBRefundModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FFBFA641E63CDA300E301F8 /* MBRefundModel.h */; };
 		9FFBFA671E63CDA300E301F8 /* MBRefundModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFBFA651E63CDA300E301F8 /* MBRefundModel.m */; };
+		9FFF89D51E824B2C001E3B6A /* MBElectronicCardOrderVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FFF89D31E824B2C001E3B6A /* MBElectronicCardOrderVC.h */; };
+		9FFF89D61E824B2C001E3B6A /* MBElectronicCardOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFF89D41E824B2C001E3B6A /* MBElectronicCardOrderVC.m */; };
+		9FFF89D91E8250F0001E3B6A /* MBElectronicCardOrderInfoVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FFF89D71E8250F0001E3B6A /* MBElectronicCardOrderInfoVC.h */; };
+		9FFF89DA1E8250F0001E3B6A /* MBElectronicCardOrderInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFF89D81E8250F0001E3B6A /* MBElectronicCardOrderInfoVC.m */; };
 		AA9F03CF1B8EEA110072D39A /* MBSignRoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9F03CE1B8EEA110072D39A /* MBSignRoleView.m */; };
 /* End PBXBuildFile section */
 
@@ -1557,6 +1586,10 @@
 		9F02AD711DE67BDE004DB0E6 /* NSArray+Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Model.h"; sourceTree = "<group>"; };
 		9F02AD721DE67BDE004DB0E6 /* NSArray+Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Model.m"; sourceTree = "<group>"; };
 		9F0351AE1D9220850006102A /* XiaoMaBao.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XiaoMaBao.entitlements; sourceTree = "<group>"; };
+		9F08B2CD1E837A310052C821 /* MBBaseScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBaseScrollView.h; sourceTree = "<group>"; };
+		9F08B2CE1E837A310052C821 /* MBBaseScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBaseScrollView.m; sourceTree = "<group>"; };
+		9F08B2D11E8393CE0052C821 /* MBBaseCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBaseCollectionView.h; sourceTree = "<group>"; };
+		9F08B2D21E8393CE0052C821 /* MBBaseCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBaseCollectionView.m; sourceTree = "<group>"; };
 		9F0F88411E0112D1003979F8 /* CALayer+LWTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+LWTransaction.h"; sourceTree = "<group>"; };
 		9F0F88421E0112D1003979F8 /* CALayer+LWTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+LWTransaction.m"; sourceTree = "<group>"; };
 		9F0F88431E0112D1003979F8 /* CALayer+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+WebCache.h"; sourceTree = "<group>"; };
@@ -1707,6 +1740,12 @@
 		9F796BFB1DE59CF500AFD7D0 /* MBAffordablePlanetCVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAffordablePlanetCVCell.m; sourceTree = "<group>"; };
 		9F796BFE1DE59F1D00AFD7D0 /* MBAffordablePlanetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAffordablePlanetModel.h; sourceTree = "<group>"; };
 		9F796BFF1DE59F1D00AFD7D0 /* MBAffordablePlanetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAffordablePlanetModel.m; sourceTree = "<group>"; };
+		9F7AB82B1E821DE4002D328E /* MBElectronicOrderHelpcenterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBElectronicOrderHelpcenterVC.h; sourceTree = "<group>"; };
+		9F7AB82C1E821DE4002D328E /* MBElectronicOrderHelpcenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBElectronicOrderHelpcenterVC.m; sourceTree = "<group>"; };
+		9F7AB82F1E8220C5002D328E /* MBCardHelpCenterTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBCardHelpCenterTitleCell.h; sourceTree = "<group>"; };
+		9F7AB8301E8220C5002D328E /* MBCardHelpCenterTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCardHelpCenterTitleCell.m; sourceTree = "<group>"; };
+		9F7E7DE61E812703003366D9 /* MBElectronicConfirmationOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBElectronicConfirmationOrderViewController.h; sourceTree = "<group>"; };
+		9F7E7DE71E812703003366D9 /* MBElectronicConfirmationOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBElectronicConfirmationOrderViewController.m; sourceTree = "<group>"; };
 		9F93F82E1E2629EF00ECC34F /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = "../../../../Library/Developer/Xcode/DerivedData/XiaoMaBao-crisguegwajdtdgpphmbcayfrtmm/Build/Products/Debug-iphoneos/AFNetworking/AFNetworking.framework"; sourceTree = "<group>"; };
 		9F977E451DEE90E400E186AD /* MBGoodSSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBGoodSSearchViewController.xib; sourceTree = "<group>"; };
 		9F977E4D1DEEC73500E186AD /* MBVideoDetailsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBVideoDetailsViewCell.h; sourceTree = "<group>"; };
@@ -1732,8 +1771,24 @@
 		9F9CFACA1D8F840E0033681D /* MBMaBaoFeaturesBrandCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMaBaoFeaturesBrandCell.m; sourceTree = "<group>"; };
 		9F9CFACD1D8F84250033681D /* MBMaBaoFeaturesShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMaBaoFeaturesShopCell.h; sourceTree = "<group>"; };
 		9F9CFACE1D8F84250033681D /* MBMaBaoFeaturesShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMaBaoFeaturesShopCell.m; sourceTree = "<group>"; };
+		9FA105231E826339003A356E /* MBElectronicCardOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBElectronicCardOrderModel.h; sourceTree = "<group>"; };
+		9FA105241E826339003A356E /* MBElectronicCardOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBElectronicCardOrderModel.m; sourceTree = "<group>"; };
 		9FA795681E12611F00CA49A9 /* MBOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBOrderModel.h; sourceTree = "<group>"; };
 		9FA795691E12611F00CA49A9 /* MBOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBOrderModel.m; sourceTree = "<group>"; };
+		9FA8F9E81E7F9F9600B2E865 /* MBGiftCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBGiftCardViewController.h; sourceTree = "<group>"; };
+		9FA8F9E91E7F9F9600B2E865 /* MBGiftCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBGiftCardViewController.m; sourceTree = "<group>"; };
+		9FA8F9EA1E7F9F9600B2E865 /* MBMaoBaoCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMaoBaoCardViewController.h; sourceTree = "<group>"; };
+		9FA8F9EB1E7F9F9600B2E865 /* MBMaoBaoCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMaoBaoCardViewController.m; sourceTree = "<group>"; };
+		9FA8F9EC1E7F9F9600B2E865 /* MBMaoBaoElectronicCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMaoBaoElectronicCardViewController.h; sourceTree = "<group>"; };
+		9FA8F9ED1E7F9F9600B2E865 /* MBMaoBaoElectronicCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMaoBaoElectronicCardViewController.m; sourceTree = "<group>"; };
+		9FA8F9EE1E7F9F9600B2E865 /* MBMaoBaoEntityCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMaoBaoEntityCardViewController.h; sourceTree = "<group>"; };
+		9FA8F9EF1E7F9F9600B2E865 /* MBMaoBaoEntityCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMaoBaoEntityCardViewController.m; sourceTree = "<group>"; };
+		9FA8F9F01E7F9F9600B2E865 /* MBWelfareCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBWelfareCardViewController.h; sourceTree = "<group>"; };
+		9FA8F9F11E7F9F9600B2E865 /* MBWelfareCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBWelfareCardViewController.m; sourceTree = "<group>"; };
+		9FA8F9FD1E7F9FD500B2E865 /* MBWelfareCardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBWelfareCardCollectionViewCell.h; path = ../Model/MBWelfareCardCollectionViewCell.h; sourceTree = "<group>"; };
+		9FA8F9FE1E7F9FD500B2E865 /* MBWelfareCardCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBWelfareCardCollectionViewCell.m; path = ../Model/MBWelfareCardCollectionViewCell.m; sourceTree = "<group>"; };
+		9FA8FA011E7FA23D00B2E865 /* MBWelfareCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBWelfareCardModel.h; sourceTree = "<group>"; };
+		9FA8FA021E7FA23D00B2E865 /* MBWelfareCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBWelfareCardModel.m; sourceTree = "<group>"; };
 		9FAE0ACD1DD16325000CFF31 /* MBConfirmAnOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBConfirmAnOrderViewController.h; sourceTree = "<group>"; };
 		9FAE0ACE1DD16325000CFF31 /* MBConfirmAnOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBConfirmAnOrderViewController.m; sourceTree = "<group>"; };
 		9FAEAF1C1E601F4900F26267 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1779,6 +1834,10 @@
 		9FF38BC21DC74DCA005223BC /* MBMaBaoFeaturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMaBaoFeaturesViewController.m; sourceTree = "<group>"; };
 		9FFBFA641E63CDA300E301F8 /* MBRefundModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBRefundModel.h; sourceTree = "<group>"; };
 		9FFBFA651E63CDA300E301F8 /* MBRefundModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBRefundModel.m; sourceTree = "<group>"; };
+		9FFF89D31E824B2C001E3B6A /* MBElectronicCardOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBElectronicCardOrderVC.h; sourceTree = "<group>"; };
+		9FFF89D41E824B2C001E3B6A /* MBElectronicCardOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBElectronicCardOrderVC.m; sourceTree = "<group>"; };
+		9FFF89D71E8250F0001E3B6A /* MBElectronicCardOrderInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBElectronicCardOrderInfoVC.h; sourceTree = "<group>"; };
+		9FFF89D81E8250F0001E3B6A /* MBElectronicCardOrderInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBElectronicCardOrderInfoVC.m; sourceTree = "<group>"; };
 		AA9F03CD1B8EEA110072D39A /* MBSignRoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBSignRoleView.h; path = Home/View/MBSignRoleView.h; sourceTree = "<group>"; };
 		AA9F03CE1B8EEA110072D39A /* MBSignRoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBSignRoleView.m; path = Home/View/MBSignRoleView.m; sourceTree = "<group>"; };
 		D275E509BF4EC4D367EA9E58 /* Pods_XiaoMaBao.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XiaoMaBao.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1804,7 +1863,6 @@
 				94B6F4801BD616FC00B352B9 /* CoreTelephony.framework in Frameworks */,
 				944945B61D5823BD00C8BEF2 /* jpush-ios-2.1.8.a in Frameworks */,
 				94B6F46F1BD5DC3000B352B9 /* libsqlite3.0.tbd in Frameworks */,
-				94B49BA21D753C8400E75261 /* JSPatch.framework in Frameworks */,
 				94B6F46D1BD5DC1900B352B9 /* SystemConfiguration.framework in Frameworks */,
 				9439C9A51CF420F900AA0140 /* libWeChatSDK.a in Frameworks */,
 				9FE2D2761DEC23FE00EA32B4 /* libUnicallSDK.a in Frameworks */,
@@ -1982,6 +2040,7 @@
 				94E2942F1C8AA6D80063E678 /* Tool(公用) */,
 				420BF6011BB537BA00C89C3C /* Other(第三方) */,
 				48162F311AF2866900E61D5C /* Home(首页) */,
+				9FA8F9CD1E7F776400B2E865 /* giftCard(礼品卡) */,
 				4838DA9A1B1DD43B00E6E4D2 /* My(个人中心) */,
 				485486301B19AAFF008C68C0 /* Cart(购物车) */,
 				480D75E91B157F6C00D2A3F5 /* Shop(商品) */,
@@ -2132,6 +2191,10 @@
 				48F9F4EF1B01F71200ED4A5D /* BkTabBarView.m */,
 				48162F341AF2866900E61D5C /* BkNavigationBarView.h */,
 				48162F351AF2866900E61D5C /* BkNavigationBarView.m */,
+				9F08B2CD1E837A310052C821 /* MBBaseScrollView.h */,
+				9F08B2CE1E837A310052C821 /* MBBaseScrollView.m */,
+				9F08B2D11E8393CE0052C821 /* MBBaseCollectionView.h */,
+				9F08B2D21E8393CE0052C821 /* MBBaseCollectionView.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -3585,6 +3648,63 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		9FA8F9CD1E7F776400B2E865 /* giftCard(礼品卡) */ = {
+			isa = PBXGroup;
+			children = (
+				9FA8F9E61E7F9F9600B2E865 /* Model */,
+				9FA8F9F21E7F9F9600B2E865 /* View */,
+				9FA8F9E71E7F9F9600B2E865 /* VC */,
+			);
+			path = "giftCard(礼品卡)";
+			sourceTree = "<group>";
+		};
+		9FA8F9E61E7F9F9600B2E865 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9FA8FA011E7FA23D00B2E865 /* MBWelfareCardModel.h */,
+				9FA8FA021E7FA23D00B2E865 /* MBWelfareCardModel.m */,
+				9FA105231E826339003A356E /* MBElectronicCardOrderModel.h */,
+				9FA105241E826339003A356E /* MBElectronicCardOrderModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9FA8F9E71E7F9F9600B2E865 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				9FA8F9E81E7F9F9600B2E865 /* MBGiftCardViewController.h */,
+				9FA8F9E91E7F9F9600B2E865 /* MBGiftCardViewController.m */,
+				9FA8F9EA1E7F9F9600B2E865 /* MBMaoBaoCardViewController.h */,
+				9FA8F9EB1E7F9F9600B2E865 /* MBMaoBaoCardViewController.m */,
+				9FA8F9EC1E7F9F9600B2E865 /* MBMaoBaoElectronicCardViewController.h */,
+				9FA8F9ED1E7F9F9600B2E865 /* MBMaoBaoElectronicCardViewController.m */,
+				9FA8F9EE1E7F9F9600B2E865 /* MBMaoBaoEntityCardViewController.h */,
+				9FA8F9EF1E7F9F9600B2E865 /* MBMaoBaoEntityCardViewController.m */,
+				9FA8F9F01E7F9F9600B2E865 /* MBWelfareCardViewController.h */,
+				9FA8F9F11E7F9F9600B2E865 /* MBWelfareCardViewController.m */,
+				9F7E7DE61E812703003366D9 /* MBElectronicConfirmationOrderViewController.h */,
+				9F7E7DE71E812703003366D9 /* MBElectronicConfirmationOrderViewController.m */,
+				9F7AB82B1E821DE4002D328E /* MBElectronicOrderHelpcenterVC.h */,
+				9F7AB82C1E821DE4002D328E /* MBElectronicOrderHelpcenterVC.m */,
+				9FFF89D31E824B2C001E3B6A /* MBElectronicCardOrderVC.h */,
+				9FFF89D41E824B2C001E3B6A /* MBElectronicCardOrderVC.m */,
+				9FFF89D71E8250F0001E3B6A /* MBElectronicCardOrderInfoVC.h */,
+				9FFF89D81E8250F0001E3B6A /* MBElectronicCardOrderInfoVC.m */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		9FA8F9F21E7F9F9600B2E865 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9FA8F9FD1E7F9FD500B2E865 /* MBWelfareCardCollectionViewCell.h */,
+				9FA8F9FE1E7F9FD500B2E865 /* MBWelfareCardCollectionViewCell.m */,
+				9F7AB82F1E8220C5002D328E /* MBCardHelpCenterTitleCell.h */,
+				9F7AB8301E8220C5002D328E /* MBCardHelpCenterTitleCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		9FD088451E10B430000C230E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -3628,9 +3748,11 @@
 				942406261D6E9DD60061C777 /* MBAudioPlayerHelper.h in Headers */,
 				9FE837B61E10F2BC00D27D32 /* MBBeanUseViewController.h in Headers */,
 				941691B21D066C6200442741 /* MBBabyDueDateController.h in Headers */,
+				9FA8FA031E7FA23D00B2E865 /* MBWelfareCardModel.h in Headers */,
 				943D22221D767F10004ECC02 /* MBArticleCollectViewController.h in Headers */,
 				94833A8A1D05162500CF4DF2 /* MBabyRecordOneCell.h in Headers */,
 				9F0F88C51E0112D1003979F8 /* LWTransactionGroup.h in Headers */,
+				9FA8F9F91E7F9F9600B2E865 /* MBMaoBaoEntityCardViewController.h in Headers */,
 				9F0F88931E0112D1003979F8 /* GallopUtils.h in Headers */,
 				948E7ED31D012E0A00ECEB7D /* MBSetBabyInformationController.h in Headers */,
 				94743C1D1D07C5AA003A262B /* MBNewMyViewController.h in Headers */,
@@ -3640,6 +3762,7 @@
 				9F3300671DD59A2A0031248A /* PYSearch.h in Headers */,
 				9F33006A1DD59A2A0031248A /* PYSearchSuggestionViewController.h in Headers */,
 				9F0F889D1E0112D1003979F8 /* LWFlag.h in Headers */,
+				9F7E7DE81E812703003366D9 /* MBElectronicConfirmationOrderViewController.h in Headers */,
 				941687C41D0554EB00F069AE /* MBabyRecordFourCell.h in Headers */,
 				9FC370911DEFB4A200819F8D /* MBBabyGenderViewController.h in Headers */,
 				94E272211CFECF5A00172511 /* MBNewBabyOneTableCell.h in Headers */,
@@ -3648,6 +3771,7 @@
 				9F0F88AD1E0112D1003979F8 /* LWLayout.h in Headers */,
 				9452BCBE1D225A6F00368533 /* LZXCollectionViewCell.h in Headers */,
 				9F0F888F1E0112D1003979F8 /* CALayer+WebCacheOperation.h in Headers */,
+				9F08B2D31E8393CE0052C821 /* MBBaseCollectionView.h in Headers */,
 				941BCEB81D64556E00B4C67E /* MBSearchArticleViewController.h in Headers */,
 				9F0F88AB1E0112D1003979F8 /* LWImageStorage.h in Headers */,
 				9F9B12C31E1B84EC00B5F4A5 /* MBServiceModel.h in Headers */,
@@ -3656,6 +3780,7 @@
 				941BCEA61D64079700B4C67E /* MBArticleViewController.h in Headers */,
 				9F0F88B91E0112D1003979F8 /* LWTextLayout.h in Headers */,
 				9F5E02C51E5BDA5D00FD0BBF /* MBGoodsDetailsViewController.h in Headers */,
+				9F7AB82D1E821DE4002D328E /* MBElectronicOrderHelpcenterVC.h in Headers */,
 				9F0F88CF1E0112D1003979F8 /* SDWebImageManager+Gallop.h in Headers */,
 				9F3437621E67D0E400DA9DD5 /* MBRealNameViewController.h in Headers */,
 				9F0F88D31E0112D1003979F8 /* UIView+DisplayAddtions.h in Headers */,
@@ -3705,9 +3830,13 @@
 				9F5888BA1DE7FD41008CA2D7 /* MBBrandDetailModel.h in Headers */,
 				9F0F88BB1E0112D1003979F8 /* LWTextLine.h in Headers */,
 				9452BCC21D2266A300368533 /* MBGuidePage.h in Headers */,
+				9FA8F9FF1E7F9FD500B2E865 /* MBWelfareCardCollectionViewCell.h in Headers */,
 				9F0F88C91E0112D1003979F8 /* NSMutableAttributedString+Gallop.h in Headers */,
+				9FFF89D91E8250F0001E3B6A /* MBElectronicCardOrderInfoVC.h in Headers */,
 				9FE2D2781DEC23FE00EA32B4 /* Unicall.h in Headers */,
+				9F08B2CF1E837A310052C821 /* MBBaseScrollView.h in Headers */,
 				9439C9A61CF420F900AA0140 /* WechatAuthSDK.h in Headers */,
+				9FA105251E826339003A356E /* MBElectronicCardOrderModel.h in Headers */,
 				9FBED7DD1DE3F5EB0097FFCB /* UIViewController+ProgressHUD.h in Headers */,
 				9F0F88A11E0112D1003979F8 /* LWHTMLImageConfig.h in Headers */,
 				9428D5F21D6D53D40055CCFC /* STConst.h in Headers */,
@@ -3717,6 +3846,7 @@
 				946ECE001D1B731200778EF6 /* MBBabyCardCell.h in Headers */,
 				9F0F888B1E0112D1003979F8 /* CALayer+LWTransaction.h in Headers */,
 				9F977E611DEEE7B400E186AD /* MBBabyShowViewController.h in Headers */,
+				9FA8F9F71E7F9F9600B2E865 /* MBMaoBaoElectronicCardViewController.h in Headers */,
 				9F2419001DE59506006775F0 /* MBAffordablePlanetViewController.h in Headers */,
 				9F9B12D71E1B9F2D00B5F4A5 /* MBServiceCollCell.h in Headers */,
 				94E272271CFED70D00172511 /* MBNewBabyTwoTableCell.h in Headers */,
@@ -3753,8 +3883,11 @@
 				9F0F88D11E0112D1003979F8 /* UIImage+Gallop.h in Headers */,
 				9F0F888D1E0112D1003979F8 /* CALayer+WebCache.h in Headers */,
 				9F6059251E07BA4B00BA8D03 /* MBMyMaBeanViewController.h in Headers */,
+				9FFF89D51E824B2C001E3B6A /* MBElectronicCardOrderVC.h in Headers */,
+				9FA8F9FB1E7F9F9600B2E865 /* MBWelfareCardViewController.h in Headers */,
 				944DBD131D140205009B3869 /* MBabyRecordFiveCell.h in Headers */,
 				947E0DBE1CFBD9380025594A /* MBNewBabyController.h in Headers */,
+				9FA8F9F51E7F9F9600B2E865 /* MBMaoBaoCardViewController.h in Headers */,
 				9FDAFA801E5ECEBC006D0F3F /* MBGoodsSpecsView.h in Headers */,
 				9FD088501E10BAA5000C230E /* MBMyMaBeanViewCell.h in Headers */,
 				941687BE1D05507200F069AE /* MBabyRecordThreeCell.h in Headers */,
@@ -3766,7 +3899,9 @@
 				941687AF1D05394000F069AE /* MBabyRecordHeadView.h in Headers */,
 				9439C9A81CF420F900AA0140 /* WXApiObject.h in Headers */,
 				944DBD0E1D13985D009B3869 /* MBNewWebViewController.h in Headers */,
+				9FA8F9F31E7F9F9600B2E865 /* MBGiftCardViewController.h in Headers */,
 				9F0F88A91E0112D1003979F8 /* LWHTMLTextConfig.h in Headers */,
+				9F7AB8311E8220C5002D328E /* MBCardHelpCenterTitleCell.h in Headers */,
 				941BCEB21D64394D00B4C67E /* MBVoiceViewCell.h in Headers */,
 				9FD088481E10B605000C230E /* MBBeanInfoModel.h in Headers */,
 				944241A21D0FA84A007BE088 /* MBBabyWebController.h in Headers */,
@@ -4101,6 +4236,7 @@
 				481FC0D81B23046E000E6864 /* MBMyTableViewCell.m in Sources */,
 				94BE35DD1CFFC385004F099E /* MBBabyToolCell.m in Sources */,
 				9FD5DD491E5E82CB006488CC /* MBGoodsPropertyTableViewCell.m in Sources */,
+				9FA8F9FA1E7F9F9600B2E865 /* MBMaoBaoEntityCardViewController.m in Sources */,
 				9F0F88941E0112D1003979F8 /* GallopUtils.m in Sources */,
 				9F2419011DE59506006775F0 /* MBAffordablePlanetViewController.m in Sources */,
 				947468E61C7701A900F10FD2 /* MBHealthViewController.m in Sources */,
@@ -4115,6 +4251,8 @@
 				48F9F4F01B01F71200ED4A5D /* BkTabBarButton.m in Sources */,
 				48ED9FC11AF774BB0076A4CD /* MBRegisterFieldRightViewButton.m in Sources */,
 				9F0F88AE1E0112D1003979F8 /* LWLayout.m in Sources */,
+				9F7E7DE91E812703003366D9 /* MBElectronicConfirmationOrderViewController.m in Sources */,
+				9FA8FA001E7F9FD500B2E865 /* MBWelfareCardCollectionViewCell.m in Sources */,
 				9F0F88D41E0112D1003979F8 /* UIView+DisplayAddtions.m in Sources */,
 				94E9A45B1C8FB4280002E15E /* UIColor+XWAdd.m in Sources */,
 				9FAE0AD01DD16325000CFF31 /* MBConfirmAnOrderViewController.m in Sources */,
@@ -4146,6 +4284,7 @@
 				944241A31D0FA84A007BE088 /* MBBabyWebController.m in Sources */,
 				420BF65C1BB537BB00C89C3C /* AppDelegate.m in Sources */,
 				9F0F88C81E0112D1003979F8 /* NSManagedObject+LWLayout.m in Sources */,
+				9F08B2D41E8393CE0052C821 /* MBBaseCollectionView.m in Sources */,
 				9496D3AD1CA3A0E900743586 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				94E272151CFEB1DD00172511 /* MBNewBabyHeadView.m in Sources */,
 				9F0F88C01E0112D1003979F8 /* LWTextRunDelegate.m in Sources */,
@@ -4159,6 +4298,7 @@
 				948A59DD1C20F2CE001AA522 /* ValidationView.m in Sources */,
 				943E81371CAE266E00DDD09C /* MBUserEvaluationCell.m in Sources */,
 				9F0F88D21E0112D1003979F8 /* UIImage+Gallop.m in Sources */,
+				9FA8F9F61E7F9F9600B2E865 /* MBMaoBaoCardViewController.m in Sources */,
 				944AFCBB1CBB996200E66535 /* MBServiceHomeViewController.m in Sources */,
 				9428D5F51D6D53D40055CCFC /* STUI.m in Sources */,
 				94E294331C8AA8E00063E678 /* MBLevelDisplayImagesView.m in Sources */,
@@ -4204,6 +4344,7 @@
 				48C7E2FC1B1D516500853117 /* MBPaymentViewController.m in Sources */,
 				9496D3BE1CA3E0C400743586 /* MBNewAddressViewController.m in Sources */,
 				42891E491BB0EC8F008CF062 /* MBHelpServiceViewController.m in Sources */,
+				9FA8F9F41E7F9F9600B2E865 /* MBGiftCardViewController.m in Sources */,
 				9F02AD741DE67BDE004DB0E6 /* NSArray+Model.m in Sources */,
 				944DCD1C1C9B9D13003B5CC2 /* MBCategoryViewTwoCell.m in Sources */,
 				9428A4981CB77B6F002D2A53 /* MBPayResultsCell.m in Sources */,
@@ -4249,11 +4390,13 @@
 				948CA9F51BFECBB400318EAE /* base64.m in Sources */,
 				481D08121AF4C87400BE1994 /* MBRegisterEmailDoneViewController.m in Sources */,
 				94833A8B1D05162500CF4DF2 /* MBabyRecordOneCell.m in Sources */,
+				9FA8F9F81E7F9F9600B2E865 /* MBMaoBaoElectronicCardViewController.m in Sources */,
 				AA9F03CF1B8EEA110072D39A /* MBSignRoleView.m in Sources */,
 				4803860C1B58B0290052FA20 /* MBNetworking.m in Sources */,
 				486D23451B249C700035EE1A /* MBSettingViewController.m in Sources */,
 				9F9B12CA1E1B945300B5F4A5 /* MBServiceHomeHeadView.m in Sources */,
 				94243BAE1D6705E400540440 /* MBBaseTableViewController.m in Sources */,
+				9F08B2D01E837A310052C821 /* MBBaseScrollView.m in Sources */,
 				94743C301D07DF72003A262B /* MBNewMyViewCell.m in Sources */,
 				42891E451BB0EB14008CF062 /* MBBackServiceViewController.m in Sources */,
 				94CD32B61CC6241200D1D763 /* FBLikeLayout.m in Sources */,
@@ -4268,7 +4411,9 @@
 				48ED9FB51AF703FA0076A4CD /* MBResetPwdViewController.m in Sources */,
 				9428D5F71D6D53D40055CCFC /* UIImage+ST.m in Sources */,
 				9FC814081E08C02C001731DD /* MBUseHelpViewController.m in Sources */,
+				9FA105261E826339003A356E /* MBElectronicCardOrderModel.m in Sources */,
 				941D8EAA1D378D1C00E60972 /* MBPostDetailsFooterTwo.m in Sources */,
+				9FA8FA041E7FA23D00B2E865 /* MBWelfareCardModel.m in Sources */,
 				9F6059261E07BA4B00BA8D03 /* MBMyMaBeanViewController.m in Sources */,
 				949725D11CB6234600804098 /* MBServiceRefundFootView.m in Sources */,
 				9496D3AC1CA3A0E900743586 /* TPKeyboardAvoidingTableView.m in Sources */,
@@ -4321,11 +4466,13 @@
 				42B4559E1BB92862003E555F /* MBServiceProvisionViewController.m in Sources */,
 				48E6E47D1B254C9100B3556E /* MBOrderListViewController.m in Sources */,
 				48162F421AF2866900E61D5C /* BkNavigationBarView.m in Sources */,
+				9FFF89DA1E8250F0001E3B6A /* MBElectronicCardOrderInfoVC.m in Sources */,
 				9F0F88901E0112D1003979F8 /* CALayer+WebCacheOperation.m in Sources */,
 				94B131A91C898C4400204CD9 /* HXFlexoView.m in Sources */,
 				9F0F88BE1E0112D1003979F8 /* LWTextParser.m in Sources */,
 				941577921CB65E5300523A67 /* MBPayResultsController.m in Sources */,
 				941BA9501CB3493E00421BF6 /* MBSubmitOrdersController.m in Sources */,
+				9F7AB82E1E821DE4002D328E /* MBElectronicOrderHelpcenterVC.m in Sources */,
 				9FB1BD8A1D8FE9E80033D12B /* MBBrandDetailsViewController.m in Sources */,
 				9F4A66521DC869B70015B4D1 /* UITableViewCell+MBBottomLine.m in Sources */,
 				945430841CCF179400B45392 /* MBNewCanulcircleController.m in Sources */,
@@ -4349,6 +4496,7 @@
 				9F0F88BA1E0112D1003979F8 /* LWTextLayout.m in Sources */,
 				941BA9711CB3AB7600421BF6 /* MBUserEvaluationListCell.m in Sources */,
 				94E9A4601C8FB4280002E15E /* XWCatergoryViewLayout.m in Sources */,
+				9FFF89D61E824B2C001E3B6A /* MBElectronicCardOrderVC.m in Sources */,
 				94E272341CFEE8A500172511 /* MBNewBabyFourTableCell.m in Sources */,
 				947E0DC91CFC03E30025594A /* MBNewBabyCell.m in Sources */,
 				943ED8091CCF6B24005AF4D9 /* MBAddIDCardView.m in Sources */,
@@ -4367,6 +4515,7 @@
 				9F0F88AA1E0112D1003979F8 /* LWHTMLTextConfig.m in Sources */,
 				9496D3AB1CA3A0E900743586 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				94CDC7431C321434001534A3 /* MBShopTableViewCell.m in Sources */,
+				9FA8F9FC1E7F9F9600B2E865 /* MBWelfareCardViewController.m in Sources */,
 				9415778D1CB6486900523A67 /* MBDetailsRefundController.m in Sources */,
 				489ED3311B217EC200BB0547 /* MBShoppingBtn.m in Sources */,
 				48ED9FBE1AF74A250076A4CD /* UIButton+MBIBnspectable.m in Sources */,
@@ -4382,6 +4531,7 @@
 				943F1CE71D10FFEF00CEA790 /* MBCollectionViewFlowLayout.m in Sources */,
 				94892D771CB5081D00668A98 /* MBServiceOrderTwoCell.m in Sources */,
 				94C41A501C92CB3D0011C016 /* WNXRefresgHeader.m in Sources */,
+				9F7AB8321E8220C5002D328E /* MBCardHelpCenterTitleCell.m in Sources */,
 				9404885D1C9FCE6D008C7938 /* timeView.m in Sources */,
 				94E9A4731C9047340002E15E /* SDPhotoBrowser.m in Sources */,
 				9F0F88A01E0112D1003979F8 /* LWHTMLDisplayView.m in Sources */,
@@ -4605,8 +4755,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaomabao.APPxiaomabao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8b022695-8d4d-420c-a3d5-bfb9f9428020";
-				PROVISIONING_PROFILE_SPECIFIER = "<font><font>xiaomabao_Development</font></font>";
+				PROVISIONING_PROFILE = "ed6eb70c-e4e4-4acf-beb0-04cc9d688376";
+				PROVISIONING_PROFILE_SPECIFIER = xiaomabao_development;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";

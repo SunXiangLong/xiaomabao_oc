@@ -26,19 +26,10 @@
 @property (nonatomic,strong) UIView *titlesView;
 /** 这个scrollView的作用：存放所有子控制器的view */
 @property (nonatomic, weak) UIScrollView *scrollView;
-/** 存放所有的标签按钮 */
-@property (nonatomic, strong) NSMutableArray *titleButtons;
 @end
 
 @implementation MBNewHomeViewController
-#pragma mark - lazy
-- (NSMutableArray *)titleButtons
-{
-    if (!_titleButtons) {
-        _titleButtons = [NSMutableArray array];
-    }
-    return _titleButtons;
-}
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -254,6 +245,7 @@
 //delegate methods
 -(void)acquireValidation
 {
+   
     [self getUnicallSignature];
 }
 -(void)messageCountUpdated:(NSNumber*) data
@@ -272,8 +264,8 @@
 }
 -(UIViewController*) currentViewController
 {
-
-    return self.navigationController.viewControllers.lastObject;
+    
+    return [UIViewController currentViewController];
 }
 -(NSString*)getCurrentTime {
     

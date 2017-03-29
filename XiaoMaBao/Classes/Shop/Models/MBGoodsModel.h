@@ -58,7 +58,7 @@
 @property (nonatomic, strong) NSArray *goods_desc;
 @property (nonatomic, strong) NSArray *goods_gallery;
 /**商品介绍图片的宽高比 */
-@property (nonatomic, copy) NSArray *imageScale;
+@property (nonatomic, copy) NSArray *goods_desc_size;
 
 @end
 
