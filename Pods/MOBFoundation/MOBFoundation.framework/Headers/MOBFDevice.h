@@ -40,6 +40,19 @@ typedef NS_ENUM(NSUInteger, MOBFNetworkType)
     MOBFNetworkTypeCellular4G   = 5,
 };
 
+
+/**
+ IP版本
+
+ - MOBFIPVersion4: IPv4
+ - MOBFIPVersion6: IPv6
+ */
+typedef NS_ENUM(NSUInteger, MOBFIPVersion)
+{
+    MOBFIPVersion4 = 0,
+    MOBFIPVersion6 = 1,
+};
+
 /**
  *  设备工具类
  */
@@ -132,22 +145,6 @@ typedef NS_ENUM(NSUInteger, MOBFNetworkType)
 + (NSString *)duid;
 
 /**
- *  判断当前设备是否有麦克风
- *
- *  @return YES 有，NO 没有
- */
-+ (BOOL)hasMicrophone;
-
-/**
- *  判断是否存在指定音频线路
- *
- *  @param type 类型
- *
- *  @return YES 存在，NO 不存在
- */
-+ (BOOL)hasAudioRouteWithType:(NSString *)type;
-
-/**
  *  获取屏幕真实尺寸
  *
  *  @return 屏幕尺寸
@@ -187,7 +184,7 @@ typedef NS_ENUM(NSUInteger, MOBFNetworkType)
  *
  *  @return IP地址
  */
-+ (NSString *)ipAddress;
++ (NSString *)ipAddress:(MOBFIPVersion)ver;
 
 /**
  *  获取开发商ID

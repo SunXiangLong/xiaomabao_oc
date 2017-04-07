@@ -68,7 +68,7 @@
                   authType:(NSString *)authType;
 
 /**
- *  设置Facebook应用信息
+ *  设置Facebook应用信息 不需要使用facebook客户端分享
  *
  *  @param apiKey       应用标识
  *  @param appSecret    应用密钥
@@ -80,12 +80,26 @@
 
 
 /**
+ 设置Facebook应用信息 使用facebook客户端分享使用此方法 displayName必须
+ 
+ @since ver 3.6.0
+ @param apiKey 应用标识
+ @param appSecret 应用密钥
+ @param displayName 分享后显示的app名称 需与facebook后台配置一致 使用facebook客户端分享必须
+ @param authType 授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
+ */
+- (void)SSDKSetupFacebookByApiKey:(NSString *)apiKey
+                        appSecret:(NSString *)appSecret
+                      displayName:(NSString *)displayName
+                         authType:(NSString *)authType;
+
+
+/**
  *  设置腾讯微博应用信息
  *
  *  @param appKey        应用标识
  *  @param appSecret     应用密钥
  *  @param redirectUri   回调地址
- *  @param authType      授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
  */
 - (void)SSDKSetupTencentWeiboByAppKey:(NSString *)appKey
                             appSecret:(NSString *)appSecret
@@ -231,7 +245,7 @@
  *
  *  @param appKey   应用标识, 当使用客户端授权分享和授权时需要传入该标识
  *  @param restApiKey  RestApi标识
- *  @param reidrectUri 回调地址
+ *  @param redirectUri 回调地址
  *  @param authType    授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
  */
 - (void)SSDKSetupKaKaoByAppKey:(NSString *)appKey
@@ -255,7 +269,6 @@
  *
  *  @param applicationId 应用标识
  *  @param secretKey     应用密钥
- *  @param authType    授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
  */
 - (void)SSDKSetupVKontakteByApplicationId:(NSString *)applicationId
                                 secretKey:(NSString *)secretKey;
@@ -292,9 +305,38 @@
  *  设置Instapaper
  *
  *  @param consumerKey    应用标识
- *  @param comsumerSecret 应用密钥
+ *  @param consumerSecret 应用密钥
  */
 - (void)SSDKSetupInstapaperByConsumerKey:(NSString *)consumerKey
                           consumerSecret:(NSString *)consumerSecret;
+/**
+ *  设置钉钉应用信息
+ *
+ *  @param appId 应用标识
+ */
+- (void)SSDKSetupDingTalkByAppId:(NSString *)appId;
 
+/**
+ 设置美拍应用信息
+
+ @param appKey 应用标识
+ */
+- (void)SSDKSetupMeiPaiByAppKey:(NSString *)appKey;
+
+/**
+ 设置youtube应用信息
+ 
+ @param clientId 应用标识
+ @param clientSecret 应用密钥 没有则填 ""
+ @param redirectUri 回调地址 redirectUri 可以使用 http://localhost 或 iOSURLscheme:/ 例如：com.googleusercontent.apps.906418427202-jinnbqal1niq4s8isbg2ofsqc5ddkcgr:/
+ 
+ */
+- (void)SSDKSetupYouTubeByClientId:(NSString *)clientId
+                      clientSecret:(NSString *)clientSecret
+                       redirectUri:(NSString *)redirectUri;
+/**
+ *  设置Line应用信息
+ *  @param authType  授权方式。值可以是：SSDKAuthTypeSSO、SSDKAuthTypeWeb、SSDKAuthTypeBoth，分别代表SSO、网页授权、SSO＋网页授权。
+ */
+- (void)SSDKSetupLineAuthType:(NSString *)authType;
 @end

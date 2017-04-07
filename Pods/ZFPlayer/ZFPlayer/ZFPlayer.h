@@ -39,7 +39,18 @@
 
 #define ZFPlayerImage(file)                 [UIImage imageNamed:ZFPlayerSrcName(file)] ? :[UIImage imageNamed:ZFPlayerFrameworkSrcName(file)]
 
+#define ZFPlayerOrientationIsLandscape      UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)
+
+#define ZFPlayerOrientationIsPortrait       UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation)
+
+
 #import "ZFPlayerView.h"
+#import "ZFPlayerModel.h"
 #import "ZFPlayerControlView.h"
 #import "ZFBrightnessView.h"
+#import "UITabBarController+ZFPlayerRotation.h"
+#import "UIViewController+ZFPlayerRotation.h"
+#import "UINavigationController+ZFPlayerRotation.h"
+#import "UIImageView+ZFCache.h"
+#import "ZFPlayerControlViewDelegate.h"
 #import <Masonry/Masonry.h>

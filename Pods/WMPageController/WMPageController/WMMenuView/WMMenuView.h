@@ -70,7 +70,7 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 
 @end
 
-@interface WMMenuView : UIView
+@interface WMMenuView : UIView <WMMenuItemDelegate>
 @property (nonatomic, strong) NSArray *progressWidths;
 @property (nonatomic, weak) WMProgressView *progressView;
 @property (nonatomic, assign) CGFloat progressHeight;
@@ -101,10 +101,11 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
 - (void)resetFrames;
 - (void)reload;
 - (void)updateTitle:(NSString *)title atIndex:(NSInteger)index andWidth:(BOOL)update;
-
+- (void)updateAttributeTitle:(NSAttributedString *)title atIndex:(NSInteger)index andWidth:(BOOL)update;
+- (WMMenuItem *)itemAtIndex:(NSInteger)index;
 /// 立即刷新 menuView 的 contentOffset，使 title 居中
 - (void)refreshContenOffset;
-
+- (void)deselectedItemsIfNeeded;
 /**
  *  更新角标视图，如要移除，在 -menuView:badgeViewAtIndex: 中返回 nil 即可
  */

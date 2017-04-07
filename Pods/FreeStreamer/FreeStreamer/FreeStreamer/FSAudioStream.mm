@@ -77,9 +77,23 @@ static NSInteger sortCacheObjects(id co1, id co2, void *keyForSorting)
 #else
         [systemVersion appendString:@"OS X"];
 #endif
+
+#if (TARGET_OS_SIMULATOR)
+        /* Seems that audio doesn't run properly with lower latency buffers on the simulator
+           with later Xcode / iOS Simulator versions */
+        self.bufferCount    = 8;
+        self.bufferSize     = 32768;
         
+    #if (DEBUG)
+        static dispatch_once_t once;
+        dispatch_once(&once, ^{
+            NSLog(@"Notice: FreeStreamer running on simulator, low latency audio not available!");
+        });
+    #endif
+#else
         self.bufferCount    = 64;
         self.bufferSize     = 8192;
+#endif
         self.maxPacketDescs = 512;
         self.httpConnectionBufferSize = 8192;
         self.outputSampleRate = 44100;
@@ -286,6 +300,7 @@ public:
 - (void)setVolume:(float)volume;
 - (void)setPlayRate:(float)playRate;
 - (astreamer::AS_Playback_Position)playbackPosition;
+- (UInt64)audioDataByteCount;
 - (float)durationInSeconds;
 - (void)bitrateAvailable;
 @end
@@ -487,14 +502,21 @@ public:
 
 - (void)playFromOffset:(FSSeekByteOffset)offset
 {
-    astreamer::Input_Stream_Position position;
-    position.start = offset.start;
-    position.end   = offset.end;
+    _wasPaused = NO;
     
-    _audioStream->open(&position);
-    
-    _audioStream->setSeekOffset(offset.position);
-    _audioStream->setContentLength(offset.end);
+    if (_audioStream->isPreloading()) {
+        _audioStream->seekToOffset(offset.position);
+        _audioStream->setPreloading(false);
+    } else {
+        astreamer::Input_Stream_Position position;
+        position.start = offset.start;
+        position.end   = offset.end;
+        
+        _audioStream->open(&position);
+        
+        _audioStream->setSeekOffset(offset.position);
+        _audioStream->setContentLength(offset.end);
+    }
     
     if (!_reachability) {
         _reachability = [Reachability reachabilityForInternetConnection];
@@ -1107,6 +1129,11 @@ public:
     return _audioStream->playbackPosition();
 }
 
+- (UInt64)audioDataByteCount
+{
+    return _audioStream->audioDataByteCount();
+}
+
 - (float)durationInSeconds
 {
     return _audioStream->durationInSeconds();
@@ -1377,6 +1404,13 @@ public:
     NSAssert([NSThread isMainThread], @"FSAudioStream.contentLength needs to be called in the main thread");
     
     return [_private contentLength];
+}
+
+- (UInt64)audioDataByteCount
+{
+    NSAssert([NSThread isMainThread], @"FSAudioStream.audioDataByteCount needs to be called in the main thread");
+    
+    return [_private audioDataByteCount];
 }
 
 - (void)preload

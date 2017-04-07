@@ -8,7 +8,7 @@
 
 #import "WMMenuView.h"
 
-@interface WMMenuView () <WMMenuItemDelegate>
+@interface WMMenuView () 
 @property (nonatomic, weak) WMMenuItem *selItem;
 @property (nonatomic, strong) NSMutableArray *frames;
 @property (nonatomic, readonly) NSInteger titlesCount;
@@ -44,22 +44,23 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     // Make the contentView center, because system will change menuView's frame if it's a titleView.
     if (startX + contentWidth / 2 != self.bounds.size.width / 2) {
         
-        CGFloat xOffset = (contentWidth - self.bounds.size.width) / 2;
-        self.scrollView.frame = ({
-            CGRect frame = self.scrollView.frame;
-            frame.origin.x -= xOffset;
+        CGFloat xOffset = (self.bounds.size.width - contentWidth) / 2;
+        self.leftView.frame = ({
+            CGRect frame = self.leftView.frame;
+            frame.origin.x = xOffset;
             frame;
         });
         
-        self.leftView.frame = ({
-            CGRect frame = self.leftView.frame;
-            frame.origin.x -= xOffset;
+        self.scrollView.frame = ({
+            CGRect frame = self.scrollView.frame;
+            frame.origin.x = self.leftView ? CGRectGetMaxX(self.leftView.frame) + self.contentMargin : xOffset;
             frame;
         });
+       
         
         self.rightView.frame = ({
             CGRect frame = self.rightView.frame;
-            frame.origin.x -= xOffset;
+            frame.origin.x = CGRectGetMaxX(self.scrollView.frame) + self.contentMargin;
             frame;
         });
         
@@ -186,6 +187,10 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 
 #pragma mark - Public Methods
 
+- (WMMenuItem *)itemAtIndex:(NSInteger)index {
+    return (WMMenuItem *)[self viewWithTag:(index + WMMenuItemTagOffset)];
+}
+
 - (void)setProgressViewIsNaughty:(BOOL)progressViewIsNaughty {
     _progressViewIsNaughty = progressViewIsNaughty;
     if (self.progressView) {
@@ -202,6 +207,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     
     [self addItems];
     [self makeStyle];
+    [self addBadgeViews];
 }
 
 - (void)slideMenuAtProgress:(CGFloat)progress {
@@ -213,9 +219,9 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     WMMenuItem *currentItem = (WMMenuItem *)[self viewWithTag:tag];
     WMMenuItem *nextItem = (WMMenuItem *)[self viewWithTag:tag+1];
     if (rate == 0.0) {
-        [self.selItem deselectedItemWithoutAnimation];
+        [self.selItem deselectedWithoutAnimation];
         self.selItem = currentItem;
-        [self.selItem selectedItemWithoutAnimation];
+        [self.selItem selectedWithoutAnimation];
         [self refreshContenOffset];
         return;
     }
@@ -230,9 +236,9 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     if (index == currentIndex || !self.selItem) { return; }
     
     WMMenuItem *item = (WMMenuItem *)[self viewWithTag:tag];
-    [self.selItem deselectedItemWithoutAnimation];
+    [self.selItem deselectedWithoutAnimation];
     self.selItem = item;
-    [self.selItem selectedItemWithoutAnimation];
+    [self.selItem selectedWithoutAnimation];
     [self.progressView setProgressWithOutAnimate:index];
     if ([self.delegate respondsToSelector:@selector(menuView:didSelesctedIndex:currentIndex:)]) {
         [self.delegate menuView:self didSelesctedIndex:index currentIndex:currentIndex];
@@ -245,6 +251,15 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     
     WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMenuItemTagOffset + index)];
     item.text = title;
+    if (!update) { return; }
+    [self resetFrames];
+}
+
+- (void)updateAttributeTitle:(NSAttributedString *)title atIndex:(NSInteger)index andWidth:(BOOL)update {
+    if (index >= self.titlesCount || index < 0) { return; }
+    
+    WMMenuItem *item = (WMMenuItem *)[self viewWithTag:(WMMenuItemTagOffset + index)];
+    item.attributedText = title;
     if (!update) { return; }
     [self resetFrames];
 }
@@ -280,8 +295,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     } else {
         [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
-    // MARK: 暂时解决多选中问题 (需要复现并找到根本原因 see#67)
-    [self deselectedItemsIfNeeded];
+    
 }
 
 #pragma mark - Data source
@@ -290,6 +304,7 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 }
 
 #pragma mark - Private Methods
+
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     if (self.scrollView) { return; }
     
@@ -369,19 +384,19 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 - (NSArray *)convertProgressWidthsToFrames {
     if (!self.frames.count) { NSAssert(NO, @"BUUUUUUUG...SHOULDN'T COME HERE!!"); }
     
-    if (self.progressWidths.count) {
-        NSMutableArray *progressFrames = [NSMutableArray array];
-        for (int i = 0; i < self.frames.count; i++) {
-            CGRect itemFrame = [self.frames[i] CGRectValue];
-            CGFloat progressWidth = [self.progressWidths[i] floatValue];
-            CGFloat x = itemFrame.origin.x + (itemFrame.size.width - progressWidth) / 2;
-            CGRect progressFrame = CGRectMake(x, itemFrame.origin.y, progressWidth, 0);
-            [progressFrames addObject:[NSValue valueWithCGRect:progressFrame]];
-        }
-        return progressFrames.copy;
-    }
+    if (self.progressWidths.count < self.titlesCount) return self.frames;
     
-    return self.frames;
+    NSMutableArray *progressFrames = [NSMutableArray array];
+    NSInteger count = (self.frames.count <= self.progressWidths.count) ? self.frames.count : self.progressWidths.count;
+    for (int i = 0; i < count; i++) {
+        CGRect itemFrame = [self.frames[i] CGRectValue];
+        CGFloat progressWidth = [self.progressWidths[i] floatValue];
+        CGFloat x = itemFrame.origin.x + (itemFrame.size.width - progressWidth) / 2;
+        CGRect progressFrame = CGRectMake(x, itemFrame.origin.y, progressWidth, 0);
+        [progressFrames addObject:[NSValue valueWithCGRect:progressFrame]];
+    }
+    return progressFrames.copy;
+
 }
 
 - (void)addBadgeViews {
@@ -406,8 +421,8 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     } else {
         self.progressHeight = self.progressHeight > 0 ? self.progressHeight : self.frame.size.height * 0.8;
         frame = CGRectMake(0, (self.frame.size.height - self.progressHeight) / 2, self.scrollView.contentSize.width, self.progressHeight);
+        self.progressViewCornerRadius = self.progressViewCornerRadius > 0 ? self.progressViewCornerRadius : self.progressHeight / 2.0;
     }
-    self.progressViewCornerRadius = self.progressViewCornerRadius > 0 ? self.progressViewCornerRadius : self.progressHeight / 2.0;
     [self wm_addProgressViewWithFrame:frame
                            isTriangle:(self.style == WMMenuViewStyleTriangle)
                             hasBorder:(self.style == WMMenuViewStyleSegmented)
@@ -417,12 +432,10 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
 
 - (void)deselectedItemsIfNeeded {
     [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[WMMenuItem class]]) {
-            WMMenuItem *item = (WMMenuItem *)obj;
-            if (item != self.selItem && item.selected == YES) {
-                [item deselectedItemWithoutAnimation];
-            }
+        if (![obj isKindOfClass:[WMMenuItem class]] || obj == self.selItem) {
+            return;
         }
+        [(WMMenuItem *)obj deselectedWithoutAnimation];
     }];
 }
 
@@ -465,10 +478,10 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         item.selectedColor = self.selectedColor;
         item.speedFactor   = self.speedFactor;
         if (i == 0) {
-            [item selectedItemWithoutAnimation];
+            [item selectedWithoutAnimation];
             self.selItem = item;
         } else {
-            [item deselectedItemWithoutAnimation];
+            [item deselectedWithoutAnimation];
         }
         [self.scrollView addSubview:item];
     }

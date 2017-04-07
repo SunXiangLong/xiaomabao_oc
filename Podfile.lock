@@ -15,7 +15,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - Appirater (2.0.5)
+  - Appirater (2.1.2)
   - CocoaLumberjack (2.2.0):
     - CocoaLumberjack/Default (= 2.2.0)
     - CocoaLumberjack/Extensions (= 2.2.0)
@@ -24,25 +24,24 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
-  - DateTools (1.7.0)
+  - DateTools (2.0.0)
   - DZNEmptyDataSet (1.8.1)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
-  - FreeStreamer (3.6.2):
+  - FreeStreamer (3.7.2):
     - Reachability (~> 3.0)
-  - HexColors (4.0.0)
-  - IQKeyboardManager (4.0.4)
+  - IQKeyboardManager (4.0.9)
   - JPFPSStatus (0.1)
   - KNSemiModalViewController_hons82 (0.4.5)
-  - Masonry (1.0.1)
+  - Masonry (1.0.2)
   - MBProgressHUD (1.0.0)
   - MJPhotoBrowser (1.0.2):
     - SDWebImage
     - SVProgressHUD
     - YLGIFImage
   - MJRefresh (3.1.12)
-  - MOBFoundation (2.0.8)
+  - MOBFoundation (2.2.17)
   - NSObject-SafeExpectations (0.0.2)
   - Reachability (3.2)
   - ReactiveCocoa (2.5):
@@ -54,45 +53,51 @@ PODS:
     - ReactiveCocoa/Core
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
-  - SDWebImage (3.8.1):
-    - SDWebImage/Core (= 3.8.1)
-  - SDWebImage/Core (3.8.1)
-  - ShareSDK3 (3.4.0):
-    - ShareSDK3/ShareSDK (= 3.4.0)
-  - ShareSDK3/ShareSDK (3.4.0)
-  - ShareSDK3/ShareSDKPlatforms/QQ (3.4.0)
-  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (3.4.0)
-  - ShareSDK3/ShareSDKPlatforms/WeChat (3.4.0)
-  - ShareSDK3/ShareSDKUI (3.4.0)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+  - ShareSDK3 (3.6.2.1):
+    - MOBFoundation
+    - ShareSDK3/ShareSDK (= 3.6.2.1)
+  - ShareSDK3/ShareSDK (3.6.2.1):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/QQ (3.6.2.1):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (3.6.2.1):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/WeChat (3.6.2.1):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKUI (3.6.2.1):
+    - MOBFoundation
   - SKTagView (0.9.2)
   - StreamingKit (0.1.29)
-  - SVProgressHUD (2.0.3)
-  - TYAttributedLabel (2.6.1)
+  - SVProgressHUD (2.1.2)
+  - TYAttributedLabel (2.6.2)
   - TZImagePickerController (1.7.8)
   - UITableView+FDTemplateLayoutCell (1.4)
-  - UMengAnalytics (4.1.0)
-  - WMPageController (1.8.8)
+  - UMengAnalytics (4.2.4)
+  - WMPageController (2.2.1)
   - WordPress-iOS-Editor (1.8.1):
     - CocoaLumberjack (~> 2.2.0)
     - NSObject-SafeExpectations (~> 0.0.2)
     - WordPressCom-Analytics-iOS (~> 0.1.0)
   - WordPress-iOS-Shared (0.7.0):
     - CocoaLumberjack (~> 2.2.0)
-  - WordPressCom-Analytics-iOS (0.1.18)
+  - WordPressCom-Analytics-iOS (0.1.24)
   - YLGIFImage (0.11)
-  - YNPageScrollViewController (1.0.2)
-  - YYCache (1.0.3)
-  - YYImage (1.0.3):
-    - YYImage/Core (= 1.0.3)
-  - YYImage/Core (1.0.3)
-  - YYImage/WebP (1.0.3):
+  - YNPageScrollViewController (1.0.3)
+  - YYCache (1.0.4)
+  - YYImage (1.0.4):
+    - YYImage/Core (= 1.0.4)
+  - YYImage/Core (1.0.4)
+  - YYImage/WebP (1.0.4):
     - YYImage/Core
   - YYModel (1.0.4)
-  - YYText (1.0.5)
-  - YYWebImage (1.0.4):
+  - YYText (1.0.7)
+  - YYWebImage (1.0.5):
     - YYCache
     - YYImage
-  - ZFPlayer (1.2.1):
+  - ZFPlayer (2.1.3):
     - Masonry
 
 DEPENDENCIES:
@@ -104,7 +109,6 @@ DEPENDENCIES:
   - DZNEmptyDataSet
   - FMDB
   - FreeStreamer
-  - HexColors
   - IQKeyboardManager
   - JPFPSStatus
   - KNSemiModalViewController_hons82
@@ -170,47 +174,46 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: d11a4c12c6aaf704b8a3f56d179198c99f3e41e6
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  Appirater: e7c0a47fb67ee5041ce8479e6ba960927fb40264
+  Appirater: f1c9e53e8b612193e6256144f6a0fd2e31f4340d
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
-  DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
+  DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
-  FreeStreamer: 32a59f31065bf10909c329c47c8d6a2e1d9ba559
-  HexColors: 5f95843ef89aff6a72e1fd3a8ebabf205cc43379
-  IQKeyboardManager: 4a6f83b540283c2645aaeba2bd8dc0f09b5c77f8
+  FreeStreamer: 98f42f926bed70e3f8873930bc530aae83082d9f
+  IQKeyboardManager: 322c7405df3eb5f7e50dede32ea937bf3d4364e0
   JPFPSStatus: 4467a17488382e4c1700bd9d18c92ae581fd6305
   KNSemiModalViewController_hons82: 0ef0ef5ed7c3814ddd0fa9c884ab74d5495de16b
-  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  MJPhotoBrowser: f55e8490231f44a78ca6455105a1c798a142c95f
+  MJPhotoBrowser: b98b04d0e3b6a999feb44df68adec413af446809
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
-  MOBFoundation: 6f2006b941bd4002e2689a638d04c6b535c4cc64
+  MOBFoundation: fa12570bb16a7655dca3b3472ce6cd962e7ff5e3
   NSObject-SafeExpectations: 7d7f48df90df4e11da7cfe86b64f45eff7a7f521
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
-  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
-  ShareSDK3: df89140111729eae7a2bf06688372af969322a37
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  ShareSDK3: 3c531b5e64576e4b947127b9b1f46b685dfa3b37
   SKTagView: 59cdadcd16e4a09300746ad1811a72371e1327f7
   StreamingKit: c329785aaef3ac142d4ae388345bfe1ed23cfd45
-  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
-  TYAttributedLabel: 4785820dc8d7935446f49f1de4daa0f99ebcba8a
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  TYAttributedLabel: 1c1f1e7604043ba584e005d4fd3aee8a1a7a2020
   TZImagePickerController: 87a138ae5d585225aaa6c8abe2cface0f0ad19dd
   UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
-  UMengAnalytics: 19b28253793d77dff10fb7d502faad1fb6b8ce4a
-  WMPageController: 17f093c7ad34507775b62d537821aa4d6de54e7b
+  UMengAnalytics: ef8d45f94c0e5771dc364cf6a5731d9d3b101da2
+  WMPageController: 181bcc9b1fb7c9c3466bff66012552953a547d28
   WordPress-iOS-Editor: 3118f5d6b142b6bf322f3393a7dd98a28bca68cb
   WordPress-iOS-Shared: 4bec543bac6543480b10d904bea122dcba43cc37
-  WordPressCom-Analytics-iOS: f8e3823c3d528d5238bfe6721cd0d67b9e7cc4f6
+  WordPressCom-Analytics-iOS: 9787d0e0866f48ae759a1d56e21c5a8f3a08a67e
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
-  YNPageScrollViewController: 6b681a833185d10747878d6dd921bda3c15b8cb6
-  YYCache: 282f35b5b0990833d0b7a06d864a87141a021da2
-  YYImage: 362f44ffba1fc498f2152060f3bb54ed84600981
+  YNPageScrollViewController: 1501d62217b4463bdd619496ec247715776d9e33
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
-  YYText: ac09660c9ccd9b817f409a20caa6f5587444d2ae
-  YYWebImage: 0431ed108e104527669b86f75efd58958425cca2
-  ZFPlayer: 80cf92fef7412ff7a31e47c6658c50393351f938
+  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
+  YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
+  ZFPlayer: 8dc82b4508fbba4ee59d0304c52e30f8b3390244
 
-PODFILE CHECKSUM: 14bdeaf3ac104102f658cb9009e9925e2ba9c251
+PODFILE CHECKSUM: 3708ababf7df0b2e1f27d3c2f56e0ea79c7317b3
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0

@@ -51,7 +51,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(HYTPopViewControllerNotification) name:@"HYTPopViewControllerNotification" object:nil];
 
-          [self setupChilds];
+    [self setupChilds];
     
 }
 
@@ -71,22 +71,22 @@
 
 
 - (void) setupChilds{
-    
-    MBNewBabyController *babyVC = [[MBNewBabyController alloc] init];
+    MBNewBabyController *babyVC =   [[UIStoryboard storyboardWithName:@"LovelyBaby" bundle:nil] instantiateViewControllerWithIdentifier:@"MBNewBabyController"];
     [self setupChildVC:babyVC title:@"萌宝" imageName:@"lovyeBab_image" selectedImageName:@"loveBaby_image"];
     
-    MBServiceHomeViewController *serviceVc = [[MBServiceHomeViewController alloc] init];
+    
+     MBServiceHomeViewController *serviceVc =   [[UIStoryboard storyboardWithName:@"Service" bundle:nil] instantiateViewControllerWithIdentifier:@"MBServiceHomeViewController"];
     [self setupChildVC:serviceVc title:@"服务" imageName:@"ser_image" selectedImageName:@"serSelect_image"];
     
-    
-    MBNewHomeViewController *view = [[MBNewHomeViewController alloc] init];
+     MBNewHomeViewController *view =   [[UIStoryboard storyboardWithName:@"Shopping" bundle:nil] instantiateViewControllerWithIdentifier:@"MBNewHomeViewController"];
     [self setupChildVC:view title:@"购物" imageName:@"icon_nav06" selectedImageName:@"icon_nav06_press"];
-
-    MBNewCanulcircleController *shoppingCartVc = [[MBNewCanulcircleController alloc] init];
+    
+    
+     MBNewCanulcircleController *shoppingCartVc =   [[UIStoryboard storyboardWithName:@"Circle" bundle:nil] instantiateViewControllerWithIdentifier:@"MBNewCanulcircleController"];
     [self setupChildVC:shoppingCartVc title:@"麻包圈" imageName:@"icon_nav03" selectedImageName:@"icon_nav03_press"];
 
-
-    MBNewMyViewController *myVc = [[MBNewMyViewController alloc] init];
+    
+     MBNewMyViewController *myVc =   [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateViewControllerWithIdentifier:@"MBNewMyViewController"];
     [self setupChildVC:myVc title:@"个人中心" imageName:@"icon_nav05" selectedImageName:@"icon_nav05_press"];
 
       

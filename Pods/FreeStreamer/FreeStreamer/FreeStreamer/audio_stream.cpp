@@ -422,6 +422,19 @@ AS_Playback_Position Audio_Stream::playbackPosition()
     return playbackPosition;
 }
     
+UInt64 Audio_Stream::audioDataByteCount()
+{
+    UInt64 audioDataBytes = 0;
+    
+    if (m_audioDataByteCount > 0) {
+        audioDataBytes = m_audioDataByteCount;
+    } else {
+        audioDataBytes = contentLength() - m_metaDataSizeInBytes;
+    }
+    
+    return audioDataBytes;
+}
+    
 float Audio_Stream::durationInSeconds()
 {
     if (m_audioDataPacketCount > 0 && m_srcFormat.mFramesPerPacket > 0) {
@@ -429,19 +442,13 @@ float Audio_Stream::durationInSeconds()
     }
     
     // Not enough data provided by the format, use bit rate based estimation
-    UInt64 audioFileLength = 0;
+    UInt64 audioDataBytes = audioDataByteCount();
     
-    if (m_audioDataByteCount > 0) {
-        audioFileLength = m_audioDataByteCount;
-    } else {
-        audioFileLength = contentLength() - m_metaDataSizeInBytes;
-    }
-    
-    if (audioFileLength > 0) {
+    if (audioDataBytes > 0) {
         float bitrate = this->bitrate();
         
         if (bitrate > 0) {
-            return audioFileLength / (bitrate * 0.125);
+            return audioDataBytes / (bitrate * 0.125);
         }
     }
     
@@ -773,6 +780,25 @@ void Audio_Stream::audioQueueBuffersEmpty()
         
         pthread_mutex_lock(&m_packetQueueMutex);
         m_playPacket = m_queuedHead;
+        if (m_processedPackets.size() > 0) {
+            /*
+             * We have audio packets in memory (only case with a non-continuous stream),
+             * so figure out the correct location to set the playback pointer so that we don't
+             * start decoding the packets from the beginning when
+             * buffering resumes.
+             */
+            queued_packet_t *firstPacket = m_processedPackets.front();
+            queued_packet_t *cur = m_queuedHead;
+            while (cur) {
+                if (cur->identifier == firstPacket->identifier) {
+                    break;
+                }
+                cur = cur->next;
+            }
+            if (cur) {
+                m_playPacket = cur;
+            }
+        }
         pthread_mutex_unlock(&m_packetQueueMutex);
         
         // Always make sure we are scheduled to receive data if we start buffering
@@ -1226,7 +1252,7 @@ void Audio_Stream::setState(State state)
     pthread_mutex_unlock(&m_streamStateMutex);
     
     if (m_delegate) {
-        m_delegate->audioStreamStateChanged(m_state);
+        m_delegate->audioStreamStateChanged(state);
     }
 }
     

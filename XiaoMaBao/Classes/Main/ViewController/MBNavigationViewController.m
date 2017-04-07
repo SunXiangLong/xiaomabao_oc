@@ -12,6 +12,7 @@
 #import "BkBaseViewController.h"
 #import "BkNavigationBarView.h"
 #import "MBOrderInfoTableViewController.h"
+#import "MBNewMyViewController.h"
 #define BG_IMAGEVIEW_X -[[UIScreen mainScreen] bounds].size.width/2
 
 
@@ -61,9 +62,12 @@
     [viewController.navigationController.navigationBar removeFromSuperview];
     
     if (self.viewControllers.count > 0) {
+        MMLog(@"%@",self.viewControllers);
         /**
          *  pus到新的界面 隐藏底部的tabbar
          */
+        
+       
         viewController.hidesBottomBarWhenPushed = YES;
         if ([viewController isKindOfClass:[BkBaseViewController class] ]) {
             BkBaseViewController *vc = (BkBaseViewController *) viewController;

@@ -434,7 +434,7 @@ void Audio_Queue::setState(State state)
     m_state = state;
     
     if (m_delegate) {
-        m_delegate->audioQueueStateChanged(m_state);
+        m_delegate->audioQueueStateChanged(state);
     }
 }
 

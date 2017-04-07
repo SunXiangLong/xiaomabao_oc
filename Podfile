@@ -20,7 +20,7 @@ pod 'ActionSheetPicker-3.0'
 # pod 'FastImage'
 pod 'KNSemiModalViewController_hons82'
 pod "SKTagView"
-pod 'HexColors'
+#pod 'HexColors'
 pod 'Reachability'
 pod 'SDWebImage'
 pod 'MJRefresh'
