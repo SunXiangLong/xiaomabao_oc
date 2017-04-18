@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MBShoppingCartModel.h"
 @interface MBFireOrderTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *discount_name;
 @property (weak, nonatomic) IBOutlet UIImageView *showimageview;
 @property (weak, nonatomic) IBOutlet UILabel *desribe;
 @property (weak, nonatomic) IBOutlet UILabel *countprice;

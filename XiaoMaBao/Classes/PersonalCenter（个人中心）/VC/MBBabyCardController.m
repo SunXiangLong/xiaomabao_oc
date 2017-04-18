@@ -9,33 +9,28 @@
 #import "MBBabyCardController.h"
 #import "MBBabyCardCell.h"
 #import "MBDindingBabyCardController.h"
+#import "MaBaoCardModel.h"
 @interface MBBabyCardController ()
 {
     
     NSInteger _page;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (copy, nonatomic) NSMutableArray *dataArray;
-@property (copy, nonatomic) NSMutableArray *recordSelectedArray;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewBottom;
 @property (weak, nonatomic) IBOutlet UIButton *button;
 @property (weak, nonatomic) IBOutlet UIView *showView;
-
-
+@property (copy, nonatomic) NSMutableArray<MaBaoCardModel *> *dataArray;
+@property (copy, nonatomic) NSMutableArray *recordSelectedArray;
 @end
 
 @implementation MBBabyCardController
--(NSMutableArray *)dataArray{
+-(NSMutableArray<MaBaoCardModel *> *)dataArray{
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];
     }
     return _dataArray;
 }
--(NSMutableArray *)recordSelectedArray{
-    if (!_recordSelectedArray) {
-        _recordSelectedArray = [NSMutableArray array];
-    }
-    return _recordSelectedArray;
-}
+
 - (RACSubject *)myCircleViewSubject {
     
     if (!_myCircleViewSubject) {
@@ -60,7 +55,7 @@
 }
 -(NSString *)titleStr{
     
-    return @"选择使用的麻包卡";
+    return  _isJustLookAt?@"查看麻包卡":@"选择使用的麻包卡";
 }
 
 -(NSString *)rightStr{
@@ -73,11 +68,8 @@
     MBDindingBabyCardController *VC = [[MBDindingBabyCardController alloc] init];
     [[VC.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDictionary *coupon) {
         @strongify(self);
-        
         _page = 1;
-        
         [self.dataArray removeAllObjects];
-        //        [self.tableView reloadData];
         [self setData];
         
     }];
@@ -93,13 +85,12 @@
 - (IBAction)bindUses:(id)sender {
     NSMutableArray *selectArray = [NSMutableArray array];
     
-    
-    for (NSInteger i = 0;  i<_recordSelectedArray.count;i++) {
-        NSNumber *num = _recordSelectedArray[i];
-        if ([num integerValue] == 1 ) {
-            [selectArray addObject:_dataArray[i]];
+    [self.dataArray enumerateObjectsUsingBlock:^(MaBaoCardModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (obj.isSelected) {
+            [selectArray addObject:obj];
         }
-    }
+    }];
     
     
     [self.myCircleViewSubject sendNext:selectArray];
@@ -121,39 +112,38 @@
     [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/mcard/mlist") parameters:@{@"session":session,@"page":page} success:^(id responseObject) {
         [self dismiss];
         
+        NSArray *modelArr = [NSArray modelDictionary:responseObject modelKey:@"data" modelClassName:@"MaBaoCardModel"];
         if (_page == 1) {
-            MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
-            footer.refreshingTitleHidden = YES;
-            self.tableView.mj_footer = footer;
-        }else{
-            [self.tableView.mj_footer endRefreshing];
-        }
-        
-        _showView.hidden = false;
-        
-        if ([[responseObject valueForKeyPath:@"data"] count] > 0) {
-            NSArray *array = [responseObject valueForKeyPath:@"data"];
-            [self.dataArray addObjectsFromArray:array];
-            for (NSDictionary *dic in array) {
-                
-                [self.recordSelectedArray addObject:@0];
-            }
-            _page ++;
-            _tableView.hidden = NO;
-            [self.tableView reloadData];
-            
-            
-        }else{
-            if (_page == 1) {
-                _tableView.hidden = YES;
-                _button.hidden = true;
-                
+            if (modelArr&&modelArr.count > 0) {
+                MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(setData)];
+                footer.refreshingTitleHidden = YES;
+                self.tableView.mj_footer = footer;
             }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                _showView.hidden = false;
+                return ;
             }
             
+        }else{
+            if (self.tableView.mj_footer) {
+                [self.tableView.mj_footer endRefreshing];
+            }
+            
+            if (!(modelArr&&modelArr.count > 0)) {
+                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                return;
+            }
             
         }
+        
+        if (_isJustLookAt) {
+            _tableViewBottom.constant = 0;
+        }else{
+            _button.hidden = false;
+        }
+        _page++;
+        [self.dataArray addObjectsFromArray:modelArr];
+        [self.tableView reloadData];
+     
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
@@ -171,50 +161,53 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 1;
+    return _dataArray?1:0;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return self.dataArray.count;
+    return _dataArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 95;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MBBabyCardCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBBabyCardCell"];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MBBabyCardCell"owner:nil options:nil]firstObject];
-    }
-    cell.dataDic = _dataArray[indexPath.row];
-    cell.indexPath = indexPath;
-    @weakify(self);
-    [[cell.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSArray *arr) {
-        @strongify(self);
-        
-        
-        self.recordSelectedArray[[arr.firstObject row]] = arr.lastObject;
-        
-    }];
-    
-    if ([self.recordSelectedArray[indexPath.row] integerValue] == 0) {
-        cell.seleButton.selected    = NO;
-    }else{
-        cell.seleButton.selected    = YES;
-    }
+    MBBabyCardCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBBabyCardCell" forIndexPath:indexPath];
+    cell.isJustLookAt = self.isJustLookAt;
+    cell.model = _dataArray[indexPath.row];
     [cell uiedgeInsetsZero];
-    
     return cell;
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
-    if ([_dataArray[indexPath.row][@"over_date"] integerValue] == 1) {
+    if (_isJustLookAt) {
         return;
     }
-    [self.myCircleViewSubject sendNext:@[_dataArray[indexPath.row]]];
     
-    [self popViewControllerAnimated:YES];
+    if (_dataArray[indexPath.row].over_date) {
+        
+        return;
+    }
+
+    UIAlertController *alerCV = [UIAlertController alertControllerWithTitle:@"提示" message:self.dataArray[indexPath.row].isSelected?@"只使用该麻包卡还是取消选中该麻包卡":@"只使用该麻包卡还是选中该麻包卡" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *aler1 = [UIAlertAction actionWithTitle:@"使用" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    
+        [self.myCircleViewSubject sendNext:@[_dataArray[indexPath.row]]];
+        [self popViewControllerAnimated:YES];
+    }];
+    UIAlertAction *aler2 = [UIAlertAction actionWithTitle:self.dataArray[indexPath.row].isSelected?@"取消选中":@"选中" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    
+        self.dataArray[indexPath.row].isSelected =  !self.dataArray[indexPath.row].isSelected;
+        [self.tableView reloadData];
+    }];
+    [alerCV addAction:aler1];
+    [alerCV addAction:aler2];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alerCV animated:YES completion:nil];
+    });
+
+    
+   
     
 }
 @end

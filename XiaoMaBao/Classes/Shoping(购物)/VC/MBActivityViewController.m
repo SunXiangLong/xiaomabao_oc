@@ -15,12 +15,9 @@
 @interface MBActivityViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate>{
 
     NSInteger _page;
-    
     NSArray *_meunArray;
-    
     NSString *_banner;
     NSString *_end_time;
-    
     NSTimer *_myTimer;
     NSInteger _lettTimes;
     timeView *_timeView;
@@ -59,16 +56,15 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     [self searchUI];
     _lastBtn = _defaultBtn;
     _priceStored = @"";
     [self addBottomLineView:_topView];
+    
     [_collectionView registerNib:[UINib nibWithNibName:@"MBCategoryViewTwoCell" bundle:nil] forCellWithReuseIdentifier:@"MBCategoryViewTwoCell"];
+    
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView1"];
     _page = 1;
-    _collectionView.delegate = self;
-    _collectionView.dataSource = self;
     _meunArray = @[@"default",@"salesnum",@"new"];
     _type = _meunArray.firstObject;
     [self setData];
@@ -149,9 +145,7 @@
     [MBNetworking newGET:url parameters:@{@"sort":_priceStored} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
 //        MMLog(@"%@ ",responseObject);
-        
-        
-        
+
         if (_page == 1) {
              [self refreshLoading];
         }else{
@@ -271,8 +265,9 @@
     return nil;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary *dic = _recommend_goods[indexPath.item];
+    
     MBCategoryViewTwoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBCategoryViewTwoCell" forIndexPath:indexPath];
+    NSDictionary *dic = _recommend_goods[indexPath.item];
     [cell.showImageVIew sd_setImageWithURL:[NSURL URLWithString:dic[@"goods_thumb"]] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
     cell.describeLabel.text = dic[@"goods_name"];
     cell.shop_price.text = [NSString stringWithFormat:@"¥ %@",dic[@"goods_price"]];

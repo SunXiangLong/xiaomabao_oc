@@ -9,9 +9,6 @@
 #import "MBFireOrderViewController.h"
 #import "MBPaymentViewController.h"
 #import "MBFireOrderTableViewCell.h"
-#import "UIImageView+WebCache.h"
-#import "MBNetworking.h"
-#import "MBSignaltonTool.h"
 #import "MBShopAddresViewController.h"
 #import "MBVoucherViewController.h"
 #import "MBRealNameAuthViewController.h"
@@ -20,8 +17,8 @@
 #import "MBInvoiceViewController.h"
 #import "MBBeanUseViewController.h"
 #import "MBDiscountCell.h"
-
 #import "MBRealNameViewController.h"
+#import "MaBaoCardModel.h"
 @interface MBFireOrderViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
 }
@@ -178,7 +175,6 @@
         addressLabel.textColor = UIcolor(@"9a9a9a");
         addressLabel.numberOfLines = 0;
         addressLabel.text = [NSString stringWithFormat:@"%@%@%@",self.orderShopModel.consignee.province_name,self.orderShopModel.consignee.district_name,self.orderShopModel.consignee.address];
-        //        MMLog(@"%@",addressLabel);
         [headerBoxView addSubview:addressLabel];
         [addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(consigneeLabel.mas_bottom).offset(8);
@@ -399,27 +395,7 @@
             [self presentViewController:alerVC animated:YES completion:nil];
             return;
         }
-        /***  是否是海外直邮*/
-        //        if (self.orderShopModel.is_over_sea) {
-        //            /***海外直邮身份证照片是否上传*/
-        //            if (!_isCard) {
-        //                UIAlertController *alerVC = [UIAlertController alertControllerWithTitle:@"小麻包提示" message:@"购买海外直邮商品需要提交真实的身份证正反面照片信息，海关叔叔才会放行哦" preferredStyle:UIAlertControllerStyleAlert];
-        //                UIAlertAction *cacle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        //
-        //                }];
-        //                UIAlertAction *determine = [UIAlertAction actionWithTitle:@"去提供" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        //
-        //                }];
-        //
-        //                [alerVC addAction:cacle];
-        //                [alerVC addAction:determine];
-        //                [self presentViewController:alerVC animated:YES completion:nil];
-        //
-        //                return;
-        //            }
-        //
-        //
-        //        }
+
         
         
     }
@@ -630,7 +606,11 @@
     if (section == self.orderShopModel.goods_list.count) {
         return 0.001;
     }
-    return 25;
+    if ([self.orderShopModel.goods_list[section].discount_name isEqualToString:@""]) {
+         return 30;
+    }
+    
+    return 60;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == self.orderShopModel.goods_list.count) {
@@ -642,15 +622,49 @@
     headerView.backgroundColor = [UIColor whiteColor];
     UILabel *lable = [[UILabel alloc] init];
     lable.textColor = UIcolor(@"434343");
-    lable.font = SYSTEMFONT(15);
+    lable.font = SYSTEMFONT(14);
     lable.text = self.orderShopModel.goods_list[section].supplier;
     [headerView addSubview:lable];
+
+    
+    
+    if ([self.orderShopModel.goods_list[section].discount_name isEqualToString:@""]) {
+        
+        [lable mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(headerView.mas_centerY);
+            make.left.mas_equalTo(10);
+        }];
+        return headerView;
+    }
+    
+    
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(headerView.mas_centerY);
+        make.centerY.equalTo(headerView.mas_centerY).offset(-15);
         make.left.mas_equalTo(10);
     }];
-    //    [self addBottomLineView:headerView left:15];
+    
+    UIView *lineView = [[UIView alloc] init];
+    lineView.tag = 2222222;
+    lineView.backgroundColor = [UIColor colorWithHexString:@"dfe1e9"];
+    [headerView addSubview:lineView];
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(headerView.mas_centerY);
+        make.left.right.mas_equalTo(0);
+        make.height.mas_equalTo(PX_ONE);
+    }];
+    
+    UILabel *discountName = [[UILabel alloc] init];
+    discountName.textColor = UIcolor(@"e8455d");
+    discountName.font = SYSTEMFONT(14);
+    discountName.text = self.orderShopModel.goods_list[section].discount_name;
+    [headerView addSubview:discountName];
+    [discountName mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(headerView.mas_centerY).offset(15);
+        make.left.mas_equalTo(10);
+    }];
     return headerView;
+    
+    
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     if (section == self.orderShopModel.goods_list.count) {
@@ -777,21 +791,20 @@
             }break;
             case 4:{
                 _cards = nil;
-                MBBabyCardController *VC = [[MBBabyCardController alloc] init];
+                MBBabyCardController *VC =  [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateViewControllerWithIdentifier:@"MBBabyCardController"];
                 @weakify(self);
-                
                 [[VC.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSArray *arr) {
                     @strongify(self);
-                    for (NSDictionary *dic in arr) {
-                        if ([dic isEqualToDictionary:arr.firstObject]) {
-                            if (dic[@"card_no"]) {
-                                [self.cards appendString:dic[@"card_no"]];
+                    for ( MaBaoCardModel*model in arr) {
+                        if ([model isEqual:arr.firstObject]) {
+                            if (model.card_no) {
+                                [self.cards appendString:model.card_no];
                             }
                         }else{
                             
-                            if (dic[@"card_no"]) {
+                            if (model.card_no) {
                                 [self.cards appendString:@","];
-                                [self.cards appendString:dic[@"card_no"]];
+                                [self.cards appendString:model.card_no];
                             }
                             
                             

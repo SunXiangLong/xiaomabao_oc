@@ -47,12 +47,14 @@
 @property (nonatomic, strong) NSArray  * goods_specs;
 @property (nonatomic, strong) NSString * goods_id;
 @property (nonatomic, strong) NSString * goods_name;
+@property (nonatomic, strong) NSString * short_name;
 @property (nonatomic, strong) NSString * shop_price_formatted;
 @property (nonatomic, strong) NSString * market_price_formatted;
 @property (nonatomic, strong) NSNumber * zhekou;
 @property (nonatomic, strong) NSString * is_promote;
 @property (nonatomic, strong) NSString * is_shipping;
 @property (nonatomic, strong) NSString * goods_number;
+@property (nonatomic, strong) NSString *goods_brief;
 @property (nonatomic, assign)  BOOL  is_collect;
 @property (nonatomic, strong) NSString * active_remainder_time;
 @property (nonatomic, strong) NSArray *goods_desc;

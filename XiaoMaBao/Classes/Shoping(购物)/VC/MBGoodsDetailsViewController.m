@@ -17,7 +17,6 @@
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "MBGoodsEvaluationViewController.h"
 #import "MBNavigationViewController.h"
-#import "DataSigner.h"
 #import "MBGoodsPropertyTableViewCell.h"
 #import "RatingBar.h"
 @interface MBGoodsDetailsViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -212,7 +211,7 @@
     _goodsName = [[UILabel alloc] init];
     _goodsName.textColor = [UIColor colorWithHexString:@"000000"];
     _goodsName.numberOfLines = 0;
-    _goodsName.text = _model.goods_name;
+    _goodsName.text = _model.short_name;
     _goodsName.font = [UIFont boldSystemFontOfSize:16];
     [view addSubview:_goodsName];
     [_goodsName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -294,21 +293,46 @@
     if([_model.is_shipping isEqualToString:@"1"]){
         [self setTagButton:@"eeb94f" tagName:@"包邮" i:3 shopTimeView:view];
     }
-    
+    UIView  *lastLine;
     UIView *lineView = [[UIView alloc] init];
     lineView.backgroundColor = [UIColor colorWithHexString:@"d7d7d7"];
-    [view addSubview:lineView];
+    [view addSubview:lastLine = lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_shopPriceFormatted.mas_bottom).offset(5);
         make.right.left.mas_equalTo(0);
         make.height.mas_equalTo(PX_ONE);
     }];
+    
+    if (![_model.goods_brief isEqualToString:@""]) {
+        UILabel *goodsBrief = [[UILabel alloc] init];
+        goodsBrief.numberOfLines = 0;
+        goodsBrief.textColor = UIcolor(@"555555");
+        goodsBrief.font = YC_YAHEI_FONT(10);
+        [view addSubview:goodsBrief];
+        goodsBrief.text = _model.goods_brief;
+        [goodsBrief mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(lineView.mas_bottom).offset(10);
+            make.left.mas_equalTo(10);
+            make.right.mas_equalTo(-10);
+        }];
+        
+        UIView *lineView = [[UIView alloc] init];
+        lineView.backgroundColor = [UIColor colorWithHexString:@"d7d7d7"];
+        [view addSubview: lastLine = lineView];
+        [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(goodsBrief.mas_bottom).offset(10);
+            make.right.left.mas_equalTo(0);
+            make.height.mas_equalTo(PX_ONE);
+        }];
+    }
+    
+    
     _goods_number = [[UILabel alloc] init];
     _goods_number.textColor = [UIColor colorWithHexString:@"323232"];
     _goods_number.text = [NSString stringWithFormat:@"库存: %@件",_model.goods_number];
     [view addSubview:_goods_number];
     [_goods_number mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lineView.mas_bottom);
+        make.top.equalTo(lastLine.mas_bottom);
         make.left.mas_equalTo(MARGIN_8);
         make.right.mas_equalTo(0);
         make.height.mas_equalTo(40);
@@ -358,7 +382,7 @@
     }];
     [view layoutIfNeeded];
      self.headViewHeight = CGRectGetMaxY(lineView1.frame);
-    if (_model.is_collect) {
+    if (_model.comments.comment) {
         
         UILabel *commentsLabel = [[UILabel alloc] init];
         commentsLabel.userInteractionEnabled = YES;
@@ -955,7 +979,7 @@
         }
         if ([responseObject[@"status"][@"succeed"] integerValue] == 1 ) {
             
-//            MMLog(@"获取商品内容详情数据成功%@",responseObject);
+            MMLog(@"获取商品内容详情数据成功%@",responseObject);
             _model = [MBGoodsModel yy_modelWithDictionary:responseObject[@"data"]];
             [self getShareButton];
             CGFloat strHeight = [_model.goods_name sizeWithFont:[UIFont boldSystemFontOfSize:13]  withMaxSize:CGSizeMake(UISCREEN_WIDTH-16, MAXFLOAT)].height;

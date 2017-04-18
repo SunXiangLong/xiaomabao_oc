@@ -12,6 +12,7 @@
 #import "MBInvoiceViewController.h"
 #import "MBBabyCardController.h"
 #import "MBPaymentViewController.h"
+#import "MaBaoCardModel.h"
 @interface MBElectronicConfirmationOrderViewController ()
 {
     
@@ -342,27 +343,28 @@ return @"订单详情";
             case 2:
             {
                 _cards = nil;
-                MBBabyCardController *VC = [[MBBabyCardController alloc] init];
+              MBBabyCardController *VC =  [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateViewControllerWithIdentifier:@"MBBabyCardController"];
                 @weakify(self);
                 
                 [[VC.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSArray *arr) {
                     @strongify(self);
-                    
-                    for (NSDictionary *dic in arr) {
-                        if ([dic isEqualToDictionary:arr.firstObject]) {
-                            if (dic[@"card_no"]) {
-                                [self.cards appendString:dic[@"card_no"]];
+                    for ( MaBaoCardModel*model in arr) {
+                        if ([model isEqual:arr.firstObject]) {
+                            if (model.card_no) {
+                                [self.cards appendString:model.card_no];
                             }
                         }else{
                             
-                            if (dic[@"card_no"]) {
+                            if (model.card_no) {
                                 [self.cards appendString:@"|"];
-                                [self.cards appendString:dic[@"card_no"]];
+                                [self.cards appendString:model.card_no];
                             }
                             
                             
                         }
                     }
+                    
+                   
                     [self refreshData];
                     
                     

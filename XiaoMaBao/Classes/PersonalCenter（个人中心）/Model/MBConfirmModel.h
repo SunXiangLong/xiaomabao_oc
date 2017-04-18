@@ -44,11 +44,13 @@
 @property (nonatomic, strong) MBIdcardModel *idcard;
 @end
 @interface MBOrderShopModel : NSObject
-@property (nonatomic, strong) NSNumber* number;
+@property (nonatomic, strong) NSNumber * number;
 @property (nonatomic, strong) NSString * supplier;
 @property (nonatomic, strong) NSString * shipping_fee;
 @property (nonatomic, strong) NSString * total_money;
 @property (nonatomic, strong) NSString * cross_border_money;
+@property (nonatomic, strong) NSString * discount_name;
+
 @property (nonatomic, strong) NSArray  <MBGood_ListModel *> *goods_list;
 @end
 @interface MBConfirmModel : NSObject

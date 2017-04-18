@@ -21,6 +21,7 @@
     self.countprice.text = string(@"￥",model.subtotal);
     self.desribe.text = model.goods_name;
     [self.showimageview sd_setImageWithURL:model.goods_thumb placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+    self.discount_name.text = model.goods_attr;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

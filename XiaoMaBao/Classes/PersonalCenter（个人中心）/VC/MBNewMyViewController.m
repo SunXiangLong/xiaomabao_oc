@@ -8,7 +8,6 @@
 
 #import "MBNewMyViewController.h"
 #import "MBNewMyViewCell.h"
-#import "DataSigner.h"
 #import "MBOrderListViewController.h"
 #import "MBShoppingCartViewController.h"
 #import "MBMyCollectionViewController.h"
@@ -23,14 +22,13 @@
 #import "MBMyServiceController.h"
 #import "MBElectronicCardOrderVC.h"
 #import "MBSettingViewController.h"
+#import "MBBabyCardController.h"
 @interface MBNewMyViewController ()<UIScrollViewDelegate>
 {
     /**
      *  数据
      */
     NSArray *_dataArray;
-    
-    BOOL  _isbool;
     
     /**
      *    是否从云客服界面退出,初始为0  4为退出
@@ -50,8 +48,7 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"MBPersonalSettingsViewController"];
   
-   
-    if (!_isbool) {
+  
         MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
         [_userImage sd_setImageWithURL:URL(userInfo.header_img) placeholderImage:[UIImage imageNamed:@"headPortrait"]];
         if (userInfo.sid) {
@@ -61,14 +58,13 @@
             _loginButton.hidden = NO;
             _userName.text = @"";
         }
-    }
+    
     
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-    self.view.backgroundColor = [UIColor yellowColor];
     self.tabeleView.tableFooterView = [[UIView alloc] init];
     _dataArray = @[
                    @{@"image":@"star",@"name":@"我的收藏"},
@@ -104,9 +100,12 @@
             MBShoppingCartViewController *VC  = [[MBShoppingCartViewController alloc] init];
             [self pushViewController:VC Animated:true];
         }break;
-            
-        default:{
+        case 3:{
             [self performSegueWithIdentifier:@"MBElectronicCardOrderVC" sender:nil];
+        }break;
+        default:{
+            [self performSegueWithIdentifier:@"MBBabyCardController" sender:nil];
+         
         }
             break;
     }
@@ -187,7 +186,14 @@
     return dateTime;
     
 }
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString: @"MBBabyCardController"]) {
+        MBBabyCardController *VC = (MBBabyCardController *)segue.destinationViewController;
+        VC.isJustLookAt = true;
+    }
 
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

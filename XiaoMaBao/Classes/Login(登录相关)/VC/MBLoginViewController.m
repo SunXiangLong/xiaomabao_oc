@@ -205,22 +205,7 @@
     [MBLogOperation loginAuthentication:params success:^{
         [self dismiss];
         [self dismissViewControllerAnimated:YES completion:nil];
-//        if ([self.vcType isEqualToString:@"shop"]) {
-//            
-//            
-//            [self dismissViewControllerAnimated:YES completion:nil];
-//            
-//            
-//            
-//        }else if ([self.vcType isEqualToString:@"mabao"]){
-//            
-//            
-//        }else {
-//            [self dismissViewControllerAnimated:YES completion:nil];
-//        }
-        
-    
-        
+
     } failure:^(NSString *error_desc, NSError *error) {
         if (error_desc) {
             if ([error_desc isEqualToString:@"登录成功,请验证手机"]) {
@@ -334,17 +319,11 @@
             [self login];
         }else{
             [self show:responseObject.status[@"error_desc"] time:1];
-            
         }
         
-        
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        
-        
         [self show:@"请求失败，请重试" time:1];
         MMLog(@"%@",error);
-        
-        
     }];
     
     

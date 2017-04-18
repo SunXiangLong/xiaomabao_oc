@@ -72,25 +72,6 @@
 }
 - (void)setUpUI{
     
-    
-    //    if ([_name isEqualToString:@"备注："]) {
-    //
-    //        UILabel *nameLabel = [[UILabel alloc] init];
-    //        nameLabel.font = SYSTEMFONT(12);
-    //        nameLabel.textColor = UIcolor(@"686868");
-    //        [self addSubview:_nameLabel = nameLabel];
-    //        _nameLabel.text = _name;
-    //        [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-    //            make.centerY.equalTo(self.mas_centerY);
-    //            make.left.mas_equalTo(10);
-    //        }];
-    //
-    //
-    //
-    //        return;
-    //    }
-    
-    
     UILabel *nameLabel = [[UILabel alloc] init];
     nameLabel.font = SYSTEMFONT(12);
     nameLabel.textColor = UIcolor(@"686868");

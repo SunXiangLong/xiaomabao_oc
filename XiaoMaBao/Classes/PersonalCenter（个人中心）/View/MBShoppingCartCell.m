@@ -37,6 +37,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+
 }
 -(void)setGoodsModel:(MBGood_ListModel *)goodsModel{
     _goodsModel = goodsModel;
@@ -92,7 +93,7 @@
     
     UILabel *goodsNameLabel = [[UILabel  alloc] init];
     
-    goodsNameLabel.numberOfLines = 1;
+    goodsNameLabel.numberOfLines = 2;
     goodsNameLabel.textColor = [UIColor colorWithHexString:@"444444"];
     goodsNameLabel.font =  SYSTEMFONT(14);
     [self addSubview: _goodsNameLabel = goodsNameLabel];
@@ -109,9 +110,10 @@
     goodsSpace.font =  SYSTEMFONT(12);
     [self addSubview:_goodsSpace = goodsSpace];
     [goodsSpace mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(goodsNameLabel.mas_bottom).offset(15);
+//        make.top.equalTo(goodsNameLabel.mas_bottom).offset(15);
         make.left.equalTo(goodsImageView.mas_right).offset(9);
-        make.right.mas_equalTo(-9);
+        make.centerY.equalTo(goodsImageView.mas_centerY);
+//        make.right.mas_equalTo(-9);
     }];
     UILabel *goodsPrice = [[UILabel  alloc] init];
     
@@ -176,8 +178,15 @@
         make.width.height.mas_equalTo(25);
     }];
     
-    
-    
+    UIView *lineView = [[UIView alloc] init];
+//    lineView.frame = CGRectMake(0, PX_ONE, [UIScreen mainScreen].bounds.size.width, PX_ONE);
+    lineView.backgroundColor = [UIColor colorWithHexString:@"dfe1e9"];
+    [self addSubview:lineView];
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(0);
+        make.right.left.mas_equalTo(0);
+        make.height.mas_equalTo(PX_ONE);
+    }];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

@@ -7,25 +7,21 @@
 //
 
 #import "MBBabyCardCell.h"
-
+@interface MBBabyCardCell()
+@property (weak, nonatomic) IBOutlet UILabel *babyCard;
+@property (weak, nonatomic) IBOutlet UILabel *babyCardPrice;
+@property (weak, nonatomic) IBOutlet UILabel *babyCardDate;
+@property (weak, nonatomic) IBOutlet UIButton *seleButton;
+@property (weak, nonatomic) IBOutlet UIImageView *showImage;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *top;
+@end
 @implementation MBBabyCardCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.showImage .contentMode =  UIViewContentModeScaleAspectFill;
-    self.showImage .autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.showImage .clipsToBounds  = YES;
-    
+
 }
-- (RACSubject *)myCircleViewSubject {
-    
-    if (!_myCircleViewSubject) {
-        
-        _myCircleViewSubject = [RACSubject subject];
-    }
-    
-    return _myCircleViewSubject;
-}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
@@ -33,18 +29,23 @@
 }
 - (IBAction)choose:(UIButton *)sender {
     sender.selected = !sender.selected;
-    [_myCircleViewSubject sendNext:@[_indexPath,@(sender.selected)]];
-}
--(void)setDataDic:(NSDictionary *)dataDic{
-    _dataDic = dataDic;
-    _babyCard.text = string(@"卡号：", dataDic[@"card_no"]);
-    _babyCardPrice.text = string(@"抵用金额", dataDic[@"card_surplus_money"]);
-    _babyCardDate.text = dataDic[@"use_end_time"];
     
-    if ([_dataDic[@"over_date"]  integerValue] == 1) {
-        self.showImage.hidden = NO;
-        _seleButton.enabled = NO;
-    }
-
+    _model.isSelected = sender.selected;
 }
+-(void)setModel:(MaBaoCardModel *)model{
+    _model = model;
+    _babyCard.text = string(@"卡号：", model.card_no);
+    _babyCardPrice.text = string(@"抵用金额：", model.card_surplus_money);
+    _babyCardDate.text = string(@"有效期：", model.use_end_time);;
+     self.showImage.hidden = !model.over_date;
+   
+    _seleButton.enabled = !model.over_date;
+    _seleButton.selected = _model.isSelected;
+    _seleButton.hidden = _isJustLookAt;
+    if (_isJustLookAt) {
+        _top.constant = 70;
+    }
+    
+}
+
 @end

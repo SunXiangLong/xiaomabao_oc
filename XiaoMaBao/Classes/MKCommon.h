@@ -113,6 +113,14 @@
  *  @return 弱应用的视图控制器
  */
 #define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
+
+#define weakifySelf  \
+__weak __typeof(&*self)weakSelf = self;
+
+//局域定义了一个__strong的self指针指向self_weak
+#define strongifySelf \
+__strong __typeof(&*weakSelf)self = weakSelf;
+
 #if DEBUG
 
 #define MMLog(FORMAT, ...) fprintf(stderr, "[%s:%d行] %s\n", [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);

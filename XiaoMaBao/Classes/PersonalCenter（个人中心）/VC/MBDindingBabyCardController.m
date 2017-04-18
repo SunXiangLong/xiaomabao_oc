@@ -7,12 +7,14 @@
 //
 
 #import "MBDindingBabyCardController.h"
-
+#import <IQKeyboardManager/IQKeyboardManager.h>
+#import "IQKeyboardReturnKeyHandler.h"
 @interface MBDindingBabyCardController ()<UITextFieldDelegate>
 {
 
     UITextField *_recordTextFileld;
     NSString *_card_pass;
+    IQKeyboardReturnKeyHandler *returnKeyHandler;
     
 }
 @property (weak, nonatomic) IBOutlet UITextField *textfieldOne;
@@ -37,7 +39,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [_textfieldOne becomeFirstResponder];
-    
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+   
     @weakify(self);
     // 把监听到的通知转换信号
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillShowNotification object:nil] subscribeNext:^(id x) {
@@ -46,10 +51,13 @@
         //获取键盘的高度
         NSDictionary *userInfo = [x userInfo];
         NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+        NSValue *amValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+        NSTimeInterval animationDuration;
+        [amValue getValue:&animationDuration];
         CGRect keyboardRect = [aValue CGRectValue];
         CGFloat height = keyboardRect.size.height;
         self.bottom.constant = height+10;
-        [UIView animateWithDuration:0.25 animations:^{
+        [UIView animateWithDuration:animationDuration animations:^{
             [self.view layoutIfNeeded];
         } completion:nil];
         
@@ -64,7 +72,11 @@
         @strongify(self);
         if (self.bottom.constant != 0  ) {
             self.bottom.constant = 10;
-            [UIView animateWithDuration:0.25 animations:^{
+             NSDictionary *userInfo = [x userInfo];
+            NSValue *amValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+            NSTimeInterval animationDuration;
+            [amValue getValue:&animationDuration];
+            [UIView animateWithDuration:animationDuration animations:^{
                 
                 [self.view layoutIfNeeded];
             } completion:nil];
@@ -127,18 +139,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (void)textFieldDidEndEditing:(UITextField *)textField{
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    MMLog(@"2222");
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+ MMLog(@"444");
     if (textField.text.length > 4) {
         textField.text = [textField.text substringToIndex:4];
+        MMLog(@"%@",[textField.text substringFromIndex:4]);
     }
-
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-        switch (textField.tag) {
+      MMLog(@"333");
+    switch (textField.tag) {
             case 0:{
                 if (range.location>3) {//限制只允许输入4位
-
                     [_textfieldTwo becomeFirstResponder];
                     return NO;
                     
@@ -147,7 +163,6 @@
             } break;
             case 1: {
                 if (range.location>3) {//限制只允许输入4位
-
                     [_textfieldThree    becomeFirstResponder];
                     return NO;
                     
@@ -155,7 +170,7 @@
             }break;
             case 2:{
                 if (range.location>3) {//限制只允许输入4位
-
+                   
                     [_textfieldFour    becomeFirstResponder];
                     return NO;
                     
@@ -179,12 +194,9 @@
     return YES;
 }
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    _recordTextFileld = textField;
+    textField.secureTextEntry = false;
     return YES;
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
-    [_recordTextFileld resignFirstResponder];
-}
+
 @end

@@ -10,4 +10,7 @@
 
 @interface MBBabyCardController : BkBaseViewController
 @property (nonatomic, strong) RACSubject *myCircleViewSubject;
+/**是否只是查看麻包卡*/
+@property (nonatomic,assign) BOOL isJustLookAt;
+
 @end

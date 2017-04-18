@@ -9,11 +9,11 @@
 #import "MBPaymentViewController.h"
 #import "MBGoodSSearchViewController.h"
 #import "MBOrderInfoTableViewController.h"
-#import "Order.h"
-#import "DataSigner.h"
+
+
 #import <AlipaySDK/AlipaySDK.h>
 #import "WXApi.h"
-#import "payRequsestHandler.h"
+
 #import "MBPayResultsController.h"
 #import "MBPaySuccessView.h"
 #import "MBOrderListViewController.h"
@@ -65,7 +65,7 @@
             }
         }break;
     }
-
+    
 }
 /**
  *  支付成功的view视图
@@ -108,13 +108,13 @@
     [orderView addSubview:orderImgView];
     orderView.userInteractionEnabled = YES;
     if ([_type integerValue] != 2) {
-         orderImgView.image = [UIImage imageNamed:@"next"];
+        orderImgView.image = [UIImage imageNamed:@"next"];
         UITapGestureRecognizer *ger = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(orderInfoClick:)];
         [orderView addGestureRecognizer:ger];
     }
-   
     
-   
+    
+    
     // 支付方式View
     UIView *paymentMethodView = [[UIView alloc] init];
     paymentMethodView.backgroundColor = [UIColor whiteColor];
@@ -223,233 +223,109 @@
     
 }
 -(void)orderInfoClick:(UITapGestureRecognizer *)ger{
-
     MBOrderInfoTableViewController  *infoVC =  [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:infoVC];
-
     switch ([_type integerValue]) {
         case 3:{
             MBElectronicCardOrderInfoVC  *VC =  [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateViewControllerWithIdentifier:@"MBElectronicCardOrderInfoVC"];
             VC.orderSn = self.orderInfo[@"order_sn"];
             [self pushViewController:VC Animated:true];
             
-            }break;
-
+        }break;
+            
         default:{
             infoVC.parent_order_sn = _orderInfo[@"order_sn"];
             [self.navigationController presentViewController:nav animated:YES completion:nil];
-
+            
         }break;
     }
     
-   
     
 }
 
-
 #pragma mark -- 第三方支付  支付宝
 - (void)payForMoney{
-    /*
-     *商户的唯一的parnter和seller。
-     *签约后，支付宝会为每个商户分配一个唯一的 parnter 和 seller。
-     */
-    
-    /*============================================================================*/
-    /*=======================需要填写商户app申请的===================================*/
-    /*============================================================================*/
-    Order *order = [[Order alloc] init];
-    NSString *partner = @"2088911663943262";
-    NSString *seller  =  @"zfb@xiaomabao.com";
-    order.productName = self.orderInfo[@"subject"];
-    order.productDescription = self.orderInfo[@"desc"];
-    order.amount = self.orderInfo[@"order_amount"];
-    switch ([_type integerValue]) {
-        case 1:{order.notifyURL =  [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/payment/order_alipay_notify"];}break;
-        case 2:{order.notifyURL  = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/payment/alipay_notify"];}break;
-        default:{order.notifyURL =  [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/payment/gift_alipay_notify"];}break;
+    [self show];
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    NSString *url;
+    switch ([_type intValue]) {
+        case 1:{url = string(@"http://api.xiaomabao.com/pay/goods/" , _orderInfo[@"order_sn"]);}break;
+        case 2:{url = string(@"http://api.xiaomabao.com/pay/service/", _orderInfo[@"order_sn"]);}break;
+        case 3:{url = string(@"http://api.xiaomabao.com/pay/giftcard/", _orderInfo[@"order_sn"]);}break;
+        default:
+            break;
     }
-    
-    NSString *privateKey = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@",
-                            @"MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAN33e4EXrmgdqvXH",
-                            @"wx3bifW+v57GolErHmWuDF7vGn2kH8X8M56hgd9IAelLsSPUMaprdit3XcbdId0J",
-                            @"raQzrySsziIhhfCkiu/liUUnvJI7a6o2PiRpppOZc7dd1jcjTOcyB9au2T/Q9qus",
-                            @"JPjMIi6IhVAxwITFxc8G9IYHmjw9AgMBAAECgYAkVaa58w5xrKmXoiOmd5GV0Ku9",
-                            @"afaYIt7O9jbAM5O6jWtGFYq9pOKFklv9vI46tzmKFB078EZBj2FDtZnfDzbUFAG2",
-                            @"7xZys73eYz/KbBI9BENqvej+bQ8GbSLCBHXKW6QOYVGx1BuRKC6hFnqpCk74IzL9",
-                            @"QlR6+87+lM2qmQFJAQJBAPWWd76inQfUp2FIJ2yo/hEAO3BSznRgaVHDKimFsO35",
-                            @"obcfyOijJGHcL1kjGKAZ9iTL7Mhe75XMLxzChFLT9lUCQQDnYKOvgJZgLrEaupXo",
-                            @"NYiOcS765qaQurkqpO0/M1gqrC8EKdcJqXo5FU0MqnQxkWuwxir38ZZTb4uWq29Q",
-                            @"1wZJAkA7MU0jUaZvoL3HIND/y6uRBXFOHWdNfX9lCZk78NE4SpbDwJF4IPo/7AYt",
-                            @"gdwJmrhNHimwEdHFVTV1xRyHqjcRAkAjkAX4nqH+TI7qFc2esEO56QmYhMULL7fw",
-                            @"JwNUGHcvr+FWGXw0vvjLN0vta3GKgNh1hi/qhhZd4qIo2Va1rScJAkA5vZuFwEJH",
-                            @"MQlf3p18GKnGyd2QRJE0PDSP9wB736S7Vh5PEsaQA2W2N9QYHPjJU6v4Nwav3dCQeb350xkmPGmQ"
-                            ];
-    
-    
-    //partner和seller获取失败,提示
-    if ([partner length] == 0 ||
-        [seller length] == 0 ||
-        [privateKey length] == 0)
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                        message:@"缺少partner或者seller或者私钥。"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
-    
-    /*
-     *生成订单信息及签名
-     */
-    //将商品信息赋予AlixPayOrder的成员变量
-    order.partner = partner;
-    order.seller = seller;
-    order.tradeNO = _orderInfo[@"order_sn"];//订单ID（由商家自行制定）
-    order.service = @"mobile.securitypay.pay";
-    order.paymentType = @"1";
-    order.inputCharset = @"utf-8";
-    order.itBPay = @"30m";
-    order.showUrl = @"m.alipay.com";
-    //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
+    //应用注册scheme,在AlixPayDemo-Info.plist定义URL types(用于从支付宝返回自己的app)
     NSString *appScheme = @"xiaomabao";
-    //将商品信息拼接成字符串
-    NSString *orderSpec = [order description];
-    MMLog(@"%@",orderSpec);
-    //获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循RSA签名规范,并将签名字符串base64编码和UrlEncode
-    id<DataSigner> signer = CreateRSADataSigner(privateKey);
-    NSString *signedString = [signer signString:orderSpec];
-     MMLog(@"%@",signedString);
+    [MBNetworking   POSTOrigin:url  parameters:@{@"session":sessiondict} success:^(id responseObject) {
+        [self dismiss];
+        MMLog(@"%@",responseObject);
+        if ([responseObject[@"status"] intValue] != 0) {
+            [self show:responseObject[@"info"] time:1];
+            return ;
+        }
+        if (responseObject[@"data"]) {
+            [[AlipaySDK defaultService] payOrder:responseObject[@"data"] fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+                if ([resultDic[@"resultStatus"]isEqualToString:@"9000"]) {
+                    [self alert:@"提示" msg:@"支付成功" success:@"1"];
+                }else{
+                    [self alert:@"提示" msg:@"支付失败" success:@"0"];
+                }
+            }];
+            
+        }
+        
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"发起支付失败" time:1];
+    }];
     
-    //将签名成功字符串格式化为订单字符串,请严格按照该格式
-    NSString *orderString = nil;
-    if (signedString != nil) {
-        orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
-                       orderSpec, signedString, @"RSA"];
-        NSArray *array = [[UIApplication sharedApplication] windows];
-        UIWindow* win=[array objectAtIndex:0];
-        [win setHidden:NO];
-        MMLog(@"%@",orderString);
-        [self show];
-        
-        [MBNetworking   POSTOrigin:@"http://api.xiaomabao.com/pay/test" parameters:nil success:^(id responseObject) {
-             [self dismiss];
-            MMLog(@"%@",responseObject);
-        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            
-        }];
-        
-        return;
-        [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            if ([resultDic[@"resultStatus"]isEqualToString:@"9000"]) {
-                [self alert:@"提示" msg:@"支付成功" success:@"1"];
-            }else{
-                [self alert:@"提示" msg:@"支付失败" success:@"0"];
-            }
-            
-        }];
-        
-    }
+    
+    
+    //    }
 }
 
 #pragma mark -WX //微信支付
 //微信支付
 - (void)wxpay
 {
-    
-    //创建支付签名对象
-    payRequsestHandler *req = [[payRequsestHandler alloc] init];
-    //初始化支付签名对象
-    [req init:APP_ID mch_id:MCH_ID];
-    //设置密钥
-    [req setKey:PARTNER_ID];
-    
-    //订单标题，展示给用户
-    NSString *order_name =  self.orderInfo[@"subject"];
-    //订单金额,单位（分）
-    NSString *order_price  = [NSString stringWithFormat:@"%.0f",[_orderInfo[@"order_amount"] doubleValue]*100];
-    //================================
-    //预付单参数订单设置
-    //================================
-    srand( (unsigned)time(0));
-    NSString *noncestr  = [NSString stringWithFormat:@"%d", rand()];
-    NSString *orderno   =   _orderInfo[@"order_sn"];
-    NSMutableDictionary *packageParams = [NSMutableDictionary dictionary];
-    NSString *notify_url = @"";
-    switch ([_type integerValue]) {
-        case 1:{notify_url = NOTIFY_URL;}break;
-        case 2:{notify_url = NOTIFY_service_URL;}break;
-        default:{notify_url = [NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/payment/gift_wechat_notify"];}break;
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    NSString *url;
+    switch ([_type intValue]) {
+        case 1:{url = string(@"http://api.xiaomabao.com/pay/wx_goods/" , _orderInfo[@"order_sn"]);}break;
+        case 2:{url = string(@"http://api.xiaomabao.com/pay/wx_service/", _orderInfo[@"order_sn"]);}break;
+        case 3:{url = string(@"http://api.xiaomabao.com/pay/wx_giftcard/", _orderInfo[@"order_sn"]);}break;
+        default:
+            break;
     }
-    [packageParams setObject: notify_url        forKey:@"notify_url"]; //支付的回调地址
-    [packageParams setObject: APP_ID            forKey:@"appid"];       //开放平台appid
-    [packageParams setObject: MCH_ID            forKey:@"mch_id"];      //商户号
-    [packageParams setObject: @"APP-001"        forKey:@"device_info"]; //支付设备号或门店号
-    [packageParams setObject: noncestr          forKey:@"nonce_str"];   //随机串
-    [packageParams setObject: @"APP"            forKey:@"trade_type"];  //支付类型，固定为APP
-    [packageParams setObject: order_name        forKey:@"body"];        //订单描述，展示给用户
-    [packageParams setObject: orderno           forKey:@"out_trade_no"];//商户订单号
-    [packageParams setObject: @"196.168.1.1"    forKey:@"spbill_create_ip"];//发器支付的机器ip
-    [packageParams setObject: order_price       forKey:@"total_fee"];       //订单金额，单位为分
-    [packageParams setObject: orderno           forKey:@"attach"]; //附加数据，在查询API和支付通知中原样返回，该字段主要用于商户携带订单的自定义数据
-    //获取prepayId（预支付交易会话标识）
-//    NSString *prePayid;
-//    prePayid            = [req sendPrepay:packageParams];
     [self show];
-   [req sendPrepay:packageParams Block:^(NSString *prepayid) {
-       [self dismiss];
-       //获取到实际调起微信支付的参数后，在app端调起支付
-       NSMutableDictionary *dict;
-       if ( prepayid != nil) {
-           //获取到prepayid后进行第二次签名
-           
-           NSString    *package, *time_stamp, *nonce_str;
-           //设置支付参数
-           time_t now;
-           time(&now);
-           time_stamp  = [NSString stringWithFormat:@"%ld", now];
-           nonce_str	= [WXUtil md5:time_stamp];
-           package         = @"Sign=WXPay";
-           //第二次签名参数列表
-           NSMutableDictionary *signParams = [NSMutableDictionary dictionary];
-           [signParams setObject: APP_ID        forKey:@"appid"];
-           [signParams setObject: nonce_str    forKey:@"noncestr"];
-           [signParams setObject: package      forKey:@"package"];
-           [signParams setObject: MCH_ID        forKey:@"partnerid"];
-           [signParams setObject: time_stamp   forKey:@"timestamp"];
-           [signParams setObject: prepayid     forKey:@"prepayid"];
-           //生成签名
-           NSString *sign  = [req createMd5Sign:signParams];
-           //添加签名
-           [signParams setObject: sign  forKey:@"sign"];
-           
-           dict = [NSMutableDictionary dictionaryWithDictionary:signParams];
-       }
-       
-       if(dict == nil){
-           //错误提示
-           NSString *debug = [req getDebugifo];
-           [self alert:@"提示信息" msg:debug success:@"0"];
-       }else{
-           NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
-           //调起微信支付
-           PayReq* req             = [[PayReq alloc] init];
-           req.openID              = [dict objectForKey:@"appid"];
-           req.partnerId           = [dict objectForKey:@"partnerid"];
-           req.prepayId            = [dict objectForKey:@"prepayid"];
-           req.nonceStr            = [dict objectForKey:@"noncestr"];
-           req.timeStamp           = stamp.intValue;
-           req.package             = [dict objectForKey:@"package"];
-           req.sign                = [dict objectForKey:@"sign"];
-           
-           [WXApi sendReq:req];
-           
-       }
+    [MBNetworking   POSTOrigin:url  parameters:@{@"session":sessiondict} success:^(id responseObject) {
+        [self dismiss];
+        if ([responseObject[@"status"] intValue] != 0) {
+            [self show:responseObject[@"info"] time:1];
+            return ;
+            
+        }
+        NSDictionary *dic = responseObject[@"data"];
+        PayReq* req             = [[PayReq alloc] init];
+        req.openID              = dic[@"appid"];
+        req.partnerId           = dic[@"partnerid"];
+        req.prepayId            = dic[@"prepayid"];
+        req.nonceStr            = dic[@"noncestr"];
+        req.timeStamp           = [dic[@"timestamp"] intValue];
+        req.package             = dic[@"package"];
+        req.sign                = dic[@"sign"];
+        [WXApi sendReq:req];
+        
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"发起支付失败" time:1];
     }];
-
-   
+    
 }
+
 -(NSString *)titleStr{
     return @"支付方式";
 }
@@ -463,7 +339,7 @@
         if (resultDic[@"memo"]) {
             [self alert:@"提示" msg:resultDic[@"memo"] success:@"0"];
         }else{
-        [self alert:@"提示" msg:@"付款失败" success:@"0"];
+            [self alert:@"提示" msg:@"付款失败" success:@"0"];
         }
         
     }
@@ -488,31 +364,31 @@
     if ([_success isEqualToString:@"1"]) {
         
         switch ([_type integerValue]) {
-            
+                
             case 2:{
                 MBPayResultsController *VC = [[MBPayResultsController alloc] init];
                 VC.order_id = self.orderInfo[@"order_id"];
                 [self pushViewController:VC Animated:YES];
             }break;
             default:{
-            [self successView];
+                [self successView];
             }break;
         }
-    
+        
     }
 }
 - (void)back{
     
 }
 - (void)shop{
-
+    
     [self popViewControllerAnimated:YES];
 }
 - (void)order{
     if ([_type integerValue] == 1) {
         MBOrderInfoTableViewController  *infoVC =  [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:infoVC];
-
+        
         infoVC.parent_order_sn = _orderInfo[@"order_sn"];
         [self.navigationController presentViewController:nav animated:YES completion:nil];
         
@@ -539,12 +415,13 @@
         
         for (BkBaseViewController *VC in self.navigationController.viewControllers) {
             if ([VC isKindOfClass:[MBServiceShopsViewController class]]) {
-            
-               rootVC = VC;
+                
+                rootVC = VC;
                 
             }
         }
     }
+    
     if([_type  isEqualToString:@"3"]){
         for (BkBaseViewController *VC in self.navigationController.viewControllers) {
             if ([VC isKindOfClass:[MBGiftCardViewController class]]) {

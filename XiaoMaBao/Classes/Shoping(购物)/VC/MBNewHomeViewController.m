@@ -7,7 +7,6 @@
 //
 
 #import "MBNewHomeViewController.h"
-#import "DataSigner.h"
 #import "MBGoodSSearchViewController.h"
 #import "MBGoodsDetailsViewController.h"
 #import "MBActivityViewController.h"
@@ -56,9 +55,6 @@
             [self pushViewController:VC Animated:YES];
         }else if([type isEqualToString:@"signIn"]){
             [self performSegueWithIdentifier:@"MBCheckInViewController" sender:nil];
-//            UIStoryboard *story = [UIStoryboard storyboardWithName:@"Shopping" bundle:[NSBundle mainBundle]];
-//            MBCheckInViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBCheckInViewController"];
-//            [self presentViewController:myView animated:YES completion:nil];
         }
         [User_Defaults setObject:nil forKey:@"userInfo"];
         [User_Defaults synchronize];
@@ -255,18 +251,16 @@
 }
 -(void)messageArrived:(NSDictionary*) data
 {
-    NSError* error = nil;
-    NSData* source = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error];
-    NSString* str = [NSJSONSerialization JSONObjectWithData:source options:NSJSONReadingMutableContainers error:&error];
-    MMLog(@"%@%@",@"Unicall message arrived.",str);
-    
-    if([[data objectForKey:@"eventName"] isEqualToString:@"updateNewMessageCount"])
-        MMLog(@"count%@:",data);
+//    NSError* error = nil;
+//    NSData* source = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error];
+//    NSString* str = [NSJSONSerialization JSONObjectWithData:source options:NSJSONReadingMutableContainers error:&error];
+//    MMLog(@"%@%@",@"Unicall message arrived.",str);
+//    
+//    if([[data objectForKey:@"eventName"] isEqualToString:@"updateNewMessageCount"])
+//        MMLog(@"count%@:",data);
 }
 -(UIViewController*) currentViewController
 {
-    MMLog(@"%@",[UIViewController currentViewController]);
-    
     
     if ([[NSString stringWithUTF8String:object_getClassName([UIViewController currentViewController])] isEqualToString:@"MBNewMyViewController"]) {
         return self.tabBarController;

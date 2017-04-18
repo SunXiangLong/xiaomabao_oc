@@ -25,6 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [[CADisplayLink displayLinkWithTarget:self selector:@selector(login)] addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [self.topView layoutIfNeeded];
     [self addBottomLineView:self.topView];
     _titleData = @[
@@ -43,6 +45,9 @@
     [self.topCollectionView reloadData];
     [self.centerCllectionView reloadData];
     // Do any additional setup after loading the view.
+}
+- (void)login{
+    MMLog(@"123444");
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

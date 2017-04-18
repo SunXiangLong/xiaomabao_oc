@@ -63,6 +63,7 @@
     _mytableView.delegate = self;
     _mytableView.tableFooterView = [[UIView alloc] init];
     _mytableView.backgroundColor = [UIColor whiteColor];
+    _mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_mytableView];
     
     UIView *tableViewFooterView = [[UIView alloc] init];
@@ -318,7 +319,7 @@
     [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/flow/checkout") parameters:@{@"session":sessiondict} success:^(id responseObject) {
         if ([responseObject[@"status"] isKindOfClass:[NSDictionary  class]]&&[responseObject[@"status"][@"succeed"]  integerValue] == 1) {
             MBFireOrderViewController *VC = [[MBFireOrderViewController alloc] init];
-            //            MMLog(@"%@",responseObject);
+            MMLog(@"%@",responseObject);
             VC.orderShopModel = [MBConfirmModel yy_modelWithDictionary:responseObject[@"data"]];
             [self dismiss];
             VC.isRefresh = ^(){
@@ -398,7 +399,7 @@
     return 0;
 }
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+   
     static NSString *idstr = @"MBShoppingCartCell";
     // 创建cell
     MBShoppingCartCell *cell = [tableView dequeueReusableCellWithIdentifier:idstr];

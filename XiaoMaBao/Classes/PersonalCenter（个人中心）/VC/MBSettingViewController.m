@@ -140,9 +140,8 @@
 - (void)unLogin{
     [MobClick event:@"SetUp4"];
     MBUserDataSingalTon *user = [MBSignaltonTool getCurrentUserInfo];
-    
     [user clearUserInfo];
-    
+    user = nil;
     MBNavigationViewController *nav =   self.tabBarController.childViewControllers.firstObject ;
     MBNewBabyController *VC = nav.childViewControllers.firstObject;
     VC.oldSid = nil;
@@ -150,8 +149,7 @@
     //发送通知，改变麻包圈的圈子状态 未登录，显示推荐圈子
     [[NSNotificationCenter defaultCenter] postNotificationName:@"circleState" object:nil];
     //清除极光推送 个推的uuid。
-    [MobClick profileSignOff];
-    
+     [MobClick profileSignOff];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

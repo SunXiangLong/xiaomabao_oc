@@ -32,9 +32,11 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+   
+   
     
     [self searchUI];
-    
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView1"];
    [_collectionView registerNib:[UINib nibWithNibName:@"MBCategoryViewOneCell" bundle:nil] forCellWithReuseIdentifier:@"MBCategoryViewOneCell"];
     [_collectionView registerNib:[UINib nibWithNibName:@"MBCategoryViewTwoCell" bundle:nil] forCellWithReuseIdentifier:@"MBCategoryViewTwoCell"];
@@ -45,6 +47,7 @@
     
     
 }
+
 - (void)searchUI{
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(64 , 26.5, UISCREEN_WIDTH - 64*2, 30)];
     searchBar.placeholder = @"请输入要搜索商品名称";
@@ -273,4 +276,5 @@
 
     return NO;
 }
+
 @end

@@ -10,6 +10,7 @@
 #import "WLZ_ChangeCountView.h"
 #import "MBPaymentViewController.h"
 #import "MBBabyCardController.h"
+#import "MaBaoCardModel.h"
 @interface MBSubmitOrdersController ()<UIScrollViewDelegate,UITextFieldDelegate>
 {
     WLZ_ChangeCountView *_changeView;
@@ -106,7 +107,7 @@
     NSString *url =[NSString stringWithFormat:@"%@%@%@",BASE_URL_root,@"/service/product_price/",_product_id];
     [MBNetworking newGET:url parameters:nil success:^(NSURLSessionDataTask *operation, id responseObject) {
         
-        MMLog(@"%@",responseObject);
+//        MMLog(@"%@",responseObject);
         
         
         if (responseObject) {
@@ -157,7 +158,7 @@
         NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
         [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/service/submit_order"] parameters:@{@"session":sessiondict,@"product_id":self.product_id,@"product_number":_changeView.numberFD.text,@"mobile_phone":_user_photo.text,@"cards":self.cards}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
-                       MMLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
+//                       MMLog(@"UserInfo成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
                        
                        [self dismiss];
                        NSDictionary *dic = [responseObject valueForKeyPath:@"data"];
@@ -186,23 +187,24 @@
 - (IBAction)mabaoka:(id)sender {
     
     _cards = nil;
-    MBBabyCardController *VC = [[MBBabyCardController alloc] init];
+    MBBabyCardController *VC =  [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateViewControllerWithIdentifier:@"MBBabyCardController"];;
     @weakify(self);
     
     [[VC.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSArray *arr) {
         @strongify(self);
         
         
-        for (NSDictionary *dic in arr) {
-            if ([dic isEqualToDictionary:arr.firstObject]) {
-                
-                [self.cards appendString:dic[@"card_no"]];
-                
+        for ( MaBaoCardModel*model in arr) {
+            if ([model isEqual:arr.firstObject]) {
+                if (model.card_no) {
+                    [self.cards appendString:model.card_no];
+                }
             }else{
                 
-                
-                [self.cards appendString:@","];
-                [self.cards appendString:dic[@"card_no"]];
+                if (model.card_no) {
+                    [self.cards appendString:@","];
+                    [self.cards appendString:model.card_no];
+                }
                 
                 
             }
@@ -264,7 +266,7 @@
 }
 - (NSString *)titleStr{
 
-return @"提交订单";
+   return @"提交订单";
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

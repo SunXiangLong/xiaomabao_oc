@@ -45,9 +45,14 @@
         num = 3;
     }
     
-    for (NSInteger i = 0; i<num; i++) {
+    for (NSInteger i = 0; i< 3; i++) {
         UIImageView *imageView = imageArr[i];
-        [imageView   sd_setImageWithURL:URL(_dataDic[@"imgs"][i])];
+        if (i < [_dataDic[@"imgs"] count] ) {
+            [imageView   sd_setImageWithURL:URL(_dataDic[@"imgs"][i])];
+        }else{
+            imageView.image = nil;
+        }
+        
     }
 
 }

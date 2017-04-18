@@ -26,6 +26,7 @@
 #import "MBNetworking.h"
 #import <Masonry/Masonry.h>
 //#import "HexColors.h"
+#import "DataSigner.h"
 #import "Reachability.h"
 #import "MJRefresh.h"
 #import "MBProgressHUD.h"

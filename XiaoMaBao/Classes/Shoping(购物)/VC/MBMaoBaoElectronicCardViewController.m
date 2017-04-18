@@ -102,15 +102,15 @@
     
 }
 - (IBAction)addElectronicMoney:(id)sender {
-    
+    [self.countTextField resignFirstResponder];
     MBElectronicCardModel *model = [MBElectronicCardModel yy_modelWithDictionary:_cards_custom];
-    
     model.card_money = [NSString stringWithFormat:@"%.2f",[_countTextField.text floatValue]];
     if ([model.card_money integerValue] == 0) {
         [self show:@"请输入一个自定义金额" time:1];
         return;
     }
-    [self.countTextField resignFirstResponder];
+    
+    
     __block BOOL isThree = false ;
     [_seleCtionModelArray enumerateObjectsUsingBlock:^(MBElectronicCardModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj.card_money isEqualToString:model.card_money]) {

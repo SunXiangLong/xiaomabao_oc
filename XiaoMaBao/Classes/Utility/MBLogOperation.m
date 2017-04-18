@@ -78,19 +78,14 @@
 }
 #pragma mark 查看本地是否存在登录信息存在就走登录接口
 + (void)defaultLogin{
-    
-    
-    
-    /**
-     *  存在帐户信息才走登陆接口
-     */
+    /***  存在帐户信息才走登陆接口*/
     if ( [User_Defaults valueForKeyPath:@"userInfo"]) {
         
         [self userVerifPassword:[User_Defaults valueForKeyPath:@"userInfo"] isPassword:NO success:nil failure:nil];
     }
     
-    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
         [NSTimer scheduledTimerWithTimeInterval:30*60 target:self selector:@selector(isLoginDate) userInfo:nil repeats:true];
         [[NSRunLoop currentRunLoop] run];
         
@@ -197,7 +192,25 @@
             MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo:responseObject[@"data"][@"user"]];
             userInfo.sid = responseObject[@"data"][@"session"][@"sid"];
             userInfo.uid = responseObject[@"data"][@"session"][@"uid"];
+            ///切换用户登录的时候单例属性要重新赋值（不会走初始化方法了）
+            if (!userInfo.phoneNumber) {
+                MBUserDataSingalTon *user = [MBUserDataSingalTon yy_modelWithJSON:responseObject[@"data"][@"user"]];
+                userInfo.phoneNumber = user.phoneNumber;
+                userInfo.mobile_phone = user.mobile_phone;
+                userInfo.nick_name = user.nick_name;
+                userInfo.rank_name = user.rank_name;
+                userInfo.header_img = user.header_img;
+                userInfo.parent_sex = user.parent_sex;
+                userInfo.identity_card = user.identity_card;
+                userInfo.collection_num = user.collection_num;
+                userInfo.is_baby_add = user.is_baby_add;
+                userInfo.user_baby_info = user.user_baby_info;
+         
+            }
+            
+            
             [MobClick profileSignInWithPUID:userInfo.uid];
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:@"circleState" object:nil];
             if (isPassword) {
                 
@@ -218,7 +231,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        MMLog(@"-----%@",error);
+//        MMLog(@"-----%@",error);
          [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:true];
     }];
     

@@ -7,14 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MaBaoCardModel.h"
 @interface MBBabyCardCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *babyCard;
-@property (weak, nonatomic) IBOutlet UILabel *babyCardPrice;
-@property (weak, nonatomic) IBOutlet UILabel *babyCardDate;
-@property(copy,nonatomic)NSDictionary *dataDic;
-@property (weak, nonatomic) IBOutlet UIButton *seleButton;
-@property (nonatomic, strong) RACSubject *myCircleViewSubject;
-@property (nonatomic,strong) NSIndexPath *indexPath;
-@property (weak, nonatomic) IBOutlet UIImageView *showImage;
+@property (nonatomic,strong) MaBaoCardModel *model;
+/**是否只是查看麻包卡*/
+@property (nonatomic,assign) BOOL isJustLookAt;
 @end
