@@ -145,7 +145,6 @@
     [MBNetworking newGET:url parameters:@{@"sort":_priceStored} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
 //        MMLog(@"%@ ",responseObject);
-
         if (_page == 1) {
              [self refreshLoading];
         }else{
@@ -298,7 +297,7 @@
 }
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     
-    MBGoodSSearchViewController *searchViewController = [[MBGoodSSearchViewController alloc] init:NO];
+    MBGoodSSearchViewController *searchViewController = [[MBGoodSSearchViewController alloc] init:PYSearchResultShowModeGoods];
     searchViewController.hotSearches = @[@""];
     searchViewController.hotSearchStyle =  PYHotSearchStyleColorfulTag;
     searchViewController.searchBar.placeholder = @"请输入要搜索商品名称";

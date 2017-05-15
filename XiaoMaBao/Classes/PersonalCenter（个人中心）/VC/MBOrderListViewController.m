@@ -646,7 +646,7 @@
                                 @"subject":@"北京小麻包信息技术有限公司",
                                 @"desc":@"北京小麻包信息技术有限公司"
                                 };
-            payVc.type = @"1";
+            payVc.type = MBOrdersForGoods;
             payVc.isOrderVC = true;
             [self pushViewController:payVc Animated:YES];
             

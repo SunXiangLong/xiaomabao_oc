@@ -10,7 +10,28 @@
 #import "MBUpdateView.h"
 #import "DHGuidePageHUD.h"
 @implementation MBLogOperation
-
++(MBLogOperation * )getMBLogOperationObject
+{
+    static dispatch_once_t pred;
+    static MBLogOperation *currentUser;
+   
+        dispatch_once(&pred, ^{
+            currentUser = [[MBLogOperation alloc] init];
+            
+        });
+  
+    
+    return currentUser;
+}
+- (RACSubject *)bloc {
+    
+    if (!_bloc) {
+        
+        _bloc = [RACSubject subject];
+    }
+    
+    return _bloc;
+}
 + (void)loginAuthentication:(NSDictionary *)params success:(void (^)())success
                     failure:(void (^)(NSString *error_desc,NSError *error))failure{
     
@@ -137,16 +158,20 @@
     if (!sid) {
         return;
     }
-    NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    NSDictionary *session = [NSDictionary dictionaryWithObjectsAndKeys: uid,@"uid",sid,@"sid",nil];
     [MBNetworking    POSTOrigin:string(BASE_URL_root, @"/users/refresh_token") parameters:@{@"session":session}  success:^(id responseObject) {
+        
         MMLog(@"%@",responseObject);
-        if ([responseObject[@"status"][@"succeed"] integerValue]== 1) {
-            return ;
+        if (responseObject[@"status"]&&[responseObject[@"status"] isKindOfClass:[NSDictionary class]]&&responseObject[@"status"][@"succeed"]) {
+            if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
+                return ;
+            }
+            if ( [User_Defaults valueForKeyPath:@"userInfo"]) {
+                
+                [self userVerifPassword:[User_Defaults valueForKeyPath:@"userInfo"] isPassword:NO success:nil failure:nil];
+            }
         }
-        if ( [User_Defaults valueForKeyPath:@"userInfo"]) {
-            
-            [self userVerifPassword:[User_Defaults valueForKeyPath:@"userInfo"] isPassword:NO success:nil failure:nil];
-        }
+        
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
@@ -178,14 +203,13 @@
         NSString *uid = [User_Defaults valueForKeyPath:@"userInfo"][@"uid"];
         NSString *sid = [User_Defaults valueForKeyPath:@"userInfo"][@"sid"];
         if (uid&&sid) {
-            [dic addEntriesFromDictionary:@{@"session":@{@"uis":uid,@"sid":sid}}];
+            [dic addEntriesFromDictionary:@{@"session":@{@"uid":uid,@"sid":sid}}];
 
         }
         
     }
    
-    
-  
+    MBLogOperation *login = [MBLogOperation getMBLogOperationObject];
     [MBNetworking   POSTOrigin:string(BASE_URL_root, @"/users/login") parameters:dic success:^(id responseObject) {
         if(1 == [responseObject[@"status"][@"succeed"] integerValue]){
         
@@ -205,9 +229,10 @@
                 userInfo.collection_num = user.collection_num;
                 userInfo.is_baby_add = user.is_baby_add;
                 userInfo.user_baby_info = user.user_baby_info;
-         
+    
             }
             
+            [login.bloc sendNext:@"1"];
             
             [MobClick profileSignInWithPUID:userInfo.uid];
             
@@ -225,6 +250,7 @@
         }else{
             NSString *errStr =[[responseObject valueForKey:@"status"] valueForKey:@"error_desc"];
             if (isPassword) {
+                 [login.bloc sendNext:@"0"];
                 failure(errStr,nil);
             }
         
@@ -232,6 +258,7 @@
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
 //        MMLog(@"-----%@",error);
+        [login.bloc sendNext:@"0"];
          [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:true];
     }];
     

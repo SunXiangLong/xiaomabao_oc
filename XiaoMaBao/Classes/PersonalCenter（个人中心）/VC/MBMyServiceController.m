@@ -53,6 +53,10 @@
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.pagingEnabled = YES;
     _scrollView.contentSize = CGSizeMake(self.childViewControllers.count * UISCREEN_WIDTH, 0);
+    
+    CGPoint offset = self.scrollView.contentOffset;
+    offset.x = UISCREEN_WIDTH *_page;
+    [_scrollView setContentOffset:offset animated:false];
     [self scrollViewDidEndScrollingAnimation:_scrollView];
 }
 - (IBAction)clickButton:(UIButton *)sender {

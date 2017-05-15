@@ -10,6 +10,11 @@
 
 @interface MBLogOperation : NSObject
 
++(MBLogOperation * )getMBLogOperationObject;
+
+@property(nonatomic,assign) BOOL isNotification;
+
+@property (nonatomic, strong) RACSubject *bloc;
 /**
  查看本地是否存在登录信息存在就走登录接口
  */

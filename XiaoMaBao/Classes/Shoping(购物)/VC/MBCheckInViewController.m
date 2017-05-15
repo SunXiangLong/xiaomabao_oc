@@ -11,6 +11,7 @@
 #import "MBSignaltonTool.h"
 #import "ZLDateView.h"
 #import "MBSignRoleView.h"
+#import "MBLogOperation.h"
 @interface MBCheckInViewController ()
 {
     BOOL _isSignIN;
@@ -30,15 +31,28 @@
 @implementation MBCheckInViewController
 -(void)viewWillAppear:(BOOL)animated
 {
-    
     [super viewWillAppear:animated];
-    [self refreshCalendarView];
+    MBLogOperation *login =   [MBLogOperation getMBLogOperationObject];
+    if ( [User_Defaults valueForKeyPath:@"userInfo"]&&login.isNotification&&![MBSignaltonTool getCurrentUserInfo].sid) {
+        [self show];
+        [[MBLogOperation getMBLogOperationObject].bloc  subscribeNext:^(NSString *str) {
+           
+            if ([str isEqualToString:@"1"]) {
+                 [self refreshCalendarView:false];
+            }else{
+                [self dismiss];
+             [self refreshCalendarView:true];
+            }
+        }];
+        
+    }else{
+      [self refreshCalendarView:true];
+    }
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
-    
     [self setUI];
 
    
@@ -111,18 +125,23 @@
     }];
 }
 
-- (void)refreshCalendarView{
+- (void)refreshCalendarView:(BOOL)isShow{
     
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    if (!uid) {
-        [self loginTimeout:@{@"status":@"-1"}];
-        return ;
-    }
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [self show];
+    if (!sid) {
+        [self loginTimeout:@{@"status":@"-1"}];
+        return;
+    }
+    
+    if (isShow) {
+         [self show];
+    }
+   
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/promote/get_sign_days") parameters:@{@"session":dict} success:^(id responseObject) {
-        [self dismiss];
+       [self dismiss];
+   
         _isRefreesh = true;
 //        MMLog(@"%@",responseObject);
         if (responseObject[@"status"]&&![responseObject[@"status"]isKindOfClass:[NSDictionary class]]&&[responseObject[@"status"] integerValue] == 0) {
@@ -221,7 +240,7 @@
         if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
             [self show:@"签到成功! 您每天继续来签到吧!" time:1];
             _signInView.backgroundColor = [UIColor redColor];
-            [self refreshCalendarView];
+            [self refreshCalendarView:true];
         }else{
             [self show:responseObject[@"status"][@"error_desc"] time:1];
         }

@@ -31,7 +31,7 @@
                                         @"subject":@"北京小麻包信息技术有限公司",
                                         @"desc":self.dataDic[@"desc"]
                                         };
-        VC.type = @"2";
+        VC.type = MBServiceOrder;
         VC.isOrderVC = true;
         [self.vc pushViewController:VC Animated:YES];
     }else if ([str isEqualToString:@"查看卷码"]){

@@ -49,10 +49,11 @@
 @end
 
 @implementation MBSearchViewController
-- (instancetype)init:(BOOL)isServiceSearch
+
+- (instancetype)init:(PYSearchResultSearchTypes)searchTypes
 {
     if (self = [super init]) {
-        _isServiceSearch = isServiceSearch;
+        _searchTypes = searchTypes;
         [self setup];
     }
     return self;
@@ -173,19 +174,29 @@
 
 - (NSMutableArray *)searchHistories
 {
+   
     if (!_searchHistories) {
-        
-        if (self.isServiceSearch) {
-         _searchHistories = [NSKeyedUnarchiver unarchiveObjectWithFile:ServiceSearchHistoriesPath];
-           
-        }else{
-        _searchHistories = [NSKeyedUnarchiver unarchiveObjectWithFile:PYSearchHistoriesPath];
+        switch (_searchTypes) {
+            case 0:{
+                _searchHistories = [NSKeyedUnarchiver unarchiveObjectWithFile:PYSearchHistoriesPath];
+            }break;
+            case 1:{
+                _searchHistories = [NSKeyedUnarchiver unarchiveObjectWithFile:ServiceSearchHistoriesPath];
+            }break;
+            case 2:{
+                _searchHistories = [NSKeyedUnarchiver unarchiveObjectWithFile:ServicePostHistoriesPath];
+            }break;
+            default:
+                break;
         }
+        
         
         if (!_searchHistories) {
             _searchHistories = [NSMutableArray array];
         }
     }
+    
+    
     return _searchHistories;
 }
 
@@ -738,12 +749,20 @@
     // 移除所有历史搜索
     [self.searchHistories removeAllObjects];
     // 移除数据缓存
-    if (self.isServiceSearch) {
-        
-        [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServiceSearchHistoriesPath];
-    }else{
-        [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:PYSearchHistoriesPath];
+    
+    switch (_searchTypes) {
+        case 0:{
+            [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:PYSearchHistoriesPath];
+        }break;
+        case 1:{
+            [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServiceSearchHistoriesPath];
+        }break;
+        case 2:{
+            [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServicePostHistoriesPath];
+        }break;
+        default:break;
     }
+    
     
     if (self.searchHistoryStyle == PYSearchHistoryStyleCell) {
         // 刷新cell
@@ -769,7 +788,7 @@
         // 更新
         self.searchHistoryStyle = self.searchHistoryStyle;
     }
-    PYSearchLog(@"搜索 %@", label.text);
+  
 }
 
 /** 添加标签 */
@@ -800,19 +819,26 @@
     [self.searchHistories insertObject:searchBar.text atIndex:0];
     // 刷新数据
     if (self.searchHistoryStyle == PYSearchHistoryStyleCell) { // 普通风格Cell
+        
         [self.baseSearchTableView reloadData];
     } else { // 搜索历史为标签
         // 更新
         self.searchHistoryStyle = self.searchHistoryStyle;
     }
     // 保存搜索信息
-    MMLog(@"%u",self.isServiceSearch);
-    if (self.isServiceSearch) {
-        [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServiceSearchHistoriesPath];
-    }else{
-        [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:PYSearchHistoriesPath];
+    switch (_searchTypes) {
+        case 0:{
+            [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:PYSearchHistoriesPath];
+        }break;
+        case 1:{
+            [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServiceSearchHistoriesPath];
+        }break;
+        case 2:{
+            [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServicePostHistoriesPath];
+        }break;
+        default:break;
     }
-    
+
     // 处理搜索结果
     switch (self.searchResultShowMode) {
         case PYSearchResultShowModePush: // Push
@@ -861,13 +887,19 @@
     UITableViewCell *cell = (UITableViewCell *)sender.superview;
     // 移除搜索信息
     [self.searchHistories removeObject:cell.textLabel.text];
-    if (self.isServiceSearch) {
-        [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServiceSearchHistoriesPath];
-    }else{
-        [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:PYSearchHistoriesPath];
-    }
-    // 保存搜索信息
     
+    switch (_searchTypes) {
+        case 0:{
+            [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:PYSearchHistoriesPath];
+        }break;
+        case 1:{
+            [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServiceSearchHistoriesPath];
+        }break;
+        case 2:{
+            [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServicePostHistoriesPath];
+        }break;
+        default:break;
+    }
     // 刷新
     [self.baseSearchTableView reloadData];
 }

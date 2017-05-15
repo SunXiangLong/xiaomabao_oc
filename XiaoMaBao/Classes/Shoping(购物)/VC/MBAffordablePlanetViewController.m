@@ -41,32 +41,17 @@
 }
 - (IBAction)buttonTouch:(UIButton *)sender {
     NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (!sid) {
+        [self  loginClicksss:@"mabao"];
+        return ;
+    }
     switch (sender.tag) {
         case 0:
         {
             [MobClick event:@"AffordablePlane1"];
-            
-            if (!sid) {
-                [self  loginClicksss:@"mabao"];
-                return ;
-            }
             [self performSegueWithIdentifier:@"MBCheckInViewController" sender:nil];
             
-            
-            
-        }
-            break;
-        case 1:{
-            [MobClick event:@"AffordablePlane2"];
-            if (!sid) {
-                [self  loginClicksss:@"mabao"];
-                return ;
-            }
-             [self performSegueWithIdentifier:@"MBSharkViewController" sender:nil];
-            
-            
-        }
-            break;
+        }break;
         case 2: {
             [MobClick event:@"AffordablePlane3"];
             MBWebViewController *VC = [[MBWebViewController alloc] init];
@@ -75,7 +60,6 @@
             VC.isloging = YES;
             [self pushViewController:VC Animated:YES];
         }
-            
             break;
         default:
             break;

@@ -66,7 +66,7 @@
                          @"desc":[NSString stringWithFormat:@"%@-麻包服务",self.model.product_name]
                          };
         VC.isOrderVC = true;
-        VC.type = @"2";
+        VC.type = MBServiceOrder;
         [self.vc pushViewController:VC Animated:YES];
     }else if ([str isEqualToString:@"查看卷码"]){
     [MobClick event:@"ServiceOrder5"];

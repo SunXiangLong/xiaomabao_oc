@@ -123,9 +123,9 @@
     NSDictionary *dic = self.dataArray[indexPath.row];
     MBNewsCircleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MBNewsCircleCell"];
     if (!cell) {
-        
         cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewsCircleCell"owner:nil options:nil]firstObject];
     }
+    
     [cell.user_head sd_setImageWithURL:URL(dic[@"user_head"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
     cell.user_name.text = dic[@"user_name"];
     cell.notify_time.text = dic[@"notify_time"];

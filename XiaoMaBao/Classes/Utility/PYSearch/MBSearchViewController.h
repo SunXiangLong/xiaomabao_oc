@@ -36,6 +36,12 @@ typedef NS_ENUM(NSInteger, PYSearchResultShowMode) { // 搜索结果显示方式
     PYSearchResultShowModeEmbed,    // 通过内嵌控制器View显示
     PYSearchResultShowModeDefault = PYSearchResultShowModeCustom // 默认为用户自定义（自己处理）
 };
+typedef NS_ENUM(NSInteger, PYSearchResultSearchTypes) { // 搜索类型
+    PYSearchResultShowModeGoods,   // 商品搜索
+    PYSearchResultShowModeService, // 服务搜索
+    PYSearchResultShowModePost,    // 帖子搜索
+   
+};
 
 @protocol PYSearchViewControllerDelegate <NSObject, UITableViewDelegate>
 
@@ -66,8 +72,8 @@ typedef NS_ENUM(NSInteger, PYSearchResultShowMode) { // 搜索结果显示方式
 @property (nonatomic, copy) NSArray<UILabel *> *hotSearchTags;
 /** 热门标签头部 */
 @property (nonatomic, weak) UILabel *hotSearchHeader;
-/** 是否是服务搜索子类  为yes代表是 */
-@property (nonatomic, assign) BOOL isServiceSearch;
+/** 搜索类型 */
+@property (nonatomic, assign) PYSearchResultSearchTypes searchTypes;
 /** 所有的搜索历史标签,只有当PYSearchHistoryStyle != PYSearchHistoryStyleCell才有值 */
 @property (nonatomic, copy) NSArray<UILabel *> *searchHistoryTags;
 /** 搜索历史标题,只有当PYSearchHistoryStyle != PYSearchHistoryStyleCell才有值 */
@@ -102,7 +108,7 @@ typedef NS_ENUM(NSInteger, PYSearchResultShowMode) { // 搜索结果显示方式
 @property (nonatomic, strong) UITableViewController *searchResultController;
 /** 基本搜索TableView(显示历史搜索和搜索记录) */
 @property (nonatomic, strong) UITableView *baseSearchTableView;
-- (instancetype)init:(BOOL)isServiceSearch;
+- (instancetype)init:(PYSearchResultSearchTypes)searchTypes;
 /**
  * 快速创建PYSearchViewController对象
  *

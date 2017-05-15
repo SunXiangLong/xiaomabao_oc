@@ -9,7 +9,7 @@
 #import "MBNewCanulcircleController.h"
 #import "MBTopPostsController.h"
 #import "MBMoreCirclesController.h"
-#import "MBSearchPostController.h"
+#import "MBSearchPostViewController.h"
 #import "MBMyCircleController.h"
 #import "MBNewsCircleController.h"
 #import "JPUSHService.h"
@@ -199,9 +199,18 @@
 
 - (void)rightTitleClick{
     [MobClick event:@"MaBaoCircle4"];
-    MBSearchPostController *searchVc = [[UIStoryboard storyboardWithName:@"Circle" bundle:nil] instantiateViewControllerWithIdentifier:@"MBSearchPostController"];
+
+    MBSearchPostViewController *searchViewController = [[MBSearchPostViewController alloc] init:PYSearchResultShowModePost];
+    searchViewController.hotSearches = @[@""];
+    searchViewController.hotSearchStyle =  PYHotSearchStyleColorfulTag;
+    searchViewController.searchBar.placeholder = @"请输入要搜索帖子";
+    searchViewController.hotSearchHeader.text = @"大家都在搜";
+    MBNavigationViewController *nav = [[MBNavigationViewController alloc] initWithRootViewController:searchViewController];
+    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"mm_navGroundImage"] forBarMetrics:UIBarMetricsDefault];
     
-    [self pushViewController:searchVc Animated:YES];
+    
+    nav.navigationBar.tintColor = [UIColor whiteColor];
+    [self presentViewController:nav  animated:NO completion:nil];
     
 }
 -(void)leftTitleClick{

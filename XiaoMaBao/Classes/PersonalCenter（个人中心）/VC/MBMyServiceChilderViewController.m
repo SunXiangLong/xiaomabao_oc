@@ -185,7 +185,6 @@
         [MobClick event:@"ServiceOrder8"];
         
         MBServiceOrderController *VC = [[MBServiceOrderController alloc] init];
-        VC.type = self.type;
         VC.order_id = _dataModel[indexPath.row].order_id;
         [self pushViewController:VC Animated:YES];
     }

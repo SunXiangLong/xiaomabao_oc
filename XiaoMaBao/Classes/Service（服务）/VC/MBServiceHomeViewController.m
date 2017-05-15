@@ -146,7 +146,7 @@
 
 - (void)rightTitleClick{
      [MobClick event:@"MabaoService2"];
-    MBServiceSearchViewController *searchViewController = [[MBServiceSearchViewController alloc] init:true];
+    MBServiceSearchViewController *searchViewController = [[MBServiceSearchViewController alloc] init:PYSearchResultShowModeService];
     searchViewController.hotSearches = @[@""];
     searchViewController.hotSearchStyle =  PYHotSearchStyleColorfulTag;
     searchViewController.searchBar.placeholder = @"请输入要搜索服务名称";

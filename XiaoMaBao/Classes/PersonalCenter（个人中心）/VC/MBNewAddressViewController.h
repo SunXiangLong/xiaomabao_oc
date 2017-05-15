@@ -7,9 +7,9 @@
 //
 
 #import "BkBaseViewController.h"
-
+#import "MBConfirmModel.h"
 @interface MBNewAddressViewController : BkBaseViewController
-//@property (nonatomic,strong) NSString *address_id;
-@property (nonatomic,strong) NSDictionary *address_dic;
+
+@property (nonatomic,strong) MBConsigneeModel *model;
 
 @end

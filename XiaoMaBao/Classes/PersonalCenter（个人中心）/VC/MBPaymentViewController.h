@@ -7,14 +7,22 @@
 //
 
 #import "BkBaseViewController.h"
-
+typedef NS_ENUM(NSInteger, MBorderType) {
+//    商品订单
+    MBOrdersForGoods = 1,
+//    服务订单
+    MBServiceOrder   = 2,
+//    电子卡订单
+    MBAnECardOrders  = 3,
+};
 @interface MBPaymentViewController : BkBaseViewController
-
-/***  商品订单信息 */
+/***  订单信息 */
 @property(strong,nonatomic)NSDictionary *orderInfo;
-/***  标示  2代表服务订单  1代表商品订单  3代表电子卡界面 返回的界面不一样*/
-@property(strong,nonatomic)NSString *type;
 
+/**
+ 要支付的订单类型
+ */
+@property(assign,nonatomic)MBorderType type;
 /**是否是订单界面pus*/
 @property(assign,nonatomic)BOOL isOrderVC;
 @end

@@ -36,7 +36,7 @@
         <!--天天签到-->
         <scene sceneID="iJf-ai-Lwk">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="vZg-CX-l3h" userLabel="天天签到" customClass="MBCheckInViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MBCheckInViewController" hidesBottomBarWhenPushed="YES" id="vZg-CX-l3h" userLabel="天天签到" customClass="MBCheckInViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uvd-Gd-gPG"/>
                         <viewControllerLayoutGuide type="bottom" id="iVY-mC-pwG"/>
@@ -1893,7 +1893,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gwe-iN-HaE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5169" y="-3873"/>
+            <point key="canvasLocation" x="-4886" y="-3761"/>
         </scene>
         <!--全球闪购-->
         <scene sceneID="XhM-7K-lx5">
@@ -2467,6 +2467,6 @@
         <image name="mm_sign" width="50" height="55"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ueB-ZY-EKJ"/>
+        <segue reference="na2-30-VpP"/>
     </inferredMetricsTieBreakers>
 </document>

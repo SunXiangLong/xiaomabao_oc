@@ -147,7 +147,7 @@
 }
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     
-    MBGoodSSearchViewController *searchViewController = [[MBGoodSSearchViewController alloc] init:NO];
+    MBGoodSSearchViewController *searchViewController = [[MBGoodSSearchViewController alloc] init:PYSearchResultShowModeGoods];
     searchViewController.hotSearches = @[@""];
     searchViewController.hotSearchStyle =  PYHotSearchStyleColorfulTag;
     searchViewController.searchBar.placeholder = @"请输入要搜索商品名称";

@@ -8,80 +8,54 @@
 
 #import "MBShopAddressTableViewCell.h"
 #import "MBNewAddressViewController.h"
+
+@interface MBShopAddressTableViewCell()
+{
+  BOOL _isDefault;
+}
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UILabel *photo;
+@property (weak, nonatomic) IBOutlet UILabel *address;
+@property (weak, nonatomic) IBOutlet UIButton *is_default;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *height;
+@end
 @implementation MBShopAddressTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    [self uiedgeInsetsZero];
     self.height.constant = 0.5f;
 }
+-(void)setModel:(MBConsigneeModel *)model{
+    _model = model;
+    
+    _name.text = model.consignee;
+    _photo.text = model.mobile;
+    _address.text = [NSString stringWithFormat:@"%@-%@-%@-%@",model.province_name,model.city_name,model.district_name,model.address];
+    if ([model.is_default intValue] == 1) {
+        _isDefault = true;
+        [_is_default setImage:[UIImage imageNamed:@"pitch_on"] forState:UIControlStateNormal];
+    }
+   
+    
+}
 - (IBAction)default:(id)sender {
-    if (!self.isDefault) {
-        
-        //设置默认
-        NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-        NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/set_default_address"] parameters:@{@"session":dict,@"address_id":self.addressDic[@"address_id"]} success:^(NSURLSessionDataTask *operation, id responseObject) {
-            if( [[responseObject valueForKey:@"status"][@"succeed"]isEqualToNumber:@1]){
-            
-
-                [self.delagate MBShopAddressTableView];
-            }
-          
-        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            MMLog(@"%@",error);
-        }];
-        
+    if (!_isDefault) {
+        self.editAddress(_model, MBSetTheDefaultAddress);
     }
 }
 
 - (IBAction)editor:(id)sender {
-    MBNewAddressViewController *VC = [[MBNewAddressViewController alloc] init];
-    VC.address_dic = self.addressDic;
-    VC.title = @"编辑收货地址";
-    [self.VC pushViewController:VC Animated:YES];
-    
-    
+    self.editAddress(_model, MBModifyTheAddress);
+ 
 }
 - (IBAction)delete:(id)sender {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"是否确定删除该地址？"
-                                                                             message:nil
-                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel
-                                   
-                                                         handler:^(UIAlertAction * action) {}];
-    UIAlertAction* fromPhotoAction = [UIAlertAction actionWithTitle:@"确定" style: UIAlertActionStyleDestructive                                                                handler:^(UIAlertAction * action) {
-            [self setDelete];
-        
-    }];
-     [alertController addAction:fromPhotoAction];
-    [alertController addAction:cancelAction];
-   
-    [self.VC presentViewController:alertController animated:YES completion:nil];
-}
-- (void)setDelete{
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     
-    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+    self.editAddress(_model, MBDeleteTheAddress);
     
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_delete"] parameters:@{@"session":sessiondict,@"address_id":self.addressDic[@"address_id"]} success:^(NSURLSessionDataTask *operation, id responseObject) {
-        
-        if( [[responseObject valueForKey:@"status"][@"succeed"]isEqualToNumber:@1]){
-            
-            [self.delagate MBShopAddressTableView];
-
-
-        }
-        
-        
-        
-    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        MMLog(@"失败");
-    }];
-
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

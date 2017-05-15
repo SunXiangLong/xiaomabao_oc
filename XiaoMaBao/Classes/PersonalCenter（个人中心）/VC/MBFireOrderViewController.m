@@ -5,7 +5,6 @@
 //  Created by 张磊 on 15/6/2.
 //  Copyright (c) 2015年 MakeZL. All rights reserved.
 //
-
 #import "MBFireOrderViewController.h"
 #import "MBPaymentViewController.h"
 #import "MBFireOrderTableViewCell.h"
@@ -69,7 +68,6 @@
         _tableView.delegate = self;
         
     }
-    
     return _tableView;
     
 }
@@ -81,7 +79,6 @@
 
     self.discountPriceArray   = [@[orderShopModel.goods_amount_formatted,orderShopModel.shipping_fee_formatted,orderShopModel.discount_formatted,_inv_payee?_discountPriceArray[3]:@"",orderShopModel.surplus?:@"",([orderShopModel.bean_fee integerValue] > 0)?string(@"￥", orderShopModel.bean_fee) :@"",_couponId?( [orderShopModel.discount integerValue] > 0?orderShopModel.discount_formatted:@""):@"",_bonus_id?([orderShopModel.discount integerValue] > 0?orderShopModel.discount_formatted:@""):@"",@""] mutableCopy];
     ;
-//    MMLog(@"%@",self.discountPriceArray);
     self.tableView.tableHeaderView = [self tableViewHeaderView];
     
     if (_totalLabel) {
@@ -95,42 +92,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //选择地址
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selsectaddress:) name:@"AddressNOtifition" object:nil];
-    
-}
--(void)selsectaddress:(NSNotification *)notif
-{
-    self.orderShopModel.consignee.address_id = [notif userInfo][@"address_id"];
-    
-    NSDictionary *cardDic = [notif userInfo][@"idcard"];
-    NSString *str1 = cardDic[@"real_name"];
-    NSString *str2 = cardDic[@"identity_card"];
-    if (cardDic) {
-        
-        if (self.orderShopModel.consignee.idcard) {
-            self.orderShopModel.consignee.idcard.is_black = cardDic[@"is_black"];
-            if (str1 &&![str1 isEqualToString:@""]) {
-                self.orderShopModel.consignee.idcard.real_name = str1;
-                
-            }
-            if (str2 &&![str2 isEqualToString:@""]) {
-                self.orderShopModel.consignee.idcard.identity_card = str2;
-            }
-        }else{
-            self.orderShopModel.consignee.idcard = [MBIdcardModel yy_modelWithDictionary:cardDic];
-            
-        }
-        
-    }
-    
-    [self beforeCreateOrder];
-    
-    
-    
-    
-}
 
+}
 - (UIView *)tableViewHeaderView{
     UIView *headerView = [[UIView alloc] init];
     UIView *headerBoxView = [[UIView alloc] init];
@@ -233,10 +196,44 @@
 -(void)addressClick:(UITapGestureRecognizer *)ger
 {
     MBShopAddresViewController *addressVc = [[MBShopAddresViewController alloc] init];
-    
+    WS(weakSelf)
+    addressVc.changeAddress = ^(MBConsigneeModel *model) {
+        weakSelf.orderShopModel.consignee = model;
+        [weakSelf beforeCreateOrder];
+    };
     [self pushViewController:addressVc Animated:YES];
 }
-
+-(void)selsectaddress:(NSNotification *)notif
+{
+    self.orderShopModel.consignee.address_id = [notif userInfo][@"address_id"];
+    
+    NSDictionary *cardDic = [notif userInfo][@"idcard"];
+    NSString *str1 = cardDic[@"real_name"];
+    NSString *str2 = cardDic[@"identity_card"];
+    if (cardDic) {
+        
+        if (self.orderShopModel.consignee.idcard) {
+            self.orderShopModel.consignee.idcard.is_black = cardDic[@"is_black"];
+            if (str1 &&![str1 isEqualToString:@""]) {
+                self.orderShopModel.consignee.idcard.real_name = str1;
+                
+            }
+            if (str2 &&![str2 isEqualToString:@""]) {
+                self.orderShopModel.consignee.idcard.identity_card = str2;
+            }
+        }else{
+            self.orderShopModel.consignee.idcard = [MBIdcardModel yy_modelWithDictionary:cardDic];
+            
+        }
+        
+    }
+    
+   
+    
+    
+    
+    
+}
 
 /**使用麻豆*/
 - (void)giveFriend{
@@ -487,7 +484,7 @@
         if ([responseObject[@"status"] isKindOfClass:[NSDictionary class]]&&[responseObject[@"status"][@"succeed"] integerValue] == 1) {
             self.isRefresh();
             VC.orderInfo = responseObject[@"data"][@"order_info"];
-            VC.type = @"1";
+            VC.type = MBOrdersForGoods;
             [self.navigationController pushViewController:VC animated:YES];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCart" object:nil];
             

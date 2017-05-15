@@ -12,8 +12,6 @@
 #pragma mark -- 跳转登陆页
 - (void)loginClicksss:(NSString *)type{
     //跳转到登录页
-    
-    
     MBLoginViewController *myView = [[UIStoryboard storyboardWithName:@"Login" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"MBLoginViewController"];
     myView.vcType = type;
     MBNavigationViewController *VC = [[MBNavigationViewController alloc] initWithRootViewController:myView];
@@ -22,12 +20,9 @@
 - (BOOL)charmResponseObject:(id)responseObject{
     
     if ([responseObject[@"status"] isKindOfClass:[NSNumber class]]&&[responseObject[@"status"] integerValue] == 0) {
-        
         [self show:@"登录超时,请重新登录!" time:.5];
         return false ;
     }
-    
-    
     return true;
 }
 -(BOOL)checkData:(id)responseObject{
@@ -37,9 +32,8 @@
     }else if ([responseObject[@"status"] integerValue] == 0){
         UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"登录超时,请重新登录!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alerView show];
-    
-    }
 
+    }
     return false;
 }
 - (void)loginTimeout:(id)responseObject{

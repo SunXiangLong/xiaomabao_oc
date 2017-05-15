@@ -10,4 +10,7 @@
 
 @interface MBMyServiceController : BkBaseViewController
 
+/**第几页*/
+@property (nonatomic,assign) NSInteger page;
+
 @end

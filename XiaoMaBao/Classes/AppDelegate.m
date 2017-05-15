@@ -73,12 +73,7 @@
     [MBLogOperation promptUpdate];
     //极光推送（消息）
     [MBAPService receiveMessage];
-    //app退出时收到通知点击通知启动
-    if (launchOptions) {
-        NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-        [User_Defaults setObject:userInfo forKey:@"userNotification"];
-        [User_Defaults synchronize];
-    }
+    
     //提示用户评价
     [self setAppirater];
     

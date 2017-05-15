@@ -15,6 +15,7 @@
 #import "MBTabBarViewController.h"
 #import "MBNavigationViewController.h"
 #import "MBCheckInViewController.h"
+#import "MBLogOperation.h"
 @implementation MBAPService
 
 + (void)umengTrack{
@@ -30,12 +31,16 @@
 }
 + (void)required:(NSDictionary *)launchOptions{
 
-        [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+    [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
                                                        UIUserNotificationTypeSound |
                                                        UIUserNotificationTypeAlert)
                                            categories:nil];
+    
     [JPUSHService setupWithOption:launchOptions appKey:@"f05bfa6c8239efa28520f511" channel:@"APPStore" apsForProduction:YES advertisingIdentifier:nil];
- 
+    
+    [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
+        MMLog(@"%@",registrationID);
+    }];
     
 
     
@@ -49,9 +54,9 @@
 + (void)receiveRemoteNotification:(NSDictionary *)userInfo root:(UIWindow *)windows application:(UIApplication *)application{
     MBTabBarViewController *tabBarVc = (MBTabBarViewController *)windows.rootViewController;
     MBNavigationViewController *rootVC = tabBarVc.selectedViewController;
-    
+//    UIApplicationLaunchOptionsRemoteNotificationKey
     if (application.applicationState == UIApplicationStateBackground) {
-        
+
     }else if (application.applicationState == UIApplicationStateInactive) {
         
         [self notifJumpInterface:userInfo root:windows];
@@ -132,10 +137,10 @@
             VC.isloging = YES;
             [rootVC pushViewController:VC animated:YES];
         }else if([type isEqualToString:@"signIn"]){
-        
-            UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+            [MBLogOperation getMBLogOperationObject].isNotification = true;
+            UIStoryboard *story = [UIStoryboard storyboardWithName:@"Shopping" bundle:[NSBundle mainBundle]];
             MBCheckInViewController *myView = [story instantiateViewControllerWithIdentifier:@"MBCheckInViewController"];
-            [rootVC presentViewController:myView animated:YES completion:nil];
+            [rootVC pushViewController:myView animated:true];
         }
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     }

@@ -31,7 +31,6 @@ pod 'SDCycleScrollView'
 pod 'Appirater'
 pod 'Masonry'
 pod 'FreeStreamer'
-
 pod 'ReactiveCocoa','~> 2.5'
 pod 'JPFPSStatus'
 pod 'DateTools'

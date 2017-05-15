@@ -7,18 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BkBaseViewController.h"
-@protocol MBShopAddressTableViewDelgate <NSObject>
-- (void)MBShopAddressTableView;
-@end
+#import "MBConfirmModel.h"
+typedef NS_ENUM(NSInteger, MBEditTheAddressType) {
+    MBModifyTheAddress = 0,
+    MBDeleteTheAddress   = 1,
+    MBSetTheDefaultAddress  = 2,
+};
 @interface MBShopAddressTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *name;
-@property (weak, nonatomic) IBOutlet UILabel *photo;
-@property (weak, nonatomic) IBOutlet UILabel *address;
-@property (weak, nonatomic) IBOutlet UIButton *is_default;
-@property (nonatomic,weak) BkBaseViewController *VC;
-@property (nonatomic,assign) BOOL isDefault;
-@property(strong,nonatomic)NSDictionary *addressDic;
-@property (nonatomic, weak) id<MBShopAddressTableViewDelgate> delagate;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *height;
+@property(strong,nonatomic)MBConsigneeModel *model;
+@property (nonatomic,copy)  void (^editAddress)(MBConsigneeModel *model,MBEditTheAddressType type);
 @end

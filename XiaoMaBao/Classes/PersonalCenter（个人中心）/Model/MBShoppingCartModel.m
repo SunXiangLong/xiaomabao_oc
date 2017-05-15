@@ -9,6 +9,8 @@
 #import "MBShoppingCartModel.h"
 
 @implementation MBShoppingCartModel
+
+
 -(NSMutableArray<MBGood_ListModel *> *)goods_list{
     if (!_goods_list) {
         _goods_list = [NSMutableArray array];

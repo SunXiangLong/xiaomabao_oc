@@ -44,20 +44,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self getCityList:@"1"];
-    _provinceID = _address_dic[@"province"];
-    _cityID = _address_dic[@"city"];
-    _districtID = _address_dic[@"district"];
+    _provinceID = _model.province;
+    _cityID = _model.city;
+    _districtID = _model.district;
     self.bottom.constant = UISCREEN_HEIGHT-TOP_Y;
     self.maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_HEIGHT)];
     self.maskView.backgroundColor = [UIColor blackColor];
     self.maskView.alpha = 0;
     [self.maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMyPicker)]];
     self.pickerBgView.ml_width = UISCREEN_WIDTH;
-    if (self.address_dic) {
-        _name.text = self.address_dic[@"consignee"];
-        _photo.text = self.address_dic[@"mobile"];
-        _address.text = [NSString stringWithFormat:@"%@-%@-%@",self.address_dic[@"province_name"],self.address_dic[@"city_name"],self.address_dic[@"district_name"]];
-        _xiangxiAddress.text = self.address_dic[@"address"];
+    if (self.model) {
+        _name.text = _model.consignee;
+        _photo.text = _model.mobile;
+        _address.text = [NSString stringWithFormat:@"%@-%@-%@",_model.province_name,_model.city_name,_model.district_name];
+        _xiangxiAddress.text = _model.address;
     }
 }
 #pragma mark -- 选着通讯录联系人
@@ -403,7 +403,7 @@
     //更新收货地址
     if ([url isEqualToString:@"/address/address_edit"]) {
         [self show:@"正在更新..."];
-        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_edit"] parameters:@{@"session":sessiondict,@"address_id":self.address_dic[@"address_id"],@"address":addressDict}
+        [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_edit"] parameters:@{@"session":sessiondict,@"address_id":_model.address_id,@"address":addressDict}
                    success:^(NSURLSessionDataTask *operation, id responseObject) {
                        [self dismiss];
 //                       MMLog(@"成功---responseObject%@",[responseObject valueForKeyPath:@"data"]);
@@ -452,14 +452,9 @@
 - (void)delete{
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    MMLog(@"%@",self.address_dic);
-    
-    
-    
     [self show];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_delete"] parameters:@{@"session":sessiondict,@"address_id":self.address_dic[@"address_id"]} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/address_delete"] parameters:@{@"session":sessiondict,@"address_id":_model.address_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
         [self dismiss];
         if( [[responseObject valueForKey:@"status"][@"succeed"]isEqualToNumber:@1]){
             
@@ -484,7 +479,7 @@
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/set_default_address"] parameters:@{@"session":dict,@"address_id":self.address_dic[@"address_id"]} success:^(NSURLSessionDataTask *operation, id responseObject) {
+    [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/address/set_default_address"] parameters:@{@"session":dict,@"address_id":_model.address_id} success:^(NSURLSessionDataTask *operation, id responseObject) {
         if( [[responseObject valueForKey:@"status"][@"succeed"]isEqualToNumber:@1]){
             
             
@@ -635,16 +630,7 @@
     _photo.text = phoneValue;
     
     
-//    for (CNLabeledValue *labeledValue in phoneNums) {
-//        // 2.1.获取电话号码的KEY
-//        NSString *phoneLabel = labeledValue.label;
-//        
-//        // 2.2.获取电话号码
-//        CNPhoneNumber *phoneNumer = labeledValue.value;
-//        NSString *phoneValue = phoneNumer.stringValue;
-//        
-//        MMLog(@"%@",phoneValue);
-//    }
+
 }
 
 // 当选中某一个联系人的某一个属性时会执行该方法

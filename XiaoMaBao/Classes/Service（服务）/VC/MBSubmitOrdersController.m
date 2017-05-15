@@ -169,7 +169,7 @@
                                             @"subject":@"北京小麻包信息技术有限公司",
                                             @"desc":[NSString stringWithFormat:@"%@-麻包服务",dic[@"product_name"]]
                                             };;
-                           VC.type = @"2";
+                           VC.type = MBServiceOrder;
                            [self pushViewController:VC Animated:YES];
                            
                        }else{

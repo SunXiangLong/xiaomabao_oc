@@ -144,7 +144,7 @@
                         @"subject":@"北京小麻包信息技术有限公司",
                         @"desc":@"购买电子卡业务"
                         };
-    payVc.type = @"3";
+    payVc.type = MBAnECardOrders;
     payVc.isOrderVC = true;
     [self pushViewController:payVc Animated:true];
 }

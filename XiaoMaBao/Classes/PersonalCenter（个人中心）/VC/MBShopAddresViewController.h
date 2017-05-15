@@ -7,8 +7,8 @@
 //
 
 #import "BkBaseViewController.h"
-
+#import "MBConfirmModel.h"
 @interface MBShopAddresViewController : BkBaseViewController
-@property (nonatomic,strong) NSString *PersonalCenter;
-
+@property (nonatomic,assign) BOOL isPersonalCenter;
+@property (nonatomic,copy)  void (^changeAddress)(MBConsigneeModel *model);
 @end

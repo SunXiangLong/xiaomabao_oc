@@ -121,7 +121,7 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MBMycircleTableViewCell" rowHeight="65" id="CCx-1k-2zj" customClass="MBMycircleTableViewCell">
-                                        <rect key="frame" x="0.0" y="321" width="375" height="65"/>
+                                        <rect key="frame" x="0.0" y="320.5" width="375" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CCx-1k-2zj" id="cvI-nz-ald">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
@@ -200,10 +200,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MBMycircleTableViewCellTo" rowHeight="65" id="Wgb-Gr-Xfy">
-                                        <rect key="frame" x="0.0" y="386" width="375" height="65"/>
+                                        <rect key="frame" x="0.0" y="385.5" width="375" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wgb-Gr-Xfy" id="WyM-xB-LMW">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J6v-dq-ipo" customClass="YYLabel">
@@ -709,200 +709,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lck-yL-9J8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-4378" y="1689"/>
-        </scene>
-        <!--帖子搜索-->
-        <scene sceneID="mAo-l5-w1x">
-            <objects>
-                <viewController storyboardIdentifier="MBSearchPostController" id="CPD-rW-AMb" userLabel="帖子搜索" customClass="MBSearchPostController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="aEe-Ay-iRJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="Skz-5h-BFw"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="IjJ-GD-KHv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="tabView" destination="bkg-j5-Xsv" id="Vvi-ZG-X9q"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8T4-ks-Kfi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="bkg-j5-Xsv">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <prototypes>
-                        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MBDetailsCircleTbaleViewCell" rowHeight="169" id="ncd-VH-wvW" customClass="MBDetailsCircleTbaleViewCell">
-                            <rect key="frame" x="0.0" y="28" width="375" height="169"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ncd-VH-wvW" id="G1D-Ut-keJ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="168.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iL2-7E-fP9">
-                                        <rect key="frame" x="15" y="10" width="345" height="18"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="五月一日出游，衣服准备好了吗？">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.3411764705882353" green="0.3411764705882353" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" size="15" name="MicrosoftYaHei"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gL5-XI-2t1">
-                                        <rect key="frame" x="15" y="38" width="345" height="33"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="宝宝早晨不想去幼儿园，说老师打她，宝宝早晨很不开心。">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.3411764705882353" green="0.36078431372549019" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" size="14" name="MicrosoftYaHei"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="columnSpace">
-                                                <real key="value" value="2"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k7K-r0-gBA">
-                                        <rect key="frame" x="15" y="81" width="108.5" height="65"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="65" id="wyd-tS-w29"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <integer key="value" value="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CIA-f6-2g9">
-                                        <rect key="frame" x="133.5" y="81" width="108" height="65"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <integer key="value" value="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NRo-uY-1V7">
-                                        <rect key="frame" x="251.5" y="81" width="108.5" height="65"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <integer key="value" value="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Asex_head_image" translatesAutoresizingMaskIntoConstraints="NO" id="rJh-wQ-LfN">
-                                        <rect key="frame" x="15" y="156" width="13" height="12"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="13" id="7u1-KY-9Gc"/>
-                                            <constraint firstAttribute="height" constant="12" id="hFZ-nA-Aa0"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZnL-SZ-ytl">
-                                        <rect key="frame" x="33" y="155" width="84" height="14"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="超级宝宝豪妈妈">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.396078431372549" green="0.41568627450980389" blue="0.44705882352941173" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" size="12" name="MicrosoftYaHei"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="post_message" translatesAutoresizingMaskIntoConstraints="NO" id="wW5-Mb-BDJ">
-                                        <rect key="frame" x="334" y="157" width="10" height="10"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="10" id="9zX-jg-dHs"/>
-                                            <constraint firstAttribute="height" constant="10" id="DHO-pO-4Ij"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eu3-uW-Z9m">
-                                        <rect key="frame" x="289" y="155" width="43" height="14"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="6分钟前">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.3411764705882353" green="0.3411764705882353" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" size="12" name="MicrosoftYaHei"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OPG-1m-9JV">
-                                        <rect key="frame" x="346" y="155" width="14" height="14"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="69">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.3411764705882353" green="0.3411764705882353" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" size="12" name="MicrosoftYaHei"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="ZnL-SZ-ytl" firstAttribute="centerY" secondItem="rJh-wQ-LfN" secondAttribute="centerY" id="0VQ-9s-5nl"/>
-                                    <constraint firstItem="NRo-uY-1V7" firstAttribute="height" secondItem="k7K-r0-gBA" secondAttribute="height" id="0l2-f8-xt4"/>
-                                    <constraint firstItem="NRo-uY-1V7" firstAttribute="top" secondItem="k7K-r0-gBA" secondAttribute="top" id="3s5-Zm-lXM"/>
-                                    <constraint firstItem="CIA-f6-2g9" firstAttribute="top" secondItem="k7K-r0-gBA" secondAttribute="top" id="53H-cA-9JJ"/>
-                                    <constraint firstItem="OPG-1m-9JV" firstAttribute="trailing" secondItem="iL2-7E-fP9" secondAttribute="trailing" id="5Zo-Jm-Mm2"/>
-                                    <constraint firstItem="rJh-wQ-LfN" firstAttribute="centerY" secondItem="eu3-uW-Z9m" secondAttribute="centerY" id="BMJ-2q-dKb"/>
-                                    <constraint firstItem="CIA-f6-2g9" firstAttribute="leading" secondItem="k7K-r0-gBA" secondAttribute="trailing" constant="10" id="Bdj-4d-H6y"/>
-                                    <constraint firstItem="gL5-XI-2t1" firstAttribute="leading" secondItem="iL2-7E-fP9" secondAttribute="leading" id="FoN-ye-sks"/>
-                                    <constraint firstItem="ZnL-SZ-ytl" firstAttribute="leading" secondItem="rJh-wQ-LfN" secondAttribute="trailing" constant="5" id="Jek-uo-tjC"/>
-                                    <constraint firstItem="iL2-7E-fP9" firstAttribute="leading" secondItem="G1D-Ut-keJ" secondAttribute="leading" constant="15" id="KWJ-BQ-Fdd"/>
-                                    <constraint firstItem="rJh-wQ-LfN" firstAttribute="top" secondItem="k7K-r0-gBA" secondAttribute="bottom" constant="10" id="M0z-QY-UdV"/>
-                                    <constraint firstItem="gL5-XI-2t1" firstAttribute="top" secondItem="iL2-7E-fP9" secondAttribute="bottom" constant="10" id="PIz-L3-2BB"/>
-                                    <constraint firstItem="NRo-uY-1V7" firstAttribute="width" secondItem="k7K-r0-gBA" secondAttribute="width" id="RN7-bS-AiS"/>
-                                    <constraint firstItem="gL5-XI-2t1" firstAttribute="trailing" secondItem="iL2-7E-fP9" secondAttribute="trailing" id="TbK-9f-171"/>
-                                    <constraint firstAttribute="trailing" secondItem="NRo-uY-1V7" secondAttribute="trailing" constant="15" id="YIM-37-4HR"/>
-                                    <constraint firstItem="OPG-1m-9JV" firstAttribute="centerY" secondItem="rJh-wQ-LfN" secondAttribute="centerY" id="Z2D-c3-9b7"/>
-                                    <constraint firstItem="rJh-wQ-LfN" firstAttribute="leading" secondItem="iL2-7E-fP9" secondAttribute="leading" id="aut-wS-joz"/>
-                                    <constraint firstItem="iL2-7E-fP9" firstAttribute="top" secondItem="G1D-Ut-keJ" secondAttribute="top" constant="10" id="bRN-6R-7wJ"/>
-                                    <constraint firstItem="rJh-wQ-LfN" firstAttribute="centerY" secondItem="wW5-Mb-BDJ" secondAttribute="centerY" id="ceA-wD-HnL"/>
-                                    <constraint firstItem="k7K-r0-gBA" firstAttribute="leading" secondItem="G1D-Ut-keJ" secondAttribute="leading" constant="15" id="f2m-kh-Thi"/>
-                                    <constraint firstItem="CIA-f6-2g9" firstAttribute="height" secondItem="k7K-r0-gBA" secondAttribute="height" id="hE9-7x-I45"/>
-                                    <constraint firstItem="k7K-r0-gBA" firstAttribute="top" secondItem="gL5-XI-2t1" secondAttribute="bottom" constant="10" id="q5S-8X-Yv9"/>
-                                    <constraint firstItem="wW5-Mb-BDJ" firstAttribute="leading" secondItem="eu3-uW-Z9m" secondAttribute="trailing" constant="2" id="skR-O1-bVC"/>
-                                    <constraint firstItem="NRo-uY-1V7" firstAttribute="leading" secondItem="CIA-f6-2g9" secondAttribute="trailing" constant="10" id="vc5-1W-B3U"/>
-                                    <constraint firstItem="OPG-1m-9JV" firstAttribute="leading" secondItem="wW5-Mb-BDJ" secondAttribute="trailing" constant="2" id="vhf-ks-fUq"/>
-                                    <constraint firstItem="CIA-f6-2g9" firstAttribute="width" secondItem="k7K-r0-gBA" secondAttribute="width" id="vyc-23-9mC"/>
-                                    <constraint firstAttribute="trailing" secondItem="iL2-7E-fP9" secondAttribute="trailing" constant="15" id="z63-32-uQr"/>
-                                </constraints>
-                            </tableViewCellContentView>
-                            <connections>
-                                <outlet property="author_name" destination="ZnL-SZ-ytl" id="9fj-9D-21y"/>
-                                <outlet property="image1" destination="k7K-r0-gBA" id="kcH-uT-a9f"/>
-                                <outlet property="image2" destination="CIA-f6-2g9" id="neq-Gw-0ao"/>
-                                <outlet property="image3" destination="NRo-uY-1V7" id="7Pr-8m-SvE"/>
-                                <outlet property="imageHeight" destination="wyd-tS-w29" id="VpT-1w-dIO"/>
-                                <outlet property="post_content" destination="gL5-XI-2t1" id="bVz-2u-dJg"/>
-                                <outlet property="post_time" destination="eu3-uW-Z9m" id="3Xo-Is-Sgf"/>
-                                <outlet property="post_title" destination="iL2-7E-fP9" id="JgJ-0S-t1o"/>
-                                <outlet property="reply_cnt" destination="OPG-1m-9JV" id="XL7-N4-YuD"/>
-                                <outlet property="topHeight" destination="q5S-8X-Yv9" id="0RZ-P6-laK"/>
-                            </connections>
-                        </tableViewCell>
-                    </prototypes>
-                    <connections>
-                        <outlet property="dataSource" destination="2ql-NB-OVq" id="2QE-V9-9Jv"/>
-                        <outlet property="delegate" destination="2ql-NB-OVq" id="PNG-vm-YhC"/>
-                    </connections>
-                </tableView>
-            </objects>
-            <point key="canvasLocation" x="-3039" y="1689"/>
         </scene>
         <!--热帖-->
         <scene sceneID="kPk-VF-q20">

@@ -9,8 +9,8 @@
 #import "MBPaymentViewController.h"
 #import "MBGoodSSearchViewController.h"
 #import "MBOrderInfoTableViewController.h"
-
-
+#import "MBServiceSearchViewController.h"
+#import "MBMyServiceController.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "WXApi.h"
 
@@ -46,7 +46,7 @@
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(back)];
     [self.navigationController.view  addGestureRecognizer:pan];
     
-    switch ([_type integerValue]) {
+    switch (_type) {
         case 3:{
             if ([_orderInfo[@"pay_status"] integerValue] == 0) {
                 [self createView];
@@ -76,7 +76,7 @@
     PaySuccessView.frame = CGRectMake(0, TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y);
     [self.view addSubview:PaySuccessView];
     [PaySuccessView.shopButton addTarget:self action:@selector(shop) forControlEvents:UIControlEventTouchUpInside];
-    [PaySuccessView.orderButton addTarget:self action:@selector(order) forControlEvents:UIControlEventTouchUpInside];
+    [PaySuccessView.orderButton addTarget:self action:@selector(jumpOrderDetails) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -107,7 +107,7 @@
     orderImgView.frame = CGRectMake((orderView.ml_width - 16 - MARGIN_8), (orderView.ml_height - 16) * 0.5, 16, 16);
     [orderView addSubview:orderImgView];
     orderView.userInteractionEnabled = YES;
-    if ([_type integerValue] != 2) {
+    if (_type != 2) {
         orderImgView.image = [UIImage imageNamed:@"next"];
         UITapGestureRecognizer *ger = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(orderInfoClick:)];
         [orderView addGestureRecognizer:ger];
@@ -225,7 +225,11 @@
 -(void)orderInfoClick:(UITapGestureRecognizer *)ger{
     MBOrderInfoTableViewController  *infoVC =  [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:infoVC];
-    switch ([_type integerValue]) {
+    switch (_type) {
+        case 1:{
+            infoVC.parent_order_sn = _orderInfo[@"order_sn"];
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
+        }break;
         case 3:{
             MBElectronicCardOrderInfoVC  *VC =  [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateViewControllerWithIdentifier:@"MBElectronicCardOrderInfoVC"];
             VC.orderSn = self.orderInfo[@"order_sn"];
@@ -233,11 +237,7 @@
             
         }break;
             
-        default:{
-            infoVC.parent_order_sn = _orderInfo[@"order_sn"];
-            [self.navigationController presentViewController:nav animated:YES completion:nil];
-            
-        }break;
+        default:break;
     }
     
     
@@ -250,7 +250,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     NSString *url;
-    switch ([_type intValue]) {
+    switch (_type ) {
         case 1:{url = string(@"http://api.xiaomabao.com/pay/goods/" , _orderInfo[@"order_sn"]);}break;
         case 2:{url = string(@"http://api.xiaomabao.com/pay/service/", _orderInfo[@"order_sn"]);}break;
         case 3:{url = string(@"http://api.xiaomabao.com/pay/giftcard/", _orderInfo[@"order_sn"]);}break;
@@ -283,7 +283,6 @@
     
     
     
-    //    }
 }
 
 #pragma mark -WX //微信支付
@@ -294,7 +293,7 @@
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     NSString *url;
-    switch ([_type intValue]) {
+    switch (_type ) {
         case 1:{url = string(@"http://api.xiaomabao.com/pay/wx_goods/" , _orderInfo[@"order_sn"]);}break;
         case 2:{url = string(@"http://api.xiaomabao.com/pay/wx_service/", _orderInfo[@"order_sn"]);}break;
         case 3:{url = string(@"http://api.xiaomabao.com/pay/wx_giftcard/", _orderInfo[@"order_sn"]);}break;
@@ -363,7 +362,7 @@
     
     if ([_success isEqualToString:@"1"]) {
         
-        switch ([_type integerValue]) {
+        switch (_type) {
                 
             case 2:{
                 MBPayResultsController *VC = [[MBPayResultsController alloc] init];
@@ -384,54 +383,70 @@
     
     [self popViewControllerAnimated:YES];
 }
-- (void)order{
-    if ([_type integerValue] == 1) {
-        MBOrderInfoTableViewController  *infoVC =  [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:infoVC];
-        
-        infoVC.parent_order_sn = _orderInfo[@"order_sn"];
-        [self.navigationController presentViewController:nav animated:YES completion:nil];
-        
-    }else{
-        MBElectronicCardOrderInfoVC  *VC =  [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateViewControllerWithIdentifier:@"MBElectronicCardOrderInfoVC"];
-        VC.orderSn = self.orderInfo[@"order_sn"];
-        [self pushViewController:VC Animated:true];
+
+#pragma mark  支付成功后跳转订单详情
+- (void)jumpOrderDetails{
+    switch (_type) {
+        case 1:{
+            MBOrderInfoTableViewController  *infoVC =  [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateViewControllerWithIdentifier:@"MBOrderInfoTableViewController"];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:infoVC];
+            infoVC.parent_order_sn = _orderInfo[@"order_sn"];
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
+            
+        }break;
+        case 2:{
+            MBMyServiceController *VC = [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateViewControllerWithIdentifier:@"MBMyServiceController"];
+            VC.page = 1;
+            [self pushViewController:VC Animated:true];
+        }break;
+        case 3:{
+            MBElectronicCardOrderInfoVC  *VC =  [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateViewControllerWithIdentifier:@"MBElectronicCardOrderInfoVC"];
+            VC.orderSn = self.orderInfo[@"order_sn"];
+            [self pushViewController:VC Animated:true];
+        }break;
+        default:
+            break;
     }
+    
     
     
 }
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{
     BkBaseViewController *rootVC  = nil;
     
-    
-    if ([_type isEqualToString:@"1"]) {
-        for (BkBaseViewController *VC in self.navigationController.viewControllers ) {
-            if ([VC isKindOfClass:[MBNewHomeViewController class]]||[VC isKindOfClass:[MBNewMyViewController class]]) {
-                rootVC = VC;
-            }
+    for (BkBaseViewController *VC in self.navigationController.viewControllers ) {
+        switch (_type) {
+            case 1:
+            {
+                if ([VC isKindOfClass:[MBNewHomeViewController class]]||[VC isKindOfClass:[MBNewMyViewController class]]) {
+                    rootVC = VC;
+                }
+            }break;
+            case 2:
+            {
+                if ([VC isKindOfClass:[MBServiceShopsViewController class]]) {
+                    rootVC = VC;
+                }
+            }break;
+            case 3:
+            {
+                if ([VC isKindOfClass:[MBGiftCardViewController class]]) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"electronicCardOrderReloadData" object:nil];
+                    rootVC = VC;
+                    
+                }
+            }break;
+            default:break;
         }
-    }
-    if([_type  isEqualToString:@"2"]){
         
-        for (BkBaseViewController *VC in self.navigationController.viewControllers) {
-            if ([VC isKindOfClass:[MBServiceShopsViewController class]]) {
-                
-                rootVC = VC;
-                
-            }
-        }
     }
-    
-    if([_type  isEqualToString:@"3"]){
-        for (BkBaseViewController *VC in self.navigationController.viewControllers) {
-            if ([VC isKindOfClass:[MBGiftCardViewController class]]) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"electronicCardOrderReloadData" object:nil];
-                rootVC = VC;
-                
-            }
-        }
-    }
+    //    搜索界面的商品购买到支付到下单（搜索模态进入的根视图和其他pop不一样)
     if ([self.navigationController.viewControllers.firstObject isMemberOfClass:[MBGoodSSearchViewController class]]) {
+        
+        rootVC = self.navigationController.viewControllers.firstObject;
+    }
+    //    搜索界面的服务购买到支付到下单（搜索模态进入的根视图和其他pop不一样)
+    if ([self.navigationController.viewControllers.firstObject isMemberOfClass:[MBServiceSearchViewController class]]) {
         
         rootVC = self.navigationController.viewControllers.firstObject;
     }

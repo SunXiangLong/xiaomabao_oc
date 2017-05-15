@@ -23,6 +23,8 @@
 #import "MBElectronicCardOrderVC.h"
 #import "MBSettingViewController.h"
 #import "MBBabyCardController.h"
+
+#import "MBCheckInViewController.h"
 @interface MBNewMyViewController ()<UIScrollViewDelegate>
 {
     /**
@@ -59,7 +61,6 @@
             _userName.text = @"";
         }
     
-    
 }
 
 - (void)viewDidLoad {
@@ -67,18 +68,18 @@
    
     self.tabeleView.tableFooterView = [[UIView alloc] init];
     _dataArray = @[
+                   @{@"image":@"aMedicalQuery",@"name":@"体检报告查询"},
+                   @{@"image":@"mabaoCard",@"name":@"我的麻包卡"},
+                   @{@"image":@"InviteFriends",@"name":@"邀请好友",@"photo":@"立赚5元"},
                    @{@"image":@"star",@"name":@"我的收藏"},
+                   @{@"image":@"icon2",@"name":@"热线电话",@"photo":@"010-85170751"},
+                   @{@"image":@"icon3",@"name":@"收货地址"},
                    @{@"image":@"icon7",@"name":@"退换货"},
                    @{@"image":@"icon8",@"name":@"代金券"},
                    @{@"image":@"hempBeans",@"name":@"我的麻豆"},
-                   @{@"image":@"InviteFriends",@"name":@"邀请好友",@"photo":@"立赚5元"},
-                   @{@"image":@"icon2",@"name":@"热线电话",@"photo":@"010-85170751"},
-                   @{@"image":@"icon3",@"name":@"收货地址"},
-//                   @{@"image":@"icon1",@"name":@"浏览记录"},
                    @{@"image":@"icon5",@"name":@"联系我们"},
                    @{@"image":@"icon4",@"name":@"售后服务"},
                    @{@"image":@"icon6",@"name":@"麻包帮助"}
-                   
                    ];
     
 }
@@ -103,11 +104,7 @@
         case 3:{
             [self performSegueWithIdentifier:@"MBElectronicCardOrderVC" sender:nil];
         }break;
-        default:{
-            [self performSegueWithIdentifier:@"MBBabyCardController" sender:nil];
-         
-        }
-            break;
+        default:break;
     }
     
 }
@@ -120,6 +117,7 @@
     
 }
 - (void)rightTitleClick{
+    
     [MobClick event:@"PersonalCenter0"];
     if (self.isLogin) {
         MBSettingViewController *settingVc = [[MBSettingViewController alloc] init];
@@ -242,39 +240,57 @@
     }
     
     switch (indexPath.row) {
+        case 0:{
+            
+            [self performSegueWithIdentifier:@"MBMedicalReportQueryViewController" sender:nil];
+        }break;
         case 1:{
+            [self performSegueWithIdentifier:@"MBBabyCardController" sender:nil];
+        }break;
+        case 2:{
+            [self performSegueWithIdentifier:@"MBInviteFriendsViewController" sender:nil];
+
+        }break;
+        case 3: {
+            
+            [MobClick event:@"PersonalCenter4"];
+            MBMyCollectionViewController *VC =[[MBMyCollectionViewController alloc] init];
+            [self pushViewController:VC Animated:YES];
+
+        }break;
+        case 4:{
+            [MobClick event:@"PersonalCenter8"];
+            NSString * telStr = [NSString stringWithFormat:@"telprompt://%@",@"010-85170751"];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
+
+        }break;
+        case 5:{
+            [MobClick event:@"PersonalCenter9"];
+            MBShopAddresViewController *VC = [[MBShopAddresViewController alloc] init];
+            VC.isPersonalCenter = true;
+            [self pushViewController:VC Animated:YES];
+        }break;
+        case 6:{
+            
             [MobClick event:@"PersonalCenter5"];
             MBRefundHomeController *VC = [[MBRefundHomeController alloc] init];
-            [self pushViewController:VC Animated:YES];}break;
-        case 2: {
+            [self pushViewController:VC Animated:YES];
+            [MobClick event:@"PersonalCenter11"];
+          
+        } break;
+        case 7: {
             [MobClick event:@"PersonalCenter6"];
             MBVoucherViewController *VC =[[MBVoucherViewController alloc] init];
             [self pushViewController:VC Animated:YES];
         }break;
-        case 3:{
+        case 8:{
             [MobClick event:@"PersonalCenter7"];
             [self performSegueWithIdentifier:@"MBMyMaBeanViewController" sender:nil];
         }break;
-        case 4:{
-            [self performSegueWithIdentifier:@"MBInviteFriendsViewController" sender:nil];
-        }break;
-        case 5:{
-            [MobClick event:@"PersonalCenter8"];
-            NSString * telStr = [NSString stringWithFormat:@"telprompt://%@",@"010-85170751"];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
-        }break;
-        case 6:{
-            [MobClick event:@"PersonalCenter9"];
-            MBShopAddresViewController *VC = [[MBShopAddresViewController alloc] init];
-            VC.PersonalCenter = @"yes";
-            [self pushViewController:VC Animated:YES];
-        } break;
-        case 7: {
-            [MobClick event:@"PersonalCenter11"];
+        case 9:{
             [self service];
         }break;
-            
-        case 8:{
+        case 10:{
             [MobClick event:@"PersonalCenter12"];
             MBHelpViewController *helpVC = [[MBHelpViewController alloc] init];
             helpVC.title = @"售后服务";
@@ -282,19 +298,14 @@
             [self pushViewController:helpVC Animated:YES];
             
         }break;
-        case 9:{
+        case 11:{
             [MobClick event:@"PersonalCenter13"];
             MBHelpViewController *helpVC = [[MBHelpViewController alloc] init];
             helpVC.title = @"麻包帮助";
             helpVC.url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"help" ofType:@"html"]];
             [self pushViewController:helpVC Animated:YES];
         }break;
-        default:{
-            
-            [MobClick event:@"PersonalCenter4"];
-            MBMyCollectionViewController *VC =[[MBMyCollectionViewController alloc] init];
-            [self pushViewController:VC Animated:YES];
-        }
+        default:break;
     
     }
 }

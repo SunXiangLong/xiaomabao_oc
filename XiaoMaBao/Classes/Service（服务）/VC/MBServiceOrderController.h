@@ -10,6 +10,4 @@
 
 @interface MBServiceOrderController : BkBaseViewController
 @property (nonatomic,strong) NSString *order_id;
-@property (nonatomic,assign) NSInteger type;
-
 @end

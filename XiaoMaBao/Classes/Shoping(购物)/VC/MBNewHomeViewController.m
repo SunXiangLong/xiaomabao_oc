@@ -30,40 +30,7 @@
 @implementation MBNewHomeViewController
 
 
--(void)viewWillAppear:(BOOL)animated
-{
-    
-    [super viewWillAppear:animated];
-    NSDictionary *userInfo = [User_Defaults valueForKeyPath:@"userNotification"];
-    if (userInfo) {
-        NSString *type = userInfo[@"type"];
-        if ([type isEqualToString:@"goods"]) {
-            MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
-            VC.GoodsId =  userInfo[@"id"];
-            [self pushViewController:VC Animated:YES];
-        }else if([type isEqualToString:@"topic"]){
-            MBActivityViewController *VC = [[MBActivityViewController alloc] init];
-            VC.act_id = userInfo[@"id"];
-            [self pushViewController:VC Animated:YES];
-        }else if([type isEqualToString:@"group"]){
-            MBGroupShopController *VC = [[MBGroupShopController alloc] init];
-            [self pushViewController:VC Animated:YES];
-        }else if([type isEqualToString:@"web"]){
-            MBWebViewController *VC = [[MBWebViewController alloc] init];
-            VC.url =  [NSURL URLWithString:userInfo[@"id"]];
-            VC.isloging = YES;
-            [self pushViewController:VC Animated:YES];
-        }else if([type isEqualToString:@"signIn"]){
-            [self performSegueWithIdentifier:@"MBCheckInViewController" sender:nil];
-        }
-        [User_Defaults setObject:nil forKey:@"userInfo"];
-        [User_Defaults synchronize];
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-     
-    }
-    
 
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -72,14 +39,7 @@
     [self setupTitlesView];
     [self setupScrollView];
 }
--(void)leftTitleClick{
-    
-//    MBServiceEvaluationController *VC  = [[MBServiceEvaluationController alloc] init];
-//    [self  pushViewController:VC Animated:YES];
-//    MBNewReleaseTopicViewController *vc = [[MBNewReleaseTopicViewController alloc] init];
-//    [self pushViewController:vc Animated:true];
 
-}
 - (void)setupChildVcs{
   
     
@@ -156,7 +116,7 @@
 
 - (void)rightTitleClick{
     
-    MBGoodSSearchViewController *searchViewController = [[MBGoodSSearchViewController alloc] init:NO];
+    MBGoodSSearchViewController *searchViewController = [[MBGoodSSearchViewController alloc] init:PYSearchResultShowModeGoods];
     searchViewController.hotSearches = @[@""];
     searchViewController.hotSearchStyle =  PYHotSearchStyleColorfulTag;
     searchViewController.searchBar.placeholder = @"请输入要搜索商品名称";

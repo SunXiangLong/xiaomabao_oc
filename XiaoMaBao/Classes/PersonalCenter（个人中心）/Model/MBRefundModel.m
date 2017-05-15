@@ -9,6 +9,7 @@
 #import "MBRefundModel.h"
 
 @implementation MBRefundModel
+
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic{
     self.goodsDetail  = [NSArray modelDictionary:dic modelKey:@"goods_detail" modelClassName:@"MBRefundGoodsModel"];
     return YES;
