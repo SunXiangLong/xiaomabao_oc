@@ -14,9 +14,11 @@
 #import "MBGroupShopController.h"
 @interface MBBabyWebController ()<UIWebViewDelegate>
 {
-    UIWebView *_webView;
+  
     
 }
+@property(nonatomic,strong) UIWebView *webView;
+@property(nonatomic,strong) UIProgressView *progressView;
 @end
 
 @implementation MBBabyWebController
@@ -31,23 +33,47 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setUI];
+}
+
+- (void)setUI{
+    _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, TOP_Y, [[UIScreen mainScreen] bounds].size.width, 2)];
+    _progressView.progressTintColor = [UIColor purpleColor];
+    //设置进度条的高度，下面这句代码表示进度条的宽度变为原来的1倍，高度变为原来的1.5倍.
+    //    _progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
+    
     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, TOP_Y, UISCREEN_WIDTH, UISCREEN_HEIGHT-TOP_Y)];
     [self.view addSubview:_webView];
-    
+    [self.view addSubview:_progressView];
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    [self show:@"加载中..."];
     _webView.delegate = self;
     _webView.backgroundColor = [UIColor whiteColor];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
     
-  
-        [self deleteCookie];
-        [self setCookie];
+    
+    [self deleteCookie];
+    [self setCookie];
     
     
     [_webView loadRequest:request];
+
+
+    [RACObserve(self.progressView, progress) subscribeNext:^(id x) {
     
+        if (self.progressView.progress == 1) {
+            
+            [UIView animateWithDuration:0.25f delay:0.3f options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.4f);
+            } completion:^(BOOL finished) {
+                self.progressView.hidden = YES;
+                
+            }];
+        }
+      
+        
+    }];
 }
 /**
  *   删除cookie
@@ -93,10 +119,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)webViewDidStartLoad:(UIWebView *)webView{
 
+    self.progressView.progress = 0.75;
+}
 -(void)webViewDidFinishLoad:(UIWebView*)webView{
     //当网页视图结束加载一个请求之后，得到通知。
-    
+    self.progressView.progress = 1;
  
         JSContext *context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
         
@@ -129,12 +158,13 @@
         };
     
     
-    [self dismiss];
+
     
 }
 -(void)webView:(UIWebView*)webView DidFailLoadWithError:(NSError*)error{
     //当在请求加载中发生错误时，得到通知。会提供一个NSSError对象，以标识所发生错误类
     MMLog(@"%@",error);
+    self.progressView.progress = 0;
     [self show:error.userInfo[@"NSLocalizedDescription"] time:1];
 }
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{

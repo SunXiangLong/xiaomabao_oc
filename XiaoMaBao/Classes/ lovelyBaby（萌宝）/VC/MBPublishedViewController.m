@@ -8,10 +8,12 @@
 
 #import "MBPublishedViewController.h"
 #import "PhotoCollectionViewCell.h"
+
 @interface MBPublishedViewController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SDPhotoBrowserDelegate,PhotoCollectionViewCellDelegate>
 {
     
     SDPhotoBrowser *browser;
+    UIImage *_image;
 
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom;
@@ -69,9 +71,9 @@
 
     _bottom.constant = UISCREEN_HEIGHT-TOP_Y-75;
     _textView.delegate = self;
-
+    _image = [UIImage imageNamed:@"addPhoto_image"];
     _photoArray = [NSMutableArray array];
-    [_photoArray addObject:[UIImage imageNamed:@"addPhoto_image"]];
+    [_photoArray addObject:_image];
     // Do any additional setup after loading the view from its nib.
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -92,7 +94,7 @@
  *  初始化相册选择器
  */
 - (void)presentPhotoPickerViewController {
-    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:6 columnNumber:4 delegate:nil pushPhotoPickerVc:YES];
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:7 - self.photoArray.count  columnNumber:4 delegate:nil pushPhotoPickerVc:YES];
     WS(weakSelf)
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         
@@ -275,13 +277,9 @@
         }
     }
     
-    
-    
-        UICollectionViewCell *cell = [_collectionView cellForItemAtIndexPath:indexPath];
         browser = [[SDPhotoBrowser alloc] init];
         browser.currentImageIndex =indexPath.row;
-//        browser.isremove = YES;
-        browser.sourceImagesContainerView = cell.contentView;
+        browser.sourceImagesContainerView = collectionView;
         browser.imageCount = _photoArray.count-1;
         browser.delegate = self;
         [browser show];
@@ -320,6 +318,7 @@
 #pragma mark - SDPhotoBrowserDelegate
 - (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
 {
+   
     return _photoArray[index];
    
 }

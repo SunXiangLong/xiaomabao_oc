@@ -10,5 +10,5 @@
 
 @interface MBSetBabyInformationController : BkBaseViewController
 @property (nonatomic,strong) NSString *babyGender;
-
+@property (nonatomic, copy)  NSString *baby_id;
 @end

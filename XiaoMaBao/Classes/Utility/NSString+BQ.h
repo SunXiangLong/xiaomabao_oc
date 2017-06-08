@@ -65,4 +65,7 @@ typedef enum {
 + (NSArray *)rangesOfString:(NSString *)searchString inString:(NSString *)str;
 + (NSInteger)getAppearCount:(NSString *)withStr;
 + (BOOL )htmlImgString:(NSString *)str;
+
+- (NSDate *)stringConversionDate;
++ (NSString *)dateConversionString:(NSDate *)date;
 @end

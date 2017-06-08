@@ -97,7 +97,6 @@
 		9F4407911EB9B39800668E62 /* MBMedicalReportQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F44078F1EB9B39800668E62 /* MBMedicalReportQueryViewController.m */; };
 		9F4407941EB9B7A700668E62 /* MBMedicalReporTQueryResultsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F4407921EB9B7A700668E62 /* MBMedicalReporTQueryResultsViewController.h */; };
 		9F4407951EB9B7A700668E62 /* MBMedicalReporTQueryResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4407931EB9B7A700668E62 /* MBMedicalReporTQueryResultsViewController.m */; };
-		9F4407981EB9D94A00668E62 /* document.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F4407971EB9D94A00668E62 /* document.pdf */; };
 		9F57C3ED1E971FC700A16D24 /* MBFireOrderViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C3E21E971FC700A16D24 /* MBFireOrderViewController.h */; };
 		9F57C3EE1E971FC700A16D24 /* MBFireOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C3E31E971FC700A16D24 /* MBFireOrderViewController.m */; };
 		9F57C3EF1E971FC700A16D24 /* MBInvoiceViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C3E41E971FC700A16D24 /* MBInvoiceViewController.h */; };
@@ -172,9 +171,6 @@
 		9F57C4821E973BF000A16D24 /* UIImagePickerController+ST.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C4731E973BF000A16D24 /* UIImagePickerController+ST.m */; };
 		9F57C4831E973BF000A16D24 /* UIView+ST.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C4741E973BF000A16D24 /* UIView+ST.h */; };
 		9F57C4841E973BF000A16D24 /* UIView+ST.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C4751E973BF000A16D24 /* UIView+ST.m */; };
-		9F57C4D21E973E5000A16D24 /* MBabyRecordController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C4881E973E5000A16D24 /* MBabyRecordController.h */; };
-		9F57C4D31E973E5000A16D24 /* MBabyRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C4891E973E5000A16D24 /* MBabyRecordController.m */; };
-		9F57C4D41E973E5000A16D24 /* MBabyRecordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F57C48A1E973E5000A16D24 /* MBabyRecordController.xib */; };
 		9F57C4D51E973E5000A16D24 /* MBBabyDueDateController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C48B1E973E5000A16D24 /* MBBabyDueDateController.h */; };
 		9F57C4D61E973E5000A16D24 /* MBBabyDueDateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C48C1E973E5000A16D24 /* MBBabyDueDateController.m */; };
 		9F57C4D71E973E5000A16D24 /* MBBabyDueDateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F57C48D1E973E5000A16D24 /* MBBabyDueDateController.xib */; };
@@ -198,24 +194,6 @@
 		9F57C4E91E973E5000A16D24 /* MBPublishedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F57C49F1E973E5000A16D24 /* MBPublishedViewController.xib */; };
 		9F57C4EA1E973E5000A16D24 /* MBSetBabyInformationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C4A01E973E5000A16D24 /* MBSetBabyInformationController.h */; };
 		9F57C4EB1E973E5000A16D24 /* MBSetBabyInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C4A11E973E5000A16D24 /* MBSetBabyInformationController.m */; };
-		9F57C4EC1E973E5000A16D24 /* MBabyRecordFiveCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C4A31E973E5000A16D24 /* MBabyRecordFiveCell.h */; };
-		9F57C4ED1E973E5000A16D24 /* MBabyRecordFiveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C4A41E973E5000A16D24 /* MBabyRecordFiveCell.m */; };
-		9F57C4EE1E973E5000A16D24 /* MBabyRecordFiveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F57C4A51E973E5000A16D24 /* MBabyRecordFiveCell.xib */; };
-		9F57C4EF1E973E5000A16D24 /* MBabyRecordFourCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C4A61E973E5000A16D24 /* MBabyRecordFourCell.h */; };
-		9F57C4F01E973E5000A16D24 /* MBabyRecordFourCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C4A71E973E5000A16D24 /* MBabyRecordFourCell.m */; };
-		9F57C4F11E973E5000A16D24 /* MBabyRecordFourCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F57C4A81E973E5000A16D24 /* MBabyRecordFourCell.xib */; };
-		9F57C4F21E973E5000A16D24 /* MBabyRecordHeadView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C4A91E973E5000A16D24 /* MBabyRecordHeadView.h */; };
-		9F57C4F31E973E5000A16D24 /* MBabyRecordHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C4AA1E973E5000A16D24 /* MBabyRecordHeadView.m */; };
-		9F57C4F41E973E5000A16D24 /* MBabyRecordHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F57C4AB1E973E5000A16D24 /* MBabyRecordHeadView.xib */; };
-		9F57C4F51E973E5000A16D24 /* MBabyRecordOneCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C4AC1E973E5000A16D24 /* MBabyRecordOneCell.h */; };
-		9F57C4F61E973E5000A16D24 /* MBabyRecordOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C4AD1E973E5000A16D24 /* MBabyRecordOneCell.m */; };
-		9F57C4F71E973E5000A16D24 /* MBabyRecordOneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F57C4AE1E973E5000A16D24 /* MBabyRecordOneCell.xib */; };
-		9F57C4F81E973E5000A16D24 /* MBabyRecordThreeCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C4AF1E973E5000A16D24 /* MBabyRecordThreeCell.h */; };
-		9F57C4F91E973E5000A16D24 /* MBabyRecordThreeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C4B01E973E5000A16D24 /* MBabyRecordThreeCell.m */; };
-		9F57C4FA1E973E5000A16D24 /* MBabyRecordThreeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F57C4B11E973E5000A16D24 /* MBabyRecordThreeCell.xib */; };
-		9F57C4FB1E973E5000A16D24 /* MBabyRecordTwoCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C4B21E973E5000A16D24 /* MBabyRecordTwoCell.h */; };
-		9F57C4FC1E973E5000A16D24 /* MBabyRecordTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C4B31E973E5000A16D24 /* MBabyRecordTwoCell.m */; };
-		9F57C4FD1E973E5000A16D24 /* MBabyRecordTwoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F57C4B41E973E5000A16D24 /* MBabyRecordTwoCell.xib */; };
 		9F57C4FE1E973E5000A16D24 /* MBBabyImageCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C4B51E973E5000A16D24 /* MBBabyImageCollectionViewCell.h */; };
 		9F57C4FF1E973E5000A16D24 /* MBBabyImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C4B61E973E5000A16D24 /* MBBabyImageCollectionViewCell.m */; };
 		9F57C5001E973E5000A16D24 /* MBBabyImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F57C4B71E973E5000A16D24 /* MBBabyImageCollectionViewCell.xib */; };
@@ -948,9 +926,19 @@
 		9F98A3EA1E9F266B001FCED3 /* RSADataVerifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F98A38E1E9F266B001FCED3 /* RSADataVerifier.h */; };
 		9F98A3EB1E9F266B001FCED3 /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F98A38F1E9F266B001FCED3 /* RSADataVerifier.m */; };
 		9FAEAF1D1E601F4900F26267 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FAEAF1C1E601F4900F26267 /* QuartzCore.framework */; };
+		9FB6FF3D1EE790DD0069E422 /* MBLovelyBabyModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FB6FF3B1EE790DD0069E422 /* MBLovelyBabyModel.h */; };
+		9FB6FF3E1EE790DD0069E422 /* MBLovelyBabyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB6FF3C1EE790DD0069E422 /* MBLovelyBabyModel.m */; };
+		9FCA7C5F1EE545D9000C1B49 /* MBpreparePregnantSetViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FCA7C5D1EE545D9000C1B49 /* MBpreparePregnantSetViewController.h */; };
+		9FCA7C601EE545D9000C1B49 /* MBpreparePregnantSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCA7C5E1EE545D9000C1B49 /* MBpreparePregnantSetViewController.m */; };
 		9FF9F2C51EC194DC009F9B7E /* MBSearchPostViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FF9F2C21EC194DC009F9B7E /* MBSearchPostViewController.h */; };
 		9FF9F2C61EC194DC009F9B7E /* MBSearchPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF9F2C31EC194DC009F9B7E /* MBSearchPostViewController.m */; };
 		9FF9F2C71EC194DC009F9B7E /* MBSearchPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FF9F2C41EC194DC009F9B7E /* MBSearchPostViewController.xib */; };
+		9FFCB1451EE928780076D653 /* MBBabysDiaryViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FFCB1431EE928780076D653 /* MBBabysDiaryViewController.h */; };
+		9FFCB1461EE928780076D653 /* MBBabysDiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFCB1441EE928780076D653 /* MBBabysDiaryViewController.m */; };
+		9FFCB1491EE938160076D653 /* MBBabysDiaryModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FFCB1471EE938160076D653 /* MBBabysDiaryModel.h */; };
+		9FFCB14A1EE938160076D653 /* MBBabysDiaryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFCB1481EE938160076D653 /* MBBabysDiaryModel.m */; };
+		9FFCB14D1EE93B560076D653 /* MBBabysDiaryTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FFCB14B1EE93B560076D653 /* MBBabysDiaryTableViewCell.h */; };
+		9FFCB14E1EE93B560076D653 /* MBBabysDiaryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFCB14C1EE93B560076D653 /* MBBabysDiaryTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1064,7 +1052,6 @@
 		9F44078F1EB9B39800668E62 /* MBMedicalReportQueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMedicalReportQueryViewController.m; sourceTree = "<group>"; };
 		9F4407921EB9B7A700668E62 /* MBMedicalReporTQueryResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMedicalReporTQueryResultsViewController.h; sourceTree = "<group>"; };
 		9F4407931EB9B7A700668E62 /* MBMedicalReporTQueryResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMedicalReporTQueryResultsViewController.m; sourceTree = "<group>"; };
-		9F4407971EB9D94A00668E62 /* document.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = document.pdf; sourceTree = "<group>"; };
 		9F57C3E21E971FC700A16D24 /* MBFireOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFireOrderViewController.h; sourceTree = "<group>"; };
 		9F57C3E31E971FC700A16D24 /* MBFireOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFireOrderViewController.m; sourceTree = "<group>"; };
 		9F57C3E41E971FC700A16D24 /* MBInvoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBInvoiceViewController.h; sourceTree = "<group>"; };
@@ -1139,9 +1126,6 @@
 		9F57C4731E973BF000A16D24 /* UIImagePickerController+ST.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+ST.m"; sourceTree = "<group>"; };
 		9F57C4741E973BF000A16D24 /* UIView+ST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ST.h"; sourceTree = "<group>"; };
 		9F57C4751E973BF000A16D24 /* UIView+ST.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ST.m"; sourceTree = "<group>"; };
-		9F57C4881E973E5000A16D24 /* MBabyRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBabyRecordController.h; sourceTree = "<group>"; };
-		9F57C4891E973E5000A16D24 /* MBabyRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBabyRecordController.m; sourceTree = "<group>"; };
-		9F57C48A1E973E5000A16D24 /* MBabyRecordController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBabyRecordController.xib; sourceTree = "<group>"; };
 		9F57C48B1E973E5000A16D24 /* MBBabyDueDateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBabyDueDateController.h; sourceTree = "<group>"; };
 		9F57C48C1E973E5000A16D24 /* MBBabyDueDateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabyDueDateController.m; sourceTree = "<group>"; };
 		9F57C48D1E973E5000A16D24 /* MBBabyDueDateController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBBabyDueDateController.xib; sourceTree = "<group>"; };
@@ -1154,8 +1138,8 @@
 		9F57C4941E973E5000A16D24 /* MBBabyShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabyShowViewController.m; sourceTree = "<group>"; };
 		9F57C4951E973E5000A16D24 /* MBBabyWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBabyWebController.h; sourceTree = "<group>"; };
 		9F57C4961E973E5000A16D24 /* MBBabyWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabyWebController.m; sourceTree = "<group>"; };
-		9F57C4971E973E5000A16D24 /* MBCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBCollectionViewFlowLayout.h; sourceTree = "<group>"; };
-		9F57C4981E973E5000A16D24 /* MBCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		9F57C4971E973E5000A16D24 /* MBCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBCollectionViewFlowLayout.h; path = ../VC/MBCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		9F57C4981E973E5000A16D24 /* MBCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBCollectionViewFlowLayout.m; path = ../VC/MBCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		9F57C4991E973E5000A16D24 /* MBNewBabyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBNewBabyController.h; sourceTree = "<group>"; };
 		9F57C49A1E973E5000A16D24 /* MBNewBabyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBNewBabyController.m; sourceTree = "<group>"; };
 		9F57C49B1E973E5000A16D24 /* MBNewWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBNewWebViewController.h; sourceTree = "<group>"; };
@@ -1165,24 +1149,6 @@
 		9F57C49F1E973E5000A16D24 /* MBPublishedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBPublishedViewController.xib; sourceTree = "<group>"; };
 		9F57C4A01E973E5000A16D24 /* MBSetBabyInformationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSetBabyInformationController.h; sourceTree = "<group>"; };
 		9F57C4A11E973E5000A16D24 /* MBSetBabyInformationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSetBabyInformationController.m; sourceTree = "<group>"; };
-		9F57C4A31E973E5000A16D24 /* MBabyRecordFiveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBabyRecordFiveCell.h; sourceTree = "<group>"; };
-		9F57C4A41E973E5000A16D24 /* MBabyRecordFiveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBabyRecordFiveCell.m; sourceTree = "<group>"; };
-		9F57C4A51E973E5000A16D24 /* MBabyRecordFiveCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBabyRecordFiveCell.xib; sourceTree = "<group>"; };
-		9F57C4A61E973E5000A16D24 /* MBabyRecordFourCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBabyRecordFourCell.h; sourceTree = "<group>"; };
-		9F57C4A71E973E5000A16D24 /* MBabyRecordFourCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBabyRecordFourCell.m; sourceTree = "<group>"; };
-		9F57C4A81E973E5000A16D24 /* MBabyRecordFourCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBabyRecordFourCell.xib; sourceTree = "<group>"; };
-		9F57C4A91E973E5000A16D24 /* MBabyRecordHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBabyRecordHeadView.h; sourceTree = "<group>"; };
-		9F57C4AA1E973E5000A16D24 /* MBabyRecordHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBabyRecordHeadView.m; sourceTree = "<group>"; };
-		9F57C4AB1E973E5000A16D24 /* MBabyRecordHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBabyRecordHeadView.xib; sourceTree = "<group>"; };
-		9F57C4AC1E973E5000A16D24 /* MBabyRecordOneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBabyRecordOneCell.h; sourceTree = "<group>"; };
-		9F57C4AD1E973E5000A16D24 /* MBabyRecordOneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBabyRecordOneCell.m; sourceTree = "<group>"; };
-		9F57C4AE1E973E5000A16D24 /* MBabyRecordOneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBabyRecordOneCell.xib; sourceTree = "<group>"; };
-		9F57C4AF1E973E5000A16D24 /* MBabyRecordThreeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBabyRecordThreeCell.h; sourceTree = "<group>"; };
-		9F57C4B01E973E5000A16D24 /* MBabyRecordThreeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBabyRecordThreeCell.m; sourceTree = "<group>"; };
-		9F57C4B11E973E5000A16D24 /* MBabyRecordThreeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBabyRecordThreeCell.xib; sourceTree = "<group>"; };
-		9F57C4B21E973E5000A16D24 /* MBabyRecordTwoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBabyRecordTwoCell.h; sourceTree = "<group>"; };
-		9F57C4B31E973E5000A16D24 /* MBabyRecordTwoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBabyRecordTwoCell.m; sourceTree = "<group>"; };
-		9F57C4B41E973E5000A16D24 /* MBabyRecordTwoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBabyRecordTwoCell.xib; sourceTree = "<group>"; };
 		9F57C4B51E973E5000A16D24 /* MBBabyImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBabyImageCollectionViewCell.h; sourceTree = "<group>"; };
 		9F57C4B61E973E5000A16D24 /* MBBabyImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabyImageCollectionViewCell.m; sourceTree = "<group>"; };
 		9F57C4B71E973E5000A16D24 /* MBBabyImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBBabyImageCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1916,9 +1882,19 @@
 		9F98A38E1E9F266B001FCED3 /* RSADataVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataVerifier.h; sourceTree = "<group>"; };
 		9F98A38F1E9F266B001FCED3 /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
 		9FAEAF1C1E601F4900F26267 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		9FB6FF3B1EE790DD0069E422 /* MBLovelyBabyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBLovelyBabyModel.h; sourceTree = "<group>"; };
+		9FB6FF3C1EE790DD0069E422 /* MBLovelyBabyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBLovelyBabyModel.m; sourceTree = "<group>"; };
+		9FCA7C5D1EE545D9000C1B49 /* MBpreparePregnantSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBpreparePregnantSetViewController.h; sourceTree = "<group>"; };
+		9FCA7C5E1EE545D9000C1B49 /* MBpreparePregnantSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBpreparePregnantSetViewController.m; sourceTree = "<group>"; };
 		9FF9F2C21EC194DC009F9B7E /* MBSearchPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSearchPostViewController.h; sourceTree = "<group>"; };
 		9FF9F2C31EC194DC009F9B7E /* MBSearchPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSearchPostViewController.m; sourceTree = "<group>"; };
 		9FF9F2C41EC194DC009F9B7E /* MBSearchPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBSearchPostViewController.xib; sourceTree = "<group>"; };
+		9FFCB1431EE928780076D653 /* MBBabysDiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBabysDiaryViewController.h; sourceTree = "<group>"; };
+		9FFCB1441EE928780076D653 /* MBBabysDiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabysDiaryViewController.m; sourceTree = "<group>"; };
+		9FFCB1471EE938160076D653 /* MBBabysDiaryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBabysDiaryModel.h; sourceTree = "<group>"; };
+		9FFCB1481EE938160076D653 /* MBBabysDiaryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabysDiaryModel.m; sourceTree = "<group>"; };
+		9FFCB14B1EE93B560076D653 /* MBBabysDiaryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBabysDiaryTableViewCell.h; sourceTree = "<group>"; };
+		9FFCB14C1EE93B560076D653 /* MBBabysDiaryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabysDiaryTableViewCell.m; sourceTree = "<group>"; };
 		D275E509BF4EC4D367EA9E58 /* Pods_XiaoMaBao.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XiaoMaBao.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E89C67193C99CD724F967DE5 /* Pods-XiaoMaBao.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoMaBao.release.xcconfig"; path = "Pods/Target Support Files/Pods-XiaoMaBao/Pods-XiaoMaBao.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2114,7 +2090,6 @@
 				9F2F6B781E95D3A4002389DA /* www */,
 				9F2F6B6B1E95D28B002389DA /* Info.plist */,
 				9F2F6B6C1E95D28B002389DA /* main.m */,
-				9F4407971EB9D94A00668E62 /* document.pdf */,
 				9F2F6B6D1E95D28B002389DA /* RTWSYueRoudGoG0v1-Regular.ttf */,
 				9F2F6B6A1E95D28B002389DA /* Images.xcassets */,
 				9F2F6B6E1E95D28B002389DA /* XiaoMaBao.entitlements */,
@@ -2514,6 +2489,10 @@
 		9F57C4861E973E5000A16D24 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9FB6FF3B1EE790DD0069E422 /* MBLovelyBabyModel.h */,
+				9FB6FF3C1EE790DD0069E422 /* MBLovelyBabyModel.m */,
+				9FFCB1471EE938160076D653 /* MBBabysDiaryModel.h */,
+				9FFCB1481EE938160076D653 /* MBBabysDiaryModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2523,9 +2502,8 @@
 			children = (
 				9F57C4991E973E5000A16D24 /* MBNewBabyController.h */,
 				9F57C49A1E973E5000A16D24 /* MBNewBabyController.m */,
-				9F57C4881E973E5000A16D24 /* MBabyRecordController.h */,
-				9F57C4891E973E5000A16D24 /* MBabyRecordController.m */,
-				9F57C48A1E973E5000A16D24 /* MBabyRecordController.xib */,
+				9FFCB1431EE928780076D653 /* MBBabysDiaryViewController.h */,
+				9FFCB1441EE928780076D653 /* MBBabysDiaryViewController.m */,
 				9F57C48B1E973E5000A16D24 /* MBBabyDueDateController.h */,
 				9F57C48C1E973E5000A16D24 /* MBBabyDueDateController.m */,
 				9F57C48D1E973E5000A16D24 /* MBBabyDueDateController.xib */,
@@ -2538,8 +2516,6 @@
 				9F57C4941E973E5000A16D24 /* MBBabyShowViewController.m */,
 				9F57C4951E973E5000A16D24 /* MBBabyWebController.h */,
 				9F57C4961E973E5000A16D24 /* MBBabyWebController.m */,
-				9F57C4971E973E5000A16D24 /* MBCollectionViewFlowLayout.h */,
-				9F57C4981E973E5000A16D24 /* MBCollectionViewFlowLayout.m */,
 				9F57C49B1E973E5000A16D24 /* MBNewWebViewController.h */,
 				9F57C49C1E973E5000A16D24 /* MBNewWebViewController.m */,
 				9F57C49D1E973E5000A16D24 /* MBPublishedViewController.h */,
@@ -2547,6 +2523,8 @@
 				9F57C49F1E973E5000A16D24 /* MBPublishedViewController.xib */,
 				9F57C4A01E973E5000A16D24 /* MBSetBabyInformationController.h */,
 				9F57C4A11E973E5000A16D24 /* MBSetBabyInformationController.m */,
+				9FCA7C5D1EE545D9000C1B49 /* MBpreparePregnantSetViewController.h */,
+				9FCA7C5E1EE545D9000C1B49 /* MBpreparePregnantSetViewController.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -2554,24 +2532,10 @@
 		9F57C4A21E973E5000A16D24 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9F57C4A31E973E5000A16D24 /* MBabyRecordFiveCell.h */,
-				9F57C4A41E973E5000A16D24 /* MBabyRecordFiveCell.m */,
-				9F57C4A51E973E5000A16D24 /* MBabyRecordFiveCell.xib */,
-				9F57C4A61E973E5000A16D24 /* MBabyRecordFourCell.h */,
-				9F57C4A71E973E5000A16D24 /* MBabyRecordFourCell.m */,
-				9F57C4A81E973E5000A16D24 /* MBabyRecordFourCell.xib */,
-				9F57C4A91E973E5000A16D24 /* MBabyRecordHeadView.h */,
-				9F57C4AA1E973E5000A16D24 /* MBabyRecordHeadView.m */,
-				9F57C4AB1E973E5000A16D24 /* MBabyRecordHeadView.xib */,
-				9F57C4AC1E973E5000A16D24 /* MBabyRecordOneCell.h */,
-				9F57C4AD1E973E5000A16D24 /* MBabyRecordOneCell.m */,
-				9F57C4AE1E973E5000A16D24 /* MBabyRecordOneCell.xib */,
-				9F57C4AF1E973E5000A16D24 /* MBabyRecordThreeCell.h */,
-				9F57C4B01E973E5000A16D24 /* MBabyRecordThreeCell.m */,
-				9F57C4B11E973E5000A16D24 /* MBabyRecordThreeCell.xib */,
-				9F57C4B21E973E5000A16D24 /* MBabyRecordTwoCell.h */,
-				9F57C4B31E973E5000A16D24 /* MBabyRecordTwoCell.m */,
-				9F57C4B41E973E5000A16D24 /* MBabyRecordTwoCell.xib */,
+				9F57C4971E973E5000A16D24 /* MBCollectionViewFlowLayout.h */,
+				9F57C4981E973E5000A16D24 /* MBCollectionViewFlowLayout.m */,
+				9FFCB14B1EE93B560076D653 /* MBBabysDiaryTableViewCell.h */,
+				9FFCB14C1EE93B560076D653 /* MBBabysDiaryTableViewCell.m */,
 				9F57C4B51E973E5000A16D24 /* MBBabyImageCollectionViewCell.h */,
 				9F57C4B61E973E5000A16D24 /* MBBabyImageCollectionViewCell.m */,
 				9F57C4B71E973E5000A16D24 /* MBBabyImageCollectionViewCell.xib */,
@@ -3642,7 +3606,6 @@
 				9F57C92C1E97732600A16D24 /* MBBabySearchViewController.h in Headers */,
 				9F98A3CD1E9F266B001FCED3 /* ssl2.h in Headers */,
 				9F08B2D31E8393CE0052C821 /* MBBaseCollectionView.h in Headers */,
-				9F57C4EF1E973E5000A16D24 /* MBabyRecordFourCell.h in Headers */,
 				9F57C55E1E9741FB00A16D24 /* MBBrandDetailsCollectionViewCell.h in Headers */,
 				9F57C7CB1E976C2700A16D24 /* MBAfterSalesServiceViewController.h in Headers */,
 				9F57C7501E976B8B00A16D24 /* MBEvaluationSuccessController.h in Headers */,
@@ -3777,7 +3740,6 @@
 				9F57C77A1E976B8B00A16D24 /* MBPayResultsCell.h in Headers */,
 				9F57C7A71E976B8B00A16D24 /* MBServiceShopsOneCell.h in Headers */,
 				9F98A3C11E9F266B001FCED3 /* pqueue.h in Headers */,
-				9F57C4F21E973E5000A16D24 /* MBabyRecordHeadView.h in Headers */,
 				9F57C9001E97716900A16D24 /* MBMyItem.h in Headers */,
 				9F98A3961E9F266B001FCED3 /* bn.h in Headers */,
 				9F57C4FE1E973E5000A16D24 /* MBBabyImageCollectionViewCell.h in Headers */,
@@ -3795,7 +3757,6 @@
 				9F57C9431E97732600A16D24 /* MBOrderInfoViewController.h in Headers */,
 				9F57C7721E976B8B00A16D24 /* MBEvaluationSuccessCell.h in Headers */,
 				9F08B2CF1E837A310052C821 /* MBBaseScrollView.h in Headers */,
-				9F57C4F81E973E5000A16D24 /* MBabyRecordThreeCell.h in Headers */,
 				9F57C7741E976B8B00A16D24 /* MBMaBaoVolumeHeaderView.h in Headers */,
 				9F2F6CAE1E964DE4002389DA /* MBHelpViewController.h in Headers */,
 				9F57C9F11E97799200A16D24 /* MBSearchViewController.h in Headers */,
@@ -3816,6 +3777,7 @@
 				9F57C5791E9741FB00A16D24 /* ZLDateView.h in Headers */,
 				9F98A3901E9F266B001FCED3 /* aes.h in Headers */,
 				9F98A3C21E9F266B001FCED3 /* rand.h in Headers */,
+				9FFCB1451EE928780076D653 /* MBBabysDiaryViewController.h in Headers */,
 				9F98A3A81E9F266B001FCED3 /* ec.h in Headers */,
 				9F57C5601E9741FB00A16D24 /* MBBrandDetailsCollectionViewReusableView.h in Headers */,
 				9F57C6611E975DE800A16D24 /* MBPostDetailsTwoCell.h in Headers */,
@@ -3849,14 +3811,12 @@
 				9F57C56C1E9741FB00A16D24 /* MBMaBaoFeaturesShopCell.h in Headers */,
 				9F57C40F1E97208C00A16D24 /* MBFireOrderTableViewCell.h in Headers */,
 				9F57C8B51E976FE600A16D24 /* MBVoucherTableViewCell.h in Headers */,
-				9F57C4FB1E973E5000A16D24 /* MBabyRecordTwoCell.h in Headers */,
 				9F57C5011E973E5000A16D24 /* MBBabyToolCell.h in Headers */,
 				9F98A3A61E9F266B001FCED3 /* e_os2.h in Headers */,
 				9F57C4E51E973E5000A16D24 /* MBNewWebViewController.h in Headers */,
 				9F57C7831E976B8B00A16D24 /* MBServiceCell.h in Headers */,
 				9F2F6C981E963445002389DA /* MBMBMyServiceChilderCell.h in Headers */,
 				9F98A3B11E9F266B001FCED3 /* kssl.h in Headers */,
-				9F57C4F51E973E5000A16D24 /* MBabyRecordOneCell.h in Headers */,
 				9F98A3C31E9F266B001FCED3 /* rc2.h in Headers */,
 				9F98A3D91E9F266B001FCED3 /* x509_vfy.h in Headers */,
 				9F57C8E91E97711600A16D24 /* MBRedeemedCashViewController.h in Headers */,
@@ -3879,7 +3839,6 @@
 				9F57C8C51E97703700A16D24 /* MBEvaluationViewView.h in Headers */,
 				9F57C63D1E975DE700A16D24 /* MBVoiceViewController.h in Headers */,
 				9F98A3B31E9F266B001FCED3 /* md4.h in Headers */,
-				9F57C4EC1E973E5000A16D24 /* MBabyRecordFiveCell.h in Headers */,
 				9F57C66C1E975DE800A16D24 /* MBVoiceViewCell.h in Headers */,
 				9F57C6AD1E97602E00A16D24 /* MBWelfareCardModel.h in Headers */,
 				9F98A3A91E9F266B001FCED3 /* ecdh.h in Headers */,
@@ -3900,6 +3859,7 @@
 				9F98A3B61E9F266B001FCED3 /* modes.h in Headers */,
 				9F57C5041E973E5000A16D24 /* MBCollectionHeadView.h in Headers */,
 				9F57CA181E977A5000A16D24 /* AppDelegate.h in Headers */,
+				9FFCB14D1EE93B560076D653 /* MBBabysDiaryTableViewCell.h in Headers */,
 				9F57C40D1E97208C00A16D24 /* MBDiscountCell.h in Headers */,
 				9F57C9F41E97799200A16D24 /* PYSearch.h in Headers */,
 				9F57C4E11E973E5000A16D24 /* MBCollectionViewFlowLayout.h in Headers */,
@@ -3919,6 +3879,8 @@
 				9F57CA101E97799200A16D24 /* XWCatergoryViewLayout.h in Headers */,
 				9F57C93E1E97732600A16D24 /* MBInviteFriendsViewController.h in Headers */,
 				9F57C6971E97601200A16D24 /* MBMaoBaoCardViewController.h in Headers */,
+				9FB6FF3D1EE790DD0069E422 /* MBLovelyBabyModel.h in Headers */,
+				9FCA7C5F1EE545D9000C1B49 /* MBpreparePregnantSetViewController.h in Headers */,
 				9F57C7FD1E976C9700A16D24 /* RefundWayTableViewCell.h in Headers */,
 				9F98A3AD1E9F266B001FCED3 /* evp.h in Headers */,
 				9F57C9B61E9777AE00A16D24 /* SevenSwitch.h in Headers */,
@@ -3934,7 +3896,6 @@
 				9F57C9471E97732600A16D24 /* MBSettingViewController.h in Headers */,
 				9F2F6C681E95D4C5002389DA /* WXApiObject.h in Headers */,
 				9F57C9B81E9777AE00A16D24 /* WNXRefresgHeader.h in Headers */,
-				9F57C4D21E973E5000A16D24 /* MBabyRecordController.h in Headers */,
 				9F98A3D41E9F266B001FCED3 /* txt_db.h in Headers */,
 				9F57C6431E975DE700A16D24 /* MBArticleViewCell.h in Headers */,
 				9F57C74B1E976B8A00A16D24 /* MBServiceModel.h in Headers */,
@@ -3955,6 +3916,7 @@
 				9F98A3C41E9F266B001FCED3 /* rc4.h in Headers */,
 				9F57C8561E976DF200A16D24 /* MBGoodsEvaluationViewController.h in Headers */,
 				9F57CA0C1E97799200A16D24 /* XWCatergoryViewCell.h in Headers */,
+				9FFCB1491EE938160076D653 /* MBBabysDiaryModel.h in Headers */,
 				9F57C6931E97601200A16D24 /* MBElectronicOrderHelpcenterVC.h in Headers */,
 				9F57C7B91E976B8B00A16D24 /* MBUserEvaluationListTableHeadView.h in Headers */,
 				9F98A3A01E9F266B001FCED3 /* des.h in Headers */,
@@ -4061,7 +4023,6 @@
 				9F57C85A1E976DF200A16D24 /* MBGroupShopController.xib in Resources */,
 				9F57C6451E975DE700A16D24 /* MBArticleViewCell.xib in Resources */,
 				9F57C7F61E976C9700A16D24 /* MBRefundScheduleTableViewCell.xib in Resources */,
-				9F57C4F71E973E5000A16D24 /* MBabyRecordOneCell.xib in Resources */,
 				9F57C7D31E976C2700A16D24 /* MBRefundHomeController.xib in Resources */,
 				9F57C8B41E976FE600A16D24 /* MBSettingTableViewCell.xib in Resources */,
 				9F57C9421E97732600A16D24 /* MBLogisticsViewController.xib in Resources */,
@@ -4072,7 +4033,6 @@
 				9F57C66E1E975DE800A16D24 /* MBVoiceViewCell.xib in Resources */,
 				9F57C64B1E975DE700A16D24 /* MBDetailsCircleTableHeadView.xib in Resources */,
 				9F2F6B731E95D28B002389DA /* Info.plist in Resources */,
-				9F57C4F41E973E5000A16D24 /* MBabyRecordHeadView.xib in Resources */,
 				9F57C5B41E97437900A16D24 /* Shopping.storyboard in Resources */,
 				9F57C7711E976B8B00A16D24 /* MBUserEvaluationListController.xib in Resources */,
 				9F57C5701E9741FB00A16D24 /* MBMBAffordablePlanetOneChildeOneCell.xib in Resources */,
@@ -4083,13 +4043,11 @@
 				9F57C6161E975DE700A16D24 /* MBArticleCollectViewController.xib in Resources */,
 				9F2F6B881E95D3A4002389DA /* help.html in Resources */,
 				9F2F6B8A1E95D3A4002389DA /* modify_duedate.png in Resources */,
-				9F57C4FA1E973E5000A16D24 /* MBabyRecordThreeCell.xib in Resources */,
 				9F57C8431E976DE000A16D24 /* MBShopTableViewCell.xib in Resources */,
 				9FF9F2C71EC194DC009F9B7E /* MBSearchPostViewController.xib in Resources */,
 				9F57C4E91E973E5000A16D24 /* MBPublishedViewController.xib in Resources */,
 				9F57C5781E9741FB00A16D24 /* timeView.xib in Resources */,
 				9F57C89D1E976FE600A16D24 /* MBAfterServiceTableViewCell.xib in Resources */,
-				9F57C4EE1E973E5000A16D24 /* MBabyRecordFiveCell.xib in Resources */,
 				9F2F6CAB1E9644FB002389DA /* MBServiceOrderTwoCell.xib in Resources */,
 				9F57C6421E975DE700A16D24 /* MBWebViewController.xib in Resources */,
 				9F57C7621E976B8B00A16D24 /* MBServiceRefundController.xib in Resources */,
@@ -4111,7 +4069,6 @@
 				9F57C65D1E975DE800A16D24 /* MBPostDetailsHeadView.xib in Resources */,
 				9F57C7941E976B8B00A16D24 /* MBServiceOrderOneCell.xib in Resources */,
 				9F57C79D1E976B8B00A16D24 /* MBServiceRefundFootView.xib in Resources */,
-				9F57C4FD1E973E5000A16D24 /* MBabyRecordTwoCell.xib in Resources */,
 				9F57C8A91E976FE600A16D24 /* MBMyCollectionViewCell.xib in Resources */,
 				9F57C50B1E973E5000A16D24 /* MBNewBabyCell.xib in Resources */,
 				9F57C93B1E97732600A16D24 /* MBHealthViewController.xib in Resources */,
@@ -4160,7 +4117,6 @@
 				9F57C8651E976EF000A16D24 /* MBMyHeadView.xib in Resources */,
 				9F57C7F31E976C9700A16D24 /* GoodsTableViewCell.xib in Resources */,
 				9F57C5111E973E5000A16D24 /* MBNewBabyHeadView.xib in Resources */,
-				9F57C4D41E973E5000A16D24 /* MBabyRecordController.xib in Resources */,
 				9F57C7911E976B8B00A16D24 /* MBServiceOrderFootView.xib in Resources */,
 				9F57C8531E976DF200A16D24 /* MBBrandViewController.xib in Resources */,
 				9F57C4171E97208C00A16D24 /* MBPaySuccessView.xib in Resources */,
@@ -4185,12 +4141,10 @@
 				9F57C77F1E976B8B00A16D24 /* MBPayResultsFootView.xib in Resources */,
 				9F57C42B1E9721BC00A16D24 /* Login.storyboard in Resources */,
 				9F57C92E1E97732600A16D24 /* MBBabySearchViewController.xib in Resources */,
-				9F57C4F11E973E5000A16D24 /* MBabyRecordFourCell.xib in Resources */,
 				9F8DC1BC1EC2B74B0086C799 /* MBSearchPostCVCell.xib in Resources */,
 				9F57C75F1E976B8B00A16D24 /* MBServiceOrderController.xib in Resources */,
 				9F57C8B71E976FE600A16D24 /* MBVoucherTableViewCell.xib in Resources */,
 				9F57C79A1E976B8B00A16D24 /* MBServiceRefundFootCell.xib in Resources */,
-				9F4407981EB9D94A00668E62 /* document.pdf in Resources */,
 				9F57C75A1E976B8B00A16D24 /* MBServiceEvaluationController.xib in Resources */,
 				9F57C6351E975DE700A16D24 /* MBSearchArticleViewController.xib in Resources */,
 				9F57C7BB1E976B8B00A16D24 /* MBUserEvaluationListTableHeadView.xib in Resources */,
@@ -4280,6 +4234,7 @@
 				9F57C8011E976C9700A16D24 /* TopTableViewCell.m in Sources */,
 				9F57C8371E976DE000A16D24 /* MBItemGroupTableViewCell.m in Sources */,
 				9F57C7931E976B8B00A16D24 /* MBServiceOrderOneCell.m in Sources */,
+				9FB6FF3E1EE790DD0069E422 /* MBLovelyBabyModel.m in Sources */,
 				9F57C6441E975DE700A16D24 /* MBArticleViewCell.m in Sources */,
 				9F2F6C861E963322002389DA /* MBOrderListViewController.m in Sources */,
 				9F57C7901E976B8B00A16D24 /* MBServiceOrderFootView.m in Sources */,
@@ -4296,6 +4251,7 @@
 				9F57C8C41E97703700A16D24 /* MBCouponsCell.m in Sources */,
 				9F57C4101E97208C00A16D24 /* MBFireOrderTableViewCell.m in Sources */,
 				9F57C8EA1E97711600A16D24 /* MBRedeemedCashViewController.m in Sources */,
+				9FFCB14A1EE938160076D653 /* MBBabysDiaryModel.m in Sources */,
 				9F57C5B21E9742C700A16D24 /* MBSwing.m in Sources */,
 				9F57C7AA1E976B8B00A16D24 /* MBServiceShopsTableFootView.m in Sources */,
 				9F57C8AB1E976FE600A16D24 /* MBMyTableViewCell.m in Sources */,
@@ -4369,6 +4325,7 @@
 				9F57C9C61E9778B800A16D24 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				9F57C5691E9741FB00A16D24 /* MBHomeMenuButton.m in Sources */,
 				9F57C75C1E976B8B00A16D24 /* MBServiceHomeViewController.m in Sources */,
+				9FFCB1461EE928780076D653 /* MBBabysDiaryViewController.m in Sources */,
 				9F57C7511E976B8B00A16D24 /* MBEvaluationSuccessController.m in Sources */,
 				9F57C7F51E976C9700A16D24 /* MBRefundScheduleTableViewCell.m in Sources */,
 				9F57C8521E976DF200A16D24 /* MBBrandViewController.m in Sources */,
@@ -4394,6 +4351,7 @@
 				9F57C6921E97601200A16D24 /* MBElectronicConfirmationOrderViewController.m in Sources */,
 				9F57C96F1E9774C600A16D24 /* UICollectionViewFlowLayout+XWFullItem.m in Sources */,
 				9F57C8B31E976FE600A16D24 /* MBSettingTableViewCell.m in Sources */,
+				9FFCB14E1EE93B560076D653 /* MBBabysDiaryTableViewCell.m in Sources */,
 				9F57C5361E9741C200A16D24 /* MBMaBaoFeaturesModel.m in Sources */,
 				9F57C64A1E975DE700A16D24 /* MBDetailsCircleTableHeadView.m in Sources */,
 				9F57CA0B1E97799200A16D24 /* XWCatergoryView.m in Sources */,
@@ -4402,7 +4360,6 @@
 				9F57C5631E9741FB00A16D24 /* MBCategoryViewOneCell.m in Sources */,
 				9F57C4251E9720BA00A16D24 /* MBConfirmModel.m in Sources */,
 				9F57C5A21E97420900A16D24 /* MBDetailedViewController.m in Sources */,
-				9F57C4F31E973E5000A16D24 /* MBabyRecordHeadView.m in Sources */,
 				9F57C63B1E975DE700A16D24 /* MBVideoPlaybackViewController.m in Sources */,
 				9F57C9351E97732600A16D24 /* MBEditPwdViewController.m in Sources */,
 				9F57C4581E973AAC00A16D24 /* MBRegisterFieldRightViewButton.m in Sources */,
@@ -4427,7 +4384,6 @@
 				9F08B2D01E837A310052C821 /* MBBaseScrollView.m in Sources */,
 				9F57C82C1E976DDF00A16D24 /* MBBrandTableViewCell.m in Sources */,
 				9F57C89F1E976FE600A16D24 /* MBEvaluationTableViewCell.m in Sources */,
-				9F57C4F91E973E5000A16D24 /* MBabyRecordThreeCell.m in Sources */,
 				9F57C9691E9774C600A16D24 /* NSArray+Model.m in Sources */,
 				9F57C57A1E9741FB00A16D24 /* ZLDateView.m in Sources */,
 				9F57C7A51E976B8B00A16D24 /* MBServiceShopsHeadView.m in Sources */,
@@ -4495,7 +4451,6 @@
 				9F57C94D1E97732600A16D24 /* MBVoucherViewController.m in Sources */,
 				9F57C47A1E973BF000A16D24 /* STConst.m in Sources */,
 				9F57C7FE1E976C9700A16D24 /* RefundWayTableViewCell.m in Sources */,
-				9F57C4D31E973E5000A16D24 /* MBabyRecordController.m in Sources */,
 				9F57C7531E976B8B00A16D24 /* MBPayResultsController.m in Sources */,
 				9F57C7AD1E976B8B00A16D24 /* MBServiceShopsTableHeadView.m in Sources */,
 				9F98A3E31E9F266B001FCED3 /* MD5DataSigner.m in Sources */,
@@ -4556,7 +4511,6 @@
 				9F57C8FD1E97716900A16D24 /* MBGoodsCollectionModel.m in Sources */,
 				9F57CA071E97799200A16D24 /* UIColor+XWAdd.m in Sources */,
 				9F57C4771E973BF000A16D24 /* DXLocationManager.m in Sources */,
-				9F57C4FC1E973E5000A16D24 /* MBabyRecordTwoCell.m in Sources */,
 				9F57C89C1E976FE600A16D24 /* MBAfterServiceTableViewCell.m in Sources */,
 				9F57C96D1E9774C600A16D24 /* UIButton+MBIBnspectable.m in Sources */,
 				9F57C64F1E975DE800A16D24 /* MBMoreCirclesCell.m in Sources */,
@@ -4579,14 +4533,12 @@
 				9F2F6CA41E964423002389DA /* MBMaBaoVolumeController.m in Sources */,
 				9F57C4651E973ACB00A16D24 /* MBUserDataSingalTon.m in Sources */,
 				9F57C6181E975DE700A16D24 /* MBArticleDetailViewController.m in Sources */,
-				9F57C4ED1E973E5000A16D24 /* MBabyRecordFiveCell.m in Sources */,
 				9F57C66D1E975DE800A16D24 /* MBVoiceViewCell.m in Sources */,
 				9F57C8A21E976FE600A16D24 /* MBHistoryRecoderTableViewCell.m in Sources */,
 				9F57C50A1E973E5000A16D24 /* MBNewBabyCell.m in Sources */,
 				9F57CA031E97799200A16D24 /* SDWaitingView.m in Sources */,
 				9F57CA051E97799200A16D24 /* NSString+SizeToFit.m in Sources */,
 				9F57C99C1E97769500A16D24 /* DHGuidePageHUD.m in Sources */,
-				9F57C4F61E973E5000A16D24 /* MBabyRecordOneCell.m in Sources */,
 				9F57C9FE1E97799200A16D24 /* SDBrowserImageView.m in Sources */,
 				9F57C61F1E975DE700A16D24 /* MBDetailsCircleController.m in Sources */,
 				9F57C59D1E97420900A16D24 /* MBCategoryViewController.m in Sources */,
@@ -4600,9 +4552,9 @@
 				9F57C5051E973E5000A16D24 /* MBCollectionHeadView.m in Sources */,
 				9F57C7781E976B8B00A16D24 /* MBMBServiceRefundTwoCell.m in Sources */,
 				9F57C83A1E976DE000A16D24 /* MBMoreBrandsCollectionViewCell.m in Sources */,
-				9F57C4F01E973E5000A16D24 /* MBabyRecordFourCell.m in Sources */,
 				9F57C8641E976EF000A16D24 /* MBMyHeadView.m in Sources */,
 				9F57C55B1E9741FB00A16D24 /* MBAffordablePlanetCVCell.m in Sources */,
+				9FCA7C601EE545D9000C1B49 /* MBpreparePregnantSetViewController.m in Sources */,
 				9F57C9751E9774C600A16D24 /* UILabel+MBIBInspectable.m in Sources */,
 				9F57C4E21E973E5000A16D24 /* MBCollectionViewFlowLayout.m in Sources */,
 				9F57C6AA1E97602E00A16D24 /* MBElectronicCardOrderModel.m in Sources */,
@@ -4747,7 +4699,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoMaBao",
-					"$(PROJECT_DIR)/XiaoMaBao/Classes/Other/UnicallSDK",
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Utility/Pay/Alipay",
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Utility/Pay/WechatPay/SDKExport",
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Utility/JPush",
@@ -4800,7 +4751,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoMaBao",
-					"$(PROJECT_DIR)/XiaoMaBao/Classes/Other/UnicallSDK",
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Utility/Pay/Alipay",
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Utility/Pay/WechatPay/SDKExport",
 					"$(PROJECT_DIR)/XiaoMaBao/Classes/Utility/JPush",

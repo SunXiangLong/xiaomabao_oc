@@ -315,4 +315,31 @@
     }
     return count;
 }
+
+/**
+ *  根据字符串时间获取时间戳
+ *
+ *  @param dateStr 字符串时间
+ *
+ *  @return NSTimeInterval
+ */
+- (NSDate *)stringConversionDate{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:8]];
+   
+    NSDate *date = [formatter  dateFromString:self];
+    return date;
+}
+
++ (NSString *)dateConversionString:(NSDate *)date{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+  
+   
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:8]];
+    return  [formatter stringFromDate:date];
+    
+    
+}
 @end

@@ -7,24 +7,33 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MBDayInfoModel;
 
+/**
+ block对应事件
+
+ - theJumpPage: 跳转到对应网页
+ - recordTheBaby: 记录宝宝日志
+ - setHead: 宝宝已出生，设置头像
+ - setThePregnancy: 设置备孕日期
+  - setTheDueDate: 设置预产期
+ */
+typedef NS_OPTIONS(NSUInteger, MBBlockState) {
+    
+    theJumpPage                 = 0,
+    recordTheBaby               = 1,
+    setHead                     = 2,
+    setThePregnancy             = 3,
+    setTheDueDate
+    
+};
 @interface MBNewBabyHeadView : UIView
-@property (nonatomic, strong) RACSubject *myCircleViewSubject;
+@property (nonatomic,copy)  void (^sortingOptionsEvent)(NSDictionary *dic,MBBlockState type);
 + (instancetype)instanceView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *view_height;
-@property (weak, nonatomic) IBOutlet UIImageView *baby_image;
-@property (weak, nonatomic) IBOutlet UILabel *baby_weight;
-@property (weak, nonatomic) IBOutlet UILabel *baby_length;
-@property (weak, nonatomic) IBOutlet UILabel *baby_date;
-@property (weak, nonatomic) IBOutlet UILabel *babyWeight;
-@property (weak, nonatomic) IBOutlet UILabel *babylenth;
-@property (weak, nonatomic) IBOutlet UILabel *babyDate;
-@property (weak, nonatomic) IBOutlet UILabel *baby_content;
-@property (weak, nonatomic) IBOutlet UIView *cenView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *view2_weith;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *view1_weith;
-@property (weak, nonatomic) IBOutlet UIImageView *came_image;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *view_weith;
-@property(copy,nonatomic)NSDictionary *dataDic;
+@property (nonatomic,strong) UIImage *image;
+@property (nonatomic,strong) MBDayInfoModel *model;
+
+@property (weak, nonatomic) IBOutlet UIView *preparePregnantView;
+@property (weak, nonatomic) IBOutlet UIView *functionalClassificationView;
 @end

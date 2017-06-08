@@ -8,6 +8,7 @@
 
 #import "MBBabyManagementViewController.h"
 #import "MBBabyImageCollectionViewCell.h"
+#import "MBBabysDiaryModel.h"
 @interface MBBabyManagementViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,SDPhotoBrowserDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet UIView *headView;
@@ -24,11 +25,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setCollerctonView];
-    // Do any additional setup after loading the view from its nib.
-    
-    _dateLable.text = self.date;
-    _timeLable.text = self.addtime;
-    _textLable.text  = self.content;
+    _dateLable.text = _model.group;
+    _timeLable.text = _model.addtime;
+    _textLable.text  = _model.content;
     
 
 }
@@ -49,7 +48,7 @@
 }
 -(NSString *)rightImage{
 
-return @"dian_image";
+  return @"dian_image";
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -83,7 +82,7 @@ return @"详情";
 
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/diarydel"];
     [self show];
-    [MBNetworking POST:url parameters:@{@"session":sessiondict,@"id":self.ID}
+    [MBNetworking POST:url parameters:@{@"session":sessiondict,@"id":_model.ID}
                success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
                       [self dismiss];
                    
@@ -92,7 +91,7 @@ return @"详情";
                        NSDictionary *userData = [responseObject valueForKeyPath:@"status"];
                        MMLog(@"%@",userData);
                     
-                       self.block(self.indexPath);
+                       self.block(_model);
                        [self popViewControllerAnimated:YES];
                    }
                    
@@ -110,7 +109,7 @@ return @"详情";
     return 1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return _photoArray.count;
+    return _model.photo.count;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -121,12 +120,7 @@ return @"详情";
             UICollectionReusableView *reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView1" forIndexPath:indexPath];
             
             [reusableview addSubview:_headView];
-            if ([_image isKindOfClass:[NSString class]]) {
-                [_HeadPhotoImageView sd_setImageWithURL:[NSURL URLWithString:_image] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-            }else {
-            
-                _HeadPhotoImageView.image = _image;
-            }
+      [_HeadPhotoImageView sd_setImageWithURL:[NSURL URLWithString:[MBSignaltonTool getCurrentUserInfo].header_img] placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
             
             _nameLable.text = [MBSignaltonTool getCurrentUserInfo].nick_name;//userInfo.user_baby_info[@"nickname"];
             
@@ -149,7 +143,7 @@ return @"详情";
    
     MBBabyImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBBabyImageCollectionViewCell" forIndexPath:indexPath];
     cell.showImage.image = PLACEHOLDER_DEFAULT_IMG;
-    NSURL *url = [NSURL URLWithString: _photoArray[indexPath.item]];
+    NSURL *url = [NSURL URLWithString: _model.photo[indexPath.item]];
     [cell.showImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"placeholder_num2"]completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         cell.showImage.alpha = 0.3f;
         [UIView animateWithDuration:1
@@ -158,9 +152,7 @@ return @"详情";
                          }
                          completion:nil];
     }];
-//    cell.showImage.contentMode =  UIViewContentModeScaleAspectFill;
-//    cell.showImage.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-//    cell.showImage.clipsToBounds  = YES;
+
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -169,22 +161,47 @@ return @"详情";
     SDPhotoBrowser *photoBrowser = [[SDPhotoBrowser alloc] init];
     photoBrowser.delegate = self;
     photoBrowser.currentImageIndex = indexPath.item;
-    photoBrowser.imageCount =_photoArray.count;
+    photoBrowser.imageCount =_model.photo.count;
     photoBrowser.sourceImagesContainerView = self.collectionView;
     [photoBrowser show];
 }
-
+- (NSMutableAttributedString*)getAttr:(NSString*)attributedString {
+    NSMutableAttributedString * resultAttr = [[NSMutableAttributedString alloc] initWithString:attributedString];
+    
+    //对齐方式 这里是 两边对齐
+    resultAttr.yy_alignment = NSTextAlignmentLeft;
+    //设置行间距
+    resultAttr.yy_lineSpacing = 1;
+    
+    //设置字体大小
+    resultAttr.yy_font = YC_YAHEI_FONT(13);
+    resultAttr.yy_color = UIcolor(@"575757");
+    //可以设置某段字体的大小
+    //[resultAttr yy_setFont:[UIFont boldSystemFontOfSize:CONTENT_FONT_SIZE] range:NSMakeRange(0, 3)];
+    //设置字间距
+    resultAttr.yy_kern = [NSNumber numberWithFloat:1.0];
+    
+    return resultAttr;
+    
+}
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
+    YYTextContainer  *titleContarer = [YYTextContainer new];
+    //限制宽度
+    titleContarer.size             = CGSizeMake(UISCREEN_WIDTH - 30,CGFLOAT_MAX);
+    NSMutableAttributedString  *titleAttr = [self getAttr:_model.content];
+    YYTextLayout *titleLayout = [YYTextLayout layoutWithContainer:titleContarer text:titleAttr];
+    CGFloat titleLabelHeight = titleLayout.textBoundingSize.height;
+    ;
+
     
-    
-    return CGSizeMake( UISCREEN_WIDTH, 50 + [self.content sizeWithFont:SYSTEMFONT(14) withMaxSize:CGSizeMake((UISCREEN_WIDTH - 30), MAXFLOAT)].height);
+    return CGSizeMake( UISCREEN_WIDTH, 60 + titleLabelHeight);
  
     
 }
 - (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
 {
-    NSString *imageName = _photoArray[index];
+    NSString *imageName = _model.photo[index];
     NSURL *url = [[NSBundle mainBundle] URLForResource:imageName withExtension:nil];
     return url;
 }
@@ -192,7 +209,7 @@ return @"详情";
 - (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
 {
     UIImageView *imageView = [[UIImageView alloc] init];
-    NSString *urlstring = _photoArray[index];
+    NSString *urlstring = _model.photo[index];
     [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", urlstring]]
                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                             

@@ -23,11 +23,15 @@
 @property (copy, nonatomic) NSString *nick_name;
 @property (copy, nonatomic) NSString *rank_name;
 @property (copy, nonatomic) NSString *header_img;
+@property (copy, nonatomic) UIImage *headerImg;
 @property (copy, nonatomic) NSString *parent_sex;
 @property (copy, nonatomic) NSString *identity_card;
 @property (copy, nonatomic) NSString *collection_num;
 @property (assign, nonatomic) BOOL is_baby_add;
 @property (strong, nonatomic) MBUserBabyInfo *user_baby_info;
+@property (copy, nonatomic) NSDictionary *sessiondict;
+
+
 // 清除所有值
 - (void)clearUserInfo;
 @end

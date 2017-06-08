@@ -7,7 +7,7 @@
 //
 
 #import "MBNewBabyThreeTableCell.h"
-
+#import "MBLovelyBabyModel.h"
 @implementation MBNewBabyThreeTableCell
 
 - (void)awakeFromNib {
@@ -21,13 +21,14 @@
 
     // Configure the view for the selected state
 }
--(void)setDataDic:(NSDictionary *)dataDic{
-    _dataDic = dataDic;
-    [_showImage sd_setImageWithURL:URL([_dataDic[@"post_imgs"] firstObject]) placeholderImage:[UIImage imageNamed:@"placeholder_num1"]];
-    _post_title.text = _dataDic[@"post_title"];
-    _post_content.text = _dataDic[@"post_content"];
-    _view_cnt.text = _dataDic[@"view_cnt"];
-    _reply_cnt.text = _dataDic[@"reply_cnt"];
-
+-(void)setModel:(MBRecommendPostsModel *)model{
+    _model = model;
+    
+    [_showImage sd_setImageWithURL:URL([model.post_imgs firstObject]) placeholderImage:[UIImage imageNamed:@"placeholder_num1"]];
+    _post_title.text = model.post_title;
+    _post_content.text = model.post_content;
+    _view_cnt.text = model.view_cnt;
+    _reply_cnt.text = model.reply_cnt;
 }
+
 @end

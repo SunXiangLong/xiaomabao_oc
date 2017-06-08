@@ -211,7 +211,7 @@
     _goodsName = [[UILabel alloc] init];
     _goodsName.textColor = [UIColor colorWithHexString:@"000000"];
     _goodsName.numberOfLines = 0;
-    _goodsName.text = _model.short_name;
+    _goodsName.text = _model.goods_name;
     _goodsName.font = [UIFont boldSystemFontOfSize:16];
     [view addSubview:_goodsName];
     [_goodsName mas_makeConstraints:^(MASConstraintMaker *make) {

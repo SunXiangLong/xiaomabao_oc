@@ -532,7 +532,6 @@
     
     UIImage *tintedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
     return tintedImage;
 }
 @end

@@ -19,6 +19,7 @@ pod 'ActionSheetPicker-3.0'
 #pod 'TGCameraViewController',:git => 'https://github.com/tdginternet/TGCameraViewController.git', :tag => '2.2.6'
 # pod 'FastImage'
 pod 'KNSemiModalViewController_hons82'
+
 pod "SKTagView"
 #pod 'HexColors'
 pod 'Reachability'

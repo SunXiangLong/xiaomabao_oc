@@ -14,11 +14,17 @@
 
 @property (nonatomic,assign) CGFloat ml_x;
 @property (nonatomic,assign) CGFloat ml_y;
+@property (nonatomic,assign,readonly) CGFloat ml_maxX;
+@property (nonatomic,assign,readonly) CGFloat ml_maxY;
+@property (nonatomic,assign,readonly) CGFloat ml_minX;
+@property (nonatomic,assign,readonly) CGFloat ml_minY;
 @property (nonatomic,assign) CGFloat ml_centerX;
 @property (nonatomic,assign) CGFloat ml_centerY;
 @property (nonatomic,assign) CGFloat ml_width;
 @property (nonatomic,assign) CGFloat ml_height;
 @property (nonatomic,assign) CGSize ml_size;
+
+
 -(void)removeAllSubviews;
 - (void)bezierPathWithRoundingCorners:(UIRectCorner)corners cornerRadii:(CGFloat )cornerRadii;
 @end

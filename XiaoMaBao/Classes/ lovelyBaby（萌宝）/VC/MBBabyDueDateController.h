@@ -9,5 +9,6 @@
 #import "BkBaseViewController.h"
 
 @interface MBBabyDueDateController : BkBaseViewController
-
+@property (nonatomic, copy)  NSString *baby_id;
+@property (nonatomic,copy)  void (^setUpAfterTheMaternalRefresh)();
 @end

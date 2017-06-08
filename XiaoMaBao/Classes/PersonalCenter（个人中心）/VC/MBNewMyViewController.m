@@ -24,6 +24,7 @@
 #import "MBSettingViewController.h"
 #import "MBBabyCardController.h"
 
+#import "MBEditProfileViewController.h"
 #import "MBCheckInViewController.h"
 @interface MBNewMyViewController ()<UIScrollViewDelegate>
 {
@@ -49,23 +50,28 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"MBPersonalSettingsViewController"];
-  
-  
-        MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
-        [_userImage sd_setImageWithURL:URL(userInfo.header_img) placeholderImage:[UIImage imageNamed:@"headPortrait"]];
-        if (userInfo.sid) {
-            _loginButton.hidden = YES;
-            _userName.text = userInfo.nick_name;
-        }else{
-            _loginButton.hidden = NO;
-            _userName.text = @"";
-        }
+    
+    
+    MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo];
+    if (userInfo.headerImg) {
+        self.userImage.image  = userInfo.headerImg;
+    }else{
+     [_userImage sd_setImageWithURL:URL(userInfo.header_img) placeholderImage:[UIImage imageNamed:@"headPortrait"]];
+    }
+   
+    if (userInfo.sid) {
+        _loginButton.hidden = YES;
+        _userName.text = userInfo.nick_name;
+    }else{
+        _loginButton.hidden = NO;
+        _userName.text = @"";
+    }
     
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    
     self.tabeleView.tableFooterView = [[UIView alloc] init];
     _dataArray = @[
                    @{@"image":@"aMedicalQuery",@"name":@"体检报告查询"},
@@ -82,9 +88,25 @@
                    @{@"image":@"icon6",@"name":@"麻包帮助"}
                    ];
     
+    
+
 }
+
+- (IBAction)userImageTap:(UITapGestureRecognizer *)sender {
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    if (!sid) {
+        [self  loginClicksss:@"mabao"];
+        return;
+    }
+    
+    
+    MBEditProfileViewController *editVc = [[MBEditProfileViewController alloc] init];
+    [self pushViewController:editVc Animated:true];
+   
+}
+
 - (IBAction)headViewBtn:(UIButton *)sender {
-     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     if (!sid) {
         [self  loginClicksss:@"mabao"];
         return;
@@ -131,7 +153,7 @@
     }
 }
 - (IBAction)logIn:(id)sender {
-     [self  loginClicksss:@"mabao"];
+    [self  loginClicksss:@"mabao"];
 }
 
 - (void)service{
@@ -189,8 +211,8 @@
         MBBabyCardController *VC = (MBBabyCardController *)segue.destinationViewController;
         VC.isJustLookAt = true;
     }
-
-
+    
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -249,20 +271,20 @@
         }break;
         case 2:{
             [self performSegueWithIdentifier:@"MBInviteFriendsViewController" sender:nil];
-
+            
         }break;
         case 3: {
             
             [MobClick event:@"PersonalCenter4"];
             MBMyCollectionViewController *VC =[[MBMyCollectionViewController alloc] init];
             [self pushViewController:VC Animated:YES];
-
+            
         }break;
         case 4:{
             [MobClick event:@"PersonalCenter8"];
             NSString * telStr = [NSString stringWithFormat:@"telprompt://%@",@"010-85170751"];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
-
+            
         }break;
         case 5:{
             [MobClick event:@"PersonalCenter9"];
@@ -276,7 +298,7 @@
             MBRefundHomeController *VC = [[MBRefundHomeController alloc] init];
             [self pushViewController:VC Animated:YES];
             [MobClick event:@"PersonalCenter11"];
-          
+            
         } break;
         case 7: {
             [MobClick event:@"PersonalCenter6"];
@@ -306,13 +328,13 @@
             [self pushViewController:helpVC Animated:YES];
         }break;
         default:break;
-    
+            
     }
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (scrollView.mj_offsetY < 0) {
         scrollView.mj_offsetY = 0;
     }
-
+    
 }
 @end

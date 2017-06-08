@@ -9,6 +9,7 @@
 #import "MBNewBabyFourTableCell.h"
 #import "MBGoodsDetailsViewController.h"
 #import "MBActivityViewController.h"
+#import "MBLovelyBabyModel.h"
 @implementation MBNewBabyFourTableCell
 
 - (void)awakeFromNib {
@@ -48,20 +49,21 @@
     NSArray *goods_price_arr= @[@1,@2,_goods_price0,_goods_price1,_goods_price2,_goods_price3];
     NSArray *market_price_arr = @[@1,@2,_market_price0,_market_price1,_market_price2,_market_price3];
     for (NSInteger i = 0; i<dataArr.count; i++) {
-        NSDictionary *dic = dataArr[i];
+       
         UIImageView *imageView = arr[i];
         
         if (i>1) {
+             MBRecommend_goodsModel *model  = dataArr[i];
             UILabel *goods_name_label = goods_name_arr[i];
             UILabel *goods_price_label = goods_price_arr[i];
             UILabel *market_price_label = market_price_arr[i];
-            [imageView sd_setImageWithURL:URL(dic[@"goods_thumb"]) placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
-            goods_name_label.text = dic[@"goods_name"];
-            goods_price_label.text = string(@"¥", dic[@"goods_price"]);
-            market_price_label.text = string(@"¥", dic[@"market_price"]);
+            [imageView sd_setImageWithURL:model.goods_thumb placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+            goods_name_label.text = model.goods_name;;
+            goods_price_label.text = string(@"¥", model.goods_price);
+            market_price_label.text = string(@"¥", model.market_price);
         }else{
-        
-        [imageView sd_setImageWithURL:URL(dic[@"ad_img"]) placeholderImage:[UIImage imageNamed:@"placeholder_num1"]];
+         MBRecommendTopicsModel *model  = dataArr[i];
+        [imageView sd_setImageWithURL:model.ad_img placeholderImage:[UIImage imageNamed:@"placeholder_num1"]];
         }
        
     

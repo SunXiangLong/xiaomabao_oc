@@ -24,8 +24,10 @@
     self.parent_sex = nil;
     self.identity_card = nil;
     self.collection_num = nil;
-    self.is_baby_add = nil;
     self.user_baby_info = nil;
+    self.is_baby_add = false;
+    self.headerImg = nil;
+    self.sessiondict  = nil;
 }
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic{

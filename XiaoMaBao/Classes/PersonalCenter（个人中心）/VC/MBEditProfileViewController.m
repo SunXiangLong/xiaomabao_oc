@@ -31,15 +31,10 @@
 @implementation MBEditProfileViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.view.backgroundColor = [UIColor whiteColor];
-   
-    
     _headProfile = [[UIImageView alloc] init];
     _headProfile.frame = CGRectMake((self.view.ml_width - 80) * 0.5, TOP_Y + MARGIN_20, 80, 80);
-    _headProfile.layer.cornerRadius = 40.0;
-    _headProfile.backgroundColor = [UIColor randomColor];
-    
+    _headProfile.image = [UIImage imageNamed:@"headPortrait"];
     [_headProfile setUserInteractionEnabled:YES];
     [_headProfile addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(takePhotoTapped:)]];
     
@@ -354,6 +349,7 @@
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         [self dismiss];
         MMLog(@"%@",responseObject);
+         [MBSignaltonTool getCurrentUserInfo].headerImg = _headProfile.image;
         [self show:@"保存成功" time:1];
         [self popViewControllerAnimated:YES];
         
@@ -388,6 +384,9 @@
 - (void)photoKitController:(STPhotoKitController *)photoKitController resultImage:(UIImage *)resultImage
 {
     _headProfile.image = resultImage;
+    
+   
+    
 
 }
 #pragma mark - 2.UIImagePickerController的委托

@@ -7,7 +7,7 @@
 //
 
 #import "MBNewBabyOneTableCell.h"
-
+#import "MBLovelyBabyModel.h"
 @implementation MBNewBabyOneTableCell
 
 - (void)awakeFromNib {
@@ -19,6 +19,12 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+-(void)setModel:(MBRemindModel *)model{
+    _model = model;
+    _title.text = model.title;
+    _summary.text = model.summary;
+     [_showImage sd_setImageWithURL:model.url placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
 }
 -(void)setDataDic:(NSDictionary *)dataDic{
     _dataDic = dataDic;

@@ -43,9 +43,7 @@ return @"预产期";
 }
 #pragma mark--设置宝宝信息
 - (void)setData{
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+   
     if (_lastPeriodTextField.text.length == 0 ) {
         
     _lastPeriodTextField.text = @"";
@@ -55,9 +53,11 @@ return @"预产期";
        _menstrualCycleTextField.text = @"";
     }
     [self show];
-    
-    
-    NSDictionary *parameters = @{@"session":sessiondict,@"overdue_date":_dueDateTextField.text,@"last_period_data":_lastPeriodTextField.text,@"period_circle":_menstrualCycleTextField.text};
+     NSDictionary *parameters = @{@"session":[MBSignaltonTool getCurrentUserInfo].sessiondict ,@"overdue_date":_dueDateTextField.text,@"last_period_data":_lastPeriodTextField.text,@"period_circle":_menstrualCycleTextField.text};
+    if (_baby_id) {
+        parameters = @{@"session":[MBSignaltonTool getCurrentUserInfo].sessiondict ,@"overdue_date":_dueDateTextField.text,@"last_period_data":_lastPeriodTextField.text,@"period_circle":_menstrualCycleTextField.text,@"baby_id":_baby_id};
+    }
+   
     
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/set_mengbao_info"];
     [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
@@ -67,6 +67,9 @@ return @"预产期";
         if ([status isEqualToString:@"1"]) {
             
             
+            if (_baby_id) {
+                self.setUpAfterTheMaternalRefresh();
+            }
     
             [MBLogOperation loginAuthentication:nil success:^{
                 [self dismiss];

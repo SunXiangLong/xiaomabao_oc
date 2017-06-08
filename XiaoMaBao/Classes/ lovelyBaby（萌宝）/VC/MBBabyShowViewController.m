@@ -33,7 +33,7 @@
     
 }
 -(NSString *)titleStr{
-return @"个性定制";
+   return @"个性定制";
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

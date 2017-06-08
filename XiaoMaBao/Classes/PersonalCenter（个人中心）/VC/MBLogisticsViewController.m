@@ -10,34 +10,56 @@
 #import "MBLogOperation.h"
 #import <WebKit/WebKit.h>
 @interface MBLogisticsViewController ()<WKNavigationDelegate,WKUIDelegate>
-{
-    WKWebView *_webView;
-}
 
-
+@property(nonatomic,strong) WKWebView *webView;
+@property(nonatomic,strong) UIProgressView *progressView;
 @end
 
 @implementation MBLogisticsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
+    [self setUI];
+}
+
+- (void)setUI{
+    _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 2)];
+    _progressView.backgroundColor = [UIColor blueColor];
+    //设置进度条的高度，下面这句代码表示进度条的宽度变为原来的1倍，高度变为原来的1.5倍.
+//    _progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
+    [self.view addSubview:_progressView];
+    
     self.titleStr = @"物流查询";
     [MBLogOperation deleteCookie];
     _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, -60, UISCREEN_WIDTH, UISCREEN_HEIGHT+110)];
     _webView.UIDelegate = self;
     _webView.navigationDelegate = self;
-//    _webView.scalesPageToFit = YES;
     
     //http://m.kuaidi100.com/index_all.html?type=yuantong&postid=806113789439
     NSURL *url1 = [NSURL  URLWithString:[[NSString stringWithFormat:@"http://m.kuaidi100.com/index_all.html?type=%@&postid=%@",self.type,self.postid] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    MMLog(@"%@",url1);
-    NSURLRequest* request = [NSURLRequest requestWithURL:url1 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0f];//创建NSURLRequest
+    NSURLRequest* request = [NSURLRequest requestWithURL:url1] ;//创建NSURLRequest
     [_webView loadRequest:request];//加载
     [self.view insertSubview:_webView atIndex:0];
     [self disableDropDown];
     
-    [self show:@"加载中..." toView:self.view];
+    @weakify(self);
+    [RACObserve(self.webView, estimatedProgress) subscribeNext:^(id x) {
+        @strongify(self)
+         self.progressView.progress = self.webView.estimatedProgress;
+      
+        if (self.progressView.progress == 1) {
+            
+            [UIView animateWithDuration:0.25f delay:0.3f options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.4f);
+            } completion:^(BOOL finished) {
+               self.progressView.hidden = YES;
+                
+            }];
+        }
+        
+    }];
+
+
 }
 #pragma mark -- 禁用uiscorrow的下拉上拉弹起功能；
 - (void)disableDropDown{
@@ -81,15 +103,15 @@
 //}
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
     
-    MMLog(@"%@",error);
+   
     [self dismisstoView:self.view];
-    [self show:@"加载失败" time:1];
+   
 }
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{
     [self dismisstoView:self.view];
 }
 -(NSString *)leftStr{
-return @"";
+  return @"";
 }
 - (NSString *)leftImage
 {

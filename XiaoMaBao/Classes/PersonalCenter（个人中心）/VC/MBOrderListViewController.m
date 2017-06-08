@@ -737,14 +737,11 @@
 
     
 }
-- (void)shipped:(UIButton *)button{
-    [MobClick event:@"MyOrder12"];
+- (void)confirmTheGoods:(NSInteger )tag{
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
+     NSString *order_id = [_orderListArray[tag] order_id];
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    
-    NSString *order_id = [_orderListArray[button.tag] order_id];
-    
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/order/order_receive"] parameters:@{@"session":sessiondict,@"order_id":order_id}success:^(NSURLSessionDataTask *operation, id responseObject) {
         
@@ -752,8 +749,8 @@
         
         if ([dic[@"succeed"]isEqualToNumber:@1]) {
             [self dismiss];
-      
-            [_orderListArray removeObjectAtIndex:button.tag];
+            
+            [_orderListArray removeObjectAtIndex:tag];
             [_tableView reloadData];
             
             
@@ -767,6 +764,29 @@
         [self show:@"请求失败" time:1];
     }];
 
+
+}
+- (void)shipped:(UIButton *)button{
+    
+    [MobClick event:@"MyOrder12"];
+   
+    
+    UIAlertController *alVC = [UIAlertController alertControllerWithTitle:@"您是否确认收货" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    
+    UIAlertAction *comfirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self confirmTheGoods:button.tag];
+    }];
+    [alVC addAction:cancle];
+    [alVC addAction:comfirm];
+    
+    [comfirm setValue:UIcolor(@"575c65") forKey:@"titleTextColor"];
+    [cancle setValue:UIcolor(@"d66263") forKey:@"titleTextColor"];
+    [self presentViewController:alVC animated:true completion:nil];
+    
+    
+    
 }
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];

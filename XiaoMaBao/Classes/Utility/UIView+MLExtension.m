@@ -16,6 +16,20 @@
     frame.origin.x = x;
     self.frame = frame;
 }
+
+
+-(CGFloat)ml_maxX{
+    return CGRectGetMaxX(self.frame);
+}
+-(CGFloat)ml_maxY{
+    return CGRectGetMaxY(self.frame);
+}
+-(CGFloat)ml_minX{
+    return CGRectGetMinX(self.frame);
+}
+-(CGFloat)ml_minY{
+    return CGRectGetMinY(self.frame);
+}
 - (CGFloat)ml_x{
     return self.frame.origin.x;
 }

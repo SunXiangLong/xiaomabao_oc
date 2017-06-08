@@ -9,5 +9,5 @@
 #import "BkBaseViewController.h"
 
 @interface MBBabyGenderViewController : BkBaseViewController
-
+@property (nonatomic, copy)  NSString *baby_id;
 @end

@@ -43,7 +43,7 @@
         
         if ( [User_Defaults valueForKeyPath:@"userInfo"]) {
             
-            [self userVerifPassword:[User_Defaults valueForKeyPath:@"userInfo"] isPassword:NO success:nil failure:nil];
+            [self userVerifPassword:[User_Defaults valueForKeyPath:@"userInfo"] isPassword:NO success:success failure:failure];
         }
         
     }
@@ -216,9 +216,12 @@
             MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo:responseObject[@"data"][@"user"]];
             userInfo.sid = responseObject[@"data"][@"session"][@"sid"];
             userInfo.uid = responseObject[@"data"][@"session"][@"uid"];
+            userInfo.sessiondict =  responseObject[@"data"][@"session"];
+            
             ///切换用户登录的时候单例属性要重新赋值（不会走初始化方法了）
             if (!userInfo.phoneNumber) {
                 MBUserDataSingalTon *user = [MBUserDataSingalTon yy_modelWithJSON:responseObject[@"data"][@"user"]];
+                userInfo.sessiondict =  responseObject[@"data"][@"session"];
                 userInfo.phoneNumber = user.phoneNumber;
                 userInfo.mobile_phone = user.mobile_phone;
                 userInfo.nick_name = user.nick_name;
@@ -237,22 +240,31 @@
             [MobClick profileSignInWithPUID:userInfo.uid];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"circleState" object:nil];
+            
+            if (success) {
+                 success(responseObject);
+            }
             if (isPassword) {
-                
                 NSMutableDictionary *mDic = [NSMutableDictionary dictionaryWithDictionary:params];
                 [mDic addEntriesFromDictionary:responseObject[@"data"][@"session"]];
                 [User_Defaults setObject:mDic forKey:@"userInfo"];
                 [User_Defaults synchronize];
-                success(responseObject);
-                
             }
+            
+            
+                
+            
             
         }else{
             NSString *errStr =[[responseObject valueForKey:@"status"] valueForKey:@"error_desc"];
             if (isPassword) {
                  [login.bloc sendNext:@"0"];
-                failure(errStr,nil);
+               
             }
+            if (failure) {
+                 failure(errStr,nil);
+            }
+            
         
         }
         

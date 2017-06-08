@@ -16,49 +16,40 @@
 #import "MBNewBabyFourTableCell.h"
 #import "MBBabyWebController.h"
 #import "MBSetBabyInformationController.h"
-#import "MBabyRecordController.h"
+#import "MBBabysDiaryViewController.h"
 #import "MBBabyDueDateController.h"
 #import "MBBabyToolCell.h"
 #import "MBCollectionViewFlowLayout.h"
 #import "STPhotoKitController.h"
 #import "UIImagePickerController+ST.h"
 #import "MBPostDetailsViewController.h"
-
+#import "MBpreparePregnantSetViewController.h"
+#import "MBLovelyBabyModel.h"
+#import "MBBabyGenderViewController.h"
 @interface MBNewBabyController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource,STPhotoKitDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
-   
-    
-    
-    NSDate *_current_date;
-    NSDate *_start_date;
-    NSDate *_end_date;
-    
     /**
      *  是否从下个界面返回的
      */
     BOOL _isDismiss;
-   
+    
     /**
      *  修改的宝宝头像
      */
     UIImage *_baby_image;
-    
-    NSDictionary  *_day_info;
+
     /**
      *  宝宝头像
      */
-     id _images;
+    id _images;
+    
     NSInteger _row;
     
     
-    /**
-     *  是在怀孕状态 还是宝宝已出生  yes 是怀孕  no 宝宝出生后
-     */
-    BOOL  _isPregnant;
-    
     UIImageView *_guideImageView;
     NSInteger _guideImageIndex;
-    
+
+   
 }
 /**
  *  顶部view
@@ -69,34 +60,62 @@
  */
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
+/**
+ 设置宝宝信息button
+ */
 @property (weak, nonatomic) IBOutlet UIButton *beginParentingButton;
 
+/**
+ 回到今天button
+ */
 @property (weak, nonatomic) IBOutlet UIButton *backTadyButton;
 /**
  *  底层展示控件
  */
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITableView *babyStatleTableVIew;
-
 @property (weak, nonatomic) IBOutlet UIView *babtStatle;
 
-@property (copy, nonatomic) NSMutableArray *dataArray;
-@property (copy, nonatomic) NSMutableArray *dateArray;
+/**
+ 上一个日期button
+ */
 @property (weak, nonatomic) IBOutlet UIButton *reftButton;
+/**
+ 下一个日期button
+ */
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
 /**
  *  宝宝id
  */
 @property (nonatomic, copy)  NSString *baby_id;
+
+/**
+ 我的状态分类数据
+ */
 @property (nonatomic,copy) NSArray *datArr;
+
+///**
+// 我的状态
+// */
+//@property (nonatomic,assign) MBStateOfTheBaby type;
+@property (nonatomic,strong) RACSignal *toolSignal;
+@property (nonatomic,strong) RACSignal *baySignal;
+
+@property (nonatomic,strong) MBLovelyBabyModel *lovelyBabyModel;
+
+@property (copy, nonatomic) NSMutableArray *dataArray;
+@property (copy, nonatomic) NSMutableArray *dateArray;
 @end
 
 @implementation MBNewBabyController
 -(NSArray *)datArr{
     if (!_datArr) {
-        _datArr = @[@{@"title":@"我在怀孕中",@"summary":@"怀胎十月，关爱母婴健康",@"icon": [UIImage imageNamed:@"babyUnborn"]},
-                     @{@"title":@"宝宝已出生",@"summary":@"产后调养与恢复，和宝宝共同健康成长",@"icon": [UIImage imageNamed:@"babyBorn"]}
-                     ];
+        _datArr = @[
+                    @{@"title":@"备孕中",@"summary":@"我在备孕中做好准备，迎接宝宝到来",@"icon": [UIImage imageNamed:@"forPregnant"]},
+                    @{@"title":@"我在怀孕中",@"summary":@"怀胎十月，关爱母婴健康",@"icon": [UIImage imageNamed:@"babyUnborn"]},
+                    @{@"title":@"宝宝已出生",@"summary":@"产后调养与恢复，和宝宝共同健康成长",@"icon": [UIImage imageNamed:@"babyBorn"]}
+                    
+                    ];
     }
     return _datArr;
 }
@@ -129,35 +148,34 @@
      *  判断用户是否登陆和设置过宝宝信息
      */
     if ([MBSignaltonTool getCurrentUserInfo].is_baby_add) {
-           
-         _baby_id = [MBSignaltonTool getCurrentUserInfo].user_baby_info.Id;
+        
+        _baby_id = [MBSignaltonTool getCurrentUserInfo].user_baby_info.Id;
         /**
          *  判断是不是第二次进入这个界面 且用户状态没发生改变 就不在重请求数据
          */
         
         if (![sid isEqualToString:_oldSid]){
             
-        /**
-         *  第二次进入界面且登陆状态改变 上一次进入是否请求到数据 有就清空
-         */
-            [self.dataArray removeAllObjects];
-            [self.dateArray removeAllObjects];
+            /**
+             *  第二次进入界面且登陆状态改变 上一次进入是否请求到z数据 有就清空
+             */
+ 
             
-        
-        [self setToolkit:NO date:nil];
-        _oldSid = sid;
+            self.toolSignal = [self requestDataToolkitSignal];
+            self.baySignal = [self requestDataLovelyBabySignal:nil];
+            [self bindModel];
+            _oldSid = sid;
             
         }else{
-
-            NSInteger count = self.dataArray.count;
-           
-            if (count == 0) {
-  
-                  [self setToolkit:NO date:nil];
+            
+            if (!_lovelyBabyModel) {
+                self.toolSignal = [self requestDataToolkitSignal];
+                self.baySignal = [self requestDataLovelyBabySignal:nil];
+                  [self bindModel];
             }
-       
+            
         }
-       
+        
     }else{
         self.navBar.title = @"宝宝状态";
         _babyStatleTableVIew.tableFooterView = [[UIView alloc] init];
@@ -166,7 +184,7 @@
         _leftButton.hidden = YES;
         _beginParentingButton.hidden = YES;
         _backTadyButton.hidden = YES;
-  
+        
         [_dataArray removeAllObjects];
         [_dateArray removeAllObjects];
         [_tableView reloadData];
@@ -186,30 +204,89 @@
         // 设置内边距
         CGFloat inset = (UISCREEN_WIDTH-90 - (UISCREEN_WIDTH-90)/3) * 0.5;
         flowLayout.sectionInset = UIEdgeInsetsMake(0, inset, 0, inset);
-     
+        
         flowLayout;
     });
     _collectionView.scrollEnabled = YES;
     _collectionView.showsHorizontalScrollIndicator = NO;
     _collectionView.collectionViewLayout = flowLayout;
-    _collectionView.dataSource = self;
-    _collectionView.delegate = self;
     [self.collectionView registerNib:[UINib nibWithNibName:@"MBNewBabyCell" bundle:nil] forCellWithReuseIdentifier:@"MBNewBabyCell"];
-    
-   
 
     
+}
+
+- (void)bindModel{
+
+    [[RACSignal combineLatest:@[RACObserve(self, baySignal),RACObserve(self, toolSignal)] reduce:^id(RACSignal *signBaby,RACSignal *signTool){
+        
+        
+        return [[RACSignal combineLatest:@[signBaby,signTool] reduce:^id(MBLovelyBabyModel *model,NSDictionary *dic){
+             model.toolArr  =   [NSArray modelDictionary:dic modelKey:@"data" modelClassName:@"MBMyToolModel"];
+             model.isHiddenTool = [dic[@"hidden"] boolValue];
+            return model;
+        }] subscribeNext:^(MBLovelyBabyModel *model) {
+            
+            if (model) {
+                
+             
+                _lovelyBabyModel = model;
+                [self calculateDate];
+                if (_dataArray.count == 4) {
+                    
+                    NSMutableArray *arr = [NSMutableArray array];
+                    [arr addObject:_dataArray.lastObject[0][0]];
+                    [arr addObject:_dataArray.lastObject[0][1]];
+                    [arr addObjectsFromArray:model.recommend_goods];
+                    self.dataArray[0] = model.remind;
+                    self.dataArray[1] = model.toolArr;
+                    self.dataArray[3] = @[arr];
+                }else{
+                    
+                    
+                    NSMutableArray *arr = [NSMutableArray array];
+                    [arr addObjectsFromArray:model.recommend_topics];
+                    [arr addObjectsFromArray:model.recommend_goods];
+                    [self.dataArray addObjectsFromArray:@[model.remind,model.toolArr,model.recommend_posts,@[arr]]];
+                }
+               
+                [self setTableHeadView];
+                [self.tableView reloadData];
+            
+                
+                if (![[NSUserDefaults standardUserDefaults] objectForKey:@"isGuide"]) {
+                    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_HEIGHT)];
+                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageIndex)];
+                    image.image = [UIImage imageNamed:string(@"guideImage", s_Integer(_guideImageIndex))];
+                    image.userInteractionEnabled = true;
+                    [image addGestureRecognizer:tap];
+                    [[UIApplication  sharedApplication].keyWindow addSubview:_guideImageView = image];
+                    
+                    [[NSUserDefaults standardUserDefaults] setObject:@"isGuide" forKey:@"isGuide"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                }
+
+                
+            }
+        }];
+    }] subscribeNext:^(MBLovelyBabyModel *model) {}];
+
+
 }
 - (IBAction)button:(UIButton *)sender {
     
     if ([sender isEqual:_backTadyButton]) {
-        _row = [_dateArray indexOfObject:_current_date];
+        _row = [_dateArray indexOfObject:[NSDate date]];
         [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-        MMLog(@"button");
-          [self setData:[self setDate:_current_date]];
-        sender.hidden= YES;
-        
+        self.toolSignal = [self requestDataToolkitSignal];
+        self.baySignal = [self requestDataLovelyBabySignal: [NSString dateConversionString:[NSDate date]]];
+    
+    }else{
+    
+        [self performSegueWithIdentifier:@"MBBabyGenderViewController" sender:_baby_id];
     }
+    
+    sender.hidden= YES;
 }
 
 
@@ -218,13 +295,12 @@
 
 - (IBAction)back:(UIButton *)sender {
     
-   
     
     
     if (_row == 0) {
         return;
     }
-    if ([_dateArray[_row] isEqualToDate:_current_date]) {
+    if ([_dateArray[_row] isEqualToDate:_lovelyBabyModel.currentDate ]) {
         _backTadyButton.hidden = YES;
     }
     _row --;
@@ -232,15 +308,19 @@
     NSDate *date = _dateArray[_row];
     
     _backTadyButton.hidden = NO;
-    [self setToolkit:NO date:[self setDate:date]];
+    self.toolSignal = [self requestDataToolkitSignal];
+    self.baySignal = [self requestDataLovelyBabySignal:[NSString dateConversionString:date]];
+    
+//    [self setToolkit:NO date:[self setDate:date]];
+    
     
 }
 - (IBAction)next:(UIButton *)sender {
-
+    
     if (_row == _dateArray.count-1) {
         return;
     }
-    if ([_dateArray[_row] isEqualToDate:_current_date]) {
+    if ([_dateArray[_row] isEqualToDate:_lovelyBabyModel.currentDate ]) {
         _backTadyButton.hidden = YES;
     }
     _row ++;
@@ -248,52 +328,17 @@
     NSDate *date = _dateArray[_row];
     if (sender) {
         _backTadyButton.hidden = NO;
-        [self setToolkit:NO date:[self setDate:date]];
+        self.toolSignal = [self requestDataToolkitSignal];
+        self.baySignal = [self requestDataLovelyBabySignal:[NSString dateConversionString:date]];
+//        [self setToolkit:NO date:[self setDate:date]];
     }
     
-
+    
     
     
 }
 
-/**
- *  请求工具数据
- */
-- (void)setToolkit:(BOOL)refresh date:(NSString *)date{
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    if (!refresh) {
-        [self show];
-    }
-    
-    NSDictionary *parameters = @{@"session":sessiondict};
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_user_toolkit_v2"];
-    [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
-        
-//        MMLog(@"%@",responseObject);
-        
-        if (refresh) {
-            self.dataArray[1] = [responseObject valueForKeyPath:@"data"];
-            
-            [_tableView  reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
-        }else if(date){
-              self.dataArray[1] = [responseObject valueForKeyPath:@"data"];
-            
-            [self setData:date];
-        }else{
-            [self.dataArray addObject:[responseObject valueForKeyPath:@"data"]];
-            MMLog(@"%lu",(unsigned long)self.dataArray.count);
-            [self setData:date];
-        }
-        
-    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        [self show:@"请求失败 " time:1];
-        MMLog(@"%@",error);
-    }];
-    
-    
-}
+
 -(void)imageIndex{
     _guideImageIndex++;
     if (_guideImageIndex == 5) {
@@ -303,92 +348,57 @@
     _guideImageView.image = [UIImage imageNamed:string(@"guideImage", s_Integer(_guideImageIndex))];
     
 }
+
 /**
- *  请求萌宝数据
- *
- *
+ 获取工具数据源
+
+ @return 工具数据源Signal
  */
-#pragma mark--请求萌宝数据
-- (void)setData:(NSString *)date{
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
-    NSDictionary *parameters = @{@"session":sessiondict};
-    if (date) {
-       
-         parameters = @{@"session":sessiondict,@"current_date":date};
+- (RACSignal *)requestDataToolkitSignal{
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         
-      
-    }
+        NSDictionary *parameters = @{@"session":[MBSignaltonTool getCurrentUserInfo].sessiondict};
+     
+        [MBNetworking   POSTOrigin:string(BASE_URL_root, @"/mengbao/get_user_toolkit_v2") parameters:parameters success:^(id responseObject) {
+            [subscriber sendNext:responseObject];
+        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+            [subscriber sendNext:nil];
+            [subscriber sendCompleted];
+        }];
+        
+        return nil;
+    }];
+}
+
+
+/**
+ 获取萌宝数据源
+
+ @param date 萌宝数据源Signal
+ @return 日期
+ */
+- (RACSignal *)requestDataLovelyBabySignal:(NSString *)date{
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_index_info"];
-    [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
-        [self dismiss];
-        MMLog(@"%@",responseObject);
-        _isPregnant = [[responseObject valueForKeyPath:@"type"] isEqualToString:@"pregnant"];
-        
+
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+
+        NSDictionary *parameters = @{@"session":[MBSignaltonTool getCurrentUserInfo].sessiondict};
         if (date) {
-
-            _day_info = [responseObject valueForKeyPath:@"day_info"];
-            [self setTableHeadView:_day_info];
-            self.dataArray[0] = [responseObject valueForKeyPath:@"remind"];
-            if ( [responseObject valueForKeyPath:@"recommend_posts"]) {
-                self.dataArray[2] = [responseObject valueForKeyPath:@"recommend_posts"];
-            }
-            if ([responseObject valueForKeyPath:@"recommend_topics"]) {
-                self.dataArray[3][0] = [responseObject valueForKeyPath:@"recommend_topics"];
-            }
-            if ([responseObject valueForKeyPath:@"recommend_goods"]) {
-                self.dataArray[3][0] = [responseObject valueForKeyPath:@"recommend_goods"];
-            }
- 
-            [_tableView reloadData];
-            
-            
-      
-        }else{
-            _day_info = [responseObject valueForKeyPath:@"day_info"];
-            [self setTableHeadView:_day_info];
-            [self.dataArray insertObject:[responseObject valueForKeyPath:@"remind"] atIndex:0];
-            [self.dataArray addObject:[responseObject valueForKeyPath:@"recommend_posts"]];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObjectsFromArray:[responseObject valueForKeyPath:@"recommend_topics"]];
-            [arr addObjectsFromArray:[responseObject valueForKeyPath:@"recommend_goods"]];
-            [self.dataArray addObject:@[arr]];
-            _tableView.delegate = self;
-            _tableView.dataSource =self;
-            
-            _current_date = [self setDateStr:[responseObject valueForKeyPath:@"current_date"]];
-            _start_date   =  [self setDateStr:[responseObject valueForKeyPath:@"start_date"]];
-            _end_date     = [self setDateStr:[responseObject valueForKeyPath:@"end_date"]];
-            
-            
-            [_tableView reloadData];
-            [self calculateDate];
-            
-            if (![[NSUserDefaults standardUserDefaults] objectForKey:@"isGuide"]) {
-                UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_HEIGHT)];
-                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageIndex)];
-                image.image = [UIImage imageNamed:string(@"guideImage", s_Integer(_guideImageIndex))];
-                image.userInteractionEnabled = true;
-                [image addGestureRecognizer:tap];
-                [[UIApplication  sharedApplication].keyWindow addSubview:_guideImageView = image];
-                
-                [[NSUserDefaults standardUserDefaults] setObject:@"isGuide" forKey:@"isGuide"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-
-            }
-            
-            
+            parameters = @{@"session":[MBSignaltonTool getCurrentUserInfo].sessiondict,@"current_date":date};
         }
+        [MBNetworking   POSTOrigin:string(BASE_URL_root, @"/mengbao/get_index_info") parameters:parameters success:^(id responseObject) {
+            [subscriber sendNext:[MBLovelyBabyModel yy_modelWithDictionary:responseObject]];
+        } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+            [subscriber sendNext:nil];
+            [subscriber sendCompleted];
+        }];
         
-    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        [self show:@"请求失败 " time:1];
-        MMLog(@"%@",error);
+        return nil;
     }];
     
-    
 }
+
+/**上传宝宝头像 */
 - (void)setBabyImage{
     
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
@@ -396,79 +406,86 @@
     NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
     
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/save_baby_photo"] parameters:@{@"session":sessiondict,@"baby_id":_baby_id} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-    
-            NSData * data =  UIImageJPEGRepresentation(_baby_image, 1.0);
-            if(data != nil){
-                [formData appendPartWithFileData:data name:@"photo" fileName:@"photo.jpg" mimeType:@"image/jpeg"];
-            }
-            
-        } progress:^(NSProgress *progress) {
-         
-        } success:^(NSURLSessionDataTask *task, MBModel *responseObject) {
-            [self show:@"设置成功" time:1];
         
-            [self setTableHeadView:_day_info];
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            MMLog(@"%@",error);
-            [self show:@"请求失败！" time:1];
-        }];
+        NSData * data =  UIImageJPEGRepresentation(_baby_image, 1.0);
+        if(data != nil){
+            [formData appendPartWithFileData:data name:@"photo" fileName:@"photo.jpg" mimeType:@"image/jpeg"];
+        }
+        
+    } progress:^(NSProgress *progress) {
+        
+    } success:^(NSURLSessionDataTask *task, MBModel *responseObject) {
+        [self show:@"设置成功" time:1];
+        [self setTableHeadView];
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        MMLog(@"%@",error);
+        [self show:@"请求失败！" time:1];
+    }];
 }
 /**
  *  根据开始 和结束时间 计算天数并以 yyyy—MM－dd的date存入数据
  */
 - (void)calculateDate{
     
- 
-    if (_isPregnant) {
-        
-        /**
-         *  若到第38周到40周 之间 提示设置宝宝信息
-         */
-        NSDate *date =  [_start_date dateByAddingDays:266];
-        
-        if ([_current_date isLaterThan:date]) {
-            _beginParentingButton.hidden = NO;
-        }
-        
-    }else{
-    
-        
-        /**
-         *  超过六岁 就显示第一天的数据
-         */
-        if ( [_current_date daysFrom:_start_date]>[_end_date daysFrom:_start_date]) {
-            
-            return;
-        }
+    if (self.dateArray.count > 0) {
+        return;
     }
+    
+    switch (_lovelyBabyModel.stateBabyType) {
+        case isPregnantBaby:{
 
+            // 若到第38周到40周 之间 提示设置宝宝信息
+            NSDate *date =  [_lovelyBabyModel.startDate  dateByAddingDays:266];
+            
+            if ([_lovelyBabyModel.currentDate isLaterThan:date]) {
+                _beginParentingButton.hidden = NO;
+            }
+            
+        }break;
+        case theBabyIsBorn:{
+            //超过六岁 就显示第一天的数据
+            if ( [_lovelyBabyModel.currentDate daysFrom:_lovelyBabyModel.startDate]>[_lovelyBabyModel.endDate daysFrom:_lovelyBabyModel.startDate]) {
+                
+                return;
+            }
+            
+        }break;
+        default:
+            break;
+    }
+    
     
     
     NSInteger  i = 0;
     
-    while (i<[_end_date daysFrom:_current_date]+1) {
+    while (i<[_lovelyBabyModel.endDate daysFrom:_lovelyBabyModel.currentDate]) {
         
-        [_dateArray addObject: [_current_date dateByAddingDays:i]];
-
+        [_dateArray addObject: [_lovelyBabyModel.currentDate dateByAddingDays:i]];
+        
         i++;
     }
-
+    
     i = 1;
     
-    while (i<[_current_date daysFrom:_start_date]+1) {
+    while (i<[_lovelyBabyModel.currentDate daysFrom:_lovelyBabyModel.startDate]) {
         
-        [_dateArray insertObject:[_current_date dateBySubtractingDays:i] atIndex:0];
+        [_dateArray insertObject:[_lovelyBabyModel.currentDate dateBySubtractingDays:i] atIndex:0];
         i++;
     }
+    [_dateArray insertObject:_lovelyBabyModel.startDate atIndex:0];
+    [_dateArray insertObject:[_lovelyBabyModel.startDate dateBySubtractingDays:1] atIndex:0];
+   
+    
     [_collectionView reloadData];
     
     _reftButton.hidden = NO;
     _leftButton.hidden = NO;
-    _row = [_dateArray indexOfObject:_current_date];
+    _row = [_dateArray indexOfObject:_lovelyBabyModel.currentDate];
     [self collectionViewOffset];
-
-
-
+    
+    
+    
 }
 /**
  *  让collectionView 移动到指定的cell
@@ -484,97 +501,68 @@
  *
  *  @param day_info day_info字典
  */
-- (void)setTableHeadView:(NSDictionary *)day_info{
-    NSString *center = day_info[@"content"];
+- (void)setTableHeadView{
     self.tableView.tableHeaderView = ({
-        CGFloat height = 0;
-        if (day_info) {
-            height =  123+(UISCREEN_WIDTH - 40)/4+88+[center sizeWithFont:SYSTEMFONT(15) withMaxSize:CGSizeMake(UISCREEN_WIDTH -50, MAXFLOAT)].height;
-        }else{
-            
-            height =  123+(UISCREEN_WIDTH - 40)/4*15/14;
-        }
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, height)];
+
         MBNewBabyHeadView  *headView = [MBNewBabyHeadView instanceView];
-        headView.dataDic = day_info;
-        if (_baby_image) {
-            _images = _baby_image;
-            headView.baby_image.image = _baby_image;
-        }else{
-            if (_isPregnant) {
-                headView.came_image.hidden = YES;
-                _images = day_info[@"images"];
-                
-                [headView.baby_image sd_setImageWithURL:URL(day_info[@"images"]) placeholderImage:[UIImage imageNamed:@"headPortrait"]];
-                headView.baby_image.userInteractionEnabled = NO;
-            }else{
-                _images = [MBSignaltonTool getCurrentUserInfo].user_baby_info.photo;
-                     headView.came_image.hidden = NO;
-                  headView.baby_image.userInteractionEnabled = YES;
-                [headView.baby_image sd_setImageWithURL:_images placeholderImage:[UIImage imageNamed:@"headPortrait"]];
-            
-            }
-           
-        }
-        headView.frame = view.frame;
-        [view addSubview:headView];
+        headView.image = _baby_image;
+        headView.model = _lovelyBabyModel.day_info;
+        [headView layoutIfNeeded];
+        headView.mj_w =  UISCREEN_WIDTH;
+        headView.mj_h = _lovelyBabyModel.stateBabyType == readyToPregnantBaby?headView.preparePregnantView.ml_maxY :headView.functionalClassificationView.ml_maxY;
+ 
         @weakify(self);
-        [[headView.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *tag) {
+        headView.sortingOptionsEvent = ^(NSDictionary *dic,MBBlockState type) {
             @strongify(self);
-            NSString *url;
-            NSString *title;
-            [MobClick event:@"Mengbao3"];
-            switch ([tag integerValue]) {
-                case 0: {
-                    
-                        MBabyRecordController *VC = [[MBabyRecordController alloc] init];
-                        VC.image = _images;
-                        [self pushViewController:VC Animated:YES];
-                    
-           
-                    return ;
-                    
-                }break;
-                case 1:{
-                    
-                    url = @"/discovery/knowledge_index";
-                    title = @"知识库";
-                    
-                }break;
-                case 2:{
-                    
-                    url = @"/safefood/category";
-                    title = @"能不能吃";
-                }break;
-                case 3:{
-                    
-                    NSString *url = @"http://www.xiaomabao.com/tools/jewel.html";
+            switch (type) {
+                case theJumpPage:{
+                
                     MBBabyWebController *VC = [[MBBabyWebController alloc] init];
-                    VC.url = URL(url);
-                    VC.title = @"百宝箱";
+                    VC.url = dic[@"url"];
+                    VC.title = dic[@"title"];;
                     [self pushViewController:VC Animated:YES];
-                    return;
+                
+                }break;
+                case recordTheBaby:{
+                    
+                    [self performSegueWithIdentifier:@"MBBabysDiaryViewController" sender:nil];
                     
                 }break;
-                default:{
+                case setHead:{
                     if (self.baby_id) {
-                        
+    
                         [self editImageSelected];
                     }
                     
+                }break;
+                case setThePregnancy:{
                     
-                }
+                     [self performSegueWithIdentifier:@"MBpreparePregnantSetViewController" sender:self.baby_id];
+                    
+                }break;
+                case setTheDueDate:{
+                   
+                    MBBabyDueDateController *VC = [[MBBabyDueDateController alloc] init];
+                    VC.baby_id = _baby_id;
+                    VC.setUpAfterTheMaternalRefresh = ^{
+                        [self.dataArray removeAllObjects];
+                        self.toolSignal = [self requestDataToolkitSignal];
+                        self.baySignal  =  [self requestDataLovelyBabySignal:nil];
+                    };
+                    [self pushViewController:VC Animated:YES];
+                    
+                }break;
+                default:
                     break;
             }
             
-            MBBabyWebController *VC = [[MBBabyWebController alloc] init];
-            VC.url = URL(string(@"http://api.xiaomabao.com", url));
-            VC.title = title;
-            [self pushViewController:VC Animated:YES];
             
-        }];
+            
+
+        };
+
         
-        view;
+        headView;
     });
     
     
@@ -601,7 +589,7 @@
     MBNewBabyCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MBNewBabyCell" forIndexPath:indexPath];
     NSDate *date = _dateArray[indexPath.item];
     cell.date.text = [NSString stringWithFormat:@"%ld月%ld日",[date month], [date day]];
-    cell.time.text = [NSString stringWithFormat:@"%ld天", [date daysFrom:_start_date]+1];
+    cell.time.text = [NSString stringWithFormat:@"%ld天", [date daysFrom:_lovelyBabyModel.startDate] + 1];
     cell.date.font = SYSTEMFONT(16);
     cell.time.font = SYSTEMFONT(12);
     
@@ -612,15 +600,16 @@
     _backTadyButton.hidden = NO;
     [self collectionViewOffset];
     NSDate *date = _dateArray[_row];
-    [self setToolkit:NO date:[self setDate:date]];
+    self.toolSignal = [self requestDataToolkitSignal];
+    self.baySignal = [self requestDataLovelyBabySignal: [NSString dateConversionString:date]];
 
+    
 }
 #pragma mark ---UITableViewDelagate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if (tableView.tag == 1) {
         return 1;
     }
-    
     return self.dataArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -628,10 +617,16 @@
         return self.datArr.count;
     }
     
-    if (section==1) {
+    
+    if (section == 1) {
+        if (_lovelyBabyModel.isHiddenTool) {
+           
+            return 0;
+        }
         
         return [_dataArray[section] count]+1;
     }
+    
     return [_dataArray[section] count];
     
     
@@ -647,15 +642,15 @@
             if ([_dataArray[indexPath.section] count] == indexPath.row ) {
                 return 45;
             }else{
-                
-                NSArray *arr =  _dataArray[indexPath.section][indexPath.row][@"toolkit_detail"];
+                MBMyToolModel *model = ( MBMyToolModel *) _dataArray[indexPath.section][indexPath.row];
+                NSArray *arr =   model.toolkit_detail;
                 if (arr&&arr.count > 0 ) {
                     if (arr.count >3 ) {
-                       return 45 +20*3;
+                        return 45 +20*3;
                     }
-                   return  45 +20*arr.count;
+                    return  45 +20*arr.count;
                 }
-              
+                
                 return 60;
             }
             
@@ -669,9 +664,15 @@
     if (tableView.tag == 1) {
         return 0;
     }
-   
+    
     if (section == 0) {
-        if ([_dataArray[section] count]==0) {
+        if ([_dataArray[section] count] == 0) {
+            
+            return 0;
+        }
+    }
+    if (section == 1) {
+        if (_lovelyBabyModel.isHiddenTool) {
             return 0;
         }
     }
@@ -694,6 +695,11 @@
         return nil;
     }
     
+    if (section==1) {
+        if (_lovelyBabyModel.isHiddenTool) {
+            return nil;
+        }
+    }
     UIView *View = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 50)];
     MBCollectionHeadView  *headView = [MBCollectionHeadView instanceView];
     headView.frame = View.frame;
@@ -702,8 +708,7 @@
         case 1: headView.tishi.text = @"- 工具 -";         break;
         case 2: headView.tishi.text = @"- 麻包圈推荐 -";    break;
         case 3: headView.tishi.text = @"- 麻包精选活动 -";   break;
-        default:
-            break;
+        default:break;
     }
     
     [View addSubview:headView];
@@ -733,8 +738,8 @@
     if (section == 2) {
         
         imageView.image = [UIImage imageNamed:@"axiajiao1"];
-     
-
+        
+        
         
     }else if (section == 3){
         
@@ -766,7 +771,7 @@
             }
             
             [cell uiedgeInsetsZero];
-            cell.dataDic = _dataArray[indexPath.section][indexPath.row];
+            cell.model = _dataArray[indexPath.section][indexPath.row];
             return cell;
         }
         case 1: {
@@ -785,7 +790,7 @@
             if (!cell) {
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"MBBabyToolCell"owner:nil options:nil]firstObject];
             }
-            cell.dataDic = _dataArray[indexPath.section][indexPath.row];
+            cell.model = _dataArray[indexPath.section][indexPath.row];
             [cell uiedgeInsetsZero];
             return cell;
         }
@@ -794,7 +799,7 @@
             if (!cell) {
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"MBNewBabyThreeTableCell"owner:nil options:nil]firstObject];
             }
-            cell.dataDic = _dataArray[indexPath.section][indexPath.row];
+            cell.model = _dataArray[indexPath.section][indexPath.row];
             [cell uiedgeInsetsZero];
             return cell;
         }
@@ -820,34 +825,37 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"tabBarBtn_selected" object:nil userInfo:@{@"selected":@"3"}];
         self.tabBarController.selectedIndex = 3;
     }else if (sender.view.tag== 3){
-     [[NSNotificationCenter defaultCenter] postNotificationName:@"tabBarBtn_selected" object:nil userInfo:@{@"selected":@"2"}];
-       self.tabBarController.selectedIndex = 2;
-    
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"tabBarBtn_selected" object:nil userInfo:@{@"selected":@"2"}];
+        self.tabBarController.selectedIndex = 2;
+        
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     if (!sid) {
         [self loginClicksss:@"mabao"];
         return;
     }
     if (tableView.tag ==1) {
-        
-        if (indexPath.row == 0) {
+        if (indexPath.row ==  0){
+            
+            
+            [self performSegueWithIdentifier:@"MBpreparePregnantSetViewController" sender:nil];
+        }else  if (indexPath.row == 1) {
             [MobClick event:@"Mengbao0"];
             MBBabyDueDateController *VC = [[MBBabyDueDateController alloc] init];
-            
             [self pushViewController:VC Animated:YES];
         }else{
             [MobClick event:@"Mengbao1"];
-            [self performSegueWithIdentifier:@"sunxianglong" sender:nil];
+            
+            [self performSegueWithIdentifier:@"MBBabyGenderViewController" sender:nil];
         }
         return;
     }
     switch (indexPath.section) {
         case 0: {
-           
+            
             [MobClick event:@"Mengbao4"];
             MBBabyWebController *VC = [[MBBabyWebController alloc] init];
             VC.url = URL(_dataArray[indexPath.section][indexPath.row][@"url"]);
@@ -863,7 +871,8 @@
                 @weakify(self);
                 [[VC.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSString *str) {
                     @strongify(self);
-                    [self setToolkit:YES date:nil];
+                    self.toolSignal = [self requestDataToolkitSignal];
+//                    [self setToolkit:YES date:nil];
                 }];
                 [self pushViewController:VC Animated:YES];
             }else{
@@ -879,7 +888,7 @@
             
         }break;
         case 2: {
-         [MobClick event:@"Mengbao6"];
+            [MobClick event:@"Mengbao6"];
             MBPostDetailsViewController *VC = [[MBPostDetailsViewController   alloc] init];
             VC.post_id = _dataArray[indexPath.section][indexPath.row][@"post_id"];
             [self pushViewController:VC Animated:YES];
@@ -894,11 +903,14 @@
             break;
     }
 }
+
+
+#pragma mark - STPhotoKitDelegate
 - (void)photoKitController:(STPhotoKitController *)photoKitController resultImage:(UIImage *)resultImage
 {
     _baby_image = resultImage;
     [self setBabyImage];
-
+    
     
 }
 #pragma mark - 2.UIImagePickerController的委托
@@ -912,7 +924,7 @@
         [photoVC setImageOriginal:imageOriginal];
         
         [photoVC setSizeClip:CGSizeMake(300, 300)];
-       
+        
         [self presentViewController:photoVC animated:YES completion:nil];
     }];
 }
@@ -955,28 +967,33 @@
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {    
+    if (sender) {
+        
+        if ([segue.identifier isEqualToString:@"MBpreparePregnantSetViewController"]) {
+            MBpreparePregnantSetViewController *VC  =  [segue destinationViewController];
+            WS(weakSelf)
+            VC.afterTheDateSetForPregnantRefreshAgain = ^{
+                [_dataArray removeAllObjects];
+                weakSelf.toolSignal = [self requestDataToolkitSignal];
+                weakSelf.baySignal  =  [self requestDataLovelyBabySignal:nil];
+            };
+        }else if ([segue.identifier isEqualToString:@"MBBabyGenderViewController"]){
+        
+            MBBabyGenderViewController *VC  =  [segue destinationViewController];
+            VC.baby_id = sender;
+            WS(weakSelf)
+            [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"setTheBabyInformationToCompleteTheRefresh" object:nil] subscribeNext:^(id x) {
+                [_dataArray removeAllObjects];
+                weakSelf.toolSignal = [self requestDataToolkitSignal];
+                weakSelf.baySignal  =  [self requestDataLovelyBabySignal:nil];
+            }];
 
-
-
-/**
- *  根据字符串时间获取时间戳
- *
- *  @param dateStr 字符串时间
- *
- *  @return NSTimeInterval
- */
-- (NSDate *)setDateStr:(NSString *)dateStr{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSDate *date = [formatter  dateFromString:dateStr];
-    return date;
-}
-
-- (NSString *)setDate:(NSDate *)date{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-   return  [formatter stringFromDate:date];
-
-
+            
+        
+        }
+       
+        
+    }
 }
 @end

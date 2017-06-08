@@ -14,11 +14,11 @@
 #if IS_TEST
 #else
 ///***  线上后台 */
-    static NSString *BASE_URL_root =   @"https://api.xiaomabao.com";
+//    static NSString *BASE_URL_root =   @"https://api.xiaomabao.com";
 /***  军哥后台 */
 //   static NSString *BASE_URL_root = @"http://192.168.10.230";
 /***  辉哥后台 */
-//static NSString *BASE_URL_root =   @"http://192.168.61.139:82";
+static NSString *BASE_URL_root =   @"http://10.2.6.220";
 
 #define NOTIFICATION_TIME_CELL  @"NotificationTimeCell"
 #endif
@@ -123,7 +123,7 @@ __strong __typeof(&*weakSelf)self = weakSelf;
 
 #if DEBUG
 
-#define MMLog(FORMAT, ...) fprintf(stderr, "[%s:%d行] %s\n", [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#define MMLog(FORMAT, ...) fprintf(stderr, "[%s:%d行]😹😹😹😹😹😹😹%s\n", [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
 
 #else
 
@@ -179,6 +179,7 @@ typedef void(^failureBlock)(NSError *error);
 
 
 #define URL(url) [NSURL URLWithString:url]
+
 #define string(str1,str2) [NSString stringWithFormat:@"%@%@",str1,str2]
 #define s_str(str1) [NSString stringWithFormat:@"%@",str1]
 #define s_Num(num1) [NSString stringWithFormat:@"%d",num1]

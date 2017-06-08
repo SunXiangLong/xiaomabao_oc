@@ -76,6 +76,7 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     MBSetBabyInformationController *VC = (MBSetBabyInformationController *)segue.destinationViewController;
+    VC.baby_id = self.baby_id;
     VC.babyGender = sender;
 }
 

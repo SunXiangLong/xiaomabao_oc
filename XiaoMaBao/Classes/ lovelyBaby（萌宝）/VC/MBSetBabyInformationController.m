@@ -8,17 +8,20 @@
 
 #import "MBSetBabyInformationController.h"
 #import "MBLogOperation.h"
-@interface MBSetBabyInformationController ()
+#import "IQUIView+Hierarchy.h"
+@interface MBSetBabyInformationController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *baby_name;
 @property (weak, nonatomic) IBOutlet UITextField *baby_birthday;
-
 @end
 
 @implementation MBSetBabyInformationController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    [_baby_name becomeFirstResponder];
+    
+  
+   
 }
 - (IBAction)submit:(id)sender {
     if (_baby_name.text.length < 1) {
@@ -26,7 +29,11 @@
         [_baby_name becomeFirstResponder];
         return;
     }
-      [_baby_name resignFirstResponder];
+    
+    
+    [_baby_name resignFirstResponder];
+    
+    
     if (_baby_birthday.text.length < 1) {
         [self show:@"请选择宝宝的生日！" time:1];
         [self selectBirthday];
@@ -54,7 +61,7 @@
                                          if ([selectedDate isEarlierThan:date] ) {
                                              NSString *currentDateStr = [dateFormatter stringFromDate:selectedDate];
                                              
-                                             _baby_birthday.text = currentDateStr;
+                                             self.baby_birthday.text = currentDateStr;
                                          }else{
                                              [self show:@"请选择正确的宝宝生日" time:1];
                                          
@@ -62,7 +69,7 @@
                                    
                                      } cancelBlock:^(ActionSheetDatePicker *picker) {
                                          
-                                     } origin:_baby_birthday];
+                                     } origin:self.baby_birthday];
     
 }
 - (NSString *)titleStr{
@@ -71,18 +78,20 @@
 
 #pragma mark--设置宝宝信息
 - (void)setData{
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    NSString *uid = [MBSignaltonTool getCurrentUserInfo].uid;
-    NSDictionary *sessiondict = [NSDictionary dictionaryWithObjectsAndKeys:uid,@"uid",sid,@"sid",nil];
+
     [self show];
 
 
-   NSDictionary *parameters = @{@"session":sessiondict,@"nickname":_baby_name.text,@"birthday":_baby_birthday.text,@"gender":_babyGender};
-   
+   NSDictionary *parameters = @{@"session":[MBSignaltonTool getCurrentUserInfo].sessiondict ,@"nickname":_baby_name.text,@"birthday":_baby_birthday.text,@"gender":_babyGender};
+    if (_baby_id) {
+        parameters = @{@"session":[MBSignaltonTool getCurrentUserInfo].sessiondict,@"nickname":_baby_name.text,@"birthday":_baby_birthday.text,@"gender":_babyGender,@"baby_id":_baby_id};
+    }
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/set_mengbao_info"];
     [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
         
-        MMLog(@"%@",responseObject);
+        if (_baby_id) {
+            [[NSNotificationCenter   defaultCenter] postNotificationName:@"setTheBabyInformationToCompleteTheRefresh" object:nil];
+        }
         NSString *status =  s_str([responseObject valueForKeyPath:@"status"]);
         if ([status isEqualToString:@"1"]) {
             [MBLogOperation loginAuthentication:nil success:^{
@@ -119,9 +128,23 @@
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    [_baby_name resignFirstResponder];
-    [self selectBirthday];
-    return NO;
+    
+    MMLog(@"%p,%p,%p",_baby_birthday,_baby_name,textField);
+     if ([textField isEqual: _baby_birthday]) {
+        if (textField.isAskingCanBecomeFirstResponder == NO) {
+            NSLog(@"do another something...");
+            if (self.baby_name.isFirstResponder) {
+                [self.baby_name resignFirstResponder];
+            }
+            [self selectBirthday];
+        }
+        return NO;
+    }else {
+        return YES;
+    }
+
+
+
 }
 
 @end
