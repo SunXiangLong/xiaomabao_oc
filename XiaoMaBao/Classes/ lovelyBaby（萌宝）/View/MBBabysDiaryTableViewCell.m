@@ -9,6 +9,7 @@
 #import "MBBabysDiaryTableViewCell.h"
 #import "MBBabysDiaryModel.h"
 @interface MBBabysDiaryTableViewCell()
+@property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UILabel *day;
 @property (weak, nonatomic) IBOutlet UILabel *monthYear;
 @property (weak, nonatomic) IBOutlet UILabel *weekAddtime;
@@ -65,9 +66,11 @@
     
      _content.attributedText = titleAttr;
     if (model.photo.count == 0 ) {
-        self.imageWidth.constant = self.imageWidth.constant = 0;
+        self.imageWidth.constant = self.imageHeight.constant = 0;
+        _image1.image = nil;
+        _image2.image = nil;
     }else if(model.photo.count > 1){
-        self.imageWidth.constant = self.imageWidth.constant = (UISCREEN_WIDTH  - 50) * 0.5;
+        self.imageWidth.constant = self.imageHeight.constant = (UISCREEN_WIDTH  - 50) * 0.5;
         [_image1 sd_setImageWithURL:URL(_model.photo.firstObject) placeholderImage:V_IMAGE(@"placeholder_num1")];
         [_image2 sd_setImageWithURL:URL(_model.photo[1]) placeholderImage:V_IMAGE(@"placeholder_num1")];
     }else{
@@ -86,10 +89,11 @@
 
     // Configure the view for the selected state
 }
+
+
 - (CGSize)sizeThatFits:(CGSize)size {
 
     
-    
-    return CGSizeMake(size.width, _position.ml_maxY + 15);
+    return CGSizeMake(size.width, _position.ml_maxY +15);
 }
 @end

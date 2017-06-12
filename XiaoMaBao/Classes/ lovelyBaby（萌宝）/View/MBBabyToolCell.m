@@ -8,12 +8,20 @@
 
 #import "MBBabyToolCell.h"
 #import "MBLovelyBabyModel.h"
+
+@interface MBBabyToolCell ()
+@property (weak, nonatomic) IBOutlet UIImageView *tool_image;
+@property (weak, nonatomic) IBOutlet UILabel *tool_center;
+@property (weak, nonatomic) IBOutlet UILabel *tool_title;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lableWidth;
+@property (weak, nonatomic) IBOutlet UILabel *toolkit_remind_time;
+@end
 @implementation MBBabyToolCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-
+    [self uiedgeInsetsZero];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -22,7 +30,8 @@
 }
 -(void)setModel:(MBMyToolModel *)model{
     _model = model;
-    [self.tool_image sd_setImageWithURL:model.toolkit_icon placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+    [self.tool_image sd_setImageWithURL:model.toolkit_icon placeholderImage:[UIImage imageNamed:@"placeholder_num2"] options:SDWebImageAllowInvalidSSLCertificates];
+    
     self.tool_title.text = model.toolkit_name;
     _toolkit_remind_time.text = model.toolkit_remind_time;
     self.lableWidth.constant =0;

@@ -10,11 +10,6 @@
 #import "SevenSwitch.h"
 @class MBMyToolModel;
 @interface MBBabyToolCell : UITableViewCell
-
-@property (weak, nonatomic) IBOutlet UIImageView *tool_image;
-@property (weak, nonatomic) IBOutlet UILabel *tool_center;
-@property (weak, nonatomic) IBOutlet UILabel *tool_title;
 @property(strong,nonatomic)MBMyToolModel *model;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lableWidth;
-@property (weak, nonatomic) IBOutlet UILabel *toolkit_remind_time;
+
 @end

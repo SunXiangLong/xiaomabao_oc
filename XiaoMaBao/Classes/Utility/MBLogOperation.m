@@ -219,7 +219,7 @@
             userInfo.sessiondict =  responseObject[@"data"][@"session"];
             
             ///切换用户登录的时候单例属性要重新赋值（不会走初始化方法了）
-            if (!userInfo.phoneNumber) {
+            if (userInfo) {
                 MBUserDataSingalTon *user = [MBUserDataSingalTon yy_modelWithJSON:responseObject[@"data"][@"user"]];
                 userInfo.sessiondict =  responseObject[@"data"][@"session"];
                 userInfo.phoneNumber = user.phoneNumber;

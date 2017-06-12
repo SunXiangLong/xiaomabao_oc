@@ -10,7 +10,5 @@
 
 @interface MBLovelyBabyImageCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *bandImageView;
-@property (weak, nonatomic) IBOutlet UIButton *btn1;
-@property (weak, nonatomic) IBOutlet UIButton *btn2;
-@property (nonatomic,copy) void (^btnBlock)();
+@property (nonatomic,copy) void (^btnBlock)(void);
 @end

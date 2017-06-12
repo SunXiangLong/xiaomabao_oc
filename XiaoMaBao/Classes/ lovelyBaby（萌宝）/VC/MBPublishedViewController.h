@@ -9,6 +9,6 @@
 #import "BkBaseViewController.h"
 
 @interface MBPublishedViewController : BkBaseViewController
-@property (nonatomic, strong) RACSubject *myCircleViewSubject;
+@property (nonatomic,copy)  void (^releaseTheLog)(void);
 
 @end

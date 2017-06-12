@@ -14,11 +14,11 @@
 #if IS_TEST
 #else
 ///***  线上后台 */
-//    static NSString *BASE_URL_root =   @"https://api.xiaomabao.com";
+    static NSString *BASE_URL_root =   @"https://api.xiaomabao.com";
 /***  军哥后台 */
 //   static NSString *BASE_URL_root = @"http://192.168.10.230";
 /***  辉哥后台 */
-static NSString *BASE_URL_root =   @"http://10.2.6.220";
+//static NSString *BASE_URL_root =   @"http://10.2.6.220";
 
 #define NOTIFICATION_TIME_CELL  @"NotificationTimeCell"
 #endif

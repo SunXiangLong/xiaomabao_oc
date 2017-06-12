@@ -24,16 +24,14 @@ typedef NS_OPTIONS(NSUInteger, MBBlockState) {
     recordTheBaby               = 1,
     setHead                     = 2,
     setThePregnancy             = 3,
-    setTheDueDate
+    setTheDueDate               = 4
     
 };
 @interface MBNewBabyHeadView : UIView
 @property (nonatomic,copy)  void (^sortingOptionsEvent)(NSDictionary *dic,MBBlockState type);
 + (instancetype)instanceView;
-
-@property (nonatomic,strong) UIImage *image;
 @property (nonatomic,strong) MBDayInfoModel *model;
-
+@property (weak, nonatomic) IBOutlet UIImageView *baby_image;
 @property (weak, nonatomic) IBOutlet UIView *preparePregnantView;
 @property (weak, nonatomic) IBOutlet UIView *functionalClassificationView;
 @end

@@ -11,5 +11,5 @@
 @interface MBpreparePregnantSetViewController : BkBaseViewController
 /***  宝宝id*/
 @property (nonatomic, copy)  NSString *baby_id;
-@property (nonatomic,copy)  void (^afterTheDateSetForPregnantRefreshAgain)();
+@property (nonatomic,copy)  void (^afterTheDateSetForPregnantRefreshAgain)(void);
 @end

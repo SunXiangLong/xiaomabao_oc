@@ -231,9 +231,7 @@ return @"预产期";
         [dateArr addObject:s_Integer(i)];
     }
     if ([_menstrualCycleTextField isEqual:textField]) {
-  
-
-        [ActionSheetStringPicker showPickerWithTitle:@"请选择月经周期天数" rows:dateArr  initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+        [ActionSheetStringPicker showPickerWithTitle:@"请选择月经周期天数" rows:dateArr  initialSelection:8 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
             textField.text = dateArr[selectedIndex];
         } cancelBlock:^(ActionSheetStringPicker *picker) {
             

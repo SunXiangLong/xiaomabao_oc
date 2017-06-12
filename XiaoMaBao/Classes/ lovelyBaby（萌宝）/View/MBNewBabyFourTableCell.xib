@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="159" height="84.5"/>
                                 <gestureRecognizers/>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="XyS-Pw-rAQ" appends="YES" id="qL4-a1-Egt"/>
+                                    <outletCollection property="gestureRecognizers" destination="aVe-f3-rUe" appends="YES" id="1cG-Cr-ecR"/>
                                 </connections>
                             </imageView>
                         </subviews>
@@ -45,7 +45,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="159" height="83"/>
                                 <gestureRecognizers/>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="td2-ge-g6R" appends="YES" id="alX-JG-Kfv"/>
+                                    <outletCollection property="gestureRecognizers" destination="CoU-Rr-9mb" appends="YES" id="H0F-24-fh8"/>
                                 </connections>
                             </imageView>
                         </subviews>
@@ -111,7 +111,7 @@
                             <constraint firstItem="TjB-cE-GI3" firstAttribute="width" secondItem="TjB-cE-GI3" secondAttribute="height" multiplier="1:1" id="qEU-CI-emH"/>
                         </constraints>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="XLS-kI-1ti" appends="YES" id="Csw-2w-LGw"/>
+                            <outletCollection property="gestureRecognizers" destination="Rde-OY-Byv" appends="YES" id="2v8-QR-Ajg"/>
                         </connections>
                     </view>
                     <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rMh-3u-EA4">
@@ -169,7 +169,7 @@
                             <constraint firstItem="LeT-1Q-fnY" firstAttribute="trailing" secondItem="4li-dP-r0a" secondAttribute="trailing" id="z5g-kQ-t5y"/>
                         </constraints>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="tqU-nt-92N" appends="YES" id="Fn6-4M-FI6"/>
+                            <outletCollection property="gestureRecognizers" destination="ZXD-pj-z9a" appends="YES" id="Nx7-cs-jpN"/>
                         </connections>
                     </view>
                     <view tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awZ-d7-srp">
@@ -227,7 +227,7 @@
                             <constraint firstItem="68y-oO-da7" firstAttribute="leading" secondItem="tpd-ZJ-8ib" secondAttribute="leading" constant="1" id="p2w-Op-RVH"/>
                         </constraints>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="EeL-wI-919" appends="YES" id="KNe-5k-dTB"/>
+                            <outletCollection property="gestureRecognizers" destination="sii-jL-vEP" appends="YES" id="yrM-3k-Qc6"/>
                         </connections>
                     </view>
                     <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TpZ-Cq-M24">
@@ -285,7 +285,7 @@
                             <constraint firstItem="t7u-0b-vt9" firstAttribute="centerX" secondItem="TpZ-Cq-M24" secondAttribute="centerX" id="xi4-y0-Hzv"/>
                         </constraints>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="unX-pS-1cc" appends="YES" id="06x-eD-pO5"/>
+                            <outletCollection property="gestureRecognizers" destination="CyX-85-eOJ" appends="YES" id="MmH-Hy-iKJ"/>
                         </connections>
                     </view>
                 </subviews>
@@ -340,34 +340,34 @@
             </connections>
             <point key="canvasLocation" x="279" y="261"/>
         </tableViewCell>
-        <tapGestureRecognizer id="XyS-Pw-rAQ">
+        <tapGestureRecognizer id="aVe-f3-rUe">
             <connections>
-                <action selector="dianji:" destination="KGk-i7-Jjw" id="Odl-BX-Ffh"/>
+                <action selector="dianji:" destination="KGk-i7-Jjw" id="RiQ-tJ-vxH"/>
             </connections>
         </tapGestureRecognizer>
-        <tapGestureRecognizer id="td2-ge-g6R">
+        <tapGestureRecognizer id="CoU-Rr-9mb">
             <connections>
-                <action selector="dianji:" destination="KGk-i7-Jjw" id="JFn-IZ-daT"/>
+                <action selector="dianji:" destination="KGk-i7-Jjw" id="ndJ-ta-W9G"/>
             </connections>
         </tapGestureRecognizer>
-        <tapGestureRecognizer id="XLS-kI-1ti">
+        <tapGestureRecognizer id="Rde-OY-Byv">
             <connections>
-                <action selector="dianji:" destination="KGk-i7-Jjw" id="dtN-4f-2Pe"/>
+                <action selector="dianji:" destination="KGk-i7-Jjw" id="AS3-e9-DJW"/>
             </connections>
         </tapGestureRecognizer>
-        <tapGestureRecognizer id="tqU-nt-92N">
+        <tapGestureRecognizer id="ZXD-pj-z9a">
             <connections>
-                <action selector="dianji:" destination="KGk-i7-Jjw" id="UPT-wR-6gk"/>
+                <action selector="dianji:" destination="KGk-i7-Jjw" id="I9R-DK-T1w"/>
             </connections>
         </tapGestureRecognizer>
-        <tapGestureRecognizer id="EeL-wI-919">
+        <tapGestureRecognizer id="sii-jL-vEP">
             <connections>
-                <action selector="dianji:" destination="KGk-i7-Jjw" id="Gon-Tw-cLt"/>
+                <action selector="dianji:" destination="KGk-i7-Jjw" id="QuS-gB-oAS"/>
             </connections>
         </tapGestureRecognizer>
-        <tapGestureRecognizer id="unX-pS-1cc">
+        <tapGestureRecognizer id="CyX-85-eOJ">
             <connections>
-                <action selector="dianji:" destination="KGk-i7-Jjw" id="4XD-T0-DY5"/>
+                <action selector="dianji:" destination="KGk-i7-Jjw" id="0th-gV-MPn"/>
             </connections>
         </tapGestureRecognizer>
     </objects>

@@ -59,9 +59,10 @@
     
     [_webView loadRequest:request];
 
-
-    [RACObserve(self.progressView, progress) subscribeNext:^(id x) {
     
+    @weakify(self);
+    [RACObserve(self.progressView, progress) subscribeNext:^(id x) {
+        @strongify(self);
         if (self.progressView.progress == 1) {
             
             [UIView animateWithDuration:0.25f delay:0.3f options:UIViewAnimationOptionCurveEaseOut animations:^{

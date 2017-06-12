@@ -52,13 +52,18 @@
             [self performSegueWithIdentifier:@"MBCheckInViewController" sender:nil];
             
         }break;
-        case 2: {
+        case 1:{
+        
             [MobClick event:@"AffordablePlane3"];
             MBWebViewController *VC = [[MBWebViewController alloc] init];
             VC.url = URL(@"https://www.xiaomabao.com/daily/prize");
             VC.title =@"抽大奖";
             VC.isloging = YES;
             [self pushViewController:VC Animated:YES];
+        
+        }break;
+        case 2: {
+            [self performSegueWithIdentifier:@"MBGiftCardViewController" sender:nil];
         }
             break;
         default:

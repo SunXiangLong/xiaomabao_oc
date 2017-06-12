@@ -24,7 +24,7 @@
     _model = model;
     _title.text = model.title;
     _summary.text = model.summary;
-     [_showImage sd_setImageWithURL:model.url placeholderImage:[UIImage imageNamed:@"placeholder_num2"]];
+     [_showImage sd_setImageWithURL:model.icon placeholderImage:[UIImage imageNamed:@"placeholder_num2"] options:SDWebImageAllowInvalidSSLCertificates];
 }
 -(void)setDataDic:(NSDictionary *)dataDic{
     _dataDic = dataDic;

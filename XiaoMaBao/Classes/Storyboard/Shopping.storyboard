@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G12b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1699,21 +1699,18 @@
                                                                 <action selector="buttonTouch:" destination="3VI-da-QhI" eventType="touchUpInside" id="GjH-Mm-fE9"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMI-uO-Rz8">
+                                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMI-uO-Rz8">
                                                             <rect key="frame" x="125" y="0.0" width="125" height="90"/>
                                                             <state key="normal" image="mm_luckydraw"/>
                                                             <connections>
                                                                 <action selector="buttonTouch:" destination="3VI-da-QhI" eventType="touchUpInside" id="MDb-tb-rF0"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXO-AK-IJe">
+                                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXO-AK-IJe">
                                                             <rect key="frame" x="250" y="0.0" width="125" height="90"/>
                                                             <state key="normal" image="giftCard"/>
                                                             <connections>
-                                                                <action selector="buttonTouch:" destination="3VI-da-QhI" eventType="touchUpInside" id="6f5-K3-1dg"/>
-                                                                <segue destination="zqp-dV-pAF" kind="show" id="EzC-lz-9El">
-                                                                    <nil key="action"/>
-                                                                </segue>
+                                                                <action selector="buttonTouch:" destination="3VI-da-QhI" eventType="touchUpInside" id="IMQ-QY-4P9"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -1889,6 +1886,7 @@
                         <outlet property="shufflingView" destination="5aO-as-6h4" id="OcP-fk-nOb"/>
                         <outlet property="tableView" destination="sEf-18-61v" id="LV3-g8-z1q"/>
                         <segue destination="vZg-CX-l3h" kind="show" identifier="MBCheckInViewController" id="na2-30-VpP"/>
+                        <segue destination="zqp-dV-pAF" kind="show" identifier="MBGiftCardViewController" id="xV4-Af-Sf6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gwe-iN-HaE" userLabel="First Responder" sceneMemberID="firstResponder"/>

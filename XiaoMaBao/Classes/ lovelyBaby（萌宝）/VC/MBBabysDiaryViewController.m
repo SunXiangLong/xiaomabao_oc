@@ -13,37 +13,29 @@
 #import "STPhotoKitController.h"
 #import "UIImagePickerController+ST.h"
 #import "MBBabyManagementViewController.h"
+#import "MBRecordTheBabyHeadView.h"
 #import <SDWebImage/UIButton+WebCache.h>
 @interface MBBabysDiaryViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, STPhotoKitDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     NSInteger _page;
     BOOL _isNewDiary;
-    NSArray<UIButton *> *_buttonArray;
+    
+    MBRecordTheBabyHeadView *_headView;
+    
 }
-@property (weak, nonatomic) IBOutlet UIView   *tableViewHeadView;
-@property (weak, nonatomic) IBOutlet UIButton *photoWallOne;
-@property (weak, nonatomic) IBOutlet UIButton *photoWallTwo;
-@property (weak, nonatomic) IBOutlet UIButton *photoWallThree;
-@property (weak, nonatomic) IBOutlet UIButton *photoWallFour;
-@property (weak, nonatomic) IBOutlet UIButton *photoWallFive;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 
 /***  记录上传宝宝墙图片是第几个*/
 @property (assign, nonatomic) NSInteger photoWallIndex;
-@property (copy, nonatomic) NSMutableArray *photoWallimageArr;
+
 /***  宝宝日志数组*/
 @property (copy, nonatomic) NSMutableArray<Result *> *resultArray;
 @end
 
 @implementation MBBabysDiaryViewController
--(NSMutableArray *)photoWallimageArr{
-    if (!_photoWallimageArr) {
-        _photoWallimageArr = [NSMutableArray arrayWithCapacity:5];
-    }
-    
-    return _photoWallimageArr;
 
-}
 -(NSMutableArray<Result *> *)resultArray{
     if (!_resultArray) {
         
@@ -55,9 +47,40 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _buttonArray = @[_photoWallOne,_photoWallTwo,_photoWallThree,_photoWallFour,_photoWallFive];
+
     _page = 1;
+    _headView = [MBRecordTheBabyHeadView instanceView];
+    
+    [self.view bringSubviewToFront:self.navBar ];
+    _tableView.tableFooterView = [[UIView alloc] init];
+   @weakify(self);
+    _headView.blcok = ^(NSInteger tag) {
+        @strongify(self);
+            if (tag < 5) {
+                self.photoWallIndex = tag;
+
+                [self editImageSelected];
+            }else{
+                [self theRefreshData];
+                
+            }
+
+    };
+    
     [self getBabyImage];
+    
+}
+
+- (void)theRefreshData{
+    WS(weakSelf)
+    MBPublishedViewController *VC = [[MBPublishedViewController alloc] init];
+    VC.releaseTheLog = ^{
+        _isNewDiary = true;
+     [weakSelf toGetTheBabyADiaryData];
+    };
+    
+    [self pushViewController:VC Animated:YES];
+    
 }
 - (IBAction)setThePhotoWallOrReleaseTheBaby:(UIButton *)sender {
     
@@ -66,18 +89,8 @@
         
         [self editImageSelected];
     }else{
-    
-        MBPublishedViewController *VC = [[MBPublishedViewController alloc] init];
+        [self theRefreshData];
         
-        @weakify(self);
-        [[VC.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNumber *num) {
-            @strongify(self);
-            _isNewDiary = true;
-            
-            [self toGetTheBabyADiaryData];
-        }];
-        
-        [self pushViewController:VC Animated:YES];
     }
 }
 - (NSString *)titleStr{
@@ -90,7 +103,7 @@
 }
 - (void)configureCell:(MBBabysDiaryTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     cell.fd_enforceFrameLayout = YES;
-    cell.model = self.resultArray[indexPath.section];
+    cell.model = self.resultArray[indexPath.row];
 }
 
 
@@ -99,7 +112,9 @@
        return self.resultArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+     @weakify(self);
     return [tableView fd_heightForCellWithIdentifier:@"MBBabysDiaryTableViewCell" cacheByIndexPath:indexPath configuration:^(MBBabysDiaryTableViewCell *cell) {
+        @strongify(self);
         [self configureCell:cell atIndexPath:indexPath];
         
     }];
@@ -116,12 +131,12 @@
     MBBabyManagementViewController *VC = [[MBBabyManagementViewController alloc] init];
     VC.model = _resultArray[indexPath.row];
 
-    __unsafe_unretained __typeof(self) weakSelf = self;
+    @weakify(self);
     VC.block = ^(Result * model){
-        
+        @strongify(self);
         [self.resultArray removeObject:model];
         
-        [weakSelf.tableView reloadData];
+        [self.tableView reloadData];
 
     };
     [self pushViewController:VC Animated:YES];
@@ -131,8 +146,10 @@
 
 - (void)photoKitController:(STPhotoKitController *)photoKitController resultImage:(UIImage *)resultImage
 {
-    self.photoWallimageArr[self.photoWallIndex] = resultImage;
-    [_buttonArray[self.photoWallIndex] setBackgroundImage:resultImage forState:UIControlStateNormal];
+    _headView.photoWallimageArr[self.photoWallIndex] = resultImage;
+    [_headView.buttonArray[self.photoWallIndex] setImage:resultImage forState:UIControlStateNormal];
+    
+    
     [self setBabyImage:self.photoWallIndex];
     
     
@@ -208,6 +225,11 @@
         [self dismiss];
         MBBabysDiaryModel *model =   [MBBabysDiaryModel yy_modelWithJSON:responseObject];
         if (_page == 1&&!_isNewDiary) {
+            [_headView layoutIfNeeded];
+            _headView.ml_width = UISCREEN_WIDTH;
+            _headView.ml_height = _headView.todayView.ml_maxY;
+            MMLog(@"%f", _headView.todayView.ml_maxY);
+            _tableView.tableHeaderView = _headView;
             MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(toGetTheBabyADiaryData)];
             footer.refreshingTitleHidden = YES;
             self.tableView.mj_footer = footer;
@@ -239,14 +261,22 @@
     [MBNetworking  POSTOrigin:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/mengbao/get_pic_wall"] parameters:@{@"session":[MBSignaltonTool getCurrentUserInfo].sessiondict} success:^(id responseObject) {
         MMLog(@"%@",responseObject);
         
-        _photoWallimageArr = [@[[responseObject valueForKeyPath:@"data"][@"pic1"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic2"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic3"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic4"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic5"][@"photo"]] mutableCopy];
+        _headView.photoWallimageArr = [@[[responseObject valueForKeyPath:@"data"][@"pic1"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic2"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic3"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic4"][@"photo"],[responseObject valueForKeyPath:@"data"][@"pic5"][@"photo"]] mutableCopy];
         
-        [_photoWallimageArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-           
-            [_buttonArray[idx]  sd_setBackgroundImageWithURL:URL(obj) forState:UIControlStateNormal placeholderImage:V_IMAGE(@"amengBaoLeft")];
+        [ _headView.photoWallimageArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            UIButton *btn = _headView.buttonArray[idx];
+            [btn sd_setImageWithURL:URL(obj) forState:UIControlStateNormal placeholderImage:V_IMAGE(@"amengBaoLeft")];
+            
             
         }];
-        [self toGetTheBabyADiaryData];
+        
+        
+        
+        
+       
+        
+        
+         [self toGetTheBabyADiaryData];
         
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
@@ -255,6 +285,7 @@
     }];
     
 }
+
 - (void)setBabyImage:(NSInteger )index{
     
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
@@ -263,7 +294,7 @@
     [self show];
     [MBNetworking POST:[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/set_pic_wall"] parameters:@{@"session":sessiondict,@"img_index":s_Integer(index +1)} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
-        NSData * data =  UIImageJPEGRepresentation(_photoWallimageArr[index], 1.0);
+        NSData * data =  UIImageJPEGRepresentation(_headView.photoWallimageArr[index], 1.0);
         if(data != nil){
             [formData appendPartWithFileData:data name:@"pic_wall_img" fileName:[NSString stringWithFormat:@"pic_wall_img%ld.jpg",index] mimeType:@"image/jpeg"];
         }

@@ -199,7 +199,6 @@
 		9F57C5001E973E5000A16D24 /* MBBabyImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F57C4B71E973E5000A16D24 /* MBBabyImageCollectionViewCell.xib */; };
 		9F57C5011E973E5000A16D24 /* MBBabyToolCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C4B81E973E5000A16D24 /* MBBabyToolCell.h */; };
 		9F57C5021E973E5000A16D24 /* MBBabyToolCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C4B91E973E5000A16D24 /* MBBabyToolCell.m */; };
-		9F57C5031E973E5000A16D24 /* MBBabyToolCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F57C4BA1E973E5000A16D24 /* MBBabyToolCell.xib */; };
 		9F57C5041E973E5000A16D24 /* MBCollectionHeadView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F57C4BB1E973E5000A16D24 /* MBCollectionHeadView.h */; };
 		9F57C5051E973E5000A16D24 /* MBCollectionHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F57C4BC1E973E5000A16D24 /* MBCollectionHeadView.m */; };
 		9F57C5061E973E5000A16D24 /* MBCollectionHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F57C4BD1E973E5000A16D24 /* MBCollectionHeadView.xib */; };
@@ -833,6 +832,9 @@
 		9F8DC1BA1EC2B74B0086C799 /* MBSearchPostCVCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F8DC1B71EC2B74B0086C799 /* MBSearchPostCVCell.h */; };
 		9F8DC1BB1EC2B74B0086C799 /* MBSearchPostCVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8DC1B81EC2B74B0086C799 /* MBSearchPostCVCell.m */; };
 		9F8DC1BC1EC2B74B0086C799 /* MBSearchPostCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F8DC1B91EC2B74B0086C799 /* MBSearchPostCVCell.xib */; };
+		9F8DD3C51EEA86BF00C9E84D /* MBRecordTheBabyHeadView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F8DD3C31EEA86BF00C9E84D /* MBRecordTheBabyHeadView.h */; };
+		9F8DD3C61EEA86BF00C9E84D /* MBRecordTheBabyHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8DD3C41EEA86BF00C9E84D /* MBRecordTheBabyHeadView.m */; };
+		9F8DD3C81EEA86CD00C9E84D /* MBRecordTheBabyHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F8DD3C71EEA86CD00C9E84D /* MBRecordTheBabyHeadView.xib */; };
 		9F98A3901E9F266B001FCED3 /* aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F98A3331E9F266B001FCED3 /* aes.h */; };
 		9F98A3911E9F266B001FCED3 /* asn1.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F98A3341E9F266B001FCED3 /* asn1.h */; };
 		9F98A3921E9F266B001FCED3 /* asn1_mac.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F98A3351E9F266B001FCED3 /* asn1_mac.h */; };
@@ -1154,7 +1156,6 @@
 		9F57C4B71E973E5000A16D24 /* MBBabyImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBBabyImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		9F57C4B81E973E5000A16D24 /* MBBabyToolCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBabyToolCell.h; sourceTree = "<group>"; };
 		9F57C4B91E973E5000A16D24 /* MBBabyToolCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBabyToolCell.m; sourceTree = "<group>"; };
-		9F57C4BA1E973E5000A16D24 /* MBBabyToolCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBBabyToolCell.xib; sourceTree = "<group>"; };
 		9F57C4BB1E973E5000A16D24 /* MBCollectionHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBCollectionHeadView.h; sourceTree = "<group>"; };
 		9F57C4BC1E973E5000A16D24 /* MBCollectionHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCollectionHeadView.m; sourceTree = "<group>"; };
 		9F57C4BD1E973E5000A16D24 /* MBCollectionHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBCollectionHeadView.xib; sourceTree = "<group>"; };
@@ -1788,6 +1789,9 @@
 		9F8DC1B71EC2B74B0086C799 /* MBSearchPostCVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSearchPostCVCell.h; sourceTree = "<group>"; };
 		9F8DC1B81EC2B74B0086C799 /* MBSearchPostCVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSearchPostCVCell.m; sourceTree = "<group>"; };
 		9F8DC1B91EC2B74B0086C799 /* MBSearchPostCVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBSearchPostCVCell.xib; sourceTree = "<group>"; };
+		9F8DD3C31EEA86BF00C9E84D /* MBRecordTheBabyHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBRecordTheBabyHeadView.h; sourceTree = "<group>"; };
+		9F8DD3C41EEA86BF00C9E84D /* MBRecordTheBabyHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBRecordTheBabyHeadView.m; sourceTree = "<group>"; };
+		9F8DD3C71EEA86CD00C9E84D /* MBRecordTheBabyHeadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MBRecordTheBabyHeadView.xib; sourceTree = "<group>"; };
 		9F93F82E1E2629EF00ECC34F /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = "../../../../Library/Developer/Xcode/DerivedData/XiaoMaBao-crisguegwajdtdgpphmbcayfrtmm/Build/Products/Debug-iphoneos/AFNetworking/AFNetworking.framework"; sourceTree = "<group>"; };
 		9F98A3331E9F266B001FCED3 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
 		9F98A3341E9F266B001FCED3 /* asn1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1.h; sourceTree = "<group>"; };
@@ -2532,6 +2536,9 @@
 		9F57C4A21E973E5000A16D24 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9F8DD3C31EEA86BF00C9E84D /* MBRecordTheBabyHeadView.h */,
+				9F8DD3C41EEA86BF00C9E84D /* MBRecordTheBabyHeadView.m */,
+				9F8DD3C71EEA86CD00C9E84D /* MBRecordTheBabyHeadView.xib */,
 				9F57C4971E973E5000A16D24 /* MBCollectionViewFlowLayout.h */,
 				9F57C4981E973E5000A16D24 /* MBCollectionViewFlowLayout.m */,
 				9FFCB14B1EE93B560076D653 /* MBBabysDiaryTableViewCell.h */,
@@ -2541,7 +2548,6 @@
 				9F57C4B71E973E5000A16D24 /* MBBabyImageCollectionViewCell.xib */,
 				9F57C4B81E973E5000A16D24 /* MBBabyToolCell.h */,
 				9F57C4B91E973E5000A16D24 /* MBBabyToolCell.m */,
-				9F57C4BA1E973E5000A16D24 /* MBBabyToolCell.xib */,
 				9F57C4BB1E973E5000A16D24 /* MBCollectionHeadView.h */,
 				9F57C4BC1E973E5000A16D24 /* MBCollectionHeadView.m */,
 				9F57C4BD1E973E5000A16D24 /* MBCollectionHeadView.xib */,
@@ -3935,6 +3941,7 @@
 				9F57C8331E976DE000A16D24 /* MBImageTableViewCell.h in Headers */,
 				9F57C43C1E9739FC00A16D24 /* MBLoginViewController.h in Headers */,
 				9F57C69D1E97601200A16D24 /* MBWelfareCardViewController.h in Headers */,
+				9F8DD3C51EEA86BF00C9E84D /* MBRecordTheBabyHeadView.h in Headers */,
 				9F57C64C1E975DE700A16D24 /* MBDetailsCircleTbaleViewCell.h in Headers */,
 				9F98A3A71E9F266B001FCED3 /* ebcdic.h in Headers */,
 				9F57C8311E976DDF00A16D24 /* MBGoodsSpecsView.h in Headers */,
@@ -3975,7 +3982,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = MB;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = HuiBei;
 				TargetAttributes = {
 					486D434B1AF23F240025A043 = {
@@ -4083,6 +4090,7 @@
 				9F57C7B31E976B8B00A16D24 /* MBTopView.xib in Resources */,
 				9F57C6661E975DE800A16D24 /* MBPostDetailsViewCell.xib in Resources */,
 				9F57C7FF1E976C9700A16D24 /* RefundWayTableViewCell.xib in Resources */,
+				9F8DD3C81EEA86CD00C9E84D /* MBRecordTheBabyHeadView.xib in Resources */,
 				9F57C8A61E976FE600A16D24 /* MBMyCollectionTableViewCell.xib in Resources */,
 				9F57C99D1E97769500A16D24 /* GuideImage.bundle in Resources */,
 				9F57C3F51E971FC700A16D24 /* MBRealNameViewController.xib in Resources */,
@@ -4130,7 +4138,6 @@
 				9F57C66B1E975DE800A16D24 /* MBVideoDetailsViewCell.xib in Resources */,
 				9F57C8351E976DE000A16D24 /* MBImageTableViewCell.xib in Resources */,
 				9F57C6D11E9762E800A16D24 /* Circle.storyboard in Resources */,
-				9F57C5031E973E5000A16D24 /* MBBabyToolCell.xib in Resources */,
 				9F57C5641E9741FB00A16D24 /* MBCategoryViewOneCell.xib in Resources */,
 				9F57C5671E9741FB00A16D24 /* MBCategoryViewTwoCell.xib in Resources */,
 				9F57C7571E976B8B00A16D24 /* MBServiceDetailsViewController.xib in Resources */,
@@ -4503,6 +4510,7 @@
 				9F57C9851E97753000A16D24 /* RatingBar.m in Sources */,
 				9F57C43F1E9739FC00A16D24 /* MBRegisterPhoneDoneViewController.m in Sources */,
 				48162F441AF2866900E61D5C /* MBNavigationViewController.m in Sources */,
+				9F8DD3C61EEA86BF00C9E84D /* MBRecordTheBabyHeadView.m in Sources */,
 				9F57C7F81E976C9700A16D24 /* PhotoCollectionViewCell.m in Sources */,
 				9F57C5341E9741C200A16D24 /* MBFreeStoreModel.m in Sources */,
 				9F57C9731E9774C600A16D24 /* UIImage+Size.m in Sources */,
@@ -4576,14 +4584,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -4628,14 +4642,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

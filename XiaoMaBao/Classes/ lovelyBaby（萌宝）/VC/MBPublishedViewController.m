@@ -40,15 +40,7 @@
     }
     return _photoArray;
 }
-- (RACSubject *)myCircleViewSubject {
-    
-    if (!_myCircleViewSubject) {
-        
-        _myCircleViewSubject = [RACSubject subject];
-    }
-    
-    return _myCircleViewSubject;
-}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     __unsafe_unretained __typeof(self) weakSelf = self;
@@ -94,7 +86,7 @@
  *  初始化相册选择器
  */
 - (void)presentPhotoPickerViewController {
-    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:7 - self.photoArray.count  columnNumber:4 delegate:nil pushPhotoPickerVc:YES];
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:10 - self.photoArray.count  columnNumber:4 delegate:nil pushPhotoPickerVc:YES];
     WS(weakSelf)
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         
@@ -201,7 +193,8 @@
         if ([[responseObject valueForKeyPath:@"status"]isEqualToNumber:@1]) {
             
             [self show:@"发表成功" time:1];
-            [self.myCircleViewSubject sendNext:@1];
+            
+            self.releaseTheLog();
 
             [self popViewControllerAnimated:YES];
             

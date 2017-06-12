@@ -7,14 +7,33 @@
 //
 
 #import "MBNewBabyFourTableCell.h"
-#import "MBGoodsDetailsViewController.h"
-#import "MBActivityViewController.h"
 #import "MBLovelyBabyModel.h"
+@interface MBNewBabyFourTableCell()
+@property (weak, nonatomic) IBOutlet UIImageView *image0;
+@property (weak, nonatomic) IBOutlet UIImageView *image1;
+@property (weak, nonatomic) IBOutlet UIImageView *image2;
+@property (weak, nonatomic) IBOutlet UIImageView *image4;
+@property (weak, nonatomic) IBOutlet UIImageView *image5;
+@property (weak, nonatomic) IBOutlet UIImageView *image3;
+@property (weak, nonatomic) IBOutlet UILabel *goods_name0;
+@property (weak, nonatomic) IBOutlet UILabel *goods_name1;
+@property (weak, nonatomic) IBOutlet UILabel *goods_name2;
+@property (weak, nonatomic) IBOutlet UILabel *goods_name3;
+@property (weak, nonatomic) IBOutlet UILabel *goods_price0;
+@property (weak, nonatomic) IBOutlet UILabel *goods_price1;
+@property (weak, nonatomic) IBOutlet UILabel *goods_price2;
+@property (weak, nonatomic) IBOutlet UILabel *goods_price3;
+@property (weak, nonatomic) IBOutlet UILabel *market_price0;
+@property (weak, nonatomic) IBOutlet UILabel *market_price1;
+@property (weak, nonatomic) IBOutlet UILabel *market_price3;
+@property (weak, nonatomic) IBOutlet UILabel *market_price2;
+@end
 @implementation MBNewBabyFourTableCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+     [self uiedgeInsetsZero];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -25,21 +44,17 @@
 
 - (IBAction)dianji:(UITapGestureRecognizer *)sender {
 
-    NSDictionary *dic = _dataArr[sender.view.tag];
+
     [MobClick event:@"Mengbao7"];
-    if (sender.view.tag>1) {
-        MBGoodsDetailsViewController *VC = [[MBGoodsDetailsViewController alloc] init];
-        VC.GoodsId =  dic[@"goods_id"];
-        [self.VC pushViewController:VC Animated:YES];
+    if (sender.view.tag > 1) {
+        
+         self.recommendCommodities(sender.view.tag, true);
         
     }else{
-    
-        MBActivityViewController *VC = [[MBActivityViewController alloc] init];
-        VC.act_id = dic[@"act_id"];
-        VC.title = dic[@"ad_name"];
-        [self.VC pushViewController:VC Animated:YES];
+        self.recommendCommodities(sender.view.tag, false);
+        
     }
-   
+    
 }
 -(void)setDataArr:(NSArray *)dataArr{
     _dataArr = dataArr;
