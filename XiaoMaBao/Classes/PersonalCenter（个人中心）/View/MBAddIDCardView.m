@@ -7,7 +7,7 @@
 //
 
 #import "MBAddIDCardView.h"
-#import "PhotoCollectionViewCell.h"
+
 #import "MBIDCardCell.h"
 @interface MBAddIDCardView ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 {

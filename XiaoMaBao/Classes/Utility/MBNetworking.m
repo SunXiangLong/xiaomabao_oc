@@ -113,7 +113,6 @@ static AFHTTPSessionManager *mgr = nil;
  *  @return 增加参数后的字典
  */
 + (NSDictionary *)stitchingParameter:(NSDictionary *)parameters{
-    
     NSDictionary *dic = @{@"version":VERSION_1,@"channel":@"APPStore",@"device":@"ios"};
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict addEntriesFromDictionary:parameters];

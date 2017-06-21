@@ -1,0 +1,6 @@
+framework module ASPlayerSDK {
+  umbrella header "ASPlayerSDK.h"
+
+  export *
+  module * { export * }
+}

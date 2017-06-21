@@ -40,7 +40,7 @@
     NSURLRequest* request = [NSURLRequest requestWithURL:url1] ;//创建NSURLRequest
     [_webView loadRequest:request];//加载
     [self.view insertSubview:_webView atIndex:0];
-    [self disableDropDown];
+
     
     @weakify(self);
     [RACObserve(self.webView, estimatedProgress) subscribeNext:^(id x) {
@@ -61,55 +61,12 @@
 
 
 }
-#pragma mark -- 禁用uiscorrow的下拉上拉弹起功能；
-- (void)disableDropDown{
-    for (id subview in _webView.subviews){
-        if ([[subview class] isSubclassOfClass:[UIScrollView class]]) {
-            ((UIScrollView *)subview).bounces = NO;
-            
-        }
-        
-    }
-
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
 }
-//#pragma mark --UIWebViewDelegate
-//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-//
-//    if (navigationType ==0|navigationType == 2) {
-//    
-//        return  NO;
-//    }
-//    return YES;
-//}
-//-(void)webViewDidStartLoad:(UIWebView*)webView {
-//    //当网页视图已经开始加载一个请求后，得到通知。
-//
-//    //    [self show];
-//}
-//-(void)webViewDidFinishLoad:(UIWebView*)webView{
-//    //当网页视图结束加载一个请求之后，得到通知。
-//
-//       [self dismiss];
-//}
-//-(void)webView:(UIWebView*)webView DidFailLoadWithError:(NSError*)error{
-//    //当在请求加载中发生错误时，得到通知。会提供一个NSSError对象，以标识所发生错误类
-//    MMLog(@"%@",error);
-//    [self show:@"加载失败" time:1];
-//}
-- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
-    
-   
-    [self dismisstoView:self.view];
-   
-}
-- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{
-    [self dismisstoView:self.view];
-}
+
 -(NSString *)leftStr{
   return @"";
 }

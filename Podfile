@@ -1,6 +1,7 @@
 
 platform :ios, '9.0'
 use_frameworks!
+inhibit_all_warnings!
 target 'XiaoMaBao' do
 #网络请求框架。
 pod 'AFNetworking'

@@ -126,12 +126,11 @@
         }break;
         case theBabyIsBorn:{
             self.functionalClassificationView.hidden = false;
-         [self.baby_image sd_setImageWithURL:[MBSignaltonTool getCurrentUserInfo].user_baby_info.photo  placeholderImage: V_IMAGE(@"headPortrait")];
-            
+            [self.baby_image sd_setImageWithURL:model.baby_photo  placeholderImage: V_IMAGE(@"headPortrait")];
             self.came_image.hidden = NO;
             self.baby_image.userInteractionEnabled = YES;
-            self.babylenth.text = @"宝宝体重";
-            self.babyWeight.text = @"宝宝身高";
+            self.babylenth.text = @"宝宝身高";
+            self.babyWeight.text = @"宝宝体重";
             self.view_weith.constant = self.view1_weith.constant = (UISCREEN_WIDTH -1)/2;
             self.view2_weith.constant =  0;
             self.babyDate.text = @"";

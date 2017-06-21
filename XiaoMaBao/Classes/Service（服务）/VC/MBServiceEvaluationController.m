@@ -9,9 +9,9 @@
 #import "MBServiceEvaluationController.h"
 #import "PhotoCollectionViewCell.h"
 #import "MBEvaluationSuccessController.h"
-@interface MBServiceEvaluationController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SDPhotoBrowserDelegate,PhotoCollectionViewCellDelegate>{
+@interface MBServiceEvaluationController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SDPhotoBrowserDelegate>{
     
-    
+    UIImage *_image;
     SDPhotoBrowser *browser;
 }
 @property (weak, nonatomic) IBOutlet UITextView *textView;
@@ -33,7 +33,8 @@
     [super viewDidLoad];
     self.bottom.constant = UISCREEN_HEIGHT - 136 - TOP_Y;
     _photoArray = [NSMutableArray array];
-    [_photoArray addObject:[UIImage imageNamed:@"evaluation_image"]];
+    _image = [UIImage imageNamed:@"evaluation_image"];
+    [_photoArray addObject:_image];
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.minimumInteritemSpacing =8;
     flowLayout.minimumLineSpacing = 10;
@@ -167,6 +168,28 @@
     
     
 }
+-(void)deleteTheImage:(UIImage *)image{
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                             message:@"是否删除图片"
+                                                                      preferredStyle: UIAlertControllerStyleAlert];
+    
+    UIAlertAction *delete  = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        NSIndexPath *indexpath = [NSIndexPath indexPathForItem:[_photoArray indexOfObject:image] inSection:0];
+        [_photoArray removeObject:image];
+        [self setCollectionViewHeight];
+        
+        [self.collectionView deleteItemsAtIndexPaths:@[indexpath]];
+        
+        
+        
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancelAction];
+    [alertController addAction:delete];
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -214,12 +237,15 @@
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCollectionViewCell" forIndexPath:indexPath];
     
     
-    cell.image.image = _photoArray[indexPath.item];
-    cell.image .contentMode =  UIViewContentModeScaleAspectFill;
-    cell.image .autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    cell.image .clipsToBounds  = YES;
+    cell.img = _photoArray[indexPath.item];
+    WS(weakSelf)
+    cell.deleteTheImage = ^(UIImage *image) {
+        if ([_image isEqual:image]) {
+            return ;
+        }
+        [weakSelf deleteTheImage:image];
+    };
     
-    cell.dalegate = self;
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -289,32 +315,6 @@
     [self.collectionView deleteItemsAtIndexPaths:@[indexpath]];
     
 }
--(void)setDeletePicture:(NSIndexPath *)indexpate{
-    
-    NSInteger num1 = _photoArray.count-1;
-    if (indexpate.item == num1) {
-        
-        return;
-        
-    }
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示"
-                                                                             message:@"是否删除图片"
-                                                                      preferredStyle: UIAlertControllerStyleAlert];
-    
-    UIAlertAction *delete  = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [_photoArray removeObjectAtIndex:indexpate.item];
-        [self setCollectionViewHeight];
-        NSIndexPath *indexpath = [NSIndexPath indexPathForItem:indexpate.item inSection:0];
-        [self.collectionView deleteItemsAtIndexPaths:@[indexpath]];
-        
-        
-        
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    [alertController addAction:cancelAction];
-    [alertController addAction:delete];
-    [self presentViewController:alertController animated:YES completion:nil];
-    
-}
+
 
 @end

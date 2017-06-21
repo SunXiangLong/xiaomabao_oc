@@ -41,7 +41,6 @@
 #import "UIViewController+ProgressHUD.h"
 #import "UITableViewCell+MBBottomLine.h"
 #import <ShareSDK/ShareSDK.h>
-//#import <JSPatch/JSPatch.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "STConfig.h"
 #import "MBBaseTableViewController.h"
@@ -56,10 +55,8 @@
 #import "UIImageView+WebCache.h"
 #import "MBBaseCollectionView.h"
 #import "MBBaseScrollView.h"
-//#import <FastImage/KHIFastImage.h>
 #import <KNSemiModalViewController_hons82/UIViewController+KNSemiModal.h>
 #define MAS_SHORTHAND_GLOBALS
 #import <ReactiveCocoa/ReactiveCocoa.h>
-
 
 #endif

@@ -50,8 +50,17 @@
 
     _page = 1;
     _headView = [MBRecordTheBabyHeadView instanceView];
+     _headView.ml_width = UISCREEN_WIDTH;
+    [_headView layoutIfNeeded];
+  
+//    MMLog(@"%f", _headView.todayView.ml_maxY);
     
-    [self.view bringSubviewToFront:self.navBar ];
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, _headView.todayView.ml_maxY)];
+    headView.backgroundColor = [UIColor redColor];
+    headView.clipsToBounds = true;
+    [headView addSubview:_headView];
+    _tableView.tableHeaderView = headView;
+    [self.view bringSubviewToFront:self.navBar];
     _tableView.tableFooterView = [[UIView alloc] init];
    @weakify(self);
     _headView.blcok = ^(NSInteger tag) {
@@ -126,8 +135,6 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-   
     MBBabyManagementViewController *VC = [[MBBabyManagementViewController alloc] init];
     VC.model = _resultArray[indexPath.row];
 
@@ -225,11 +232,7 @@
         [self dismiss];
         MBBabysDiaryModel *model =   [MBBabysDiaryModel yy_modelWithJSON:responseObject];
         if (_page == 1&&!_isNewDiary) {
-            [_headView layoutIfNeeded];
-            _headView.ml_width = UISCREEN_WIDTH;
-            _headView.ml_height = _headView.todayView.ml_maxY;
-            MMLog(@"%f", _headView.todayView.ml_maxY);
-            _tableView.tableHeaderView = _headView;
+            
             MBRefreshGifFooter *footer = [MBRefreshGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(toGetTheBabyADiaryData)];
             footer.refreshingTitleHidden = YES;
             self.tableView.mj_footer = footer;

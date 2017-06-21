@@ -9,11 +9,12 @@
 #import "MBEvaluationTableViewCell.h"
 #import "RatingBar.h"
 #import "PhotoCollectionViewCell.h"
-@interface MBEvaluationTableViewCell ()<UICollectionViewDataSource,UICollectionViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,RatingBarDelegate,SDPhotoBrowserDelegate,PhotoCollectionViewCellDelegate>
+@interface MBEvaluationTableViewCell ()<UICollectionViewDataSource,UICollectionViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,RatingBarDelegate,SDPhotoBrowserDelegate>
 {
     RatingBar *_bar;
     NSMutableArray *_photoArray;
     NSMutableArray *_photo;
+    UIImage *_image;
 }
 @end
 @implementation MBEvaluationTableViewCell
@@ -28,14 +29,14 @@
     _bar.starNumber = self.num;
     [self.View addSubview:_bar];
     
-    
+    _image = [UIImage imageNamed:@"refund_pictures"];
     if (self.photoArr) {
         _photoArray = [NSMutableArray arrayWithArray:self.photoArr];
-        [_photoArray addObject:[UIImage imageNamed:@"refund_pictures"]];
+        [_photoArray addObject:_image];
     }else{
         
         _photoArray = [NSMutableArray array];
-        [_photoArray addObject:[UIImage imageNamed:@"refund_pictures"]];
+        [_photoArray addObject:_image];
     }
     if (self.textView.text.length>0) {
         self.labeltext.text = nil;
@@ -70,12 +71,14 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCollectionViewCell" forIndexPath:indexPath];
-    
-    cell.image.image = _photoArray[indexPath.item];
-    cell.dalegate = self;
-    
-    
-    
+    cell.img = _photoArray[indexPath.item];
+    WS(weakSelf)
+    cell.deleteTheImage = ^(UIImage *image) {
+        if ([_image isEqual:image]) {
+            return ;
+        }
+        [weakSelf deleteTheImage:image];
+    };
     
     return cell;
 }
@@ -246,22 +249,17 @@
     return _photoArr[index];
 }
 #pragma mark - PhotoCollectionViewCellDelegate
--(void)setDeletePicture:(NSIndexPath *)indexpate{
-    NSInteger num1 = _photoArray.count-1;
-    if (indexpate.item == num1) {
+-(void)deleteTheImage:(UIImage *)image{
     
-        return;
-    
-    }
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示"
                                                                                      message:@"是否删除图片"
                                                                               preferredStyle: UIAlertControllerStyleAlert];
     
             UIAlertAction *delete  = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                [_photoArray removeObjectAtIndex:indexpate.item];
-                NSIndexPath *indexpath = [NSIndexPath indexPathForItem:indexpate.item inSection:0];
-                NSArray *array = @[indexpath];
-                [self.CollectionView deleteItemsAtIndexPaths:array];
+                 NSIndexPath *indexpath = [NSIndexPath indexPathForItem:[_photoArray indexOfObject:image] inSection:0];
+                [_photoArray removeObject:image];
+                
+                [self.CollectionView deleteItemsAtIndexPaths:@[indexpath]];
                 
                 if (self.delegate &&[self.delegate respondsToSelector:@selector(CommodityImages:row:)]) {
                     NSArray *arr = _photoArray;

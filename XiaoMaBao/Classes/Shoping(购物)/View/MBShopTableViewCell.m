@@ -85,8 +85,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCollectionViewCell" forIndexPath:indexPath];
-    id order = _photoArray[indexPath.item];
-    [cell.image sd_setImageWithURL:order placeholderImage:[UIImage imageNamed:@"icon_nav03"]];
+    cell.urlImg = _photoArray[indexPath.item];;
     return cell;
 }
 

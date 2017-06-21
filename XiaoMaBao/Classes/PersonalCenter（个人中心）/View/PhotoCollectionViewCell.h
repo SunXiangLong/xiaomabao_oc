@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol PhotoCollectionViewCellDelegate <NSObject>
--(void)setDeletePicture:(NSIndexPath *)indexpate;
-@end
+
 @interface PhotoCollectionViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *image;
-@property (nonatomic,strong) NSIndexPath *indexpate;
-@property (nonatomic,assign) id<PhotoCollectionViewCellDelegate>dalegate;
+
+@property(strong,nonatomic)UIImage *img;
+@property(strong,nonatomic)NSURL *urlImg;
+@property (nonatomic,copy)  void (^deleteTheImage)(UIImage *image);
 
 @end

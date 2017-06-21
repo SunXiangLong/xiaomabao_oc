@@ -7,9 +7,21 @@
 //
 
 #import "PhotoCollectionViewCell.h"
-
+@interface PhotoCollectionViewCell()
+@property (weak, nonatomic) IBOutlet UIImageView *image;
+@end
 @implementation PhotoCollectionViewCell
 
+-(void)setImg:(UIImage *)img{
+    _img = img;
+    _image.image = img;
+    
+}
+-(void)setUrlImg:(NSURL *)urlImg{
+    _urlImg = urlImg;
+     [_image sd_setImageWithURL:urlImg placeholderImage:[UIImage imageNamed:@"icon_nav03"]];
+    
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.image.userInteractionEnabled = YES;
@@ -19,10 +31,6 @@
 }
 -(void)handleLongPress{
    
-    
-    if (self.dalegate &&[self.dalegate respondsToSelector:@selector(setDeletePicture:)]) {
-        [self.dalegate setDeletePicture:self.indexpate];
-    }
-
+    self.deleteTheImage(_img);
 }
 @end

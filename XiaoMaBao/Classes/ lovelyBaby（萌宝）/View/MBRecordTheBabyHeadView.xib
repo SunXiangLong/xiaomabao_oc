@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16G12b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G12b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,27 +22,27 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 照片墙 -" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ag-8K-mpW">
-                    <rect key="frame" x="155" y="15" width="65.5" height="17.5"/>
+                    <rect key="frame" x="156" y="15" width="63" height="15"/>
                     <fontDescription key="fontDescription" name="RTWSYueRoudGoG0v1-Regular" family="RTWS YueRoundedGothic G0v1" pointSize="15"/>
                     <color key="textColor" red="0.3411764706" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2a-qB-vgJ">
-                    <rect key="frame" x="0.0" y="47.5" width="375" height="200"/>
+                    <rect key="frame" x="0.0" y="45" width="375" height="200"/>
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V8u-sj-Qmj">
                             <rect key="frame" x="15" y="0.0" width="105" height="200"/>
                             <subviews>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vci-70-YAa">
                                     <rect key="frame" x="0.0" y="0.0" width="105" height="95"/>
-                                    <state key="normal" backgroundImage="amengBaoLeft"/>
+                                    <state key="normal" image="amengBaoLeft"/>
                                     <connections>
                                         <action selector="setThePhotoWallOrReleaseTheBaby:" destination="9aA-ui-db7" eventType="touchUpInside" id="pZp-7G-OZr"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZQ-OX-YOi">
                                     <rect key="frame" x="0.0" y="105" width="105" height="95"/>
-                                    <state key="normal" backgroundImage="amengBaoLeft"/>
+                                    <state key="normal" image="amengBaoLeft"/>
                                     <connections>
                                         <action selector="setThePhotoWallOrReleaseTheBaby:" destination="9aA-ui-db7" eventType="touchUpInside" id="l1t-ZB-sIU"/>
                                     </connections>
@@ -65,7 +65,7 @@
                             <subviews>
                                 <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAy-0P-FA9">
                                     <rect key="frame" x="0.0" y="0.0" width="105" height="200"/>
-                                    <state key="normal" image="amengBaoMiddle"/>
+                                    <state key="normal" image="amengBaoLeft"/>
                                     <connections>
                                         <action selector="setThePhotoWallOrReleaseTheBaby:" destination="9aA-ui-db7" eventType="touchUpInside" id="QOO-6E-JHU"/>
                                     </connections>
@@ -83,14 +83,14 @@
                             <subviews>
                                 <button opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q6d-bW-lZ6">
                                     <rect key="frame" x="0.0" y="105" width="105" height="95"/>
-                                    <state key="normal" backgroundImage="amengBaoLeft"/>
+                                    <state key="normal" image="amengBaoLeft"/>
                                     <connections>
                                         <action selector="setThePhotoWallOrReleaseTheBaby:" destination="9aA-ui-db7" eventType="touchUpInside" id="NSi-MF-doN"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOd-YE-rSC">
                                     <rect key="frame" x="0.0" y="0.0" width="105" height="95"/>
-                                    <state key="normal" backgroundImage="amengBaoLeft"/>
+                                    <state key="normal" image="amengBaoLeft"/>
                                     <connections>
                                         <action selector="setThePhotoWallOrReleaseTheBaby:" destination="9aA-ui-db7" eventType="touchUpInside" id="1iO-Wq-hlS"/>
                                     </connections>
@@ -126,26 +126,26 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="马上晒晒宝宝照片吧，给你的宝宝制作个性的照片墙吧" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1W-t2-HHa">
-                    <rect key="frame" x="28" y="262.5" width="319" height="16"/>
+                    <rect key="frame" x="28" y="260" width="319" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GSX-AV-AaN">
-                    <rect key="frame" x="0.0" y="292.5" width="375" height="1"/>
+                    <rect key="frame" x="0.0" y="290" width="375" height="1"/>
                     <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="PQE-q4-rJH"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 日记 -" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A66-sn-Owc">
-                    <rect key="frame" x="162.5" y="308.5" width="50.5" height="17.5"/>
+                    <rect key="frame" x="163.5" y="306" width="48" height="15"/>
                     <fontDescription key="fontDescription" name="RTWSYueRoudGoG0v1-Regular" family="RTWS YueRoundedGothic G0v1" pointSize="15"/>
                     <color key="textColor" red="0.3411764706" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O7B-Ve-zkv">
-                    <rect key="frame" x="20" y="351" width="59" height="59"/>
+                    <rect key="frame" x="20" y="346" width="59" height="59"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ho4-2g-GRy">
                             <rect key="frame" x="9" y="10" width="41" height="24"/>
@@ -171,7 +171,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FeB-cj-bvG">
-                    <rect key="frame" x="79" y="351" width="276" height="59"/>
+                    <rect key="frame" x="79" y="346" width="276" height="59"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用爱每天坚持记录宝宝的成长！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="im5-AS-2MO">
                             <rect key="frame" x="10" y="22" width="187" height="16"/>
@@ -237,7 +237,6 @@
     </objects>
     <resources>
         <image name="amengBaoLeft" width="104" height="104"/>
-        <image name="amengBaoMiddle" width="126" height="218"/>
         <image name="amengBaoPhoto" width="49" height="49"/>
     </resources>
 </document>

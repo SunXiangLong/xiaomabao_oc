@@ -52,10 +52,6 @@
     UIImageView *_guideImageView;
     
     NSInteger _guideImageIndex;
-    
-    
-
-   
 }
 /**
  *  顶部view
@@ -156,10 +152,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    
-    MBUserDataSingalTon *sss = [MBSignaltonTool getCurrentUserInfo];
     _babtStatle.hidden = true;
     self.navBar.title = @"";
     /**
@@ -177,7 +170,6 @@
             /**
              *  第二次进入界面且登陆状态改变 上一次进入是否请求到z数据 有就清空
              */
- 
             [self request:nil];
             static dispatch_once_t onceToken;
             dispatch_once(&onceToken, ^{
@@ -241,25 +233,28 @@
         [_tableView reloadData];
         [_collectionView    reloadData];
     }
-    [self requestDataToolkitSignalS];
+    [self requestDataToolkitSignalS:false];
     [self requestDataLovelyBabySignalS:date];
 }
 - (void)bindModel{
     
     [[RACSignal combineLatest:@[_baySignal,_toolSignal] reduce:^id(MBLovelyBabyModel *model,NSDictionary *dic){
         
-        model.toolArr  =   [NSArray modelDictionary:dic modelKey:@"data" modelClassName:@"MBMyToolModel"];
+      model.toolArr  =  [NSArray modelDictionary:dic[@"data"] modelKey:@"data" modelClassName:@"MBMyToolModel"];
+        
+        if ([dic[@"isRefresh"] boolValue]&&self.dataArray.count == 4) {
+            self.dataArray[1] =  model.toolArr;
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
         model.isHiddenTool = [dic[@"hidden"] boolValue];
-        
-        
+        MMLog(@"%@--%@",model,dic);
         return model;
     }] subscribeNext:^(MBLovelyBabyModel *model) {
         [self dismiss];
-        
-        
         if (model) {
             
             if ([_lovelyBabyModel isEqual:model]) {
+                
                 return ;
             }
             
@@ -292,8 +287,8 @@
                 
                 NSMutableArray *arr = [NSMutableArray array];
                 [arr addObjectsFromArray:model.recommend_topics?:@[]];
-                [arr addObjectsFromArray:model.recommend_goods];
-                [self.dataArray addObjectsFromArray:@[model.remind,model.toolArr,model.recommend_posts,@[arr]]];
+                [arr addObjectsFromArray:model.recommend_goods?:@[]];
+                [self.dataArray addObjectsFromArray:@[model.remind?:@[],model.toolArr?:@[],model.recommend_posts?:@[],@[arr]]];
             }
             
             [self setTableHeadView];
@@ -385,9 +380,6 @@
     }
     [self request:[NSString dateConversionString:date]];
     
-    
-    
-    
 }
 
 
@@ -406,12 +398,13 @@
 
  @return 工具数据源Signal
  */
-- (void)requestDataToolkitSignalS{
+- (void)requestDataToolkitSignalS:(BOOL)isRefresh{
     [self show];
      NSDictionary *parameters = @{@"session":[MBSignaltonTool getCurrentUserInfo].sessiondict};
     if (_toolSignal) {
         [MBNetworking   POSTOrigin:string(BASE_URL_root, @"/mengbao/get_user_toolkit_v2") parameters:parameters success:^(id responseObject) {
-            [self.toolSignalSubscriber sendNext:responseObject];
+            
+            [self.toolSignalSubscriber sendNext:@{@"data":responseObject,@"isRefresh":@(isRefresh)}];
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
             [self.toolSignalSubscriber sendNext:nil];
             [self.toolSignalSubscriber sendCompleted];
@@ -423,7 +416,7 @@
             @strongify(self);
             self.toolSignalSubscriber = subscriber;
             [MBNetworking   POSTOrigin:string(BASE_URL_root, @"/mengbao/get_user_toolkit_v2") parameters:parameters success:^(id responseObject) {
-                [subscriber sendNext:responseObject];
+                [self.toolSignalSubscriber sendNext:@{@"data":responseObject,@"isRefresh":@(isRefresh)}];
             } failure:^(NSURLSessionDataTask *operation, NSError *error) {
                 [subscriber sendNext:nil];
                 [subscriber sendCompleted];
@@ -462,6 +455,7 @@
         @strongify(self);
        self.baySignalSubscriber = subscriber;
         [MBNetworking   POSTOrigin:string(BASE_URL_root, @"/mengbao/get_index_info") parameters:parameters success:^(id responseObject) {
+             MMLog(@"%@",responseObject);
             [subscriber sendNext:[MBLovelyBabyModel yy_modelWithDictionary:responseObject]];
         } failure:^(NSURLSessionDataTask *operation, NSError *error) {
             [subscriber sendNext:nil];
@@ -973,12 +967,11 @@
                 VC.url = URL(string(@"http://api.xiaomabao.com", @"/mengbao/toolkit"));
                 VC.title = @"添加工具到首页";
                 @weakify(self);
-                [[VC.myCircleViewSubject takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSString *str) {
-                    @strongify(self);
-                    [self requestDataToolkitSignalS];
-
-                    
-                }];
+                VC.toolDataRefresh = ^{
+                     @strongify(self);
+                    [self requestDataToolkitSignalS:true];
+                };
+                
                 [self pushViewController:VC Animated:YES];
             }else{
                 [MobClick event:@"Mengbao5"];
@@ -987,10 +980,7 @@
                 VC.url = model.toolkit_url;
                 VC.title = model.toolkit_name;
                 [self pushViewController:VC Animated:YES];
-                
             }
-            
-            
         }break;
         case 2: {
             [MobClick event:@"Mengbao6"];
@@ -998,10 +988,10 @@
             MBPostDetailsViewController *VC = [[MBPostDetailsViewController   alloc] init];
             VC.post_id = model.post_id;
             [self pushViewController:VC Animated:YES];
-            
         }break;
         case 3: {
             
+//            http://api.xiaomabao.com/discovery/talk_list
             
             
         }break;

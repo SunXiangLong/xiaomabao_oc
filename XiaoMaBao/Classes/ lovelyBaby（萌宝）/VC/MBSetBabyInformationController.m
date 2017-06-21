@@ -89,8 +89,9 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/set_mengbao_info"];
     [MBNetworking   POSTOrigin:url parameters:parameters success:^(id responseObject) {
         
+        MMLog(@"%@",responseObject);
         if (_baby_id) {
-            [[NSNotificationCenter   defaultCenter] postNotificationName:@"setTheBabyInformationToCompleteTheRefresh" object:nil];
+            [[NSNotificationCenter   defaultCenter] postNotificationName:@"setTheBabyInformationToCompleteTheRefresh" object:nil];   
         }
         NSString *status =  s_str([responseObject valueForKeyPath:@"status"]);
         if ([status isEqualToString:@"1"]) {
@@ -129,7 +130,7 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     
-    MMLog(@"%p,%p,%p",_baby_birthday,_baby_name,textField);
+    
      if ([textField isEqual: _baby_birthday]) {
         if (textField.isAskingCanBecomeFirstResponder == NO) {
             NSLog(@"do another something...");

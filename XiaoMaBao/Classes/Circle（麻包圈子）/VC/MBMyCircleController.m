@@ -17,6 +17,7 @@
 #import "MBVoiceViewController.h"
 #import "MBArticleViewController.h"
 #import "MBArticleCollectViewController.h"
+#import "MBBabyWebController.h"
 @interface MBMyCircleController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     
@@ -135,7 +136,13 @@
 
              [self performSegueWithIdentifier:@"MBCollectionPostController" sender:nil];
         } break;
-            
+        case 4:
+        {
+            MBBabyWebController *VC = [[MBBabyWebController alloc] init];
+            VC.url = URL(@"http://api.xiaomabao.com/discovery/talk_list");
+            VC.title = @"英文绘本、儿歌";
+            [self pushViewController:VC Animated:YES];
+        } break;
         default:
             break;
     }

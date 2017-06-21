@@ -70,7 +70,6 @@
     
     NSString *section = [notificat userInfo][@"section"];
     NSInteger sect = [section  integerValue];
-    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:sect];
     MBRefundModel *model = _allOrderData[sect];
     model.refund_status = @(2);
     [_tableView reloadData];

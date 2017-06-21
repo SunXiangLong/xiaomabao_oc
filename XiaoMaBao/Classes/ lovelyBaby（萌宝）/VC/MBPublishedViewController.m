@@ -9,7 +9,7 @@
 #import "MBPublishedViewController.h"
 #import "PhotoCollectionViewCell.h"
 
-@interface MBPublishedViewController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SDPhotoBrowserDelegate,PhotoCollectionViewCellDelegate>
+@interface MBPublishedViewController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SDPhotoBrowserDelegate>
 {
     
     SDPhotoBrowser *browser;
@@ -44,6 +44,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     __unsafe_unretained __typeof(self) weakSelf = self;
+    
     [DXLocationManager getlocationWithBlock:^(double longitude, double latitude) {
         weakSelf.longitude = [NSString stringWithFormat:@"%f",longitude];
         weakSelf.latitude = [NSString stringWithFormat:@"%f" , latitude];
@@ -71,6 +72,8 @@
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.minimumInteritemSpacing =5;
     flowLayout.minimumLineSpacing = 5;
+    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    flowLayout.itemSize = CGSizeMake((UISCREEN_WIDTH-45)/4,(UISCREEN_WIDTH-45)/4);
     self.collectionView.collectionViewLayout = flowLayout;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
@@ -107,9 +110,12 @@
 #pragma mark --确定collectview的长度
 - (void)setCollectionViewHeight{
     
-    if (_photoArray.count>4) {
-        _width.constant = ((UISCREEN_WIDTH-45)/4+5)*2;
-    }  else{
+    if (_photoArray.count > 7) {
+           _width.constant = ((UISCREEN_WIDTH-45)/4+5)*3;
+    }else  if(_photoArray.count > 4){
+         _width.constant = ((UISCREEN_WIDTH-45)/4+5)*2;
+        
+    }else{
         _width.constant = (UISCREEN_WIDTH-45)/4+5;
         
     }
@@ -153,12 +159,13 @@
 }
 - (void)rightTitleClick{
 
-    if (_textView.text.length ==0) {
+    if (_textView.text.length == 0) {
         [self show:@"输入内容不能为空" time:1];
         return;
     }
    
     if (_latitude&&_longitude) {
+        
         [self getsubData];
     }
  
@@ -187,6 +194,7 @@
         }
         
     } progress:^(NSProgress *progress) {
+        
 //        self.progress = progress.fractionCompleted;
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         [self dismiss];
@@ -205,6 +213,22 @@
         [self show:@"请求失败！" time:1];
     }];
 
+    
+}
+-(void)deleteTheImage:(UIImage *)image{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示"
+                                                                             message:@"是否删除图片"
+                                                                      preferredStyle: UIAlertControllerStyleAlert];
+    UIAlertAction *delete  = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        NSIndexPath *indexpath =  [NSIndexPath indexPathForItem:[_photoArray indexOfObject:image] inSection:0];
+        [_photoArray removeObject:image];
+        [self.collectionView deleteItemsAtIndexPaths:@[indexpath]];
+        
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancelAction];
+    [alertController addAction:delete];
+    [self presentViewController:alertController animated:YES completion:nil];
     
 }
 
@@ -228,42 +252,37 @@
 
 }
 #pragma mark ---UICollectionViewDelegate
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 0, 0);
-    return insets;
-}
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-
-    if (indexPath.item ==6) {
-        return CGSizeMake(0, 0);
-    }
-    return CGSizeMake((UISCREEN_WIDTH-45)/4,(UISCREEN_WIDTH-45)/4);
-    
-}
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return _photoArray.count;
 }
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCollectionViewCell" forIndexPath:indexPath];
-    cell.image.image = _photoArray[indexPath.item];
-    cell.image .contentMode =  UIViewContentModeScaleAspectFill;
-    cell.image .autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    cell.image .clipsToBounds  = YES;
-    cell.dalegate = self;
+    cell.img = _photoArray[indexPath.item];
+    
+    WS(weakSelf)
+    cell.deleteTheImage = ^(UIImage *image) {
+        if ([image isEqual:_image]) {
+            return ;
+        }
+        
+        [weakSelf deleteTheImage:image];
+    };
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 
     [self.textView resignFirstResponder];
-    if (_photoArray.count-1 == indexPath.item) {
+    if (indexPath.item == 9) {
+        [self show:@"最多上传9张图片" time:1];
+         return;
+    }
+    
+    if (_photoArray.count - 1 == indexPath.item) {
         if ([_photoArray[indexPath.row]isKindOfClass:[UIImage class]]) {
             [self setCamera];
             return;
@@ -314,44 +333,6 @@
    
     return _photoArray[index];
    
-}
--(void)photoNum:(NSInteger)index{
-    
-
-    
-    [_photoArray removeObjectAtIndex:index];
-   
-     [self show:@"删除成功" time:1];
-    [self setCollectionViewHeight];
-    NSIndexPath *indexpath = [NSIndexPath indexPathForItem:index inSection:0];
-    [self.collectionView deleteItemsAtIndexPaths:@[indexpath]];
-    
-}
--(void)setDeletePicture:(NSIndexPath *)indexpate{
-
-    NSInteger num1 = _photoArray.count-1;
-    if (indexpate.item == num1) {
-        
-        return;
-        
-    }
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示"
-                                                                             message:@"是否删除图片"
-                                                                      preferredStyle: UIAlertControllerStyleAlert];
-    
-    UIAlertAction *delete  = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [_photoArray removeObjectAtIndex:indexpate.item];
-        NSIndexPath *indexpath = [NSIndexPath indexPathForItem:indexpate.item inSection:0];
-        [self.collectionView deleteItemsAtIndexPaths:@[indexpath]];
-        
-        
-        
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    [alertController addAction:cancelAction];
-    [alertController addAction:delete];
-    [self presentViewController:alertController animated:YES completion:nil];
-    
 }
 
 @end

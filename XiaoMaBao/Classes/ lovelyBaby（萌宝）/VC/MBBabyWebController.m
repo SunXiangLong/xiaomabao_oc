@@ -14,9 +14,9 @@
 #import "MBGroupShopController.h"
 @interface MBBabyWebController ()<UIWebViewDelegate>
 {
-  
-    
+
 }
+@property(nonatomic,assign) BOOL isRefresh;
 @property(nonatomic,strong) UIWebView *webView;
 @property(nonatomic,strong) UIProgressView *progressView;
 @end
@@ -49,7 +49,7 @@
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     _webView.delegate = self;
     _webView.backgroundColor = [UIColor whiteColor];
-    
+    _webView.allowsInlineMediaPlayback = true;
     NSURLRequest *request = [NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
     
     
@@ -140,7 +140,7 @@
             @strongify(self);
             dispatch_async(dispatch_get_main_queue(), ^{
                 if ([dic[@"type"] isEqualToString:@"refreshTool"]) {
-                    [self.myCircleViewSubject sendNext:@1];
+                    self.isRefresh= true;
                 }else if ([dic[@"type"] isEqualToString:@"showWebView"]){
                     MBBabyWebController *VC = [[MBBabyWebController alloc] init];
                     NSString *params =  dic[@"params"];
@@ -172,6 +172,10 @@
     if (_webView.canGoBack) {
         [_webView goBack];
         return nil;
+    }
+    
+    if (_isRefresh) {
+        self.toolDataRefresh();
     }
     return [self.navigationController popViewControllerAnimated:animated];
 }

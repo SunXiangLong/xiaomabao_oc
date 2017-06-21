@@ -450,7 +450,7 @@
 {
     [request setValue:@"bytes=0-209" forHTTPHeaderField:@"Range"];
     NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSString *str = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+//    NSString *str = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     
     if ([data length] <= 0x58) {
         return CGSizeZero;

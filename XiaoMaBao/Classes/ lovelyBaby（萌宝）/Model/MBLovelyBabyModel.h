@@ -85,6 +85,8 @@ typedef NS_OPTIONS(NSUInteger, MBStateOfTheBaby) {
 @property (nonatomic, strong) NSString *day_num;
 
 @property (nonatomic, assign) MBStateOfTheBaby stateBabyType;
+
+@property (nonatomic, strong) NSURL *baby_photo;
 @end
 @interface MBRemindModel : NSObject
 
@@ -122,6 +124,8 @@ typedef NS_OPTIONS(NSUInteger, MBStateOfTheBaby) {
 @property (nonatomic, strong) NSArray<MBRecommendTopicsModel *> *recommend_topics;
 
 @property (nonatomic, strong) MBDayInfoModel *day_info;
+
+@property (nonatomic, strong) NSURL *baby_photo;
 
 @property (nonatomic, copy) NSDate *startDate;
 

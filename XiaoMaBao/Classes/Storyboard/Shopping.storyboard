@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G12b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16G12b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -31,7 +31,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lom-sV-8x6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5815" y="-3873"/>
+            <point key="canvasLocation" x="-5967" y="-3924"/>
         </scene>
         <!--天天签到-->
         <scene sceneID="iJf-ai-Lwk">
@@ -1693,42 +1693,53 @@
                                                     <rect key="frame" x="0.0" y="5" width="375" height="90"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5Y-UT-lqQ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="125" height="90"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="94" height="90"/>
                                                             <state key="normal" image="mm_sign"/>
                                                             <connections>
                                                                 <action selector="buttonTouch:" destination="3VI-da-QhI" eventType="touchUpInside" id="GjH-Mm-fE9"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMI-uO-Rz8">
-                                                            <rect key="frame" x="125" y="0.0" width="125" height="90"/>
+                                                            <rect key="frame" x="94" y="0.0" width="93.5" height="90"/>
                                                             <state key="normal" image="mm_luckydraw"/>
                                                             <connections>
                                                                 <action selector="buttonTouch:" destination="3VI-da-QhI" eventType="touchUpInside" id="MDb-tb-rF0"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXO-AK-IJe">
-                                                            <rect key="frame" x="250" y="0.0" width="125" height="90"/>
+                                                            <rect key="frame" x="187.5" y="0.0" width="94" height="90"/>
                                                             <state key="normal" image="giftCard"/>
                                                             <connections>
                                                                 <action selector="buttonTouch:" destination="3VI-da-QhI" eventType="touchUpInside" id="IMQ-QY-4P9"/>
                                                             </connections>
                                                         </button>
+                                                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zR3-v4-JOM">
+                                                            <rect key="frame" x="281.5" y="0.0" width="93.5" height="90"/>
+                                                            <state key="normal" image="soCollege"/>
+                                                            <connections>
+                                                                <action selector="buttonTouch:" destination="3VI-da-QhI" eventType="touchUpInside" id="FjA-wU-SrV"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstItem="PXO-AK-IJe" firstAttribute="width" secondItem="s5Y-UT-lqQ" secondAttribute="width" id="33z-zQ-rE4"/>
-                                                        <constraint firstAttribute="bottom" secondItem="dMI-uO-Rz8" secondAttribute="bottom" id="4MX-AG-UpM"/>
-                                                        <constraint firstItem="dMI-uO-Rz8" firstAttribute="width" secondItem="s5Y-UT-lqQ" secondAttribute="width" id="6tL-9g-YDo"/>
-                                                        <constraint firstItem="s5Y-UT-lqQ" firstAttribute="top" secondItem="Nmo-Vd-1L7" secondAttribute="top" id="8yS-SE-WXJ"/>
-                                                        <constraint firstItem="PXO-AK-IJe" firstAttribute="leading" secondItem="dMI-uO-Rz8" secondAttribute="trailing" id="J6a-xC-K7n"/>
+                                                        <constraint firstItem="s5Y-UT-lqQ" firstAttribute="top" secondItem="Nmo-Vd-1L7" secondAttribute="top" id="AZY-Wc-C8R"/>
+                                                        <constraint firstAttribute="bottom" secondItem="zR3-v4-JOM" secondAttribute="bottom" id="CdK-0S-aVl"/>
+                                                        <constraint firstAttribute="bottom" secondItem="dMI-uO-Rz8" secondAttribute="bottom" id="GxA-LO-zeR"/>
+                                                        <constraint firstAttribute="trailing" secondItem="zR3-v4-JOM" secondAttribute="trailing" id="KdW-8y-0Qz"/>
+                                                        <constraint firstItem="s5Y-UT-lqQ" firstAttribute="leading" secondItem="Nmo-Vd-1L7" secondAttribute="leading" id="Lop-Ea-BHu"/>
+                                                        <constraint firstItem="dMI-uO-Rz8" firstAttribute="top" secondItem="Nmo-Vd-1L7" secondAttribute="top" id="Pmu-Hx-WaD"/>
+                                                        <constraint firstItem="PXO-AK-IJe" firstAttribute="top" secondItem="Nmo-Vd-1L7" secondAttribute="top" id="QbG-ae-Ku2"/>
+                                                        <constraint firstItem="zR3-v4-JOM" firstAttribute="width" secondItem="s5Y-UT-lqQ" secondAttribute="width" id="Vo5-bd-IXj"/>
+                                                        <constraint firstItem="zR3-v4-JOM" firstAttribute="top" secondItem="Nmo-Vd-1L7" secondAttribute="top" id="W7m-cP-OCb"/>
                                                         <constraint firstAttribute="height" constant="90" id="cIu-Vw-vCR"/>
-                                                        <constraint firstAttribute="bottom" secondItem="PXO-AK-IJe" secondAttribute="bottom" id="dZD-F4-PLd"/>
-                                                        <constraint firstItem="dMI-uO-Rz8" firstAttribute="leading" secondItem="s5Y-UT-lqQ" secondAttribute="trailing" id="h9r-Js-7cM"/>
-                                                        <constraint firstAttribute="trailing" secondItem="PXO-AK-IJe" secondAttribute="trailing" id="l1S-Y5-lnr"/>
-                                                        <constraint firstItem="s5Y-UT-lqQ" firstAttribute="leading" secondItem="Nmo-Vd-1L7" secondAttribute="leading" id="lFa-fC-R9W"/>
-                                                        <constraint firstItem="dMI-uO-Rz8" firstAttribute="top" secondItem="Nmo-Vd-1L7" secondAttribute="top" id="lbJ-UR-tK9"/>
-                                                        <constraint firstItem="PXO-AK-IJe" firstAttribute="top" secondItem="Nmo-Vd-1L7" secondAttribute="top" id="qLr-O1-EuA"/>
-                                                        <constraint firstAttribute="bottom" secondItem="s5Y-UT-lqQ" secondAttribute="bottom" id="va3-DD-0IA"/>
+                                                        <constraint firstItem="dMI-uO-Rz8" firstAttribute="leading" secondItem="s5Y-UT-lqQ" secondAttribute="trailing" id="ceH-KA-rJe"/>
+                                                        <constraint firstItem="PXO-AK-IJe" firstAttribute="width" secondItem="s5Y-UT-lqQ" secondAttribute="width" id="f6q-ep-gBo"/>
+                                                        <constraint firstItem="dMI-uO-Rz8" firstAttribute="width" secondItem="s5Y-UT-lqQ" secondAttribute="width" id="iQV-VK-rQc"/>
+                                                        <constraint firstAttribute="bottom" secondItem="PXO-AK-IJe" secondAttribute="bottom" id="ibG-6M-ZWK"/>
+                                                        <constraint firstAttribute="bottom" secondItem="s5Y-UT-lqQ" secondAttribute="bottom" id="uh2-dD-D86"/>
+                                                        <constraint firstItem="zR3-v4-JOM" firstAttribute="leading" secondItem="PXO-AK-IJe" secondAttribute="trailing" id="wQC-vN-7BW"/>
+                                                        <constraint firstItem="PXO-AK-IJe" firstAttribute="leading" secondItem="dMI-uO-Rz8" secondAttribute="trailing" id="yEE-qr-ogM"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -1891,7 +1902,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gwe-iN-HaE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4886" y="-3761"/>
+            <point key="canvasLocation" x="-5018" y="-3773"/>
         </scene>
         <!--全球闪购-->
         <scene sceneID="XhM-7K-lx5">
@@ -2463,8 +2474,9 @@
         <image name="illustration_big_5" width="121" height="121"/>
         <image name="mm_luckydraw" width="50" height="55"/>
         <image name="mm_sign" width="50" height="55"/>
+        <image name="soCollege" width="50" height="55"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="na2-30-VpP"/>
+        <segue reference="ueB-ZY-EKJ"/>
     </inferredMetricsTieBreakers>
 </document>

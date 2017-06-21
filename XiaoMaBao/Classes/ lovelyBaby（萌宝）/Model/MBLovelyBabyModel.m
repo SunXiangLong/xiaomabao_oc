@@ -40,7 +40,7 @@
     _endDate = [dic[@"end_date"] stringConversionDate];
     
     self.day_info.stateBabyType = self.stateBabyType;
-    
+     self.day_info.baby_photo = self.baby_photo;
     return YES;
 }
 @end

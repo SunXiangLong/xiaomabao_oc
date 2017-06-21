@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G12b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,7 +16,6 @@
             <subviews>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzl-cy-vzk">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="2hQ-8w-6RU"/>
                     </constraints>
@@ -38,16 +41,14 @@
                             <exclude reference="2hQ-8w-6RU"/>
                         </mask>
                     </variation>
-                    <variation key="widthClass=regular" misplaced="YES">
-                        <rect key="frame" x="0.0" y="0.0" width="482" height="44"/>
+                    <variation key="widthClass=regular">
                         <mask key="constraints">
                             <include reference="2hQ-8w-6RU"/>
                         </mask>
                     </variation>
                 </toolbar>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n1r-fs-i80">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <animations/>
+                    <rect key="frame" x="0.0" y="0.0" width="482" height="44"/>
                     <items>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="dUc-fD-xmY"/>
                         <barButtonItem title="Img" width="44" style="plain" id="IvH-tE-Dmv" customClass="ZSSBarButtonItem"/>
@@ -69,9 +70,8 @@
                     </items>
                 </toolbar>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5oj-N8-CBI">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <animations/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="0.0" y="0.0" width="482" height="1"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="DQc-We-xJ8"/>
                     </constraints>
@@ -85,16 +85,14 @@
                             <include reference="DQc-We-xJ8"/>
                         </mask>
                     </variation>
-                    <variation key="widthClass=regular" misplaced="YES">
-                        <rect key="frame" x="0.0" y="-2" width="482" height="1"/>
+                    <variation key="widthClass=regular">
                         <mask key="constraints">
                             <include reference="DQc-We-xJ8"/>
                         </mask>
                     </variation>
                 </view>
             </subviews>
-            <animations/>
-            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="hzl-cy-vzk" secondAttribute="trailing" id="3Cf-0J-TmW"/>
                 <constraint firstAttribute="trailing" secondItem="5oj-N8-CBI" secondAttribute="trailing" id="3Qa-Uv-8nO"/>
@@ -120,18 +118,18 @@
                     <exclude reference="5oj-N8-CBI"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="KLa-wT-1Gc"/>
-                    <exclude reference="MY8-Yb-Zho"/>
-                    <exclude reference="Yfe-DH-K5f"/>
-                    <exclude reference="kVg-01-4Kx"/>
-                    <exclude reference="3Cf-0J-TmW"/>
-                    <exclude reference="4b9-4h-eWO"/>
-                    <exclude reference="98w-GC-dOE"/>
-                    <exclude reference="NZc-BN-ZZf"/>
                     <exclude reference="3Qa-Uv-8nO"/>
                     <exclude reference="9Gh-oq-DQO"/>
                     <exclude reference="b1S-cy-zck"/>
                     <exclude reference="hKN-cF-AOT"/>
+                    <exclude reference="3Cf-0J-TmW"/>
+                    <exclude reference="4b9-4h-eWO"/>
+                    <exclude reference="98w-GC-dOE"/>
+                    <exclude reference="NZc-BN-ZZf"/>
+                    <exclude reference="KLa-wT-1Gc"/>
+                    <exclude reference="MY8-Yb-Zho"/>
+                    <exclude reference="Yfe-DH-K5f"/>
+                    <exclude reference="kVg-01-4Kx"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -140,12 +138,12 @@
                     <include reference="5oj-N8-CBI"/>
                 </mask>
                 <mask key="constraints">
+                    <include reference="3Qa-Uv-8nO"/>
+                    <include reference="hKN-cF-AOT"/>
                     <include reference="KLa-wT-1Gc"/>
                     <include reference="MY8-Yb-Zho"/>
                     <include reference="Yfe-DH-K5f"/>
                     <include reference="kVg-01-4Kx"/>
-                    <include reference="3Qa-Uv-8nO"/>
-                    <include reference="hKN-cF-AOT"/>
                 </mask>
             </variation>
             <variation key="widthClass=regular">
@@ -154,13 +152,13 @@
                     <include reference="5oj-N8-CBI"/>
                 </mask>
                 <mask key="constraints">
+                    <include reference="9Gh-oq-DQO"/>
+                    <include reference="b1S-cy-zck"/>
+                    <exclude reference="hKN-cF-AOT"/>
                     <include reference="3Cf-0J-TmW"/>
                     <include reference="4b9-4h-eWO"/>
                     <include reference="98w-GC-dOE"/>
                     <include reference="NZc-BN-ZZf"/>
-                    <include reference="9Gh-oq-DQO"/>
-                    <include reference="b1S-cy-zck"/>
-                    <exclude reference="hKN-cF-AOT"/>
                 </mask>
             </variation>
             <connections>

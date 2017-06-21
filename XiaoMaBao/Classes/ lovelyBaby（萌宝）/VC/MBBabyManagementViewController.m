@@ -82,27 +82,20 @@ return @"详情";
 
     NSString *url =[NSString stringWithFormat:@"%@%@",BASE_URL_root,@"/athena/diarydel"];
     [self show];
-    [MBNetworking POST:url parameters:@{@"session":sessiondict,@"id":_model.ID}
-               success:^(NSURLSessionDataTask *operation, MBModel *responseObject) {
-                      [self dismiss];
-                   
-                   if(1 == [[responseObject valueForKey:@"status"]  intValue]){
-                    
-                       NSDictionary *userData = [responseObject valueForKeyPath:@"status"];
-                       MMLog(@"%@",userData);
-                    
-                       self.block(_model);
-                       [self popViewControllerAnimated:YES];
-                   }
-                   
-               } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   
-                   [self show:@"请求失败 " time:1];
-                   MMLog(@"%@",error);
-                   
-               }
-     ];
+    [MBNetworking POSTOrigin:url parameters:@{@"session":sessiondict,@"id":_model.ID} success:^(id responseObject) {
+        
+         [self dismiss];
+        MMLog(@"%@",responseObject);
+        if ([responseObject[@"status"] boolValue]) {
+            self.block(_model);
+           [self popViewControllerAnimated:YES];
+        }
+        
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        [self show:@"请求失败 " time:1];
+    }];
 
+    
 }
 #pragma mark --UICollectionViewdelegate
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{

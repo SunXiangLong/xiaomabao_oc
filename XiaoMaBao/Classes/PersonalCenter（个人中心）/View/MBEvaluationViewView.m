@@ -98,13 +98,11 @@
     id order = _photoArray[indexPath.item];
     
     if ([order isKindOfClass:[NSString class]] ) {
-        [cell.image sd_setImageWithURL:order placeholderImage:[UIImage imageNamed:@"icon_nav03"]];
+        cell.urlImg = URL(order);
     }else{
-        cell.image.image = _photoArray[indexPath.item];
+        cell.img = order;
     }
-    
-    
-    
+
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

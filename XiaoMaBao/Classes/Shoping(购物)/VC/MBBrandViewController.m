@@ -40,12 +40,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"MBBrand"];
+   
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MBBrand"];
+   
     [_timer invalidate];
     _timer = nil;
 

@@ -11,4 +11,5 @@
 @interface MBBabyWebController : BkBaseViewController
 @property (nonatomic,strong) NSURL *url;
 @property (nonatomic, strong) RACSubject *myCircleViewSubject;
+@property (nonatomic,copy)  void (^toolDataRefresh)(void);
 @end
