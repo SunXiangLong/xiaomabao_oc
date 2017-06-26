@@ -36,7 +36,7 @@
     _toolkit_remind_time.text = model.toolkit_remind_time;
     self.lableWidth.constant =0;
     if (model.toolkit_detail.count > 0) {
-        [self.tool_center removeFromSuperview];
+        self.tool_center.hidden = true;
         NSString *str =  model.toolkit_remind_time;
         CGFloat widths = [str sizeWithFont:SYSTEMFONT(12) withMaxSize:CGSizeMake(MAXFLOAT, 15)].width;
         self.lableWidth.constant = widths + 8;
@@ -71,6 +71,13 @@
             
         }
     }else{
+        for (UIView *view in self.contentView.subviews) {
+            if ([view isKindOfClass:[UILabel class]]&&![view isEqual:_tool_center]&&![view isEqual:_tool_title]&&![view isEqual:_toolkit_remind_time]) {
+                [view removeFromSuperview];
+                
+            }
+        }
+        self.tool_center.hidden = false;
         self.tool_center.text = model.toolkit_desc;
     }
     

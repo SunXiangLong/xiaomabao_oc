@@ -48,6 +48,7 @@
     [DXLocationManager getlocationWithBlock:^(double longitude, double latitude) {
         weakSelf.longitude = [NSString stringWithFormat:@"%f",longitude];
         weakSelf.latitude = [NSString stringWithFormat:@"%f" , latitude];
+        
         if (weakSelf.longitude) {
             
         }else{

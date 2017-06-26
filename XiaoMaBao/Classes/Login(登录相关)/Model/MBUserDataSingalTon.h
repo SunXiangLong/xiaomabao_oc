@@ -7,6 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+@interface MBCourseModel : NSObject
+@property(copy,nonatomic) NSString *cookie;
+@property(copy,nonatomic) NSString *uname;
+@property(copy,nonatomic) NSString *orgId;
+@end
 @interface MBUserBabyInfo : NSObject
 @property (copy, nonatomic) NSString *Id;
 @property (copy, nonatomic) NSString *gender;
@@ -30,6 +35,11 @@
 @property (assign, nonatomic) BOOL is_baby_add;
 @property (strong, nonatomic) MBUserBabyInfo *user_baby_info;
 @property (copy, nonatomic) NSDictionary *sessiondict;
+
+/**
+ 能力天空参数model
+ */
+@property (strong, nonatomic) MBCourseModel *courseModel;
 
 
 // 清除所有值

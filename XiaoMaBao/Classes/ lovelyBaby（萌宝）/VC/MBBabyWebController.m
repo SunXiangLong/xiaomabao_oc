@@ -116,10 +116,72 @@
     
     return self.title?:@"";
 }
+
+-(void)share{
+    
+    //1、创建分享参数
+    NSArray* imageArray = @[@"http://www.xiaomabao.com/static1/images/app_icon.png"];
+    if (imageArray) {
+        
+        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+        [shareParams SSDKSetupShareParamsByText:self.title
+                                         images:imageArray
+                                            url:self.url
+                                          title:self.title
+                                           type:3];
+        //2、分享（可以弹出我们的分享菜单和编辑界面）
+        [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
+                                 items:nil
+                           shareParams:shareParams
+                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                       
+                       switch (state) {
+                           case SSDKResponseStateSuccess:
+                           {
+                               UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                   message:nil
+                                                                                  delegate:nil
+                                                                         cancelButtonTitle:@"确定"
+                                                                         otherButtonTitles:nil];
+                               [alertView show];
+                               break;
+                           }
+                           case SSDKResponseStateFail:
+                           {
+                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                               message:[NSString stringWithFormat:@"%@",error]
+                                                                              delegate:nil
+                                                                     cancelButtonTitle:@"OK"
+                                                                     otherButtonTitles:nil, nil];
+                               [alert show];
+                               break;
+                           }
+                           default:
+                               break;
+                       }
+                       
+                   }];
+    }
+    
+    
+}
+
+-(NSString *)rightImage{
+    
+    
+    return    [self.title isEqualToString:@"添加工具到首页"]?@"":@"share";
+}
+-(void)rightTitleClick{
+    if ( [self.title isEqualToString:@"添加工具到首页"]) {
+        return;
+    }
+    [self share];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (void)webViewDidStartLoad:(UIWebView *)webView{
 
     self.progressView.progress = 0.75;

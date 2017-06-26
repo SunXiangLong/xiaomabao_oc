@@ -28,6 +28,7 @@
     self.is_baby_add = false;
     self.headerImg = nil;
     self.sessiondict  = nil;
+    self.courseModel = nil;
 }
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic{
@@ -45,4 +46,6 @@
     return YES;
 }
 @end
+@implementation MBCourseModel
 
+@end

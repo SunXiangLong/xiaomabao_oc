@@ -9,6 +9,8 @@
 #import "MBLogOperation.h"
 #import "MBUpdateView.h"
 #import "DHGuidePageHUD.h"
+#import <ASPlayerSDK/ASPlayer.h>
+
 @implementation MBLogOperation
 +(MBLogOperation * )getMBLogOperationObject
 {
@@ -252,7 +254,7 @@
             }
             
             
-                
+            [self setASPlayerSDKLoginCookie];
             
             
         }else{
@@ -278,6 +280,47 @@
     
     
 }
+
++ (void)setASPlayerSDKLoginCookie{
+    
+    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/course/login") parameters:@{@"session":[MBSignaltonTool getCurrentUserInfo].sessiondict,@"password":[User_Defaults valueForKeyPath:@"userInfo"][@"password"]} success:^(id responseObject) {
+        
+        MMLog(@"%@",responseObject);
+        if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
+            MBCourseModel *model = [MBCourseModel yy_modelWithDictionary:responseObject[@"data"]];
+            [MBSignaltonTool getCurrentUserInfo].courseModel = model;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                MMLog(@"个人中心");
+                NSLog(@"112333344");
+                [[ASPlayer sharedInstance]  ASInitMessageOfLogin:model.uname cookie:model.cookie];
+                
+            });
+//
+//            NSString *jsonStirng = [self stringToJson:@{@"username":model.uname,@"orgId":model.orgId}];
+//            NSString *timestamp = [self fetchStamping];
+//            NSString *tempString = [NSString stringWithFormat:@"%@|%@",jsonStirng,timestamp];
+//            NSString *token = [self tokenWithString:tempString];
+//
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//
+//                [[ASPlayer sharedInstance] ASRequestWithUrl:@"http://passport.ablesky.com/loginAPI.do?" identifier:@"id_user_login" params:@{@"data":jsonStirng ,@"timestamp":timestamp,@"accessToken":token} isCookie:false block:^(ASResultCode code, id result) {
+//                    MMLog(@"%u-%@",code,result);
+//
+//
+//
+//                }];
+//            });
+            
+ 
+        }
+        
+    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
+        
+    }];
+    
+}
+
 /**
  * 删除设置的cookie
  */

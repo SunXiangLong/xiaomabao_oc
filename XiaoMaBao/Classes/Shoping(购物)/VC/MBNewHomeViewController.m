@@ -38,6 +38,8 @@
     [self setupChildVcs];
     [self setupTitlesView];
     [self setupScrollView];
+    
+    
 }
 
 - (void)setupChildVcs{

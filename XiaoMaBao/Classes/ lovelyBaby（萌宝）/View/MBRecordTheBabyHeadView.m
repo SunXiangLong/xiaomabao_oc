@@ -14,20 +14,22 @@
 @property (weak, nonatomic) IBOutlet UIButton *photoWallThree;
 @property (weak, nonatomic) IBOutlet UIButton *photoWallFour;
 @property (weak, nonatomic) IBOutlet UIButton *photoWallFive;
+@property (weak, nonatomic) IBOutlet UIView *tapVIew;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addImageHeight;
 @end
 @implementation MBRecordTheBabyHeadView
 -(void)awakeFromNib{
     [super awakeFromNib];
-    
-    _addImageHeight.constant = (UISCREEN_WIDTH - 60)/3 *227/124;
-   
+    [_tapVIew addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recordTheBaby:)]];
+
    _buttonArray = @[_photoWallOne,_photoWallTwo,_photoWallThree,_photoWallFour,_photoWallFive];
 }
 
 + (instancetype)instanceView{
     return [[[NSBundle mainBundle] loadNibNamed:@"MBRecordTheBabyHeadView" owner:nil options:nil] lastObject];
+}
+- (void)recordTheBaby:(id)sender {
+    self.blcok(5);
 }
 
 - (IBAction)setThePhotoWallOrReleaseTheBaby:(UIButton *)sender {

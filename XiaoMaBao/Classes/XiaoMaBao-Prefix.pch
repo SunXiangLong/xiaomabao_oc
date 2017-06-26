@@ -13,50 +13,51 @@
 
 
 #ifdef __OBJC__
-#import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-#import <YYModel/YYModel.h>
-#import <YYText/YYText.h>
-#import "MKCommon.h"
-#import "NSArray+Model.h"
-#import "UIColor+Extension.h"
-#import "UIView+MLExtension.h"
-#import "MBSignaltonTool.h"
-#import <UMMobClick/MobClick.h>
-#import "MBNetworking.h"
-#import <Masonry/Masonry.h>
-//#import "HexColors.h"
-#import "DataSigner.h"
-#import "Reachability.h"
-#import "MJRefresh.h"
-#import "MBProgressHUD.h"
-#import "SDCycleScrollView.h"
-#import "Appirater.h"
-#import "MBRefreshGifFooter.h"
-#import "MBNavigationViewController.h"
-#import "Unicall.h"
-#import "UIButton+MBIBnspectable.h"
-#import <TZImagePickerController/TZImagePickerController.h>
-#import "DateTools.h"
-#import "UIViewController+ProgressHUD.h"
-#import "UITableViewCell+MBBottomLine.h"
-#import <ShareSDK/ShareSDK.h>
-#import <ShareSDKUI/ShareSDK+SSUI.h>
-#import "STConfig.h"
-#import "MBBaseTableViewController.h"
-#import "UITableView+FDTemplateLayoutCell.h"
-#import "UILabel+MBIBInspectable.h"
-#import "UIImage+Size.h"
-#import "DXLocationManager.h"
-#import "ActionSheetStringPicker.h"
-#import "ActionSheetPicker.h"
-#import "NSString+BQ.h"
-#import "SDPhotoBrowser.h"
-#import "UIImageView+WebCache.h"
-#import "MBBaseCollectionView.h"
-#import "MBBaseScrollView.h"
-#import <KNSemiModalViewController_hons82/UIViewController+KNSemiModal.h>
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import <YYModel/YYModel.h>
+    #import <YYText/YYText.h>
+    #import "MKCommon.h"
+    #import "NSArray+Model.h"
+    #import "UIColor+Extension.h"
+    #import "UIView+MLExtension.h"
+    #import "MBSignaltonTool.h"
+    #import <UMMobClick/MobClick.h>
+    #import "MBNetworking.h"
+    #import <Masonry/Masonry.h>
+    //#import "HexColors.h"
+    #import "DataSigner.h"
+    #import "Reachability.h"
+    #import "MJRefresh.h"
+    #import "MBProgressHUD.h"
+    #import "SDCycleScrollView.h"
+    #import "Appirater.h"
+    #import "MBRefreshGifFooter.h"
+    #import "MBNavigationViewController.h"
+    #import "Unicall.h"
+    #import "UIButton+MBIBnspectable.h"
+    #import <TZImagePickerController/TZImagePickerController.h>
+    #import "DateTools.h"
+    #import "UIViewController+ProgressHUD.h"
+    #import "UITableViewCell+MBBottomLine.h"
+    #import <ShareSDK/ShareSDK.h>
+    #import <ShareSDKUI/ShareSDK+SSUI.h>
+    #import "STConfig.h"
+    #import "MBBaseTableViewController.h"
+    #import "UITableView+FDTemplateLayoutCell.h"
+    #import "UILabel+MBIBInspectable.h"
+    #import "UIImage+Size.h"
+    #import "DXLocationManager.h"
+    #import "ActionSheetStringPicker.h"
+    #import "ActionSheetPicker.h"
+    #import "NSString+BQ.h"
+    #import "SDPhotoBrowser.h"
+    #import "UIImageView+WebCache.h"
+    #import "MBBaseCollectionView.h"
+    #import "MBBaseScrollView.h"
+    #import <KNSemiModalViewController_hons82/UIViewController+KNSemiModal.h>
+    #import <ASPlayerSDK/ASPlayerSDK.h>
 #define MAS_SHORTHAND_GLOBALS
-#import <ReactiveCocoa/ReactiveCocoa.h>
+    #import <ReactiveCocoa/ReactiveCocoa.h>
 
 #endif

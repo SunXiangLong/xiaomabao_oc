@@ -23,7 +23,7 @@
  @param userName 用户名
  @param cookie 登录成功后返回的cookie
  */
--(void)ASInitMessageOfLogin:(NSString*)userName cookie:(NSArray*)cookie;
+-(void)ASInitMessageOfLogin:(NSString*)userName cookie:(NSString*)cookie;
 
 /**
  展示课程详情页

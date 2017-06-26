@@ -52,8 +52,6 @@
     _headView = [MBRecordTheBabyHeadView instanceView];
      _headView.ml_width = UISCREEN_WIDTH;
     [_headView layoutIfNeeded];
-  
-//    MMLog(@"%f", _headView.todayView.ml_maxY);
     
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, _headView.todayView.ml_maxY)];
     headView.backgroundColor = [UIColor redColor];

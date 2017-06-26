@@ -56,9 +56,9 @@
     if (userInfo.headerImg) {
         self.userImage.image  = userInfo.headerImg;
     }else{
-     [_userImage sd_setImageWithURL:URL(userInfo.header_img) placeholderImage:[UIImage imageNamed:@"headPortrait"]];
+        [_userImage sd_setImageWithURL:URL(userInfo.header_img) placeholderImage:[UIImage imageNamed:@"headPortrait"]];
     }
-   
+    
     if (userInfo.sid) {
         _loginButton.hidden = YES;
         _userName.text = userInfo.nick_name;
@@ -74,8 +74,9 @@
     
     self.tabeleView.tableFooterView = [[UIView alloc] init];
     _dataArray = @[
-                   @{@"image":@"aMedicalQuery",@"name":@"体检报告查询"},
                    @{@"image":@"mabaoCard",@"name":@"我的麻包卡"},
+                   @{@"image":@"instituteOfPersonalCenter",@"name":@"我的学院"},
+                   @{@"image":@"aMedicalQuery",@"name":@"体检报告查询"},
                    @{@"image":@"InviteFriends",@"name":@"邀请好友",@"photo":@"立赚5元"},
                    @{@"image":@"star",@"name":@"我的收藏"},
                    @{@"image":@"icon2",@"name":@"热线电话",@"photo":@"010-85170751"},
@@ -89,7 +90,7 @@
                    ];
     
     
-
+    
 }
 
 - (IBAction)userImageTap:(UITapGestureRecognizer *)sender {
@@ -102,7 +103,7 @@
     
     MBEditProfileViewController *editVc = [[MBEditProfileViewController alloc] init];
     [self pushViewController:editVc Animated:true];
-   
+    
 }
 
 - (IBAction)headViewBtn:(UIButton *)sender {
@@ -263,36 +264,40 @@
     
     switch (indexPath.row) {
         case 0:{
+            [self performSegueWithIdentifier:@"MBBabyCardController" sender:nil];
             
-            [self performSegueWithIdentifier:@"MBMedicalReportQueryViewController" sender:nil];
         }break;
         case 1:{
-            [self performSegueWithIdentifier:@"MBBabyCardController" sender:nil];
+            [[ASPlayer sharedInstance] ASShowViewControllerForMyCenter:self];
+            
         }break;
         case 2:{
+            [self performSegueWithIdentifier:@"MBMedicalReportQueryViewController" sender:nil];
+        }break;
+        case 3:{
             [self performSegueWithIdentifier:@"MBInviteFriendsViewController" sender:nil];
             
         }break;
-        case 3: {
+        case 4: {
             
             [MobClick event:@"PersonalCenter4"];
             MBMyCollectionViewController *VC =[[MBMyCollectionViewController alloc] init];
             [self pushViewController:VC Animated:YES];
             
         }break;
-        case 4:{
+        case 5:{
             [MobClick event:@"PersonalCenter8"];
             NSString * telStr = [NSString stringWithFormat:@"telprompt://%@",@"010-85170751"];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
             
         }break;
-        case 5:{
+        case 6:{
             [MobClick event:@"PersonalCenter9"];
             MBShopAddresViewController *VC = [[MBShopAddresViewController alloc] init];
             VC.isPersonalCenter = true;
             [self pushViewController:VC Animated:YES];
         }break;
-        case 6:{
+        case 7:{
             
             [MobClick event:@"PersonalCenter5"];
             MBRefundHomeController *VC = [[MBRefundHomeController alloc] init];
@@ -300,19 +305,19 @@
             [MobClick event:@"PersonalCenter11"];
             
         } break;
-        case 7: {
+        case 8: {
             [MobClick event:@"PersonalCenter6"];
             MBVoucherViewController *VC =[[MBVoucherViewController alloc] init];
             [self pushViewController:VC Animated:YES];
         }break;
-        case 8:{
+        case 9:{
             [MobClick event:@"PersonalCenter7"];
             [self performSegueWithIdentifier:@"MBMyMaBeanViewController" sender:nil];
         }break;
-        case 9:{
+        case 10:{
             [self service];
         }break;
-        case 10:{
+        case 11:{
             [MobClick event:@"PersonalCenter12"];
             MBHelpViewController *helpVC = [[MBHelpViewController alloc] init];
             helpVC.title = @"售后服务";
@@ -320,7 +325,7 @@
             [self pushViewController:helpVC Animated:YES];
             
         }break;
-        case 11:{
+        case 12:{
             [MobClick event:@"PersonalCenter13"];
             MBHelpViewController *helpVC = [[MBHelpViewController alloc] init];
             helpVC.title = @"麻包帮助";

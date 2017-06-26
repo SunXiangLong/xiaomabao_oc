@@ -16,8 +16,6 @@
 #import "MBGoodsDetailsViewController.h"
 #import "MBGroupShopController.h"
 #import "MBGoodsDetailsViewController.h"
-#import "MBCourseModel.h"
-#import <ASPlayerSDK/ASPlayerSDK.h>
 @interface MBAffordablePlanetViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,SDCycleScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *headView;
 @property (weak, nonatomic) IBOutlet SDCycleScrollView *shufflingView;
@@ -68,35 +66,17 @@
             [self performSegueWithIdentifier:@"MBGiftCardViewController" sender:nil];
         }
         case 3: {
-            [self setASPlayerSDKLoginCookie];
+            
+            
+            
+        [[ASPlayer sharedInstance] ASShowCourseControllerWithOrgid:[MBSignaltonTool getCurrentUserInfo].courseModel.orgId controller:self];
+            
            
         }
             break;
         default:
             break;
     }
-}
-- (void)setASPlayerSDKLoginCookie{
-    [self show];
-    [MBNetworking POSTOrigin:string(BASE_URL_root, @"/course/login") parameters:@{@"session":[MBSignaltonTool getCurrentUserInfo].sessiondict,@"password":[User_Defaults valueForKeyPath:@"userInfo"][@"password"]} success:^(id responseObject) {
-        [self dismiss];
-        MMLog(@"%@",responseObject);
-        if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
-          MBCourseModel *model = [MBCourseModel yy_modelWithDictionary:responseObject[@"data"]];
-            NSArray *cookies = @[model.cookie];
-            [[ASPlayer sharedInstance]ASInitMessageOfLogin:model.uname cookie: cookies];
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[UIViewController alloc] init]];
-            
-            [[ASPlayer sharedInstance] ASShowCourseControllerWithOrgid:model.orgId controller:self];
-            
-        }else{
-            [self show:responseObject[@"status"][@"error_desc"] time:1];
-        }
-        
-    } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        [self show:@"请求失败，请检查网络" time:1];
-    }];
-
 }
 #pragma mark -- 请求数据
 - (void)requestData{
