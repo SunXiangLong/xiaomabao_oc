@@ -36,4 +36,7 @@
 /***  删除Cookie信息*/
 + (void)deleteCookie;
 
++ (void)setASPlayerSDKLoginCookieSuccess:(void (^)(MBCourseModel *model))success
+                                 failure:(void (^)(NSString *error_desc))failure;
+
 @end

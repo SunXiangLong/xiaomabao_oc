@@ -329,12 +329,13 @@ return @"订单详情";
                 
                 MBInvoiceViewController *VC = [[UIStoryboard storyboardWithName:@"Shopping" bundle:nil] instantiateViewControllerWithIdentifier:@"MBInvoiceViewController"];
                 WS(weakSelf)
-                VC.block = ^(NSString *inv_payee,NSString *inv_type,NSString *inv_content){
+                VC.block = ^(NSString *inv_payee,NSString *inv_type,NSString *inv_content,NSString *inv_identification){
                     
                     weakSelf.discountArray[1][@"发票信息"] = inv_content;
                     weakSelf.orderModel.inv.inv_payee = inv_payee;
                     weakSelf.orderModel.inv.inv_type = inv_type;
                     weakSelf.orderModel.inv.inv_content = inv_content;
+                    weakSelf.orderModel.inv.inv_identification = inv_identification;
                     [weakSelf.tableView reloadData];
                     
                 };

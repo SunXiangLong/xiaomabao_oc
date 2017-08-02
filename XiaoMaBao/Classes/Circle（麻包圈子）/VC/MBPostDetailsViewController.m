@@ -447,7 +447,7 @@
     NSArray* imageArray = @[@"http://www.xiaomabao.com/static1/images/app_icon.png"];
     
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.xiaomabao.com/circle/post/%@",self.post_id]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.xiaomabao.com/circle/post/%@?share=app",self.post_id]];
     MMLog(@"%@",url);
     
     

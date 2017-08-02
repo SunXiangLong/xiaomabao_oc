@@ -32,7 +32,12 @@ PODS:
   - FreeStreamer (3.7.2):
     - Reachability (~> 3.0)
   - IQKeyboardManager (4.0.9)
+  - JCore (1.1.2)
+  - JMessage (3.1.0):
+    - JCore (~> 1.1.1)
   - JPFPSStatus (0.1)
+  - JPush (3.0.3):
+    - JCore (~> 1.1.1)
   - KNSemiModalViewController_hons82 (0.4.5)
   - Masonry (1.0.2)
   - MBProgressHUD (1.0.0)
@@ -74,6 +79,7 @@ PODS:
   - SVProgressHUD (2.1.2)
   - TYAttributedLabel (2.6.2)
   - TZImagePickerController (1.7.8)
+  - UICKeyChainStore (2.1.1)
   - UITableView+FDTemplateLayoutCell (1.4)
   - UMengAnalytics (4.2.4)
   - WMPageController (2.2.1)
@@ -84,6 +90,7 @@ PODS:
   - WordPress-iOS-Shared (0.7.0):
     - CocoaLumberjack (~> 2.2.0)
   - WordPressCom-Analytics-iOS (0.1.24)
+  - YHPopupView (0.2.0)
   - YLGIFImage (0.11)
   - YNPageScrollViewController (1.0.3)
   - YYCache (1.0.4)
@@ -110,7 +117,9 @@ DEPENDENCIES:
   - FMDB
   - FreeStreamer
   - IQKeyboardManager
+  - JMessage
   - JPFPSStatus
+  - JPush
   - KNSemiModalViewController_hons82
   - Masonry
   - MBProgressHUD
@@ -130,12 +139,14 @@ DEPENDENCIES:
   - StreamingKit
   - TYAttributedLabel
   - TZImagePickerController (from `https://github.com/banchichen/TZImagePickerController.git`, tag `1.7.8`)
+  - UICKeyChainStore
   - UITableView+FDTemplateLayoutCell
   - UMengAnalytics
   - WMPageController
   - WordPress-iOS-Editor (from `https://github.com/wordpress-mobile/WordPress-iOS-Editor.git`, tag `1.8.1`)
   - WordPress-iOS-Shared (from `https://github.com/wordpress-mobile/WordPress-Shared-iOS`, tag `0.7.0`)
   - WordPressCom-Analytics-iOS (~> 0.1.18)
+  - YHPopupView
   - YNPageScrollViewController
   - YYImage/WebP
   - YYModel
@@ -181,7 +192,10 @@ SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   FreeStreamer: 98f42f926bed70e3f8873930bc530aae83082d9f
   IQKeyboardManager: 322c7405df3eb5f7e50dede32ea937bf3d4364e0
+  JCore: 9e9bd280a38090d66aca0a7547581cd29804c6eb
+  JMessage: bf064b52fab7dc197e849547a2e3bd41a8d1a9d4
   JPFPSStatus: 4467a17488382e4c1700bd9d18c92ae581fd6305
+  JPush: 8ea7c5bee363191cb5214f5d34ae11e1c5494722
   KNSemiModalViewController_hons82: 0ef0ef5ed7c3814ddd0fa9c884ab74d5495de16b
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
@@ -199,12 +213,14 @@ SPEC CHECKSUMS:
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   TYAttributedLabel: 1c1f1e7604043ba584e005d4fd3aee8a1a7a2020
   TZImagePickerController: 87a138ae5d585225aaa6c8abe2cface0f0ad19dd
+  UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
   UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
   UMengAnalytics: ef8d45f94c0e5771dc364cf6a5731d9d3b101da2
   WMPageController: 181bcc9b1fb7c9c3466bff66012552953a547d28
   WordPress-iOS-Editor: 3118f5d6b142b6bf322f3393a7dd98a28bca68cb
   WordPress-iOS-Shared: 4bec543bac6543480b10d904bea122dcba43cc37
   WordPressCom-Analytics-iOS: 9787d0e0866f48ae759a1d56e21c5a8f3a08a67e
+  YHPopupView: be92948e4a6da96ee6dbfa67d7f179fb44f5b0a3
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YNPageScrollViewController: 1501d62217b4463bdd619496ec247715776d9e33
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
@@ -214,6 +230,6 @@ SPEC CHECKSUMS:
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
   ZFPlayer: 8dc82b4508fbba4ee59d0304c52e30f8b3390244
 
-PODFILE CHECKSUM: b9d4701af36c52b9b7187029fc64fbb4bbdbe818
+PODFILE CHECKSUM: 888ee7270e4dcf7402768c2f16c5ceec3ab55c5f
 
 COCOAPODS: 1.2.0

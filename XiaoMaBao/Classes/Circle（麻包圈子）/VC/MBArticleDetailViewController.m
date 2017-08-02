@@ -68,8 +68,8 @@
         imageArray = @[[UIImage imageNamed:@"headPortrait"]];
     }
     
-    
-    NSURL *url = self.url;
+    NSString * urlStr = [NSString stringWithFormat:@"%@?share=app",self.url];
+    NSURL *url =  URL(urlStr);
     
     if (imageArray) {
         

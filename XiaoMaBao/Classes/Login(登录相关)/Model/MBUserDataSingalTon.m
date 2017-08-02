@@ -28,7 +28,8 @@
     self.is_baby_add = false;
     self.headerImg = nil;
     self.sessiondict  = nil;
-    self.courseModel = nil;
+    self.isLogin = false;
+    
 }
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic{

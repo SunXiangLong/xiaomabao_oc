@@ -20,6 +20,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *invoiceUnit;
 @property (weak, nonatomic) IBOutlet UITextField *unitNameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *centerText;
+@property (weak, nonatomic) IBOutlet UITextField *taxIdentification;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *taxHeight;
 
 @end
 
@@ -39,6 +42,14 @@
     _individualInvoice.layer.borderWidth  = PX_ONE;
     _InvoiceTypeBt.layer.borderWidth  = PX_ONE;
     
+    _lastTokenButton = _individualInvoice;
+    _individualInvoice.layer.borderColor = [UIColor colorWithHexString:@"fb5151"].CGColor;
+    [_individualInvoice   setTitleColor:UIcolor(@"fb5151") forState:UIControlStateNormal];
+    
+    
+    _unitNameTextField.placeholder = @"请输入个人姓名";
+    _viewHeight.constant = 130;
+    _taxHeight.constant = 0;
 }
 -(NSString *)titleStr{
    return @"发票信息";
@@ -65,40 +76,80 @@
 }
 
 - (IBAction)invoiceToken:(UIButton *)sender {
-    sender.layer.borderColor = [UIColor colorWithHexString:@"fb5151"].CGColor;
-    [sender   setTitleColor:UIcolor(@"fb5151") forState:UIControlStateNormal];
-    if (_lastTokenButton) {
-        _lastTokenButton.layer.borderColor = [UIColor colorWithHexString:@"555555"].CGColor;
-        [_lastTokenButton   setTitleColor:UIcolor(@"555555") forState:UIControlStateNormal];
+    if (![_lastTokenButton isEqual:sender]) {
+        
+        sender.layer.borderColor = [UIColor colorWithHexString:@"fb5151"].CGColor;
+        [sender   setTitleColor:UIcolor(@"fb5151") forState:UIControlStateNormal];
+       
+        if (_lastTokenButton) {
+            _lastTokenButton.layer.borderColor = [UIColor colorWithHexString:@"555555"].CGColor;
+            [_lastTokenButton   setTitleColor:UIcolor(@"555555") forState:UIControlStateNormal];
+        }
+        
+        _lastTokenButton = sender;
+        
+        if ([_lastTokenButton isEqual:_invoiceUnit]) {
+            _unitNameTextField.placeholder = @"请输入单位名称";
+            _viewHeight.constant = 160;
+            _taxHeight.constant = 30;
+        }else{
+            _unitNameTextField.placeholder = @"请输入个人姓名";
+             _viewHeight.constant = 130;
+            _taxHeight.constant = 0;
+        }
+      
     }
-    _lastTokenButton = sender;
+    
+    
     
 }
 
 - (IBAction)InvoiceType:(UIButton *)sender {
-    sender.selected = YES;
-    if (_lastInvoiceTypeButton) {
-        _lastInvoiceTypeButton.selected = NO;
+    sender.selected = !sender.selected;
+    if (![_lastInvoiceTypeButton isEqual:sender]) {
+        _lastInvoiceTypeButton.selected = !_lastInvoiceTypeButton.selected;
+        _lastInvoiceTypeButton = sender;
+
+    }else{
+        if (!_lastInvoiceTypeButton.selected) {
+            _lastInvoiceTypeButton = nil;
+        }
     }
-    _lastInvoiceTypeButton = sender;
+    
 }
 - (IBAction)determine:(UIButton *)sender {
-    if (!_lastTokenButton) {
-        [self show:@"请选择发票抬头" time:1];
-        return;
+
+    
+    if ([_lastTokenButton isEqual:_invoiceUnit]) {
+        if (_unitNameTextField.text.length < 1) {
+           [self show:@"请输入公司名称" time:1];
+            [_unitNameTextField becomeFirstResponder];
+            return;
+        }
+        
+        if (_taxIdentification.text.length < 1) {
+            [self show:@"请输入公司纳税识别号" time:1];
+            [_taxIdentification becomeFirstResponder];
+            return;
+        }
+        
+    }else{
+        if (_unitNameTextField.text.length < 1) {
+            [self show:@"请输入个人姓名" time:1];
+            [_unitNameTextField becomeFirstResponder];
+            return;
+        }
     }
-    if (_unitNameTextField.text.length < 1) {
-        [self show:@"请输入公司名称" time:1];
-        [_unitNameTextField becomeFirstResponder];
-        return;
-    }
+
     if (!_lastInvoiceTypeButton) {
         [self show:@"请选择发票类型" time:1];
+        return;
     }
+    
     NSString *inv_payee = _invoiceTypeArray[_lastTokenButton.tag];
     NSString *inv_type = _invoiceText[_lastInvoiceTypeButton.tag];
     NSString *inv_content = _unitNameTextField.text;
-    self.block(inv_payee,inv_type,inv_content);
+    self.block(inv_payee,inv_type,inv_content,_taxIdentification.text?:@"");
     [self popViewControllerAnimated:YES];
 }
 

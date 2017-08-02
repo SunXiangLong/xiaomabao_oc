@@ -39,6 +39,7 @@
 @property (nonatomic,strong) NSString *inv_content;
 @property (nonatomic,strong) NSString *inv_type;
 @property (nonatomic,strong) NSString *inv_payee;
+@property (nonatomic,strong) NSString *inv_identification;
 @end
 @interface MBElectronicCardOrderModel : NSObject
 @property (nonatomic,strong) MBElectronicCardInvlModel *inv;

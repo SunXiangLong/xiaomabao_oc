@@ -385,7 +385,8 @@
 
 -(void)imageIndex{
     _guideImageIndex++;
-    if (_guideImageIndex == 5) {
+    MMLog(@"%ld",_guideImageIndex);
+    if (_guideImageIndex == 4) {
         _guideImageView.hidden = true;
         return;
     }

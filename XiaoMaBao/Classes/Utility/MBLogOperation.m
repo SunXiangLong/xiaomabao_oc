@@ -9,8 +9,7 @@
 #import "MBLogOperation.h"
 #import "MBUpdateView.h"
 #import "DHGuidePageHUD.h"
-#import <ASPlayerSDK/ASPlayer.h>
-
+#import "MBAPService.h"
 @implementation MBLogOperation
 +(MBLogOperation * )getMBLogOperationObject
 {
@@ -214,7 +213,7 @@
     MBLogOperation *login = [MBLogOperation getMBLogOperationObject];
     [MBNetworking   POSTOrigin:string(BASE_URL_root, @"/users/login") parameters:dic success:^(id responseObject) {
         if(1 == [responseObject[@"status"][@"succeed"] integerValue]){
-        
+//            MMLog(@"%@",responseObject);
             MBUserDataSingalTon *userInfo = [MBSignaltonTool getCurrentUserInfo:responseObject[@"data"][@"user"]];
             userInfo.sid = responseObject[@"data"][@"session"][@"sid"];
             userInfo.uid = responseObject[@"data"][@"session"][@"uid"];
@@ -243,6 +242,8 @@
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"circleState" object:nil];
             
+            [MBAPService registerWithUserinfo:params];
+            
             if (success) {
                  success(responseObject);
             }
@@ -254,7 +255,7 @@
             }
             
             
-            [self setASPlayerSDKLoginCookie];
+
             
             
         }else{
@@ -281,42 +282,21 @@
     
 }
 
-+ (void)setASPlayerSDKLoginCookie{
++ (void)setASPlayerSDKLoginCookieSuccess:(void (^)(MBCourseModel *))success failure:(void (^)(NSString *))failure{
     
     [MBNetworking POSTOrigin:string(BASE_URL_root, @"/course/login") parameters:@{@"session":[MBSignaltonTool getCurrentUserInfo].sessiondict,@"password":[User_Defaults valueForKeyPath:@"userInfo"][@"password"]} success:^(id responseObject) {
-        
         MMLog(@"%@",responseObject);
         if ([responseObject[@"status"][@"succeed"] integerValue] == 1) {
             MBCourseModel *model = [MBCourseModel yy_modelWithDictionary:responseObject[@"data"]];
-            [MBSignaltonTool getCurrentUserInfo].courseModel = model;
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                MMLog(@"个人中心");
-                NSLog(@"112333344");
-                [[ASPlayer sharedInstance]  ASInitMessageOfLogin:model.uname cookie:model.cookie];
-                
-            });
-//
-//            NSString *jsonStirng = [self stringToJson:@{@"username":model.uname,@"orgId":model.orgId}];
-//            NSString *timestamp = [self fetchStamping];
-//            NSString *tempString = [NSString stringWithFormat:@"%@|%@",jsonStirng,timestamp];
-//            NSString *token = [self tokenWithString:tempString];
-//
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//
-//                [[ASPlayer sharedInstance] ASRequestWithUrl:@"http://passport.ablesky.com/loginAPI.do?" identifier:@"id_user_login" params:@{@"data":jsonStirng ,@"timestamp":timestamp,@"accessToken":token} isCookie:false block:^(ASResultCode code, id result) {
-//                    MMLog(@"%u-%@",code,result);
-//
-//
-//
-//                }];
-//            });
-            
+            [[ASPlayer sharedInstance]  ASInitMessageOfLogin:model.uname cookie:model.cookie];
+            success(model);
  
+        }else{
+            failure(@"授权登录失败");
         }
         
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
-        
+         failure(@"请求失败，请检查网络");
     }];
     
 }

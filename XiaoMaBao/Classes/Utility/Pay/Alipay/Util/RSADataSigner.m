@@ -63,13 +63,9 @@
     NSString * signedString = nil;
     NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *path = [documentPath stringByAppendingPathComponent:@"Unicall-RSAPrivateKey"];
-    
-    //
     // 把密钥写入文件
-    //
     NSString *formatKey = [self formatPrivateKey:_privateKey];
     [formatKey writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    
     const char *message = [string cStringUsingEncoding:NSUTF8StringEncoding];
     int messageLength = (int)strlen(message);
     unsigned char *sig = (unsigned char *)malloc(256);

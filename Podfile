@@ -38,6 +38,8 @@ pod 'ReactiveCocoa','~> 2.5'
 pod 'JPFPSStatus'
 pod 'DateTools'
 pod 'UITableView+FDTemplateLayoutCell'
+#钥匙串封装库
+pod 'UICKeyChainStore'
 #基于HTML+JS的富文本编辑器
 pod 'WordPressCom-Analytics-iOS','~> 0.1.18'
 pod 'WordPress-iOS-Shared’,:git => 'https://github.com/wordpress-mobile/WordPress-Shared-iOS', :tag => '0.7.0'
@@ -54,6 +56,10 @@ pod 'ZFPlayer'
 pod 'StreamingKit'
 #图文混排
 pod 'TYAttributedLabel'
+#极光message和极光推送
+pod 'JMessage'
+pod 'JPush'
+pod 'YHPopupView'
 #友盟统计
 pod 'UMengAnalytics'
 #pod "PromiseKit"

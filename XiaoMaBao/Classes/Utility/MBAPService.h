@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface MBAPService : NSObject
+
+/**极光message用户注册和登录 */
++ (void)registerWithUserinfo:(NSDictionary *)dic;
+/**极光messageSDK初始化 */
++ (void)requiredMessage:(NSDictionary *)launchOptions;
 /***  极光推送注册***/
 + (void)required:(NSDictionary *)launchOptions;
 /***  监听有没有收到推送消息（不是通知） **/

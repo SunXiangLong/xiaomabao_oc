@@ -168,45 +168,45 @@
     
     
 }
--(void)getUnicallSignature{
-    NSString *privateKey =  [NSString stringWithFormat:@"%@%@%@%@%@%@%@",
-                             @"MIIBPAIBAAJBAMBrqadzplyUtQUXCP+VuDFWt0p9Kl+s3yrQ8PV+P89Bbt/UqN2/",
-                             @"BzVNPoNgtQ2fI7Ob652limC/jqVf6slzPEUCAwEAAQJAOL7HXnGVqxHTvHeJmM4P",
-                             @"bsVy8k2tNF/nxFmv5cXgjX7sd7BU9jyELGP4os3ID3tItdCHtmMM3KM91lTHYlkk",
-                             @"dQIhAOWKnz0moWISa0S8cBYJI0k0PRoYMv6Xsty5aZpC9WM/AiEA1pmqSthbMUb2",
-                             @"TrmRyJsHswLAYSHotTIS0kzHu655M3sCIQDLdWXUJCuj7EOcd5K6VXsrZdxLBuwc",
-                             @"coYd01LhYzxyrQIhAIsqc6i9zcWTAz/iT4wMHV4VNrTGzKZUpqgCarRnXOnpAiEA",
-                             @"pbZzKKXpVGNp2MMXRlpdzdGCKFMYSeqnqXuwd76iwco="
-                             ];
-    NSString *tenantId = UNICALL_TENANID;
-    NSString *appKey = UNICALL_APPKEY;
-    NSString *time = [self getCurrentTime];
-    NSString *expireTime = @"60000";
-    
-    NSString *stringToSign = [NSString stringWithFormat:@"%@&%@&%@&%@",appKey,expireTime,tenantId,time];
-    id<DataSigner> signer = CreateRSADataSigner(privateKey);
-    
-    NSString *signature = [signer uncallString:stringToSign];
-    NSDictionary *json = @{@"appKey":appKey,@"expireTime":expireTime,@"signature":signature,@"tenantId":tenantId,@"time":time};
-    
-    Unicall *unicall = [Unicall singleton];
-    [unicall UnicallUpdateValidation:json];
-    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
-    if (!sid) {
-        [unicall UnicallUpdateUserInfo:@{@"nickname":@"未注册用户"}];
-    }else{
-        
-        [unicall UnicallUpdateUserInfo:@{@"nickname": string(@"用户的sid:", sid)}];
-    }
-}
-
--(NSString*)getCurrentTime {
-    NSDateFormatter*formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"yyy-MM-dd'T'HH:mm:ssZZZZZ"];
-    NSString*dateTime = [formatter stringFromDate:[NSDate date]];
-    return dateTime;
-    
-}
+//-(void)getUnicallSignature{
+//    NSString *privateKey =  [NSString stringWithFormat:@"%@%@%@%@%@%@%@",
+//                             @"MIIBPAIBAAJBAMBrqadzplyUtQUXCP+VuDFWt0p9Kl+s3yrQ8PV+P89Bbt/UqN2/",
+//                             @"BzVNPoNgtQ2fI7Ob652limC/jqVf6slzPEUCAwEAAQJAOL7HXnGVqxHTvHeJmM4P",
+//                             @"bsVy8k2tNF/nxFmv5cXgjX7sd7BU9jyELGP4os3ID3tItdCHtmMM3KM91lTHYlkk",
+//                             @"dQIhAOWKnz0moWISa0S8cBYJI0k0PRoYMv6Xsty5aZpC9WM/AiEA1pmqSthbMUb2",
+//                             @"TrmRyJsHswLAYSHotTIS0kzHu655M3sCIQDLdWXUJCuj7EOcd5K6VXsrZdxLBuwc",
+//                             @"coYd01LhYzxyrQIhAIsqc6i9zcWTAz/iT4wMHV4VNrTGzKZUpqgCarRnXOnpAiEA",
+//                             @"pbZzKKXpVGNp2MMXRlpdzdGCKFMYSeqnqXuwd76iwco="
+//                             ];
+//    NSString *tenantId = UNICALL_TENANID;
+//    NSString *appKey = UNICALL_APPKEY;
+//    NSString *time = [self getCurrentTime];
+//    NSString *expireTime = @"60000";
+//    
+//    NSString *stringToSign = [NSString stringWithFormat:@"%@&%@&%@&%@",appKey,expireTime,tenantId,time];
+//    id<DataSigner> signer = CreateRSADataSigner(privateKey);
+//    
+//    NSString *signature = [signer uncallString:stringToSign];
+//    NSDictionary *json = @{@"appKey":appKey,@"expireTime":expireTime,@"signature":signature,@"tenantId":tenantId,@"time":time};
+//    
+//    Unicall *unicall = [Unicall singleton];
+//    [unicall UnicallUpdateValidation:json];
+//    NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
+//    if (!sid) {
+//        [unicall UnicallUpdateUserInfo:@{@"nickname":@"游客"}];
+//    }else{
+//        
+//        [unicall UnicallUpdateUserInfo:@{@"nickname": [MBSignaltonTool getCurrentUserInfo].nick_name}];
+//    }
+//}
+//
+//-(NSString*)getCurrentTime {
+//    NSDateFormatter*formatter = [[NSDateFormatter alloc]init];
+//    [formatter setDateFormat:@"yyy-MM-dd'T'HH:mm:ssZZZZZ"];
+//    NSString*dateTime = [formatter stringFromDate:[NSDate date]];
+//    return dateTime;
+//    
+//}
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString: @"MBBabyCardController"]) {
         MBBabyCardController *VC = (MBBabyCardController *)segue.destinationViewController;
@@ -268,7 +268,17 @@
             
         }break;
         case 1:{
-            [[ASPlayer sharedInstance] ASShowViewControllerForMyCenter:self];
+            
+            
+            [self show];
+            [MBLogOperation setASPlayerSDKLoginCookieSuccess:^(MBCourseModel *model) {
+                [self dismiss];
+                [[ASPlayer sharedInstance] ASShowViewControllerForMyCenter:self];
+            } failure:^(NSString *error_desc) {
+                [self show:error_desc time:1];
+            }];
+        
+            
             
         }break;
         case 2:{

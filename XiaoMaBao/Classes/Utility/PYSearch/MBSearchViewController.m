@@ -186,6 +186,9 @@
             case 2:{
                 _searchHistories = [NSKeyedUnarchiver unarchiveObjectWithFile:ServicePostHistoriesPath];
             }break;
+            case 3:{
+                _searchHistories = [NSKeyedUnarchiver unarchiveObjectWithFile:SecondaryMarketHistoriesPath];
+            }break;
             default:
                 break;
         }
@@ -760,6 +763,10 @@
         case 2:{
             [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServicePostHistoriesPath];
         }break;
+        case 3:{
+            [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:SecondaryMarketHistoriesPath];
+        }break;
+            
         default:break;
     }
     
@@ -836,6 +843,10 @@
         case 2:{
             [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServicePostHistoriesPath];
         }break;
+        case 3:{
+            [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:SecondaryMarketHistoriesPath];
+        }break;
+            
         default:break;
     }
 
@@ -898,6 +909,10 @@
         case 2:{
             [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:ServicePostHistoriesPath];
         }break;
+        case 3:{
+            [NSKeyedArchiver archiveRootObject:self.searchHistories toFile:SecondaryMarketHistoriesPath];
+        }break;
+            
         default:break;
     }
     // 刷新

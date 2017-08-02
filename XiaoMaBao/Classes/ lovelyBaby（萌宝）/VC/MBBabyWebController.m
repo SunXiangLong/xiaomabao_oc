@@ -118,6 +118,9 @@
 }
 
 -(void)share{
+    NSString *urlStr = [NSString stringWithFormat:@"%@?share=app",_url];
+    
+   
     
     //1、创建分享参数
     NSArray* imageArray = @[@"http://www.xiaomabao.com/static1/images/app_icon.png"];
@@ -126,7 +129,7 @@
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         [shareParams SSDKSetupShareParamsByText:self.title
                                          images:imageArray
-                                            url:self.url
+                                            url:URL(urlStr)
                                           title:self.title
                                            type:3];
         //2、分享（可以弹出我们的分享菜单和编辑界面）

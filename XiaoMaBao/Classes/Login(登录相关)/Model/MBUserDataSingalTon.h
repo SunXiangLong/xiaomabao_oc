@@ -34,12 +34,17 @@
 @property (copy, nonatomic) NSString *collection_num;
 @property (assign, nonatomic) BOOL is_baby_add;
 @property (strong, nonatomic) MBUserBabyInfo *user_baby_info;
-@property (copy, nonatomic) NSDictionary *sessiondict;
 
+
+@property (copy, nonatomic) NSDictionary *sessiondict;
 /**
- 能力天空参数model
+ 极光message用户是否登录成功
  */
-@property (strong, nonatomic) MBCourseModel *courseModel;
+@property (assign, nonatomic) BOOL isLogin;
+///**
+// 能力天空参数model
+// */
+//@property (strong, nonatomic) MBCourseModel *courseModel;
 
 
 // 清除所有值

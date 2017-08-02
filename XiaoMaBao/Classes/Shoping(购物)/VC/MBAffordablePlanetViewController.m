@@ -39,6 +39,7 @@
     [self requestData];
     
 }
+
 - (IBAction)buttonTouch:(UIButton *)sender {
     NSString *sid  = [MBSignaltonTool getCurrentUserInfo].sid;
     if (!sid) {
@@ -64,16 +65,18 @@
         }break;
         case 2: {
             [self performSegueWithIdentifier:@"MBGiftCardViewController" sender:nil];
-        }
+        }break;
         case 3: {
             
-            
-            
-        [[ASPlayer sharedInstance] ASShowCourseControllerWithOrgid:[MBSignaltonTool getCurrentUserInfo].courseModel.orgId controller:self];
-            
+            [self show];
+            [MBLogOperation setASPlayerSDKLoginCookieSuccess:^(MBCourseModel *model) {
+                [self dismiss];
+                 [[ASPlayer sharedInstance] ASShowCourseControllerWithOrgid:model.orgId controller:self];
+            } failure:^(NSString *error_desc) {
+                 [self show:error_desc time:1];
+            }];
            
-        }
-            break;
+        }break;
         default:
             break;
     }

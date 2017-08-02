@@ -305,8 +305,7 @@
         [self dismiss];
         if ([responseObject[@"status"] intValue] != 0) {
             [self show:responseObject[@"info"] time:1];
-            return ;
-            
+            return;
         }
         NSDictionary *dic = responseObject[@"data"];
         PayReq* req             = [[PayReq alloc] init];

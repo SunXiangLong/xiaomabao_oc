@@ -56,8 +56,8 @@ return @"mm_share";
     //1、创建分享参数
     NSArray* imageArray = @[_dataDic[@"head_img"]];
     
-    
-    NSURL *url = URL(_dataDic[@"share_url"]);
+    NSString *urlStr = [NSString stringWithFormat:@"%@?share=app",_dataDic[@"share_url"]];
+ 
     
     
     
@@ -67,7 +67,7 @@ return @"mm_share";
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         [shareParams SSDKSetupShareParamsByText:string(string(_dataDic[@"author"], @"   "), _dataDic[@"author_title"])
                                          images:imageArray
-                                            url:url
+                                            url: URL(urlStr)
                                           title:_dataDic[@"abstract_text"]
                                            type:SSDKContentTypeAuto];
 NSArray * platforms =@[@(SSDKPlatformSubTypeWechatSession),@(SSDKPlatformSubTypeWechatTimeline),@(SSDKPlatformTypeSinaWeibo),@(SSDKPlatformSubTypeQQFriend),@(SSDKPlatformSubTypeQZone)];

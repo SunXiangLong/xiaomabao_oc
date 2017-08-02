@@ -57,7 +57,9 @@
     #import "MBBaseScrollView.h"
     #import <KNSemiModalViewController_hons82/UIViewController+KNSemiModal.h>
     #import <ASPlayerSDK/ASPlayerSDK.h>
+    #import <JMessage/JMessage.h>
+
 #define MAS_SHORTHAND_GLOBALS
     #import <ReactiveCocoa/ReactiveCocoa.h>
-
+    #import "MBLogOperation.h"
 #endif

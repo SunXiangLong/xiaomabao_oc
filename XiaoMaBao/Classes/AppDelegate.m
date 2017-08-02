@@ -65,15 +65,16 @@
     [MBShare share];
     // 微信支付注册
     [MBShare WXApi];
-    //极光推送（通知）
+    //极光推送SDK初始化
     [MBAPService required: launchOptions];
+    //极光messageSDK初始化
+    [MBAPService requiredMessage:launchOptions];
     //默认有账号就登陆
     [MBLogOperation defaultLogin];
     //提示更新APP
     [MBLogOperation promptUpdate];
     //极光推送（消息）
     [MBAPService receiveMessage];
-    
     //提示用户评价
     [self setAppirater];
     
@@ -124,6 +125,7 @@
     
     /***极光推送获取token*/
     [JPUSHService registerDeviceToken:deviceToken];
+    [JMessage registerDeviceToken:deviceToken];
 }
 /**
  *  极光推送在后台收到通知走该方法
@@ -133,6 +135,8 @@
  *  @param completionHandler 回调
  */
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+
     
     [MBAPService  receiveRemoteNotification:userInfo root:self.window application:application];
     

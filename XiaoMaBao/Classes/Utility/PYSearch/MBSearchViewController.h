@@ -40,7 +40,7 @@ typedef NS_ENUM(NSInteger, PYSearchResultSearchTypes) { // 搜索类型
     PYSearchResultShowModeGoods,   // 商品搜索
     PYSearchResultShowModeService, // 服务搜索
     PYSearchResultShowModePost,    // 帖子搜索
-   
+    PYSearchResultShowModeSecondaryMarket   // 二手市场搜索
 };
 
 @protocol PYSearchViewControllerDelegate <NSObject, UITableViewDelegate>

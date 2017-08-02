@@ -12,7 +12,6 @@
 @interface MBGoodsSpecsView : UIView
 @property (nonatomic, weak) BkBaseViewController *VC;
 - (instancetype)initWithModel:(MBGoodsSpecsRootModel *)model type:(NSInteger)num;
-
 /**当前商品的库存数量*/
 @property (nonatomic,assign) NSInteger inventoryNum;
 @property (nonatomic,copy) void(^getCarData)();

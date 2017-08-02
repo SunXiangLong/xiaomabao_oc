@@ -55,7 +55,7 @@
     NSArray* imageArray = @[@"http://www.xiaomabao.com/static1/images/app_icon.png"];
     
     
-    
+    NSString *urlStr = [NSString stringWithFormat:@"%@?share=app",_url];
     
     
     if (imageArray) {
@@ -63,7 +63,7 @@
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         [shareParams SSDKSetupShareParamsByText:self.title
                                          images:imageArray
-                                            url:self.url
+                                            url:URL(urlStr)
                                            title:self.title
                                            type:3];
         //2、分享（可以弹出我们的分享菜单和编辑界面）
@@ -221,9 +221,9 @@
     NSArray* imageArray = @[string(BASE_URL_root, dic[@"imageUrl"])];
     
     
-    NSURL *url = [NSURL URLWithString:dic[@"sharUrl"]];
+
     
-    
+     NSString *urlStr = [NSString stringWithFormat:@"%@?share=app",dic[@"sharUrl"]];
     
     //（注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
     if (imageArray) {
@@ -231,7 +231,7 @@
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         [shareParams SSDKSetupShareParamsByText:post_content
                                          images:imageArray
-                                            url:url
+                                            url:URL(urlStr)
                                           title:dic[@"title"]
                                            type:SSDKContentTypeAuto];
         //2、分享（可以弹出我们的分享菜单和编辑界面）

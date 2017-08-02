@@ -17,6 +17,7 @@
 #import "MBMaBaoFeaturesViewController.h"
 #import "MBCheckInViewController.h"
 #import "MBServiceEvaluationController.h"
+#import "MBSecondaryMarketHomeVC.h"
 @interface MBNewHomeViewController ()<UIScrollViewDelegate,UnicallDelegate>
 {
     
@@ -112,10 +113,19 @@
 
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
+
+- (void)leftTitleClick{
+
+    MBSecondaryMarketHomeVC *VC =   [[UIStoryboard storyboardWithName:@"secondaryMarket" bundle:nil] instantiateViewControllerWithIdentifier:@"MBSecondaryMarketHomeVC"];
+    
+    [self pushViewController:VC Animated:true];
+    
+    
+    
+}
 - (NSString *)rightImage{
     return @"search_image";
 }
-
 - (void)rightTitleClick{
     
     MBGoodSSearchViewController *searchViewController = [[MBGoodSSearchViewController alloc] init:PYSearchResultShowModeGoods];
@@ -194,10 +204,10 @@
     [unicall UnicallUpdateValidation:json];
     NSString *sid = [MBSignaltonTool getCurrentUserInfo].sid;
     if (!sid) {
-        [unicall UnicallUpdateUserInfo:@{@"nickname":@"未注册用户"}];
+        [unicall UnicallUpdateUserInfo:@{@"nickname":@"游客"}];
     }else{
         
-        [unicall UnicallUpdateUserInfo:@{@"nickname": string(@"用户的sid:", sid)}];
+        [unicall UnicallUpdateUserInfo:@{@"nickname": [MBSignaltonTool getCurrentUserInfo].nick_name}];
     }
     
 }

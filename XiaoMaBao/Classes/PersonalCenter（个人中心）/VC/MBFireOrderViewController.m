@@ -35,6 +35,8 @@
 @property (copy,nonatomic) NSString *inv_payee;
 @property (copy,nonatomic) NSString *inv_type;
 @property (copy,nonatomic) NSString *inv_content;
+@property (copy,nonatomic) NSString *inv_identification;
+
 /**麻包豆数量*/
 @property (copy,nonatomic) NSString *mabaobean_number;
 /**
@@ -76,7 +78,7 @@
     if (!_tableView) {
         [self.view addSubview:self.tableView];
     }
-
+    
     self.discountPriceArray   = [@[orderShopModel.goods_amount_formatted,orderShopModel.shipping_fee_formatted,orderShopModel.discount_formatted,_inv_payee?_discountPriceArray[3]:@"",orderShopModel.surplus?:@"",([orderShopModel.bean_fee integerValue] > 0)?string(@"￥", orderShopModel.bean_fee) :@"",_couponId?( [orderShopModel.discount integerValue] > 0?orderShopModel.discount_formatted:@""):@"",_bonus_id?([orderShopModel.discount integerValue] > 0?orderShopModel.discount_formatted:@""):@"",@""] mutableCopy];
     ;
     self.tableView.tableHeaderView = [self tableViewHeaderView];
@@ -85,14 +87,14 @@
         _totalLabel.text =  orderShopModel.order_amount_formatted;
         
     }else{
-      [self setUpbottomViewUI];
+        [self setUpbottomViewUI];
     }
     
     
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
 }
 - (UIView *)tableViewHeaderView{
     UIView *headerView = [[UIView alloc] init];
@@ -228,7 +230,7 @@
         
     }
     
-   
+    
     
     
     
@@ -284,7 +286,7 @@
             
             self.couponId = coupon [@"bonus_id"];
             [self beforeCreateOrder];
-
+            
             
         }];
         [self.navigationController pushViewController:vc animated:YES];
@@ -302,7 +304,7 @@
     bottomView.frame = CGRectMake(0, UISCREEN_HEIGHT - 40 , UISCREEN_WIDTH, 40);
     [self.view addSubview:bottomView];
     [self addTopLineView:bottomView];
-
+    
     UILabel *total = [[UILabel alloc] init];
     total.text = @"应付总额：";
     total.textColor = UIcolor(@"797979");
@@ -312,16 +314,16 @@
         make.left.mas_equalTo(10);
         make.centerY.equalTo(bottomView.mas_centerY);
     }];
-   UILabel *price = [[UILabel alloc] init];
-   price.textColor = UIcolor(@"e8455d");
-   price.font = SYSTEMFONT(16);
+    UILabel *price = [[UILabel alloc] init];
+    price.textColor = UIcolor(@"e8455d");
+    price.font = SYSTEMFONT(16);
     
     [bottomView addSubview:_totalLabel = price];
     [price mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(total.mas_right).offset(3);
         make.centerY.equalTo(bottomView.mas_centerY);
     }];
-
+    
     UIButton *submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
     submitButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [submitButton setTitle:@"提交订单" forState:UIControlStateNormal];
@@ -392,7 +394,7 @@
             [self presentViewController:alerVC animated:YES completion:nil];
             return;
         }
-
+        
         
         
     }
@@ -454,22 +456,13 @@
     if (!self.orderShopModel.consignee.idcard) {
         self.orderShopModel.consignee.idcard = [MBIdcardModel yy_modelWithDictionary:@{@"identity_card":@""}];
     }
-    if (!self.couponId) {
-        self.couponId = @"";
-    }
-    
-    if (!_bonus_id) {
-        _bonus_id = @"";
-    }
-    if (!_inv_payee) {
-        _inv_payee = @"";
-        _inv_type= @"";
-        _inv_content = @"";
-    }
-    if (!_mabaobean_number) {
-        _mabaobean_number = @"";
-    }
-    if (!name) {
+    if (!self.couponId) self.couponId = @"";
+    if (!_bonus_id)  _bonus_id = @"";
+    if (!_inv_payee) _inv_payee = @"";
+    if (!_inv_type)  _inv_type= @"";
+    if (!_inv_content)  _inv_content = @"";
+    if (!_inv_identification)_inv_identification = @"";
+    if (!_mabaobean_number) _mabaobean_number = @"";    if (!name) {
         [self show:@"收货人姓名不能为空" time:1];
         return;
     }
@@ -478,7 +471,7 @@
         return;
     }
     
-    [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/flow/done_new") parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":self.orderShopModel.consignee.address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":_inv_type,@"inv_content":_inv_content,@"inv_payee" :_inv_payee,@"real_name":name,@"identity_card":self.orderShopModel.consignee.idcard.identity_card,@"cards":self.cards,@"mabaobean_number":_mabaobean_number} success:^(id responseObject) {
+    [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/flow/done_new") parameters:@{@"session":dict,@"pay_id":@"3",@"shipping_id":@"4",@"address_id":self.orderShopModel.consignee.address_id,@"bonus_id":_bonus_id,@"coupon_id":self.couponId,@"integral":@"",@"inv_type":_inv_type,@"inv_content":_inv_content,@"inv_payee" :_inv_payee,@"real_name":name,@"identity_card":self.orderShopModel.consignee.idcard.identity_card,@"cards":self.cards,@"mabaobean_number":_mabaobean_number,@"inv_identification":_inv_identification} success:^(id responseObject) {
         [self dismiss];
         MMLog(@"%@",responseObject);
         if ([responseObject[@"status"] isKindOfClass:[NSDictionary class]]&&[responseObject[@"status"][@"succeed"] integerValue] == 1) {
@@ -497,7 +490,7 @@
             }];
             [alerVC addAction:sheet];
             [self presentViewController:alerVC animated:true completion:nil];
-           
+            
         }
     } failure:^(NSURLSessionDataTask *operation, NSError *error) {
         [self show:@"请求失败！" time:1];
@@ -519,19 +512,19 @@
         return;
     }
     NSDictionary *parameter = @{@"address_id":self.orderShopModel.consignee.address_id,@"session":sessiondict,@"cards":self.cards,@"mabaobean_number":_mabaobean_number};
-        if (self.couponId) {
-          parameter = @{@"address_id":self.orderShopModel.consignee.address_id,@"session":sessiondict,@"cards":self.cards,@"mabaobean_number":_mabaobean_number,@"coupon_id":self.couponId};
-        }
-        
-        if (self.bonus_id) {
-           parameter = @{@"address_id":self.orderShopModel.consignee.address_id,@"session":sessiondict,@"cards":self.cards,@"mabaobean_number":_mabaobean_number,@"bonus_id":_bonus_id};
-        }
-
-        
+    if (self.couponId) {
+        parameter = @{@"address_id":self.orderShopModel.consignee.address_id,@"session":sessiondict,@"cards":self.cards,@"mabaobean_number":_mabaobean_number,@"coupon_id":self.couponId};
+    }
+    
+    if (self.bonus_id) {
+        parameter = @{@"address_id":self.orderShopModel.consignee.address_id,@"session":sessiondict,@"cards":self.cards,@"mabaobean_number":_mabaobean_number,@"bonus_id":_bonus_id};
+    }
+    
+    
     
     
     [MBNetworking  POSTOrigin:string(BASE_URL_root, @"/flow/checkout") parameters:parameter success:^(id responseObject) {
-//        MMLog(@"%@",responseObject);
+        //        MMLog(@"%@",responseObject);
         [self dismiss];
         if ([responseObject[@"status"] isKindOfClass:[NSDictionary  class]]&&[responseObject[@"status"][@"succeed"]  integerValue] == 1) {
             self.orderShopModel = [MBConfirmModel yy_modelWithDictionary:responseObject[@"data"]];
@@ -560,11 +553,11 @@
                    if (dic) {
                        _bonus_id = dic[@"bonus_id"];
                        [self beforeCreateOrder];
-
+                       
                    }else{
                        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:[responseObject valueForKeyPath:@"status"][@"error_desc"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                        [view show];
-
+                       
                    }
                    
                } failure:^(NSURLSessionDataTask *operation, NSError *error) {
@@ -604,7 +597,7 @@
         return 0.001;
     }
     if ([self.orderShopModel.goods_list[section].discount_name isEqualToString:@""]) {
-         return 30;
+        return 30;
     }
     
     return 60;
@@ -622,7 +615,7 @@
     lable.font = SYSTEMFONT(14);
     lable.text = self.orderShopModel.goods_list[section].supplier;
     [headerView addSubview:lable];
-
+    
     
     
     if ([self.orderShopModel.goods_list[section].discount_name isEqualToString:@""]) {
@@ -774,12 +767,13 @@
             case 3:{
                 MBInvoiceViewController *VC = [[UIStoryboard storyboardWithName:@"Shopping" bundle:nil] instantiateViewControllerWithIdentifier:@"MBInvoiceViewController"];
                 WS(weakSelf)
-                VC.block = ^(NSString *inv_payee,NSString *inv_type,NSString *inv_content){
+                VC.block = ^(NSString *inv_payee,NSString *inv_type,NSString *inv_content,NSString *inv_identification){
                     
                     weakSelf.discountPriceArray[3] = inv_content;
                     weakSelf.inv_payee = inv_payee;
                     weakSelf.inv_type = inv_type;
                     weakSelf.inv_content = inv_content;
+                    weakSelf.inv_identification = inv_identification;
                     [weakSelf.tableView reloadData];
                     
                 };

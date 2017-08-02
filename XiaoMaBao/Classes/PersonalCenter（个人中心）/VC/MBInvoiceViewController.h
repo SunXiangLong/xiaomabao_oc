@@ -9,5 +9,5 @@
 #import "BkBaseViewController.h"
 
 @interface MBInvoiceViewController : BkBaseViewController
-@property (nonatomic,copy) void(^block)(NSString *inv_payee,NSString *inv_type,NSString *inv_content);
+@property (nonatomic,copy) void(^block)(NSString *inv_payee,NSString *inv_type,NSString *inv_content,NSString *inv_identification);
 @end

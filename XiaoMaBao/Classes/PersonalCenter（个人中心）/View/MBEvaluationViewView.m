@@ -45,7 +45,7 @@
 
 + (instancetype)viewFromNIB {
    // 这个xib文件必须只拥有一个视图，并且该视图的class为本类
-    MBEvaluationViewView *cell = [[[NSBundle mainBundle]loadNibNamed:@"MBEvaluationViewView" owner:self options:nil]firstObject];
+    MBEvaluationViewView *cell = [[[NSBundle mainBundle]loadNibNamed:@"MBEvaluationViewView" owner:self options:nil] firstObject];
   
     return cell;
 }

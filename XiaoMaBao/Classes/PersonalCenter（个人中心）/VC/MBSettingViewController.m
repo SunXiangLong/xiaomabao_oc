@@ -150,7 +150,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"circleState" object:nil];
     //清除极光推送 个推的uuid。
      [MobClick profileSignOff];
+    //清除极光message用户登录状态
+    [JMSGUser logout:nil];
     [self.navigationController popViewControllerAnimated:YES];
+    
+    
 }
 
 - (NSString *)titleStr{
